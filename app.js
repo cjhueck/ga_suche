@@ -5449,6 +5449,49 @@ function updateSelectionInfo() {
       infoElement.style.display = 'none';
     }
   }
+  syncTexteSelectAllCheckboxState();
+}
+
+/** Master-Checkbox „alle“: Zustand aus den sichtbaren .lecture-checkbox im Panel ableiten (nur lokal). */
+function syncTexteSelectAllCheckboxState() {
+  if (!isLocal) return;
+  const master = document.getElementById('texte-select-all-checkbox');
+  if (!master) return;
+  const boxes = document.querySelectorAll('#results .lecture-checkbox');
+  if (boxes.length === 0) {
+    master.checked = false;
+    master.indeterminate = false;
+    master.disabled = true;
+    return;
+  }
+  master.disabled = false;
+  let checked = 0;
+  boxes.forEach((b) => {
+    if (b.checked) checked++;
+  });
+  master.checked = checked === boxes.length;
+  master.indeterminate = checked > 0 && checked < boxes.length;
+}
+
+/** Alle aktuell im linken Panel gelisteten Vorträge/Aufsätze/Briefe auswählen oder abwählen (nur lokale Admin-UI). */
+function toggleSelectAllVisibleTexteLectures() {
+  if (!isLocal) return;
+  const master = document.getElementById('texte-select-all-checkbox');
+  if (!master || master.disabled) return;
+  const checkboxes = document.querySelectorAll('#results .lecture-checkbox');
+  const selectAll = master.checked;
+  master.indeterminate = false;
+  checkboxes.forEach((cb) => {
+    const lectureId = cb.id.startsWith('chk-') ? cb.id.slice(4) : cb.id;
+    if (selectAll) {
+      selectedLectureIds.add(lectureId);
+      cb.checked = true;
+    } else {
+      selectedLectureIds.delete(lectureId);
+      cb.checked = false;
+    }
+  });
+  updateSelectionInfo();
 }
 
 // Hilfsfunktion zum Extrahieren des Summary-Texts

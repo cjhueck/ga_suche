@@ -1,1 +1,4278 @@
-{}
+{
+  "GA293": {
+    "gaNumber": "GA293",
+    "gaTitle": "Allgemeine Menschenkunde als Grundlage der Pädagogik (1919)",
+    "lectureCount": 17,
+    "lectures": [
+      {
+        "lectureNumber": "1",
+        "ID": "GA293/1",
+        "title": "ANSPRACHE gehalten am Vorabend des Kurses",
+        "fileName": "GA293/1 - ANSPRACHE gehalten am Vorabend des Kurses, Stuttgart, 20. August 1919",
+        "location": "Stuttgart",
+        "date": "20. August 1919",
+        "summary": "Die Waldorfschule soll eine bedeutende Kulturtat werden, um das Geistesleben der Gegenwart zu erneuern. Als Einheitsschule orientiert sie sich allein an der menschlichen Gesamtwesenheit und wird ein praktischer Beweis für die Durchschlagskraft der anthroposophischen Weltorientierung sein. Notwendige Kompromisse mit staatlichen Vorgaben erfordern das Gleichgewicht zwischen hohen Idealen und praktischer Anpassung. Die Schule wird republikanisch als Lehrer-Republik verwaltet, wobei jeder Lehrer volle Verantwortung trägt. Der Vorbereitungskurs umfasst allgemeine Pädagogik, spezielle Methodik und seminaristische Übungen. Anthroposophie dient nicht als Lehrinhalt, sondern als praktische Unterrichtsmethodik. Die religiöse Unterweisung erfolgt konfessionell getrennt. Die Lehrer müssen Kulturmenschen mit lebendigem Interesse für alle Weltgeschehnisse sein und aus der großen Not und den Aufgaben der Zeit schöpfen.",
+        "shortSummary": "Die Waldorfschule wird als Einheitsschule konzipiert, die sich an der menschlichen Gesamtwesenheit orientiert und als Lehrer-Republik organisiert ist. Anthroposophie dient dabei nicht als Lehrinhalt, sondern als praktische Unterrichtsmethodik.",
+        "headings": [
+          {
+            "index": "^vfj2bz",
+            "text": "Die Waldorfschule als Kulturtat",
+            "level": "h3"
+          },
+          {
+            "index": "^egof57",
+            "text": "Anthroposophische Weltorientierung und Einheitsschule",
+            "level": "h4"
+          },
+          {
+            "index": "^jkm86s",
+            "text": "Notwendige Kompromisse und politische Herausforderungen",
+            "level": "h3"
+          },
+          {
+            "index": "^58zgm3",
+            "text": "Einklang zwischen Idealen und Anpassung",
+            "level": "h4"
+          },
+          {
+            "index": "^z9fw8p",
+            "text": "Republikanische Verwaltung der Schule",
+            "level": "h3"
+          },
+          {
+            "index": "^ru99ml",
+            "text": "Der Vorbereitungskurs als Einheitsbildung",
+            "level": "h4"
+          },
+          {
+            "index": "^s8fvky",
+            "text": "Struktur des pädagogischen Kurses",
+            "level": "h3"
+          },
+          {
+            "index": "^zmj5ar",
+            "text": "Allgemeine Pädagogik",
+            "level": "h4"
+          },
+          {
+            "index": "^0sdvgk",
+            "text": "Spezielle Methodik",
+            "level": "h4"
+          },
+          {
+            "index": "^1p4cdq",
+            "text": "Seminaristische Übungen",
+            "level": "h4"
+          },
+          {
+            "index": "^zzwsc7",
+            "text": "Anthroposophie als Unterrichtspraxis",
+            "level": "h3"
+          },
+          {
+            "index": "^kudc17",
+            "text": "Praktische Handhabung statt Dogmatik",
+            "level": "h4"
+          },
+          {
+            "index": "^bk3xgt",
+            "text": "Konfessionelle Religionsunterweisung",
+            "level": "h4"
+          },
+          {
+            "index": "^iza1pd",
+            "text": "Der Lehrer als Kulturmensch",
+            "level": "h3"
+          },
+          {
+            "index": "^4fj07x",
+            "text": "Interesse für Weltgeschehen und Zeitaufgaben",
+            "level": "h4"
+          }
+        ],
+        "tableOfContents": [
+          {
+            "heading": "Die Waldorfschule als Kulturtat",
+            "description": "Erneuerung des Geisteslebens durch revolutionäres Schulwesen",
+            "index": "^vfj2bz"
+          },
+          {
+            "heading": "Notwendige Kompromisse und politische Herausforderungen",
+            "description": "Staatliche Vorgaben und schablonenhafter Umgang mit Menschen",
+            "index": "^jkm86s"
+          },
+          {
+            "heading": "Republikanische Verwaltung der Schule",
+            "description": "Lehrer-Republik mit voller Eigenverantwortung ohne Rektoratsleitung",
+            "index": "^z9fw8p"
+          },
+          {
+            "heading": "Struktur des pädagogischen Kurses",
+            "description": "Allgemeine Pädagogik, spezielle Methodik und seminaristische Übungen",
+            "index": "^s8fvky"
+          },
+          {
+            "heading": "Anthroposophie als Unterrichtspraxis",
+            "description": "Praktische Handhabung statt dogmatischer Lehrinhalte",
+            "index": "^zzwsc7"
+          },
+          {
+            "heading": "Der Lehrer als Kulturmensch",
+            "description": "Lebendiges Interesse für Weltgeschehen als Grundlage pädagogischer Arbeit",
+            "index": "^iza1pd"
+          }
+        ],
+        "lectureKeywords": [
+          {
+            "term": "Waldorfpädagogik",
+            "index": "^vfj2bz",
+            "heading": "Die Waldorfschule als Kulturtat",
+            "source": "title-summary",
+            "matchType": "existing-exact",
+            "matchedExisting": "Waldorfpädagogik",
+            "summaryMentioned": true,
+            "confidence": 1,
+            "level": "h3"
+          },
+          {
+            "term": "Kultur",
+            "index": "^vfj2bz",
+            "heading": "Die Waldorfschule als Kulturtat",
+            "source": "title-summary",
+            "matchType": "existing-exact",
+            "matchedExisting": "Kultur",
+            "summaryMentioned": true,
+            "confidence": 0.95,
+            "level": "h3"
+          },
+          {
+            "term": "Anthroposophie",
+            "index": "^egof57",
+            "heading": "Anthroposophische Weltorientierung und Einheitsschule",
+            "source": "h3",
+            "matchType": "existing-exact",
+            "matchedExisting": "Anthroposophie",
+            "summaryMentioned": true,
+            "confidence": 1,
+            "level": "h3"
+          },
+          {
+            "term": "Erziehung",
+            "index": "^jkm86s",
+            "heading": "Notwendige Kompromisse und politische Herausforderungen",
+            "source": "h3",
+            "matchType": "existing-exact",
+            "matchedExisting": "Erziehung",
+            "summaryMentioned": false,
+            "confidence": 0.9,
+            "level": "h3"
+          },
+          {
+            "term": "Freiheit",
+            "index": "^58zgm3",
+            "heading": "Einklang zwischen Idealen und Anpassung",
+            "source": "h3",
+            "matchType": "existing-exact",
+            "matchedExisting": "Freiheit",
+            "summaryMentioned": false,
+            "confidence": 0.85,
+            "level": "h3"
+          },
+          {
+            "term": "Dreigliederung",
+            "index": "^z9fw8p",
+            "heading": "Republikanische Verwaltung der Schule",
+            "source": "h3",
+            "matchType": "existing-exact",
+            "matchedExisting": "Dreigliederung",
+            "summaryMentioned": false,
+            "confidence": 0.8,
+            "level": "h3"
+          },
+          {
+            "term": "Meditation",
+            "index": "^1p4cdq",
+            "heading": "Seminaristische Übungen",
+            "source": "h3",
+            "matchType": "existing-exact",
+            "matchedExisting": "Meditation",
+            "summaryMentioned": false,
+            "confidence": 0.75,
+            "level": "h3"
+          },
+          {
+            "term": "Religion",
+            "index": "^bk3xgt",
+            "heading": "Konfessionelle Religionsunterweisung",
+            "source": "h3",
+            "matchType": "existing-exact",
+            "matchedExisting": "Religion",
+            "summaryMentioned": false,
+            "confidence": 0.9,
+            "level": "h3"
+          },
+          {
+            "term": "Individualität",
+            "index": "^iza1pd",
+            "heading": "Der Lehrer als Kulturmensch",
+            "source": "h3",
+            "matchType": "existing-exact",
+            "matchedExisting": "Individualität",
+            "summaryMentioned": false,
+            "confidence": 0.85,
+            "level": "h3"
+          },
+          {
+            "term": "Bewusstsein",
+            "index": "^3m3eg8",
+            "heading": "Der Lehrer als Kulturmensch",
+            "source": "h3",
+            "matchType": "existing-exact",
+            "matchedExisting": "Bewusstsein",
+            "summaryMentioned": false,
+            "confidence": 0.8,
+            "level": "h3"
+          },
+          {
+            "term": "Einheitsschule",
+            "index": "^egof57",
+            "heading": "Anthroposophische Weltorientierung und Einheitsschule",
+            "source": "h3",
+            "matchType": "new",
+            "matchedExisting": null,
+            "summaryMentioned": true,
+            "confidence": 0.7,
+            "level": "h3"
+          },
+          {
+            "term": "Lehrer-Republik",
+            "index": "^z9fw8p",
+            "heading": "Republikanische Verwaltung der Schule",
+            "source": "h3",
+            "matchType": "new",
+            "matchedExisting": null,
+            "summaryMentioned": true,
+            "confidence": 0.65,
+            "level": "h3"
+          }
+        ],
+        "version": "v2-unified"
+      },
+      {
+        "lectureNumber": "2",
+        "ID": "GA293/2",
+        "title": "ERSTER VORTRAG",
+        "fileName": "GA293/2 - ERSTER VORTRAG, Stuttgart, 21. August 1919",
+        "location": "Stuttgart",
+        "date": "21. August 1919",
+        "summary": "Die Begründung der Waldorfschule wird als feierlicher Weltenaugenblick verstanden, der eine neue pädagogische Aufgabe für die fünfte nachatlantische Entwickelungsepoche einleitet. Die heutige Kultur ist bis ins Religiöse hinein vom Egoismus geprägt, der überwunden werden muss. Der Mensch besteht aus Geistseele und Körperleib, die bei der Geburt noch nicht harmonisch verbunden sind. Die Erziehung hat die Aufgabe, diese beiden Wesensglieder in Einklang zu bringen. Dabei sind zwei Prozesse zentral: das richtige Atmen, das den Geist mit dem Nerven-Sinnesleben verbindet, und der richtige Rhythmus zwischen Wachen und Schlafen. Das Kind muss lernen, seine physischen Erfahrungen in die geistige Welt hineinzutragen und die dort gewonnenen Kräfte zurückzubringen. Der Lehrer wirkt nicht nur durch sein Tun, sondern vor allem durch sein Sein und seine Gedankenrichtung auf die Schüler.",
+        "shortSummary": "Die Waldorfpädagogik zielt darauf ab, Geistseele und Körperleib des Menschen durch Erziehung in Einklang zu bringen, wobei richtiges Atmen und der Rhythmus zwischen Wachen und Schlafen zentral sind. Der Lehrer wirkt dabei hauptsächlich durch sein Sein und seine Gedankenrichtung auf die Schüler.",
+        "headings": [
+          {
+            "index": "^1tks95",
+            "text": "Die geistige Grundlage der pädagogischen Aufgabe",
+            "level": "h3"
+          },
+          {
+            "index": "^vtswuf",
+            "text": "Die Waldorfschule als Festakt der Weltenordnung",
+            "level": "h4"
+          },
+          {
+            "index": "^2qzj0x",
+            "text": "Die besonderen Aufgaben der fünften nachatlantischen Epoche",
+            "level": "h3"
+          },
+          {
+            "index": "^dxcb9k",
+            "text": "Der Beginn der neuen Entwickelungsepoche",
+            "level": "h4"
+          },
+          {
+            "index": "^mw2ps1",
+            "text": "Die Übernahme bereits geprägter Kinder",
+            "level": "h4"
+          },
+          {
+            "index": "^xi32y9",
+            "text": "Die Überwindung des kulturellen Egoismus",
+            "level": "h3"
+          },
+          {
+            "index": "^v2mo41",
+            "text": "Die Bedeutung der Geburt und Reinkarnation",
+            "level": "h4"
+          },
+          {
+            "index": "^fuc533",
+            "text": "Die Grenzen vorgeburtlicher Erziehung",
+            "level": "h4"
+          },
+          {
+            "index": "^ros0ih",
+            "text": "Die Zusammensetzung des Menschenwesens",
+            "level": "h3"
+          },
+          {
+            "index": "^gi1zi6",
+            "text": "Geistseele und Körperleib",
+            "level": "h4"
+          },
+          {
+            "index": "^4fgto9",
+            "text": "Die Aufgabe der Erziehung als Harmonisierung",
+            "level": "h4"
+          },
+          {
+            "index": "^zix0y3",
+            "text": "Das Atmen als Grundlage der Erziehung",
+            "level": "h3"
+          },
+          {
+            "index": "^q7poql",
+            "text": "Das dreigliedrige System des physischen Menschen",
+            "level": "h4"
+          },
+          {
+            "index": "^5z4bzv",
+            "text": "Die Harmonisierung von Atmung und Nerven-Sinnesprozess",
+            "level": "h4"
+          },
+          {
+            "index": "^hypf1r",
+            "text": "Der Rhythmus zwischen Wachen und Schlafen",
+            "level": "h3"
+          },
+          {
+            "index": "^wsp750",
+            "text": "Die Verarbeitung physischer Erfahrungen in der geistigen Welt",
+            "level": "h4"
+          },
+          {
+            "index": "^1p2jlf",
+            "text": "Die Bedeutung des Lehrers als Persönlichkeit",
+            "level": "h3"
+          },
+          {
+            "index": "^2z3j4v",
+            "text": "Die spirituelle Beziehung zwischen Lehrer und Schülern",
+            "level": "h4"
+          }
+        ],
+        "tableOfContents": [
+          {
+            "heading": "Die geistige Grundlage der pädagogischen Aufgabe",
+            "description": "Verbindung mit geistigen Welten als Voraussetzung für Erziehung",
+            "index": "^1tks95"
+          },
+          {
+            "heading": "Die besonderen Aufgaben der fünften nachatlantischen Epoche",
+            "description": "Neue pädagogische Richtung seit dem 15. Jahrhundert",
+            "index": "^2qzj0x"
+          },
+          {
+            "heading": "Die Überwindung des kulturellen Egoismus",
+            "description": "Egoismus in Religion und Kultur als Hindernis",
+            "index": "^xi32y9"
+          },
+          {
+            "heading": "Die Zusammensetzung des Menschenwesens",
+            "description": "Geistseele und Körperleib als zu harmonisierende Wesensglieder",
+            "index": "^ros0ih"
+          },
+          {
+            "heading": "Das Atmen als Grundlage der Erziehung",
+            "description": "Atmung als Vermittler zwischen physischer und geistiger Welt",
+            "index": "^zix0y3"
+          },
+          {
+            "heading": "Der Rhythmus zwischen Wachen und Schlafen",
+            "description": "Verarbeitung physischer Erfahrungen in der geistigen Welt",
+            "index": "^hypf1r"
+          },
+          {
+            "heading": "Die Bedeutung des Lehrers als Persönlichkeit",
+            "description": "Wirkung durch Sein und Gedankenrichtung des Erziehers",
+            "index": "^1p2jlf"
+          }
+        ],
+        "lectureKeywords": [
+          {
+            "term": "Waldorfpädagogik",
+            "index": "^vtswuf",
+            "heading": "Die Waldorfschule als Festakt der Weltenordnung",
+            "source": "title-summary",
+            "matchType": "existing-exact",
+            "matchedExisting": "Waldorfpädagogik",
+            "summaryMentioned": true,
+            "confidence": 1,
+            "level": "h4"
+          },
+          {
+            "term": "Erziehung",
+            "index": "^4fgto9",
+            "heading": "Die Aufgabe der Erziehung als Harmonisierung",
+            "source": "title-summary",
+            "matchType": "existing-exact",
+            "matchedExisting": "Erziehung",
+            "summaryMentioned": true,
+            "confidence": 1,
+            "level": "h4"
+          },
+          {
+            "term": "Menschheitsentwicklung",
+            "index": "^2qzj0x",
+            "heading": "Die besonderen Aufgaben der fünften nachatlantischen Epoche",
+            "source": "h3",
+            "matchType": "existing-exact",
+            "matchedExisting": "Menschheitsentwicklung",
+            "summaryMentioned": false,
+            "confidence": 0.95,
+            "level": "h3"
+          },
+          {
+            "term": "Egoismus",
+            "index": "^xi32y9",
+            "heading": "Die Überwindung des kulturellen Egoismus",
+            "source": "h3",
+            "matchType": "existing-exact",
+            "matchedExisting": "Egoismus",
+            "summaryMentioned": true,
+            "confidence": 0.95,
+            "level": "h3"
+          },
+          {
+            "term": "Reinkarnation",
+            "index": "^v2mo41",
+            "heading": "Die Bedeutung der Geburt und Reinkarnation",
+            "source": "h3",
+            "matchType": "existing-exact",
+            "matchedExisting": "Reinkarnation",
+            "summaryMentioned": false,
+            "confidence": 0.95,
+            "level": "h4"
+          },
+          {
+            "term": "Ätherleib",
+            "index": "^v2mo41",
+            "heading": "Die Bedeutung der Geburt und Reinkarnation",
+            "source": "h3",
+            "matchType": "existing-exact",
+            "matchedExisting": "Ätherleib",
+            "summaryMentioned": false,
+            "confidence": 0.95,
+            "level": "h4"
+          },
+          {
+            "term": "Astralleib",
+            "index": "^gi1zi6",
+            "heading": "Geistseele und Körperleib",
+            "source": "h3",
+            "matchType": "existing-exact",
+            "matchedExisting": "Astralleib",
+            "summaryMentioned": false,
+            "confidence": 0.95,
+            "level": "h4"
+          },
+          {
+            "term": "Bewusstseinsseele",
+            "index": "^ros0ih",
+            "heading": "Die Zusammensetzung des Menschenwesens",
+            "source": "h3",
+            "matchType": "existing-exact",
+            "matchedExisting": "Bewusstseinsseele",
+            "summaryMentioned": false,
+            "confidence": 0.95,
+            "level": "h3"
+          },
+          {
+            "term": "Verstandesseele",
+            "index": "^ros0ih",
+            "heading": "Die Zusammensetzung des Menschenwesens",
+            "source": "h3",
+            "matchType": "existing-exact",
+            "matchedExisting": "Verstandesseele",
+            "summaryMentioned": false,
+            "confidence": 0.95,
+            "level": "h3"
+          },
+          {
+            "term": "Empfindungsseele",
+            "index": "^ros0ih",
+            "heading": "Die Zusammensetzung des Menschenwesens",
+            "source": "h3",
+            "matchType": "existing-exact",
+            "matchedExisting": "Empfindungsseele",
+            "summaryMentioned": false,
+            "confidence": 0.95,
+            "level": "h3"
+          },
+          {
+            "term": "Rhythmus",
+            "index": "^hypf1r",
+            "heading": "Der Rhythmus zwischen Wachen und Schlafen",
+            "source": "h3",
+            "matchType": "existing-exact",
+            "matchedExisting": "Rhythmus",
+            "summaryMentioned": true,
+            "confidence": 0.95,
+            "level": "h3"
+          },
+          {
+            "term": "Wachen & Schlafen",
+            "index": "^hypf1r",
+            "heading": "Der Rhythmus zwischen Wachen und Schlafen",
+            "source": "h3",
+            "matchType": "existing-exact",
+            "matchedExisting": "Wachen & Schlafen",
+            "summaryMentioned": true,
+            "confidence": 0.95,
+            "level": "h3"
+          },
+          {
+            "term": "Sinneswahrnehmung",
+            "index": "^5z4bzv",
+            "heading": "Die Harmonisierung von Atmung und Nerven-Sinnesprozess",
+            "source": "h3",
+            "matchType": "existing-exact",
+            "matchedExisting": "Sinneswahrnehmung",
+            "summaryMentioned": false,
+            "confidence": 0.9,
+            "level": "h4"
+          },
+          {
+            "term": "Karma",
+            "index": "^vtswuf",
+            "heading": "Die Waldorfschule als Festakt der Weltenordnung",
+            "source": "h3",
+            "matchType": "existing-exact",
+            "matchedExisting": "Karma",
+            "summaryMentioned": false,
+            "confidence": 0.9,
+            "level": "h4"
+          }
+        ],
+        "version": "v2-unified"
+      },
+      {
+        "lectureNumber": "3",
+        "ID": "GA293/3",
+        "title": "ZWEITER VORTRAG",
+        "fileName": "GA293/3 - ZWEITER VORTRAG, 22. August 1919",
+        "location": null,
+        "date": "22. August 1919",
+        "summary": "Eine anthroposophische Psychologie bildet die Grundlage für zukünftigen Unterricht, da herkömmliche Psychologien nur mit leeren Begriffen arbeiten. Vorstellungen sind Bilder des vorgeburtlichen Lebens, die durch Antipathie zurückgeworfen werden. Der Wille ist Keim für das nachtodliche Dasein, getragen von Sympathie. Das Gefühlsleben entsteht als Rhythmus zwischen Sympathie und Antipathie. Aus Antipathie entstehen Gedächtnis und Begriffe, aus Sympathie Phantasie und Imagination. Nerven sind materialisierte Substanz für das Vorgeburtliche, Blut strebt ins Geistige für das Nachtodliche. Der Mensch ist dreifach gegliedert in Kopf-, Brust- und Gliedmaßensystem. Erziehung sollte mehr mit Bildern arbeiten als mit abstrakten Begriffen, da Bilder den ganzen Menschen fördern und eine Fortsetzung vorgeburtlicher übersinnlicher Tätigkeit darstellen.",
+        "shortSummary": "Anthroposophische Psychologie versteht Vorstellungen als Bilder des vorgeburtlichen Lebens und den Willen als Keim für das nachtodliche Dasein, wobei das Gefühlsleben durch den Rhythmus zwischen Sympathie und Antipathie entsteht. Erziehung sollte mit Bildern statt abstrakten Begriffen arbeiten, da diese den dreifach gegliederten Menschen ganzheitlich fördern.",
+        "headings": [
+          {
+            "index": "^jbsnfc",
+            "text": "Die Notwendigkeit einer anthroposophischen Psychologie",
+            "level": "h3"
+          },
+          {
+            "index": "^3277ug",
+            "text": "Das Wesen der Vorstellung als Bild",
+            "level": "h3"
+          },
+          {
+            "index": "^5zlg5g",
+            "text": "Vorstellung als Spiegelung des vorgeburtlichen Lebens",
+            "level": "h4"
+          },
+          {
+            "index": "^61tfdw",
+            "text": "Der Wille als Keim des nachtodlichen Daseins",
+            "level": "h3"
+          },
+          {
+            "index": "^rxv6ny",
+            "text": "Sympathie und Antipathie als Grundkräfte",
+            "level": "h3"
+          },
+          {
+            "index": "^xv4tph",
+            "text": "Die Entstehung von Gedächtnis und Begriffen",
+            "level": "h4"
+          },
+          {
+            "index": "^k999l8",
+            "text": "Phantasie und Imagination aus dem Willen",
+            "level": "h4"
+          },
+          {
+            "index": "^ivp0ms",
+            "text": "Die leibliche Offenbarung des Seelischen",
+            "level": "h3"
+          },
+          {
+            "index": "^1ce1wc",
+            "text": "Blut als besonderer Saft",
+            "level": "h4"
+          },
+          {
+            "index": "^vl2nyu",
+            "text": "Die kosmische Einbettung des Menschen",
+            "level": "h3"
+          },
+          {
+            "index": "^xniaw3",
+            "text": "Die Dreigliederung des menschlichen Organismus",
+            "level": "h4"
+          },
+          {
+            "index": "^815l8m",
+            "text": "Pädagogische Konsequenzen für die Erziehung",
+            "level": "h3"
+          }
+        ],
+        "tableOfContents": [
+          {
+            "heading": "Die Notwendigkeit einer anthroposophischen Psychologie",
+            "description": "Herkömmliche Psychologien arbeiten mit inhaltleeren Begriffen ohne Weltenbezug",
+            "index": "^jbsnfc"
+          },
+          {
+            "heading": "Das Wesen der Vorstellung als Bild",
+            "description": "Vorstellungen haben Bildcharakter und sind keine Seins-Elemente im Menschen",
+            "index": "^3277ug"
+          },
+          {
+            "heading": "Der Wille als Keim des nachtodlichen Daseins",
+            "description": "Wille ist überrealer Keim für geistig-seelische Realität nach dem Tod",
+            "index": "^61tfdw"
+          },
+          {
+            "heading": "Sympathie und Antipathie als Grundkräfte",
+            "description": "Gefühlsleben als Rhythmus zwischen sympathischen und antipathischen Kräften",
+            "index": "^rxv6ny"
+          },
+          {
+            "heading": "Die leibliche Offenbarung des Seelischen",
+            "description": "Nerven und Blut als polare Ausdrücke seelischer Prozesse",
+            "index": "^ivp0ms"
+          },
+          {
+            "heading": "Die kosmische Einbettung des Menschen",
+            "description": "Menschenwesen nur im Zusammenhang mit dem Kosmischen begreifbar",
+            "index": "^vl2nyu"
+          },
+          {
+            "heading": "Pädagogische Konsequenzen für die Erziehung",
+            "description": "Bildhafte Erziehung als Fortsetzung vorgeburtlicher übersinnlicher Tätigkeit",
+            "index": "^815l8m"
+          }
+        ],
+        "lectureKeywords": [
+          {
+            "term": "Anthroposophie",
+            "index": "^jbsnfc",
+            "heading": "Die Notwendigkeit einer anthroposophischen Psychologie",
+            "source": "title-summary",
+            "matchType": "existing-exact",
+            "matchedExisting": "Anthroposophie",
+            "summaryMentioned": true,
+            "confidence": 1,
+            "level": "h3"
+          },
+          {
+            "term": "Psychologie",
+            "index": "^jbsnfc",
+            "heading": "Die Notwendigkeit einer anthroposophischen Psychologie",
+            "source": "title-summary",
+            "matchType": "new",
+            "summaryMentioned": true,
+            "confidence": 0.7,
+            "level": "h3"
+          },
+          {
+            "term": "Bewusstseinsseele",
+            "index": "^jbsnfc",
+            "heading": "Die Notwendigkeit einer anthroposophischen Psychologie",
+            "source": "h3",
+            "matchType": "existing-exact",
+            "matchedExisting": "Bewusstseinsseele",
+            "summaryMentioned": false,
+            "confidence": 0.95,
+            "level": "h3"
+          },
+          {
+            "term": "Spiegelmetapher",
+            "index": "^5zlg5g",
+            "heading": "Vorstellung als Spiegelung des vorgeburtlichen Lebens",
+            "source": "h3",
+            "matchType": "existing-exact",
+            "matchedExisting": "Spiegelmetapher",
+            "summaryMentioned": false,
+            "confidence": 0.95,
+            "level": "h4"
+          },
+          {
+            "term": "Reinkarnation",
+            "index": "^5zlg5g",
+            "heading": "Vorstellung als Spiegelung des vorgeburtlichen Lebens",
+            "source": "h3",
+            "matchType": "existing-exact",
+            "matchedExisting": "Reinkarnation",
+            "summaryMentioned": false,
+            "confidence": 0.9,
+            "level": "h4"
+          },
+          {
+            "term": "Tod",
+            "index": "^61tfdw",
+            "heading": "Der Wille als Keim des nachtodlichen Daseins",
+            "source": "h3",
+            "matchType": "existing-exact",
+            "matchedExisting": "Tod",
+            "summaryMentioned": false,
+            "confidence": 0.95,
+            "level": "h3"
+          },
+          {
+            "term": "Sympathie und Antipathie",
+            "index": "^rxv6ny",
+            "heading": "Sympathie und Antipathie als Grundkräfte",
+            "source": "h3",
+            "matchType": "new",
+            "summaryMentioned": true,
+            "confidence": 0.65,
+            "level": "h3"
+          },
+          {
+            "term": "Gedächtnis",
+            "index": "^xv4tph",
+            "heading": "Die Entstehung von Gedächtnis und Begriffen",
+            "source": "h3",
+            "matchType": "new",
+            "summaryMentioned": true,
+            "confidence": 0.6,
+            "level": "h4"
+          },
+          {
+            "term": "Imagination",
+            "index": "^k999l8",
+            "heading": "Phantasie und Imagination aus dem Willen",
+            "source": "h3",
+            "matchType": "existing-exact",
+            "matchedExisting": "Imagination",
+            "summaryMentioned": true,
+            "confidence": 0.95,
+            "level": "h4"
+          },
+          {
+            "term": "Blut",
+            "index": "^1ce1wc",
+            "heading": "Blut als besonderer Saft",
+            "source": "h3",
+            "matchType": "new",
+            "summaryMentioned": true,
+            "confidence": 0.65,
+            "level": "h4"
+          },
+          {
+            "term": "Dreigliederung",
+            "index": "^xniaw3",
+            "heading": "Die Dreigliederung des menschlichen Organismus",
+            "source": "h3",
+            "matchType": "existing-exact",
+            "matchedExisting": "Dreigliederung",
+            "summaryMentioned": true,
+            "confidence": 0.95,
+            "level": "h4"
+          },
+          {
+            "term": "Erziehung",
+            "index": "^815l8m",
+            "heading": "Pädagogische Konsequenzen für die Erziehung",
+            "source": "h3",
+            "matchType": "existing-exact",
+            "matchedExisting": "Erziehung",
+            "summaryMentioned": true,
+            "confidence": 0.95,
+            "level": "h3"
+          }
+        ],
+        "version": "v2-unified"
+      },
+      {
+        "lectureNumber": "4",
+        "ID": "GA293/4",
+        "title": "DRITTER VORTRAG",
+        "fileName": "GA293/4 - DRITTER VORTRAG, 23. August 1919",
+        "location": null,
+        "date": "23. August 1919",
+        "summary": "Die Dreigliederung des Menschen in Leib, Seele und Geist bildet die Grundlage für das Verständnis der menschlichen Natur und ihrer Beziehung zur Welt. Der Mensch steht der Natur mit seinem Verstand gegenüber und erfasst dadurch das Sterbende, während er durch seinen Willen das Werdende aufnimmt. Das reine Denken ermöglicht Freiheit jenseits dieser beiden Pole. In der menschlichen Organisation wirken todbringende Kräfte im Knochen-Nervensystem und lebenspendende Kräfte im Blut-Muskelsystem. Der Mensch ist nicht nur Beobachter, sondern aktiver Teilnehmer am Erdenprozess: Durch seine Leichname befruchtet er die Erde mit übersinnlichen Kräften und erhält deren Evolution aufrecht. Ohne den Menschen würde die Erdenentwicklung erstarren. Das Gesetz der Krafterhaltung erweist sich als unzureichend, da im Menschen fortwährend neue Stoffe und Kräfte geschaffen werden.",
+        "shortSummary": "Der Mensch gliedert sich in Leib, Seele und Geist und steht zwischen todbringenden Kräften des Nervensystems und lebenspendenden Kräften des Blutsystems. Durch seine Leichname befruchtet er die Erde mit übersinnlichen Kräften und hält deren Evolution aufrecht.",
+        "headings": [
+          {
+            "index": "^myalvn",
+            "text": "Die Notwendigkeit umfassender Weltanschauung für den Lehrer",
+            "level": "h3"
+          },
+          {
+            "index": "^3vtn1a",
+            "text": "Die Dreigliederung des Menschen in Leib, Seele und Geist",
+            "level": "h3"
+          },
+          {
+            "index": "^19utm7",
+            "text": "Das Gesetz der Krafterhaltung als Hindernis der Menschenerkenntnis",
+            "level": "h4"
+          },
+          {
+            "index": "^rekxy4",
+            "text": "Des Menschen Verhältnis zur Natur",
+            "level": "h3"
+          },
+          {
+            "index": "^4f8svg",
+            "text": "Verstand und Wille in der Naturerkenntnis",
+            "level": "h4"
+          },
+          {
+            "index": "^fn3qfo",
+            "text": "Die Aktivität der Sinneswahrnehmung",
+            "level": "h4"
+          },
+          {
+            "index": "^fqsbaf",
+            "text": "Das reine Denken als Grundlage der Freiheit",
+            "level": "h4"
+          },
+          {
+            "index": "^71hvk1",
+            "text": "Der Mensch als notwendiger Bestandteil der Erdenevolution",
+            "level": "h3"
+          },
+          {
+            "index": "^ikh1lh",
+            "text": "Die Entstehung der Tierwelt durch menschliche Entwicklung",
+            "level": "h4"
+          },
+          {
+            "index": "^ovphls",
+            "text": "Die Befruchtung der Erde durch menschliche Leichname",
+            "level": "h4"
+          },
+          {
+            "index": "^jk6lll",
+            "text": "Die Organisation des menschlichen Leibes",
+            "level": "h3"
+          },
+          {
+            "index": "^wudz6f",
+            "text": "Knochen-Nervensystem und Blut-Muskelsystem",
+            "level": "h4"
+          },
+          {
+            "index": "^bgr9qe",
+            "text": "Das Knochensystem als Grundlage geometrischen Denkens",
+            "level": "h4"
+          },
+          {
+            "index": "^fjeojl",
+            "text": "Der Mensch als Schauplatz kosmischer Vorgänge",
+            "level": "h3"
+          },
+          {
+            "index": "^rz4stz",
+            "text": "Die Neuschöpfung von Stoffen und Kräften im Menschen",
+            "level": "h4"
+          },
+          {
+            "index": "^in8nr4",
+            "text": "Kritik einseitiger Naturgesetze",
+            "level": "h4"
+          }
+        ],
+        "tableOfContents": [
+          {
+            "heading": "Die Notwendigkeit umfassender Weltanschauung für den Lehrer",
+            "description": "Gleichwertigkeit aller Lehrstufen und Weltanschauung als Unterrichtsgrundlage",
+            "index": "^myalvn"
+          },
+          {
+            "heading": "Die Dreigliederung des Menschen in Leib, Seele und Geist",
+            "description": "Überwindung der kirchlichen Zweigliederung und psychologische Irrtümer",
+            "index": "^3vtn1a"
+          },
+          {
+            "heading": "Des Menschen Verhältnis zur Natur",
+            "description": "Verstand erfasst Sterbendes, Wille erfasst Werdendes der Natur",
+            "index": "^rekxy4"
+          },
+          {
+            "heading": "Der Mensch als notwendiger Bestandteil der Erdenevolution",
+            "description": "Tierwelt und Erdentwicklung abhängig von menschlicher Anwesenheit",
+            "index": "^71hvk1"
+          },
+          {
+            "heading": "Die Organisation des menschlichen Leibes",
+            "description": "Todbringende und lebenspendende Kräfte in verschiedenen Körpersystemen",
+            "index": "^jk6lll"
+          },
+          {
+            "heading": "Der Mensch als Schauplatz kosmischer Vorgänge",
+            "description": "Neuschöpfung von Stoffen und Kritik der Krafterhaltung",
+            "index": "^fjeojl"
+          }
+        ],
+        "lectureKeywords": [
+          {
+            "term": "Erziehung",
+            "index": "^myalvn",
+            "heading": "Die Notwendigkeit umfassender Weltanschauung für den Lehrer",
+            "source": "title-summary",
+            "matchType": "existing-exact",
+            "matchedExisting": "Erziehung",
+            "summaryMentioned": false,
+            "confidence": 0.95,
+            "level": "h3"
+          },
+          {
+            "term": "Dreigliederung",
+            "index": "^3vtn1a",
+            "heading": "Die Dreigliederung des Menschen in Leib, Seele und Geist",
+            "source": "h3",
+            "matchType": "existing-exact",
+            "matchedExisting": "Dreigliederung",
+            "summaryMentioned": true,
+            "confidence": 0.95,
+            "level": "h3"
+          },
+          {
+            "term": "Geist",
+            "index": "^3vtn1a",
+            "heading": "Die Dreigliederung des Menschen in Leib, Seele und Geist",
+            "source": "h3",
+            "matchType": "existing-exact",
+            "matchedExisting": "Geist",
+            "summaryMentioned": false,
+            "confidence": 0.95,
+            "level": "h3"
+          },
+          {
+            "term": "Naturwissenschaft",
+            "index": "^19utm7",
+            "heading": "Das Gesetz der Krafterhaltung als Hindernis der Menschenerkenntnis",
+            "source": "h3",
+            "matchType": "existing-exact",
+            "matchedExisting": "Naturwissenschaft",
+            "summaryMentioned": false,
+            "confidence": 0.95,
+            "level": "h3"
+          },
+          {
+            "term": "Sinneswahrnehmung",
+            "index": "^fn3qfo",
+            "heading": "Die Aktivität der Sinneswahrnehmung",
+            "source": "h3",
+            "matchType": "existing-exact",
+            "matchedExisting": "Sinneswahrnehmung",
+            "summaryMentioned": false,
+            "confidence": 0.95,
+            "level": "h4"
+          },
+          {
+            "term": "Freiheit",
+            "index": "^fqsbaf",
+            "heading": "Das reine Denken als Grundlage der Freiheit",
+            "source": "h3",
+            "matchType": "existing-exact",
+            "matchedExisting": "Freiheit",
+            "summaryMentioned": true,
+            "confidence": 0.95,
+            "level": "h4"
+          },
+          {
+            "term": "Menschheitsentwicklung",
+            "index": "^ikh1lh",
+            "heading": "Die Entstehung der Tierwelt durch menschliche Entwicklung",
+            "source": "h3",
+            "matchType": "existing-exact",
+            "matchedExisting": "Menschheitsentwicklung",
+            "summaryMentioned": false,
+            "confidence": 0.95,
+            "level": "h4"
+          },
+          {
+            "term": "Tod",
+            "index": "^ovphls",
+            "heading": "Die Befruchtung der Erde durch menschliche Leichname",
+            "source": "h3",
+            "matchType": "existing-exact",
+            "matchedExisting": "Tod",
+            "summaryMentioned": false,
+            "confidence": 0.95,
+            "level": "h4"
+          },
+          {
+            "term": "Inkarnation",
+            "index": "^942s5h",
+            "heading": "Die Befruchtung der Erde durch menschliche Leichname",
+            "source": "h3",
+            "matchType": "existing-exact",
+            "matchedExisting": "Inkarnation",
+            "summaryMentioned": false,
+            "confidence": 0.95,
+            "level": "h4"
+          },
+          {
+            "term": "Rhythmus",
+            "index": "^wudz6f",
+            "heading": "Knochen-Nervensystem und Blut-Muskelsystem",
+            "source": "h3",
+            "matchType": "existing-exact",
+            "matchedExisting": "Rhythmus",
+            "summaryMentioned": false,
+            "confidence": 0.85,
+            "level": "h4"
+          },
+          {
+            "term": "Geometrie",
+            "index": "^bgr9qe",
+            "heading": "Das Knochensystem als Grundlage geometrischen Denkens",
+            "source": "h3",
+            "matchType": "new",
+            "matchedExisting": "",
+            "summaryMentioned": false,
+            "confidence": 0.7,
+            "level": "h4"
+          },
+          {
+            "term": "Kosmos",
+            "index": "^0mtswp",
+            "heading": "Der Mensch als Schauplatz kosmischer Vorgänge",
+            "source": "h3",
+            "matchType": "new",
+            "matchedExisting": "",
+            "summaryMentioned": false,
+            "confidence": 0.7,
+            "level": "h3"
+          },
+          {
+            "term": "Wahrheit",
+            "index": "^hesbpf",
+            "heading": "Der Mensch als Schauplatz kosmischer Vorgänge",
+            "source": "h3",
+            "matchType": "existing-exact",
+            "matchedExisting": "Wahrheit",
+            "summaryMentioned": false,
+            "confidence": 0.95,
+            "level": "h3"
+          },
+          {
+            "term": "Erkenntnistheorie",
+            "index": "^in8nr4",
+            "heading": "Kritik einseitiger Naturgesetze",
+            "source": "h3",
+            "matchType": "existing-exact",
+            "matchedExisting": "Erkenntnistheorie",
+            "summaryMentioned": false,
+            "confidence": 0.95,
+            "level": "h4"
+          }
+        ],
+        "version": "v2-unified"
+      },
+      {
+        "lectureNumber": "5",
+        "ID": "GA293/5",
+        "title": "VIERTER VORTRAG",
+        "fileName": "GA293/5 - VIERTER VORTRAG, 25. August 1919",
+        "location": null,
+        "date": "25. August 1919",
+        "summary": "Die Willens- und Gemütsbildung erfordert tiefes Verständnis der menschlichen Natur in ihrer neungliedrigen Struktur. Der Mensch besteht aus physischem Leib, Ätherleib und Empfindungsleib sowie Empfindungsseele, Verstandesseele und Bewusstseinsseele, ergänzt durch die höheren Glieder Geistselbst, Lebensgeist und Geistesmensch. Im Willen zeigen sich verschiedene Stufen: Instinkt im physischen Leib, Trieb durch den Ätherleib, Begierde durch den Empfindungsleib und Motiv in der Seele. Unterbewusst wirken Wunsch, Vorsatz und Entschluss als geistige Impulse. Wahre Willensbildung geschieht nicht durch intellektuelle Belehrung, sondern durch bewusste Wiederholung und künstlerische Betätigung. Die moderne materialistische Erziehung verfehlt diese Grundlagen und gefährdet die kulturelle Entwicklung.",
+        "shortSummary": "Der Mensch besteht aus neun Gliedern (physischer Leib bis Geistesmensch), wobei der Wille verschiedene Stufen von Instinkt bis zu geistigen Impulsen durchläuft. Willensbildung erfolgt durch bewusste Wiederholung und künstlerische Betätigung, nicht durch intellektuelle Belehrung.",
+        "headings": [
+          {
+            "index": "^0vbphn",
+            "text": "Die Bedeutung der Willens- und Gemütsbildung",
+            "level": "h3"
+          },
+          {
+            "index": "^3g1cwm",
+            "text": "Das Verhältnis von Gefühl und Wille",
+            "level": "h4"
+          },
+          {
+            "index": "^9khvy7",
+            "text": "Die neungliedrige Menschennatur",
+            "level": "h3"
+          },
+          {
+            "index": "^73hs4g",
+            "text": "Die höheren Glieder: Geistselbst, Lebensgeist und Geistesmensch",
+            "level": "h4"
+          },
+          {
+            "index": "^8c5h9l",
+            "text": "Die Seelenbestandteile und Leibesglieder",
+            "level": "h4"
+          },
+          {
+            "index": "^ig7f8x",
+            "text": "Der Wille in seinen verschiedenen Erscheinungsformen",
+            "level": "h3"
+          },
+          {
+            "index": "^q27763",
+            "text": "Von Instinkt zu Trieb durch den Ätherleib",
+            "level": "h4"
+          },
+          {
+            "index": "^2ruk6y",
+            "text": "Von Begierde zum Motiv durch das Ich",
+            "level": "h4"
+          },
+          {
+            "index": "^13mgy0",
+            "text": "Die unterbewussten Willensimpulse",
+            "level": "h3"
+          },
+          {
+            "index": "^64qgya",
+            "text": "Der zweite Mensch und die Psychoanalyse",
+            "level": "h4"
+          },
+          {
+            "index": "^roqcwy",
+            "text": "Vorsatz und Entschluss als geistige Kräfte",
+            "level": "h4"
+          },
+          {
+            "index": "^8zokaa",
+            "text": "Grundlagen der Willensbildung in der Erziehung",
+            "level": "h3"
+          },
+          {
+            "index": "^meyqvn",
+            "text": "Die Gefahr der materialistischen Pädagogik",
+            "level": "h4"
+          },
+          {
+            "index": "^cf0esq",
+            "text": "Wiederholung und künstlerische Betätigung als Willensschulung",
+            "level": "h4"
+          }
+        ],
+        "tableOfContents": [
+          {
+            "heading": "Die Bedeutung der Willens- und Gemütsbildung",
+            "description": "Notwendigkeit echter Willenserkenntnis für zukünftige Erziehung und Unterricht",
+            "index": "^0vbphn"
+          },
+          {
+            "heading": "Die neungliedrige Menschennatur",
+            "description": "Vollständige Gliederung des Menschen nach Leib, Seele und Geist",
+            "index": "^9khvy7"
+          },
+          {
+            "heading": "Der Wille in seinen verschiedenen Erscheinungsformen",
+            "description": "Instinkt, Trieb, Begierde und Motiv als Stufen der Willensentwicklung",
+            "index": "^ig7f8x"
+          },
+          {
+            "heading": "Die unterbewussten Willensimpulse",
+            "description": "Wunsch, Vorsatz und Entschluss als verborgene Seelenkräfte im Menschen",
+            "index": "^13mgy0"
+          },
+          {
+            "heading": "Grundlagen der Willensbildung in der Erziehung",
+            "description": "Wiederholung und Kunst statt intellektueller Belehrung für echte Willensschulung",
+            "index": "^8zokaa"
+          }
+        ],
+        "lectureKeywords": [
+          {
+            "term": "Willensschulung",
+            "index": "^0vbphn",
+            "heading": "Die Bedeutung der Willens- und Gemütsbildung",
+            "source": "title-summary",
+            "matchType": "existing-exact",
+            "matchedExisting": "Willensschulung",
+            "summaryMentioned": true,
+            "confidence": 1,
+            "level": "h3"
+          },
+          {
+            "term": "Erziehung",
+            "index": "^0vbphn",
+            "heading": "Die Bedeutung der Willens- und Gemütsbildung",
+            "source": "title-summary",
+            "matchType": "existing-exact",
+            "matchedExisting": "Erziehung",
+            "summaryMentioned": true,
+            "confidence": 1,
+            "level": "h3"
+          },
+          {
+            "term": "Ätherleib",
+            "index": "^9khvy7",
+            "heading": "Die neungliedrige Menschennatur",
+            "source": "h3",
+            "matchType": "existing-exact",
+            "matchedExisting": "Ätherleib",
+            "summaryMentioned": true,
+            "confidence": 1,
+            "level": "h3"
+          },
+          {
+            "term": "Astralleib",
+            "index": "^8c5h9l",
+            "heading": "Die Seelenbestandteile und Leibesglieder",
+            "source": "h3",
+            "matchType": "existing-exact",
+            "matchedExisting": "Astralleib",
+            "summaryMentioned": false,
+            "confidence": 1,
+            "level": "h4"
+          },
+          {
+            "term": "Bewusstseinsseele",
+            "index": "^8c5h9l",
+            "heading": "Die Seelenbestandteile und Leibesglieder",
+            "source": "h3",
+            "matchType": "existing-exact",
+            "matchedExisting": "Bewusstseinsseele",
+            "summaryMentioned": false,
+            "confidence": 1,
+            "level": "h4"
+          },
+          {
+            "term": "Verstandesseele",
+            "index": "^8c5h9l",
+            "heading": "Die Seelenbestandteile und Leibesglieder",
+            "source": "h3",
+            "matchType": "existing-exact",
+            "matchedExisting": "Verstandesseele",
+            "summaryMentioned": false,
+            "confidence": 1,
+            "level": "h4"
+          },
+          {
+            "term": "Empfindungsseele",
+            "index": "^8c5h9l",
+            "heading": "Die Seelenbestandteile und Leibesglieder",
+            "source": "h3",
+            "matchType": "existing-exact",
+            "matchedExisting": "Empfindungsseele",
+            "summaryMentioned": false,
+            "confidence": 1,
+            "level": "h4"
+          },
+          {
+            "term": "Geistige Hierarchien",
+            "index": "^73hs4g",
+            "heading": "Die höheren Glieder: Geistselbst, Lebensgeist und Geistesmensch",
+            "source": "h3",
+            "matchType": "existing-exact",
+            "matchedExisting": "Geistige Hierarchien",
+            "summaryMentioned": false,
+            "confidence": 1,
+            "level": "h4"
+          },
+          {
+            "term": "Instinkt",
+            "index": "^ig7f8x",
+            "heading": "Der Wille in seinen verschiedenen Erscheinungsformen",
+            "source": "h3",
+            "matchType": "new",
+            "matchedExisting": null,
+            "summaryMentioned": true,
+            "confidence": 0.7,
+            "level": "h3"
+          },
+          {
+            "term": "Materialismus",
+            "index": "^meyqvn",
+            "heading": "Die Gefahr der materialistischen Pädagogik",
+            "source": "h3",
+            "matchType": "existing-exact",
+            "matchedExisting": "Materialismus",
+            "summaryMentioned": true,
+            "confidence": 1,
+            "level": "h4"
+          },
+          {
+            "term": "Kunst",
+            "index": "^h99hrz",
+            "heading": "Wiederholung und künstlerische Betätigung als Willensschulung",
+            "source": "h3",
+            "matchType": "existing-exact",
+            "matchedExisting": "Kunst",
+            "summaryMentioned": true,
+            "confidence": 1,
+            "level": "h4"
+          },
+          {
+            "term": "Unterbewusstes",
+            "index": "^13mgy0",
+            "heading": "Die unterbewussten Willensimpulse",
+            "source": "h3",
+            "matchType": "new",
+            "matchedExisting": null,
+            "summaryMentioned": true,
+            "confidence": 0.6,
+            "level": "h3"
+          }
+        ],
+        "version": "v2-unified"
+      },
+      {
+        "lectureNumber": "6",
+        "ID": "GA293/6",
+        "title": "FÜNFTER VORTRAG",
+        "fileName": "GA293/6 - FÜNFTER VORTRAG, 26. August 1919",
+        "location": null,
+        "date": "26. August 1919",
+        "summary": "Die drei Seelenfähigkeiten Denken, Fühlen und Wollen durchdringen sich gegenseitig und sind nicht streng voneinander zu trennen. Das Denken ist von Antipathie geprägt und mit der Nerventätigkeit verbunden, während das Wollen auf Sympathie beruht und mit der Bluttätigkeit zusammenhängt. Das Fühlen steht als mittlere Seelenbetätigkeit zwischen beiden und vereint Sympathie und Antipathie. In den Sinnesorganen zeigt sich diese Durchdringung besonders deutlich - das Auge hat mehr Nerven-, das Ohr mehr Gefühlscharakter. Der Mensch entwickelt durch seine stärkere Antipathie zur Umwelt ein gesondertes Persönlichkeitsbewusstsein, während das Tier durch größere Sympathie mehr mit der Umgebung verbunden bleibt. Moralische Entwicklung erfordert die Durchdringung der instinktiven Sympathie mit Antipathie durch Ideale. Die moderne Psychologie und Pädagogik leiden unter falschen Abstraktionen und müssen durch geisteswissenschaftliche Erkenntnisse erneuert werden.",
+        "shortSummary": "Die drei Seelenfähigkeiten Denken (Antipathie/Nerventätigkeit), Fühlen (Mitte) und Wollen (Sympathie/Bluttätigkeit) durchdringen sich gegenseitig und bestimmen die menschliche Persönlichkeitsentwicklung. Moralische Entwicklung entsteht durch die Verbindung von instinktiver Sympathie mit Antipathie durch Ideale.",
+        "headings": [
+          {
+            "index": "^cgv85v",
+            "text": "Das Verhältnis von Denken, Fühlen und Wollen",
+            "level": "h3"
+          },
+          {
+            "index": "^yhlyku",
+            "text": "Die gegenseitige Durchdringung der Seelenfähigkeiten",
+            "level": "h4"
+          },
+          {
+            "index": "^09py44",
+            "text": "Nerven- und Bluttätigkeit in den Sinnesorganen",
+            "level": "h4"
+          },
+          {
+            "index": "^n6zthk",
+            "text": "Sympathie und Antipathie in der Erkenntnis",
+            "level": "h3"
+          },
+          {
+            "index": "^u6oh94",
+            "text": "Unterschiede zwischen Mensch und Tier",
+            "level": "h4"
+          },
+          {
+            "index": "^w44djj",
+            "text": "Sympathie im Wollen und Persönlichkeitsentwicklung",
+            "level": "h4"
+          },
+          {
+            "index": "^xkd6wb",
+            "text": "Das Fühlen als mittlere Seelenbetätigkeit",
+            "level": "h3"
+          },
+          {
+            "index": "^j24oj3",
+            "text": "Gefühl zwischen Enthusiasmus und Sinnestätigkeit",
+            "level": "h4"
+          },
+          {
+            "index": "^0vbw24",
+            "text": "Der philosophische Streit um das Urteilsvermögen",
+            "level": "h4"
+          },
+          {
+            "index": "^zugo8s",
+            "text": "Die leiblichen Grundlagen des Fühlens",
+            "level": "h3"
+          },
+          {
+            "index": "^qkci9s",
+            "text": "Auge und Ohr als verschiedene Sinnesorganisationen",
+            "level": "h4"
+          },
+          {
+            "index": "^b29nck",
+            "text": "Der Streit zwischen Wagner und Hanslick",
+            "level": "h4"
+          },
+          {
+            "index": "^xtnhng",
+            "text": "Kritik der modernen Psychologie und Pädagogik",
+            "level": "h3"
+          },
+          {
+            "index": "^3q4ewd",
+            "text": "Die Überwindung falscher Abstraktionen",
+            "level": "h4"
+          },
+          {
+            "index": "^u4rxh7",
+            "text": "Die Verheerungen des Kantianismus",
+            "level": "h4"
+          }
+        ],
+        "tableOfContents": [
+          {
+            "heading": "Das Verhältnis von Denken, Fühlen und Wollen",
+            "description": "Gegenseitige Durchdringung der Seelenfähigkeiten und ihre leiblichen Grundlagen",
+            "index": "^cgv85v"
+          },
+          {
+            "heading": "Sympathie und Antipathie in der Erkenntnis",
+            "description": "Unterschiede zwischen Mensch und Tier in der Weltbeziehung",
+            "index": "^n6zthk"
+          },
+          {
+            "heading": "Das Fühlen als mittlere Seelenbetätigkeit",
+            "description": "Gefühl zwischen Denken und Wollen, philosophische Streitigkeiten",
+            "index": "^xkd6wb"
+          },
+          {
+            "heading": "Die leiblichen Grundlagen des Fühlens",
+            "description": "Verschiedene Sinnesorganisationen und der Wagner-Hanslick-Streit",
+            "index": "^zugo8s"
+          },
+          {
+            "heading": "Kritik der modernen Psychologie und Pädagogik",
+            "description": "Falsche Abstraktionen und die Überwindung des Kantianismus",
+            "index": "^xtnhng"
+          }
+        ],
+        "lectureKeywords": [
+          {
+            "term": "Sympathie",
+            "index": "^n6zthk",
+            "heading": "Sympathie und Antipathie in der Erkenntnis",
+            "source": "title-summary",
+            "matchType": "new",
+            "matchedExisting": "",
+            "summaryMentioned": true,
+            "confidence": 0.7,
+            "level": "h3"
+          },
+          {
+            "term": "Antipathie",
+            "index": "^n6zthk",
+            "heading": "Sympathie und Antipathie in der Erkenntnis",
+            "source": "title-summary",
+            "matchType": "new",
+            "matchedExisting": "",
+            "summaryMentioned": true,
+            "confidence": 0.7,
+            "level": "h3"
+          },
+          {
+            "term": "Bewusstsein",
+            "index": "^u6oh94",
+            "heading": "Unterschiede zwischen Mensch und Tier",
+            "source": "h3",
+            "matchType": "existing-exact",
+            "matchedExisting": "Bewusstsein",
+            "summaryMentioned": true,
+            "confidence": 1,
+            "level": "h3"
+          },
+          {
+            "term": "Goethe",
+            "index": "^l2pi4f",
+            "heading": "Sympathie und Antipathie in der Erkenntnis",
+            "source": "h3",
+            "matchType": "existing-exact",
+            "matchedExisting": "Goethe",
+            "summaryMentioned": false,
+            "confidence": 1,
+            "level": "h3"
+          },
+          {
+            "term": "Sinneswahrnehmung",
+            "index": "^09py44",
+            "heading": "Nerven- und Bluttätigkeit in den Sinnesorganen",
+            "source": "h3",
+            "matchType": "existing-exact",
+            "matchedExisting": "Sinneswahrnehmung",
+            "summaryMentioned": false,
+            "confidence": 1,
+            "level": "h3"
+          },
+          {
+            "term": "Individualität",
+            "index": "^u6oh94",
+            "heading": "Unterschiede zwischen Mensch und Tier",
+            "source": "h3",
+            "matchType": "existing-exact",
+            "matchedExisting": "Individualität",
+            "summaryMentioned": false,
+            "confidence": 0.9,
+            "level": "h3"
+          },
+          {
+            "term": "Philosophie",
+            "index": "^0vbw24",
+            "heading": "Der philosophische Streit um das Urteilsvermögen",
+            "source": "h3",
+            "matchType": "existing-exact",
+            "matchedExisting": "Philosophie",
+            "summaryMentioned": false,
+            "confidence": 1,
+            "level": "h3"
+          },
+          {
+            "term": "Geisteswissenschaft",
+            "index": "^8wazwh",
+            "heading": "Der philosophische Streit um das Urteilsvermögen",
+            "source": "h3",
+            "matchType": "existing-exact",
+            "matchedExisting": "Geisteswissenschaft",
+            "summaryMentioned": false,
+            "confidence": 1,
+            "level": "h3"
+          },
+          {
+            "term": "Kunst",
+            "index": "^qkci9s",
+            "heading": "Der Streit zwischen Wagner und Hanslick",
+            "source": "h3",
+            "matchType": "existing-exact",
+            "matchedExisting": "Kunst",
+            "summaryMentioned": false,
+            "confidence": 0.9,
+            "level": "h3"
+          },
+          {
+            "term": "Erziehung",
+            "index": "^xtnhng",
+            "heading": "Kritik der modernen Psychologie und Pädagogik",
+            "source": "h3",
+            "matchType": "existing-exact",
+            "matchedExisting": "Erziehung",
+            "summaryMentioned": false,
+            "confidence": 1,
+            "level": "h3"
+          },
+          {
+            "term": "Selbsterkenntnis",
+            "index": "^sq4pxs",
+            "heading": "Das Verhältnis von Denken, Fühlen und Wollen",
+            "source": "h3",
+            "matchType": "existing-exact",
+            "matchedExisting": "Selbsterkenntnis",
+            "summaryMentioned": false,
+            "confidence": 0.85,
+            "level": "h3"
+          },
+          {
+            "term": "Freiheit",
+            "index": "^3q4ewd",
+            "heading": "Die Überwindung falscher Abstraktionen",
+            "source": "h3",
+            "matchType": "existing-exact",
+            "matchedExisting": "Freiheit",
+            "summaryMentioned": false,
+            "confidence": 0.9,
+            "level": "h3"
+          }
+        ],
+        "version": "v2-unified"
+      },
+      {
+        "lectureNumber": "7",
+        "ID": "GA293/7",
+        "title": "SECHSTER VORTRAG",
+        "fileName": "GA293/7 - SECHSTER VORTRAG, 27. August 1919",
+        "location": null,
+        "date": "27. August 1919",
+        "summary": "Die menschlichen Seelentätigkeiten Denken, Fühlen und Wollen entsprechen verschiedenen Bewusstseinszuständen. Das denkende Erkennen ist vollbewusst und wach, das Fühlen entspricht einem träumerischen Zustand, das Wollen einem schlafenden Bewusstsein. Das Ich lebt beim Denken in Bildern der Welt, beim Fühlen in unbewussten Inspirationen und beim Wollen in unbewussten Intuitionen. Diese Erkenntnis hat wichtige pädagogische Konsequenzen für die Erziehung von Kindern mit unterschiedlichen Anlagen. Träumerische Kinder mit starkem Gefühlsleben benötigen starke Gefühlsimpulse, während scheinbar stumpfe Kinder mit starker Willensanlage durch Bewegung und rhythmische Aktivitäten geweckt werden können. Die menschliche Körpergestalt spiegelt diese Bewusstseinsgliederung wider: Der ruhende Kopf als Organ des wachen Denkens wird vom bewegten Leib getragen.",
+        "shortSummary": "Denken, Fühlen und Wollen entsprechen unterschiedlichen Bewusstseinszuständen - wach, träumerisch und schlafend. Diese Erkenntnis ermöglicht eine an die jeweilige Seelenanlage angepasste Pädagogik durch entsprechende Gefühls- oder Bewegungsimpulse.",
+        "headings": [
+          {
+            "index": "^jt33uy",
+            "text": "Die drei Standpunkte der Menschenerkenntnis",
+            "level": "h3"
+          },
+          {
+            "index": "^cphly8",
+            "text": "Die Gliederung der Seelentätigkeiten",
+            "level": "h3"
+          },
+          {
+            "index": "^0l7vo4",
+            "text": "Das vollbewusste denkende Erkennen",
+            "level": "h4"
+          },
+          {
+            "index": "^vuwwv1",
+            "text": "Das unbewusste Element im Wollen",
+            "level": "h4"
+          },
+          {
+            "index": "^cl2xfz",
+            "text": "Bewusstseinszustände in Denken, Fühlen und Wollen",
+            "level": "h3"
+          },
+          {
+            "index": "^xip5km",
+            "text": "Wachen, Träumen und Schlafen im Tagesleben",
+            "level": "h4"
+          },
+          {
+            "index": "^fv316q",
+            "text": "Pädagogische Konsequenzen der Bewusstseinslehre",
+            "level": "h3"
+          },
+          {
+            "index": "^q7nzex",
+            "text": "Die Behandlung verschiedener Kindertypen",
+            "level": "h4"
+          },
+          {
+            "index": "^cypwc3",
+            "text": "Das Ich und die Weltenkräfte",
+            "level": "h3"
+          },
+          {
+            "index": "^up59vr",
+            "text": "Das Leben in Bildern statt in der wirklichen Welt",
+            "level": "h4"
+          },
+          {
+            "index": "^ia9hi6",
+            "text": "Inspirationen und Intuitionen im Alltag",
+            "level": "h3"
+          },
+          {
+            "index": "^043nl6",
+            "text": "Unbewusste Inspirationen im Gefühlsleben",
+            "level": "h4"
+          },
+          {
+            "index": "^wdw1xm",
+            "text": "Unbewusste Intuitionen im Wollen",
+            "level": "h4"
+          },
+          {
+            "index": "^h60amo",
+            "text": "Goethes Arbeitsweise am Faust",
+            "level": "h4"
+          },
+          {
+            "index": "^9zhjwm",
+            "text": "Die Gestalt des menschlichen Leibes",
+            "level": "h3"
+          }
+        ],
+        "tableOfContents": [
+          {
+            "heading": "Die drei Standpunkte der Menschenerkenntnis",
+            "description": "Geistige, seelische und physische Betrachtungsweise des Menschen",
+            "index": "^jt33uy"
+          },
+          {
+            "heading": "Die Gliederung der Seelentätigkeiten",
+            "description": "Denken, Fühlen und Wollen vom geistigen Gesichtspunkt",
+            "index": "^cphly8"
+          },
+          {
+            "heading": "Bewusstseinszustände in Denken, Fühlen und Wollen",
+            "description": "Wachen beim Denken, Träumen beim Fühlen, Schlafen beim Wollen",
+            "index": "^cl2xfz"
+          },
+          {
+            "heading": "Pädagogische Konsequenzen der Bewusstseinslehre",
+            "description": "Erziehung träumerischer und willensstarker Kinder",
+            "index": "^fv316q"
+          },
+          {
+            "heading": "Das Ich und die Weltenkräfte",
+            "description": "Das Ich lebt in Bildern der Welt",
+            "index": "^cypwc3"
+          },
+          {
+            "heading": "Inspirationen und Intuitionen im Alltag",
+            "description": "Unbewusste geistige Erlebnisse in Fühlen und Wollen",
+            "index": "^ia9hi6"
+          },
+          {
+            "heading": "Die Gestalt des menschlichen Leibes",
+            "description": "Kopf und Leib entsprechen verschiedenen Bewusstseinszuständen",
+            "index": "^9zhjwm"
+          }
+        ],
+        "lectureKeywords": [
+          {
+            "term": "Bewusstsein",
+            "index": "^cl2xfz",
+            "heading": "Bewusstseinszustände in Denken, Fühlen und Wollen",
+            "source": "title-summary",
+            "matchType": "existing-exact",
+            "matchedExisting": "Bewusstsein",
+            "summaryMentioned": true,
+            "confidence": 1,
+            "level": "h3"
+          },
+          {
+            "term": "Bewusstseinszustände",
+            "index": "^cl2xfz",
+            "heading": "Bewusstseinszustände in Denken, Fühlen und Wollen",
+            "source": "title-summary",
+            "matchType": "existing-exact",
+            "matchedExisting": "Bewusstseinszustände",
+            "summaryMentioned": true,
+            "confidence": 1,
+            "level": "h3"
+          },
+          {
+            "term": "Wachen & Schlafen",
+            "index": "^xip5km",
+            "heading": "Wachen, Träumen und Schlafen im Tagesleben",
+            "source": "h3",
+            "matchType": "existing-exact",
+            "matchedExisting": "Wachen & Schlafen",
+            "summaryMentioned": false,
+            "confidence": 0.95,
+            "level": "h4"
+          },
+          {
+            "term": "Traumbewusstsein",
+            "index": "^jmpoda",
+            "heading": "Bewusstseinszustände in Denken, Fühlen und Wollen",
+            "source": "h3",
+            "matchType": "existing-exact",
+            "matchedExisting": "Traumbewusstsein",
+            "summaryMentioned": false,
+            "confidence": 0.95,
+            "level": "h3"
+          },
+          {
+            "term": "Erziehung",
+            "index": "^fv316q",
+            "heading": "Pädagogische Konsequenzen der Bewusstseinslehre",
+            "source": "h3",
+            "matchType": "existing-exact",
+            "matchedExisting": "Erziehung",
+            "summaryMentioned": false,
+            "confidence": 0.95,
+            "level": "h3"
+          },
+          {
+            "term": "Ich",
+            "index": "^cypwc3",
+            "heading": "Das Ich und die Weltenkräfte",
+            "source": "h3",
+            "matchType": "existing-exact",
+            "matchedExisting": "Ich",
+            "summaryMentioned": false,
+            "confidence": 1,
+            "level": "h3"
+          },
+          {
+            "term": "Inspiration",
+            "index": "^ur8m9t",
+            "heading": "Inspirationen und Intuitionen im Alltag",
+            "source": "h3",
+            "matchType": "existing-exact",
+            "matchedExisting": "Inspiration",
+            "summaryMentioned": false,
+            "confidence": 0.95,
+            "level": "h3"
+          },
+          {
+            "term": "Intuition",
+            "index": "^wdw1xm",
+            "heading": "Unbewusste Intuitionen im Wollen",
+            "source": "h3",
+            "matchType": "existing-exact",
+            "matchedExisting": "Intuition",
+            "summaryMentioned": false,
+            "confidence": 0.95,
+            "level": "h4"
+          },
+          {
+            "term": "Goethe",
+            "index": "^h60amo",
+            "heading": "Goethes Arbeitsweise am Faust",
+            "source": "h3",
+            "matchType": "existing-exact",
+            "matchedExisting": "Goethe",
+            "summaryMentioned": false,
+            "confidence": 1,
+            "level": "h4"
+          },
+          {
+            "term": "Faust",
+            "index": "^h60amo",
+            "heading": "Goethes Arbeitsweise am Faust",
+            "source": "h3",
+            "matchType": "existing-exact",
+            "matchedExisting": "Faust",
+            "summaryMentioned": false,
+            "confidence": 1,
+            "level": "h4"
+          },
+          {
+            "term": "Rhythmus",
+            "index": "^q7nzex",
+            "heading": "Die Behandlung verschiedener Kindertypen",
+            "source": "h3",
+            "matchType": "existing-exact",
+            "matchedExisting": "Rhythmus",
+            "summaryMentioned": false,
+            "confidence": 0.85,
+            "level": "h4"
+          },
+          {
+            "term": "Seelentätigkeiten",
+            "index": "^cphly8",
+            "heading": "Die Gliederung der Seelentätigkeiten",
+            "source": "new",
+            "matchType": "new",
+            "matchedExisting": null,
+            "summaryMentioned": true,
+            "confidence": 0.7,
+            "level": "h3"
+          }
+        ],
+        "version": "v2-unified"
+      },
+      {
+        "lectureNumber": "8",
+        "ID": "GA293/8",
+        "title": "SIEBENTER VORTRAG",
+        "fileName": "GA293/8 - SIEBENTER VORTRAG, 28. August 1919",
+        "location": null,
+        "date": "28. August 1919",
+        "summary": "Die Betrachtung des Menschen vom geistigen Gesichtspunkt erfordert das Verständnis der drei Bewusstseinszustände: Wachen, Träumen und Schlafen. Diese manifestieren sich räumlich im menschlichen Organismus - an der Körperoberfläche (Sinnessphäre) herrscht träumendes Schlafen, im Inneren ebenfalls Schlaf, nur in der Zwischenzone vollständiges Wachen. Das Nervensystem ermöglicht Bewusstsein durch fortwährendes Absterben und Schaffung von Hohlräumen für das Geistig-Seelische. Empfindungen sind willensartiger Natur mit gefühlsmäßigem Einschlag. Im Lebenslauf wandelt sich die Verbindung der Seelenkräfte: beim Kind sind Wollen und Fühlen verknüpft, beim Greis Denken und Fühlen. Erinnern ist Aufwachen, Vergessen Einschlafen von Vorstellungskomplexen. Wahres Begreifen erfordert das Beziehen realer Tatsachen aufeinander, nicht bloße Worterklärungen.",
+        "shortSummary": "Der Mensch durchlebt drei Bewusstseinszustände (Wachen, Träumen, Schlafen), die sich sowohl zeitlich als auch räumlich im Organismus manifestieren, wobei nur in einer Zwischenzone zwischen Körperoberfläche und Innerem vollständiges Wachen herrscht. Das Nervensystem ermöglicht Bewusstsein durch Absterben und Schaffen von Hohlräumen für das Geistig-Seelische, während sich die Verbindung der Seelenkräfte im Lebenslauf vom Kind zum Greis wandelt.",
+        "headings": [
+          {
+            "index": "^lggnuu",
+            "text": "Die drei Bewusstseinszustände im Menschen",
+            "level": "h3"
+          },
+          {
+            "index": "^88168m",
+            "text": "Wachen, Träumen und Schlafen in den Seelenkräften",
+            "level": "h4"
+          },
+          {
+            "index": "^5oemt4",
+            "text": "Die Entwicklung der Seelenkräfte im Lebenslauf",
+            "level": "h3"
+          },
+          {
+            "index": "^y8q13h",
+            "text": "Die Wandlung von Wollen und Fühlen",
+            "level": "h4"
+          },
+          {
+            "index": "^sc4eow",
+            "text": "Das fühlende Denken des Greisenalters",
+            "level": "h4"
+          },
+          {
+            "index": "^p2aw5n",
+            "text": "Das Wesen der Empfindung",
+            "level": "h3"
+          },
+          {
+            "index": "^8lq9a0",
+            "text": "Empfindung als wollendes Fühlen",
+            "level": "h4"
+          },
+          {
+            "index": "^n62gq4",
+            "text": "Die räumliche Verteilung der Bewusstseinszustände",
+            "level": "h3"
+          },
+          {
+            "index": "^n7i0xb",
+            "text": "Schlafen und Träumen an der Körperperipherie",
+            "level": "h4"
+          },
+          {
+            "index": "^17a64u",
+            "text": "Die Zwischenzone des Wachens",
+            "level": "h4"
+          },
+          {
+            "index": "^j016o1",
+            "text": "Das Nervensystem als Vermittler des Geistigen",
+            "level": "h3"
+          },
+          {
+            "index": "^mex86i",
+            "text": "Absterben der Nerven als Bedingung für Bewusstsein",
+            "level": "h4"
+          },
+          {
+            "index": "^27z2oi",
+            "text": "Erinnern und Vergessen als Bewusstseinsvorgänge",
+            "level": "h3"
+          },
+          {
+            "index": "^a3s6fp",
+            "text": "Reales Begreifen statt Worterklärungen",
+            "level": "h4"
+          }
+        ],
+        "tableOfContents": [
+          {
+            "heading": "Die drei Bewusstseinszustände im Menschen",
+            "description": "Wachen im Denken, Träumen im Fühlen, Schlafen im Wollen",
+            "index": "^lggnuu"
+          },
+          {
+            "heading": "Die Entwicklung der Seelenkräfte im Lebenslauf",
+            "description": "Wandlung von Wollen-Fühlen beim Kind zu Denken-Fühlen beim Greis",
+            "index": "^5oemt4"
+          },
+          {
+            "heading": "Das Wesen der Empfindung",
+            "description": "Empfindung als wollendes Fühlen, nicht als Erkenntnisfunktion",
+            "index": "^p2aw5n"
+          },
+          {
+            "heading": "Die räumliche Verteilung der Bewusstseinszustände",
+            "description": "Schlafen an Peripherie und Innerem, Wachen in Zwischenzone",
+            "index": "^n62gq4"
+          },
+          {
+            "heading": "Das Nervensystem als Vermittler des Geistigen",
+            "description": "Nerven schaffen durch Absterben Hohlräume für Geist-Seele",
+            "index": "^j016o1"
+          },
+          {
+            "heading": "Erinnern und Vergessen als Bewusstseinsvorgänge",
+            "description": "Aufwachen und Einschlafen von Vorstellungskomplexen im Zeitverlauf",
+            "index": "^27z2oi"
+          }
+        ],
+        "lectureKeywords": [
+          {
+            "term": "Bewusstsein",
+            "index": "^88168m",
+            "heading": "Die drei Bewusstseinszustände im Menschen",
+            "source": "title-summary",
+            "matchType": "existing-exact",
+            "matchedExisting": "Bewusstsein",
+            "summaryMentioned": true,
+            "confidence": 1,
+            "level": "h3"
+          },
+          {
+            "term": "Bewusstseinszustände",
+            "index": "^88168m",
+            "heading": "Die drei Bewusstseinszustände im Menschen",
+            "source": "h3",
+            "matchType": "existing-exact",
+            "matchedExisting": "Bewusstseinszustände",
+            "summaryMentioned": true,
+            "confidence": 1,
+            "level": "h3"
+          },
+          {
+            "term": "Wachen & Schlafen",
+            "index": "^88168m",
+            "heading": "Die drei Bewusstseinszustände im Menschen",
+            "source": "h3",
+            "matchType": "existing-exact",
+            "matchedExisting": "Wachen & Schlafen",
+            "summaryMentioned": true,
+            "confidence": 1,
+            "level": "h3"
+          },
+          {
+            "term": "Traumbewusstsein",
+            "index": "^88168m",
+            "heading": "Die drei Bewusstseinszustände im Menschen",
+            "source": "h3",
+            "matchType": "existing-exact",
+            "matchedExisting": "Traumbewusstsein",
+            "summaryMentioned": true,
+            "confidence": 0.95,
+            "level": "h3"
+          },
+          {
+            "term": "Sinneswahrnehmung",
+            "index": "^p2aw5n",
+            "heading": "Das Wesen der Empfindung",
+            "source": "h3",
+            "matchType": "existing-exact",
+            "matchedExisting": "Sinneswahrnehmung",
+            "summaryMentioned": false,
+            "confidence": 0.9,
+            "level": "h3"
+          },
+          {
+            "term": "Entwicklung",
+            "index": "^5oemt4",
+            "heading": "Die Entwicklung der Seelenkräfte im Lebenslauf",
+            "source": "h3",
+            "matchType": "existing-exact",
+            "matchedExisting": "Entwicklung",
+            "summaryMentioned": false,
+            "confidence": 0.9,
+            "level": "h3"
+          },
+          {
+            "term": "Geist",
+            "index": "^j016o1",
+            "heading": "Das Nervensystem als Vermittler des Geistigen",
+            "source": "h3",
+            "matchType": "existing-exact",
+            "matchedExisting": "Geist",
+            "summaryMentioned": true,
+            "confidence": 0.9,
+            "level": "h3"
+          },
+          {
+            "term": "Erziehung",
+            "index": "^n7i0xb",
+            "heading": "Die räumliche Verteilung der Bewusstseinszustände",
+            "source": "h3",
+            "matchType": "existing-exact",
+            "matchedExisting": "Erziehung",
+            "summaryMentioned": false,
+            "confidence": 0.85,
+            "level": "h3"
+          },
+          {
+            "term": "Selbsterkenntnis",
+            "index": "^a3s6fp",
+            "heading": "Reales Begreifen statt Worterklärungen",
+            "source": "h3",
+            "matchType": "existing-exact",
+            "matchedExisting": "Selbsterkenntnis",
+            "summaryMentioned": false,
+            "confidence": 0.8,
+            "level": "h3"
+          },
+          {
+            "term": "Lebenslauf",
+            "index": "^5oemt4",
+            "heading": "Die Entwicklung der Seelenkräfte im Lebenslauf",
+            "source": "new",
+            "matchType": "new",
+            "matchedExisting": null,
+            "summaryMentioned": true,
+            "confidence": 0.7,
+            "level": "h3"
+          },
+          {
+            "term": "Nervensystem",
+            "index": "^j016o1",
+            "heading": "Das Nervensystem als Vermittler des Geistigen",
+            "source": "new",
+            "matchType": "new",
+            "matchedExisting": null,
+            "summaryMentioned": true,
+            "confidence": 0.65,
+            "level": "h3"
+          },
+          {
+            "term": "Seelenkräfte",
+            "index": "^5oemt4",
+            "heading": "Die Entwicklung der Seelenkräfte im Lebenslauf",
+            "source": "new",
+            "matchType": "new",
+            "matchedExisting": null,
+            "summaryMentioned": true,
+            "confidence": 0.6,
+            "level": "h3"
+          }
+        ],
+        "version": "v2-unified"
+      },
+      {
+        "lectureNumber": "9",
+        "ID": "GA293/9",
+        "title": "ACHTER VORTRAG",
+        "fileName": "GA293/9 - ACHTER VORTRAG, 29. August 1919",
+        "location": null,
+        "date": "29. August 1919",
+        "summary": "Das Gedächtnis und die Erinnerungskraft können nur verstanden werden durch ihre Beziehung zu Schlafen und Wachen. Gestörter Schlaf macht das Ich-Bewusstsein empfindlicher gegenüber äußeren Eindrücken. Erinnerung entsteht durch den schlafenden Willen, der Vorstellungen aus dem Unbewussten ins Bewusstsein trägt. Die Gedächtniskraft wird durch lebendiges Interesse und Gewohnheitsbildung gestärkt, nicht durch intellektuelle Übungen. Der Mensch besitzt zwölf Sinne, die in drei Gruppen gegliedert sind: Willenssinne (Tastsinn, Lebenssinn, Bewegungssinn, Gleichgewichtssinn), Gefühlssinne (Geruchssinn, Geschmackssinn, Sehsinn, Wärmesinn) und Erkenntnissinne (Hörsinn, Sprachsinn, Gedankensinn, Ich-Sinn). Die Sinne zerlegen die Welt in Bestandteile, die durch Urteilskraft wieder zusammengefügt werden. Geist manifestiert sich in Bewusstseinszuständen, Seele in Sympathie und Antipathie, Leib in Formen.",
+        "shortSummary": "Gedächtnis entsteht durch den schlafenden Willen, der Vorstellungen ins Bewusstsein trägt, und wird durch Interesse und Gewohnheit gestärkt. Der Mensch verfügt über zwölf Sinne in drei Gruppen (Willens-, Gefühls- und Erkenntnissinne), die die Welt zerlegen und durch Urteilskraft wieder zusammengefügt wird.",
+        "headings": [
+          {
+            "index": "^4c1292",
+            "text": "Gedächtnis und Erinnerung im Verhältnis zu Schlafen und Wachen",
+            "level": "h3"
+          },
+          {
+            "index": "^tjun3w",
+            "text": "Die Auswirkungen gestörten Schlafs auf das Ich-Bewusstsein",
+            "level": "h4"
+          },
+          {
+            "index": "^uhbsfq",
+            "text": "Die Rolle des schlafenden Willens bei der Erinnerung",
+            "level": "h4"
+          },
+          {
+            "index": "^roz6v3",
+            "text": "Pädagogische Methoden zur Stärkung des Gedächtnisses",
+            "level": "h4"
+          },
+          {
+            "index": "^pjspda",
+            "text": "Die Dreigliederung des Menschen und ihre Einheit",
+            "level": "h3"
+          },
+          {
+            "index": "^rn90yd",
+            "text": "Kopf-, Brust- und Gliedmaßenmensch als Ganzheit",
+            "level": "h4"
+          },
+          {
+            "index": "^j8p1xj",
+            "text": "Die zwölf Sinne des Menschen",
+            "level": "h3"
+          },
+          {
+            "index": "^3bqvar",
+            "text": "Der Ich-Sinn und die Wahrnehmung anderer Menschen",
+            "level": "h4"
+          },
+          {
+            "index": "^qjgokf",
+            "text": "Gedankensinn und Sprachsinn",
+            "level": "h4"
+          },
+          {
+            "index": "^ocv7k4",
+            "text": "Die Gliederung der Sinne nach Willen, Gefühl und Erkenntnis",
+            "level": "h3"
+          },
+          {
+            "index": "^du4gdg",
+            "text": "Die vier Willenssinne",
+            "level": "h4"
+          },
+          {
+            "index": "^2ccj0o",
+            "text": "Die vier Gefühlssinne",
+            "level": "h4"
+          },
+          {
+            "index": "^t3tbh2",
+            "text": "Das Zusammenwirken der Sinne und die Urteilsbildung",
+            "level": "h3"
+          },
+          {
+            "index": "^s5x5qw",
+            "text": "Geist, Seele und Leib in ihren charakteristischen Zuständen",
+            "level": "h3"
+          }
+        ],
+        "tableOfContents": [
+          {
+            "heading": "Gedächtnis und Erinnerung im Verhältnis zu Schlafen und Wachen",
+            "description": "Zusammenhang zwischen Schlafstörungen und Ich-Bewusstsein, Rolle des schlafenden Willens",
+            "index": "^4c1292"
+          },
+          {
+            "heading": "Die Dreigliederung des Menschen und ihre Einheit",
+            "description": "Denken, Fühlen und Wollen als getrennte aber zusammenwirkende Glieder",
+            "index": "^pjspda"
+          },
+          {
+            "heading": "Die zwölf Sinne des Menschen",
+            "description": "Vollständige Aufzählung aller menschlichen Sinne einschließlich Ich-Sinn und Gedankensinn",
+            "index": "^j8p1xj"
+          },
+          {
+            "heading": "Die Gliederung der Sinne nach Willen, Gefühl und Erkenntnis",
+            "description": "Einteilung der zwölf Sinne in Willens-, Gefühls- und Erkenntnissinne",
+            "index": "^ocv7k4"
+          },
+          {
+            "heading": "Das Zusammenwirken der Sinne und die Urteilsbildung",
+            "description": "Wie die Sinne die Welt zerlegen und durch Urteilskraft wieder vereinigen",
+            "index": "^t3tbh2"
+          },
+          {
+            "heading": "Geist, Seele und Leib in ihren charakteristischen Zuständen",
+            "description": "Bewusstseinszustände, Sympathie-Antipathie und Formzustände als Erkennungsmerkmale",
+            "index": "^s5x5qw"
+          }
+        ],
+        "lectureKeywords": [
+          {
+            "term": "Wachen & Schlafen",
+            "index": "^4c1292",
+            "heading": "Gedächtnis und Erinnerung im Verhältnis zu Schlafen und Wachen",
+            "source": "title-summary",
+            "matchType": "existing-exact",
+            "matchedExisting": "Wachen & Schlafen",
+            "summaryMentioned": true,
+            "confidence": 1,
+            "level": "h3"
+          },
+          {
+            "term": "Bewusstsein",
+            "index": "^tjun3w",
+            "heading": "Die Auswirkungen gestörten Schlafs auf das Ich-Bewusstsein",
+            "source": "h3",
+            "matchType": "existing-exact",
+            "matchedExisting": "Bewusstsein",
+            "summaryMentioned": true,
+            "confidence": 1,
+            "level": "h4"
+          },
+          {
+            "term": "Ich",
+            "index": "^tjun3w",
+            "heading": "Die Auswirkungen gestörten Schlafs auf das Ich-Bewusstsein",
+            "source": "h3",
+            "matchType": "existing-exact",
+            "matchedExisting": "Ich",
+            "summaryMentioned": true,
+            "confidence": 1,
+            "level": "h4"
+          },
+          {
+            "term": "Erziehung",
+            "index": "^roz6v3",
+            "heading": "Pädagogische Methoden zur Stärkung des Gedächtnisses",
+            "source": "h3",
+            "matchType": "existing-exact",
+            "matchedExisting": "Erziehung",
+            "summaryMentioned": false,
+            "confidence": 1,
+            "level": "h4"
+          },
+          {
+            "term": "Astralleib",
+            "index": "^uhbsfq",
+            "heading": "Die Rolle des schlafenden Willens bei der Erinnerung",
+            "source": "h3",
+            "matchType": "existing-exact",
+            "matchedExisting": "Astralleib",
+            "summaryMentioned": false,
+            "confidence": 1,
+            "level": "h4"
+          },
+          {
+            "term": "Ätherleib",
+            "index": "^uhbsfq",
+            "heading": "Die Rolle des schlafenden Willens bei der Erinnerung",
+            "source": "h3",
+            "matchType": "existing-exact",
+            "matchedExisting": "Ätherleib",
+            "summaryMentioned": false,
+            "confidence": 1,
+            "level": "h4"
+          },
+          {
+            "term": "Sinneswahrnehmung",
+            "index": "^j8p1xj",
+            "heading": "Die zwölf Sinne des Menschen",
+            "source": "h3",
+            "matchType": "existing-exact",
+            "matchedExisting": "Sinneswahrnehmung",
+            "summaryMentioned": true,
+            "confidence": 1,
+            "level": "h3"
+          },
+          {
+            "term": "Individualität",
+            "index": "^3bqvar",
+            "heading": "Der Ich-Sinn und die Wahrnehmung anderer Menschen",
+            "source": "h3",
+            "matchType": "existing-exact",
+            "matchedExisting": "Individualität",
+            "summaryMentioned": false,
+            "confidence": 0.9,
+            "level": "h4"
+          },
+          {
+            "term": "Freiheit",
+            "index": "^1h5x22",
+            "heading": "Der Ich-Sinn und die Wahrnehmung anderer Menschen",
+            "source": "h3",
+            "matchType": "existing-exact",
+            "matchedExisting": "Freiheit",
+            "summaryMentioned": false,
+            "confidence": 0.9,
+            "level": "h4"
+          },
+          {
+            "term": "Eurythmie",
+            "index": "^qjgokf",
+            "heading": "Gedankensinn und Sprachsinn",
+            "source": "h3",
+            "matchType": "existing-exact",
+            "matchedExisting": "Eurythmie",
+            "summaryMentioned": false,
+            "confidence": 1,
+            "level": "h4"
+          },
+          {
+            "term": "Goethe",
+            "index": "^du4gdg",
+            "heading": "Die vier Gefühlssinne",
+            "source": "h3",
+            "matchType": "existing-exact",
+            "matchedExisting": "Goethe",
+            "summaryMentioned": false,
+            "confidence": 1,
+            "level": "h4"
+          },
+          {
+            "term": "Sympathie-Antipathie",
+            "index": "^1h5x22",
+            "heading": "Der Ich-Sinn und die Wahrnehmung anderer Menschen",
+            "source": "h3",
+            "matchType": "new",
+            "matchedExisting": null,
+            "summaryMentioned": true,
+            "confidence": 0.7,
+            "level": "h4"
+          },
+          {
+            "term": "Zwölf Sinne",
+            "index": "^j8p1xj",
+            "heading": "Die zwölf Sinne des Menschen",
+            "source": "h3",
+            "matchType": "new",
+            "matchedExisting": null,
+            "summaryMentioned": true,
+            "confidence": 0.7,
+            "level": "h3"
+          }
+        ],
+        "version": "v2-unified"
+      },
+      {
+        "lectureNumber": "10",
+        "ID": "GA293/10",
+        "title": "NEUNTER VORTRAG",
+        "fileName": "GA293/10 - NEUNTER VORTRAG, 30. August 1919",
+        "location": null,
+        "date": "30. August 1919",
+        "summary": "Die Entwicklung des Erkennens vollzieht sich in drei Stufen: Schluss, Urteil und Begriff. Schlüsse entstehen zuerst und leben im vollwachen Bewusstsein, Urteile steigen in die träumende Seele hinab und werden zu Seelengewohnheiten, Begriffe wirken bis in die schlafende Seele und formen den Leib. Die Kindheitsentwicklung gliedert sich in drei Phasen entsprechend den Bewusstseinszuständen. Bis zum Zahnwechsel lebt das Kind in der Vergangenheit mit der unbewussten Annahme, die Welt sei moralisch. Vom Zahnwechsel bis zur Geschlechtsreife lebt es in der Gegenwart unter der Voraussetzung, die Welt sei schön. Erst mit der Geschlechtsreife erwacht das Interesse für Wahrheit und Zukunft. Der Unterricht muss lebendige, wandlungsfähige Begriffe vermitteln statt toter Definitionen, um charakterisierend zu wirken.",
+        "shortSummary": "Die Entwicklung des Erkennens verläuft in drei Stufen (Schluss, Urteil, Begriff), die verschiedene Bewusstseinszustände durchdringen und den Leib formen. Die Kindheitsentwicklung gliedert sich entsprechend in drei Phasen: bis zum Zahnwechsel steht die moralische Weltannahme im Vordergrund, bis zur Geschlechtsreife die ästhetische, danach erwacht das Interesse für Wahrheit.",
+        "headings": [
+          {
+            "index": "^5tpdty",
+            "text": "Die geistige Erfassung des Menschen durch Bewusstseinszustände",
+            "level": "h3"
+          },
+          {
+            "index": "^n97fru",
+            "text": "Die drei Entwicklungsphasen der Kindheit",
+            "level": "h3"
+          },
+          {
+            "index": "^qvr3ru",
+            "text": "Die logischen Grundformen des Erkennens",
+            "level": "h3"
+          },
+          {
+            "index": "^uwddge",
+            "text": "Das Wesen von Schluss, Urteil und Begriff im Leben",
+            "level": "h4"
+          },
+          {
+            "index": "^esv28d",
+            "text": "Der Schluss im vollwachenden Bewusstsein",
+            "level": "h3"
+          },
+          {
+            "index": "^1ojnu6",
+            "text": "Das Urteil in der träumenden Seele",
+            "level": "h4"
+          },
+          {
+            "index": "^eo6toa",
+            "text": "Der Begriff in der schlafenden Seele und seine leibformende Kraft",
+            "level": "h4"
+          },
+          {
+            "index": "^d9ypp1",
+            "text": "Lebendige versus tote Begriffe in der Erziehung",
+            "level": "h3"
+          },
+          {
+            "index": "^qd3ymw",
+            "text": "Charakterisierung statt Definition im Unterricht",
+            "level": "h4"
+          },
+          {
+            "index": "^ydcsmq",
+            "text": "Die drei Weltanschauungen der Kindheitsphasen",
+            "level": "h3"
+          },
+          {
+            "index": "^hjim09",
+            "text": "Die moralische Weltanschauung bis zum Zahnwechsel",
+            "level": "h4"
+          },
+          {
+            "index": "^3buvir",
+            "text": "Die ästhetische Weltanschauung vom Zahnwechsel bis zur Geschlechtsreife",
+            "level": "h4"
+          }
+        ],
+        "tableOfContents": [
+          {
+            "heading": "Die geistige Erfassung des Menschen durch Bewusstseinszustände",
+            "description": "Wachen, Träumen und Schlafen als Grundlagen der Menschenerkenntnis",
+            "index": "^5tpdty"
+          },
+          {
+            "heading": "Die drei Entwicklungsphasen der Kindheit",
+            "description": "Nachahmung, Autorität und eigenes Urteil in den Lebensjahrzehnten",
+            "index": "^n97fru"
+          },
+          {
+            "heading": "Die logischen Grundformen des Erkennens",
+            "description": "Schluss, Urteil und Begriff als Stufen des denkenden Erkennens",
+            "index": "^qvr3ru"
+          },
+          {
+            "heading": "Der Schluss im vollwachenden Bewusstsein",
+            "description": "Die bewussteste Denktätigkeit und ihre pädagogischen Konsequenzen",
+            "index": "^esv28d"
+          },
+          {
+            "heading": "Lebendige versus tote Begriffe in der Erziehung",
+            "description": "Wandlungsfähige Begriffe versus erstarrende Definitionen im Unterricht",
+            "index": "^d9ypp1"
+          },
+          {
+            "heading": "Die drei Weltanschauungen der Kindheitsphasen",
+            "description": "Moral, Schönheit und Wahrheit als unbewusste Grundannahmen",
+            "index": "^ydcsmq"
+          }
+        ],
+        "lectureKeywords": [
+          {
+            "term": "Bewusstseinszustände",
+            "index": "^5tpdty",
+            "heading": "Die geistige Erfassung des Menschen durch Bewusstseinszustände",
+            "source": "title-summary",
+            "matchType": "existing-similar",
+            "matchedExisting": "Bewusstseinszustände",
+            "summaryMentioned": true,
+            "confidence": 1,
+            "level": "h3"
+          },
+          {
+            "term": "Wachen & Schlafen",
+            "index": "^5tpdty",
+            "heading": "Die geistige Erfassung des Menschen durch Bewusstseinszustände",
+            "source": "h3",
+            "matchType": "existing-exact",
+            "matchedExisting": "Wachen & Schlafen",
+            "summaryMentioned": false,
+            "confidence": 1,
+            "level": "h3"
+          },
+          {
+            "term": "Erziehung",
+            "index": "^n97fru",
+            "heading": "Die drei Entwicklungsphasen der Kindheit",
+            "source": "h3",
+            "matchType": "existing-exact",
+            "matchedExisting": "Erziehung",
+            "summaryMentioned": false,
+            "confidence": 1,
+            "level": "h3"
+          },
+          {
+            "term": "Entwicklung",
+            "index": "^n97fru",
+            "heading": "Die drei Entwicklungsphasen der Kindheit",
+            "source": "h3",
+            "matchType": "existing-exact",
+            "matchedExisting": "Entwicklung",
+            "summaryMentioned": true,
+            "confidence": 1,
+            "level": "h3"
+          },
+          {
+            "term": "Bewusstsein",
+            "index": "^qvr3ru",
+            "heading": "Die logischen Grundformen des Erkennens",
+            "source": "h3",
+            "matchType": "existing-exact",
+            "matchedExisting": "Bewusstsein",
+            "summaryMentioned": true,
+            "confidence": 1,
+            "level": "h3"
+          },
+          {
+            "term": "Traumbewusstsein",
+            "index": "^1ojnu6",
+            "heading": "Das Urteil in der träumenden Seele",
+            "source": "h3",
+            "matchType": "existing-exact",
+            "matchedExisting": "Traumbewusstsein",
+            "summaryMentioned": true,
+            "confidence": 1,
+            "level": "h3"
+          },
+          {
+            "term": "Waldorfpädagogik",
+            "index": "^ldvzp2",
+            "heading": "Der Schluss im vollwachenden Bewusstsein",
+            "source": "h3",
+            "matchType": "existing-exact",
+            "matchedExisting": "Waldorfpädagogik",
+            "summaryMentioned": false,
+            "confidence": 1,
+            "level": "h3"
+          },
+          {
+            "term": "Begriffe",
+            "index": "^d9ypp1",
+            "heading": "Lebendige versus tote Begriffe in der Erziehung",
+            "source": "h3",
+            "matchType": "new",
+            "matchedExisting": null,
+            "summaryMentioned": true,
+            "confidence": 0.7,
+            "level": "h3"
+          },
+          {
+            "term": "Kunst",
+            "index": "^3buvir",
+            "heading": "Die ästhetische Weltanschauung vom Zahnwechsel bis zur Geschlechtsreife",
+            "source": "h3",
+            "matchType": "existing-exact",
+            "matchedExisting": "Kunst",
+            "summaryMentioned": false,
+            "confidence": 1,
+            "level": "h3"
+          },
+          {
+            "term": "Physiognomie",
+            "index": "^at236b",
+            "heading": "Der Begriff in der schlafenden Seele und seine leibformende Kraft",
+            "source": "h3",
+            "matchType": "new",
+            "matchedExisting": null,
+            "summaryMentioned": false,
+            "confidence": 0.6,
+            "level": "h3"
+          },
+          {
+            "term": "Charakterisierung",
+            "index": "^qd3ymw",
+            "heading": "Charakterisierung statt Definition im Unterricht",
+            "source": "h3",
+            "matchType": "new",
+            "matchedExisting": null,
+            "summaryMentioned": true,
+            "confidence": 0.6,
+            "level": "h3"
+          },
+          {
+            "term": "Zahnwechsel",
+            "index": "^hjim09",
+            "heading": "Die moralische Weltanschauung bis zum Zahnwechsel",
+            "source": "h3",
+            "matchType": "new",
+            "matchedExisting": null,
+            "summaryMentioned": true,
+            "confidence": 0.65,
+            "level": "h3"
+          }
+        ],
+        "version": "v2-unified"
+      },
+      {
+        "lectureNumber": "11",
+        "ID": "GA293/11",
+        "title": "ZEHNTER VORTRAG",
+        "fileName": "GA293/11 - ZEHNTER VORTRAG, 1. September 1919",
+        "location": null,
+        "date": "1. September 1919",
+        "summary": "Die dreigliedrige Gestalt des Menschen zeigt sich in verschiedenen Kugelformen: Der Kopf als vollständige Kugel, die Brust als Kugelfragment und die Gliedmaßen als Radien einer großen Weltkugel. Goethes Wirbeltheorie des Schädels wird erweitert durch die Erkenntnis, dass Gliedmaßenknochen umgewendete Kopfknochen sind. Die Gliedmaßen verbinden den Menschen mit kosmischen Bewegungen, während der Kopf diese zur Ruhe bringt und in Sinnesempfindungen verwandelt. Das Brustsystem vermittelt zwischen beiden. Die drei Systeme entsprechen Geist-Seele-Leib (Gliedmaßen), Seele-Leib (Brust) und nur Leib (Kopf). Das Konzil von 869 schaffte das Bewusstsein für den Geist ab, was zum modernen Materialismus führte. Für die Pädagogik ist das kosmische Verständnis des Menschen fundamental, da es die nötigen Gefühle für wahre Erziehungskunst entwickelt.",
+        "shortSummary": "Der menschliche Körper gliedert sich in drei Systeme mit unterschiedlichen Kugelformen: Kopf (vollständige Kugel), Brust (Kugelfragment) und Gliedmaßen (Radien einer Weltkugel), die kosmische Bewegungen zur Ruhe bringen. Diese Dreigliederung entspricht den Bereichen Geist-Seele-Leib und bildet die Grundlage für pädagogische Arbeit.",
+        "headings": [
+          {
+            "index": "^ps9e0a",
+            "text": "Die dreigliedrige Gestalt des Menschen",
+            "level": "h3"
+          },
+          {
+            "index": "^mlf4dq",
+            "text": "Kugelformen der menschlichen Glieder",
+            "level": "h4"
+          },
+          {
+            "index": "^ae85br",
+            "text": "Sichtbare und unsichtbare Wesensanteile",
+            "level": "h4"
+          },
+          {
+            "index": "^nnjres",
+            "text": "Gliedmaßen als Ausdruck des Willens",
+            "level": "h4"
+          },
+          {
+            "index": "^bxd88n",
+            "text": "Goethes Metamorphosenlehre und die Wirbeltheorie",
+            "level": "h3"
+          },
+          {
+            "index": "^e4am5s",
+            "text": "Umwandlung der Wirbelknochen zu Schädelknochen",
+            "level": "h4"
+          },
+          {
+            "index": "^ihp0zd",
+            "text": "Die Umwendung der Gliedmaßenknochen",
+            "level": "h4"
+          },
+          {
+            "index": "^stqbsz",
+            "text": "Verschiedene Mittelpunkte der Körpersysteme",
+            "level": "h4"
+          },
+          {
+            "index": "^im2uhs",
+            "text": "Der Mensch als kosmisches Wesen",
+            "level": "h3"
+          },
+          {
+            "index": "^vsix0d",
+            "text": "Das Brustsystem als Vermittler",
+            "level": "h4"
+          },
+          {
+            "index": "^hy0qvb",
+            "text": "Bewusstsein der Griechen und Ägypter",
+            "level": "h4"
+          },
+          {
+            "index": "^9slsee",
+            "text": "Bewegung und Ruhe in den Körpersystemen",
+            "level": "h3"
+          },
+          {
+            "index": "^n40jlc",
+            "text": "Der Kopf als Ruhepol",
+            "level": "h4"
+          },
+          {
+            "index": "^yex5jw",
+            "text": "Tanz als kosmische Nachahmung",
+            "level": "h4"
+          },
+          {
+            "index": "^bhby6p",
+            "text": "Von der Bewegung zum Gesang",
+            "level": "h4"
+          },
+          {
+            "index": "^64ty68",
+            "text": "Entstehung der Sinnesempfindungen",
+            "level": "h4"
+          },
+          {
+            "index": "^cbbzqs",
+            "text": "Das Konzil von 869 und die Abschaffung des Geistes",
+            "level": "h3"
+          },
+          {
+            "index": "^2hm47c",
+            "text": "Die katholische Kirche als Schöpferin des Materialismus",
+            "level": "h4"
+          },
+          {
+            "index": "^kmea2y",
+            "text": "Pädagogische Konsequenzen der kosmischen Menschenerkenntnis",
+            "level": "h3"
+          }
+        ],
+        "tableOfContents": [
+          {
+            "heading": "Die dreigliedrige Gestalt des Menschen",
+            "description": "Kopf, Brust und Gliedmaßen als verschiedene Kugelformen mit unterschiedlichen Wesensanteilen",
+            "index": "^ps9e0a"
+          },
+          {
+            "heading": "Goethes Metamorphosenlehre und die Wirbeltheorie",
+            "description": "Umwandlung von Wirbelknochen zu Schädelknochen und Umwendung der Gliedmaßenknochen",
+            "index": "^bxd88n"
+          },
+          {
+            "heading": "Der Mensch als kosmisches Wesen",
+            "description": "Verbindung der menschlichen Gestalt mit dem Makrokosmos und antikes Bewusstsein",
+            "index": "^im2uhs"
+          },
+          {
+            "heading": "Bewegung und Ruhe in den Körpersystemen",
+            "description": "Gliedmaßen als Bewegungsorgane, Kopf als Ruhepol und Entstehung der Künste",
+            "index": "^9slsee"
+          },
+          {
+            "heading": "Das Konzil von 869 und die Abschaffung des Geistes",
+            "description": "Kirchliche Leugnung des Geistes als Ursache des modernen Materialismus",
+            "index": "^cbbzqs"
+          },
+          {
+            "heading": "Pädagogische Konsequenzen der kosmischen Menschenerkenntnis",
+            "description": "Notwendigkeit kosmischer Gefühle für wahre Erziehungskunst und Pädagogik",
+            "index": "^kmea2y"
+          }
+        ],
+        "lectureKeywords": [
+          {
+            "term": "Goethe",
+            "index": "^e4am5s",
+            "heading": "Goethes Metamorphosenlehre und die Wirbeltheorie",
+            "source": "title-summary",
+            "matchType": "existing-exact",
+            "matchedExisting": "Goethe",
+            "summaryMentioned": true,
+            "confidence": 1,
+            "level": "h3"
+          },
+          {
+            "term": "Metamorphose",
+            "index": "^e4am5s",
+            "heading": "Goethes Metamorphosenlehre und die Wirbeltheorie",
+            "source": "h3",
+            "matchType": "new",
+            "summaryMentioned": false,
+            "confidence": 0.7,
+            "level": "h3"
+          },
+          {
+            "term": "Dreigliederung",
+            "index": "^ps9e0a",
+            "heading": "Die dreigliedrige Gestalt des Menschen",
+            "source": "h3",
+            "matchType": "existing-exact",
+            "matchedExisting": "Dreigliederung",
+            "summaryMentioned": true,
+            "confidence": 0.95,
+            "level": "h3"
+          },
+          {
+            "term": "Materialismus",
+            "index": "^2hm47c",
+            "heading": "Die katholische Kirche als Schöpferin des Materialismus",
+            "source": "h3",
+            "matchType": "existing-exact",
+            "matchedExisting": "Materialismus",
+            "summaryMentioned": true,
+            "confidence": 1,
+            "level": "h3"
+          },
+          {
+            "term": "Geist",
+            "index": "^cbbzqs",
+            "heading": "Das Konzil von 869 und die Abschaffung des Geistes",
+            "source": "h3",
+            "matchType": "existing-exact",
+            "matchedExisting": "Geist",
+            "summaryMentioned": true,
+            "confidence": 1,
+            "level": "h3"
+          },
+          {
+            "term": "Kunst",
+            "index": "^bhby6p",
+            "heading": "Von der Bewegung zum Gesang",
+            "source": "h3",
+            "matchType": "existing-exact",
+            "matchedExisting": "Kunst",
+            "summaryMentioned": false,
+            "confidence": 0.9,
+            "level": "h3"
+          },
+          {
+            "term": "Sinneswahrnehmung",
+            "index": "^64ty68",
+            "heading": "Entstehung der Sinnesempfindungen",
+            "source": "h3",
+            "matchType": "existing-exact",
+            "matchedExisting": "Sinneswahrnehmung",
+            "summaryMentioned": true,
+            "confidence": 0.95,
+            "level": "h3"
+          },
+          {
+            "term": "Erziehung",
+            "index": "^kmea2y",
+            "heading": "Pädagogische Konsequenzen der kosmischen Menschenerkenntnis",
+            "source": "h3",
+            "matchType": "existing-exact",
+            "matchedExisting": "Erziehung",
+            "summaryMentioned": false,
+            "confidence": 0.95,
+            "level": "h3"
+          },
+          {
+            "term": "Rhythmus",
+            "index": "^yex5jw",
+            "heading": "Tanz als kosmische Nachahmung",
+            "source": "h3",
+            "matchType": "existing-exact",
+            "matchedExisting": "Rhythmus",
+            "summaryMentioned": false,
+            "confidence": 0.85,
+            "level": "h3"
+          },
+          {
+            "term": "Konzil",
+            "index": "^cbbzqs",
+            "heading": "Das Konzil von 869 und die Abschaffung des Geistes",
+            "source": "h3",
+            "matchType": "new",
+            "summaryMentioned": true,
+            "confidence": 0.65,
+            "level": "h3"
+          },
+          {
+            "term": "Kugelform",
+            "index": "^mlf4dq",
+            "heading": "Kugelformen der menschlichen Glieder",
+            "source": "h3",
+            "matchType": "new",
+            "summaryMentioned": true,
+            "confidence": 0.6,
+            "level": "h3"
+          },
+          {
+            "term": "Kosmische Bewegungen",
+            "index": "^yex5jw",
+            "heading": "Tanz als kosmische Nachahmung",
+            "source": "h3",
+            "matchType": "new",
+            "summaryMentioned": true,
+            "confidence": 0.65,
+            "level": "h3"
+          }
+        ],
+        "version": "v2-unified"
+      },
+      {
+        "lectureNumber": "12",
+        "ID": "GA293/12",
+        "title": "ELFTER VORTRAG",
+        "fileName": "GA293/12 - ELFTER VORTRAG, 2. September 1919",
+        "location": null,
+        "date": "2. September 1919",
+        "summary": "Der Vortrag behandelt die dreifache Gliederung des Menschen in Kopf-, Brust- und Gliedmaßenmensch und deren unterschiedliche Beziehungen zu Geist, Seele und Leib. Der Kopf ist bei der Geburt bereits vollständig ausgebildet, während Geist und Seele darin schlafen oder träumen. Die Brust verbindet leiblich-seelische Elemente, und die Gliedmaßen sind von Beginn an geistig-seelisch-leiblich durchdrungen, aber unentwickelt. Die Erziehung wirkt hauptsächlich über Willen und Gemüt, um den schlafenden Kopfgeist zu wecken. Die Milch fungiert als natürlicher Wecker des kindlichen Geistes durch den Genius der Natur. Künstlerische Erziehung sollte dem intellektuellen Lernen vorangehen. Das Gleichgewicht zwischen Phantasie und Gedächtnis beeinflusst das körperliche Wachstum der Kinder während der Schulzeit.",
+        "shortSummary": "Der Mensch gliedert sich in drei Bereiche: den bei Geburt ausgebildeten Kopf mit schlafendem Geist, die vermittelnde Brust und die unentwickelten, aber geistig durchdrungenen Gliedmaßen. Erziehung muss über Willen und Gemüt den Kopfgeist wecken, wobei künstlerische Bildung vor intellektuellem Lernen stehen sollte.",
+        "headings": [
+          {
+            "index": "^vsbnwd",
+            "text": "Die dreifache Gliederung des Menschen",
+            "level": "h3"
+          },
+          {
+            "index": "^f4k294",
+            "text": "Die Kopforganisation und ihre Entwicklung",
+            "level": "h4"
+          },
+          {
+            "index": "^xocrb1",
+            "text": "Brust- und Gliedmaßenorganisation",
+            "level": "h4"
+          },
+          {
+            "index": "^l2gohp",
+            "text": "Die Aufgabe der Erziehung",
+            "level": "h3"
+          },
+          {
+            "index": "^m3y9le",
+            "text": "Grenzen und Möglichkeiten des Erziehers",
+            "level": "h4"
+          },
+          {
+            "index": "^krv5vg",
+            "text": "Der Genius in Sprache und Natur",
+            "level": "h3"
+          },
+          {
+            "index": "^hqc1mi",
+            "text": "Die Milch als natürlicher Geisterwecker",
+            "level": "h4"
+          },
+          {
+            "index": "^dtqe81",
+            "text": "Vom natürlichen zum seelischen Erziehen",
+            "level": "h4"
+          },
+          {
+            "index": "^a6pzxu",
+            "text": "Künstlerische Erziehung und kulturelle Konventionen",
+            "level": "h3"
+          },
+          {
+            "index": "^kscvzp",
+            "text": "Der Weg vom Künstlerischen zum Intellektuellen",
+            "level": "h4"
+          },
+          {
+            "index": "^s4i27j",
+            "text": "Wachstum und Erziehung in der Volksschulzeit",
+            "level": "h3"
+          },
+          {
+            "index": "^j7forn",
+            "text": "Phantasie, Gedächtnis und körperliche Entwicklung",
+            "level": "h4"
+          },
+          {
+            "index": "^8kd3ik",
+            "text": "Praktische Beobachtung der Schülerentwicklung",
+            "level": "h4"
+          }
+        ],
+        "tableOfContents": [
+          {
+            "heading": "Die dreifache Gliederung des Menschen",
+            "description": "Kopf-, Brust- und Gliedmaßenmensch in ihrer geistig-seelisch-leiblichen Verfassung",
+            "index": "^vsbnwd"
+          },
+          {
+            "heading": "Die Aufgabe der Erziehung",
+            "description": "Entwicklung des Gliedmaßen- und Brustmenschen zur Erweckung des Kopfgeistes",
+            "index": "^l2gohp"
+          },
+          {
+            "heading": "Der Genius in Sprache und Natur",
+            "description": "Natürliche Geisteskräfte als Vermittler in der frühen Kindesentwicklung",
+            "index": "^krv5vg"
+          },
+          {
+            "heading": "Künstlerische Erziehung und kulturelle Konventionen",
+            "description": "Unterschied zwischen angeborenen Fähigkeiten und kulturellen Fertigkeiten",
+            "index": "^a6pzxu"
+          },
+          {
+            "heading": "Wachstum und Erziehung in der Volksschulzeit",
+            "description": "Zusammenhang zwischen seelischer Entwicklung und körperlichem Wachstum",
+            "index": "^s4i27j"
+          }
+        ],
+        "lectureKeywords": [
+          {
+            "term": "Entwicklung",
+            "index": "^vsbnwd",
+            "heading": "Die dreifache Gliederung des Menschen",
+            "source": "title-summary",
+            "matchType": "existing-exact",
+            "matchedExisting": "Entwicklung",
+            "summaryMentioned": true,
+            "confidence": 1,
+            "level": "h3"
+          },
+          {
+            "term": "Erziehung",
+            "index": "^l2gohp",
+            "heading": "Die Aufgabe der Erziehung",
+            "source": "title-summary",
+            "matchType": "existing-exact",
+            "matchedExisting": "Erziehung",
+            "summaryMentioned": true,
+            "confidence": 1,
+            "level": "h3"
+          },
+          {
+            "term": "Bewusstsein",
+            "index": "^f4k294",
+            "heading": "Die Kopforganisation und ihre Entwicklung",
+            "source": "h3",
+            "matchType": "existing-exact",
+            "matchedExisting": "Bewusstsein",
+            "summaryMentioned": false,
+            "confidence": 1,
+            "level": "h4"
+          },
+          {
+            "term": "Kunst",
+            "index": "^a6pzxu",
+            "heading": "Künstlerische Erziehung und kulturelle Konventionen",
+            "source": "h3",
+            "matchType": "existing-exact",
+            "matchedExisting": "Kunst",
+            "summaryMentioned": true,
+            "confidence": 1,
+            "level": "h3"
+          },
+          {
+            "term": "Waldorfpädagogik",
+            "index": "^s4i27j",
+            "heading": "Wachstum und Erziehung in der Volksschulzeit",
+            "source": "h3",
+            "matchType": "existing-exact",
+            "matchedExisting": "Waldorfpädagogik",
+            "summaryMentioned": false,
+            "confidence": 0.9,
+            "level": "h3"
+          },
+          {
+            "term": "Ich",
+            "index": "^f4k294",
+            "heading": "Die Kopforganisation und ihre Entwicklung",
+            "source": "h3",
+            "matchType": "existing-exact",
+            "matchedExisting": "Ich",
+            "summaryMentioned": false,
+            "confidence": 0.9,
+            "level": "h4"
+          },
+          {
+            "term": "Sprache",
+            "index": "^krv5vg",
+            "heading": "Der Genius in Sprache und Natur",
+            "source": "h3",
+            "matchType": "existing-exact",
+            "matchedExisting": "Sprache",
+            "summaryMentioned": false,
+            "confidence": 0.95,
+            "level": "h3"
+          },
+          {
+            "term": "Materialismus",
+            "index": "^hqc1mi",
+            "heading": "Die Milch als natürlicher Geisterwecker",
+            "source": "h3",
+            "matchType": "existing-exact",
+            "matchedExisting": "Materialismus",
+            "summaryMentioned": false,
+            "confidence": 0.85,
+            "level": "h4"
+          },
+          {
+            "term": "Rhythmus",
+            "index": "^s4i27j",
+            "heading": "Wachstum und Erziehung in der Volksschulzeit",
+            "source": "h3",
+            "matchType": "existing-exact",
+            "matchedExisting": "Rhythmus",
+            "summaryMentioned": false,
+            "confidence": 0.8,
+            "level": "h3"
+          },
+          {
+            "term": "Liebe",
+            "index": "^tb5fyu",
+            "heading": "Die Kopforganisation und ihre Entwicklung",
+            "source": "h3",
+            "matchType": "existing-exact",
+            "matchedExisting": "Liebe",
+            "summaryMentioned": false,
+            "confidence": 0.85,
+            "level": "h4"
+          },
+          {
+            "term": "Individualität",
+            "index": "^l2gohp",
+            "heading": "Die Aufgabe der Erziehung",
+            "source": "h3",
+            "matchType": "existing-exact",
+            "matchedExisting": "Individualität",
+            "summaryMentioned": false,
+            "confidence": 0.9,
+            "level": "h3"
+          },
+          {
+            "term": "Dreigliederung",
+            "index": "^vsbnwd",
+            "heading": "Die dreifache Gliederung des Menschen",
+            "source": "h3",
+            "matchType": "existing-exact",
+            "matchedExisting": "Dreigliederung",
+            "summaryMentioned": true,
+            "confidence": 1,
+            "level": "h3"
+          }
+        ],
+        "version": "v2-unified"
+      },
+      {
+        "lectureNumber": "13",
+        "ID": "GA293/13",
+        "title": "ZWÖLFTER VORTRAG",
+        "fileName": "GA293/13 - ZWÖLFTER VORTRAG, 3. September 1919",
+        "location": null,
+        "date": "3. September 1919",
+        "summary": "Der menschliche Leib steht in dreifacher Beziehung zu den Naturreichen. Das Kopf-Nervensystem erzeugt übersinnlich tierische Formen, die durch Rumpf und Gliedmaßen zur Menschengestalt metamorphosiert werden - dieser Prozess manifestiert sich als Gedanken. Das Brust-Rumpfsystem vollzieht durch Atmung und Ernährung das Gegenteil der Pflanzenprozesse: Der Mensch atmet Kohlensäure aus, während Pflanzen sie assimilieren. Entstehen Vegetationsprozesse im Menschen, führt dies zu Krankheit. Das Gliedmaßensystem löst mineralische Stoffe auf und verhindert deren Kristallisation im Körper. Bei Versagen dieser Auflösungskraft entstehen Krankheiten wie Diabetes oder Gicht. Der Mensch lebt mit seinem Ich nicht in Muskeln und Fleisch, sondern in den Kräften seiner Bewegungen. Diese anthroposophische Betrachtung bildet die Grundlage für pädagogisches Verständnis der Leibesentwicklung.",
+        "shortSummary": "Der menschliche Körper steht in umgekehrter Beziehung zu den drei Naturreichen: Das Nervensystem formt tierische Prozesse zu Gedanken, das Atmungssystem kehrt Pflanzenprozesse um, und das Gliedmaßensystem löst Mineralien auf. Störungen dieser Umkehrprozesse führen zu Krankheiten.",
+        "headings": [
+          {
+            "index": "^mmi5my",
+            "text": "Die Beziehung des Menschen zu den drei Naturreichen",
+            "level": "h3"
+          },
+          {
+            "index": "^98y46y",
+            "text": "Das Kopf-Nervensystem und seine Beziehung zum Tierreich",
+            "level": "h3"
+          },
+          {
+            "index": "^egyfl9",
+            "text": "Die gestaltende Kraft des Kopfes",
+            "level": "h4"
+          },
+          {
+            "index": "^a1tz1x",
+            "text": "Die Metamorphose tierischer Formen im Menschen",
+            "level": "h4"
+          },
+          {
+            "index": "^tfvjux",
+            "text": "Gedanken als übersinnliches Korrelat der Tiergestaltung",
+            "level": "h4"
+          },
+          {
+            "index": "^n2hcao",
+            "text": "Das Brust-Rumpfsystem und die Pflanzenwelt",
+            "level": "h3"
+          },
+          {
+            "index": "^m9q8se",
+            "text": "Atmung als Anti-Pflanzenprozess",
+            "level": "h4"
+          },
+          {
+            "index": "^ab3g0k",
+            "text": "Die Verhinderung der Vegetation im Menschen",
+            "level": "h4"
+          },
+          {
+            "index": "^v9bfdk",
+            "text": "Krankheit als entstehende Pflanzlichkeit",
+            "level": "h4"
+          },
+          {
+            "index": "^550tcf",
+            "text": "Ernährung und die mittleren Naturprozesse",
+            "level": "h4"
+          },
+          {
+            "index": "^klmlce",
+            "text": "Der Zusammenhang von Seele und Leib",
+            "level": "h4"
+          },
+          {
+            "index": "^ftyntl",
+            "text": "Zukunftsperspektiven der Medizin",
+            "level": "h4"
+          },
+          {
+            "index": "^69jblv",
+            "text": "Das Gliedmaßensystem und das Mineralreich",
+            "level": "h3"
+          },
+          {
+            "index": "^qopmwe",
+            "text": "Das Leben des Ich in Kräften",
+            "level": "h4"
+          },
+          {
+            "index": "^o76tnh",
+            "text": "Die Auflösung mineralischer Stoffe",
+            "level": "h4"
+          },
+          {
+            "index": "^xeus6m",
+            "text": "Krankheit durch Mineralisierung",
+            "level": "h4"
+          },
+          {
+            "index": "^8hdtf8",
+            "text": "Anthroposophische Grundlagen für die Pädagogik",
+            "level": "h3"
+          }
+        ],
+        "tableOfContents": [
+          {
+            "heading": "Die Beziehung des Menschen zu den drei Naturreichen",
+            "description": "Grundlegende Wechselbeziehungen zwischen menschlichem Leib und physisch-sinnlicher Umwelt",
+            "index": "^mmi5my"
+          },
+          {
+            "heading": "Das Kopf-Nervensystem und seine Beziehung zum Tierreich",
+            "description": "Metamorphose tierischer Formen zur Menschengestalt und Entstehung der Gedanken",
+            "index": "^98y46y"
+          },
+          {
+            "heading": "Das Brust-Rumpfsystem und die Pflanzenwelt",
+            "description": "Atmung und Ernährung als Gegenprozesse zur Vegetation",
+            "index": "^n2hcao"
+          },
+          {
+            "heading": "Das Gliedmaßensystem und das Mineralreich",
+            "description": "Auflösung mineralischer Stoffe und Leben in Kräften",
+            "index": "^69jblv"
+          },
+          {
+            "heading": "Anthroposophische Grundlagen für die Pädagogik",
+            "description": "Zusammenfassung der leiblichen Entwicklung für pädagogische Anwendung",
+            "index": "^8hdtf8"
+          }
+        ],
+        "lectureKeywords": [
+          {
+            "term": "Ätherleib",
+            "index": "^5ep8vg",
+            "heading": "Das Kopf-Nervensystem und seine Beziehung zum Tierreich",
+            "source": "h3",
+            "matchType": "existing-exact",
+            "matchedExisting": "Ätherleib",
+            "summaryMentioned": false,
+            "confidence": 0.9,
+            "level": "h3"
+          },
+          {
+            "term": "Entwicklung",
+            "index": "^98y46y",
+            "heading": "Das Kopf-Nervensystem und seine Beziehung zum Tierreich",
+            "source": "h3",
+            "matchType": "existing-exact",
+            "matchedExisting": "Entwicklung",
+            "summaryMentioned": false,
+            "confidence": 0.95,
+            "level": "h3"
+          },
+          {
+            "term": "Ich",
+            "index": "^qopmwe",
+            "heading": "Das Leben des Ich in Kräften",
+            "source": "h3",
+            "matchType": "existing-exact",
+            "matchedExisting": "Ich",
+            "summaryMentioned": true,
+            "confidence": 1,
+            "level": "h4"
+          },
+          {
+            "term": "Naturwissenschaft",
+            "index": "^550tcf",
+            "heading": "Ernährung und die mittleren Naturprozesse",
+            "source": "h3",
+            "matchType": "existing-exact",
+            "matchedExisting": "Naturwissenschaft",
+            "summaryMentioned": false,
+            "confidence": 0.9,
+            "level": "h4"
+          },
+          {
+            "term": "Anthroposophische Medizin",
+            "index": "^v9bfdk",
+            "heading": "Krankheit als entstehende Pflanzlichkeit",
+            "source": "h3",
+            "matchType": "existing-exact",
+            "matchedExisting": "Anthroposophische Medizin",
+            "summaryMentioned": false,
+            "confidence": 0.95,
+            "level": "h4"
+          },
+          {
+            "term": "Erziehung",
+            "index": "^8hdtf8",
+            "heading": "Anthroposophische Grundlagen für die Pädagogik",
+            "source": "h3",
+            "matchType": "existing-exact",
+            "matchedExisting": "Erziehung",
+            "summaryMentioned": false,
+            "confidence": 0.9,
+            "level": "h3"
+          },
+          {
+            "term": "Bewusstsein",
+            "index": "^tfvjux",
+            "heading": "Gedanken als übersinnliches Korrelat der Tiergestaltung",
+            "source": "h3",
+            "matchType": "existing-exact",
+            "matchedExisting": "Bewusstsein",
+            "summaryMentioned": false,
+            "confidence": 0.9,
+            "level": "h4"
+          },
+          {
+            "term": "Übersinnliche Erkenntnis",
+            "index": "^tfvjux",
+            "heading": "Gedanken als übersinnliches Korrelat der Tiergestaltung",
+            "source": "h3",
+            "matchType": "existing-exact",
+            "matchedExisting": "Übersinnliche Erkenntnis",
+            "summaryMentioned": false,
+            "confidence": 0.85,
+            "level": "h4"
+          },
+          {
+            "term": "Tiere",
+            "index": "^a1tz1x",
+            "heading": "Die Metamorphose tierischer Formen im Menschen",
+            "source": "title-summary",
+            "matchType": "new",
+            "matchedExisting": "",
+            "summaryMentioned": false,
+            "confidence": 0.7,
+            "level": "h4"
+          },
+          {
+            "term": "Atmung",
+            "index": "^m9q8se",
+            "heading": "Atmung als Anti-Pflanzenprozess",
+            "source": "h3",
+            "matchType": "new",
+            "matchedExisting": "",
+            "summaryMentioned": true,
+            "confidence": 0.65,
+            "level": "h4"
+          },
+          {
+            "term": "Mineralisierung",
+            "index": "^xeus6m",
+            "heading": "Krankheit durch Mineralisierung",
+            "source": "h3",
+            "matchType": "new",
+            "matchedExisting": "",
+            "summaryMentioned": false,
+            "confidence": 0.6,
+            "level": "h4"
+          },
+          {
+            "term": "Geisteswissenschaft",
+            "index": "^8hdtf8",
+            "heading": "Anthroposophische Grundlagen für die Pädagogik",
+            "source": "h3",
+            "matchType": "existing-exact",
+            "matchedExisting": "Geisteswissenschaft",
+            "summaryMentioned": false,
+            "confidence": 0.9,
+            "level": "h3"
+          }
+        ],
+        "version": "v2-unified"
+      },
+      {
+        "lectureNumber": "14",
+        "ID": "GA293/14",
+        "title": "DREIZEHNTER VORTRAG",
+        "fileName": "GA293/14 - DREIZEHNTER VORTRAG, 4. September 1919",
+        "location": null,
+        "date": "4. September 1919",
+        "summary": "Der menschliche Organismus wird als Stauapparat für das Geistig-Seelische beschrieben, das von außen eindringt und den Menschen durchströmt. Dabei zeigt sich ein polarer Aufbau zwischen Kopf und Gliedmaßen: Das Geistig-Seelische wirkt zerstörend und saugend auf die Materie, während das Brust-Bauchsystem durch Aufbau entgegenwirkt. In den Nerven stirbt Materie ab und schafft Kanäle für das Geistig-Seelische. Körperliche Arbeit verbindet mit dem äußeren Geist, geistige Arbeit beansprucht den Leib. Übermäßige körperliche Arbeit führt zu Schlafsucht, übermäßige geistige Arbeit zu Schlafstörungen. Entscheidend ist die sinnvolle Gestaltung: Eurythmie als beseelte Bewegung statt bloßem Turnen, interessedurchdrungenes Lernen statt mechanischem Büffeln. Die Erziehung soll körperliche Arbeit vergeistigen und geistige Arbeit durchbluten.",
+        "shortSummary": "Der menschliche Organismus funktioniert als Stauapparat für das Geistig-Seelische, wobei Nerven durch Materieabbau Kanäle schaffen und ein polarer Aufbau zwischen zerstörend wirkendem Kopf-Gliedmaßen-System und aufbauendem Brust-Bauch-System besteht. Körperliche Arbeit verbindet mit äußerem Geist, geistige Arbeit beansprucht den Leib - entscheidend ist die sinnvolle Gestaltung durch Vergeistigung körperlicher",
+        "headings": [
+          {
+            "index": "^vku2u7",
+            "text": "Die polare Gestaltung des menschlichen Organismus",
+            "level": "h3"
+          },
+          {
+            "index": "^uo1d36",
+            "text": "Die Umstülpung zwischen Kopf und Gliedmaßen",
+            "level": "h4"
+          },
+          {
+            "index": "^27kno3",
+            "text": "Der Mensch als Stauapparat für das Geistig-Seelische",
+            "level": "h3"
+          },
+          {
+            "index": "^ue5pio",
+            "text": "Das zerstörende Wirken des Geistes auf die Materie",
+            "level": "h4"
+          },
+          {
+            "index": "^dercaz",
+            "text": "Die Entstehung der Nerven durch Materieverfall",
+            "level": "h4"
+          },
+          {
+            "index": "^0vl6dz",
+            "text": "Geistdurchlässige und geistundurchlässige Substanzen",
+            "level": "h3"
+          },
+          {
+            "index": "^in5ddt",
+            "text": "Das Paradoxon von körperlicher und geistiger Arbeit",
+            "level": "h3"
+          },
+          {
+            "index": "^lc0yw0",
+            "text": "Arbeit, Schlaf und die Folgen des Ungleichgewichts",
+            "level": "h4"
+          },
+          {
+            "index": "^aq2hfv",
+            "text": "Sinnvolle versus sinnlose Tätigkeit",
+            "level": "h4"
+          },
+          {
+            "index": "^590491",
+            "text": "Eurythmie als Alternative zum Sport",
+            "level": "h3"
+          },
+          {
+            "index": "^gyrqk6",
+            "text": "Die Auswirkungen geistiger Überanstrengung",
+            "level": "h3"
+          },
+          {
+            "index": "^fypleu",
+            "text": "Interesse als Lebensprinzip beim Lernen",
+            "level": "h4"
+          },
+          {
+            "index": "^2p2zph",
+            "text": "Die Grundsätze der Erziehungskunst",
+            "level": "h3"
+          }
+        ],
+        "tableOfContents": [
+          {
+            "heading": "Die polare Gestaltung des menschlichen Organismus",
+            "description": "Umstülpung zwischen Kopf und Gliedmaßen als Grundprinzip der Menschengestalt",
+            "index": "^vku2u7"
+          },
+          {
+            "heading": "Der Mensch als Stauapparat für das Geistig-Seelische",
+            "description": "Geistige Strömung durch den Menschen und deren zerstörende Wirkung",
+            "index": "^27kno3"
+          },
+          {
+            "heading": "Geistdurchlässige und geistundurchlässige Substanzen",
+            "description": "Unterschied zwischen lebendiger und toter Materie bezüglich Geistdurchlässigkeit",
+            "index": "^0vl6dz"
+          },
+          {
+            "heading": "Das Paradoxon von körperlicher und geistiger Arbeit",
+            "description": "Körperliche Arbeit als geistige und geistige Arbeit als leibliche Tätigkeit",
+            "index": "^in5ddt"
+          },
+          {
+            "heading": "Eurythmie als Alternative zum Sport",
+            "description": "Sinnvolle Bewegung gegen materialistische Körperkultur und praktischen Darwinismus",
+            "index": "^590491"
+          },
+          {
+            "heading": "Die Auswirkungen geistiger Überanstrengung",
+            "description": "Mechanisches Lernen und dessen Folgen für Schlaf und Gesundheit",
+            "index": "^gyrqk6"
+          },
+          {
+            "heading": "Die Grundsätze der Erziehungskunst",
+            "description": "Vergeistigung der körperlichen und Durchblutung der geistigen Arbeit",
+            "index": "^2p2zph"
+          }
+        ],
+        "lectureKeywords": [
+          {
+            "term": "Ätherleib",
+            "index": "^27kno3",
+            "heading": "Der Mensch als Stauapparat für das Geistig-Seelische",
+            "source": "h3",
+            "matchType": "existing-exact",
+            "matchedExisting": "Ätherleib",
+            "summaryMentioned": false,
+            "confidence": 0.9,
+            "level": "h3"
+          },
+          {
+            "term": "Materialismus",
+            "index": "^590491",
+            "heading": "Eurythmie als Alternative zum Sport",
+            "source": "h3",
+            "matchType": "existing-exact",
+            "matchedExisting": "Materialismus",
+            "summaryMentioned": false,
+            "confidence": 0.95,
+            "level": "h3"
+          },
+          {
+            "term": "Eurythmie",
+            "index": "^590491",
+            "heading": "Eurythmie als Alternative zum Sport",
+            "source": "h3",
+            "matchType": "existing-exact",
+            "matchedExisting": "Eurythmie",
+            "summaryMentioned": true,
+            "confidence": 1,
+            "level": "h3"
+          },
+          {
+            "term": "Wachen & Schlafen",
+            "index": "^lc0yw0",
+            "heading": "Arbeit, Schlaf und die Folgen des Ungleichgewichts",
+            "source": "h3",
+            "matchType": "existing-exact",
+            "matchedExisting": "Wachen & Schlafen",
+            "summaryMentioned": false,
+            "confidence": 0.9,
+            "level": "h3"
+          },
+          {
+            "term": "Rhythmus",
+            "index": "^aq2hfv",
+            "heading": "Sinnvolle versus sinnlose Tätigkeit",
+            "source": "h3",
+            "matchType": "existing-exact",
+            "matchedExisting": "Rhythmus",
+            "summaryMentioned": false,
+            "confidence": 0.85,
+            "level": "h3"
+          },
+          {
+            "term": "Waldorfpädagogik",
+            "index": "^2p2zph",
+            "heading": "Die Grundsätze der Erziehungskunst",
+            "source": "h3",
+            "matchType": "existing-exact",
+            "matchedExisting": "Waldorfpädagogik",
+            "summaryMentioned": false,
+            "confidence": 0.9,
+            "level": "h3"
+          },
+          {
+            "term": "Erziehung",
+            "index": "^2p2zph",
+            "heading": "Die Grundsätze der Erziehungskunst",
+            "source": "h3",
+            "matchType": "existing-exact",
+            "matchedExisting": "Erziehung",
+            "summaryMentioned": true,
+            "confidence": 0.95,
+            "level": "h3"
+          },
+          {
+            "term": "Geist",
+            "index": "^0vl6dz",
+            "heading": "Geistdurchlässige und geistundurchlässige Substanzen",
+            "source": "h3",
+            "matchType": "existing-exact",
+            "matchedExisting": "Geist",
+            "summaryMentioned": false,
+            "confidence": 0.9,
+            "level": "h3"
+          },
+          {
+            "term": "Stoffwechselprozesse",
+            "index": "^ue5pio",
+            "heading": "Das zerstörende Wirken des Geistes auf die Materie",
+            "source": "h3",
+            "matchType": "new",
+            "matchedExisting": null,
+            "summaryMentioned": false,
+            "confidence": 0.7,
+            "level": "h3"
+          },
+          {
+            "term": "Nervensystem",
+            "index": "^dercaz",
+            "heading": "Die Entstehung der Nerven durch Materieverfall",
+            "source": "h3",
+            "matchType": "new",
+            "matchedExisting": null,
+            "summaryMentioned": false,
+            "confidence": 0.65,
+            "level": "h3"
+          },
+          {
+            "term": "Organismus",
+            "index": "^vku2u7",
+            "heading": "Die polare Gestaltung des menschlichen Organismus",
+            "source": "h3",
+            "matchType": "new",
+            "matchedExisting": null,
+            "summaryMentioned": true,
+            "confidence": 0.6,
+            "level": "h3"
+          },
+          {
+            "term": "Polarität",
+            "index": "^uo1d36",
+            "heading": "Die Umstülpung zwischen Kopf und Gliedmaßen",
+            "source": "h3",
+            "matchType": "new",
+            "matchedExisting": null,
+            "summaryMentioned": true,
+            "confidence": 0.65,
+            "level": "h3"
+          }
+        ],
+        "version": "v2-unified"
+      },
+      {
+        "lectureNumber": "15",
+        "ID": "GA293/15",
+        "title": "VIERZEHNTER VORTRAG",
+        "fileName": "GA293/15 - VIERZEHNTER VORTRAG, 5. September 1919",
+        "location": null,
+        "date": "5. September 1919",
+        "summary": "Die leibliche Dreigliederung des Menschen zeigt sich in Kopf, Brust und Gliedmaßen, wobei jeder Teil einen ganzen Menschen darstellt. Der Kopf ist ein vollständiger Mensch mit verkümmerter Brust und Gliedmaßen. Die Gliedmaßen entsprechen umgestalteten Kinnladen eines unsichtbaren geistigen Kopfes, der den Menschen fortwährend verzehrt. Die Brust hält das Gleichgewicht zwischen beiden Extremen. Der Kehlkopf als verkümmertes Haupt erzeugt durch Sprache den Versuch, Kopf zu werden. Nach dem Zahnwechsel entwickelt sich die seelische Sprachbildung durch Grammatik. In den späteren Volksschuljahren muss die Phantasie angeregt werden, da sich die Gliedmaßennatur seelisch ausdrückt. Der Lehrer benötigt drei Grundkräfte: Phantasiefähigkeit, Mut zur Wahrheit und Verantwortlichkeitsgefühl. Pedanterie ist für den Lehrer Unmoral, da sie die lebendige Phantasie erstickt.",
+        "shortSummary": "Der Mensch gliedert sich leiblich in Kopf, Brust und Gliedmaßen, wobei jeder Teil einen vollständigen Menschen mit unterschiedlichen Entwicklungsstufen darstellt. Lehrer benötigen Phantasiefähigkeit, Mut zur Wahrheit und Verantwortungsgefühl, um die verschiedenen Entwicklungsphasen der Kinder entsprechend zu fördern.",
+        "headings": [
+          {
+            "index": "^eaauut",
+            "text": "Die leibliche Dreigliederung des Menschen",
+            "level": "h3"
+          },
+          {
+            "index": "^bdsnx9",
+            "text": "Der Kopf als ganzer Mensch",
+            "level": "h4"
+          },
+          {
+            "index": "^4l3d8d",
+            "text": "Die Gliedmaßen als umgestaltete Kinnladen",
+            "level": "h4"
+          },
+          {
+            "index": "^fwmfih",
+            "text": "Das geistige Verzehren durch die Gliedmaßen",
+            "level": "h4"
+          },
+          {
+            "index": "^vbbkwy",
+            "text": "Die Brust als vermittelndes Element",
+            "level": "h3"
+          },
+          {
+            "index": "^vbbkwy",
+            "text": "Der Kehlkopf und die Entstehung der Sprache",
+            "level": "h4"
+          },
+          {
+            "index": "^ib0eph",
+            "text": "Die Beziehung zur Sexualität",
+            "level": "h4"
+          },
+          {
+            "index": "^ybilvb",
+            "text": "Pädagogische Konsequenzen für die Entwicklungsphasen",
+            "level": "h3"
+          },
+          {
+            "index": "^ybilvb",
+            "text": "Das seelische Zahnen und die ersten Schuljahre",
+            "level": "h4"
+          },
+          {
+            "index": "^ybilvb",
+            "text": "Die Phantasieentwicklung in den späteren Jahren",
+            "level": "h4"
+          },
+          {
+            "index": "^svo87x",
+            "text": "Phantasievolle Gestaltung des Lehrstoffs",
+            "level": "h4"
+          },
+          {
+            "index": "^k4xsij",
+            "text": "Die Rolle der Phantasie im Unterricht",
+            "level": "h3"
+          },
+          {
+            "index": "^g80dn3",
+            "text": "Die drei Grundkräfte des Lehrers",
+            "level": "h3"
+          },
+          {
+            "index": "^rxryho",
+            "text": "Der kategorische Imperativ gegen Pedanterie",
+            "level": "h4"
+          },
+          {
+            "index": "^ev3709",
+            "text": "Phantasie, Wahrheit und Verantwortung",
+            "level": "h4"
+          }
+        ],
+        "tableOfContents": [
+          {
+            "heading": "Die leibliche Dreigliederung des Menschen",
+            "description": "Kopf, Brust und Gliedmaßen als drei Aspekte des ganzen Menschen",
+            "index": "^eaauut"
+          },
+          {
+            "heading": "Die Brust als vermittelndes Element",
+            "description": "Kehlkopf, Sprache und die Beziehung zur menschlichen Sexualität",
+            "index": "^vbbkwy"
+          },
+          {
+            "heading": "Pädagogische Konsequenzen für die Entwicklungsphasen",
+            "description": "Seelisches Zahnen und Phantasieentwicklung in verschiedenen Altersstufen",
+            "index": "^ybilvb"
+          },
+          {
+            "heading": "Die Rolle der Phantasie im Unterricht",
+            "description": "Phantasievolle Gestaltung des Lehrstoffs in allen Fächern",
+            "index": "^k4xsij"
+          },
+          {
+            "heading": "Die drei Grundkräfte des Lehrers",
+            "description": "Phantasie, Wahrheitsmut und Verantwortlichkeitsgefühl als pädagogische Imperative",
+            "index": "^g80dn3"
+          }
+        ],
+        "lectureKeywords": [
+          {
+            "term": "Dreigliederung",
+            "index": "^eaauut",
+            "heading": "Die leibliche Dreigliederung des Menschen",
+            "source": "title-summary",
+            "matchType": "existing-exact",
+            "matchedExisting": "Dreigliederung",
+            "summaryMentioned": true,
+            "confidence": 1,
+            "level": "h3"
+          },
+          {
+            "term": "Entwicklung",
+            "index": "^ybilvb",
+            "heading": "Pädagogische Konsequenzen für die Entwicklungsphasen",
+            "source": "h3",
+            "matchType": "existing-exact",
+            "matchedExisting": "Entwicklung",
+            "summaryMentioned": false,
+            "confidence": 0.95,
+            "level": "h3"
+          },
+          {
+            "term": "Sprache",
+            "index": "^vbbkwy",
+            "heading": "Die Brust als vermittelndes Element",
+            "source": "h3",
+            "matchType": "existing-exact",
+            "matchedExisting": "Sprache",
+            "summaryMentioned": false,
+            "confidence": 0.9,
+            "level": "h3"
+          },
+          {
+            "term": "Erziehung",
+            "index": "^ybilvb",
+            "heading": "Pädagogische Konsequenzen für die Entwicklungsphasen",
+            "source": "h3",
+            "matchType": "existing-exact",
+            "matchedExisting": "Erziehung",
+            "summaryMentioned": false,
+            "confidence": 0.9,
+            "level": "h3"
+          },
+          {
+            "term": "Waldorfpädagogik",
+            "index": "^k4xsij",
+            "heading": "Die Rolle der Phantasie im Unterricht",
+            "source": "h3",
+            "matchType": "existing-exact",
+            "matchedExisting": "Waldorfpädagogik",
+            "summaryMentioned": false,
+            "confidence": 0.85,
+            "level": "h3"
+          },
+          {
+            "term": "Imagination",
+            "index": "^k4xsij",
+            "heading": "Die Rolle der Phantasie im Unterricht",
+            "source": "h3",
+            "matchType": "existing-exact",
+            "matchedExisting": "Imagination",
+            "summaryMentioned": false,
+            "confidence": 0.8,
+            "level": "h3"
+          },
+          {
+            "term": "Wahrheit",
+            "index": "^ev3709",
+            "heading": "Die drei Grundkräfte des Lehrers",
+            "source": "h3",
+            "matchType": "existing-exact",
+            "matchedExisting": "Wahrheit",
+            "summaryMentioned": false,
+            "confidence": 0.9,
+            "level": "h3"
+          },
+          {
+            "term": "Selbsterkenntnis",
+            "index": "^4whvc8",
+            "heading": "Die drei Grundkräfte des Lehrers",
+            "source": "h3",
+            "matchType": "existing-exact",
+            "matchedExisting": "Selbsterkenntnis",
+            "summaryMentioned": false,
+            "confidence": 0.75,
+            "level": "h3"
+          },
+          {
+            "term": "Materialismus",
+            "index": "^5nnlui",
+            "heading": "Die drei Grundkräfte des Lehrers",
+            "source": "h3",
+            "matchType": "existing-exact",
+            "matchedExisting": "Materialismus",
+            "summaryMentioned": false,
+            "confidence": 0.85,
+            "level": "h3"
+          },
+          {
+            "term": "Geist",
+            "index": "^fwmfih",
+            "heading": "Die leibliche Dreigliederung des Menschen",
+            "source": "h3",
+            "matchType": "existing-exact",
+            "matchedExisting": "Geist",
+            "summaryMentioned": false,
+            "confidence": 0.9,
+            "level": "h3"
+          },
+          {
+            "term": "Phantasie",
+            "index": "^k4xsij",
+            "heading": "Die Rolle der Phantasie im Unterricht",
+            "source": "h3",
+            "matchType": "new",
+            "matchedExisting": null,
+            "summaryMentioned": true,
+            "confidence": 0.7,
+            "level": "h3"
+          },
+          {
+            "term": "Kehlkopf",
+            "index": "^vbbkwy",
+            "heading": "Die Brust als vermittelndes Element",
+            "source": "h3",
+            "matchType": "new",
+            "matchedExisting": null,
+            "summaryMentioned": false,
+            "confidence": 0.65,
+            "level": "h3"
+          }
+        ],
+        "version": "v2-unified"
+      },
+      {
+        "lectureNumber": "16",
+        "ID": "GA293/16",
+        "title": "Aus der Ansprache zur Eröffnungsfeier der Freien Waldorfschule",
+        "fileName": "GA293/16 - Aus der Ansprache zur Eröffnungsfeier der Freien Waldorfschule, mit Geleitworten von Marie Steiner, 7. September 1919",
+        "location": "mit Geleitworten von Marie Steiner",
+        "date": "7. September 1919",
+        "summary": "Die Allgemeine Menschenkunde bildet die Grundlage der Waldorfpädagogik und erfordert eine vollständige geistige Erneuerung der Erziehungskunst. Die gegenwärtige Wissenschaft mit ihrer mechanistischen Weltanschauung kann nicht zur lebendigen Kunst des Erziehens führen. Erziehung muss als dreifache heilige Pflicht verstanden werden: als lebendig werdende Wissenschaft, Kunst und Religion. Die Geisteswissenschaft ermöglicht eine neue Wissenschaftsgesinnung, die den Geist in allem Naturdasein erkennt. Die Menschheitsentwicklung zeigt große Metamorphosen, besonders seit dem 15. Jahrhundert. Lehrer benötigen ein prophetisches Zusammengewachsensein mit der kommenden Entwicklung der Menschheit. Die Waldorfschule strebt nicht nach dogmatischer Weltanschauung, sondern nach einer erziehungs-künstlerischen Methodik, die aus lebendiger Geisteswissenschaft hervorgeht und das Göttlich-Geistige im werdenden Menschen pflegt.",
+        "shortSummary": "Die Waldorfpädagogik basiert auf einer geisteswissenschaftlichen Erneuerung der Erziehung, die über die mechanistische Weltanschauung hinausgeht und Erziehung als Einheit von Wissenschaft, Kunst und Religion versteht. Lehrer sollen durch prophetisches Verständnis der Menschheitsentwicklung eine erziehungs-künstlerische Methodik entwickeln, die das Geistige im Menschen pflegt.",
+        "headings": [
+          {
+            "index": "^11m114",
+            "text": "Die Grundlagen der Allgemeinen Menschenkunde",
+            "level": "h3"
+          },
+          {
+            "index": "^o72cz0",
+            "text": "Die dreifache heilige Pflicht der Erziehung",
+            "level": "h4"
+          },
+          {
+            "index": "^0hwcjx",
+            "text": "Lebendig werdende Wissenschaft, Kunst und Religion",
+            "level": "h4"
+          },
+          {
+            "index": "^nv14q9",
+            "text": "Die Notwendigkeit einer neuen Wissenschaftsgesinnung",
+            "level": "h3"
+          },
+          {
+            "index": "^lpf938",
+            "text": "Der neue Geist für die Erziehungskunst",
+            "level": "h4"
+          },
+          {
+            "index": "^35y7pw",
+            "text": "Die Metamorphosen der Menschheitsentwicklung",
+            "level": "h3"
+          },
+          {
+            "index": "^qoe4lh",
+            "text": "Der große Sprung im 15. Jahrhundert",
+            "level": "h4"
+          },
+          {
+            "index": "^u1u5xx",
+            "text": "Das prophetische Element in der Erziehung",
+            "level": "h3"
+          },
+          {
+            "index": "^nd4bz6",
+            "text": "Zusammengewachsensein mit der kommenden Menschheitsentwicklung",
+            "level": "h4"
+          },
+          {
+            "index": "^rxypro",
+            "text": "Lebendige Geisteswissenschaft als Erziehungskunst",
+            "level": "h3"
+          },
+          {
+            "index": "^7vfqsv",
+            "text": "Die erziehungs-künstlerische Schule",
+            "level": "h4"
+          }
+        ],
+        "tableOfContents": [
+          {
+            "heading": "Die Grundlagen der Allgemeinen Menschenkunde",
+            "description": "Menschenerkenntnis als Basis der Waldorfpädagogik und dreifache Erziehungspflicht",
+            "index": "^11m114"
+          },
+          {
+            "heading": "Die Notwendigkeit einer neuen Wissenschaftsgesinnung",
+            "description": "Überwindung der mechanistischen Weltanschauung durch lebendige Geisteswissenschaft",
+            "index": "^nv14q9"
+          },
+          {
+            "heading": "Die Metamorphosen der Menschheitsentwicklung",
+            "description": "Große geschichtliche Sprünge und der Wandel seit dem 15. Jahrhundert",
+            "index": "^35y7pw"
+          },
+          {
+            "heading": "Das prophetische Element in der Erziehung",
+            "description": "Verbindung mit kommender Menschheitsentwicklung als Grundlage der Erziehungskunst",
+            "index": "^u1u5xx"
+          },
+          {
+            "heading": "Lebendige Geisteswissenschaft als Erziehungskunst",
+            "description": "Methodische Didaktik statt dogmatischer Weltanschauung in der Waldorfschule",
+            "index": "^rxypro"
+          }
+        ],
+        "lectureKeywords": [
+          {
+            "term": "Waldorfpädagogik",
+            "index": "^11m114",
+            "heading": "Die Grundlagen der Allgemeinen Menschenkunde",
+            "source": "title-summary",
+            "matchType": "existing-exact",
+            "matchedExisting": "Waldorfpädagogik",
+            "summaryMentioned": true,
+            "confidence": 1,
+            "level": "h3"
+          },
+          {
+            "term": "Erziehung",
+            "index": "^o72cz0",
+            "heading": "Die dreifache heilige Pflicht der Erziehung",
+            "source": "title-summary",
+            "matchType": "existing-exact",
+            "matchedExisting": "Erziehung",
+            "summaryMentioned": true,
+            "confidence": 1,
+            "level": "h4"
+          },
+          {
+            "term": "Geisteswissenschaft",
+            "index": "^nv14q9",
+            "heading": "Die Notwendigkeit einer neuen Wissenschaftsgesinnung",
+            "source": "h3",
+            "matchType": "existing-exact",
+            "matchedExisting": "Geisteswissenschaft",
+            "summaryMentioned": true,
+            "confidence": 1,
+            "level": "h3"
+          },
+          {
+            "term": "Kunst",
+            "index": "^0hwcjx",
+            "heading": "Lebendig werdende Wissenschaft, Kunst und Religion",
+            "source": "h3",
+            "matchType": "existing-exact",
+            "matchedExisting": "Kunst",
+            "summaryMentioned": true,
+            "confidence": 1,
+            "level": "h4"
+          },
+          {
+            "term": "Religion",
+            "index": "^kg58xg",
+            "heading": "Lebendig werdende Wissenschaft, Kunst und Religion",
+            "source": "h3",
+            "matchType": "existing-exact",
+            "matchedExisting": "Religion",
+            "summaryMentioned": true,
+            "confidence": 1,
+            "level": "h4"
+          },
+          {
+            "term": "Materialismus",
+            "index": "^nv14q9",
+            "heading": "Die Notwendigkeit einer neuen Wissenschaftsgesinnung",
+            "source": "h3",
+            "matchType": "existing-exact",
+            "matchedExisting": "Materialismus",
+            "summaryMentioned": false,
+            "confidence": 0.95,
+            "level": "h3"
+          },
+          {
+            "term": "Menschheitsentwicklung",
+            "index": "^35y7pw",
+            "heading": "Die Metamorphosen der Menschheitsentwicklung",
+            "source": "h3",
+            "matchType": "existing-exact",
+            "matchedExisting": "Menschheitsentwicklung",
+            "summaryMentioned": true,
+            "confidence": 1,
+            "level": "h3"
+          },
+          {
+            "term": "Kultur",
+            "index": "^nv14q9",
+            "heading": "Die Notwendigkeit einer neuen Wissenschaftsgesinnung",
+            "source": "h3",
+            "matchType": "existing-exact",
+            "matchedExisting": "Kultur",
+            "summaryMentioned": false,
+            "confidence": 0.9,
+            "level": "h3"
+          },
+          {
+            "term": "Individualität",
+            "index": "^qoe4lh",
+            "heading": "Der große Sprung im 15. Jahrhundert",
+            "source": "h3",
+            "matchType": "existing-exact",
+            "matchedExisting": "Individualität",
+            "summaryMentioned": false,
+            "confidence": 0.9,
+            "level": "h4"
+          },
+          {
+            "term": "Entwicklung",
+            "index": "^u1u5xx",
+            "heading": "Das prophetische Element in der Erziehung",
+            "source": "h3",
+            "matchType": "existing-exact",
+            "matchedExisting": "Entwicklung",
+            "summaryMentioned": true,
+            "confidence": 1,
+            "level": "h3"
+          },
+          {
+            "term": "Anthroposophie",
+            "index": "^rxypro",
+            "heading": "Lebendige Geisteswissenschaft als Erziehungskunst",
+            "source": "h3",
+            "matchType": "existing-exact",
+            "matchedExisting": "Anthroposophie",
+            "summaryMentioned": false,
+            "confidence": 0.9,
+            "level": "h3"
+          },
+          {
+            "term": "Geist",
+            "index": "^lpf938",
+            "heading": "Der neue Geist für die Erziehungskunst",
+            "source": "h3",
+            "matchType": "existing-exact",
+            "matchedExisting": "Geist",
+            "summaryMentioned": true,
+            "confidence": 1,
+            "level": "h4"
+          }
+        ],
+        "version": "v2-unified"
+      },
+      {
+        "lectureNumber": "17",
+        "ID": "GA293/17",
+        "title": "Spirituelle Gemeinschaftsbildung im Kollegium",
+        "fileName": "GA293/17 - Spirituelle Gemeinschaftsbildung im Kollegium",
+        "location": null,
+        "date": "",
+        "summary": "Drei verschiedene Aufzeichnungen dokumentieren Rudolf Steiners Eröffnungsworte für den ersten Waldorfschul-Lehrerkurs im August 1919. Die Darstellung beschreibt die hierarchische Verbindung zwischen den Lehrern und den Wesen der dritten Hierarchie. Engel stehen hinter jedem einzelnen Lehrer und spenden Kraft für imaginative pädagogische Arbeit. Erzengel kreisen über den Häuptern der Lehrerschaft, tragen die geistigen Früchte von einem zum anderen und bilden aus ihrem Wirken eine Schale des Mutes. Die Archai, als höchste Wesen der dritten Hierarchie, lassen einen Tropfen des Lichtes in diese Mutschale fallen. Dieser Lichttropfen stammt vom guten Zeitgeist und verleiht intuitive Kräfte für das pädagogische Werk. Die drei Erkenntnisstufen Imagination, Inspiration und Intuition entsprechen den drei Hierarchieebenen und sollen das neue Schulwerk geistig durchdringen.",
+        "shortSummary": "Engel, Erzengel und Archai der dritten Hierarchie unterstützen Waldorflehrer durch imaginative Kraft, Mut und intuitive Erkenntnisfähigkeiten. Die drei Hierarchieebenen entsprechen den Erkenntnisstufen Imagination, Inspiration und Intuition für die pädagogische Arbeit.",
+        "headings": [
+          {
+            "index": "^sorjhf",
+            "text": "Die Aufzeichnungen von Caroline von Heydebrand",
+            "level": "h3"
+          },
+          {
+            "index": "^0gfmg1",
+            "text": "Das Wirken der drei Hierarchien",
+            "level": "h4"
+          },
+          {
+            "index": "^aua5s9",
+            "text": "Die Dokumentation von Herbert Hahn",
+            "level": "h3"
+          },
+          {
+            "index": "^hfybh2",
+            "text": "Die Engel als Kraftspender",
+            "level": "h4"
+          },
+          {
+            "index": "^arm0fx",
+            "text": "Die Erzengel und die Schale des Mutes",
+            "level": "h4"
+          },
+          {
+            "index": "^jt004u",
+            "text": "Die Archai und der Lichttropfen",
+            "level": "h4"
+          },
+          {
+            "index": "^ys37sk",
+            "text": "Ergänzende Notizen von Herbert Hahn",
+            "level": "h3"
+          },
+          {
+            "index": "^zweia2",
+            "text": "Walter Johannes Steins Tagebucheintragung",
+            "level": "h3"
+          },
+          {
+            "index": "^vurs1v",
+            "text": "Die dreifache Gliederung der Hierarchien",
+            "level": "h4"
+          }
+        ],
+        "tableOfContents": [
+          {
+            "heading": "Die Aufzeichnungen von Caroline von Heydebrand",
+            "description": "Erste Dokumentation der hierarchischen Verbindung mit den Lehrern",
+            "index": "^sorjhf"
+          },
+          {
+            "heading": "Die Dokumentation von Herbert Hahn",
+            "description": "Ausführliche Beschreibung der drei Hierarchieebenen und ihrer Wirkungen",
+            "index": "^aua5s9"
+          },
+          {
+            "heading": "Ergänzende Notizen von Herbert Hahn",
+            "description": "Zusammenfassende Darstellung der hierarchischen Unterstützung",
+            "index": "^ys37sk"
+          },
+          {
+            "heading": "Walter Johannes Steins Tagebucheintragung",
+            "description": "Stichwortartige Aufzeichnung der Kurseröffnung vom 21. August 1919",
+            "index": "^zweia2"
+          }
+        ],
+        "lectureKeywords": [
+          {
+            "term": "Waldorfpädagogik",
+            "index": "^aua5s9",
+            "heading": "Summary",
+            "source": "title-summary",
+            "matchType": "existing-exact",
+            "matchedExisting": "Waldorfpädagogik",
+            "summaryMentioned": true,
+            "confidence": 1,
+            "level": "h3"
+          },
+          {
+            "term": "Geistige Hierarchien",
+            "index": "^0gfmg1",
+            "heading": "Das Wirken der drei Hierarchien",
+            "source": "h3",
+            "matchType": "existing-exact",
+            "matchedExisting": "Geistige Hierarchien",
+            "summaryMentioned": true,
+            "confidence": 1,
+            "level": "h3"
+          },
+          {
+            "term": "Imagination",
+            "index": "^hfybh2",
+            "heading": "Die Engel als Kraftspender",
+            "source": "h3",
+            "matchType": "existing-exact",
+            "matchedExisting": "Imagination",
+            "summaryMentioned": true,
+            "confidence": 0.95,
+            "level": "h3"
+          },
+          {
+            "term": "Inspiration",
+            "index": "^choozd",
+            "heading": "Die Erzengel und die Schale des Mutes",
+            "source": "h3",
+            "matchType": "existing-exact",
+            "matchedExisting": "Inspiration",
+            "summaryMentioned": true,
+            "confidence": 0.95,
+            "level": "h3"
+          },
+          {
+            "term": "Intuition",
+            "index": "^jt004u",
+            "heading": "Die Archai und der Lichttropfen",
+            "source": "h3",
+            "matchType": "existing-exact",
+            "matchedExisting": "Intuition",
+            "summaryMentioned": true,
+            "confidence": 0.95,
+            "level": "h3"
+          },
+          {
+            "term": "Erziehung",
+            "index": "^aua5s9",
+            "heading": "Die Dokumentation von Herbert Hahn",
+            "source": "h3",
+            "matchType": "existing-exact",
+            "matchedExisting": "Erziehung",
+            "summaryMentioned": false,
+            "confidence": 0.9,
+            "level": "h3"
+          },
+          {
+            "term": "Kultur",
+            "index": "^aua5s9",
+            "heading": "Die Dokumentation von Herbert Hahn",
+            "source": "h3",
+            "matchType": "existing-exact",
+            "matchedExisting": "Kultur",
+            "summaryMentioned": false,
+            "confidence": 0.85,
+            "level": "h3"
+          },
+          {
+            "term": "Mut",
+            "index": "^arm0fx",
+            "heading": "Die Erzengel und die Schale des Mutes",
+            "source": "h3",
+            "matchType": "new",
+            "matchedExisting": null,
+            "summaryMentioned": true,
+            "confidence": 0.7,
+            "level": "h3"
+          },
+          {
+            "term": "Licht",
+            "index": "^jt004u",
+            "heading": "Die Archai und der Lichttropfen",
+            "source": "h3",
+            "matchType": "new",
+            "matchedExisting": null,
+            "summaryMentioned": true,
+            "confidence": 0.7,
+            "level": "h3"
+          },
+          {
+            "term": "Zeitgeist",
+            "index": "^jt004u",
+            "heading": "Die Archai und der Lichttropfen",
+            "source": "h3",
+            "matchType": "new",
+            "matchedExisting": null,
+            "summaryMentioned": true,
+            "confidence": 0.65,
+            "level": "h3"
+          },
+          {
+            "term": "Engel",
+            "index": "^hfybh2",
+            "heading": "Die Engel als Kraftspender",
+            "source": "h3",
+            "matchType": "new",
+            "matchedExisting": null,
+            "summaryMentioned": true,
+            "confidence": 0.65,
+            "level": "h3"
+          }
+        ],
+        "version": "v2-unified"
+      }
+    ]
+  }
+}
