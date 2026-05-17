@@ -1,19 +1,31 @@
 {
 	"folders": [
 		{
+			"name": "ga_suche",
 			"path": "."
 		},
 		{
+			"name": "Lit Gotheanismus",
+			"path": "../../Goetheanismus/Lit Gotheanismus"
+		},
+		{
+			"name": "Lit Organism",
 			"path": "../../Desktop/Lit Organism"
 		},
 		{
+			"name": "Obsidian Organik",
 			"path": "../../Obsidian/Obsidian Organik"
 		},
 		{
+			"name": "Texte",
 			"path": "../../Texte"
 		},
 		{
+			"name": "Unterricht Seewalde",
 			"path": "../../Unterricht & Seminare/Unterricht Seewalde"
+		},
+		{
+			"path": "../../Die Drei Zeitschrift"
 		}
 	],
 	"settings": {
@@ -23,6 +35,6 @@
 		"editor.wordWrap": "wordWrapColumn",
 		"diffEditor.wordWrap": "on",
 		"editor.wordWrapColumn": 120,
-		"editor.fontFamily": "Monspace"
+		"editor.fontFamily": "monospace"
 	}
 }
