@@ -2755,7 +2755,7 @@ Begriffe für "${term}":`;
         'anthropic-version': '2023-06-01'
       },
       body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514',
+        model: 'claude-sonnet-4-6',
         max_tokens: 400,
         messages: [{
           role: 'user',
@@ -5244,27 +5244,77 @@ ANALYSE:`;
                             : thematicMode === 'quote' ? maxTokens['quote']
                             : maxTokens['ausführlich'];
 
+  // Modell pro Modus aus .env (mit sinnvollen Defaults).
+  // Tiefe -> Opus 4.8 (qualitative Synthese), Zitat -> Sonnet 4.6 (schnell),
+  // Zitat-Eskalation -> Opus 4.8, Breite -> Gemini 2.5 Pro (großer Kontext).
+  const providerNameLower = (provider.name || '').toLowerCase();
+  let modelForMode = null;
+  if (providerNameLower === 'claude') {
+    if (thematicMode === 'deep') {
+      modelForMode = process.env.CLAUDE_MODEL_DEEP || 'claude-opus-4-8';
+    } else if (thematicMode === 'quote') {
+      modelForMode = process.env.CLAUDE_MODEL_QUOTE || 'claude-sonnet-4-6';
+    }
+  } else if (providerNameLower === 'gemini') {
+    if (thematicMode === 'broad') {
+      modelForMode = process.env.GEMINI_MODEL_BROAD || 'gemini-2.5-pro';
+    }
+  }
+
   try {
-    
-    // Verwende Provider-Abstraction
+
     // Im Quote-Modus deterministischer (temperature niedrig), damit das Modell
     // weniger zu Kreativität/Paraphrasierung neigt.
+    // Hinweis: Opus 4.7+ ignoriert temperature ohnehin – das wird im
+    // ClaudeProvider transparent gehandhabt.
     const effectiveTemperature = thematicMode === 'quote' ? 0.1 : 0.7;
-    let analysisText = await provider.generateCompletion(prompt, {
+    const baseCallOptions = {
       maxTokens: effectiveMaxTokens,
       temperature: effectiveTemperature
-    });
+    };
+    if (modelForMode) baseCallOptions.model = modelForMode;
+
+    console.log(`[ANALYSIS] Provider=${provider.name}, Modell=${modelForMode || '(provider-default)'}, Modus=${thematicMode}`);
+
+    let analysisText = await provider.generateCompletion(prompt, baseCallOptions);
 
     // Im Quote-Modus: Halluzinations-Filter. Jedes ausgegebene Zitat muss wörtlich
     // (ggf. mit Auslassungen) in den bereitgestellten Textpassagen vorkommen,
     // sonst wird es entfernt.
     if (thematicMode === 'quote') {
-      const validation = validateQuoteAnalysis(analysisText, topResults);
+      let validation = validateQuoteAnalysis(analysisText, topResults);
       analysisText = validation.text;
       if (validation.removed > 0 && validation.hasValidResults) {
-        console.log(`[QUOTE-VALIDATOR] ${validation.removed} Zitat(e) gefiltert, ${validation.hasValidResults ? 'verbleibende valide Treffer im Output' : 'keine validen Treffer übrig'}`);
+        console.log(`[QUOTE-VALIDATOR] ${validation.removed} Zitat(e) gefiltert, verbleibende valide Treffer im Output`);
       } else if (!validation.hasValidResults) {
         console.log(`[QUOTE-VALIDATOR] Alle ${validation.removed} Zitate halluziniert/nicht im Korpus → "Kein passendes Zitat gefunden"`);
+      }
+
+      // AUTO-ESKALATION: Wenn Sonnet (oder das primär konfigurierte Modell)
+      // kein gültiges Zitat findet, automatisch erneut mit dem Fallback-Modell
+      // (typischerweise Opus 4.8) versuchen. Nur wenn wir nicht schon das
+      // Fallback-Modell verwenden.
+      const fallbackModel = process.env.CLAUDE_MODEL_QUOTE_FALLBACK || 'claude-opus-4-8';
+      const isClaude = providerNameLower === 'claude';
+      const alreadyOnFallback = modelForMode === fallbackModel;
+
+      if (!validation.hasValidResults && isClaude && !alreadyOnFallback && fallbackModel) {
+        console.log(`[QUOTE-ESCALATE] Kein gültiges Zitat mit ${modelForMode || '(default)'} → Eskalation auf ${fallbackModel}`);
+        try {
+          const escalatedText = await provider.generateCompletion(prompt, {
+            ...baseCallOptions,
+            model: fallbackModel
+          });
+          const validation2 = validateQuoteAnalysis(escalatedText, topResults);
+          if (validation2.hasValidResults) {
+            console.log(`[QUOTE-ESCALATE] Erfolg mit ${fallbackModel}: ${validation2.removed} halluziniert gefiltert, valide Treffer übernommen`);
+            analysisText = validation2.text;
+          } else {
+            console.log(`[QUOTE-ESCALATE] Auch ${fallbackModel} fand kein gültiges Zitat → "Kein passendes Zitat gefunden" bleibt`);
+          }
+        } catch (escErr) {
+          console.warn(`[QUOTE-ESCALATE] Eskalation fehlgeschlagen (${fallbackModel}): ${escErr.message}`);
+        }
       }
     }
 
@@ -7900,7 +7950,7 @@ app.get('/debug/status', async (req, res) => {
           'anthropic-version': '2023-06-01'
         },
         body: JSON.stringify({
-          model: 'claude-sonnet-4-20250514',
+          model: 'claude-sonnet-4-6',
           max_tokens: 10,
           messages: [{
             role: 'user',
@@ -7976,7 +8026,7 @@ app.get('/api/test-claude-key', async (req, res) => {
           'anthropic-version': '2023-06-01'
         },
         body: JSON.stringify({
-          model: 'claude-sonnet-4-20250514',
+          model: 'claude-sonnet-4-6',
           max_tokens: 50,
           messages: [{
             role: 'user',
@@ -12809,7 +12859,7 @@ SCHLAGWÖRTER:`;
         'anthropic-version': '2023-06-01'
       },
       body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514',
+        model: 'claude-sonnet-4-6',
         max_tokens: 2000,
         messages: [{
           role: 'user',
@@ -18847,7 +18897,7 @@ Wichtig: Ein Eintrag pro Überschrift! Antworte NUR mit dem JSON-Array, ohne zus
         'anthropic-version': '2023-06-01'
       },
       body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514',
+        model: 'claude-sonnet-4-6',
         max_tokens: 4096,
         messages: [{
           role: 'user',
@@ -20280,7 +20330,7 @@ ANTWORTE im folgenden JSON-Format:
         'anthropic-version': '2023-06-01'
       },
       body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514',
+        model: 'claude-sonnet-4-6',
         max_tokens: 8000,
         temperature: 0.3,
         messages: [{
@@ -20887,7 +20937,7 @@ Antworte NUR mit dem JSON-Objekt, ohne zusätzlichen Text.`;
         'anthropic-version': '2023-06-01'
       },
       body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514',
+        model: 'claude-sonnet-4-6',
         max_tokens: 8192,
         messages: [{
           role: 'user',
@@ -21101,7 +21151,7 @@ ANTWORTE im folgenden JSON-Format:
         'anthropic-version': '2023-06-01'
       },
       body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514',
+        model: 'claude-sonnet-4-6',
         max_tokens: 16000,
         temperature: 0.3,
         messages: [{
@@ -21686,7 +21736,7 @@ app.post('/api/generate-keywords', async (req, res) => {
             keywords: keywords,
             theme: null,
             generated: new Date().toISOString(),
-            model: 'claude-sonnet-4',
+            model: 'claude-sonnet-4-6',
             source: 'headings',
             gaVolume: volume
           });
@@ -21801,7 +21851,7 @@ app.post('/api/generate-keywords', async (req, res) => {
           keywords: keywords,
           theme: null,
           generated: new Date().toISOString(),
-          model: 'claude-sonnet-4',
+          model: 'claude-sonnet-4-6',
           source: 'headings'
         });
         
@@ -21886,7 +21936,7 @@ app.post('/api/generate-keywords', async (req, res) => {
         keywords: keywords,
         theme: null,
         generated: new Date().toISOString(),
-        model: 'claude-sonnet-4',
+        model: 'claude-sonnet-4-6',
         source: 'headings'
       });
       

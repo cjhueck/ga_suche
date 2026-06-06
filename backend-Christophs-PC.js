@@ -1695,7 +1695,7 @@ Begriffe für "${term}":`;
         'anthropic-version': '2023-06-01'
       },
       body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514',
+        model: 'claude-sonnet-4-6',
         max_tokens: 400,
         messages: [{
           role: 'user',
@@ -6092,7 +6092,7 @@ app.get('/debug/status', async (req, res) => {
           'anthropic-version': '2023-06-01'
         },
         body: JSON.stringify({
-          model: 'claude-sonnet-4-20250514',
+          model: 'claude-sonnet-4-6',
           max_tokens: 10,
           messages: [{
             role: 'user',
@@ -6167,7 +6167,7 @@ app.get('/api/test-claude-key', async (req, res) => {
           'anthropic-version': '2023-06-01'
         },
         body: JSON.stringify({
-          model: 'claude-sonnet-4-20250514',
+          model: 'claude-sonnet-4-6',
           max_tokens: 50,
           messages: [{
             role: 'user',
@@ -9904,7 +9904,7 @@ SCHLAGWÖRTER:`;
         'anthropic-version': '2023-06-01'
       },
       body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514',
+        model: 'claude-sonnet-4-6',
         max_tokens: 2000,
         messages: [{
           role: 'user',
@@ -15484,7 +15484,7 @@ Wichtig: Ein Eintrag pro Überschrift! Antworte NUR mit dem JSON-Array, ohne zus
         'anthropic-version': '2023-06-01'
       },
       body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514',
+        model: 'claude-sonnet-4-6',
         max_tokens: 4096,
         messages: [{
           role: 'user',
@@ -16917,7 +16917,7 @@ ANTWORTE im folgenden JSON-Format:
         'anthropic-version': '2023-06-01'
       },
       body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514',
+        model: 'claude-sonnet-4-6',
         max_tokens: 8000,
         temperature: 0.3,
         messages: [{
@@ -17446,7 +17446,7 @@ Antworte NUR mit dem JSON-Objekt, ohne zusätzlichen Text.`;
         'anthropic-version': '2023-06-01'
       },
       body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514',
+        model: 'claude-sonnet-4-6',
         max_tokens: 8192,
         messages: [{
           role: 'user',
@@ -17660,7 +17660,7 @@ ANTWORTE im folgenden JSON-Format:
         'anthropic-version': '2023-06-01'
       },
       body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514',
+        model: 'claude-sonnet-4-6',
         max_tokens: 16000,
         temperature: 0.3,
         messages: [{
@@ -18206,7 +18206,7 @@ app.post('/api/generate-keywords', async (req, res) => {
             keywords: keywords,
             theme: null,
             generated: new Date().toISOString(),
-            model: 'claude-sonnet-4',
+            model: 'claude-sonnet-4-6',
             source: 'headings',
             gaVolume: volume
           });
@@ -18321,7 +18321,7 @@ app.post('/api/generate-keywords', async (req, res) => {
           keywords: keywords,
           theme: null,
           generated: new Date().toISOString(),
-          model: 'claude-sonnet-4',
+          model: 'claude-sonnet-4-6',
           source: 'headings'
         });
         
@@ -18406,7 +18406,7 @@ app.post('/api/generate-keywords', async (req, res) => {
         keywords: keywords,
         theme: null,
         generated: new Date().toISOString(),
-        model: 'claude-sonnet-4',
+        model: 'claude-sonnet-4-6',
         source: 'headings'
       });
       
