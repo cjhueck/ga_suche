@@ -124,6 +124,26 @@ class ClaudeProvider extends LLMProvider {
       throw new Error('Claude API Key nicht gesetzt (CLAUDE_API_KEY_PRIMARY / CLAUDE_API_KEY_SECONDARY / CLAUDE_API_KEY)');
     }
 
+    const model = options.model || 'claude-sonnet-4-6';
+
+    // Opus 4.7 / 4.8 (und höher) sind "adaptive thinking only":
+    // temperature / top_p / top_k werden ignoriert bzw. lösen 400 Fehler aus.
+    const adaptiveOnly = /-opus-4-(?:[7-9]|\d{2,})\b/.test(model);
+
+    const requestBody = {
+      model,
+      max_tokens: options.maxTokens || 16384,
+      messages: [{
+        role: 'user',
+        content: prompt
+      }]
+    };
+    if (!adaptiveOnly) {
+      requestBody.temperature = (options.temperature !== undefined && options.temperature !== null)
+        ? options.temperature
+        : 0.7;
+    }
+
     const response = await fetch('https://api.anthropic.com/v1/messages', {
       method: 'POST',
       headers: {
@@ -131,15 +151,7 @@ class ClaudeProvider extends LLMProvider {
         'x-api-key': this.apiKey,
         'anthropic-version': '2023-06-01'
       },
-      body: JSON.stringify({
-        model: options.model || 'claude-sonnet-4-20250514',
-        max_tokens: options.maxTokens || 16384,  // Erhöht von 4096 auf 16384
-        temperature: options.temperature || 0.7,
-        messages: [{
-          role: 'user',
-          content: prompt
-        }]
-      })
+      body: JSON.stringify(requestBody)
     });
 
     if (!response.ok) {
