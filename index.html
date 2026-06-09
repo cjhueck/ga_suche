@@ -2213,11 +2213,14 @@
         }
         
         // Return Promise für besseres Error Handling
+        // keepalive: true sorgt dafür, dass der Request auch dann durchgeht,
+        // wenn der Klick gleichzeitig eine externe Seite öffnet (target="_blank").
         return fetch(url, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(trackBody),
-          mode: 'cors'
+          mode: 'cors',
+          keepalive: true
         }).then(response => {
           if (!response.ok) {
             throw new Error(`HTTP ${response.status}: ${response.statusText}`);
