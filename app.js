@@ -640,8 +640,12 @@ const isLocal = window.location.hostname === 'localhost' ||
                 delete ts[src];
               }
             });
-            var localOnlyTabs = { zitate: 1, keywords: 1, docs: 1 };
-            var entries = Object.entries(ts).filter(function(e) { return !localOnlyTabs[e[0]] && !/^fn\d|^fnref\d/.test(e[0]); }).sort(function(a,b) { return b[1] - a[1]; });
+            // Tabs, die nicht in der allgemeinen Tab-Liste auftauchen sollen.
+            // entwicklung_kind und goetheanismus werden separat unter
+            // "Externe Sammlungen" angezeigt, damit sie nicht in der Tab-Liste
+            // mit den internen Tabs vermischt werden.
+            var excludeFromTabList = { zitate: 1, keywords: 1, docs: 1, entwicklung_kind: 1, goetheanismus: 1 };
+            var entries = Object.entries(ts).filter(function(e) { return !excludeFromTabList[e[0]] && !/^fn\d|^fnref\d/.test(e[0]); }).sort(function(a,b) { return b[1] - a[1]; });
             if (entries.length === 0) {
               if (data.tabsMigrationNeeded) {
                 return '<div class="analytics-section"><h3>Aufrufe je Tab</h3><p style="font-size:0.85em;color:#c9433d;">Supabase-Migration erforderlich: Bitte <code>supabase-analytics-tabs-quotes.sql</code> im Supabase SQL Editor ausführen</p></div>';
@@ -659,6 +663,31 @@ const isLocal = window.location.hostname === 'localhost' ||
                     '<div style="height:100%;width:' + pct + '%;background:var(--accent-color);border-radius:3px;min-width:2px;"></div>' +
                   '</div>' +
                   '<strong style="font-size:0.85em;color:var(--accent-color);text-align:right;">' + e[1] + '</strong>';
+              }).join('') +
+              '</div></div>';
+          })()}
+
+          ${(function() {
+            // Externe Sammlungen (Klicks auf die Themen-Links auf index.html,
+            // die in einem neuen Tab eine externe Obsidian-Publish-Seite öffnen).
+            var externalCollections = [
+              { key: 'entwicklung_kind', label: 'Entwicklung des Kindes' },
+              { key: 'goetheanismus', label: 'Goetheanistische Naturanschauung' }
+            ];
+            var ts = data.tabStats || {};
+            var rows = externalCollections.map(function(c) {
+              return { label: c.label, count: Number(ts[c.key]) || 0 };
+            });
+            var maxCount = Math.max.apply(null, rows.map(function(r) { return r.count; }).concat([1]));
+            return '<div class="analytics-section"><h3>Externe Sammlungen (Klicks von Startseite)</h3>' +
+              '<div style="display:grid;grid-template-columns:auto 1fr auto;gap:4px 12px;align-items:center;max-width:500px;">' +
+              rows.map(function(r) {
+                var pct = maxCount > 0 ? Math.round((r.count / maxCount) * 100) : 0;
+                return '<span style="font-size:0.85em;color:var(--text-color);white-space:nowrap;">' + r.label + '</span>' +
+                  '<div style="height:14px;background:var(--border-color);border-radius:3px;overflow:hidden;">' +
+                    '<div style="height:100%;width:' + pct + '%;background:var(--accent-color);border-radius:3px;min-width:2px;"></div>' +
+                  '</div>' +
+                  '<strong style="font-size:0.85em;color:var(--accent-color);text-align:right;">' + r.count + '</strong>';
               }).join('') +
               '</div></div>';
           })()}

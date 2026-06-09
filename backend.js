@@ -26872,19 +26872,15 @@ app.get('/api/analytics/stats', async (req, res) => {
       }
     }
 
-    // Lokale JSON immer als zusätzliche Quelle für Tab-/Quote-Daten einbeziehen
-    // (Supabase hat ggf. leere tabs wenn Migration nicht ausgeführt wurde)
+    // Hinweis: Lokale JSON-Daten werden absichtlich NICHT zu tabStats addiert.
+    // tabStats spiegelt damit ausschließlich die persistenten Supabase-Werte
+    // wider. Lokale Fallback-Klicks (z.B. wenn Supabase kurzzeitig nicht
+    // erreichbar war) tauchen in der Anzeige nicht auf.
+    // weekQuoteViews darf weiterhin lokal nachgeladen werden, falls Supabase
+    // den Wert nicht liefert.
     try {
       const jsonData = await loadLocalAnalyticsJson();
       if (jsonData.dailyStats && typeof jsonData.dailyStats === 'object') {
-        for (const key of Object.keys(jsonData.dailyStats)) {
-          const dayData = jsonData.dailyStats[key];
-          if (dayData && dayData.tabs) {
-            for (const [tab, count] of Object.entries(dayData.tabs)) {
-              tabStats[tab] = (tabStats[tab] || 0) + count;
-            }
-          }
-        }
         if (weekQuoteViews === 0) {
           for (let i = 0; i < 7; i++) {
             const d = new Date();
