@@ -1377,18 +1377,18 @@ body:not(.dark-mode) .search-input:-webkit-autofill:focus {
 
 
     body.dark-mode mark {
-      background: rgba(70, 120, 134, 0.5);
+      background: rgba(70, 120, 134, 0.30);
       color: var(--dark-text-color);
     }
     
     body.dark-mode .highlighted-paragraph {
-      background: rgba(70, 120, 134, 0.35);
-      box-shadow: 0 0 0 0.4rem rgba(70, 120, 134, 0.35);
+      background: rgba(70, 120, 134, 0.20);
+      box-shadow: 0 0 0 0.4rem rgba(70, 120, 134, 0.20);
     }
     
     body.dark-mode #viewer .highlighted-paragraph {
-      background: rgba(70, 120, 134, 0.35);
-      box-shadow: 0 0 0 0.4rem rgba(70, 120, 134, 0.35);
+      background: rgba(70, 120, 134, 0.20);
+      box-shadow: 0 0 0 0.4rem rgba(70, 120, 134, 0.20);
     }
     
     /* Paragraph mit Bookmark/Quote Indicator */
@@ -3963,8 +3963,8 @@ gap: 4px !important;
     }
     
     .highlighted-paragraph {
-      background: rgba(70, 120, 134, 0.1);
-      box-shadow: 0 0 0 0.4rem rgba(70, 120, 134, 0.1);
+      background: rgba(70, 120, 134, 0.06);
+      box-shadow: 0 0 0 0.4rem rgba(70, 120, 134, 0.06);
       border-radius: 4px;
     }
     
@@ -4453,20 +4453,20 @@ body.dark-mode #thematic2-visualization-main svg .grid line {
       text-underline-offset: 2px !important;
     }
     mark { 
-      background: rgba(70, 120, 134, 0.2); 
+      background: rgba(70, 120, 134, 0.12);
       color: inherit;
     }
     
     /* Markierung im Side Panel (Tab Index) - genau wie im Tab Suche */
     #summary-content mark,
     #summary-panel mark {
-      background: rgba(70, 120, 134, 0.2);
+      background: rgba(70, 120, 134, 0.12);
       color: inherit;
     }
     
     body.dark-mode #summary-content mark,
     body.dark-mode #summary-panel mark {
-      background: rgba(70, 120, 134, 0.5);
+      background: rgba(70, 120, 134, 0.30);
       color: var(--dark-text-color);
     }
     
@@ -4992,8 +4992,8 @@ body.dark-mode #thematic2-visualization-main svg .grid line {
     }
     
     #viewer .highlighted-paragraph {
-      background: rgba(70, 120, 134, 0.1);
-      box-shadow: 0 0 0 0.4rem rgba(70, 120, 134, 0.1);
+      background: rgba(70, 120, 134, 0.06);
+      box-shadow: 0 0 0 0.4rem rgba(70, 120, 134, 0.06);
       border-radius: 4px;
     }
     
@@ -8184,11 +8184,34 @@ Wandtafeln
      der nachgestellte (GA…)-Anker macht die Beleg-Qualität sichtbar. */
   .essay-beleg[data-drift="true"] {
     background: rgba(255, 140, 0, 0.06);
+    position: relative;
   }
   .essay-beleg[data-drift="true"]::after {
     content: " ⚠";
     color: #cc7700;
     font-size: 0.85em;
+    cursor: help;
+  }
+  /* Tooltip: erscheint beim Hover über dem Drift-Indikator. Erklärt
+     dem Nutzer, dass der LLM das Zitat mit Klammer-Eingriffen wie
+     [...] oder [hat] gegenüber Steiners Originaltext modifiziert hat. */
+  .essay-beleg[data-drift="true"]:hover::before {
+    content: "Zitat weicht von der Quelle ab (Auslassung [...] oder editorische Einfügung [Wort]).";
+    position: absolute;
+    right: 0;
+    bottom: 100%;
+    margin-bottom: 0.3em;
+    background: #5a3300;
+    color: #fff;
+    padding: 0.4em 0.6em;
+    border-radius: 4px;
+    font-size: 0.78em;
+    line-height: 1.35;
+    white-space: normal;
+    width: 22em;
+    z-index: 10;
+    pointer-events: none;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
   }
   /* Deutungen (Synthese/Kommentar) werden visuell nicht abgesetzt – das fehlende
      (GA…) am Satzende ist der einzige Indikator. Nur Sonderfälle (externe Quelle,
