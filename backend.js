@@ -4866,6 +4866,217 @@ function validateQuoteAnalysis(analysisText, topResults) {
   };
 }
 
+// ============================================================================
+// ESSAY-MODUS: Tag-Validierung und Transformation
+// Konvertiert <beleg id="..."> / <deutung> aus dem LLM-Output in HTML, das von
+// der bestehenden Frontend-Click-Handler-Infrastruktur (ga-reference) bedient
+// werden kann. Validiert IDs gegen den zur Synthese gelieferten Quellenpool.
+// ============================================================================
+function _essayNormalizeForCompare(s) {
+  return (s || '').toLowerCase()
+    .replace(/ß/g, 'ss')
+    .replace(/ä/g, 'ae').replace(/ö/g, 'oe').replace(/ü/g, 'ue')
+    .replace(/[^a-z0-9 ]/g, '')
+    .replace(/\s+/g, ' ').trim();
+}
+
+function transformEssayMarkup(essayText, contextResults) {
+  // Index kann mit Obsidian-Block-Präfix '^' im Korpus stehen (z.B. '^miszbi').
+  // Wir akzeptieren beide Varianten und normalisieren auf die korpus-interne Form.
+  const normalizeId = (id) => {
+    // GA001:miszbi → GA001:^miszbi (wenn ohne Caret eingegeben)
+    // GA001:^miszbi → bleibt
+    return id.replace(/^(GA[^:]+):(?!\^)/, '$1:^');
+  };
+  const stripCaret = (idx) => (idx || '').replace(/^\^/, '');
+
+  const refSet = new Set(contextResults.map(r => normalizeId(`${r.ID}:${r.index}`)));
+  const resultByKey = new Map(
+    contextResults.map(r => [normalizeId(`${r.ID}:${r.index}`), r])
+  );
+
+  const stats = {
+    belegCount: 0,
+    deutungCount: 0,
+    invalidIds: [],
+    quoteDrift: [],
+    degraded: []
+  };
+
+  // <beleg id="GA###[/N]:[^]abc" [quelle="…"]>…</beleg>
+  // Wir erlauben das optionale quelle-Attribut in beliebiger Reihenfolge nach id.
+  const belegRegex = /<beleg\b([^>]*)>([\s\S]*?)<\/beleg>/g;
+  let text = essayText.replace(belegRegex, (match, attrsRaw, body) => {
+    stats.belegCount++;
+    const idMatch = attrsRaw.match(/\bid\s*=\s*"([^"]+)"/);
+    const quelleMatch = attrsRaw.match(/\bquelle\s*=\s*"([^"]*)"/);
+    if (!idMatch) {
+      // Beleg ohne id ist nutzlos → als Deutung degradieren
+      stats.degraded.push({ id: '(missing)', reason: 'no-id' });
+      return `<span class="essay-deutung" data-degraded="no-id">${body}</span>`;
+    }
+    const id = idMatch[1].trim();
+    const quelleAttr = quelleMatch ? quelleMatch[1].trim() : null;
+
+    // F4: Mehrfach-IDs oder Whitespace
+    if (id.includes(',') || /\s/.test(id)) {
+      stats.degraded.push({ id, reason: 'multi-id-or-whitespace' });
+      stats.invalidIds.push(id);
+      return `<span class="essay-deutung" data-degraded="multi-id">${body}</span>`;
+    }
+
+    // ID-Format prüfen (mit oder ohne Caret-Präfix vor dem Index)
+    if (!/^GA\d+[a-z]?(\/\d+[a-z]?)?:\^?[a-zA-Z0-9_-]+$/.test(id)) {
+      stats.degraded.push({ id, reason: 'bad-format' });
+      stats.invalidIds.push(id);
+      return `<span class="essay-deutung" data-degraded="bad-format">${body}</span>`;
+    }
+
+    // Auf Korpus-Form normalisieren (mit Caret) und im Pool prüfen
+    const normalizedId = normalizeId(id);
+    if (!refSet.has(normalizedId)) {
+      stats.degraded.push({ id, reason: 'unknown-id' });
+      stats.invalidIds.push(id);
+      return `<span class="essay-deutung" data-degraded="unknown-id">${body}</span>`;
+    }
+
+    // ID splitten: alles vor dem letzten ":" ist Vortrags-ID; Caret im Index strippen
+    const lastColon = normalizedId.lastIndexOf(':');
+    const lectureId = normalizedId.substring(0, lastColon);
+    const paragraphIndex = stripCaret(normalizedId.substring(lastColon + 1));
+    const sourceEntry = resultByKey.get(normalizedId) || {};
+    const fileName = sourceEntry.fileName || sourceEntry.title || lectureId;
+    const sourceContent = sourceEntry.content || '';
+
+    // Quote-Escape für HTML-Attribute
+    const escapeAttr = (s) => String(s).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;');
+
+    // Alle Highlight-Snippets sammeln: wörtliche Zitate aus dem Body
+    // (zwischen „…" oder "…") plus optional das quelle-Attribut (Paraphrase-Anker).
+    // Beide werden später per "|||" verbunden ans Side-Panel weitergereicht.
+    const quoteSnippets = [];
+    const seenSnippets = new Set();
+    const addSnippet = (raw) => {
+      if (!raw) return;
+      let cleaned = raw
+        .replace(/^\s*[\*_]+|[\*_]+\s*$/g, '') // umliegende Markdown-Markierung
+        .replace(/^\s*[„"]+|[""]+\s*$/g, '')      // umliegende Anführungszeichen
+        .replace(/\[…\]/g, ' ')                  // Auslassungen normalisieren
+        .replace(/\s+/g, ' ')
+        .trim();
+      if (cleaned.length < 5) return;
+      if (seenSnippets.has(cleaned)) return;
+      seenSnippets.add(cleaned);
+      quoteSnippets.push(cleaned);
+    };
+
+    // (a) Versuch 1: Body komplett (bzw. ein langes Suffix) als grosses Direktzitat.
+    // GREEDY-Match: findet die längste Spanne zwischen erstem Opener und LETZTEM
+    // Closer im Body. Das löst das Nested-Quote-Problem (gleiche Anführungszeichen
+    // innen und außen wie in Steiners verschachtelten Zitaten), bei dem
+    // non-greedy am ersten inneren Closer fehlerhaft schließen würde.
+    // Quote-Zeichen breit gefasst: „ " " « » " (Unicode 201E/201C/201D/00AB/00BB/0022).
+    const FULL_QUOTE_REGEX = /\*?[\u201E\u201C\u0022\u00AB]([\s\S]+)[\u201D\u201C\u0022\u00BB]\*?/;
+    const fullMatch = body.match(FULL_QUOTE_REGEX);
+    if (fullMatch && fullMatch[1].length >= 30) {
+      addSnippet(fullMatch[1]);
+    }
+
+    // (b) Versuch 2: Einzelne kürzere „…"-Schnipsel (für eingebettete Kurz-Phrasen
+    // in Belegen mit Vorspann oder mehreren verstreuten Zitaten).
+    const germanQuoteRegex = /„([^„"]+?)"/g;
+    const asciiQuoteRegex = /"([^"]+?)"/g;
+    let qm;
+    while ((qm = germanQuoteRegex.exec(body)) !== null) addSnippet(qm[1]);
+    while ((qm = asciiQuoteRegex.exec(body)) !== null) addSnippet(qm[1]);
+    // Paraphrase-Anker aus quelle-Attribut (gegen Quelltext geprüft)
+    if (quelleAttr) {
+      const nSourceForQuelle = _essayNormalizeForCompare(sourceContent);
+      const nQuelle = _essayNormalizeForCompare(quelleAttr);
+      if (nQuelle && nQuelle.length >= 10 && nSourceForQuelle.includes(nQuelle)) {
+        addSnippet(quelleAttr);
+      } else {
+        // quelle existiert nicht (mehr) im Quelltext → Drift-Markierung,
+        // aber NICHT als Snippet aufnehmen (würde leeres Highlight erzeugen).
+        stats.quoteDrift.push({ id, probe: quelleAttr.substring(0, 60), source: 'quelle-attr' });
+      }
+    }
+
+    // FALLBACK-AUTO-DETECT: Wenn der Beleg-Body weder „…" enthält noch ein
+    // quelle-Attribut hat, prüfen wir, ob der Body selbst ein Direktzitat ist
+    // (LLM hat die Quote-Marker vergessen). Wir nehmen ein 50-Zeichen-Fenster
+    // aus der Mitte des Bodys (umgeht satzeinleitende Vorspann-Wörter) und
+    // suchen es in der normalisierten Quelle.
+    if (quoteSnippets.length === 0) {
+      const bodyText = body
+        .replace(/<[^>]*>/g, ' ')
+        .replace(/[\*_]/g, '')
+        .replace(/\s+/g, ' ')
+        .trim();
+      const nBody = _essayNormalizeForCompare(bodyText);
+      const nSource = _essayNormalizeForCompare(sourceContent);
+      if (nBody.length >= 50 && nSource && nSource.length >= 50) {
+        // Mittiges 50-Zeichen-Fenster als Probe
+        const mid = Math.floor((nBody.length - 50) / 2);
+        const probe = nBody.substring(mid, mid + 50);
+        if (probe && nSource.includes(probe)) {
+          // Body ist (zumindest in der Mitte) wortgleich mit der Quelle → Direktzitat
+          // ohne Marker → als Snippet aufnehmen (gesamter Body-Text).
+          addSnippet(bodyText);
+          stats.autoDetectedQuotes = (stats.autoDetectedQuotes || 0) + 1;
+        }
+      }
+    }
+
+    // F6: Zitat-Drift bei wörtlichen Zitaten in „…"
+    let driftAttr = '';
+    if (quoteSnippets.length > 0) {
+      // Erstes Snippet als Drift-Probe; ist es das quelle-Attribut, wurde
+      // dessen Vorhandensein bereits oben verifiziert.
+      const probe = quoteSnippets[0].substring(0, 40);
+      const nProbe = _essayNormalizeForCompare(probe);
+      const nSource = _essayNormalizeForCompare(sourceContent);
+      if (probe.length > 20 && nProbe && !nSource.includes(nProbe)) {
+        stats.quoteDrift.push({ id, probe });
+        driftAttr = ' data-drift="true"';
+      }
+    }
+
+    // data-quote-text: Zitat-Schnipsel mit |||-Trenner für präzises
+    // Side-Panel-Highlight. Nur an Essay-Anker, nicht an andere ga-references,
+    // damit das Standard-Highlight-Verhalten anderer Modi unverändert bleibt.
+    const quoteAttr = quoteSnippets.length > 0
+      ? ` data-quote-text="${escapeAttr(quoteSnippets.join('|||'))}"`
+      : '';
+    // data-essay: robuster Essay-Marker direkt am Link, damit der Click-Handler
+    // den Modus zuverlässig erkennen kann – unabhängig von der Parent-DOM.
+    const essayAttr = ' data-essay="true"';
+
+    return `<span class="essay-beleg" data-id="${escapeAttr(lectureId)}" data-index="${escapeAttr(paragraphIndex)}"${driftAttr}>${body} (<a href="#" class="ga-reference"${essayAttr} data-id="${escapeAttr(lectureId)}" data-index="${escapeAttr(paragraphIndex)}" data-file-name="${escapeAttr(fileName)}"${quoteAttr}>${escapeAttr(lectureId)}</a>)</span>`;
+  });
+
+  // <deutung>…</deutung> oder <deutung quelle="…">…</deutung>
+  const deutungRegex = /<deutung(?:\s+quelle="([^"]*)")?\s*>([\s\S]*?)<\/deutung>/g;
+  text = text.replace(deutungRegex, (match, quelle, body) => {
+    stats.deutungCount++;
+    const escapeAttr = (s) => String(s).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;');
+    const quelleAttr = quelle ? ` data-quelle="${escapeAttr(quelle)}"` : '';
+    return `<span class="essay-deutung"${quelleAttr}>${body}</span>`;
+  });
+
+  // Defensive: verwaiste Tags entfernen (LLM-Mischtags wie <deutung>...</beleg>
+  // bleiben sonst als rohes HTML im Output stehen)
+  let orphanCount = 0;
+  text = text.replace(/<\/(?:beleg|deutung)>/g, () => { orphanCount++; return ''; });
+  text = text.replace(/<beleg\s+id="[^"]*"\s*>/g, () => { orphanCount++; return ''; });
+  text = text.replace(/<deutung(?:\s+quelle="[^"]*")?\s*>/g, () => { orphanCount++; return ''; });
+  if (orphanCount > 0) {
+    stats.orphanTags = orphanCount;
+  }
+
+  return { text, stats };
+}
+
 async function generateAnalysis(query, results, depth = 'allgemein', preferredProvider = null, thematicMode = 'deep') {
   
   // Hole passenden LLM-Provider
@@ -4971,7 +5182,8 @@ async function generateAnalysis(query, results, depth = 'allgemein', preferredPr
     'allgemein': 4000,
     'ausführlich': 8000,
     'broad': 32000,  // Breite Sammlung: Gemini 2.5 Flash unterstützt bis 65k
-    'quote': 6000    // Zitatsuche: ein bis wenige Zitate mit kurzer Begründung
+    'quote': 6000,   // Zitatsuche: ein bis wenige Zitate mit kurzer Begründung
+    'essay': 16000   // Essay-Modus: Synthese + Belege, braucht Raum
   };
   
   // Wähle Prompt basierend auf thematicMode
@@ -5106,6 +5318,177 @@ TEXTPASSAGEN:
 ${contextText}
 
 QUELLENSAMMLUNG:`;
+  } else if (thematicMode === 'essay') {
+    // ESSAY-MODUS: Tiefe Synthese mit expliziter Trennung Beleg/Deutung
+    console.log(`[ANALYSIS] Modus: Essay (Synthese + Belege) - ${topResults.length} Quellen`);
+    prompt = `Du bist ein wissenschaftlich arbeitender Assistent zur essayistischen Erschließung von Themen aus Rudolf Steiners Gesamtausgabe (GA). Deine Aufgabe ist es, zur folgenden Frage des Nutzers einen differenzierten, mehrstufig argumentierenden Essay zu schreiben, der zwei Klassen von Aussagen strikt voneinander trennt: textgegründete Aussagen über Steiners Werk (markiert als <beleg>) und interpretierende Synthesen, philosophiegeschichtliche Einordnungen oder eigene Konstruktionen (markiert als <deutung>).
+
+ANFRAGE DES NUTZERS
+"${query}"
+
+GRUNDPRINZIP — BELEG IST ZITAT, DEUTUNG IST DEINE STIMME
+Der Essay wird WESENTLICH von wörtlichen Steiner-Zitaten getragen. Deine Aufgabe ist nicht, Steiner zu paraphrasieren, sondern aus den verfügbaren Textpassagen die treffendsten Zitate AUSZUWÄHLEN, sie zu VERKNÜPFEN und zu KOMMENTIEREN.
+
+Konkret:
+- <beleg> enthält IMMER mindestens ein wörtliches Steiner-Zitat in *„…"*. Idealerweise ist der gesamte Body ein direktes Zitat.
+- <deutung> ist DEINE eigene Stimme: die argumentative Verbindung zwischen den Zitaten, die philosophiegeschichtliche Einordnung, die kritische Reflexion, Brückensätze, Schlussfolgerungen.
+
+Vermeide Paraphrasen Steiners. Wo Steiner präzise spricht, gib Steiner das Wort. Wo Du Steiner einordnest oder verbindest, ist das Deine Stimme – als <deutung>.
+
+DIE BEIDEN KLASSEN VON AUSSAGEN
+
+(1) <beleg id="GA###/lectureNum:index">…</beleg>
+Ein wörtliches Steiner-Zitat aus der durch die id referenzierten Textpassage.
+   - Idealform: der gesamte Body ist ein Zitat in *„…"*.
+     <beleg id="GA001:^miszbi">*„Kant überspringt die eigentliche erkenntnistheoretische Frage."*</beleg>
+   - Akzeptable Form: kurzer Vorspann (max. einen Halbsatz) + Zitat in *„…"*.
+     <beleg id="GA001:^miszbi">Der methodische Schwachpunkt: *„Kant überspringt die eigentliche erkenntnistheoretische Frage."*</beleg>
+   - Auslassungen mit […] erlaubt, wenn die Bestandteile aus derselben Passage stammen.
+     <beleg id="GA001:^miszbi">*„Kant überspringt die eigentliche erkenntnistheoretische Frage […]. Die Auseinanderhaltung von Subjekt und Objekt ist nur ein Durchgangspunkt unseres Erkennens."*</beleg>
+   - GENAU EINE id pro <beleg>. Mehrere Zitate aus verschiedenen Passagen: separate <beleg>-Tags.
+
+   PARAPHRASE-AUSNAHME (nur wenn unvermeidlich):
+   - Erlaubt, wenn die Aussage über mehrere weit auseinander stehende Sätze des Originals verteilt ist und nicht zitierbar zusammengefasst werden kann.
+   - ZWINGEND mit quelle="…"-Attribut (siehe unten) – sonst kann die Software die Stelle nicht hervorheben.
+   - Nicht aus stilistischen Gründen paraphrasieren, sondern nur aus argumentativer Notwendigkeit.
+
+(2) <deutung>…</deutung>
+Deine eigene Stimme. Hier liegt der eigentliche essayistische Mehrwert:
+   - Verknüpfung der Zitate: was folgt aus diesem Zitat, was bereitet jenes vor.
+   - Philosophiegeschichtliche Einordnung (Kant, Hegel, Schelling, Goethe, Whitehead, Husserl, Cassirer etc.).
+   - Strukturelle Vergleiche, eigene Lesarten, kritische Reflexion.
+   - Methodische und meta-textuelle Bemerkungen.
+   - Externe Quellen optional als quelle="…"-Attribut, z.B. <deutung quelle="Hegel, Wissenschaft der Logik">…</deutung>.
+
+Vermeide Aussagen ÜBER Steiners Inhalt, die nicht selbst Steiner-Inhalt sind, in <beleg>-Tags. Solche Aussagen sind immer <deutung>.
+
+WAS NICHT GETAGGT WIRD
+- Überschriften (Markdown ## oder ###) – sie sind strukturelle Elemente, keine Aussagen.
+- Reine Bindewörter, Fragestellungen, Aufzählungseinleitungen.
+- Einleitende Halbsätze ohne propositionalen Gehalt.
+
+KEINE VERBALEN ZUSCHREIBUNGEN AN STEINER
+Innerhalb von <beleg>-Sätzen werden Wendungen wie "Steiner sagt", "Steiner schreibt", "Steiner hebt hervor", "Steiner konstatiert", "nach Steiners Darstellung", "so Steiner", "Steiner referiert", "Steiner identifiziert" VERMIEDEN. Die Quellenattribution wird strukturell durch das <beleg id="…">-Tag geleistet, typografisch durch „…" für wörtliche Zitate; eine verbale Zuschreibung ist daher redundant und stört den Lesefluss.
+- Formuliere den Sachverhalt direkt: "Der entscheidende Satz: …" statt "Steiner formuliert den entscheidenden Satz so: …"
+- Verwende für wörtliche Zitate „…" ohne einleitende Sprechakt-Verben.
+- Bei Paraphrasen formuliere im Indikativ Präsens, nicht im Konjunktiv: "Kant überspringt die Frage …" statt "Kant überspringe nach Steiner die Frage …".
+- Auch in <deutung>-Sätzen, die sich auf Steiners Lesart beziehen, wird die Deutung direkt präsentiert – nicht über "Steiner liest dies so".
+
+ABSOLUT KRITISCHE REGELN FÜR <beleg>
+1. JEDE in <beleg>…</beleg> stehende Aussage MUSS in der durch die id referenzierten Textpassage tatsächlich, klar und unmittelbar wiederzufinden sein. Eine bloß thematische Verwandtschaft ist KEIN Beleg.
+2. Die id MUSS exakt eine der unten gelisteten Referenzen sein (Format: GA###/lectureNum:index oder GA###:index). Keine Quellen erfinden, keine Leerzeichen, keine Abweichungen.
+3. Wörtliche Zitate dürfen NICHT aus mehreren Passagen zusammengesetzt sein.
+4. Wenn keine Textpassage eine substantielle Aussage stützt, wird daraus eine <deutung> – NICHT ein Pseudo-Beleg mit irgendeiner id.
+5. Im Zweifel: lieber <deutung> als ein schwacher <beleg>.
+
+REGELN FÜR <deutung>
+1. <deutung> ist KEIN Versteck für unbelegte Behauptungen über Steiner. Wenn der Satz die Form hat „Steiner sagt/meint/lehrt X", muss er entweder als <beleg> mit echter id stehen oder umformuliert werden zu einem synthetisierenden Satz.
+2. <deutung> darf ausdrücklich über den Korpus hinausgehen – das ist ihr eigentlicher Wert.
+3. Externe Quellen (Hegel, Goethe, Kant etc.) im quelle-Attribut sind erlaubt, aber optional und werden nicht verifiziert.
+
+STRUKTUR DES ESSAYS
+- Beginne direkt mit einer inhaltlichen Hinführung – KEINE Meta-Einleitung wie „Im Folgenden werde ich…".
+- Mehrere thematische Abschnitte, jeweils mit eigener Markdown-Überschrift (## Format). Die Überschriften müssen den Inhalt benennen, nicht die Argumentschritte („Polarität und Steigerung" statt „Erstes Argument").
+- Innerhalb jedes Abschnitts: Mischung aus <beleg> und <deutung>, in argumentativer Folge.
+- Am Ende ein knapper Abschnitt ## Ertrag, der die zentralen Einsichten ohne weitere Belegerwartung zusammenfasst (überwiegend <deutung>).
+
+KEINE TRIVIALEN HINFÜHRUNGSSÄTZE
+- Vermeide Meta-Einleitungen wie "Die Frage nach X setzt voraus, dass…", "Um die Frage zu beantworten, muss zunächst…", "Es ist zu beachten, dass…", "Ausgangspunkt der Überlegung ist…", "Bevor wir das Eigentliche besprechen, ist festzuhalten, dass…", "Damit dies nicht bloß als Behauptung erscheint, bedarf es…".
+- Solche Sätze formulieren nur den eigentlich folgenden Sachverhalt verklausuliert um. Schreibe stattdessen den Sachverhalt direkt.
+
+Beispiel:
+  Falsch: "Die Frage nach Goethes Metamorphosenlehre als Überwindung kantischer Erkenntnisschranken setzt voraus, dass zwischen beiden Denkweisen ein grundlegender Gegensatz besteht – und genau dies ist in Steiners Goethe-Deutung der Ausgangspunkt."
+  Richtig: "Der grundlegende Gegensatz zwischen Kants und Goethes Denkweisen ist ein Ausgangspunkt von Steiners Goethe-Deutung."
+
+KEINE METAREFLEKTIERENDE ERKLÄRSPRACHE
+Wir setzen die Intelligenz und sprachliche Sensitivität der Leser voraus. Der Duktus ist sachlich-nüchtern, wissenschaftlich, ohne didaktische Doppelungen. Ein Satz soll nicht seine eigene Schärfe oder Grundsätzlichkeit kommentieren; er soll den Sachverhalt benennen.
+
+Konkret zu vermeiden:
+- Selbstcharakterisierende Wendungen: "Diese Diagnose ist schärfer als …", "Diese These geht weiter als …", "Hier zeigt sich präzise, dass …", "Bemerkenswert ist, dass …", "Die Pointe liegt darin, dass …", "Der entscheidende Punkt ist …".
+- "X ist nicht Y, sondern Z"-Konstruktionen, wenn "X ist Z" ausreicht (der Kontrast muss inhaltlich gefordert sein, nicht bloß rhetorisch).
+- Periphrastische Konstruktionen: "das, was X lehrt", "das, was als Y zu erkennen ist", "diejenigen, die …", wenn die direkte Bezeichnung möglich ist.
+- Erklärendes Vorwegnehmen der eigenen Argumentationslogik ("Im Folgenden wird gezeigt …", "Damit ist gemeint, dass …").
+
+Beispiele:
+
+  Falsch: "Goethes Naturanschauung und Kants kritische Philosophie stehen in einer Spannung, die nicht graduell, sondern grundsätzlich ist."
+  Richtig: "Goethes Naturanschauung und Kants kritische Philosophie stehen in einer grundsätzlichen Spannung."
+
+  Falsch: "Zwischen dem, was die Kantische Philosophie lehrt, und dem, was als Goethesche Denkweise zu erkennen ist, besteht ein tiefer Gegensatz."
+  Richtig: "Zwischen der Kantischen Philosophie und der Goetheschen Denkweise besteht ein tiefer Gegensatz."
+
+  Falsch: "Diese Diagnose ist schärfer als eine bloße Schuldifferenz: sie behauptet zwei einander ausschließende Weisen, das Verhältnis von Mensch und Welt zu denken."
+  Richtig: "Es handelt sich um zwei einander ausschließende Weisen, das Verhältnis von Mensch und Welt zu denken."
+
+TYPOGRAPHIE DER ZITATE
+- Jedes wörtliche Zitat steht in deutschen Anführungszeichen „…" (öffnend: „ unten, schließend: " oben) UND in Markdown-Kursiv: *„zitat…"*. Beides zusammen, immer.
+- Auch wenn der gesamte <beleg>-Body ein Zitat ist, wird der gesamte Body in *„…"* gesetzt. Der <beleg>-Tag allein ist KEINE typographische Markierung.
+- Auslassungen mit […]. Auslassungen am Anfang oder Ende des Zitats sind erlaubt, aber sparsam.
+
+PARAPHRASE-AUSNAHME (quelle-Attribut)
+Wenn eine direkte Zitation argumentativ unmöglich ist – etwa weil die Aussage über mehrere weit auseinander stehende Sätze des Originals verteilt ist –, MUSS der <beleg> ein quelle-Attribut tragen:
+
+<beleg id="GA001:^miszbi" quelle="Kant erhob unseren Wahrnehmungs- und Verstandesorganismus zu einer Macht, die die Erfahrung miterzeugt">Bei Kant prägt der Verstand selbst die Erfahrung mit.</beleg>
+
+REGELN FÜR quelle:
+- Der Inhalt von quelle MUSS WÖRTLICH in der durch die id referenzierten Textpassage stehen (1–2 zusammenhängende Sätze des Originals).
+- Der quelle-Wortlaut wird dem Leser NICHT angezeigt – er dient ausschließlich der präzisen Markierung im Side-Panel.
+- Keine doppelten Anführungszeichen IM quelle-Wert (würden das Attribut beenden); ggf. den Wortlaut ohne innere " wählen.
+- KEIN quelle-Attribut, wenn der <beleg> bereits ein wörtliches Zitat in *„…"* enthält (wäre Redundanz).
+- Paraphrasen-Belege ohne quelle werden im Side-Panel NICHT hervorgehoben – also nur in echten Ausnahmefällen einsetzen.
+
+STIL
+- Argumentierende, nicht aufzählende Prosa.
+- Keine Bullet-Listen für Argumente; Listen nur für tatsächlich enumerable Gegenstände.
+- Keine selbstreferentiellen Wendungen („wie wir gesehen haben", „im obigen Abschnitt").
+- Wissenschaftlicher Ton, aber lesbar – keine künstliche Verschachtelung.
+
+GEGENBEISPIELE (so nicht!)
+
+Falsch (Pseudo-Beleg ohne Quotezugriff):
+  <beleg id="GA110/8:abc123">Steiner und Hegel teilen die Grundeinsicht, dass Kategorien sich selbst entfalten.</beleg>
+Richtig:
+  <deutung>Eine produktive Engführung mit Hegels Logik wäre an dieser Stelle möglich: auch dort entfalten sich Kategorien aus innerer Notwendigkeit.</deutung>
+
+Falsch (Body ist Direktzitat, aber ohne Zitat-Markup):
+  <beleg id="GA001:^p3btmw">Die Auffassung, dass es dem menschlichen Geiste nie gelingen werde, die organischen Bildungen zu erklären, wurde von Kant nicht nur geteilt, sondern er suchte sogar eine wissenschaftliche Begründung dafür.</beleg>
+Richtig (gesamter Body in *„…"*):
+  <beleg id="GA001:^p3btmw">*„Die Auffassung, dass es dem menschlichen Geiste nie gelingen werde, die organischen Bildungen zu erklären, wurde von Kant nicht nur geteilt, sondern er suchte sogar eine wissenschaftliche Begründung dafür."*</beleg>
+
+Falsch (verklausulierter Beleg ohne Zitat):
+  <deutung>Steiner zeigt in seinem Hierarchien-Zyklus, dass die Throne Substanz geben.</deutung>
+Richtig (direkt zitieren):
+  <beleg id="GA110/3:xyz789">*„Die Throne geben im alten Saturn die Wärmesubstanz hin."*</beleg>
+
+Falsch (Paraphrase ohne quelle):
+  <beleg id="GA001:^miszbi">Bei Kant prägt der Verstand selbst die Erfahrung mit.</beleg>
+Richtig (entweder zitieren oder mit quelle):
+  <beleg id="GA001:^miszbi">*„Kant erhob unseren Wahrnehmungs- und Verstandesorganismus zu einer Macht, die die Erfahrung miterzeugt."*</beleg>
+  ODER
+  <beleg id="GA001:^miszbi" quelle="Kant erhob unseren Wahrnehmungs- und Verstandesorganismus zu einer Macht, die die Erfahrung miterzeugt">Bei Kant prägt der Verstand selbst die Erfahrung mit.</beleg>
+
+Falsch (verbale Zuschreibung):
+  <beleg id="GA001:^miszbi">Steiner referiert die Kantische Grundannahme so: *„Die Vorstellungswelt …"*</beleg>
+Richtig (Quelle steht im Tag, keine verbale Zuschreibung):
+  <beleg id="GA001:^miszbi">Die kantische Grundannahme: *„Die Vorstellungswelt …"*</beleg>
+
+Falsch (mehrere Quellen in einem Beleg):
+  <beleg id="GA110/8:abc123, GA121/2:def456">…</beleg>
+Richtig:
+  <beleg id="GA110/8:abc123">*„Aussage A."*</beleg> <beleg id="GA121/2:def456">*„Verwandte Aussage B."*</beleg>
+
+VERFÜGBARE REFERENZEN
+${availableRefs}
+
+DIREKTE KEYWORD-TREFFER (bevorzugt für <beleg>):
+${directRefIds}
+
+Anzahl Textpassagen: ${topResults.length}
+
+TEXTPASSAGEN:
+${contextText}
+
+ESSAY:`;
   } else {
     // TIEFE ANALYSE: Claude - qualitative Analyse mit Zitaten (wie bisher)
     console.log(`[ANALYSIS] Modus: Tiefe Analyse - ${topResults.length} Quellen`);
@@ -5242,15 +5625,16 @@ ANALYSE:`;
   // Bestimme maxTokens basierend auf Modus
   const effectiveMaxTokens = thematicMode === 'broad' ? maxTokens['broad']
                             : thematicMode === 'quote' ? maxTokens['quote']
+                            : thematicMode === 'essay' ? maxTokens['essay']
                             : maxTokens['ausführlich'];
 
   // Modell pro Modus aus .env (mit sinnvollen Defaults).
-  // Tiefe -> Opus 4.8 (qualitative Synthese), Zitat -> Sonnet 4.6 (schnell),
+  // Tiefe/Essay -> Opus 4.8 (qualitative Synthese), Zitat -> Sonnet 4.6 (schnell),
   // Zitat-Eskalation -> Opus 4.8, Breite -> Gemini 2.5 Pro (großer Kontext).
   const providerNameLower = (provider.name || '').toLowerCase();
   let modelForMode = null;
   if (providerNameLower === 'claude') {
-    if (thematicMode === 'deep') {
+    if (thematicMode === 'deep' || thematicMode === 'essay') {
       modelForMode = process.env.CLAUDE_MODEL_DEEP || 'claude-opus-4-8';
     } else if (thematicMode === 'quote') {
       modelForMode = process.env.CLAUDE_MODEL_QUOTE || 'claude-sonnet-4-6';
@@ -5315,6 +5699,23 @@ ANALYSE:`;
         } catch (escErr) {
           console.warn(`[QUOTE-ESCALATE] Eskalation fehlgeschlagen (${fallbackModel}): ${escErr.message}`);
         }
+      }
+    }
+
+    // Im Essay-Modus: <beleg>/<deutung>-Tags in HTML transformieren,
+    // ID-Validität gegen den Quellenpool prüfen, Zitat-Drift markieren.
+    if (thematicMode === 'essay') {
+      const essayResult = transformEssayMarkup(analysisText, topResults);
+      analysisText = essayResult.text;
+      const s = essayResult.stats;
+      const orphanStr = s.orphanTags ? `, orphan-Tags=${s.orphanTags}` : '';
+      const autoStr = s.autoDetectedQuotes ? `, auto-detected=${s.autoDetectedQuotes}` : '';
+      console.log(`[ESSAY-VALIDATOR] Belege=${s.belegCount}, Deutungen=${s.deutungCount}, degradiert=${s.degraded.length}, Zitat-Drift=${s.quoteDrift.length}${orphanStr}${autoStr}`);
+      if (s.degraded.length > 0) {
+        console.log(`[ESSAY-VALIDATOR] Degradierte Belege: ${s.degraded.slice(0, 5).map(d => `${d.id} (${d.reason})`).join(', ')}${s.degraded.length > 5 ? ' …' : ''}`);
+      }
+      if (s.quoteDrift.length > 0) {
+        console.log(`[ESSAY-VALIDATOR] Zitat-Drift markiert: ${s.quoteDrift.slice(0, 3).map(d => `${d.id}`).join(', ')}${s.quoteDrift.length > 3 ? ' …' : ''}`);
       }
     }
 
@@ -9018,6 +9419,267 @@ app.post('/api/generate-embeddings', async (req, res) => {
   }
 });
 
+// ============================================================================
+// ABSATZ-EMBEDDINGS: Generierung pro GA-Band mit paralleler Verarbeitung
+// Schreibt in paragraph-embeddings/<gaBand>.json (gesharded für überschaubare
+// Dateigrößen und parallelen Server-Start-Load).
+// ============================================================================
+const PARAGRAPH_EMBEDDINGS_DIR = path.join(__dirname, 'paragraph-embeddings');
+
+// Lazy-Cache pro GA-Band: einmal aus der Datei geladen, dann im Memory.
+const _paragraphEmbeddingsCache = new Map(); // gaBand → embeddings-Objekt
+
+async function loadParagraphEmbeddingsForGA(gaBand) {
+  if (_paragraphEmbeddingsCache.has(gaBand)) {
+    return _paragraphEmbeddingsCache.get(gaBand);
+  }
+  const filePath = path.join(PARAGRAPH_EMBEDDINGS_DIR, `${gaBand}.json`);
+  try {
+    let raw = await fs.readFile(filePath, 'utf8');
+    if (raw.charCodeAt(0) === 0xFEFF) raw = raw.slice(1);
+    const embs = JSON.parse(raw);
+    _paragraphEmbeddingsCache.set(gaBand, embs);
+    console.log(`[PARA-EMB-CACHE] ${gaBand}: ${Object.keys(embs).length} Embeddings geladen`);
+    return embs;
+  } catch (e) {
+    _paragraphEmbeddingsCache.set(gaBand, {});
+    return {};
+  }
+}
+
+async function listAvailableParagraphEmbeddingGAs() {
+  try {
+    const files = await fs.readdir(PARAGRAPH_EMBEDDINGS_DIR);
+    return files.filter(f => f.endsWith('.json')).map(f => f.replace(/\.json$/, ''));
+  } catch (e) {
+    return [];
+  }
+}
+
+/**
+ * Findet semantisch ähnliche Absätze direkt (nicht über Vortrags-Summaries).
+ * @param {string} query - Anfrage
+ * @param {string} gaFilter - optionaler GA-Filter (z.B. "GA001"); leer = alle verfügbaren
+ * @param {number} threshold - Mindest-Similarity (0..1)
+ * @param {number} topN - max. Anzahl Treffer
+ * @returns {Object} Map: "GA###:^idx" → similarity
+ */
+async function findSemanticallySimilarParagraphs(query, gaFilter, threshold = 0.55, topN = 30) {
+  let gaBands;
+  if (gaFilter && gaFilter.trim()) {
+    gaBands = [gaFilter.trim()];
+  } else {
+    gaBands = await listAvailableParagraphEmbeddingGAs();
+  }
+  if (gaBands.length === 0) return {};
+
+  const queryEmb = await createEmbedding(query);
+
+  const allSims = [];
+  for (const gaBand of gaBands) {
+    const embeddings = await loadParagraphEmbeddingsForGA(gaBand);
+    for (const key in embeddings) {
+      const vec = embeddings[key]?.embedding;
+      if (!vec) continue;
+      const sim = cosineSimilarity(queryEmb, vec);
+      if (sim >= threshold) {
+        allSims.push([key, sim]);
+      }
+    }
+  }
+  allSims.sort((a, b) => b[1] - a[1]);
+  const top = allSims.slice(0, topN);
+  return Object.fromEntries(top);
+}
+
+app.post('/api/generate-paragraph-embeddings', async (req, res) => {
+  try {
+    const {
+      gaBand = null,
+      limit = null,
+      skipExisting = true,
+      concurrency = 5,
+      minLength = 30
+    } = req.body || {};
+
+    if (!gaBand) {
+      return res.status(400).json({ error: 'gaBand erforderlich (z.B. "GA001")' });
+    }
+    if (!paragraphsFromLectures || paragraphsFromLectures.length === 0) {
+      return res.status(503).json({ error: 'Paragraphen noch nicht geladen' });
+    }
+
+    // GA-Band filtern: GA001 fängt GA001, GA001/1, GA001/2 etc.
+    const candidates = paragraphsFromLectures.filter(p => p.ID && (p.ID === gaBand || p.ID.startsWith(gaBand + '/')));
+
+    // Zielverzeichnis sicherstellen
+    try { await fs.mkdir(PARAGRAPH_EMBEDDINGS_DIR, { recursive: true }); } catch {}
+
+    // Vorhandene Embeddings für diesen GA-Band laden
+    const targetFile = path.join(PARAGRAPH_EMBEDDINGS_DIR, `${gaBand}.json`);
+    let embeddings = {};
+    try {
+      let raw = await fs.readFile(targetFile, 'utf8');
+      if (raw.charCodeAt(0) === 0xFEFF) raw = raw.slice(1);
+      embeddings = JSON.parse(raw);
+    } catch (e) { /* neue Datei */ }
+
+    // Filter: zu kurze Absätze überspringen, optional existierende
+    let toProcess = candidates.filter(p => (p.content || '').trim().length >= minLength);
+    if (skipExisting) {
+      toProcess = toProcess.filter(p => !embeddings[`${p.ID}:${p.index}`]);
+    }
+    if (limit) {
+      toProcess = toProcess.slice(0, Math.max(0, parseInt(limit)));
+    }
+
+    console.log(`[PARA-EMB] ${gaBand}: ${candidates.length} Kandidaten, ${Object.keys(embeddings).length} bereits, ${toProcess.length} zu verarbeiten (concurrency=${concurrency})`);
+
+    // Antwort sofort, Verarbeitung im Hintergrund
+    res.json({
+      success: true,
+      gaBand,
+      totalCandidates: candidates.length,
+      existing: Object.keys(embeddings).length,
+      toProcess: toProcess.length,
+      message: `Generierung gestartet: ${toProcess.length} Absätze, concurrency=${concurrency}`
+    });
+
+    if (toProcess.length === 0) {
+      return;
+    }
+
+    // Worker-Pool mit Concurrency-Limit
+    const queue = [...toProcess];
+    let processed = 0;
+    let errors = [];
+    const startedAt = Date.now();
+    let lastPersistAt = Date.now();
+
+    const persistEmbeddings = async () => {
+      try {
+        await fs.writeFile(targetFile, JSON.stringify(embeddings), 'utf8');
+      } catch (e) {
+        console.error(`[PARA-EMB] Persistierung fehlgeschlagen: ${e.message}`);
+      }
+    };
+
+    const worker = async (workerId) => {
+      while (queue.length > 0) {
+        const p = queue.shift();
+        if (!p) break;
+        const key = `${p.ID}:${p.index}`;
+        try {
+          // Doppelt sicher: skipExisting nochmal prüfen (Race-Cond-frei)
+          if (skipExisting && embeddings[key]) {
+            processed++;
+            continue;
+          }
+          const text = (p.content || '').trim();
+          if (text.length < minLength) continue;
+          const emb = await createEmbedding(text);
+          embeddings[key] = {
+            embedding: emb,
+            model: 'gemini-embedding-001',
+            createdAt: new Date().toISOString()
+          };
+          processed++;
+
+          // Persistieren alle 200 Stück ODER alle 20 Sekunden
+          if (processed % 200 === 0 || (Date.now() - lastPersistAt) > 20000) {
+            await persistEmbeddings();
+            lastPersistAt = Date.now();
+            const dt = (Date.now() - startedAt) / 1000;
+            const rate = processed / dt;
+            const remaining = toProcess.length - processed;
+            const eta = remaining / Math.max(rate, 0.1);
+            console.log(`[PARA-EMB] ${gaBand}: ${processed}/${toProcess.length} (${(processed/toProcess.length*100).toFixed(1)}%), ${rate.toFixed(1)}/s, ETA ~${Math.round(eta)}s`);
+          }
+        } catch (e) {
+          const msg = e.message || String(e);
+          // Rate-Limit / Quota → exponential backoff für diesen Worker
+          if (msg.includes('429') || msg.includes('quota') || msg.includes('RESOURCE_EXHAUSTED') || msg.includes('rate')) {
+            const waitMs = 30000 + Math.floor(Math.random() * 30000);
+            console.warn(`[PARA-EMB] Worker ${workerId}: Rate-Limit (${msg.substring(0, 80)}), warte ${(waitMs/1000).toFixed(0)}s`);
+            queue.unshift(p); // zurücklegen
+            await new Promise(r => setTimeout(r, waitMs));
+          } else {
+            errors.push({ id: key, error: msg.substring(0, 200) });
+            if (errors.length % 10 === 0) {
+              console.warn(`[PARA-EMB] ${errors.length} Fehler bisher (letzter: ${key}: ${msg.substring(0, 80)})`);
+            }
+          }
+        }
+      }
+    };
+
+    // Worker starten
+    await Promise.all(Array.from({ length: concurrency }, (_, i) => worker(i + 1)));
+
+    // Final persistieren
+    await persistEmbeddings();
+
+    const dt = (Date.now() - startedAt) / 1000;
+    console.log(`[PARA-EMB] ✓ ${gaBand} fertig: ${processed} neu, ${errors.length} Fehler in ${dt.toFixed(0)}s (${(processed/dt).toFixed(1)}/s)`);
+    if (errors.length > 0 && errors.length <= 5) {
+      errors.forEach(e => console.log(`  Fehler: ${e.id}: ${e.error}`));
+    } else if (errors.length > 5) {
+      console.log(`  Erste 5 Fehler:`);
+      errors.slice(0, 5).forEach(e => console.log(`    ${e.id}: ${e.error}`));
+    }
+
+  } catch (error) {
+    console.error('[PARA-EMB] Endpoint-Fehler:', error);
+    if (!res.headersSent) {
+      res.status(500).json({ error: error.message });
+    }
+  }
+});
+
+// API: Status der Absatz-Embeddings (pro GA-Band)
+app.get('/api/paragraph-embeddings-status', async (req, res) => {
+  try {
+    const { gaBand } = req.query;
+    try { await fs.mkdir(PARAGRAPH_EMBEDDINGS_DIR, { recursive: true }); } catch {}
+
+    if (gaBand) {
+      const targetFile = path.join(PARAGRAPH_EMBEDDINGS_DIR, `${gaBand}.json`);
+      let embeddings = {};
+      let fileSize = 0;
+      try {
+        const stat = await fs.stat(targetFile);
+        fileSize = stat.size;
+        let raw = await fs.readFile(targetFile, 'utf8');
+        if (raw.charCodeAt(0) === 0xFEFF) raw = raw.slice(1);
+        embeddings = JSON.parse(raw);
+      } catch {}
+      const candidates = (paragraphsFromLectures || []).filter(p => p.ID && (p.ID === gaBand || p.ID.startsWith(gaBand + '/')));
+      const firstKey = Object.keys(embeddings)[0];
+      const dim = firstKey ? (embeddings[firstKey].embedding || []).length : 0;
+      return res.json({
+        gaBand,
+        candidates: candidates.length,
+        embedded: Object.keys(embeddings).length,
+        missing: candidates.length - Object.keys(embeddings).length,
+        fileSize,
+        dimension: dim
+      });
+    }
+
+    // Übersicht über alle Dateien
+    const files = await fs.readdir(PARAGRAPH_EMBEDDINGS_DIR).catch(() => []);
+    const summary = [];
+    for (const f of files.filter(f => f.endsWith('.json'))) {
+      const fp = path.join(PARAGRAPH_EMBEDDINGS_DIR, f);
+      const stat = await fs.stat(fp).catch(() => null);
+      summary.push({ file: f, size: stat ? stat.size : 0 });
+    }
+    res.json({ totalFiles: summary.length, files: summary });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
 // API: Semantische Suche für ein Thema
 app.post('/api/semantic-theme-search', async (req, res) => {
   try {
@@ -10419,6 +11081,7 @@ app.post('/api/thematic-hybrid-search', async (req, res) => {
     // Log Analyse-Modus
     const modeLabel = thematicMode === 'deep' ? 'Tiefe Analyse (Claude)'
                     : thematicMode === 'quote' ? 'Zitatsuche (Claude)'
+                    : thematicMode === 'essay' ? 'Essay – Synthese & Belege (Claude Opus)'
                     : 'Breite Sammlung (Gemini)';
     console.log(`[THEMATIC] Modus: ${modeLabel}, Provider: ${preferredProvider || 'auto'}, Limit: ${limit}`);
     
@@ -10470,7 +11133,15 @@ app.post('/api/thematic-hybrid-search', async (req, res) => {
     const tParallelStart = Date.now();
     const semThreshold = isQuoteMode ? 0.28 : 0.35;
     const semTopN = isQuoteMode ? 50 : 30;
-    const [expandedTerms, phrases, lectureSimilarities] = await Promise.all([
+    // Absatz-Embeddings: höhere Schwelle (Absätze sind spezifischer als Summaries),
+    // im Essay-Modus mehr Treffer (großzügigerer Pool für Belege).
+    const paraThreshold = thematicMode === 'essay' ? 0.50
+                        : isQuoteMode ? 0.55
+                        : 0.55;
+    const paraTopN = thematicMode === 'essay' ? 40
+                   : isQuoteMode ? 30
+                   : 25;
+    const [expandedTerms, phrases, lectureSimilarities, paragraphSimilarities] = await Promise.all([
       expandQueryWithLLM(query).catch(err => {
         console.warn('[THEMATIC] Query-Expansion fehlgeschlagen:', err.message);
         return [];
@@ -10483,6 +11154,10 @@ app.post('/api/thematic-hybrid-search', async (req, res) => {
         : Promise.resolve([]),
       findSemanticallySimilarLectures(query, semThreshold, semTopN).catch(err => {
         console.warn('[THEMATIC] Semantische Anreicherung fehlgeschlagen:', err.message);
+        return {};
+      }),
+      findSemanticallySimilarParagraphs(query, gaFilter, paraThreshold, paraTopN).catch(err => {
+        console.warn('[THEMATIC] Absatz-Embedding-Anreicherung fehlgeschlagen:', err.message);
         return {};
       })
     ]);
@@ -10613,8 +11288,53 @@ app.post('/api/thematic-hybrid-search', async (req, res) => {
       }
     }
 
+    // 4) Absatz-Semantik (auf Absatz-Embedding-Basis, präziser als Vortrags-Semantik)
+    if (paragraphSimilarities && Object.keys(paragraphSimilarities).length > 0) {
+      const top3 = Object.entries(paragraphSimilarities).slice(0, 3)
+        .map(([k, s]) => `${k}=${s.toFixed(2)}`).join(', ');
+      console.log(`[THEMATIC] ${Object.keys(paragraphSimilarities).length} semantisch ähnliche Absätze (Top: ${top3})`);
+
+      // Map für schnelle Treffer-Existenz-Prüfung (sonst O(n) pro Absatz-Hit)
+      const existingResultsMap = new Map(keywordResults.map(r => [`${r.ID}:${r.index}`, r]));
+      let addedParaCount = 0;
+      let boostedCount = 0;
+
+      for (const [paraKey, similarity] of Object.entries(paragraphSimilarities)) {
+        const existing = existingResultsMap.get(paraKey);
+        if (existing) {
+          // Bereits durch Keyword/Expansion gefunden → Score-Boost und Markierung
+          const semanticScore = similarity * 60;
+          if (semanticScore > (existing.keywordScore || 0)) {
+            existing.keywordScore = semanticScore;
+            boostedCount++;
+          }
+          existing.paragraphSemanticSimilarity = similarity;
+          continue;
+        }
+        // Neu: Absatz aus paragraphsFromLectures suchen
+        const lastColon = paraKey.lastIndexOf(':');
+        const lectureId = paraKey.substring(0, lastColon);
+        const paraIndex = paraKey.substring(lastColon + 1);
+        const para = paragraphsFromLectures.find(p => p.ID === lectureId && p.index === paraIndex);
+        if (!para) continue;
+        const newResult = {
+          ...para,
+          keywordScore: similarity * 60,
+          matchedTerms: ['[absatz-semantisch]'],
+          paragraphSemanticMatch: true,
+          semanticMatch: true,
+          paragraphSemanticSimilarity: similarity,
+          semanticSimilarity: similarity
+        };
+        keywordResults.push(newResult);
+        existingResultsMap.set(paraKey, newResult);
+        addedParaCount++;
+      }
+      console.log(`[THEMATIC] Absatz-Semantik: +${addedParaCount} neue Absätze, ${boostedCount} bestehende Treffer geboostet (Threshold ${paraThreshold})`);
+    }
+
     const tSync = Date.now() - tSyncStart;
-    console.log(`[THEMATIC] Timing: keyword=${tKeyword}ms, parallel(LLM+LLM+emb)=${tParallel}ms, sync=${tSync}ms`);
+    console.log(`[THEMATIC] Timing: keyword=${tKeyword}ms, parallel(LLM+LLM+emb+paraEmb)=${tParallel}ms, sync=${tSync}ms`);
 
     if (keywordResults.length === 0) {
       const emptyResult = {

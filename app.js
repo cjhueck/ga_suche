@@ -12246,7 +12246,15 @@ function scrollToChronologicalYear(year) {
       showLectureFromAdvancedSearch(lectureId, searchTerm, paragraphIndex);
     }
     
-    async function showLectureFromAdvancedSearch(lectureId, searchTerm, paragraphIndex = null) {
+    async function showLectureFromAdvancedSearch(lectureId, searchTerm, paragraphIndex = null, highlightSnippets = null) {
+      // Essay-Modus erkennen: highlightSnippets ist als Array übergeben (auch wenn leer).
+      // In diesem Fall werden:
+      //   - keine Absatz-Klasse 'highlighted-paragraph' gesetzt
+      //   - kein 5-Sekunden-Auto-Highlight ausgelöst
+      //   - nur die expliziten Zitat-Schnipsel via <mark> markiert (wenn vorhanden)
+      // Bei leerem Array (reine Paraphrase-Belege ohne Zitat) wird gar nichts markiert.
+      // Andere Modi (Tiefe/Breite/Zitat) übergeben null → klassisches Absatz-Highlighting.
+      const useSnippetMode = Array.isArray(highlightSnippets);
       
       // Prüfe ob es ein Buch ist (GA001-GA046)
       // Extrahiere GA-Nummer aus lectureId (z.B. "GA001/1" -> "GA001")
@@ -12254,8 +12262,8 @@ function scrollToChronologicalYear(year) {
       if (gaMatch) {
         const gaNumber = gaMatch[1];
         if (isBookGANumber(gaNumber)) {
-          // Für Bücher: Verwende showBookFromAdvancedSearch
-          await showBookFromAdvancedSearch(gaNumber, searchTerm, paragraphIndex);
+          // Für Bücher: Verwende showBookFromAdvancedSearch, Snippets weiterreichen
+          await showBookFromAdvancedSearch(gaNumber, searchTerm, paragraphIndex, highlightSnippets);
           return;
         }
       }
@@ -12499,71 +12507,103 @@ function scrollToChronologicalYear(year) {
             // Konvertiere Seitenmarker |47| zu hochgestellten Zahlen
             content = convertPageMarkers(content);
             
-            // Highlighte den Suchbegriff (auch innerhalb von HTML-Strukturen wie Anführungszeichen)
-            if (searchTerm && searchTerm.trim()) {
-              const cleanTerm = searchTerm.trim();
-              // Prüfe ob exakte Suche (mit Anführungszeichen)
-              const isExactMatch = cleanTerm.startsWith('"') && cleanTerm.endsWith('"');
-              const termToHighlight = isExactMatch 
-                ? cleanTerm.slice(1, -1) 
-                : cleanTerm;
-              const escapedTerm = termToHighlight.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-              // Bei exakter Suche: case-sensitive, sonst case-insensitive
-              const flags = isExactMatch ? 'g' : 'gi';
-              
-              // WICHTIG: Markiere auch innerhalb von HTML-Strukturen (z.B. <q>Tags</q>)
-              // Verwende DOM-basierten Ansatz für präzise Markierung auch innerhalb von HTML-Strukturen
+            // Highlighte den/die Suchbegriffe (auch innerhalb von HTML-Strukturen)
+            // Essay-Modus (useSnippetMode true): NUR die wörtlichen Zitat-Schnipsel
+            //   markieren – auch wenn keine vorhanden sind (Paraphrase-Beleg → keine Marker).
+            //   Niemals auf searchTerm zurückfallen.
+            // Andere Modi: searchTerm wie gehabt.
+            const termsToHighlight = useSnippetMode
+              ? (highlightSnippets || []).filter(s => s && s.trim().length >= 3)
+              : (searchTerm && searchTerm.trim() ? [searchTerm.trim()] : []);
+            const useSnippets = useSnippetMode; // Beibehalten für die flag-Logik unten
+
+            if (termsToHighlight.length > 0) {
               const tempDivForMarking = document.createElement('div');
               tempDivForMarking.innerHTML = content;
-              
-              // Durchsuche alle Textknoten (auch innerhalb von HTML-Strukturen)
-              const textWalker = document.createTreeWalker(
-                tempDivForMarking,
-                NodeFilter.SHOW_TEXT,
-                {
-                  acceptNode: function(node) {
-                    // Überspringe Textknoten die bereits in <mark> Tags sind
-                    let parent = node.parentNode;
-                    while (parent && parent !== tempDivForMarking) {
-                      if (parent.tagName && parent.tagName.toLowerCase() === 'mark') {
-                        return NodeFilter.FILTER_REJECT;
+
+              // Quote-Flex: jedes Anführungszeichen im Snippet matched JEDEN
+              // Quote-Typ in der Quelle (deutsche „…" / Guillemets «…» / ASCII "…" /
+              // single „…' / ASCII '…' / curly '…' / prime ′…″ / etc.) oder gar keinen
+              // (LLM könnte verschachtelte Quotes mal weglassen).
+              // Auch Whitespace-Folgen werden flexibel gematched.
+              const QUOTE_CHARS_RE = /[\u0022\u0027\u00AB\u00BB\u00B4\u2018\u2019\u201A\u201B\u201C\u201D\u201E\u201F\u2032\u2033\u2039\u203A]/;
+              const QUOTE_FLEX_CLASS = '[\u0022\u0027\u00AB\u00BB\u00B4\u2018\u2019\u201A\u201B\u201C\u201D\u201E\u201F\u2032\u2033\u2039\u203A]?';
+              const buildFlexRegex = (term) => {
+                let out = '';
+                for (let i = 0; i < term.length; i++) {
+                  const ch = term[i];
+                  if (QUOTE_CHARS_RE.test(ch)) {
+                    out += QUOTE_FLEX_CLASS;
+                  } else if (/\s/.test(ch)) {
+                    // Whitespace-Folgen kollabieren
+                    while (i + 1 < term.length && /\s/.test(term[i + 1])) i++;
+                    out += '\\s+';
+                  } else {
+                    out += ch.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+                  }
+                }
+                return out;
+              };
+
+              termsToHighlight.forEach(rawTerm => {
+                const cleanTerm = rawTerm.trim();
+                const isExactMatch = cleanTerm.startsWith('"') && cleanTerm.endsWith('"');
+                const termToHighlight = isExactMatch ? cleanTerm.slice(1, -1) : cleanTerm;
+                if (!termToHighlight || termToHighlight.length < 3) return;
+                // Im Snippet-Modus Quote-Flex matchen; sonst klassisch escaped.
+                const escapedTerm = useSnippets
+                  ? buildFlexRegex(termToHighlight)
+                  : termToHighlight.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+                // Bei Snippet-Highlighting immer case-insensitive (Wortlaute sind robust);
+                // sonst Standard-Verhalten (exact bei "..."-Suche, sonst case-insensitive)
+                const flags = useSnippets ? 'gi' : (isExactMatch ? 'g' : 'gi');
+
+                // TreeWalker frisch pro Term, damit bereits markierte Knoten
+                // via acceptNode-Filter (<mark>-Parent → REJECT) übersprungen werden.
+                const textWalker = document.createTreeWalker(
+                  tempDivForMarking,
+                  NodeFilter.SHOW_TEXT,
+                  {
+                    acceptNode: function(node) {
+                      let parent = node.parentNode;
+                      while (parent && parent !== tempDivForMarking) {
+                        if (parent.tagName && parent.tagName.toLowerCase() === 'mark') {
+                          return NodeFilter.FILTER_REJECT;
+                        }
+                        parent = parent.parentNode;
                       }
-                      parent = parent.parentNode;
+                      return NodeFilter.FILTER_ACCEPT;
                     }
-                    return NodeFilter.FILTER_ACCEPT;
-                  }
-                },
-                false
-              );
-              
-              const textNodesToMark = [];
-              let textNode;
-              while (textNode = textWalker.nextNode()) {
-                if (textNode.textContent.trim()) {
-                  textNodesToMark.push(textNode);
-                }
-              }
-              
-              // Markiere Suchwort in allen Textknoten (auch innerhalb von HTML-Strukturen)
-              textNodesToMark.forEach(textNode => {
-                const text = textNode.textContent;
-                const regex = new RegExp(`(${escapedTerm})`, flags);
-                if (regex.test(text)) {
-                  const parent = textNode.parentNode;
-                  if (parent && parent.nodeType === Node.ELEMENT_NODE) {
-                    const highlightedText = text.replace(regex, '<mark>$1</mark>');
-                    const tempSpan = document.createElement('span');
-                    tempSpan.innerHTML = highlightedText;
-                    
-                    // Ersetze Textknoten durch die markierte Version
-                    while (tempSpan.firstChild) {
-                      parent.insertBefore(tempSpan.firstChild, textNode);
-                    }
-                    parent.removeChild(textNode);
+                  },
+                  false
+                );
+
+                const textNodesToMark = [];
+                let textNode;
+                while (textNode = textWalker.nextNode()) {
+                  if (textNode.textContent.trim()) {
+                    textNodesToMark.push(textNode);
                   }
                 }
+
+                textNodesToMark.forEach(textNode => {
+                  const text = textNode.textContent;
+                  const regex = new RegExp(`(${escapedTerm})`, flags);
+                  if (regex.test(text)) {
+                    const parent = textNode.parentNode;
+                    if (parent && parent.nodeType === Node.ELEMENT_NODE) {
+                      const highlightedText = text.replace(regex, '<mark>$1</mark>');
+                      const tempSpan = document.createElement('span');
+                      tempSpan.innerHTML = highlightedText;
+                      while (tempSpan.firstChild) {
+                        parent.insertBefore(tempSpan.firstChild, textNode);
+                      }
+                      parent.removeChild(textNode);
+                    }
+                  }
+                });
               });
-              
+
               content = tempDivForMarking.innerHTML;
             }
             
@@ -12578,7 +12618,8 @@ function scrollToChronologicalYear(year) {
             
             // WICHTIG: Bei Members-Navigation KEIN Absatz-Highlighting - nur der exakte Zitat-Text wird markiert
             // WICHTIG: Bei Navigation vom Inhaltsverzeichnis KEIN Absatz-Highlighting
-            const highlightClass = (isTargetPara && !window.membersNavigating && !window.skipParagraphHighlight) ? 'highlighted-paragraph' : '';
+            // WICHTIG: Bei Essay-Modus mit Zitat-Snippets KEIN Absatz-Highlighting (nur Snippets via <mark>)
+            const highlightClass = (isTargetPara && !window.membersNavigating && !window.skipParagraphHighlight && !useSnippetMode) ? 'highlighted-paragraph' : '';
             
             // NEU: Füge data-* Attribute für Context-Menü Markierungen hinzu
             // WICHTIG: Verwende paraIndex (echten Index) statt idx (numerisch) für konsistente ID-Struktur
@@ -12623,7 +12664,8 @@ function scrollToChronologicalYear(year) {
                 
                 // Markiere den Absatz mit automatischer Entfernung nach 5 Sekunden
                 // ABER: Nicht bei Navigation aus Members Panel
-                if (typeof addHighlightingWithAutoRemove === 'function' && window.membersNavigating !== true) {
+                // ABER: Nicht bei Essay-Snippet-Highlighting (nur die Zitat-Wortlaute werden markiert)
+                if (typeof addHighlightingWithAutoRemove === 'function' && window.membersNavigating !== true && !useSnippetMode) {
                   addHighlightingWithAutoRemove(targetElement);
                 }
               }
@@ -12708,7 +12750,12 @@ function scrollToChronologicalYear(year) {
     window.showLectureFromAdvancedSearch = showLectureFromAdvancedSearch;
     
     // Funktion: Zeigt ein Buch im rechten Panel (für erweiterte Suche)
-    async function showBookFromAdvancedSearch(gaNumber, searchTerm, paragraphIndex = null) {
+    async function showBookFromAdvancedSearch(gaNumber, searchTerm, paragraphIndex = null, highlightSnippets = null) {
+      // Essay-Snippet-Modus: wenn highlightSnippets gesetzt ist (auch leeres Array),
+      // werden weder Absatz-Klasse 'highlighted-paragraph' noch addHighlightingWithAutoRemove
+      // angewendet, und der searchTerm wird NICHT markiert. Stattdessen werden die
+      // explizit übergebenen Zitat-Schnipsel mit Quote-Flex hervorgehoben.
+      const useSnippetMode = Array.isArray(highlightSnippets);
       
       try {
         // Prüfe ob es wirklich ein Buch ist (nicht ein Aufsatzband)
@@ -12988,7 +13035,8 @@ function scrollToChronologicalYear(year) {
           
           // WICHTIG: Highlighte den Suchbegriff im gesamten Content VOR dem Verstecken der Indizes
           // Das Suchwort wird in ALLEN Treffern markiert (dunkelblau wie im Tab "Suche")
-          if (searchTerm && searchTerm.trim()) {
+          // Im Essay-Snippet-Modus überspringen — dort werden nur die expliziten Snippets markiert.
+          if (!useSnippetMode && searchTerm && searchTerm.trim()) {
             const cleanTerm = searchTerm.trim();
             const isExactMatch = cleanTerm.startsWith('"') && cleanTerm.endsWith('"');
             const termToHighlight = isExactMatch
@@ -13090,7 +13138,8 @@ function scrollToChronologicalYear(year) {
           // WICHTIG: Markiere Suchwort nochmal NACH dem Verstecken der Indizes
           // um sicherzustellen, dass es in ALLEN Treffern markiert ist (dunkelblau wie im Tab "Suche")
           // WICHTIG: Markierung muss auch innerhalb von HTML-Strukturen funktionieren (z.B. Anführungszeichen in <q> Tags)
-          if (searchTerm && searchTerm.trim()) {
+          // Im Essay-Snippet-Modus überspringen — dort werden nur die expliziten Snippets markiert.
+          if (!useSnippetMode && searchTerm && searchTerm.trim()) {
             const cleanTerm = searchTerm.trim();
             const isExactMatch = cleanTerm.startsWith('"') && cleanTerm.endsWith('"');
             const termToHighlight = isExactMatch
@@ -13209,7 +13258,8 @@ function scrollToChronologicalYear(year) {
                     
                     // Markiere den Absatz (blau unterlegen) mit automatischer Entfernung nach 5 Sekunden
                     // ABER: Nicht bei Navigation aus Members Panel oder vom Inhaltsverzeichnis
-                    if (window.membersNavigating !== true && window.skipParagraphHighlight !== true) {
+                    // ABER: Im Essay-Snippet-Modus überspringen — dort nur die expliziten Zitate markieren.
+                    if (window.membersNavigating !== true && window.skipParagraphHighlight !== true && !useSnippetMode) {
                       if (typeof addHighlightingWithAutoRemove === 'function') {
                         addHighlightingWithAutoRemove(paragraphElement);
                       } else {
@@ -13217,8 +13267,81 @@ function scrollToChronologicalYear(year) {
                       }
                     }
                     
+                    // Im Essay-Snippet-Modus: explizite Zitat-Schnipsel mit Quote-Flex
+                    // im Zielabsatz hervorheben (keine searchTerm-Markierung).
+                    if (useSnippetMode && highlightSnippets.length > 0) {
+                      // Quote-Flex: deutsche „…" / Guillemets «…» / ASCII "…" /
+                      // ASCII '…' / curly '…' / prime ′…″ / etc. matchen einander.
+                      const QUOTE_CHARS_RE = /[\u0022\u0027\u00AB\u00BB\u00B4\u2018\u2019\u201A\u201B\u201C\u201D\u201E\u201F\u2032\u2033\u2039\u203A]/;
+                      const QUOTE_FLEX_CLASS = '[\u0022\u0027\u00AB\u00BB\u00B4\u2018\u2019\u201A\u201B\u201C\u201D\u201E\u201F\u2032\u2033\u2039\u203A]?';
+                      const buildFlexRegex = (term) => {
+                        let out = '';
+                        for (let i = 0; i < term.length; i++) {
+                          const ch = term[i];
+                          if (QUOTE_CHARS_RE.test(ch)) {
+                            out += QUOTE_FLEX_CLASS;
+                          } else if (/\s/.test(ch)) {
+                            while (i + 1 < term.length && /\s/.test(term[i + 1])) i++;
+                            out += '\\s+';
+                          } else {
+                            out += ch.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+                          }
+                        }
+                        return out;
+                      };
+
+                      highlightSnippets.forEach(rawSnippet => {
+                        const term = (rawSnippet || '').trim();
+                        if (term.length < 5) return;
+                        const flexPattern = buildFlexRegex(term);
+                        let regex;
+                        try {
+                          regex = new RegExp('(' + flexPattern + ')', 'gi');
+                        } catch (e) {
+                          console.warn('[ESSAY-HIGHLIGHT-BUCH] Regex-Fehler:', e.message);
+                          return;
+                        }
+
+                        const swalker = document.createTreeWalker(
+                          paragraphElement,
+                          NodeFilter.SHOW_TEXT,
+                          {
+                            acceptNode: function(node) {
+                              let p = node.parentNode;
+                              while (p && p !== paragraphElement) {
+                                if (p.tagName && p.tagName.toLowerCase() === 'mark') return NodeFilter.FILTER_REJECT;
+                                if (p.tagName && p.tagName.toLowerCase() === 'img') return NodeFilter.FILTER_REJECT;
+                                p = p.parentNode;
+                              }
+                              return NodeFilter.FILTER_ACCEPT;
+                            }
+                          },
+                          false
+                        );
+                        const nodesToMark = [];
+                        let tn;
+                        while (tn = swalker.nextNode()) {
+                          if (tn.textContent && tn.textContent.trim() && regex.test(tn.textContent)) {
+                            nodesToMark.push(tn);
+                            regex.lastIndex = 0;
+                          }
+                        }
+                        nodesToMark.forEach(tn => {
+                          const text = tn.textContent;
+                          const highlightedText = text.replace(regex, '<mark>$1</mark>');
+                          const tempSpan = document.createElement('span');
+                          tempSpan.innerHTML = highlightedText;
+                          while (tempSpan.firstChild) {
+                            tn.parentNode.insertBefore(tempSpan.firstChild, tn);
+                          }
+                          tn.parentNode.removeChild(tn);
+                        });
+                      });
+                    }
+
                     // Markiere auch das Suchwort im Absatz (falls vorhanden UND im Absatz vorkommend)
-                    if (searchTerm && searchTerm.trim()) {
+                    // Nur im Nicht-Essay-Modus, sonst hätten wir oben schon die Snippets markiert.
+                    if (!useSnippetMode && searchTerm && searchTerm.trim()) {
                       const cleanTerm = searchTerm.trim();
                       const isExactMatch = cleanTerm.startsWith('"') && cleanTerm.endsWith('"');
                       const termToHighlight = isExactMatch ? cleanTerm.slice(1, -1) : cleanTerm;
@@ -13295,12 +13418,13 @@ function scrollToChronologicalYear(year) {
               const targetElement = document.getElementById(`adv-para-${targetParagraphIdx}`);
               if (targetElement) {
                 // Markiere Suchwort im Ziel-Absatz (wenn searchTerm vorhanden UND im Absatz vorkommend)
+                // Im Essay-Snippet-Modus überspringen — Snippets wurden oben bereits markiert.
                 let termToHighlight = null;
-                if (searchTerm && searchTerm.trim()) {
+                if (!useSnippetMode && searchTerm && searchTerm.trim()) {
                   const cleanTerm = searchTerm.trim();
                   const isExactMatch = cleanTerm.startsWith('"') && cleanTerm.endsWith('"');
                   termToHighlight = isExactMatch ? cleanTerm.slice(1, -1) : cleanTerm;
-                } else if (currentKeywordText && currentKeywordText.trim()) {
+                } else if (!useSnippetMode && currentKeywordText && currentKeywordText.trim()) {
                   termToHighlight = currentKeywordText.trim();
                 }
                 
@@ -14955,12 +15079,16 @@ function scrollToChronologicalYear(year) {
         // - "broad" (Breite Sammlung): Gemini, viele Quellen, umfassende Sammlung
         // - "quote" (Zitatsuche): Claude, breitere Quellenbasis durch Phrasen-/Semantik-
         //                          Anreicherung im Backend, präzise Zitatauswahl
+        // - "essay" (Essay-Synthese): Claude Opus 4.8, viele Quellen, beleg/deutung-Markup
         let limit, preferredProvider;
         if (thematicMode === 'broad') {
           limit = 300;
           preferredProvider = 'gemini';
         } else if (thematicMode === 'quote') {
           limit = 250;
+          preferredProvider = 'claude';
+        } else if (thematicMode === 'essay') {
+          limit = 150;
           preferredProvider = 'claude';
         } else {
           limit = 100;
@@ -15387,7 +15515,10 @@ function scrollToChronologicalYear(year) {
           // Parse Limit aus Cache-Key (Format: query|depth|limit|ga) für Modus-Label
           const keyParts = (item.key || '').split('|');
           const limit = keyParts.length >= 3 ? parseInt(keyParts[2]) : 100;
-          const modeLabel = limit === 300 ? '[breit]' : '[tief]';
+          const modeLabel = limit === 300 ? '[breit]'
+                          : limit === 250 ? '[zitat]'
+                          : limit === 150 ? '[Essay]'
+                          : '[tief]';
           const keyEnc = encodeURIComponent(item.key);
           const queryEnc = encodeURIComponent(item.query);
           return `<li style="margin: 0.2rem 0;"><a href="#" onclick="openSavedThematicQueryEncoded('${keyEnc}','${queryEnc}'); return false;">${label} <span style="color: var(--secondary-text); font-size: 0.85em;">${modeLabel}</span></a></li>`;
@@ -20610,10 +20741,12 @@ function formatAsteriskParagraphs() {
       // Verwende ausschließlich den GA-Band, der für DIESES Ergebnis angewendet wurde
       const selectedGA = appliedGA || '';
       const headingBase = autocorrectQuery(query) || '';
-      // Modus-Label basierend auf currentThematicLimit (100 = tief, 250 = zitat, 300 = breit)
+      // Modus-Label basierend auf currentThematicLimit
+      // (100 = tief, 150 = Essay, 250 = zitat, 300 = breit)
       let modeLabel;
       if (currentThematicLimit === 300) modeLabel = '[breit]';
       else if (currentThematicLimit === 250) modeLabel = '[zitat]';
+      else if (currentThematicLimit === 150) modeLabel = '[Essay]';
       else modeLabel = '[tief]';
       const headingWithMode = `${headingBase} ${modeLabel}`;
       const headingWithGA = selectedGA ? `${headingWithMode} (aus ${selectedGA})` : headingWithMode;
@@ -20749,6 +20882,12 @@ function formatAsteriskParagraphs() {
         gaLinks.forEach(link => {
           const lectureId = link.getAttribute('data-id');
           const targetIndex = link.getAttribute('data-index');
+          // Essay-Modus erkennen: PRIMÄR über das data-essay-Attribut am Link selbst
+          // (robust gegen DOM-Veränderungen durch markdown-Rendering),
+          // SEKUNDÄR über das Essay-Beleg-Parent-Element.
+          const isEssayBeleg = link.getAttribute('data-essay') === 'true' ||
+                               !!(link.closest && link.closest('.essay-beleg'));
+          const quoteText = link.getAttribute('data-quote-text');
           
           if (lectureId && targetIndex) {
             link.addEventListener('click', async (e) => {
@@ -20758,7 +20897,15 @@ function formatAsteriskParagraphs() {
               // Zeige Text im rechten Side-Panel (wie bei Index-Tab)
               const keywords = extractKeywordsFromQuery(currentThematicQuery);
               const searchTerm = keywords.length > 0 ? keywords[0] : '';
-              await showLectureFromAdvancedSearch(lectureId, searchTerm, targetIndex);
+              // Im Essay-Modus immer Array übergeben (auch leer), damit
+              // showLectureFromAdvancedSearch das Absatz-Highlight unterdrückt.
+              // In anderen Modi: null → Standardverhalten.
+              const snippets = isEssayBeleg
+                ? (quoteText
+                    ? quoteText.split('|||').map(s => s.trim()).filter(s => s.length > 0)
+                    : [])
+                : null;
+              await showLectureFromAdvancedSearch(lectureId, searchTerm, targetIndex, snippets);
             });
           }
         });
