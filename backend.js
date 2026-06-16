@@ -31,6 +31,7 @@ const { promisify } = require('util');
 const execAsync = promisify(exec);
 const { getProviderForTask, getSpecificProvider, generateCompletionWithFallback, showRateLimitStatus, isProviderRateLimited } = require('./llm-providers'); // LLM Provider Abstraction
 const multer = require('multer');
+const vectorizeClient = require('./vectorize-client'); // Cloudflare Vectorize für Absatz-Embeddings
 
 // ============================================================================
 // SUPABASE CLIENT für persistente Analytics
@@ -9458,13 +9459,41 @@ async function listAvailableParagraphEmbeddingGAs() {
 
 /**
  * Findet semantisch ähnliche Absätze direkt (nicht über Vortrags-Summaries).
+ * Bevorzugt Cloudflare Vectorize (online, skalierbar), fällt bei Fehler oder
+ * fehlender Konfiguration zurück auf den lokalen In-Memory-Pfad.
  * @param {string} query - Anfrage
- * @param {string} gaFilter - optionaler GA-Filter (z.B. "GA001"); leer = alle verfügbaren
+ * @param {string} gaFilter - optionaler GA-Filter (z.B. "GA001"); leer = alle
  * @param {number} threshold - Mindest-Similarity (0..1)
  * @param {number} topN - max. Anzahl Treffer
  * @returns {Object} Map: "GA###:^idx" → similarity
  */
 async function findSemanticallySimilarParagraphs(query, gaFilter, threshold = 0.55, topN = 30) {
+  // Query-Embedding einmal erzeugen — wird in beiden Pfaden gebraucht.
+  const queryEmb = await createEmbedding(query);
+
+  // === Pfad A: Cloudflare Vectorize (bevorzugt) ===
+  if (vectorizeClient.isConfigured()) {
+    try {
+      const filter = gaFilter && gaFilter.trim() ? { gaBand: gaFilter.trim() } : null;
+      // Etwas größer als topN, damit nach Threshold-Filter genug bleibt.
+      const requestedTopK = Math.min(100, Math.max(topN * 2, 30));
+      const result = await vectorizeClient.queryNearest(queryEmb, {
+        topK: requestedTopK,
+        filter,
+        returnMetadata: 'none',
+        returnValues: false
+      });
+      const top = (result.matches || [])
+        .filter(m => (m.score || 0) >= threshold)
+        .slice(0, topN);
+      return Object.fromEntries(top.map(m => [m.id, m.score]));
+    } catch (e) {
+      console.warn(`[VECTORIZE] Query fehlgeschlagen, falle zurück auf In-Memory: ${e.message}`);
+      // weiter zu Pfad B
+    }
+  }
+
+  // === Pfad B: In-Memory aus paragraph-embeddings/ (Fallback) ===
   let gaBands;
   if (gaFilter && gaFilter.trim()) {
     gaBands = [gaFilter.trim()];
@@ -9472,8 +9501,6 @@ async function findSemanticallySimilarParagraphs(query, gaFilter, threshold = 0.
     gaBands = await listAvailableParagraphEmbeddingGAs();
   }
   if (gaBands.length === 0) return {};
-
-  const queryEmb = await createEmbedding(query);
 
   const allSims = [];
   for (const gaBand of gaBands) {
@@ -9556,11 +9583,28 @@ app.post('/api/generate-paragraph-embeddings', async (req, res) => {
     const startedAt = Date.now();
     let lastPersistAt = Date.now();
 
+    // Buffer für Vectorize-Upserts (nur befüllt, wenn Vectorize konfiguriert).
+    // Wird beim Persist-Cycle geflusht, damit Vectorize denselben Stand hat
+    // wie die lokale JSON-Datei. Bei Fehler bleibt der Buffer für Retry erhalten.
+    const newVectorsForVectorize = [];
+    const useVectorize = vectorizeClient.isConfigured();
+
     const persistEmbeddings = async () => {
       try {
         await fs.writeFile(targetFile, JSON.stringify(embeddings), 'utf8');
       } catch (e) {
         console.error(`[PARA-EMB] Persistierung fehlgeschlagen: ${e.message}`);
+      }
+      if (useVectorize && newVectorsForVectorize.length > 0) {
+        const toUpsert = newVectorsForVectorize.splice(0, newVectorsForVectorize.length);
+        try {
+          const r = await vectorizeClient.upsertVectors(toUpsert, { batchSize: 500 });
+          console.log(`[PARA-EMB][VECTORIZE] +${r.upserted} Vektoren in ${gaBand} hochgespielt`);
+        } catch (e) {
+          console.warn(`[PARA-EMB][VECTORIZE] Upsert fehlgeschlagen, lokal weiter ok: ${e.message}`);
+          // Zurück in den Buffer — nächster Persist-Cycle versucht es erneut.
+          newVectorsForVectorize.unshift(...toUpsert);
+        }
       }
     };
 
@@ -9583,6 +9627,17 @@ app.post('/api/generate-paragraph-embeddings', async (req, res) => {
             model: 'gemini-embedding-001',
             createdAt: new Date().toISOString()
           };
+          if (useVectorize) {
+            newVectorsForVectorize.push({
+              id: key,
+              values: emb,
+              metadata: {
+                gaBand,
+                typ: 'lecture',
+                blockId: p.index
+              }
+            });
+          }
           processed++;
 
           // Persistieren alle 200 Stück ODER alle 20 Sekunden
