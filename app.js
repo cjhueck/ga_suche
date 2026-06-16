@@ -12512,20 +12512,84 @@ function scrollToChronologicalYear(year) {
             //   markieren – auch wenn keine vorhanden sind (Paraphrase-Beleg → keine Marker).
             //   Niemals auf searchTerm zurückfallen.
             // Andere Modi: searchTerm wie gehabt.
+            //
+            // Klammer-Splitting: bei jeder eckigen oder runden Klammer mit
+            // Inhalt — sei es Auslassung [...] / […] / (…) / (...) ODER
+            // editorische Einfügung [ist] / [kann] / [sic] / [Anm. d. Hrsg.]
+            // — zerlegen wir das Zitat in Fragmente vor/nach der Klammer,
+            // weil der Quelltext diese Klammern nicht enthält und ein
+            // ganzheitliches Match sonst scheitert.
+            // Achtung: Wir wollen keine zu-kurzen Klammern fangen ([1] in
+            // Zitatnummerierung) und auch nicht runde Klammern um ganze
+            // Sätze. Heuristik: nur Klammern matchen, die a) Auslassungen
+            // sind, oder b) max. 30 Zeichen alphabetischen/Punkt-Inhalts
+            // haben.
+            const ESSAY_ELLIPSIS_RE = /\[\s*(?:\.\s*){2,}\.?\s*\]|\[\s*…\s*\]|\(\s*(?:\.\s*){2,}\.?\s*\)|\(\s*…\s*\)|\[[A-Za-zÄÖÜäöüß][A-Za-zÄÖÜäöüß. ]{0,28}\]/g;
+            const expandSnippetFragments = (arr, minLen) => {
+              const out = [];
+              (arr || []).forEach(snip => {
+                if (!snip) return;
+                const s = String(snip).trim();
+                if (!s) return;
+                ESSAY_ELLIPSIS_RE.lastIndex = 0;
+                if (ESSAY_ELLIPSIS_RE.test(s)) {
+                  ESSAY_ELLIPSIS_RE.lastIndex = 0;
+                  s.split(ESSAY_ELLIPSIS_RE).forEach(frag => {
+                    const t = frag.trim();
+                    if (t.length >= minLen) out.push(t);
+                  });
+                } else if (s.length >= minLen) {
+                  out.push(s);
+                }
+                ESSAY_ELLIPSIS_RE.lastIndex = 0;
+              });
+              return out;
+            };
             const termsToHighlight = useSnippetMode
-              ? (highlightSnippets || []).filter(s => s && s.trim().length >= 3)
+              ? expandSnippetFragments(highlightSnippets, 3)
               : (searchTerm && searchTerm.trim() ? [searchTerm.trim()] : []);
             const useSnippets = useSnippetMode; // Beibehalten für die flag-Logik unten
 
             if (termsToHighlight.length > 0) {
-              const tempDivForMarking = document.createElement('div');
-              tempDivForMarking.innerHTML = content;
+              // Inline-Elemente, die mitten im Zitat-Quelltext stehen können —
+              // vor allem Seitenumbruch-Spans wie
+              //   <span class="page-break-container">…<span class="page-break-num">222</span><span class="page-break-bar">|</span></span>
+              // — zerreißen das Matching, weil zwischen den Snippet-Wörtern
+              // sowohl HTML-Tags als auch Textinhalt ("222|") stehen.
+              // Lösung: ZUERST den ganzen Page-Break-Block (Tag + Text + Tag)
+              // als Einheit durch ein Sentinel ersetzen, DANN restliche
+              // HTML-Tags. Beim Match dürfen Sentinels überall auftauchen.
+              const PB_SENTINEL = '\u0002P\u0002';
+              const PB_RE_FRAG = '\\u0002P\\u0002';
+              const TAG_SENTINEL = '\u0001T\u0001';
+              const TAG_RE_FRAG = '\\u0001T\\u0001';
+              // NOISE_RE_FRAG fängt ab, was zwischen Snippet-Zeichen als
+              // Mini-Störer auftauchen kann: hoch-/tiefgestellte Ziffern
+              // (Fußnoten-Marker wie ⁸), und sehr kurze Block-IDs.
+              const NOISE_RE_FRAG = '[\u00B2\u00B3\u00B9\u2070-\u2079\u2080-\u2089]';
+              const SENTINEL_OPT = `(?:${PB_RE_FRAG}|${TAG_RE_FRAG}|${NOISE_RE_FRAG})*`;
+              const PB_FULL_RE = /<span\s+class="page-break-container"[^>]*>\s*<span\s+class="page-break-num"[^>]*>[^<]*<\/span>\s*<span\s+class="page-break-bar"[^>]*>[^<]*<\/span>\s*<\/span>/g;
+
+              
+
+              const pbMarkers = [];
+              let workingHTML = content.replace(PB_FULL_RE, (m) => {
+                pbMarkers.push(m);
+                return PB_SENTINEL;
+              });
+              const tagMarkers = [];
+              workingHTML = workingHTML.replace(/<[^>]+>/g, (m) => {
+                tagMarkers.push(m);
+                return TAG_SENTINEL;
+              });
 
               // Quote-Flex: jedes Anführungszeichen im Snippet matched JEDEN
               // Quote-Typ in der Quelle (deutsche „…" / Guillemets «…» / ASCII "…" /
               // single „…' / ASCII '…' / curly '…' / prime ′…″ / etc.) oder gar keinen
               // (LLM könnte verschachtelte Quotes mal weglassen).
-              // Auch Whitespace-Folgen werden flexibel gematched.
+              // Auch Whitespace-Folgen werden flexibel gematched, und HTML-Tags
+              // (als Sentinels) dürfen sich beliebig zwischen den Zeichen
+              // befinden.
               const QUOTE_CHARS_RE = /[\u0022\u0027\u00AB\u00BB\u00B4\u2018\u2019\u201A\u201B\u201C\u201D\u201E\u201F\u2032\u2033\u2039\u203A]/;
               const QUOTE_FLEX_CLASS = '[\u0022\u0027\u00AB\u00BB\u00B4\u2018\u2019\u201A\u201B\u201C\u201D\u201E\u201F\u2032\u2033\u2039\u203A]?';
               const buildFlexRegex = (term) => {
@@ -12537,10 +12601,16 @@ function scrollToChronologicalYear(year) {
                   } else if (/\s/.test(ch)) {
                     // Whitespace-Folgen kollabieren
                     while (i + 1 < term.length && /\s/.test(term[i + 1])) i++;
-                    out += '\\s+';
+                    // Whitespace-Trennzeichen darf auch Sentinel sein
+                    // (Seitenumbruch, Inline-Tag, Fußnoten-Hochzahl).
+                    out += `(?:\\s|${PB_RE_FRAG}|${TAG_RE_FRAG}|${NOISE_RE_FRAG})+`;
                   } else {
                     out += ch.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
                   }
+                  // Auch zwischen Nicht-Whitespace-Zeichen optional
+                  // Sentinels erlauben (Seitenumbruch mitten im Wort,
+                  // <em>-Tag um Teilworte etc.).
+                  if (i < term.length - 1) out += SENTINEL_OPT;
                 }
                 return out;
               };
@@ -12550,61 +12620,43 @@ function scrollToChronologicalYear(year) {
                 const isExactMatch = cleanTerm.startsWith('"') && cleanTerm.endsWith('"');
                 const termToHighlight = isExactMatch ? cleanTerm.slice(1, -1) : cleanTerm;
                 if (!termToHighlight || termToHighlight.length < 3) return;
-                // Im Snippet-Modus Quote-Flex matchen; sonst klassisch escaped.
-                const escapedTerm = useSnippets
-                  ? buildFlexRegex(termToHighlight)
-                  : termToHighlight.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-                // Bei Snippet-Highlighting immer case-insensitive (Wortlaute sind robust);
-                // sonst Standard-Verhalten (exact bei "..."-Suche, sonst case-insensitive)
                 const flags = useSnippets ? 'gi' : (isExactMatch ? 'g' : 'gi');
-
-                // TreeWalker frisch pro Term, damit bereits markierte Knoten
-                // via acceptNode-Filter (<mark>-Parent → REJECT) übersprungen werden.
-                const textWalker = document.createTreeWalker(
-                  tempDivForMarking,
-                  NodeFilter.SHOW_TEXT,
-                  {
-                    acceptNode: function(node) {
-                      let parent = node.parentNode;
-                      while (parent && parent !== tempDivForMarking) {
-                        if (parent.tagName && parent.tagName.toLowerCase() === 'mark') {
-                          return NodeFilter.FILTER_REJECT;
-                        }
-                        parent = parent.parentNode;
-                      }
-                      return NodeFilter.FILTER_ACCEPT;
-                    }
-                  },
-                  false
-                );
-
-                const textNodesToMark = [];
-                let textNode;
-                while (textNode = textWalker.nextNode()) {
-                  if (textNode.textContent.trim()) {
-                    textNodesToMark.push(textNode);
+                const tryMatch = (subTerm) => {
+                  if (!subTerm || subTerm.length < 3) return false;
+                  const escaped = useSnippets
+                    ? buildFlexRegex(subTerm)
+                    : subTerm.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+                  try {
+                    const re = new RegExp(`(${escaped})`, flags);
+                    const before = workingHTML;
+                    workingHTML = workingHTML.replace(re, (m) => '<mark>' + m + '</mark>');
+                    return workingHTML !== before;
+                  } catch (e) {
+                    console.warn('[ESSAY-HIGHLIGHT] Regex-Fehler:', e.message);
+                    return false;
                   }
+                };
+                // Versuch 1: ganzes Fragment.
+                if (tryMatch(termToHighlight)) return;
+                // Versuch 2: bei Snippet-Mode auf Satz-/Komma-Grenzen splitten.
+                // (Klassischer Fall: LLM korrigiert einen Steiner-Druckfehler in
+                // einem Wort, ganzes Fragment matchet nicht mehr — die meisten
+                // Teilstücke aber doch.)
+                if (useSnippets) {
+                  const subParts = termToHighlight.split(/[.,;:]+\s+/)
+                    .map(s => s.trim().replace(/^[\s,;.:!?„"""'\u2018\u2019\u201C\u201D\u201E«»\-–—]+|[\s,;.:!?„"""'\u2018\u2019\u201C\u201D\u201E«»\-–—]+$/g, ''))
+                    .filter(s => s.length >= 12);
+                  subParts.forEach(p => tryMatch(p));
                 }
-
-                textNodesToMark.forEach(textNode => {
-                  const text = textNode.textContent;
-                  const regex = new RegExp(`(${escapedTerm})`, flags);
-                  if (regex.test(text)) {
-                    const parent = textNode.parentNode;
-                    if (parent && parent.nodeType === Node.ELEMENT_NODE) {
-                      const highlightedText = text.replace(regex, '<mark>$1</mark>');
-                      const tempSpan = document.createElement('span');
-                      tempSpan.innerHTML = highlightedText;
-                      while (tempSpan.firstChild) {
-                        parent.insertBefore(tempSpan.firstChild, textNode);
-                      }
-                      parent.removeChild(textNode);
-                    }
-                  }
-                });
               });
 
-              content = tempDivForMarking.innerHTML;
+              // Sentinels in der Reihenfolge zurück auflösen: zuerst die
+              // einzelnen Tags, dann die Page-Break-Blöcke.
+              let tagIdx = 0;
+              workingHTML = workingHTML.replace(new RegExp(TAG_RE_FRAG, 'g'), () => tagMarkers[tagIdx++] || '');
+              let pbIdx = 0;
+              workingHTML = workingHTML.replace(new RegExp(PB_RE_FRAG, 'g'), () => pbMarkers[pbIdx++] || '');
+              content = workingHTML;
             }
             
             // Wenn kein searchTerm, aber currentKeywordText vorhanden und Ziel-Absatz: Markiere Keyword-Text
@@ -13253,8 +13305,8 @@ function scrollToChronologicalYear(year) {
                   if (!paragraphElement) paragraphElement = paraElement.parentElement;
                   
                   if (paragraphElement) {
-                    // Scrolle zum Absatz
-                    paragraphElement.scrollIntoView({ behavior: 'auto', block: 'start' });
+                    // Scrolle zum Absatz, vertikal zentriert.
+                    paragraphElement.scrollIntoView({ behavior: 'auto', block: 'center' });
                     
                     // Markiere den Absatz (blau unterlegen) mit automatischer Entfernung nach 5 Sekunden
                     // ABER: Nicht bei Navigation aus Members Panel oder vom Inhaltsverzeichnis
@@ -13274,6 +13326,13 @@ function scrollToChronologicalYear(year) {
                       // ASCII '…' / curly '…' / prime ′…″ / etc. matchen einander.
                       const QUOTE_CHARS_RE = /[\u0022\u0027\u00AB\u00BB\u00B4\u2018\u2019\u201A\u201B\u201C\u201D\u201E\u201F\u2032\u2033\u2039\u203A]/;
                       const QUOTE_FLEX_CLASS = '[\u0022\u0027\u00AB\u00BB\u00B4\u2018\u2019\u201A\u201B\u201C\u201D\u201E\u201F\u2032\u2033\u2039\u203A]?';
+                      const PB_SENTINEL = '\u0002P\u0002';
+                      const PB_RE_FRAG = '\\u0002P\\u0002';
+                      const TAG_SENTINEL = '\u0001T\u0001';
+                      const TAG_RE_FRAG = '\\u0001T\\u0001';
+                      const NOISE_RE_FRAG = '[\u00B2\u00B3\u00B9\u2070-\u2079\u2080-\u2089]';
+                      const SENTINEL_OPT = `(?:${PB_RE_FRAG}|${TAG_RE_FRAG}|${NOISE_RE_FRAG})*`;
+                      const PB_FULL_RE = /<span\s+class="page-break-container"[^>]*>\s*<span\s+class="page-break-num"[^>]*>[^<]*<\/span>\s*<span\s+class="page-break-bar"[^>]*>[^<]*<\/span>\s*<\/span>/g;
                       const buildFlexRegex = (term) => {
                         let out = '';
                         for (let i = 0; i < term.length; i++) {
@@ -13282,61 +13341,83 @@ function scrollToChronologicalYear(year) {
                             out += QUOTE_FLEX_CLASS;
                           } else if (/\s/.test(ch)) {
                             while (i + 1 < term.length && /\s/.test(term[i + 1])) i++;
-                            out += '\\s+';
+                            out += `(?:\\s|${PB_RE_FRAG}|${TAG_RE_FRAG}|${NOISE_RE_FRAG})+`;
                           } else {
                             out += ch.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
                           }
+                          if (i < term.length - 1) out += SENTINEL_OPT;
                         }
                         return out;
                       };
 
-                      highlightSnippets.forEach(rawSnippet => {
-                        const term = (rawSnippet || '').trim();
-                        if (term.length < 5) return;
-                        const flexPattern = buildFlexRegex(term);
-                        let regex;
+                      // Klammer-Splitting: Auslassungen UND editorische
+                      // Einfügungen wie [ist], [kann], [sic] zerlegen das Zitat.
+                      const ESSAY_ELLIPSIS_RE_BOOK = /\[\s*(?:\.\s*){2,}\.?\s*\]|\[\s*…\s*\]|\(\s*(?:\.\s*){2,}\.?\s*\)|\(\s*…\s*\)|\[[A-Za-zÄÖÜäöüß][A-Za-zÄÖÜäöüß. ]{0,28}\]/g;
+                      const expandedSnippets = [];
+                      (highlightSnippets || []).forEach(snip => {
+                        if (!snip) return;
+                        const s = String(snip).trim();
+                        if (!s) return;
+                        ESSAY_ELLIPSIS_RE_BOOK.lastIndex = 0;
+                        if (ESSAY_ELLIPSIS_RE_BOOK.test(s)) {
+                          ESSAY_ELLIPSIS_RE_BOOK.lastIndex = 0;
+                          s.split(ESSAY_ELLIPSIS_RE_BOOK).forEach(frag => {
+                            const t = frag.trim();
+                            if (t.length >= 5) expandedSnippets.push(t);
+                          });
+                        } else if (s.length >= 5) {
+                          expandedSnippets.push(s);
+                        }
+                        ESSAY_ELLIPSIS_RE_BOOK.lastIndex = 0;
+                      });
+
+                      
+
+                      // ZUERST den ganzen Page-Break-Block (Tag + Text + Tag)
+                      // als Einheit durch Sentinel ersetzen, DANN restliche Tags.
+                      const pbMarkers = [];
+                      let workingHTML = paragraphElement.innerHTML.replace(PB_FULL_RE, (m) => {
+                        pbMarkers.push(m);
+                        return PB_SENTINEL;
+                      });
+                      const tagMarkers = [];
+                      workingHTML = workingHTML.replace(/<[^>]+>/g, (m) => {
+                        tagMarkers.push(m);
+                        return TAG_SENTINEL;
+                      });
+
+                      const tryBookMatch = (subTerm) => {
+                        if (!subTerm || subTerm.length < 5) return false;
                         try {
-                          regex = new RegExp('(' + flexPattern + ')', 'gi');
+                          const re = new RegExp('(' + buildFlexRegex(subTerm) + ')', 'gi');
+                          const before = workingHTML;
+                          workingHTML = workingHTML.replace(re, (m) => '<mark>' + m + '</mark>');
+                          return workingHTML !== before;
                         } catch (e) {
                           console.warn('[ESSAY-HIGHLIGHT-BUCH] Regex-Fehler:', e.message);
-                          return;
+                          return false;
                         }
-
-                        const swalker = document.createTreeWalker(
-                          paragraphElement,
-                          NodeFilter.SHOW_TEXT,
-                          {
-                            acceptNode: function(node) {
-                              let p = node.parentNode;
-                              while (p && p !== paragraphElement) {
-                                if (p.tagName && p.tagName.toLowerCase() === 'mark') return NodeFilter.FILTER_REJECT;
-                                if (p.tagName && p.tagName.toLowerCase() === 'img') return NodeFilter.FILTER_REJECT;
-                                p = p.parentNode;
-                              }
-                              return NodeFilter.FILTER_ACCEPT;
-                            }
-                          },
-                          false
-                        );
-                        const nodesToMark = [];
-                        let tn;
-                        while (tn = swalker.nextNode()) {
-                          if (tn.textContent && tn.textContent.trim() && regex.test(tn.textContent)) {
-                            nodesToMark.push(tn);
-                            regex.lastIndex = 0;
-                          }
-                        }
-                        nodesToMark.forEach(tn => {
-                          const text = tn.textContent;
-                          const highlightedText = text.replace(regex, '<mark>$1</mark>');
-                          const tempSpan = document.createElement('span');
-                          tempSpan.innerHTML = highlightedText;
-                          while (tempSpan.firstChild) {
-                            tn.parentNode.insertBefore(tempSpan.firstChild, tn);
-                          }
-                          tn.parentNode.removeChild(tn);
-                        });
+                      };
+                      expandedSnippets.forEach(rawSnippet => {
+                        const term = (rawSnippet || '').trim();
+                        if (term.length < 5) return;
+                        if (tryBookMatch(term)) return;
+                        // Fallback: an Satz-/Komma-Grenzen splitten und Teilstücke
+                        // einzeln matchen (z.B. wenn LLM einen Druckfehler stillschweigend
+                        // korrigiert hat und das ganze Fragment dadurch nicht matcht).
+                        const subParts = term.split(/[.,;:]+\s+/)
+                          .map(s => s.trim().replace(/^[\s,;.:!?„"""'\u2018\u2019\u201C\u201D\u201E«»\-–—]+|[\s,;.:!?„"""'\u2018\u2019\u201C\u201D\u201E«»\-–—]+$/g, ''))
+                          .filter(s => s.length >= 12);
+                        subParts.forEach(p => tryBookMatch(p));
                       });
+
+                      // Sentinels in der Reihenfolge zurück auflösen: zuerst die
+                      // einzelnen Tags, dann die Page-Break-Blöcke.
+                      let tagIdx = 0;
+                      workingHTML = workingHTML.replace(new RegExp(TAG_RE_FRAG, 'g'), () => tagMarkers[tagIdx++] || '');
+                      let pbIdx = 0;
+                      workingHTML = workingHTML.replace(new RegExp(PB_RE_FRAG, 'g'), () => pbMarkers[pbIdx++] || '');
+                      paragraphElement.innerHTML = workingHTML;
                     }
 
                     // Markiere auch das Suchwort im Absatz (falls vorhanden UND im Absatz vorkommend)
@@ -20894,6 +20975,7 @@ function formatAsteriskParagraphs() {
               e.preventDefault();
               e.stopPropagation();
               
+
               // Zeige Text im rechten Side-Panel (wie bei Index-Tab)
               const keywords = extractKeywordsFromQuery(currentThematicQuery);
               const searchTerm = keywords.length > 0 ? keywords[0] : '';

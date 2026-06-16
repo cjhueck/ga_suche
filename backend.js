@@ -4962,13 +4962,43 @@ function transformEssayMarkup(essayText, contextResults) {
       let cleaned = raw
         .replace(/^\s*[\*_]+|[\*_]+\s*$/g, '') // umliegende Markdown-Markierung
         .replace(/^\s*[„"]+|[""]+\s*$/g, '')      // umliegende Anführungszeichen
-        .replace(/\[…\]/g, ' ')                  // Auslassungen normalisieren
         .replace(/\s+/g, ' ')
         .trim();
       if (cleaned.length < 5) return;
-      if (seenSnippets.has(cleaned)) return;
-      seenSnippets.add(cleaned);
-      quoteSnippets.push(cleaned);
+
+      // Auslassungen ([…] / [...] / (…) / (...)) UND Wort-Interpolationen
+      // ([ist], [hat], [kann], [sic], …) bedeuten, dass der Quelltext an
+      // diesen Stellen abweicht. Würden wir den Snippet als Ganzes ans
+      // Frontend schicken, käme nirgends ein Treffer zustande, weil die
+      // Klammer-Inhalte in Steiners Original nicht stehen. Lösung: an
+      // diesen Markern splitten und jedes Teilstück als eigenes Snippet
+      // weitergeben — sie werden im Frontend per |||-Trenner getrennt
+      // und einzeln hervorgehoben.
+      const ESSAY_BRACKET_RE = /\[\s*(?:\.\s*){2,}\.?\s*\]|\[\s*…\s*\]|\(\s*(?:\.\s*){2,}\.?\s*\)|\(\s*…\s*\)|\[[A-Za-zÄÖÜäöüß][A-Za-zÄÖÜäöüß. ]{0,28}\]/g;
+      // Hilfsfunktion: führende/abschließende Satzzeichen + Quote-Reste
+      // strippen. Wichtig, weil das LLM oft am Auslassungs-Ende eine
+      // Punktierung setzt, die in der Quelle so nicht vorkommt (z.B.
+      // "…gefunden." vs Quelle "…gefunden hat.").
+      const stripBoundaryPunct = (s) => s
+        .replace(/^[\s,;.:!?„"""'\u2018\u2019\u201A\u201B\u201C\u201D\u201E\u201F«»\-–—]+/, '')
+        .replace(/[\s,;.:!?„"""'\u2018\u2019\u201A\u201B\u201C\u201D\u201E\u201F«»\-–—]+$/, '')
+        .trim();
+      const fragments = cleaned.split(ESSAY_BRACKET_RE)
+        .map(s => stripBoundaryPunct(s.trim()))
+        .filter(s => s.length >= 6);
+      // Wenn das Splitting Fragmente liefert, nutze sie. Sonst nimm den
+      // ganzen (geboundary-bereinigten) Snippet, falls er hinreichend lang ist.
+      const cleanedTrim = stripBoundaryPunct(cleaned);
+      const toAdd = fragments.length > 1
+        ? fragments
+        : (cleanedTrim.length >= 5 ? [cleanedTrim] : []);
+
+      toAdd.forEach(frag => {
+        if (frag.length < 5) return;
+        if (seenSnippets.has(frag)) return;
+        seenSnippets.add(frag);
+        quoteSnippets.push(frag);
+      });
     };
 
     // (a) Versuch 1: Body komplett (bzw. ein langes Suffix) als grosses Direktzitat.
