@@ -4874,10 +4874,19 @@ function validateQuoteAnalysis(analysisText, topResults) {
 // werden kann. Validiert IDs gegen den zur Synthese gelieferten Quellenpool.
 // ============================================================================
 function _essayNormalizeForCompare(s) {
-  return (s || '').toLowerCase()
+  return (s || '')
+    // Seitenmarker `|123|` vorher entfernen — sie sind im Quelltext
+    // strukturell, nicht inhaltlich. Wenn der LLM korrekt verbatim zitiert,
+    // lässt er sie weg, und der Vergleich darf daran nicht scheitern.
+    .replace(/\|\d{1,4}\|/g, ' ')
+    // Auch Obsidian-Block-IDs `^abcdef` sind strukturell, kein Zitatinhalt
+    .replace(/\s\^[a-z0-9]+/g, ' ')
+    .toLowerCase()
     .replace(/ß/g, 'ss')
     .replace(/ä/g, 'ae').replace(/ö/g, 'oe').replace(/ü/g, 'ue')
-    .replace(/[^a-z0-9 ]/g, '')
+    // Reine Ziffern entfernen (entstanden z.B. aus Fußnoten-Hochzahlen ⁸ → 8
+    // oder aus stehenden Zahlen, die ein LLM in einem Zitat verschluckt hat)
+    .replace(/[^a-z ]/g, '')
     .replace(/\s+/g, ' ').trim();
 }
 
@@ -5454,7 +5463,21 @@ Beispiele:
 TYPOGRAPHIE DER ZITATE
 - Jedes wörtliche Zitat steht in deutschen Anführungszeichen „…" (öffnend: „ unten, schließend: " oben) UND in Markdown-Kursiv: *„zitat…"*. Beides zusammen, immer.
 - Auch wenn der gesamte <beleg>-Body ein Zitat ist, wird der gesamte Body in *„…"* gesetzt. Der <beleg>-Tag allein ist KEINE typographische Markierung.
-- Auslassungen mit […]. Auslassungen am Anfang oder Ende des Zitats sind erlaubt, aber sparsam.
+- Auslassungen mit […]. Auslassungen am Anfang, in der Mitte oder am Ende sind erlaubt, aber sparsam.
+
+ABSOLUTE WORTTREUE — KEINE EDITORISCHEN EINGRIFFE
+Innerhalb eines Direktzitats („…") darf der Wortlaut NIEMALS verändert werden:
+- KEINE Wort-Einschübe in eckigen Klammern wie [hat], [ist], [kann], [sind], [sie], [er], [Anm.], [sic] usw. — auch nicht zur grammatischen Glättung. Selbst wenn dadurch der Satz im Argumentations-Fluss leicht „holpert", bleibt der Originalwortlaut unverändert.
+- KEINE stillschweigende Korrektur von Druckfehlern, archaischen Schreibweisen, Eigennamen-Varianten oder Kommata. Wenn der Originaltext „zu dein Beobachter" sagt, schreibst Du auch im Zitat „zu dein Beobachter".
+- KEINE Umformulierung, Modernisierung, Ergänzung von ausgelassenen Verben/Subjekten, Auflösung von Abkürzungen oder Vereinheitlichung von Anführungszeichen.
+- Erlaubt sind nur (a) Auslassungen mit […] am Anfang/Ende/Mitte und (b) Anpassung der Großschreibung des ersten Wortes, wenn das Zitat einen Satz neu beginnt.
+
+WENN DER ORIGINALWORTLAUT NICHT PASST
+Wenn der Originalwortlaut sich nicht ohne Eingriff in Deine Argumentation einfügen lässt, hast Du immer ZWEI saubere Optionen — niemals den Eingriff:
+1. ZITAT KÜRZEN: Beschränke das Zitat auf die kürzere Sub-Phrase, die wörtlich im Argumentations-Fluss steht. Statt „X [hat] gerade deshalb gefunden" wählst Du z. B. nur „gerade deshalb gefunden". Auch eine sub-satzige Phrase reicht als Direktzitat.
+2. MEHRERE KURZE BELEGE: Brich einen langen, nicht-wörtlich-passenden Satz in mehrere KURZE Direktzitate auf, die jeweils wortwörtlich da stehen, und verbinde sie durch eigene paraphrasierende Worte (entweder im Beleg-Body um die Zitate herum, oder durch <deutung>-Sätze dazwischen). Beispiel: <beleg id="…">Goethes Methode beruht darauf, dass *„die Idee unmittelbar in der Erscheinung"* gegeben ist; sie unterscheidet sich von Kant darin, dass *„kein Verstandesvermögen über die Erfahrung hinaus"* postuliert werde.</beleg>
+
+Im Zweifel — wenn die Wahl zwischen einem holprigen langen Zitat ohne Eingriff und einer Reihe kurzer treuer Zitate steht — wähle die kurzen Zitate. Lieber drei wörtlich präzise Sub-Zitate als ein langes Zitat mit Klammer-Eingriff.
 
 PARAPHRASE-AUSNAHME (quelle-Attribut)
 Wenn eine direkte Zitation argumentativ unmöglich ist – etwa weil die Aussage über mehrere weit auseinander stehende Sätze des Originals verteilt ist –, MUSS der <beleg> ein quelle-Attribut tragen:
