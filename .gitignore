@@ -46,3 +46,26 @@ uploads_tmp/
 # OS files
 .DS_Store
 Thumbs.db
+
+# Absatz-Embeddings: Cloudflare Vectorize ist die Online-Quelle.
+# Lokale JSON-Files dienen nur als Backup für eine eventuelle Re-Migration
+# (s. _migrate_paragraph_embeddings.js). Alle Bände ignorieren — bereits
+# getrackte GA001–GA012 bleiben aus historischen Gründen im Repo (per Force-Add
+# damals committed), neue Bände werden nicht mehr aufgenommen.
+paragraph-embeddings/*.json
+!paragraph-embeddings/GA001.json
+!paragraph-embeddings/GA002.json
+!paragraph-embeddings/GA003.json
+!paragraph-embeddings/GA004.json
+!paragraph-embeddings/GA005.json
+!paragraph-embeddings/GA006.json
+!paragraph-embeddings/GA007.json
+!paragraph-embeddings/GA008.json
+!paragraph-embeddings/GA009.json
+!paragraph-embeddings/GA010.json
+!paragraph-embeddings/GA011.json
+!paragraph-embeddings/GA012.json
+
+# Phase-4-Hintergrund-Runner-Logs (Lauf-Artefakte, kein Code)
+_phase4_log.jsonl
+_phase4_console.log
