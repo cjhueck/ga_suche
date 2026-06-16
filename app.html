@@ -8166,11 +8166,48 @@ Wandtafeln
       <span style="color: var(--text-color); font-weight: 500;">Breite</span>
     </label>
   </div>
-  <label style="display: flex; align-items: center; gap: 3px; cursor: pointer; font-size: 0.85em;" title="Zitatsuche: Findet ein bestimmtes Zitat anhand des sinngemäßen Inhalts, wenn der genaue Wortlaut unbekannt ist">
-    <input type="radio" name="thematicMode" value="quote" style="accent-color: var(--accent-color); width: 14px; height: 14px; cursor: pointer;">
-    <span style="color: var(--text-color); font-weight: 500;">Zitat</span>
-  </label>
+  <div style="display: flex; flex-direction: column; gap: 2px;">
+    <label style="display: flex; align-items: center; gap: 3px; cursor: pointer; font-size: 0.85em;" title="Zitatsuche: Findet ein bestimmtes Zitat anhand des sinngemäßen Inhalts, wenn der genaue Wortlaut unbekannt ist">
+      <input type="radio" name="thematicMode" value="quote" style="accent-color: var(--accent-color); width: 14px; height: 14px; cursor: pointer;">
+      <span style="color: var(--text-color); font-weight: 500;">Zitat</span>
+    </label>
+    <label style="display: flex; align-items: center; gap: 3px; cursor: pointer; font-size: 0.85em;" title="Essay: Mehrstufige Synthese mit expliziter Trennung von belegten Aussagen (klickbar verlinkt) und interpretierenden Deutungen (philosophiegeschichtliche Einordnungen, eigene Lesarten)">
+      <input type="radio" name="thematicMode" value="essay" style="accent-color: var(--accent-color); width: 14px; height: 14px; cursor: pointer;">
+      <span style="color: var(--text-color); font-weight: 500;">Essay</span>
+    </label>
+  </div>
 </div>
+<style>
+  /* Essay-Modus: Beleg- und Deutungs-Markup
+     GA-Links erben die Default-Formatierung von .ga-reference (wie in den
+     anderen Abfrage-Modi). Belege selbst sind nicht weiter ausgezeichnet,
+     der nachgestellte (GA…)-Anker macht die Beleg-Qualität sichtbar. */
+  .essay-beleg[data-drift="true"] {
+    background: rgba(255, 140, 0, 0.06);
+  }
+  .essay-beleg[data-drift="true"]::after {
+    content: " ⚠";
+    color: #cc7700;
+    font-size: 0.85em;
+  }
+  /* Deutungen (Synthese/Kommentar) werden visuell nicht abgesetzt – das fehlende
+     (GA…) am Satzende ist der einzige Indikator. Nur Sonderfälle (externe Quelle,
+     degradierter Beleg) erhalten eine dezente Markierung. */
+  .essay-deutung[data-quelle]::after {
+    content: " [" attr(data-quelle) "]";
+    font-size: 0.8em;
+    color: var(--secondary-text, #888);
+    opacity: 0.75;
+  }
+  .essay-deutung[data-degraded] {
+    background: rgba(255, 200, 0, 0.08);
+  }
+  .essay-deutung[data-degraded]::before {
+    content: "⚠ ";
+    color: #b07b00;
+    font-weight: 600;
+  }
+</style>
 <div style="display: flex; gap: 8px; margin-left: auto;">
 <button class="depth-btn primary" id="thematicSearchBtn" onclick="performThematicSearch()">
   Suchen
