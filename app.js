@@ -7336,7 +7336,12 @@ async function finishBookRendering(book, viewer, targetIndex, mainContainer, hig
             const mainRect = mainContainer.getBoundingClientRect();
             const paraRect = paragraphElement.getBoundingClientRect();
             const relativeTop = paraRect.top - mainRect.top + mainContainer.scrollTop;
-            mainContainer.scrollTop = Math.max(0, relativeTop - headerHeight);
+            // Vertikal zentrieren: Absatz auf die Bildschirmmitte setzen,
+            // mit Header-Berücksichtigung. Bei sehr großen Absätzen (höher als
+            // verfügbarer Viewport) am oberen Rand verankern.
+            const visibleHeight = Math.max(0, mainContainer.clientHeight - headerHeight);
+            const centerOffset = Math.max(headerHeight, headerHeight + (visibleHeight - paraRect.height) / 2);
+            mainContainer.scrollTop = Math.max(0, relativeTop - centerOffset);
             
             // ABER: Überspringe Highlighting wenn Navigation vom Inhaltsverzeichnis kommt
             if (!window.skipParagraphHighlight) {
@@ -7594,23 +7599,24 @@ async function _displayBookImpl(book, highlightHeadingId = null, keywords = [], 
       while (paragraphElement && paragraphElement !== bookContentDiv) {
         const tagName = paragraphElement.tagName.toLowerCase();
         if (['p', 'div', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'li', 'blockquote'].includes(tagName)) {
-          // Scrolle zum Absatz - positioniere ihn höher im Viewer (wie bei Vorträgen)
+          // Scrolle zum Absatz und zentriere ihn vertikal im Viewer.
           const mainContainer = document.getElementById('main');
           if (mainContainer) {
             const header = document.getElementById('viewer-header');
             const headerHeight = header ? header.offsetHeight + 5 : 5;
-            
-            // Berechne Position: Absatz höher positionieren (wie bei Vorträgen)
-            // Verwende die gleiche Logik wie bei Vorträgen: relativeTop - headerHeight
+
             const mainRect = mainContainer.getBoundingClientRect();
             const paraRect = paragraphElement.getBoundingClientRect();
-            
+
             // Berechne relative Position im Dokument
             const relativeTop = paraRect.top - mainRect.top + mainContainer.scrollTop;
-            
-            // Positioniere Absatz direkt unter dem Header (wie bei Vorträgen)
-            mainContainer.scrollTop = Math.max(0, relativeTop - headerHeight);
-            
+
+            // Vertikal zentrieren: Absatz auf die Bildschirmmitte setzen
+            // (Header-Höhe abziehen). Bei sehr großen Absätzen oben verankern.
+            const visibleHeight = Math.max(0, mainContainer.clientHeight - headerHeight);
+            const centerOffset = Math.max(headerHeight, headerHeight + (visibleHeight - paraRect.height) / 2);
+            mainContainer.scrollTop = Math.max(0, relativeTop - centerOffset);
+
             } else {
             // Fallback: Standard scrollIntoView
             paragraphElement.scrollIntoView({ behavior: 'auto', block: 'start' });
@@ -7636,16 +7642,15 @@ async function _displayBookImpl(book, highlightHeadingId = null, keywords = [], 
       if (mainContainer) {
         const header = document.getElementById('viewer-header');
         const headerHeight = header ? header.offsetHeight + 5 : 5;
-        
+
         const mainRect = mainContainer.getBoundingClientRect();
         const paraRect = targetParaElement.getBoundingClientRect();
-        
-        // Berechne relative Position im Dokument
         const relativeTop = paraRect.top - mainRect.top + mainContainer.scrollTop;
-        
-        // Positioniere Absatz direkt unter dem Header (wie bei Vorträgen)
-        mainContainer.scrollTop = Math.max(0, relativeTop - headerHeight);
-        
+        // Vertikal zentrieren (Header berücksichtigt).
+        const visibleHeight = Math.max(0, mainContainer.clientHeight - headerHeight);
+        const centerOffset = Math.max(headerHeight, headerHeight + (visibleHeight - paraRect.height) / 2);
+        mainContainer.scrollTop = Math.max(0, relativeTop - centerOffset);
+
       } else {
         targetParaElement.scrollIntoView({ behavior: 'auto', block: 'start' });
       }
@@ -11288,7 +11293,10 @@ function scrollToChronologicalYear(year) {
             var mainRect = mainContainer.getBoundingClientRect();
             var paraRect = paraEl.getBoundingClientRect();
             var relativeTop = paraRect.top - mainRect.top + mainContainer.scrollTop;
-            mainContainer.scrollTop = Math.max(0, relativeTop - headerHeight);
+            // Vertikal zentriert (Header berücksichtigt)
+            var visibleHeight = Math.max(0, mainContainer.clientHeight - headerHeight);
+            var centerOffset = Math.max(headerHeight, headerHeight + (visibleHeight - paraRect.height) / 2);
+            mainContainer.scrollTop = Math.max(0, relativeTop - centerOffset);
           }
           if (paraEl) {
             var origBg = paraEl.style.backgroundColor;
