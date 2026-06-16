@@ -9691,6 +9691,37 @@ app.post('/api/generate-paragraph-embeddings', async (req, res) => {
   }
 });
 
+// API: Diagnose des Vectorize-Anschlusses (auch von der Online-Version
+// abrufbar, um zu prüfen, ob Render-Env-Vars stimmen und Cloudflare
+// erreichbar ist). Liefert KEINE Geheimnisse zurück.
+app.get('/api/vectorize-status', async (req, res) => {
+  try {
+    if (!vectorizeClient.isConfigured()) {
+      return res.json({
+        configured: false,
+        reason: 'CLOUDFLARE_ACCOUNT_ID oder CLOUDFLARE_API_TOKEN nicht gesetzt'
+      });
+    }
+    const indexName = vectorizeClient.getIndexName();
+    let info = null;
+    let infoError = null;
+    try {
+      const r = await vectorizeClient.getIndexInfo();
+      info = r?.result || r;
+    } catch (e) {
+      infoError = e.message;
+    }
+    res.json({
+      configured: true,
+      indexName,
+      info,
+      infoError
+    });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
 // API: Status der Absatz-Embeddings (pro GA-Band)
 app.get('/api/paragraph-embeddings-status', async (req, res) => {
   try {
