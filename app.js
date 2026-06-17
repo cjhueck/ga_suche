@@ -4398,21 +4398,35 @@ function normalizeGANumber(gaNumber) {
       serverInfo.textContent = getDefaultStatsText();
     }
     
-    // Update thematicServerInfo basierend auf GA-Filter Auswahl
+    // Update thematicServerInfo basierend auf GA-Filter Auswahl (Multi-Select)
     function updateThematicServerInfo() {
-      const thematicGAFilter = document.getElementById('thematicGAFilter');
       const thematicServerInfo = document.getElementById('thematicServerInfo');
-      
-      if (!thematicGAFilter || !thematicServerInfo) return;
-      
-      const selectedGA = thematicGAFilter.value;
-      
-      if (selectedGA && gaLectureCounts[selectedGA]) {
-        const typeName = getGATypeName(selectedGA, true); // Plural
-        thematicServerInfo.textContent = `${gaLectureCounts[selectedGA]} ${typeName} in ${selectedGA}`;
-      } else {
+      if (!thematicServerInfo) return;
+
+      const selectedGAs = (typeof getThematicGAFilterValue === 'function') ? getThematicGAFilterValue() : [];
+
+      if (selectedGAs.length === 0) {
         thematicServerInfo.textContent = getDefaultStatsText();
+        return;
       }
+
+      if (selectedGAs.length === 1) {
+        const ga = selectedGAs[0];
+        if (gaLectureCounts[ga]) {
+          const typeName = getGATypeName(ga, true);
+          thematicServerInfo.textContent = `${gaLectureCounts[ga]} ${typeName} in ${ga}`;
+        } else {
+          thematicServerInfo.textContent = getDefaultStatsText();
+        }
+        return;
+      }
+
+      // Mehrere GA-Bände ausgewählt: zeige Summe der Vorträge/Aufsätze
+      let totalCount = 0;
+      selectedGAs.forEach(ga => { if (gaLectureCounts[ga]) totalCount += gaLectureCounts[ga]; });
+      thematicServerInfo.textContent = totalCount > 0
+        ? `${totalCount} Einträge in ${selectedGAs.length} GA-Bänden`
+        : `${selectedGAs.length} GA-Bände ausgewählt`;
     }
     
     const IMAGES_R2_BASE = 'https://ga.rudolf-steiner-online.de/images/';
@@ -4731,6 +4745,12 @@ function normalizeGANumber(gaNumber) {
     // Custom Multi-Select Dropdown Verwaltung
     class MultiSelectDropdown {
       constructor(containerId, buttonId, listId, placeholderText) {
+        // IDs merken, damit wir bei jedem Event das aktuelle DOM-Element
+        // nachschlagen können (falls der Tab-Inhalt zwischenzeitlich
+        // ersetzt wurde, wären gespeicherte Element-Referenzen tot).
+        this.containerId = containerId;
+        this.buttonId = buttonId;
+        this.listId = listId;
         this.container = document.getElementById(containerId);
         this.button = document.getElementById(buttonId);
         this.list = document.getElementById(listId);
@@ -4738,58 +4758,90 @@ function normalizeGANumber(gaNumber) {
         this.selectedValues = new Set();
         this.items = [];
         this.lastClickedIndex = -1;
-        
+
+        if (!this.container || !this.button || !this.list) {
+          console.error('[DROPDOWN-INIT-FAIL]', containerId, {
+            container: !!this.container,
+            button: !!this.button,
+            list: !!this.list
+          });
+          return;
+        }
         this.init();
       }
+
+      // Aktuell im DOM eingehängte Elemente nachschlagen (via ID),
+      // statt sich auf die im Konstruktor gespeicherten Referenzen zu
+      // verlassen. Notwendig, weil andere Codepfade den Container nach
+      // dem Konstruktor neu rendern können.
+      _liveContainer() { return document.getElementById(this.containerId); }
+      _liveButton()    { return document.getElementById(this.buttonId); }
+      _liveList()      { return document.getElementById(this.listId); }
       
       init() {
-        // Toggle Dropdown beim Button-Klick
-        this.button.addEventListener('click', (e) => {
-          e.stopPropagation();
-          this.toggle();
-        });
-        
-        // Schließe Dropdown bei Klick außerhalb
+        // Event-Delegation auf document, damit der Listener auch dann
+        // funktioniert, wenn andere Codepfade den Tab-Inhalt nach dem
+        // Konstruktor ersetzen (cloneNode/replaceChild oder innerHTML).
+        // Vermeidet, dass Klicks ins Leere gehen, weil this.button auf
+        // ein abgetrenntes Element zeigt.
         document.addEventListener('click', (e) => {
-          if (!this.container.contains(e.target) && !this.list.contains(e.target)) {
+          const button = this._liveButton();
+          const list = this._liveList();
+          if (button && (e.target === button || button.contains(e.target))) {
+            e.stopPropagation();
+            this.toggle();
+            return;
+          }
+          // Klick außerhalb → Dropdown schließen
+          const container = this._liveContainer();
+          if (container && !container.contains(e.target) && (!list || !list.contains(e.target))) {
             this.close();
           }
         });
-        
+
         // Schließe bei Scroll/Resize
         window.addEventListener('resize', () => this.close());
       }
       
       positionList() {
-        const rect = this.button.getBoundingClientRect();
-        this.list.style.top = rect.bottom + 'px';
-        this.list.style.left = rect.left + 'px';
+        const button = this._liveButton();
+        const list = this._liveList();
+        if (!button || !list) return;
+        const rect = button.getBoundingClientRect();
+        list.style.top = rect.bottom + 'px';
+        list.style.left = rect.left + 'px';
       }
       
       toggle() {
-        const isOpen = this.container.classList.contains('open');
+        const container = this._liveContainer();
+        if (!container) return;
+        const isOpen = container.classList.contains('open');
         // Schließe alle anderen Dropdowns
         document.querySelectorAll('.custom-dropdown.open').forEach(dd => {
           dd.classList.remove('open');
         });
         
         if (!isOpen) {
-          this.container.classList.add('open');
+          container.classList.add('open');
           this.positionList();
         }
       }
       
       close() {
-        this.container.classList.remove('open');
+        const container = this._liveContainer();
+        if (container) container.classList.remove('open');
       }
       
       setItems(items) {
         this.items = items;
+        if (!this._liveList()) return;
         this.render();
       }
       
       render() {
-        this.list.innerHTML = '';
+        const list = this._liveList();
+        if (!list) return;
+        list.innerHTML = '';
         
         // Füge "Keine Auswahl" Item am Anfang hinzu
         const clearDiv = document.createElement('div');
@@ -4799,12 +4851,12 @@ function normalizeGANumber(gaNumber) {
           e.stopPropagation();
           this.clearSelection();
         });
-        this.list.appendChild(clearDiv);
+        list.appendChild(clearDiv);
         
         // Trennlinie
         const separator = document.createElement('div');
         separator.className = 'custom-dropdown-separator';
-        this.list.appendChild(separator);
+        list.appendChild(separator);
         
         this.items.forEach((item, index) => {
           const div = document.createElement('div');
@@ -4823,7 +4875,7 @@ function normalizeGANumber(gaNumber) {
             this.handleItemClick(item.value, index, e);
           });
           
-          this.list.appendChild(div);
+          list.appendChild(div);
         });
       }
       
@@ -4867,8 +4919,9 @@ function normalizeGANumber(gaNumber) {
       
       updateDisplay() {
         this.render();
-        
-        const textSpan = this.button.querySelector('.custom-dropdown-text');
+        const button = this._liveButton();
+        if (!button) return;
+        const textSpan = button.querySelector('.custom-dropdown-text');
         if (!textSpan) {
           console.error('[DROPDOWN] Text-Span nicht gefunden!');
           return;
@@ -4895,11 +4948,21 @@ function normalizeGANumber(gaNumber) {
         const event = new CustomEvent('multiselect-change', {
           detail: { values: Array.from(this.selectedValues) }
         });
-        this.container.dispatchEvent(event);
+        const container = this._liveContainer();
+        if (container) container.dispatchEvent(event);
       }
       
       getSelectedValues() {
         return Array.from(this.selectedValues);
+      }
+
+      // Setzt die Auswahl programmatisch (z.B. zum Wiederherstellen aus Cache).
+      // Akzeptiert ein Array von Werten. Triggert KEIN multiselect-change-Event,
+      // damit es im Init/Restore-Flow nicht versehentlich Suchen anstößt.
+      setSelectedValues(values) {
+        this.selectedValues = new Set(Array.isArray(values) ? values : []);
+        this.lastClickedIndex = -1;
+        this.updateDisplay();
       }
       
       clear() {
@@ -4917,12 +4980,14 @@ function normalizeGANumber(gaNumber) {
     let yearFilterDropdown = null;
     let gaFilterDropdown = null;
     let advancedGAFilterDropdown = null;
+    let thematicGAFilterDropdown = null;
     
     function initCustomDropdowns() {
       // Entferne alte Event-Listener, falls vorhanden (durch Klonen der Container)
       const yearContainer = document.getElementById('yearFilterContainer');
       const gaContainer = document.getElementById('gaFilterContainer');
       const advancedGAContainer = document.getElementById('advancedGAFilterContainer');
+      const thematicGAContainer = document.getElementById('thematicGAFilterContainer');
       
       if (yearContainer) {
         const newYearContainer = yearContainer.cloneNode(true);
@@ -4937,6 +5002,11 @@ function normalizeGANumber(gaNumber) {
       if (advancedGAContainer) {
         const newAdvancedGAContainer = advancedGAContainer.cloneNode(true);
         advancedGAContainer.parentNode.replaceChild(newAdvancedGAContainer, advancedGAContainer);
+      }
+      
+      if (thematicGAContainer) {
+        const newThematicGAContainer = thematicGAContainer.cloneNode(true);
+        thematicGAContainer.parentNode.replaceChild(newThematicGAContainer, thematicGAContainer);
       }
       
       yearFilterDropdown = new MultiSelectDropdown(
@@ -4959,16 +5029,29 @@ function normalizeGANumber(gaNumber) {
         'advancedGAFilterList',
         'GA-Bände'
       );
+
+      thematicGAFilterDropdown = new MultiSelectDropdown(
+        'thematicGAFilterContainer',
+        'thematicGAFilterButton',
+        'thematicGAFilterList',
+        'GA-Bände'
+      );
       
       // Event-Listener für Änderungen
       const yearFilterContainerEl = document.getElementById('yearFilterContainer');
       const gaFilterContainerEl = document.getElementById('gaFilterContainer');
+      const thematicGAFilterContainerEl = document.getElementById('thematicGAFilterContainer');
       
       if (yearFilterContainerEl) {
         yearFilterContainerEl.addEventListener('multiselect-change', updateServerInfo);
       }
       if (gaFilterContainerEl) {
         gaFilterContainerEl.addEventListener('multiselect-change', updateServerInfo);
+      }
+      if (thematicGAFilterContainerEl) {
+        thematicGAFilterContainerEl.addEventListener('multiselect-change', () => {
+          if (typeof updateThematicServerInfo === 'function') updateThematicServerInfo();
+        });
       }
       
       }
@@ -4984,6 +5067,10 @@ function normalizeGANumber(gaNumber) {
     
     function getAdvancedGAFilterValue() {
       return advancedGAFilterDropdown ? advancedGAFilterDropdown.getSelectedValues() : [];
+    }
+
+    function getThematicGAFilterValue() {
+      return thematicGAFilterDropdown ? thematicGAFilterDropdown.getSelectedValues() : [];
     }
     
     async function populateGADropdowns() {
@@ -5021,24 +5108,18 @@ function normalizeGANumber(gaNumber) {
           advancedGAFilterDropdown.setItems(gaItems);
           }
         
+        // Befülle Custom Dropdown für GA-Bände im Abfrage-Tab
+        if (thematicGAFilterDropdown) {
+          const gaItems = gaList.map(ga => ({
+            value: ga.number,
+            label: ga.title && ga.title !== ga.number ? `${ga.number} - ${ga.title}` : ga.number
+          }));
+          thematicGAFilterDropdown.setItems(gaItems);
+        }
+
         // Befülle normale Dropdowns in anderen Tabs
-        const thematicGAFilter = document.getElementById('thematicGAFilter');
         const texteGAFilter = document.getElementById('texteGAFilter');
         const conceptOverviewGAFilter = document.getElementById('conceptOverviewGAFilter');
-        
-        if (thematicGAFilter) {
-          thematicGAFilter.innerHTML = '<option value="">GA-Bände</option>';
-          gaList.forEach(ga => {
-            const option = document.createElement('option');
-            option.value = ga.number;
-            option.textContent = ga.number;
-            option.className = 'available-ga';
-            thematicGAFilter.appendChild(option);
-          });
-          
-          // Event-Listener für Thematic GA-Filter hinzufügen
-          thematicGAFilter.addEventListener('change', updateThematicServerInfo);
-        }
         if (texteGAFilter) {
           // Speichere den aktuellen Wert, falls vorhanden
           const currentValue = texteGAFilter.value;
@@ -15166,8 +15247,12 @@ function scrollToChronologicalYear(year) {
           viewer.innerHTML = '<div id="viewer-content"><div style="color: var(--secondary-text); text-align: left; font-style: italic; font-size: 0.9rem;">Suche wird durchgeführt, bitte warten.</div></div>';
         }
         
-        const gaFilter = document.getElementById('thematicGAFilter').value;
-        currentThematicGAFilter = gaFilter || '';
+        // Multi-Select: Array von ausgewählten GA-Bänden ('' wenn keiner)
+        const gaFilterArr = (typeof getThematicGAFilterValue === 'function') ? getThematicGAFilterValue() : [];
+        // Sortiere für stabile Cache-Keys (Backend sortiert ebenso).
+        const gaFilterSorted = [...gaFilterArr].sort();
+        const gaFilter = gaFilterSorted.length > 0 ? gaFilterSorted : '';
+        currentThematicGAFilter = gaFilterSorted.join(',');
         
         // Hole Analyse-Modus aus Radio-Buttons
         const thematicModeRadio = document.querySelector('input[name="thematicMode"]:checked');
@@ -15655,10 +15740,11 @@ function scrollToChronologicalYear(year) {
           const parts = (cacheKey || '').split('|');
           currentThematicGAFilter = parts && parts.length >= 4 ? (parts[3] || '') : '';
           currentThematicLimit = parts && parts.length >= 3 ? parseInt(parts[2]) || 100 : 100;
-          // Dropdown visual synchronisieren
-          const gaSel = document.getElementById('thematicGAFilter');
-          if (gaSel && currentThematicGAFilter) {
-            gaSel.value = currentThematicGAFilter;
+          // Dropdown visual synchronisieren (Multi-Select)
+          if (thematicGAFilterDropdown) {
+            const cachedGAs = (currentThematicGAFilter || '')
+              .split(',').map(s => s.trim()).filter(Boolean);
+            thematicGAFilterDropdown.setSelectedValues(cachedGAs);
           }
           // Radio-Button synchronisieren (100 = Tiefe, 250 = Zitat, 300 = Breite)
           let modeValue;
@@ -20837,8 +20923,14 @@ function formatAsteriskParagraphs() {
         return dateA.localeCompare(dateB);
       });
       
-      // Verwende ausschließlich den GA-Band, der für DIESES Ergebnis angewendet wurde
-      const selectedGA = appliedGA || '';
+      // Verwende ausschließlich den (oder die) GA-Band/Bände, die für DIESES
+      // Ergebnis angewendet wurden. appliedGA kann String, kommagetrennt oder Array sein.
+      let selectedGA = '';
+      if (Array.isArray(appliedGA)) {
+        selectedGA = appliedGA.join(', ');
+      } else if (appliedGA) {
+        selectedGA = String(appliedGA).split(',').map(s => s.trim()).filter(Boolean).join(', ');
+      }
       const headingBase = autocorrectQuery(query) || '';
       // Modus-Label basierend auf currentThematicLimit
       // (100 = tief, 150 = Essay, 250 = zitat, 300 = breit)
@@ -38261,7 +38353,8 @@ window.cancelTextEditMode = function() {};
     }
     
     const content = answerContent.innerHTML;
-    const gaFilter = document.getElementById('thematicGAFilter').value || null;
+    const gaFilterArr = (typeof getThematicGAFilterValue === 'function') ? getThematicGAFilterValue() : [];
+    const gaFilter = gaFilterArr.length > 0 ? gaFilterArr.join(',') : null;
     const limit = parseInt(document.getElementById('thematicLimitFilter')?.value) || 100;
     
     try {
@@ -38364,9 +38457,11 @@ window.cancelTextEditMode = function() {};
       // Query in Eingabefeld setzen
       document.getElementById('thematicQuery').value = data.query;
       
-      // GA-Filter setzen falls vorhanden
-      if (data.ga_filter) {
-        document.getElementById('thematicGAFilter').value = data.ga_filter;
+      // GA-Filter setzen falls vorhanden (Multi-Select)
+      if (data.ga_filter && thematicGAFilterDropdown) {
+        const gaList = String(data.ga_filter)
+          .split(',').map(s => s.trim()).filter(Boolean);
+        thematicGAFilterDropdown.setSelectedValues(gaList);
       }
       
       // Limit setzen

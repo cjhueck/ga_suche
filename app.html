@@ -8151,9 +8151,13 @@ Wandtafeln
 <textarea class="thematic-input" id="thematicQuery" onkeydown="handleThematicKeydown(event)" placeholder="Stellen Sie eine thematische Frage. Wichtige Suchworte bitte in Anführungszeichen. Ihre Frage und die Antwort werden nicht aufgezeichnet."></textarea>
 <div class="semantic-options">
 <div class="filter-row">
-<select class="filter-dropdown" id="thematicGAFilter">
-  <option value="">GA-Bände</option>
-</select>
+<div class="custom-dropdown" id="thematicGAFilterContainer">
+  <button type="button" class="filter-dropdown custom-dropdown-button" id="thematicGAFilterButton">
+    <span class="custom-dropdown-text">GA-Bände</span>
+    <span class="custom-dropdown-arrow"></span>
+  </button>
+  <div class="custom-dropdown-list" id="thematicGAFilterList"></div>
+</div>
 <!-- Analyse-Modus Auswahl: Tiefe/Breite untereinander, Zitat rechts daneben -->
 <div style="display: flex; align-items: center; gap: 12px; margin-left: 2px;">
   <div style="display: flex; flex-direction: column; gap: 2px;">
