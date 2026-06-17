@@ -12720,8 +12720,13 @@ function scrollToChronologicalYear(year) {
                 targetElement = document.querySelector(`[data-array-index="${targetParagraphIdx}"]`);
               }
               if (targetElement) {
-                targetElement.scrollIntoView({ behavior: 'auto', block: 'center' });
-                
+                // Wenn der Ziel-Absatz Markierungen (<mark>) enthält:
+                // die erste Markierung vertikal zentrieren — das ist das,
+                // was der Nutzer sehen will. Sonst den ganzen Absatz.
+                const firstMarkInTarget = targetElement.querySelector('mark');
+                const scrollTo = firstMarkInTarget || targetElement;
+                scrollTo.scrollIntoView({ behavior: 'auto', block: 'center' });
+
                 // Markiere den Absatz mit automatischer Entfernung nach 5 Sekunden
                 // ABER: Nicht bei Navigation aus Members Panel
                 // ABER: Nicht bei Essay-Snippet-Highlighting (nur die Zitat-Wortlaute werden markiert)
@@ -13313,8 +13318,11 @@ function scrollToChronologicalYear(year) {
                   if (!paragraphElement) paragraphElement = paraElement.parentElement;
                   
                   if (paragraphElement) {
-                    // Scrolle zum Absatz, vertikal zentriert.
-                    paragraphElement.scrollIntoView({ behavior: 'auto', block: 'center' });
+                    // Wenn der Ziel-Absatz Markierungen (<mark>) enthält:
+                    // erste Markierung vertikal zentrieren — Sonst Absatz selbst.
+                    const firstMarkInTarget = paragraphElement.querySelector('mark');
+                    const scrollTo = firstMarkInTarget || paragraphElement;
+                    scrollTo.scrollIntoView({ behavior: 'auto', block: 'center' });
                     
                     // Markiere den Absatz (blau unterlegen) mit automatischer Entfernung nach 5 Sekunden
                     // ABER: Nicht bei Navigation aus Members Panel oder vom Inhaltsverzeichnis
@@ -13581,8 +13589,10 @@ function scrollToChronologicalYear(year) {
                   }
                 }
                 
-                // Scrolle zum Absatz - genau wie bei Vorträgen
-                targetElement.scrollIntoView({ behavior: 'auto', block: 'center' });
+                // Scrolle zum Absatz - genau wie bei Vorträgen, dabei wenn
+                // möglich die erste Markierung im Absatz vertikal zentrieren.
+                const firstMarkInTarget = targetElement.querySelector('mark');
+                (firstMarkInTarget || targetElement).scrollIntoView({ behavior: 'auto', block: 'center' });
                 } else {
                 console.warn(`[BOOK-ADV-SEARCH] Paragraph-Element #adv-para-${targetParagraphIdx} nicht gefunden`);
               }
@@ -20978,6 +20988,23 @@ function formatAsteriskParagraphs() {
                                !!(link.closest && link.closest('.essay-beleg'));
           const quoteText = link.getAttribute('data-quote-text');
           
+          // Auch für Zitat-Modus: vorangehendes <blockquote> als Quelle für
+          // Snippet-Highlighting im Side-Panel finden (analog zum Essay-Modus,
+          // nur ohne data-quote-text-Attribut, weil dieses nur Essay-Belege haben).
+          let quoteSourceEl = null;
+          if (!isEssayBeleg) {
+            const containingP = link.closest('p');
+            if (containingP && /Quelle\s*:/i.test(containingP.textContent || '')) {
+              let prev = containingP.previousElementSibling;
+              while (prev && /^(BR|HR)$/i.test(prev.tagName)) {
+                prev = prev.previousElementSibling;
+              }
+              if (prev && prev.tagName && prev.tagName.toLowerCase() === 'blockquote') {
+                quoteSourceEl = prev;
+              }
+            }
+          }
+
           if (lectureId && targetIndex) {
             link.addEventListener('click', async (e) => {
               e.preventDefault();
@@ -20989,22 +21016,53 @@ function formatAsteriskParagraphs() {
               const searchTerm = keywords.length > 0 ? keywords[0] : '';
               // Im Essay-Modus immer Array übergeben (auch leer), damit
               // showLectureFromAdvancedSearch das Absatz-Highlight unterdrückt.
+              // Im Zitat-Modus: vorangehendes <blockquote> als Snippet
+              //   weiterreichen, damit das Side-Panel das Zitat hervorhebt.
               // In anderen Modi: null → Standardverhalten.
-              const snippets = isEssayBeleg
-                ? (quoteText
-                    ? quoteText.split('|||').map(s => s.trim()).filter(s => s.length > 0)
-                    : [])
-                : null;
+              let snippets = null;
+              if (isEssayBeleg) {
+                snippets = quoteText
+                  ? quoteText.split('|||').map(s => s.trim()).filter(s => s.length > 0)
+                  : [];
+              } else if (quoteSourceEl) {
+                const raw = (quoteSourceEl.textContent || '').trim()
+                  .replace(/^[\s„"""'\u2018\u2019\u201A\u201B\u201C\u201D\u201E\u201F«»]+/, '')
+                  .replace(/[\s„"""'\u2018\u2019\u201A\u201B\u201C\u201D\u201E\u201F«»]+$/, '')
+                  .replace(/\s+/g, ' ')
+                  .trim();
+                if (raw.length >= 5) snippets = [raw];
+              }
               await showLectureFromAdvancedSearch(lectureId, searchTerm, targetIndex, snippets);
             });
           }
         });
 
-        // Click-Handler auch für nachträglich erzeugte ga-keyword-link Elemente
+        // Click-Handler auch für nachträglich erzeugte ga-keyword-link Elemente.
+        // Im Zitat-Modus liefert der LLM die Treffer im Format
+        //   > [wörtliches Zitat]
+        //   Quelle: (GA###:^xyz)
+        // Wir erkennen dieses Muster und reichen das Blockquote-Zitat als
+        // Snippet ans Side-Panel weiter, damit es dort gehighlighted wird —
+        // analog zum Essay-Modus.
         const kwLinks = answerDiv.querySelectorAll('.ga-keyword-link');
         kwLinks.forEach(link => {
           if (link.__thematicBound) return;
           link.__thematicBound = true;
+
+          // Vorangehendes <blockquote> identifizieren (für Zitat-Modus-Treffer)
+          let quoteSourceEl = null;
+          const containingP = link.closest('p');
+          if (containingP && /Quelle\s*:/i.test(containingP.textContent || '')) {
+            let prev = containingP.previousElementSibling;
+            // Reine Inline-Trenner überspringen
+            while (prev && /^(BR|HR)$/i.test(prev.tagName)) {
+              prev = prev.previousElementSibling;
+            }
+            if (prev && prev.tagName && prev.tagName.toLowerCase() === 'blockquote') {
+              quoteSourceEl = prev;
+            }
+          }
+
           link.addEventListener('click', async (e) => {
             e.preventDefault();
             e.stopPropagation();
@@ -21013,7 +21071,21 @@ function formatAsteriskParagraphs() {
             if (m) {
               const keywords = extractKeywordsFromQuery(currentThematicQuery);
               const searchTerm = keywords.length > 0 ? keywords[0] : (m[2] || '');
-              await showLectureFromAdvancedSearch(m[1], searchTerm, m[3] || null);
+
+              // Wenn ein <blockquote>-Zitat über dem Quellen-Link steht:
+              // dessen Text als Snippet weiterreichen, damit das Side-Panel
+              // genau dieses Zitat (statt nur des Suchbegriffs) hervorhebt.
+              let snippets = null;
+              if (quoteSourceEl) {
+                const raw = (quoteSourceEl.textContent || '').trim()
+                  .replace(/^[\s„"""'\u2018\u2019\u201A\u201B\u201C\u201D\u201E\u201F«»]+/, '')
+                  .replace(/[\s„"""'\u2018\u2019\u201A\u201B\u201C\u201D\u201E\u201F«»]+$/, '')
+                  .replace(/\s+/g, ' ')
+                  .trim();
+                if (raw.length >= 5) snippets = [raw];
+              }
+
+              await showLectureFromAdvancedSearch(m[1], searchTerm, m[3] || null, snippets);
             }
           });
         });
