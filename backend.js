@@ -1085,12 +1085,21 @@ function keywordOverlap(a, b) {
 
 // Hybrid-Cache-Suche
 function findHybridCacheHit(query, depth, limit, gaFilter, thematicDB) {
+  // gaFilter in stabile Form (sortiert, kommagetrennt) für Cache-Vergleich
+  let gaFilterNormalized;
+  if (Array.isArray(gaFilter)) {
+    gaFilterNormalized = gaFilter.map(s => String(s).trim()).filter(Boolean).sort().join(',');
+  } else if (typeof gaFilter === 'string') {
+    gaFilterNormalized = gaFilter.split(',').map(s => s.trim()).filter(Boolean).sort().join(',');
+  } else {
+    gaFilterNormalized = '';
+  }
   const expanded = expandSynonyms(query);
   let bestKey = null;
   let bestScore = 0;
   for (const key of Object.keys(thematicDB)) {
     const [cachedQuery, cachedDepth, cachedLimit, cachedGaFilter] = key.split('|');
-    if (cachedDepth !== depth || Number(cachedLimit) !== Number(limit) || cachedGaFilter !== gaFilter) continue;
+    if (cachedDepth !== depth || Number(cachedLimit) !== Number(limit) || cachedGaFilter !== gaFilterNormalized) continue;
     // 1. Exact Match
     if (cachedQuery === query.toLowerCase().trim()) return { key, score: 1.0 };
     // 2. Synonym/Stemming
@@ -2971,12 +2980,22 @@ function extractKeyTerms(query) {
 
 function performThematicKeywordSearch(query, paragraphsFromLectures, gaFilter = '') {
   const terms = extractKeyTerms(query);
-  
-  // GA-Filter anwenden, wenn angegeben
+
+  // GA-Filter anwenden, wenn angegeben. Akzeptiert:
+  //   - leeren String  → kein Filter
+  //   - "GA001"        → ein Band
+  //   - "GA001,GA002"  → mehrere Bände, kommagetrennt
+  //   - ["GA001",...]  → Array
+  let gaFilters = [];
+  if (Array.isArray(gaFilter)) {
+    gaFilters = gaFilter.map(s => String(s).trim()).filter(Boolean);
+  } else if (typeof gaFilter === 'string' && gaFilter.trim()) {
+    gaFilters = gaFilter.split(',').map(s => s.trim()).filter(Boolean);
+  }
   let filteredParagraphs = paragraphsFromLectures;
-  if (gaFilter) {
-    filteredParagraphs = paragraphsFromLectures.filter(paragraph => 
-      paragraph.ID && paragraph.ID.startsWith(gaFilter)
+  if (gaFilters.length > 0) {
+    filteredParagraphs = paragraphsFromLectures.filter(paragraph =>
+      paragraph.ID && gaFilters.some(filter => paragraph.ID.startsWith(filter))
     );
   }
   
@@ -9515,19 +9534,33 @@ async function listAvailableParagraphEmbeddingGAs() {
  * Bevorzugt Cloudflare Vectorize (online, skalierbar), fällt bei Fehler oder
  * fehlender Konfiguration zurück auf den lokalen In-Memory-Pfad.
  * @param {string} query - Anfrage
- * @param {string} gaFilter - optionaler GA-Filter (z.B. "GA001"); leer = alle
+ * @param {string|string[]} gaFilter - optionaler GA-Filter: "GA001",
+ *   "GA001,GA002" oder ["GA001","GA002"]; leer = alle
  * @param {number} threshold - Mindest-Similarity (0..1)
  * @param {number} topN - max. Anzahl Treffer
  * @returns {Object} Map: "GA###:^idx" → similarity
  */
 async function findSemanticallySimilarParagraphs(query, gaFilter, threshold = 0.55, topN = 30) {
+  // gaFilter normalisieren: String, kommagetrennter String oder Array → Array
+  let gaFilterList = [];
+  if (Array.isArray(gaFilter)) {
+    gaFilterList = gaFilter.map(s => String(s).trim()).filter(Boolean);
+  } else if (typeof gaFilter === 'string' && gaFilter.trim()) {
+    gaFilterList = gaFilter.split(',').map(s => s.trim()).filter(Boolean);
+  }
+
   // Query-Embedding einmal erzeugen — wird in beiden Pfaden gebraucht.
   const queryEmb = await createEmbedding(query);
 
   // === Pfad A: Cloudflare Vectorize (bevorzugt) ===
   if (vectorizeClient.isConfigured()) {
     try {
-      const filter = gaFilter && gaFilter.trim() ? { gaBand: gaFilter.trim() } : null;
+      let filter = null;
+      if (gaFilterList.length === 1) {
+        filter = { gaBand: gaFilterList[0] };
+      } else if (gaFilterList.length > 1) {
+        filter = { gaBand: { $in: gaFilterList } };
+      }
       // Etwas größer als topN, damit nach Threshold-Filter genug bleibt.
       const requestedTopK = Math.min(100, Math.max(topN * 2, 30));
       const result = await vectorizeClient.queryNearest(queryEmb, {
@@ -9548,8 +9581,8 @@ async function findSemanticallySimilarParagraphs(query, gaFilter, threshold = 0.
 
   // === Pfad B: In-Memory aus paragraph-embeddings/ (Fallback) ===
   let gaBands;
-  if (gaFilter && gaFilter.trim()) {
-    gaBands = [gaFilter.trim()];
+  if (gaFilterList.length > 0) {
+    gaBands = gaFilterList;
   } else {
     gaBands = await listAvailableParagraphEmbeddingGAs();
   }
@@ -24427,6 +24460,14 @@ async function saveThematicSearchDatabase(thematicDB) {
 
 // Generiere Cache-Schlüssel für Themensuche
 function generateThematicCacheKey(query, depth, limit, gaFilter = '') {
+  // gaFilter kann String, kommagetrennt oder Array sein → in stabile Form
+  if (Array.isArray(gaFilter)) {
+    gaFilter = gaFilter.map(s => String(s).trim()).filter(Boolean).sort().join(',');
+  } else if (typeof gaFilter === 'string') {
+    gaFilter = gaFilter.split(',').map(s => s.trim()).filter(Boolean).sort().join(',');
+  } else {
+    gaFilter = '';
+  }
   const normalizedQuery = query.toLowerCase().trim();
   return `${normalizedQuery}|${depth}|${limit}|${gaFilter}`;
 }
