@@ -5268,10 +5268,11 @@ ABSOLUT KRITISCHE REGELN (Verstoß = Aufgabe verfehlt)
 
 ARBEITSWEISE
 1. Lies jede Textpassage sorgfältig.
-2. Prüfe für jede Passage, ob sie den in der Anfrage beschriebenen Sachverhalt WIRKLICH und EINDEUTIG enthält.
-3. Wenn du eine Stelle gefunden hast: zitiere sie WÖRTLICH (1–4 Sätze, exakt der Wortlaut aus der Textpassage).
-4. Wenn keine Stelle wirklich passt: gib „Kein passendes Zitat gefunden" aus. Niemals ersatzweise eine ungenaue Stelle ausgeben.
-5. Bei mehreren echten Treffern: maximal drei, sortiert nach Passgenauigkeit. Ein einzelner echter Treffer ist besser als drei mittelmäßige.
+2. Prüfe für jede Passage, ob sie den in der Anfrage beschriebenen Sachverhalt WIRKLICH und EINDEUTIG enthält. Beachte: Steiner formuliert eine Aussage oft *bildhaft* oder mit Beispielen statt mit dem abstrakten Vokabular der Anfrage. Wenn z. B. die Anfrage „der Kopf hat die Tendenz, tierisch zu werden" lautet und Steiner schreibt „der Kopf möchte uns gestalten, dass wir aussehen wie ein Wolf, wie ein Lamm", dann IST das ein Treffer — auch wenn das Wort „tierisch" oder „Tendenz" gar nicht fällt. Achte primär auf den Sachverhalt, nicht auf das Vokabular.
+3. Auch Passagen, die mit Tags wie [INDIREKT-SEMANTISCH] oder [INDIREKT-EXPANSION] versehen sind, sind vollwertige Kandidaten — diese Tags markieren nur, wie die Stelle gefunden wurde, nicht ihren inhaltlichen Wert.
+4. Wenn du eine Stelle gefunden hast: zitiere sie WÖRTLICH (1–4 Sätze, exakt der Wortlaut aus der Textpassage).
+5. Wenn keine Stelle wirklich passt: gib „Kein passendes Zitat gefunden" aus. Niemals ersatzweise eine ungenaue Stelle ausgeben.
+6. Bei mehreren echten Treffern: maximal drei, sortiert nach Passgenauigkeit. Ein einzelner echter Treffer ist besser als drei mittelmäßige.
 
 AUSGABEFORMAT BEI TREFFER (Markdown)
 
@@ -11541,7 +11542,33 @@ app.post('/api/thematic-hybrid-search', async (req, res) => {
       ? rankedResults.filter(r => r.quoteExactMatch).sort((a, b) => b.finalScore - a.finalScore)
       : [];
     const exactPhraseKeys = new Set(exactPhraseHits.map(r => `${r.ID}-${r.index}`));
-    const remainingForQuotaSplit = rankedResults.filter(r => !exactPhraseKeys.has(`${r.ID}-${r.index}`));
+
+    // Im Quote-Modus auch die hoch-semantisch-ähnlichen Absätze (Vectorize-Top)
+    // garantiert in die Top-N nehmen. Sonst kann ein keyword-/phrasenarmer
+    // Treffer (z. B. eine bildliche Umschreibung des gesuchten Inhalts mit
+    // Vokabular wie "Wolfsgestalt" statt "tierisch werden") durch Keyword-
+    // dominierte, aber thematisch ferne Treffer verdrängt werden.
+    // Wichtig: `paragraphSemanticSimilarity` ist gesetzt, sobald die Stelle in
+    // den Vectorize-Top-Treffern war — egal, ob sie als "neu" eingefügt oder
+    // als bestehend geboostet wurde. `paragraphSemanticMatch` allein reicht
+    // also nicht (würde nur "neu eingefügte" abdecken).
+    const topSemanticHits = isQuoteMode
+      ? rankedResults
+          .filter(r => !exactPhraseKeys.has(`${r.ID}-${r.index}`))
+          .filter(r => (r.paragraphSemanticSimilarity || 0) >= 0.55)
+          .sort((a, b) => (b.paragraphSemanticSimilarity || 0) - (a.paragraphSemanticSimilarity || 0))
+          .slice(0, 20)
+      : [];
+    const topSemanticKeys = new Set(topSemanticHits.map(r => `${r.ID}-${r.index}`));
+    if (isQuoteMode && topSemanticHits.length > 0) {
+      const top3 = topSemanticHits.slice(0, 3)
+        .map(r => `${r.ID}:${r.index}=${(r.paragraphSemanticSimilarity || 0).toFixed(2)}`)
+        .join(', ');
+      console.log(`[THEMATIC-QUOTE] Reserve für semantische Top-Treffer: ${topSemanticHits.length} (Top: ${top3})`);
+    }
+
+    const reservedKeys = new Set([...exactPhraseKeys, ...topSemanticKeys]);
+    const remainingForQuotaSplit = rankedResults.filter(r => !reservedKeys.has(`${r.ID}-${r.index}`));
     
     // Quoten-basierte Selektion für die übrigen Plätze:
     // Direkte Keyword-Treffer bekommen einen Quotenanteil, der Rest geht an indirekte (Expansion/Semantik).
@@ -11549,17 +11576,44 @@ app.post('/api/thematic-hybrid-search', async (req, res) => {
     const indirectResults = remainingForQuotaSplit.filter(r => r.expandedMatch || r.semanticMatch);
     
     const directQuotaShare = isQuoteMode ? 0.4 : 0.7;
-    const remainingSlots = Math.max(0, limit - exactPhraseHits.length);
+    const remainingSlots = Math.max(0, limit - exactPhraseHits.length - topSemanticHits.length);
     const directQuota = Math.ceil(remainingSlots * directQuotaShare);
     const indirectQuota = remainingSlots - Math.min(directResults.length, directQuota);
     
-    let topResults = [
-      ...exactPhraseHits.slice(0, limit),
-      ...directResults.slice(0, directQuota),
-      ...indirectResults.slice(0, indirectQuota)
-    ].sort((a, b) => b.finalScore - a.finalScore).slice(0, limit);
-    
-    console.log(`[THEMATIC] Ergebnis-Selektion: ${exactPhraseHits.length} exakte Phrasen, ${directResults.length} direkte, ${indirectResults.length} indirekte → Top ${topResults.length} (davon ${topResults.filter(r => r.quoteExactMatch).length} exakte Phrasen-Treffer, Quote-Modus=${isQuoteMode})`);
+    // Pool sammeln, dedupliziert nach (ID, index).
+    const poolSeen = new Set();
+    const pool = [];
+    const pushUnique = (arr) => {
+      for (const r of arr) {
+        const k = `${r.ID}-${r.index}`;
+        if (poolSeen.has(k)) continue;
+        poolSeen.add(k);
+        pool.push(r);
+      }
+    };
+    pushUnique(exactPhraseHits);
+    pushUnique(topSemanticHits);
+    pushUnique(directResults.slice(0, directQuota));
+    pushUnique(indirectResults.slice(0, indirectQuota));
+
+    let topResults;
+    if (isQuoteMode && topSemanticHits.length > 0) {
+      // Quote-Modus: reservierte Semantik-Top-Treffer GARANTIERT zuerst,
+      // damit sie nicht durch keyword-dominierte Phrasen-Treffer aus den
+      // finalen `limit` Plätzen verdrängt werden. Ihre interne Reihenfolge
+      // bleibt nach Cosine-Similarity sortiert (höchste zuerst). Der Rest
+      // wird nach finalScore sortiert und nimmt die übrigen Plätze.
+      const semHits = pool.filter(r => topSemanticKeys.has(`${r.ID}-${r.index}`));
+      const rest = pool
+        .filter(r => !topSemanticKeys.has(`${r.ID}-${r.index}`))
+        .sort((a, b) => b.finalScore - a.finalScore);
+      topResults = [...semHits, ...rest].slice(0, limit);
+    } else {
+      topResults = pool.sort((a, b) => b.finalScore - a.finalScore).slice(0, limit);
+    }
+
+    const finalSemCount = topResults.filter(r => topSemanticKeys.has(`${r.ID}-${r.index}`)).length;
+    console.log(`[THEMATIC] Ergebnis-Selektion: ${exactPhraseHits.length} exakte Phrasen, ${topSemanticHits.length} semantische Top-Treffer, ${directResults.length} direkte, ${indirectResults.length} indirekte → Top ${topResults.length} (davon ${topResults.filter(r => r.quoteExactMatch).length} exakte Phrasen-Treffer, ${finalSemCount} sem. Top-Treffer, Quote-Modus=${isQuoteMode})`);
 
     // Query-Tracking
     trackQueryTerms(query, topResults.length);
@@ -12348,16 +12402,74 @@ app.post('/api/reload-books', async (req, res) => {
   }
 });
 
+// Baut paragraphsFromLectures aus den aktuellen fullLectures + fullBooks neu auf.
+// Wird beim Server-Start sowie nach /api/reload-lectures verwendet, damit
+// nachgeladene Vorträge (z. B. mit neuen Block-IDs) sofort als Embedding-
+// Kandidaten zur Verfügung stehen.
+function rebuildParagraphsFromLectures() {
+  paragraphsFromLectures.length = 0;
+  let lectureParagraphs = 0;
+  Object.values(fullLectures).forEach(lecture => {
+    lecture.paragraphs?.forEach((para, idx) => {
+      paragraphsFromLectures.push({
+        ID: lecture.ID,
+        index: para.index || `para_${idx}`,
+        title: lecture.title,
+        fileName: lecture.fileName,
+        content: para.content || para.text || '',
+        location: lecture.location,
+        date: lecture.date,
+        isBook: false
+      });
+      lectureParagraphs++;
+    });
+  });
+  let bookParagraphs = 0;
+  Object.values(fullBooks).forEach(book => {
+    const bookParas = getBookParagraphsForSearch(book);
+    bookParas.forEach((para, idx) => {
+      paragraphsFromLectures.push({
+        ID: book.ID || book.gaNumber,
+        index: para.index || null,
+        title: book.title || book.fileName || book.ID,
+        fileName: book.fileName || book.title || book.ID,
+        content: para.content || para.text || '',
+        location: null,
+        date: book.yearRange || null,
+        isBook: true
+      });
+      bookParagraphs++;
+    });
+  });
+  return { lectureParagraphs, bookParagraphs };
+}
+
 // Reload-Endpoint für Lectures (zum Neuladen ohne Server-Neustart)
 // Lädt auch die pagebreaks/GA*.json Override-Dateien neu
 app.post('/api/reload-lectures', async (req, res) => {
   try {
     fullLectures = {}; // Leere den Cache
     const reloaded = await loadFullLectures();
-    res.json({ 
-      success: true, 
+
+    // GA-Index neu aufbauen (wird sonst nur beim Boot erstellt)
+    fullLecturesByGA = {};
+    for (const lec of Object.values(fullLectures)) {
+      if (lec.gaNumber) {
+        const key = lec.gaNumber.toLowerCase();
+        if (!fullLecturesByGA[key]) fullLecturesByGA[key] = [];
+        fullLecturesByGA[key].push(lec);
+      }
+    }
+
+    // Absatz-Liste neu aufbauen, damit Embedding-Generator und Suche
+    // die neuen/geänderten Block-IDs sehen.
+    const counts = rebuildParagraphsFromLectures();
+
+    res.json({
+      success: true,
       lecturesLoaded: Object.keys(reloaded).length,
-      lectures: Object.keys(reloaded).slice(0, 20) // Zeige nur erste 20 als Beispiel
+      lectures: Object.keys(reloaded).slice(0, 20), // Zeige nur erste 20 als Beispiel
+      paragraphsRebuilt: counts
     });
   } catch (error) {
     console.error('[RELOAD-LECTURES] Fehler:', error);
@@ -29198,42 +29310,7 @@ await synchronizeKeywordSystems();
     console.log('  ✓ Keyword-Systeme synchronisiert');
 
     console.log('\n[7/9] Konvertiere zu Absatz-Format...');
-// Konvertiere Lectures zu Absatz-Format
-let lectureParagraphsCount = 0;
-Object.values(fullLectures).forEach(lecture => {
-  lecture.paragraphs?.forEach((para, idx) => {
-    paragraphsFromLectures.push({
-      ID: lecture.ID,
-      index: para.index || `para_${idx}`,
-      title: lecture.title,
-      fileName: lecture.fileName,
-      content: para.content || para.text || '',
-      location: lecture.location,
-      date: lecture.date,
-      isBook: false
-    });
-    lectureParagraphsCount++;
-  });
-});
-
-// Konvertiere auch Bücher zu Absatz-Format
-let bookParagraphsCount = 0;
-Object.values(fullBooks).forEach(book => {
-  const bookParagraphs = getBookParagraphsForSearch(book);
-  bookParagraphs.forEach((para, idx) => {
-    paragraphsFromLectures.push({
-      ID: book.ID || book.gaNumber,
-      index: para.index || null,
-      title: book.title || book.fileName || book.ID,
-      fileName: book.fileName || book.title || book.ID,
-      content: para.content || para.text || '',
-      location: null, // Bücher haben keinen Ort
-      date: book.yearRange || null, // Bücher haben Jahr-Range statt Datum
-      isBook: true
-    });
-    bookParagraphsCount++;
-  });
-});
+const { lectureParagraphs: lectureParagraphsCount, bookParagraphs: bookParagraphsCount } = rebuildParagraphsFromLectures();
     console.log(`  ✓ Absätze erstellt: ${lectureParagraphsCount} Vortrags-Absätze, ${bookParagraphsCount} Buch-Absätze`);
 
 // ============================================================

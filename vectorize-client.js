@@ -189,13 +189,25 @@ async function getByIds(ids) {
   return result.result || [];
 }
 
-async function deleteByIds(ids) {
-  const r = await fetch(indexUrl('/delete_by_ids'), {
-    method: 'POST',
-    headers: authHeaders({ 'Content-Type': 'application/json' }),
-    body: JSON.stringify({ ids })
-  });
-  return readJsonOrThrow(r, 'deleteByIds');
+// Cloudflare-Limit: max. 100 IDs pro delete_by_ids-Call (Stand 2026).
+async function deleteByIds(ids, { batchSize = 100 } = {}) {
+  if (!Array.isArray(ids) || ids.length === 0) {
+    return { deleted: 0, mutationIds: [] };
+  }
+  const mutationIds = [];
+  let deleted = 0;
+  for (let i = 0; i < ids.length; i += batchSize) {
+    const batch = ids.slice(i, i + batchSize);
+    const r = await fetch(indexUrl('/delete_by_ids'), {
+      method: 'POST',
+      headers: authHeaders({ 'Content-Type': 'application/json' }),
+      body: JSON.stringify({ ids: batch })
+    });
+    const body = await readJsonOrThrow(r, `deleteByIds batch ${i}-${i + batch.length}`);
+    if (body?.result?.mutationId) mutationIds.push(body.result.mutationId);
+    deleted += batch.length;
+  }
+  return { deleted, mutationIds };
 }
 
 module.exports = {
