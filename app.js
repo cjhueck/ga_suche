@@ -19627,6 +19627,98 @@ function showSummaryView() {
       }
     }
 
+  /**
+   * Repariert kaputte HTML-img-Tags, die durch einen Bug in
+   * `export-lectures.js` entstanden sind: dort hat eine naive Regex
+   * `!\[…\]\(([^)]+)\)` Pfade mit balancierten Klammern (z. B.
+   * "GA152-Vorstufen … (1913-1914)/assets/img-0.png") an der ersten ")"
+   * abgeschnitten, sodass der `<img src="assets/Folder (1913-1914"`
+   * unvollständig blieb und der Rest des Pfads ("/assets/img-0.png)")
+   * als reiner Text hinter dem Tag landete. Diese Funktion erkennt
+   * dieses Muster und baut das img-Tag wieder korrekt auf.
+   *
+   * Wichtig: muss VOR jeder weiteren img-Verarbeitung laufen.
+   */
+  function repairBrokenImgTags(content, gaNumber) {
+    if (!content || !content.includes('<img')) return content;
+    return content.replace(
+      /<img\s+src="([^"]*\([^)"]*?)"\s+alt="([^"]*)"\s*\/?>([^<\s][^<\s]*?\)(?=\s|$|<))/gi,
+      (match, srcStart, alt, leftover) => {
+        const fullPath = srcStart + ')' + leftover.replace(/\)$/, '');
+        const assetsIdx = fullPath.lastIndexOf('/assets/');
+        let filename;
+        if (assetsIdx >= 0) {
+          filename = fullPath.substring(assetsIdx + '/assets/'.length);
+        } else if (fullPath.startsWith('assets/')) {
+          filename = fullPath.substring('assets/'.length);
+        } else {
+          return match;
+        }
+        const gaParam = gaNumber ? `?ga=${gaNumber}` : '';
+        const safeAlt = String(alt || '').replace(/"/g, '&quot;');
+        return `<img src="assets/${filename}${gaParam}" alt="${safeAlt}" />`;
+      }
+    );
+  }
+
+  /**
+   * Schreibt `src`-Attribute bestehender `<img>`-Tags so um, dass sie
+   * vom `/assets/*`-Backend-Endpoint mit `?ga=<GA>` aufgelöst werden
+   * können — analog zu `rewriteMarkdownImageSrcs`, nur für bereits
+   * vorgerenderte HTML-img-Tags (so wie sie aus dem Export kommen).
+   */
+  function rewriteHtmlImgSrcs(content, gaNumber) {
+    if (!content || !gaNumber || !content.includes('<img')) return content;
+    return content.replace(
+      /<img\s+([^>]*?)src="([^"]+)"([^>]*)\/?>/gi,
+      (match, before, src, after) => {
+        if (/^(https?:|data:|\/)/i.test(src)) return match;
+        const assetsIdx = src.lastIndexOf('/assets/');
+        let filename;
+        if (assetsIdx >= 0) {
+          filename = src.substring(assetsIdx + '/assets/'.length);
+        } else if (src.startsWith('assets/')) {
+          filename = src.substring('assets/'.length);
+        } else {
+          return match;
+        }
+        // Wenn schon ?ga=… enthalten ist, nicht doppelt anhängen.
+        if (/\?ga=/i.test(filename)) {
+          return `<img ${before}src="assets/${filename}"${after}/>`;
+        }
+        return `<img ${before}src="assets/${filename}?ga=${gaNumber}"${after}/>`;
+      }
+    );
+  }
+
+  /**
+   * Schreibt Markdown-Bild-URLs (`![alt](<gaFolder>/assets/<datei>)` oder
+   * `![alt](assets/<datei>)`) auf `assets/<datei>?ga=<GA>` um.
+   * Damit hängt die Auflösung des Bildes nicht mehr am Ordnernamen in der
+   * URL, sondern am `?ga=`-Query, den der `/assets/*`-Endpoint im Backend
+   * versteht. Erlaubt eine Ebene balancierter Klammern im Pfad
+   * (Obsidian-Pfade enthalten oft "(1913-1914)" o. Ä. im Ordnernamen).
+   */
+  function rewriteMarkdownImageSrcs(content, gaNumber) {
+    if (!content || !gaNumber || !content.includes('![')) return content;
+    const re = /!\[([^\]]*)\]\(((?:[^()]|\([^)]*\))*)\)/g;
+    return content.replace(re, (match, alt, srcRaw) => {
+      let src = srcRaw.trim();
+      src = src.replace(/^<['"]?|['"]?>$/g, '');
+      if (/^(https?:|data:|\/)/i.test(src)) return match;
+      const assetsIdx = src.lastIndexOf('/assets/');
+      let filename;
+      if (assetsIdx >= 0) {
+        filename = src.substring(assetsIdx + '/assets/'.length);
+      } else if (src.startsWith('assets/')) {
+        filename = src.substring('assets/'.length);
+      } else {
+        return match;
+      }
+      return `![${alt}](assets/${filename}?ga=${gaNumber})`;
+    });
+  }
+
   function displaySummaryWithHeadings(lecture, summaryObj, keywordsParam = null, isPhraseArray = []) {
   const viewer = document.getElementById('viewer');
   const titleElement = document.getElementById('document-title');
@@ -19990,7 +20082,17 @@ function showSummaryView() {
     
     // Konvertiere Obsichan '/br' Markierungen zu Zeilenumbrüchen
     content = preprocessObsichanLineBreaks(content);
-    
+
+    // 1) Reparier kaputte img-Tags aus dem alten Export
+    //    (siehe Doku bei repairBrokenImgTags).
+    content = repairBrokenImgTags(content, gaNumber);
+    // 2) Schreibe ggf. noch im Markdown stehende Bild-URLs auf den
+    //    /assets/*-Pfad mit ?ga=… um.
+    content = rewriteMarkdownImageSrcs(content, gaNumber);
+    // 3) Schreibe die `src` bestehender HTML-img-Tags ebenfalls auf
+    //    den /assets/*-Pfad um.
+    content = rewriteHtmlImgSrcs(content, gaNumber);
+
     // WICHTIG: Extrahiere HTML-img-Tags VOR marked.parse() um sie zu schützen
     // (marked kann HTML-Tags in bestimmten Kontexten escapen)
     const imgTagPlaceholders = [];
@@ -24738,7 +24840,13 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
           
           // Konvertiere Obsichan '/br' Markierungen zu Zeilenumbrüchen
           content = preprocessObsichanLineBreaks(content);
-          
+
+          // Bild-Pipeline: kaputte img-Tags reparieren, Markdown-Bilder und
+          // HTML-img-Tags auf den /assets/*-Endpoint mit ?ga=… umschreiben.
+          content = repairBrokenImgTags(content, gaNumber);
+          content = rewriteMarkdownImageSrcs(content, gaNumber);
+          content = rewriteHtmlImgSrcs(content, gaNumber);
+
           // WICHTIG: Extrahiere HTML-img-Tags VOR marked.parse() um sie zu schützen
           const imgTagPlaceholders = [];
           let imgPlaceholderIdx = 0;

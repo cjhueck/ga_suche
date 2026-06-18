@@ -520,7 +520,9 @@ class SteinerLecturesExporter {
     const images = [];
     
     // Pattern 1: Standard Markdown ![alt](path)
-    const markdownRegex = /!\[([^\]]*)\]\(([^)]+)\)/g;
+    // Erlaubt eine Ebene balancierter Klammern (Obsidian-Pfade enthalten
+    // oft "(1913-1914)" o.Ä. im Ordnernamen).
+    const markdownRegex = /!\[([^\]]*)\]\(((?:[^()]|\([^)]*\))*)\)/g;
     let match;
     
     while ((match = markdownRegex.exec(text)) !== null) {
@@ -1012,7 +1014,9 @@ class SteinerLecturesExporter {
             // Konvertiere Markdown-Bilder zu HTML-img-Tags
             // damit das Frontend konsistentes HTML erhält
             // WICHTIG: JPEG-Pfade werden zu PNG konvertiert
-            convertedText = convertedText.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, 
+            // Erlaubt eine Ebene balancierter Klammern im URL-Teil
+            // (Pfade wie "GA152.../Vorstufen.../(1913-1914)/assets/img-0.png").
+            convertedText = convertedText.replace(/!\[([^\]]*)\]\(((?:[^()]|\([^)]*\))*)\)/g, 
               (match, alt, src) => {
                 // Entferne <> Klammern um Pfade mit Leerzeichen (Markdown-Standard)
                 let cleanSrc = src.trim().replace(/^<|>$/g, '');
