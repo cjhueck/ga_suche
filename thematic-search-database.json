@@ -714,137 +714,6 @@
     "llmUsed": true,
     "timestamp": "2026-06-17T04:44:38.397Z"
   },
-  "wo schreibt steiner über fichte als pfadfinder zum geistigen?|ausführlich|250|": {
-    "query": "Wo schreibt Steiner über Fichte als Pfadfinder zum Geistigen?",
-    "content": "## Möglicher Treffer\n\n> „Für die Ausdrucksmittel der damaligen deutschen Philosophie war in der Tat Fichte der Pfadfinder und Entdecker dieses höheren Sinnes.„\n\nQuelle: (<a href=\"#\" class=\"ga-reference\" data-id=\"GA250/11\" data-index=\"q9crnn\" data-file-name=\"GA250/11 - THEOSOPHIE IN DEUTSCHLAND VOR HUNDERT JAHREN, Autoreferat zum Vortrag beim Kongress der Föderation europäischer Sektionen der Theosophischen Gesellschaft, Paris, 4. Jun\">GA250/11</a>)",
-    "sources": [
-      {
-        "ID": "GA018/2",
-        "index": "^s537fg",
-        "title": "ERSTER BAND",
-        "fileName": "GA018/2 - ERSTER BAND",
-        "score": 2259,
-        "matchedTerms": [
-          "ich",
-          "[exact:\"Fichte als Pfadfinder\"]"
-        ]
-      },
-      {
-        "ID": "GA007",
-        "index": "^puw1j2",
-        "title": "Die Mystik im Aufgange des neuzeitlichen Geisteslebens und ihr Verhältnis zur modernen Weltanschauung (1901)",
-        "fileName": "GA007-Die Mystik im Aufgange des neuzeitlichen Geisteslebens und ihr Verhältnis zur modernen Weltanschauung (1901)",
-        "score": 2125,
-        "matchedTerms": [
-          "ich",
-          "geistigen",
-          "[exact:\"Fichte als Pfadfinder\"]"
-        ]
-      },
-      {
-        "ID": "GA031/106",
-        "index": "^r7bw1d",
-        "title": "FRAU ELISABETH FÖRSTER-NIETZSCHE UND IHR RITTER VON KOMISCHER GESTALT",
-        "fileName": "GA031/106 - FRAU ELISABETH FÖRSTER-NIETZSCHE UND IHR RITTER VON KOMISCHER GESTALT",
-        "score": 1900,
-        "matchedTerms": [
-          "ich",
-          "schreibt",
-          "steiner",
-          "[exact:\"Fichte als Pfadfinder\"]"
-        ]
-      },
-      {
-        "ID": "GA020",
-        "index": "^lyokym",
-        "title": "Vom Menschenrätsel (1916)",
-        "fileName": "GA020 - Vom Menschenrätsel (1916)",
-        "score": 1862,
-        "matchedTerms": [
-          "ich",
-          "über fichte",
-          "fichte",
-          "geistigen",
-          "[exact:\"Fichte als Pfadfinder\"]"
-        ]
-      },
-      {
-        "ID": "GA031/105",
-        "index": "^hcf4fo",
-        "title": "ZUR «WIEDERKUNFT DES GLEICHEN» VON NIETZSCHE",
-        "fileName": "GA031/105 - ZUR «WIEDERKUNFT DES GLEICHEN» VON NIETZSCHE",
-        "score": 1806,
-        "matchedTerms": [
-          "ich",
-          "[exact:\"Fichte als Pfadfinder\"]"
-        ]
-      },
-      {
-        "ID": "GA007",
-        "index": "^vjynjd",
-        "title": "Die Mystik im Aufgange des neuzeitlichen Geisteslebens und ihr Verhältnis zur modernen Weltanschauung (1901)",
-        "fileName": "GA007-Die Mystik im Aufgange des neuzeitlichen Geisteslebens und ihr Verhältnis zur modernen Weltanschauung (1901)",
-        "score": 1763,
-        "matchedTerms": [
-          "ich",
-          "schreibt",
-          "geistigen",
-          "[exact:\"Fichte als Pfadfinder\"]"
-        ]
-      },
-      {
-        "ID": "GA013",
-        "index": "^mbfp89",
-        "title": "Die Geheimwissenschaft im Umriss (1910)",
-        "fileName": "GA013 - Die Geheimwissenschaft im Umriss (1910)",
-        "score": 1757,
-        "matchedTerms": [
-          "ich",
-          "[exact:\"Fichte als Pfadfinder\"]"
-        ]
-      },
-      {
-        "ID": "GA007",
-        "index": "^pah9l7",
-        "title": "Die Mystik im Aufgange des neuzeitlichen Geisteslebens und ihr Verhältnis zur modernen Weltanschauung (1901)",
-        "fileName": "GA007-Die Mystik im Aufgange des neuzeitlichen Geisteslebens und ihr Verhältnis zur modernen Weltanschauung (1901)",
-        "score": 1750,
-        "matchedTerms": [
-          "ich",
-          "geistigen",
-          "[exact:\"Fichte als Pfadfinder\"]"
-        ]
-      },
-      {
-        "ID": "GA102/7",
-        "index": "^l2phk7",
-        "title": "SIEBENTER VORTRAG",
-        "fileName": "GA102/7 - SIEBENTER VORTRAG, Berlin, 13. April 1908",
-        "score": 1706,
-        "matchedTerms": [
-          "ich",
-          "zum geistigen",
-          "geistigen",
-          "[exact:\"Fichte als Pfadfinder\"]"
-        ]
-      },
-      {
-        "ID": "GA021",
-        "index": "^02vczv",
-        "title": "Von Seelenrätseln (1917)",
-        "fileName": "GA021 - Von Seelenrätseln (1917)",
-        "score": 1659,
-        "matchedTerms": [
-          "ich",
-          "[exact:\"Fichte als Pfadfinder\"]"
-        ]
-      }
-    ],
-    "searchMethod": "hybrid-thematic-unified",
-    "totalMatches": 205314,
-    "llmUsed": true,
-    "timestamp": "2026-06-17T04:52:45.909Z"
-  },
   "welche bedeutung hat der deutsche idealismus für die geisteswissenschaft?|ausführlich|100|": {
     "query": "Welche Bedeutung hat der deutsche Idealismus für die Geisteswissenschaft?",
     "content": "# Der deutsche Idealismus als Grundlage geisteswissenschaftlicher Erkenntnis\n\n## Das lebendige Erfassen des Gedankens\n\nDer zentrale Zug des deutschen Idealismus zeigt sich im „Stehen der Seele auf dem Schauplatz des Gedankens\" – „dieses lebendige Erfassen des sonst toten Gedankens, das ist es, was eine Seite, aber eine bemerkenswerte Seite in dem Wesen des deutschen Volkstums ist\" (<a href=\"#\" class=\"ga-reference\" data-id=\"GA064/11\" data-index=\"ru92bd\" data-file-name=\"GA064/11 - DER SCHAUPLATZ DER GEDANKEN ALS ERGEBNIS DES DEUTSCHEN IDEALISMUS, München, 28. November 1915\">GA064/11</a>).\n\nDie fortwirkende Bedeutung dieses Impulses: „Man findet doch, dass die deutsche Entwicklung darin besteht, immer mehr und mehr sich gerade die Grundimpulse dieses Idealismus einzuverleiben.\" Und weiter: „Wie diese Grundimpulse zum **lebendigen Erleben der geistigen Welten** führen können, davon ist ja öfter die Rede gewesen\" (<a href=\"#\" class=\"ga-reference\" data-id=\"GA070b/3\" data-index=\"wovvxk\" data-file-name=\"GA070b/3 - DER SCHAUPLATZ DER GEDANKEN ALS ERGEBNIS DES DEUTSCHEN IDEALISMUS IM HINBLICK AUF UNSERE SCHICKSAL- TRAGENDE ZEIT, München, 28. November 1915\">GA070b/3</a>).\n\n## Der Idealismus als Vorläufer der Geistesforschung\n\nDie deutschen Idealisten werden als Wegbereiter der Geisteswissenschaft gekennzeichnet: „Gerade nun, wenn man sich vertieft in diejenigen Denker, die der naturwissenschaftlichen Richtung vorangegangen sind, in die Denker des deutschen Idealismus, so findet man bei ihnen ein klares Bewusstsein, dass **die höheren Geheimnisse der Welt erforscht werden müssen dadurch, dass man sich versenkt in dieses menschliche Innere**\" (<a href=\"#\" class=\"ga-reference\" data-id=\"GA065/9\" data-index=\"ozlu54\" data-file-name=\"GA065/9 - WIE WERDEN DIE EWIGEN KRÄFTE DER MENSCHENSEELE ERFORSCHT , Berlin, 11. Februar 1916\">GA065/9</a>).\n\nZu Hegels Methode: „Hegel hat versucht, alles dasjenige, wie man sagt, im reinen Gedanken zu erfassen, was draußen in der Welt webt und lebt.\" Dieses Gedankennetz „kann nicht durch Anschauung gewonnen werden... nicht durch äußere Beobachtung\", sondern muss „sich notwendigerweise aus dem menschlichen Inneren wirklich herausspinnen\" (<a href=\"#\" class=\"ga-reference\" data-id=\"GA065/9\" data-index=\"ozlu54\" data-file-name=\"GA065/9 - WIE WERDEN DIE EWIGEN KRÄFTE DER MENSCHENSEELE ERFORSCHT , Berlin, 11. Februar 1916\">GA065/9</a>).\n\n## Das reine Denken als übersinnliche Betätigung\n\nDer Übergang vom idealistischen Denken zur geistigen Erkenntnis: „Das reine Denken ist selbst schon eine übersinnliche Betätigung... Wenn man aber dieses Denken auf die übersinnlichen, durch die übersinnliche Anschauung erzählten Vorgänge anwendet, dann wächst es durch sich selbst in die übersinnliche Welt hinein\" (<a href=\"#\" class=\"ga-reference\" data-id=\"GA013\" data-index=\"qcdiyz\" data-file-name=\"GA013 - Die Geheimwissenschaft im Umriss (1910)\">GA013</a>).\n\nDieses Denken gilt als „die gediegenste erste Stufe aller geisteswissenschaftlichen Schulung\" (<a href=\"#\" class=\"ga-reference\" data-id=\"GA013\" data-index=\"qcdiyz\" data-file-name=\"GA013 - Die Geheimwissenschaft im Umriss (1910)\">GA013</a>).\n\n## Vom Sinnenbewusstsein zur Anthroposophie\n\nDie Erhebung der Anthropologie zur Anthroposophie wird mit dem idealistischen Begriff verbunden: Das Sinnenbewusstsein „hat keine andere Bedeutung, als nur die Stätte zu sein, in welcher jenes übersinnliche Leben des Geistes sich vollzieht, indem er durch frei bewusste eigene Tat den jenseitigen Geistgehalt der Ideen in die Sinnenwelt einführt... Diese gründliche Erfassung des Menschenwesens erhebt nunmehr die Anthropologie in ihrem Endresultate zur **Anthroposophie**\" (<a href=\"#\" class=\"ga-reference\" data-id=\"GA066/5\" data-index=\"xzxngh\" data-file-name=\"GA066/5 - SEELENRÄTSEL UND WELTRÄTSEL FORSCHUNG UND ANSCHAUUNG IM DEUTSCHEN GEISTESLEBEN, Berlin, 17. März 1917\">GA066/5</a>).\n\n## Schöpferisches und Realität des Ideellen\n\nDie idealistische Grundüberzeugung über die Wirklichkeit des Geistigen: „die Leute haben eben keine Ahnung von der Bedeutung des Schöpferischen in der Menschenseele. Sie wissen nicht, dass in diesem Schöpferischen **gerade so Weltinhalt lebt wie in den Naturerscheinungen**\" (<a href=\"#\" class=\"ga-reference\" data-id=\"GA028/3\" data-index=\"5cu3l6\" data-file-name=\"GA028/3 - 1890-1897 Weimar\">GA028/3</a>)– verbunden mit dem „lebendigen Sinn für die **Realität des Ideellen**, die in diesen Philosophen lebte\" (Fichte, Hegel, Schelling).\n\n## Schelling und das wiedergeborene Geistweltbild\n\nSchellings Stellung in der Geistesentwicklung: Er ist derjenige, „der auf eine ungeheure Höhe erheben konnte dasjenige, was aus dem romanischen Weltenbild heraus als eine Geistwelt zum Beispiel Giordano Bruno zwar anregen, aber nur anregen konnte\" – im Gegensatz zum „ruhigen, aus dem deutschen Gemüte heraus wiedergeborenen Weltenbilde\" (<a href=\"#\" class=\"ga-reference\" data-id=\"GA070b/11\" data-index=\"7es4go\" data-file-name=\"GA070b/11 - ZUR DEUTSCHEN GEDANKENENTWICKLUNG. EIN VERGESSENES STREBEN NACH GEISTESWISSENSCHAFT INNERHALB DERSELBEN, Leipzig, 21. Februar 1916\">GA070b/11</a>).\n\n## Idealismus und das Übersinnliche im Menschenwesen\n\nDie Richtung des Weltanschauungsidealismus weist über den Materialismus hinaus: Sie „kann nicht einlaufen in die Anerkennung einer Lehre, die in die Entwickelung von den niederen zu den höheren Daseinsformen ungeistige Triebkräfte hineinträumt\" (<a href=\"#\" class=\"ga-reference\" data-id=\"GA020\" data-index=\"zc6322\" data-file-name=\"GA020 - Vom Menschenrätsel (1916)\">GA020</a>).\n\n## Troxler auf dem Weg zur Geisteswissenschaft\n\nInnerhalb der idealistischen Strömung wird Troxler als Übergangsgestalt genannt: eine „Persönlichkeit, welche auf dem Wege ist zu dieser geisteswissenschaftlichen Forschung\", die „merkwürdige Worte prägt\" wie „**übersinnlicher Geist**\", „**übergeistiger Sinn**\" (<a href=\"#\" class=\"ga-reference\" data-id=\"GA070b/16\" data-index=\"jbieoj\" data-file-name=\"GA070b/16 - ZUR DEUTSCHEN GEDANKENENTWICKLUNG. EIN VERGESSENES STREBEN NACH GEISTESWISSENSCHAFT INNERHALB DERSELBEN, München, 17. März 1916\">GA070b/16</a>).\n\n## Das Ideal der Geistigkeit aus dem Nerven-Sinnesmenschen\n\nVergleich mit dem östlichen Yoga-Ideal: „Wiederum ersteht das in dem deutschen Idealismus der Weltanschauungen: in dem ganzen mitteleuropäischen Idealismus der Weltanschauungen ersteht das **Ideal der Geistigkeit aus dem Nerven-Sinnesmenschen** heraus, gerade so wie das Jogaideal im Oriente entsteht\" (<a href=\"#\" class=\"ga-reference\" data-id=\"GA334/11\" data-index=\"968jms\" data-file-name=\"GA334/11 - DIE GEISTIGEN UND SITTLICHEN KRÄFTE DER GEGENWÄRTIGEN VÖLKER IM LICHTE DER GEISTESWISSENSCHAFT (ANTHROPOSOPHIE), Dritter Vortrag, Basel, 6. Mai 1920\">GA334/11</a>).\n\n## Das Suchen des geistigen Erkenntnisorgans\n\nDas verbindende Motiv von Goethe-Zeit und Gegenwart: das Allgemeine, „das fortlebt bis in unsere Tage herein... in allem tieferen Erkennen des Geistigen im Deutschen lebt: **zu suchen das geistige Erkenntnisorgan**\" (<a href=\"#\" class=\"ga-reference\" data-id=\"GA070b/11\" data-index=\"78ojrp\" data-file-name=\"GA070b/11 - ZUR DEUTSCHEN GEDANKENENTWICKLUNG. EIN VERGESSENES STREBEN NACH GEISTESWISSENSCHAFT INNERHALB DERSELBEN, Leipzig, 21. Februar 1916\">GA070b/11</a>).\n\n## Fazit\n\nDer deutsche Idealismus erscheint für die Geisteswissenschaft als unmittelbarer geistiger Vorläufer. Sein wesentlicher Zug – das lebendige Erfassen des Gedankens und das „Stehen der Seele auf dem Schauplatz des Gedankens\" – bildet den Ansatzpunkt, von dem aus geisteswissenschaftliche Erkenntnis weiterführt. Die Denker Fichte, Hegel und Schelling hatten das Bewusstsein, dass die höheren Weltgeheimnisse durch Versenkung in das menschliche Innere erforscht werden müssen; das reine Denken selbst ist bereits übersinnliche Betätigung und gilt als erste Stufe geisteswissenschaftlicher Schulung. Wo der Idealismus jedoch im abstrakten Begriff stehen blieb, schreitet die Geisteswissenschaft zur konkreten Beschreibung der geistigen Welt fort. Die Erhebung der Anthropologie zur Anthroposophie führt diesen Impuls zu seinem Endresultat: dem Suchen des geistigen Erkenntnisorgans.\n\n## Weitere relevante Quellen <a href=\"#\" class=\"ga-reference\" data-id=\"GA064/12\" data-index=\"g233e7\" data-file-name=\"GA064/12 - DAS WELTBILD DES DEUTSCHEN IDEALISMUS, Berlin, 22. April 1915\">GA064/12</a>, <a href=\"#\" class=\"ga-reference\" data-id=\"GA070b/10\" data-index=\"iyjtgp\" data-file-name=\"GA070b/10 - DAS WELTBILD DES DEUTSCHEN IDEALISMUS. EINE BETRACHTUNG IM HINBLICK AUF UNSERE SCHICKSALTRAGENDE ZEIT, Kassel, 19. Februar 1916\">GA070b/10</a>, <a href=\"#\" class=\"ga-reference\" data-id=\"GA064/9\" data-index=\"3h3ul6\" data-file-name=\"GA064/9 - DIE VERJÜNGENDEN KRÄFTE DER DEUTSCHEN VOLKSSEELE, Berlin, 4. März 1915\">GA064/9</a>, <a href=\"#\" class=\"ga-reference\" data-id=\"GA070a/6\" data-index=\"wwp6it\" data-file-name=\"GA070a/6 - DIE VERJÜNGENDEN KRÄFTE DER DEUTSCHEN VOLKSSEELE, Bremen, 20. Februar 1915\">GA070a/6</a>, <a href=\"#\" class=\"ga-reference\" data-id=\"GA070b/16\" data-index=\"furxp8\" data-file-name=\"GA070b/16 - ZUR DEUTSCHEN GEDANKENENTWICKLUNG. EIN VERGESSENES STREBEN NACH GEISTESWISSENSCHAFT INNERHALB DERSELBEN, München, 17. März 1916\">GA070b/16</a>",
@@ -1089,5 +958,132 @@
     "totalMatches": 560,
     "llmUsed": true,
     "timestamp": "2026-06-17T21:54:23.001Z"
+  },
+  "wo schreibt steiner über fichte als pfadfinder zum geistigen?|ausführlich|250|": {
+    "query": "Wo schreibt Steiner über Fichte als Pfadfinder zum Geistigen?",
+    "content": "## Möglicher Treffer\n\n> „Für die Ausdrucksmittel der damaligen deutschen Philosophie war in der Tat Fichte der Pfadfinder und Entdecker dieses höheren Sinnes.„\n\nQuelle: (<a href=\"#\" class=\"ga-reference\" data-id=\"GA250/11\" data-index=\"q9crnn\" data-file-name=\"GA250/11 - THEOSOPHIE IN DEUTSCHLAND VOR HUNDERT JAHREN, Autoreferat zum Vortrag beim Kongress der Föderation europäischer Sektionen der Theosophischen Gesellschaft, Paris, 4. Juni 1906\">GA250/11</a>)",
+    "sources": [
+      {
+        "ID": "GA069e/13",
+        "index": "^b97uud",
+        "title": "THEOSOPHIE UND ANTISOPHIE",
+        "fileName": "GA069e/13 - THEOSOPHIE UND ANTISOPHIE, Nürnberg, 10. November 1913",
+        "score": 53,
+        "matchedTerms": [
+          "ich",
+          "fichte",
+          "geistigen"
+        ]
+      },
+      {
+        "ID": "GA069d/20",
+        "index": "^9ph1xx",
+        "title": "WIE FINDET DIE SEELE IHRE WAHRE WESENHEIT",
+        "fileName": "GA069d/20 - WIE FINDET DIE SEELE IHRE WAHRE WESENHEIT, Kassel, 8. Mai 1914",
+        "score": 66,
+        "matchedTerms": [
+          "ich",
+          "fichte"
+        ]
+      },
+      {
+        "ID": "GA070a/8",
+        "index": "^9qvyf8",
+        "title": "WARUM NENNEN SIE DAS VOLK SCHILLERS UND FICHTES EIN «BARBARENVOLK»",
+        "fileName": "GA070a/8 - WARUM NENNEN SIE DAS VOLK SCHILLERS UND FICHTES EIN «BARBARENVOLK» , Nürnberg, 11. März 1915",
+        "score": 137,
+        "matchedTerms": [
+          "ich",
+          "fichte",
+          "geistigen"
+        ]
+      },
+      {
+        "ID": "GA261/2",
+        "index": "^wzt3mv",
+        "title": "DAS HEREINRAGEN DER GEISTIGEN WELT IN DIE PHYSISCHE. Zweiter Vortrag",
+        "fileName": "GA261/2 - DAS HEREINRAGEN DER GEISTIGEN WELT IN DIE PHYSISCHE. Zweiter Vortrag, Kassel, 10. Mai 1914",
+        "score": 28,
+        "matchedTerms": [
+          "ich",
+          "fichte",
+          "geistigen"
+        ]
+      },
+      {
+        "ID": "GA070a/1",
+        "index": "^j96syl",
+        "title": "DAS «BARBARENVOLK» SCHILLERS UND FICHTES",
+        "fileName": "GA070a/1 - DAS «BARBARENVOLK» SCHILLERS UND FICHTES, München, 1. Dezember 1914",
+        "score": 142,
+        "matchedTerms": [
+          "ich",
+          "fichte",
+          "geistigen"
+        ]
+      },
+      {
+        "ID": "GA071a/18",
+        "index": "^5qds1a",
+        "title": "SEELENUNSTERBLICHKEIT",
+        "fileName": "GA071a/18 - SEELENUNSTERBLICHKEIT, SCHICKSALSKRÄFTE UND MENSCHLICHER LEBENSLAUF. GEISTESWISSENSCHAFTLICHE ERGEBNISSE UND DEREN BETRACHTUNG IM HINBLICK AUF UNSERE SCHICKSALTRAGENDE",
+        "score": 157,
+        "matchedTerms": [
+          "ich",
+          "fichte",
+          "geistigen"
+        ]
+      },
+      {
+        "ID": "GA054/16",
+        "index": "^thej14",
+        "title": "DEUTSCHE THEOSOPHEN VOM ANFANG DES 19. JAHRHUNDERTS",
+        "fileName": "GA054/16 - DEUTSCHE THEOSOPHEN VOM ANFANG DES 19. JAHRHUNDERTS, Berlin, 15. März 1906",
+        "score": 238,
+        "matchedTerms": [
+          "ich",
+          "fichte"
+        ]
+      },
+      {
+        "ID": "GA070b/12",
+        "index": "^ebwhbg",
+        "title": "ZUR DEUTSCHEN GEDANKENENTWICKLUNG. EIN VERGESSENES STREBEN NACH GEISTESWISSENSCHAFT INNERHALB DERSELBEN",
+        "fileName": "GA070b/12 - ZUR DEUTSCHEN GEDANKENENTWICKLUNG. EIN VERGESSENES STREBEN NACH GEISTESWISSENSCHAFT INNERHALB DERSELBEN, Hannover, 29. Februar 1916",
+        "score": 98,
+        "matchedTerms": [
+          "ich",
+          "fichte",
+          "geistigen"
+        ]
+      },
+      {
+        "ID": "GA070a/7",
+        "index": "^edmgw5",
+        "title": "DIE TRAGENDEN KRÄFTE DES DEUTSCHEN GEISTES",
+        "fileName": "GA070a/7 - DIE TRAGENDEN KRÄFTE DES DEUTSCHEN GEISTES, Leipzig, 6. März 1915",
+        "score": 122,
+        "matchedTerms": [
+          "ich",
+          "fichte"
+        ]
+      },
+      {
+        "ID": "GA154/4",
+        "index": "^qjh60i",
+        "title": "WIE ERWIRBT MAN SICH VERSTÄNDNIS FÜR DIE GEISTIGE WELT (II)",
+        "fileName": "GA154/4 - WIE ERWIRBT MAN SICH VERSTÄNDNIS FÜR DIE GEISTIGE WELT (II), Berlin, 12. Mai 1914",
+        "score": 232,
+        "matchedTerms": [
+          "ich",
+          "fichte",
+          "geistigen"
+        ]
+      }
+    ],
+    "searchMethod": "hybrid-thematic-unified",
+    "totalMatches": 205098,
+    "llmUsed": true,
+    "timestamp": "2026-06-20T05:16:25.832Z"
   }
 }
