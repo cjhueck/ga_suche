@@ -5977,6 +5977,7 @@
     "autorität",
     "autoritativ",
     "autoritäts",
+    "Autoritätsgefühl",
     "Autoritätsglauben",
     "Autoritätsprinzip",
     "Autorrecht",
@@ -10889,6 +10890,7 @@
     "dreigeschossig",
     "dreigeteilt",
     "Dreigliederung",
+    "dreigliedrig",
     "dreigliedrigen",
     "dreihundert",
     "dreihundertmal",
@@ -26217,6 +26219,7 @@
     "kinderfeindlich",
     "kinderfreundlich",
     "Kindergarten",
+    "Kinderjahren",
     "kinderleicht",
     "kinderlein",
     "kinderlieb",
@@ -30475,6 +30478,7 @@
     "Menschenkultur",
     "Menschenkunde",
     "Menschenleben",
+    "Menschenlebens",
     "menschenleer",
     "Menschenlehre",
     "Menschenleib",
@@ -33425,6 +33429,7 @@
     "obergerichtlich",
     "oberhalb",
     "oberhausen",
+    "Oberherrschaft",
     "oberirdisch",
     "Oberkiefer",
     "Oberkieferbein",
@@ -39479,6 +39484,7 @@
     "schulfrei",
     "schulgelände",
     "schulgelehrsamkeit",
+    "Schulgemeinden",
     "Schulhaupt",
     "schulintegrative",
     "schulisch",
@@ -44902,6 +44908,7 @@
     "überheben",
     "überheblich",
     "überheblichkeit",
+    "Überherrschaft",
     "überhin",
     "überhitzen",
     "überhoben",
@@ -54067,5 +54074,5 @@
     "Soemmermitte": "Sommermitte",
     "BevÖlkerung": "Bevölkerung"
   },
-  "updatedAt": "2026-06-18T14:16:41.952Z"
+  "updatedAt": "2026-06-22T07:53:17.551Z"
 }

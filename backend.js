@@ -26677,6 +26677,34 @@ app.post('/api/marked-words/apply-correction', async (req, res) => {
       console.log('[CORRECTION] Keine Korrekturen durchgeführt - Eintrag bleibt erhalten');
     }
     
+    // WICHTIG: In-Memory-Caches neu laden, damit die korrigierten JSON-Inhalte
+    // sofort (ohne Server-Neustart) ausgeliefert werden. Das Endpoint
+    // /api/lecture-with-summary liefert aus `fullLectures` (RAM) – sonst bleibt
+    // die Anzeige nach einem Reload weiterhin falsch.
+    let cacheReloaded = false;
+    if (totalCorrections > 0) {
+      try {
+        fullLectures = {};
+        await loadFullLectures();
+        fullLecturesByGA = {};
+        for (const lec of Object.values(fullLectures)) {
+          if (lec.gaNumber) {
+            const key = lec.gaNumber.toLowerCase();
+            if (!fullLecturesByGA[key]) fullLecturesByGA[key] = [];
+            fullLecturesByGA[key].push(lec);
+          }
+        }
+        fullBooks = {};
+        await loadBooks();
+        rebuildParagraphsFromLectures();
+        invalidateSummaryDatabaseCache();
+        cacheReloaded = true;
+        console.log('[CORRECTION] In-Memory-Caches (Vorträge/Bücher/Summary) neu geladen');
+      } catch (reloadErr) {
+        console.error('[CORRECTION] Cache-Reload fehlgeschlagen:', reloadErr.message);
+      }
+    }
+    
     res.json({
       success: true,
       wrongText,
@@ -26685,6 +26713,7 @@ app.post('/api/marked-words/apply-correction', async (req, res) => {
       totalCorrections,
       fileCount: correctedFiles.length,
       files: correctedFiles,
+      cacheReloaded,
       message: `${totalCorrections} Korrektur${totalCorrections !== 1 ? 'en' : ''} in ${correctedFiles.length} Datei${correctedFiles.length !== 1 ? 'en' : ''} durchgeführt`
     });
     
