@@ -13,6 +13,7 @@ Aufruf:
     python tools/regen_concepts_block.py 50 5
 """
 import json
+import os
 import sys
 import time
 
@@ -20,28 +21,48 @@ import requests
 
 DB = "concepts-database.json"
 API = "http://localhost:3003/api/concepts-batch-add"
+SKIP_FILE = os.path.join(os.path.dirname(__file__), "concepts_skip.json")
 
-block_size = int(sys.argv[1]) if len(sys.argv) > 1 else 50
-concurrency = int(sys.argv[2]) if len(sys.argv) > 2 else 5
+# Aufruf: python regen_concepts_block.py [block_size] [concurrency] [loop]
+args = [a for a in sys.argv[1:] if a.lower() != "loop"]
+loop_mode = "loop" in [a.lower() for a in sys.argv[1:]]
+block_size = int(args[0]) if len(args) > 0 else 50
+concurrency = int(args[1]) if len(args) > 1 else 5
+
+PERM_FAIL = "keine relevanten textstellen"  # diese sind nicht generierbar -> skip
 
 
-def load_normal():
+def load_skip():
+    try:
+        with open(SKIP_FILE, encoding="utf-8") as f:
+            return set(json.load(f))
+    except Exception:
+        return set()
+
+
+def save_skip(s):
+    with open(SKIP_FILE, "w", encoding="utf-8") as f:
+        json.dump(sorted(s), f, ensure_ascii=False, indent=2)
+
+
+def load_normal(skip):
     with open(DB, encoding="utf-8") as f:
         data = json.load(f)
     normal = [c.get("keyword") for c in data
-              if c.get("promptVersion") != "concept-v1" and c.get("keyword")]
+              if c.get("promptVersion") != "concept-v1" and c.get("keyword")
+              and c.get("keyword") not in skip]
     return len(data), normal
 
 
-def main():
-    total, normal = load_normal()
-    print("DB gesamt: %d | normal (offen): %d" % (total, len(normal)))
+def run_block(skip):
+    total, normal = load_normal(skip)
     if not normal:
-        print("Fertig - keine normalen Schlagwoerter mehr.")
-        return
+        print("Fertig - keine (generierbaren) normalen Schlagwoerter mehr.")
+        return 0, skip
     block = normal[:block_size]
-    print("Verarbeite Block: %d Schlagwoerter (concurrency=%d)" % (len(block), concurrency))
-    print("  erste:", ", ".join(block[:5]), "..." if len(block) > 5 else "")
+    print("Block: %d Woerter (concurrency=%d) | offen: %d | skip: %d"
+          % (len(block), concurrency, len(normal), len(skip)))
+    print("  erste:", ", ".join(block[:5]))
     t0 = time.time()
     try:
         r = requests.post(API, json={"keywords": block, "overwrite": True,
@@ -50,20 +71,41 @@ def main():
         j = r.json()
     except Exception as e:
         print("FEHLER beim Request:", e)
-        return
+        return -1, skip
     res = j.get("results", {})
     ok = res.get("successful", [])
     fail = res.get("failed", [])
-    skip = res.get("skipped", [])
     dur = time.time() - t0
-    print("Server:", j.get("message"))
-    print("  erfolgreich: %d | fehlgeschlagen: %d | uebersprungen: %d | %.0fs"
-          % (len(ok), len(fail), len(skip), dur))
+    # Dauer-Fehlschlaege (keine Textstellen) auf Skip-Liste
+    new_skips = 0
     for fobj in fail:
-        print("  FAIL:", fobj.get("keyword"), "-", fobj.get("reason"))
-    # Restbestand neu berechnen
-    _, normal_after = load_normal()
-    print("VERBLEIBEND normal:", len(normal_after))
+        kw = fobj.get("keyword")
+        reason = (fobj.get("reason") or "").lower()
+        if kw and PERM_FAIL in reason:
+            skip.add(kw)
+            new_skips += 1
+    save_skip(skip)
+    print("  OK: %d | FAIL: %d (davon %d auf Skip) | %.0fs"
+          % (len(ok), len(fail), new_skips, dur))
+    _, normal_after = load_normal(skip)
+    print("  VERBLEIBEND (generierbar):", len(normal_after))
+    return len(normal_after), skip
+
+
+def main():
+    skip = load_skip()
+    if loop_mode:
+        block_num = 0
+        while True:
+            block_num += 1
+            print("==== Block #%d ====" % block_num)
+            remaining, skip = run_block(skip)
+            if remaining <= 0:
+                break
+            time.sleep(2)
+        print("LOOP FERTIG nach %d Bloecken. Skip-Liste: %d" % (block_num, len(skip)))
+    else:
+        run_block(skip)
 
 
 if __name__ == "__main__":
