@@ -12,6 +12,7 @@
 		"editor.wordWrap": "wordWrapColumn",
 		"diffEditor.wordWrap": "on",
 		"editor.wordWrapColumn": 120,
-		"editor.fontFamily": "monospace"
+		"editor.fontFamily": "monospace",
+		"git.ignoreLimitWarning": true
 	}
 }
