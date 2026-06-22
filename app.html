@@ -9180,8 +9180,8 @@ Bestehende Schlagwörter überschreiben
     <h4 style="margin: 0 0 1rem 0; color: #9C27B0; font-size: 1.1em; border-bottom: 2px solid #9C27B0; padding-bottom: 0.5rem;">
       Abfrage-Tab (KI-Suche)
     </h4>
-    <p style="margin: 0 0 1rem 0;"><strong>Zweck:</strong> KI-gestützte thematische Suche mit natürlicher Sprache</p>
-    
+    <p style="margin: 0 0 1rem 0;"><strong>Zweck:</strong> KI-gestützte thematische Suche mit natürlicher Sprache. Eine Frage wird zunächst über mehrere Verfahren in passende Textstellen aufgelöst (Retrieval), die anschließend je nach gewähltem Modus von einem Sprachmodell ausgewertet werden.</p>
+
     <h5 style="margin: 0.8rem 0 0.5rem 0; color: var(--heading-color);">Eingabefelder:</h5>
     <table style="width: 100%; border-collapse: collapse; font-size: 0.9em; margin-bottom: 1rem;">
       <tr style="background: var(--sidebar-bg);">
@@ -9190,23 +9190,88 @@ Bestehende Schlagwörter überschreiben
       </tr>
       <tr>
         <td style="padding: 0.4rem; border: 1px solid var(--border-color);">GA-Filter (optional)</td>
-        <td style="padding: 0.4rem; border: 1px solid var(--border-color);">Suche auf bestimmte GA-Bände beschränken</td>
+        <td style="padding: 0.4rem; border: 1px solid var(--border-color);">Suche auf bestimmte GA-Bände beschränken (Multi-Select)</td>
       </tr>
     </table>
-    
+
+    <h5 style="margin: 0.8rem 0 0.5rem 0; color: var(--heading-color);">Die vier Analyse-Modi (Radio-Auswahl):</h5>
+    <p style="margin: 0 0 0.5rem 0; font-size: 0.9em;">Alle Modi nutzen dieselbe Retrieval-Pipeline (siehe unten); sie unterscheiden sich im Auswertungs-Prompt, im Sprachmodell und im Antwortumfang. Steuerung über <code>thematicMode</code> (Radio-Buttons im Header des Abfrage-Tabs).</p>
+    <table style="width: 100%; border-collapse: collapse; font-size: 0.9em; margin-bottom: 1rem;">
+      <tr style="background: var(--sidebar-bg);">
+        <th style="padding: 0.4rem; border: 1px solid var(--border-color); text-align: left; width: 12%;">Modus</th>
+        <th style="padding: 0.4rem; border: 1px solid var(--border-color); text-align: left; width: 10%;">Wert</th>
+        <th style="padding: 0.4rem; border: 1px solid var(--border-color); text-align: left; width: 28%;">Modell</th>
+        <th style="padding: 0.4rem; border: 1px solid var(--border-color); text-align: left;">Zweck &amp; Verhalten</th>
+      </tr>
+      <tr>
+        <td style="padding: 0.4rem; border: 1px solid var(--border-color);"><strong>Tiefe</strong></td>
+        <td style="padding: 0.4rem; border: 1px solid var(--border-color);"><code>deep</code></td>
+        <td style="padding: 0.4rem; border: 1px solid var(--border-color);">Claude Opus 4.8 <span style="color: var(--secondary-text);">(<code>CLAUDE_MODEL_DEEP</code>)</span>, ~8.000 Tokens</td>
+        <td style="padding: 0.4rem; border: 1px solid var(--border-color);">Qualitative Tiefenanalyse mit wörtlichen Zitaten und Quellenbezug. Hohe Präzisionsanforderung: Findet das Retrieval nur thematisch ferne Stellen, antwortet der Modus bewusst "keine relevanten Stellen", statt zu raten. <strong>Standard.</strong></td>
+      </tr>
+      <tr style="background: var(--sidebar-bg);">
+        <td style="padding: 0.4rem; border: 1px solid var(--border-color);"><strong>Breite</strong></td>
+        <td style="padding: 0.4rem; border: 1px solid var(--border-color);"><code>broad</code></td>
+        <td style="padding: 0.4rem; border: 1px solid var(--border-color);">Gemini 2.5 Pro <span style="color: var(--secondary-text);">(<code>GEMINI_MODEL_BROAD</code>)</span>, ~32.000 Tokens. Fällt auf Claude zurück, wenn Gemini nicht verfügbar ist</td>
+        <td style="padding: 0.4rem; border: 1px solid var(--border-color);">Umfassende Quellensammlung mit großem Kontextfenster — listet viele Fundstellen breit auf. Toleranter gegenüber schwächeren Treffern als die Tiefenanalyse.</td>
+      </tr>
+      <tr>
+        <td style="padding: 0.4rem; border: 1px solid var(--border-color);"><strong>Zitat</strong></td>
+        <td style="padding: 0.4rem; border: 1px solid var(--border-color);"><code>quote</code></td>
+        <td style="padding: 0.4rem; border: 1px solid var(--border-color);">Claude Sonnet 4.6 <span style="color: var(--secondary-text);">(<code>CLAUDE_MODEL_QUOTE</code>)</span>, Auto-Eskalation auf Opus 4.8, ~6.000 Tokens</td>
+        <td style="padding: 0.4rem; border: 1px solid var(--border-color);">Findet ein bestimmtes Zitat anhand des sinngemäß beschriebenen Inhalts, wenn der genaue Wortlaut unbekannt ist. Niedrigere Semantik-Schwellen, zusätzliche exakte Phrasen-Suche und ein Halluzinations-Filter (jedes ausgegebene Zitat muss wörtlich im Korpus stehen).</td>
+      </tr>
+      <tr style="background: var(--sidebar-bg);">
+        <td style="padding: 0.4rem; border: 1px solid var(--border-color);"><strong>Essay</strong></td>
+        <td style="padding: 0.4rem; border: 1px solid var(--border-color);"><code>essay</code></td>
+        <td style="padding: 0.4rem; border: 1px solid var(--border-color);">Claude Opus 4.8 <span style="color: var(--secondary-text);">(<code>CLAUDE_MODEL_DEEP</code>)</span>, ~16.000 Tokens</td>
+        <td style="padding: 0.4rem; border: 1px solid var(--border-color);">Mehrstufige Synthese mit expliziter Trennung von <em>Belegen</em> (klickbar verlinkte Steiner-Zitate) und <em>Deutungen</em> (Einordnungen, eigene Lesarten). Belege werden gegen den Quellenpool validiert; Abweichungen vom Originaltext werden mit ⚠ markiert (Zitat-Drift).</td>
+      </tr>
+    </table>
+
+    <h5 style="margin: 0.8rem 0 0.5rem 0; color: var(--heading-color);">Such-/Retrieval-Pipeline (für alle Modi gleich):</h5>
+    <p style="margin: 0 0 0.5rem 0; font-size: 0.9em;">Die Anfrage wird über vier Verfahren parallel in Kandidaten-Stellen aufgelöst, die danach gerankt (<code>applySemanticRanking()</code>) und an das modusabhängige Sprachmodell übergeben werden.</p>
+    <table style="width: 100%; border-collapse: collapse; font-size: 0.9em; margin-bottom: 1rem;">
+      <tr style="background: var(--sidebar-bg);">
+        <td style="padding: 0.4rem; border: 1px solid var(--border-color); width: 22%;"><strong>1. Stichwortsuche</strong></td>
+        <td style="padding: 0.4rem; border: 1px solid var(--border-color);">Literale Treffer in allen Absätzen. <code>performThematicKeywordSearch()</code></td>
+      </tr>
+      <tr>
+        <td style="padding: 0.4rem; border: 1px solid var(--border-color);"><strong>2. Query-Expansion</strong></td>
+        <td style="padding: 0.4rem; border: 1px solid var(--border-color);">Ein LLM erzeugt verwandte Begriffe, die zusätzlich literal gesucht werden. <code>expandQueryWithLLM()</code></td>
+      </tr>
+      <tr style="background: var(--sidebar-bg);">
+        <td style="padding: 0.4rem; border: 1px solid var(--border-color);"><strong>3. Semantik (Vorträge)</strong></td>
+        <td style="padding: 0.4rem; border: 1px solid var(--border-color);">Kosinus-Ähnlichkeit der Frage zu den Vortrags-Zusammenfassungen. <code>findSemanticallySimilarLectures()</code> — Quelle: <code>summary-embeddings.json</code></td>
+      </tr>
+      <tr>
+        <td style="padding: 0.4rem; border: 1px solid var(--border-color);"><strong>4. Semantik (Absätze)</strong></td>
+        <td style="padding: 0.4rem; border: 1px solid var(--border-color);">Präzisere Ähnlichkeit auf Absatz-Ebene. <code>findSemanticallySimilarParagraphs()</code> — Quelle: Cloudflare Vectorize (online), Fallback <code>paragraph-embeddings/*.json</code></td>
+      </tr>
+    </table>
+
+    <div style="background: rgba(255, 152, 0, 0.10); border-left: 4px solid #FF9800; border-radius: 4px; padding: 0.8rem 1rem; margin-bottom: 1rem; font-size: 0.9em;">
+      <strong>⚠ Voraussetzung – Embedding-Schlüssel:</strong> Die semantischen Schritte 3 und 4 brauchen ein Query-Embedding. Dieses wird über <strong>Gemini <code>embedding-001</code> (768 Dimensionen)</strong> erzeugt (<code>createEmbedding()</code>); dazu muss <code>GEMINI_API_KEY</code> gesetzt sein.
+      <ul style="margin: 0.5rem 0 0 1.1rem; padding: 0;">
+        <li><strong>Lokal:</strong> Schlüssel steht in <code>.env</code> → Semantik aktiv → differenzierte Antworten.</li>
+        <li><strong>Online (Render):</strong> <code>GEMINI_API_KEY</code> muss als Umgebungsvariable im Render-Dashboard hinterlegt sein. Fehlt er, scheitert <code>createEmbedding()</code> stillschweigend, die Schritte 3 + 4 (inkl. Vectorize) liefern nichts, und nur die literale Stichwortsuche bleibt übrig — die Tiefenanalyse meldet dann oft "keine relevanten Stellen".</li>
+        <li><strong>Nur Gemini:</strong> <code>OPENAI_API_KEY</code> wäre nur ein Fallback und ist mit dem 768d-Index inkompatibel (OpenAI liefert 1536 Dimensionen). Prüfung des Live-Status: <code>GET /debug/status</code> → <code>llmProviders.gemini</code>.</li>
+      </ul>
+    </div>
+
     <h5 style="margin: 0.8rem 0 0.5rem 0; color: var(--heading-color);">Buttons:</h5>
     <table style="width: 100%; border-collapse: collapse; font-size: 0.9em;">
       <tr style="background: var(--sidebar-bg);">
         <td style="padding: 0.4rem; border: 1px solid var(--border-color); width: 30%;"><code>Suchen</code></td>
-        <td style="padding: 0.4rem; border: 1px solid var(--border-color);">Startet KI-Suche (Claude API). <code>performThematicSearch()</code></td>
+        <td style="padding: 0.4rem; border: 1px solid var(--border-color);">Startet die Abfrage im gewählten Modus. <code>performThematicSearch()</code></td>
       </tr>
       <tr>
-        <td style="padding: 0.4rem; border: 1px solid var(--border-color);"><code>Übersicht</code></td>
-        <td style="padding: 0.4rem; border: 1px solid var(--border-color);">Zeigt Konzept-Übersicht zu einem Begriff. <code>showConceptOverview()</code></td>
+        <td style="padding: 0.4rem; border: 1px solid var(--border-color);"><code>Speichern</code> / <code>Meine Abfragen</code></td>
+        <td style="padding: 0.4rem; border: 1px solid var(--border-color);">Nur für Mitglieder: aktuelle Abfrage speichern bzw. gespeicherte Abfragen anzeigen. <code>saveCurrentThematicSearch()</code>, <code>showSavedThematicSearches()</code></td>
       </tr>
     </table>
     <p style="margin: 0.8rem 0 0 0; font-size: 0.85em; color: var(--secondary-text);">
-      <strong>API:</strong> <code>POST /api/thematic-search</code> | <strong>KI:</strong> Claude API (Anthropic) | <strong>Cache:</strong> <code>thematic-search-database.json</code>
+      <strong>API:</strong> <code>POST /api/thematic-hybrid-search</code> (Parameter u.a. <code>query</code>, <code>gaFilter</code>, <code>thematicMode</code>) | <strong>KI:</strong> Claude / Gemini (modusabhängig, s.o.) | <strong>Embeddings:</strong> Gemini <code>embedding-001</code> (768d) + Cloudflare Vectorize | <strong>Cache:</strong> <code>thematic-search-database.json</code> (nur bei localhost-Anfragen geschrieben)
     </p>
   </div>
   
