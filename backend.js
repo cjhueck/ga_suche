@@ -12507,6 +12507,57 @@ app.post('/api/reload-lectures', async (req, res) => {
   }
 });
 
+// ============================================================================
+// BILD-URLS ZENTRAL ABSOLUT MACHEN (serverseitig)
+// Wandelt relative Bild-Quellen `assets/<datei>` in absolute R2-URLs um, sodass
+// ALLE Render-Pfade im Frontend (Haupt-Viewer, Side-Panel, Timeline, künftige)
+// automatisch funktionierende Bilder erhalten — unabhängig davon, ob das Frontend
+// selbst noch eine Umschreibung vornimmt.
+//
+// REVERSIBEL: In der .env `ABSOLUTIZE_IMAGES=false` setzen und Server neu starten
+// → es wird wieder der unveränderte `assets/…`-Inhalt ausgeliefert.
+// Die Original-Objekte (fullLectures/fullBooks) werden NICHT verändert; es werden
+// ausschließlich auslieferungsfertige Kopien transformiert.
+// ============================================================================
+const ABSOLUTIZE_IMAGES = String(process.env.ABSOLUTIZE_IMAGES ?? 'true').toLowerCase() !== 'false';
+const IMAGES_BASE_URL = (process.env.IMAGES_BASE_URL || 'https://ga.rudolf-steiner-online.de/images/').replace(/\/+$/, '');
+
+function absolutizeImageSrcInContent(content, gaSegment) {
+  if (!ABSOLUTIZE_IMAGES) return content;
+  if (typeof content !== 'string' || content.indexOf('assets/') === -1 || !gaSegment) return content;
+  // src="assets/<datei>" / src='assets/<datei>' (auch ./assets/ oder /assets/)
+  return content.replace(
+    /(<img\b[^>]*?\bsrc\s*=\s*)(["'])\s*(?:\.?\/)?assets\/([^"']+?)\s*\2/gi,
+    (match, pre, quote, file) => {
+      const encFile = file.split('/').map(seg => encodeURIComponent(seg)).join('/');
+      const url = `${IMAGES_BASE_URL}/${encodeURIComponent(gaSegment)}/${encFile}`;
+      return `${pre}${quote}${url}${quote}`;
+    }
+  );
+}
+
+// Liefert eine auslieferungsfertige Kopie eines Vortrags mit absoluten Bild-URLs.
+// Klont nur flach und nur dann, wenn tatsächlich `assets/`-Quellen vorkommen.
+function withAbsoluteLectureImages(lecture, lectureId) {
+  if (!ABSOLUTIZE_IMAGES || !lecture || !Array.isArray(lecture.paragraphs)) return lecture;
+  const ga = String(lectureId || lecture.ID || '').split('/')[0];
+  if (!ga) return lecture;
+  let touched = false;
+  const paragraphs = lecture.paragraphs.map(p => {
+    if (!p) return p;
+    const hasC = typeof p.content === 'string' && p.content.indexOf('assets/') !== -1;
+    const hasT = typeof p.text === 'string' && p.text.indexOf('assets/') !== -1;
+    if (!hasC && !hasT) return p;
+    touched = true;
+    const np = { ...p };
+    if (hasC) np.content = absolutizeImageSrcInContent(p.content, ga);
+    if (hasT) np.text = absolutizeImageSrcInContent(p.text, ga);
+    return np;
+  });
+  if (!touched) return lecture;
+  return { ...lecture, paragraphs };
+}
+
 app.get('/api/book/:gaNumber', async (req, res) => {
   try {
     const gaNumberOriginal = req.params.gaNumber;
@@ -12662,6 +12713,26 @@ app.get('/api/book/:gaNumber', async (req, res) => {
     // die Absatz-Struktur nutzen. Diese war zuvor nicht im Response enthalten.
     if (Array.isArray(bookCopy.paragraphs) && bookCopy.paragraphs.length > 0) {
       responseBook.paragraphs = bookCopy.paragraphs;
+    }
+
+    // Bild-URLs zentral absolut machen (responseBook ist bereits eine Kopie)
+    if (ABSOLUTIZE_IMAGES) {
+      const ga = responseBook.ID || responseBook.gaNumber;
+      if (typeof responseBook.content === 'string') {
+        responseBook.content = absolutizeImageSrcInContent(responseBook.content, ga);
+      }
+      if (Array.isArray(responseBook.paragraphs)) {
+        responseBook.paragraphs = responseBook.paragraphs.map(p => {
+          if (!p) return p;
+          const hasC = typeof p.content === 'string' && p.content.indexOf('assets/') !== -1;
+          const hasT = typeof p.text === 'string' && p.text.indexOf('assets/') !== -1;
+          if (!hasC && !hasT) return p;
+          const np = { ...p };
+          if (hasC) np.content = absolutizeImageSrcInContent(p.content, ga);
+          if (hasT) np.text = absolutizeImageSrcInContent(p.text, ga);
+          return np;
+        });
+      }
     }
 
     res.json(responseBook);
@@ -25474,7 +25545,7 @@ app.get('/api/full-lecture/:gaNumber/:lectureNum', async (req, res) => {
     
     await applyTextEditsToLecture(lecture, lectureId);
     
-    res.json({ lecture });
+    res.json({ lecture: withAbsoluteLectureImages(lecture, lectureId) });
   } catch (error) {
     console.error('Fehler beim Laden des Vortrags:', error);
     res.status(500).json({ error: error.message });
@@ -25534,7 +25605,7 @@ app.get('/api/lecture-with-summary/:gaNumber/:lectureNum', async (req, res) => {
       console.warn('[LECTURE-WITH-SUMMARY] Summary-Fehler (ignoriert):', summaryError.message);
     }
     
-    res.json({ lecture, summary: summaryData });
+    res.json({ lecture: withAbsoluteLectureImages(lecture, lectureId), summary: summaryData });
   } catch (error) {
     console.error('[LECTURE-WITH-SUMMARY] Fehler:', error);
     res.status(500).json({ error: error.message });
@@ -25576,7 +25647,7 @@ app.get('/api/full-lecture/:lectureId', async (req, res) => {
       }
     }
     
-    res.json({ lecture });
+    res.json({ lecture: withAbsoluteLectureImages(lecture, lectureId) });
   } catch (error) {
     console.error('Fehler beim Laden des Vortrags:', error);
     res.status(500).json({ error: error.message });
