@@ -5735,7 +5735,8 @@ ANALYSE:`;
     if (thematicMode === 'deep' || thematicMode === 'essay') {
       modelForMode = process.env.CLAUDE_MODEL_DEEP || 'claude-opus-4-8';
     } else if (thematicMode === 'quote') {
-      modelForMode = process.env.CLAUDE_MODEL_QUOTE || 'claude-sonnet-4-6';
+      // Zitat nutzt jetzt ebenfalls Opus 4.8 (wie Tiefe/Essay)
+      modelForMode = process.env.CLAUDE_MODEL_QUOTE || 'claude-opus-4-8';
     }
   } else if (providerNameLower === 'gemini') {
     if (thematicMode === 'broad') {
