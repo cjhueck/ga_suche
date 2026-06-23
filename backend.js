@@ -12522,18 +12522,55 @@ app.post('/api/reload-lectures', async (req, res) => {
 const ABSOLUTIZE_IMAGES = String(process.env.ABSOLUTIZE_IMAGES ?? 'true').toLowerCase() !== 'false';
 const IMAGES_BASE_URL = (process.env.IMAGES_BASE_URL || 'https://ga.rudolf-steiner-online.de/images/').replace(/\/+$/, '');
 
+// UMGEBUNGSABHÄNGIGE BILDQUELLE:
+// - Lokal liegt der Bild-Quellordner `Steiner_GA/` vor → der Server kann die Bilder
+//   über seine eigene `/assets/<datei>?ga=<GA>`-Route ausliefern (vollständig, für
+//   ALLE Bände, unabhängig vom R2-Upload-Stand).
+// - Online (onrender) fehlt `Steiner_GA/` → Bilder kommen von R2 (IMAGES_BASE_URL).
+// Override per .env möglich: IMAGES_SOURCE = 'local' | 'r2' (Default: Auto-Erkennung).
+const _imagesSourceEnv = String(process.env.IMAGES_SOURCE || '').toLowerCase();
+const SERVE_IMAGES_FROM_LOCAL = _imagesSourceEnv === 'local' ? true
+  : _imagesSourceEnv === 'r2' ? false
+  : (() => { try { return fsSync.existsSync(path.join(__dirname, 'Steiner_GA')); } catch { return false; } })();
+console.log(`[IMAGES] Absolutize=${ABSOLUTIZE_IMAGES}, Quelle=${SERVE_IMAGES_FROM_LOCAL ? 'lokal (/assets)' : 'R2 (' + IMAGES_BASE_URL + ')'}`);
+
 function absolutizeImageSrcInContent(content, gaSegment) {
   if (!ABSOLUTIZE_IMAGES) return content;
-  if (typeof content !== 'string' || content.indexOf('assets/') === -1 || !gaSegment) return content;
-  // src="assets/<datei>" / src='assets/<datei>' (auch ./assets/ oder /assets/)
-  return content.replace(
-    /(<img\b[^>]*?\bsrc\s*=\s*)(["'])\s*(?:\.?\/)?assets\/([^"']+?)\s*\2/gi,
-    (match, pre, quote, file) => {
-      const encFile = file.split('/').map(seg => encodeURIComponent(seg)).join('/');
-      const url = `${IMAGES_BASE_URL}/${encodeURIComponent(gaSegment)}/${encFile}`;
-      return `${pre}${quote}${url}${quote}`;
+  if (typeof content !== 'string' || content.indexOf('<img') === -1 || !gaSegment) return content;
+  return content.replace(/<img\b[^>]*>/gi, (tag) => {
+    // src mit assets/-Pfad finden (auch ./assets/ oder /assets/)
+    const srcMatch = tag.match(/\bsrc\s*=\s*(["'])\s*(?:\.?\/)?assets\/([^"']+?)\s*\1/i);
+    if (!srcMatch) return tag;          // kein assets/-Bild → unverändert
+    const quote = srcMatch[1];
+    const file = srcMatch[2];
+    if (file.includes('?')) return tag; // bereits aufgelöst (z.B. ?ga=...) → nicht erneut anfassen
+
+    const encFile = file.split('/').map(seg => encodeURIComponent(seg)).join('/');
+    const url = SERVE_IMAGES_FROM_LOCAL
+      ? `/assets/${encFile}?ga=${encodeURIComponent(gaSegment)}`
+      : `${IMAGES_BASE_URL}/${encodeURIComponent(gaSegment)}/${encFile}`;
+    let out = tag.replace(srcMatch[0], `src=${quote}${url}${quote}`);
+
+    // Präsentations-Klasse zentral setzen, damit Bilder von Anfang an korrekt
+    // dargestellt werden (sonst greift die Größe erst nach Klick). Tafelzeichnungen
+    // (Muster NNN-TNN bzw. T<nr>.) bleiben volle Breite, übrige Bilder klein (35%, rechts).
+    const fileName = file.split('/').pop();
+    const isBlackboard = /\d{3}-T\d+/i.test(fileName) || /T\d+\./i.test(fileName);
+    const isWebp = /\.webp$/i.test(fileName);
+    const addClasses = isBlackboard ? 'lecture-image blackboard-drawing' : 'lecture-image';
+    if (/\bclass\s*=\s*(["'])/i.test(out)) {
+      out = out.replace(/\bclass\s*=\s*(["'])([\s\S]*?)\1/i, (m, q, ex) => {
+        const merged = (ex + ' ' + addClasses).trim().replace(/\s+/g, ' ');
+        return `class=${q}${merged}${q}`;
+      });
+    } else {
+      out = out.replace(/<img\b/i, `<img class="${addClasses}"`);
     }
-  );
+    if (isWebp && !/\bdata-format\s*=/i.test(out)) {
+      out = out.replace(/<img\b/i, '<img data-format="webp"');
+    }
+    return out;
+  });
 }
 
 // Liefert eine auslieferungsfertige Kopie eines Vortrags mit absoluten Bild-URLs.
