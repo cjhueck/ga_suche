@@ -5410,14 +5410,19 @@ QUELLENSAMMLUNG:`;
 ANFRAGE DES NUTZERS
 "${query}"
 
+GESAMTKONZEPTION — EIN ALS GANZES GEDACHTER, FLÜSSIGER TEXT
+Der Essay ist KEINE Aneinanderreihung von Zitaten, sondern eine als Ganzes konzipierte Schilderung mit einem durchgehenden Gedankengang. Fasse, bevor Du schreibst, die innere Architektur: einen leitenden Gesichtspunkt, der den Text von Anfang bis Ende trägt, und eine Abfolge von Abschnitten, die aufeinander aufbauen, statt nur nebeneinander zu stehen.
+- Schreibe zusammenhängende, fließende Prosa. Jeder Abschnitt hat einen tragenden Gedanken; die Sätze gehen ineinander über; die Übergänge zwischen den Abschnitten sind sichtbar.
+- DEINE eigene Stimme (<deutung>) ist das verbindende Gewebe: sie führt hin, ordnet ein, leitet über, zieht zusammen. Sie gibt dem Text Übersichtlichkeit und Fluss und macht ihn als Ganzes lesbar.
+- Die wörtlichen Steiner-Zitate (<beleg>) sind die belegende Substanz: gezielt gewählte, tragende Stellen, in den Fluss EINGEBETTET — nicht Zitat an Zitat gereiht.
+
 GRUNDPRINZIP — BELEG IST ZITAT, DEUTUNG IST DEINE STIMME
-Der Essay wird WESENTLICH von wörtlichen Steiner-Zitaten getragen. Deine Aufgabe ist nicht, Steiner zu paraphrasieren, sondern aus den verfügbaren Textpassagen die treffendsten Zitate AUSZUWÄHLEN, sie zu VERKNÜPFEN und zu KOMMENTIEREN.
+Jede textgegründete Aussage über Steiners Werk wird durch ein wörtliches Zitat belegt (<beleg>); jede verbindende, einordnende, reflektierende Aussage ist Deine Stimme (<deutung>). Paraphrasiere Steiner nicht — wo Steiner präzise spricht, gib Steiner das Wort; wo Du verbindest und einordnest, sprich selbst.
 
 Konkret:
-- <beleg> enthält IMMER mindestens ein wörtliches Steiner-Zitat in *„…"*. Idealerweise ist der gesamte Body ein direktes Zitat.
-- <deutung> ist DEINE eigene Stimme: die argumentative Verbindung zwischen den Zitaten, die philosophiegeschichtliche Einordnung, die kritische Reflexion, Brückensätze, Schlussfolgerungen.
-
-Vermeide Paraphrasen Steiners. Wo Steiner präzise spricht, gib Steiner das Wort. Wo Du Steiner einordnest oder verbindest, ist das Deine Stimme – als <deutung>.
+- <beleg> enthält IMMER mindestens ein wörtliches Steiner-Zitat in *„…"*. Bette das Zitat möglichst in einen fließenden Satz ein, statt es isoliert hinzustellen.
+- <deutung> trägt Hinführung, Verknüpfung, Einordnung, Überleitung, Schlussfolgerung — den eigentlichen Lesefluss.
+- LESEFLUSS VOR ZITATDICHTE: Setze lieber wenige, gut gewählte, tragende Zitate als belegende Anker und verbinde sie durch eigene Deutung, als nach jedem Satz ein neues Zitat zu stapeln. Vermeide „Zitat-Stakkato" — also mehrere <beleg> unmittelbar hintereinander ohne verbindende <deutung> dazwischen.
 
 DIE BEIDEN KLASSEN VON AUSSAGEN
 
@@ -5471,10 +5476,10 @@ REGELN FÜR <deutung>
 3. Externe Quellen (Hegel, Goethe, Kant etc.) im quelle-Attribut sind erlaubt, aber optional und werden nicht verifiziert.
 
 STRUKTUR DES ESSAYS
-- Beginne direkt mit einer inhaltlichen Hinführung – KEINE Meta-Einleitung wie „Im Folgenden werde ich…".
-- Mehrere thematische Abschnitte, jeweils mit eigener Markdown-Überschrift (## Format). Die Überschriften müssen den Inhalt benennen, nicht die Argumentschritte („Polarität und Steigerung" statt „Erstes Argument").
-- Innerhalb jedes Abschnitts: Mischung aus <beleg> und <deutung>, in argumentativer Folge.
-- Am Ende ein knapper Abschnitt ## Ertrag, der die zentralen Einsichten ohne weitere Belegerwartung zusammenfasst (überwiegend <deutung>).
+- Beginne mit einem kurzen, einordnenden Eröffnungsabschnitt (<deutung>), der den leitenden Gesichtspunkt und die Grundkonstellation des Themas benennt — sachlich, ohne Meta-Einleitung wie „Im Folgenden werde ich…".
+- Danach mehrere thematische Abschnitte, jeweils mit eigener Markdown-Überschrift (## Format). Die Überschriften benennen den Inhalt, nicht die Argumentschritte („Polarität und Steigerung" statt „Erstes Argument"). Die Abschnitte bauen aufeinander auf und ergeben zusammen einen durchgehenden Gedankengang.
+- Innerhalb jedes Abschnitts: zusammenhängende, von der Deutung getragene Prosa, in die einzelne belegende Zitate eingebettet werden. NICHT <beleg> und <deutung> mechanisch abwechseln.
+- Am Ende ein knapper Abschnitt ## Ertrag, der die zentralen Einsichten als Ganzes zusammenfasst (überwiegend <deutung>).
 
 KEINE TRIVIALEN HINFÜHRUNGSSÄTZE
 - Vermeide Meta-Einleitungen wie "Die Frage nach X setzt voraus, dass…", "Um die Frage zu beantworten, muss zunächst…", "Es ist zu beachten, dass…", "Ausgangspunkt der Überlegung ist…", "Bevor wir das Eigentliche besprechen, ist festzuhalten, dass…", "Damit dies nicht bloß als Behauptung erscheint, bedarf es…".
