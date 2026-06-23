@@ -2325,6 +2325,30 @@ async function loadConceptsDatabase() {
   }
 }
 
+// Atomares + serialisiertes Speichern von concepts-database.json.
+// Verhindert Korruption durch gleichzeitige/teilweise Schreibvorgänge
+// (z.B. bei Batch-Generierung mit concurrency > 1 oder überlappenden Requests):
+//  - schreibt in eine .tmp-Datei und benennt sie atomar um (rename)
+//  - validiert das JSON vor dem Schreiben
+//  - serialisiert alle Schreibzugriffe über eine Promise-Kette (Mutex)
+let _conceptsSaveChain = Promise.resolve();
+async function saveConceptsAtomic(dataArray) {
+  const run = async () => {
+    if (!Array.isArray(dataArray)) {
+      throw new Error('saveConceptsAtomic: dataArray ist kein Array');
+    }
+    const json = JSON.stringify(dataArray, null, 2);
+    JSON.parse(json); // Integritäts-Check vor dem Schreiben
+    const target = path.join(__dirname, 'concepts-database.json');
+    const tmp = target + '.tmp';
+    await fs.writeFile(tmp, json, 'utf8');
+    await fs.rename(tmp, target); // atomar (ersetzt Zieldatei)
+  };
+  // An die Kette anhängen, damit Schreibvorgänge nie gleichzeitig laufen
+  _conceptsSaveChain = _conceptsSaveChain.then(run, run);
+  return _conceptsSaveChain;
+}
+
 async function loadSynonyms() {
   try {
     const synonymPath = path.join(__dirname, 'synonyms.json');
@@ -13375,9 +13399,8 @@ app.post('/api/concepts/repair', async (req, res) => {
         }
       }
       
-      // Speichere aktualisierte Concepts
-      const conceptsPath = path.join(__dirname, 'concepts-database.json');
-      await fs.writeFile(conceptsPath, JSON.stringify(conceptsDatabase, null, 2), 'utf8');
+      // Speichere aktualisierte Concepts (atomar + serialisiert)
+      await saveConceptsAtomic(conceptsDatabase);
     }
     
     res.json({
@@ -16760,7 +16783,7 @@ app.post('/api/concepts-batch-add', async (req, res) => {
     }
     
     // Speichere aktualisierte concepts-database.json
-    await fs.writeFile(conceptsFile, JSON.stringify(allConcepts, null, 2), 'utf8');
+    await saveConceptsAtomic(allConcepts);
     
     // WICHTIG: In-Memory Cache aktualisieren!
     conceptsDatabase = allConcepts;
@@ -17061,7 +17084,7 @@ app.get('/api/concepts-batch-add-stream', async (req, res) => {
     await Promise.all(processingPromises);
 
     // Speichere aktualisierte concepts-database.json
-    await fs.writeFile(conceptsFile, JSON.stringify(allConcepts, null, 2), 'utf8');
+    await saveConceptsAtomic(allConcepts);
     
     // In-Memory Cache aktualisieren
     conceptsDatabase = allConcepts;
@@ -17211,7 +17234,7 @@ app.post('/api/concepts-add', async (req, res) => {
     }
     
     // Speichere direkt in concepts-database.json
-    await fs.writeFile(conceptsFile, JSON.stringify(allConcepts, null, 2), 'utf8');
+    await saveConceptsAtomic(allConcepts);
     
     // WICHTIG: In-Memory Cache aktualisieren!
     conceptsDatabase = allConcepts;
@@ -17340,7 +17363,7 @@ app.post('/api/concepts-delete', async (req, res) => {
     const removedCount = beforeCount - allConcepts.length;
 
     if (beforeCount !== allConcepts.length) {
-      await fs.writeFile(conceptsFile, JSON.stringify(allConcepts, null, 2), 'utf8');
+      await saveConceptsAtomic(allConcepts);
       
       // WICHTIG: In-Memory Cache aktualisieren!
       conceptsDatabase = allConcepts;

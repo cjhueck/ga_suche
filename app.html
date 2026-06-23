@@ -5740,13 +5740,10 @@ body.dark-mode .ga-keyword-link {
   text-decoration: none;
 }
 
-/* Neu generierte Concepts (mit neuem Prompt) werden kursiv angezeigt - NUR in lokaler Version */
+/* Alle Schlagwörter werden in normaler Schrift dargestellt.
+   (Frühere Kursiv-Markierung neu generierter Concepts entfällt, da alle Einträge
+   inzwischen ausführlich/neu generiert sind.) */
 .keyword-entry h4 a.new-prompt-concept {
-  font-style: italic;
-}
-
-/* In Online-Version: Kursivschrift entfernen (nur normale Schlagwörter werden angezeigt) */
-body:not(.local-mode) .keyword-entry h4 a.new-prompt-concept {
   font-style: normal;
 }
 
