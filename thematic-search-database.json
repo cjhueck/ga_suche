@@ -1059,5 +1059,115 @@
     "totalMatches": 48094,
     "llmUsed": true,
     "timestamp": "2026-06-21T16:56:43.657Z"
+  },
+  "goethes \"urpflanze\" ist der \"ätherleib\" der pflanze|ausführlich|250|": {
+    "query": "Goethes \"Urpflanze\" ist der \"Ätherleib\" der Pflanze",
+    "content": "## Möglicher Treffer\n\n> „In der anthroposophischen Wissenschaft ist man gewöhnt worden, dasjenige, was Goethe so an der Pflanze mit seinem plastischen Sinn durchschaut hat, den Ätherleib der Pflanze zu nennen. […] Es ist dasjenige, was die Pflanze belebt und was man durch diesen plastischen Sinn findet, auch im Tier und im Menschen drinnen.„\n\nQuelle: (<a href=\"#\" class=\"ga-reference\" data-id=\"GA078/4\" data-index=\"cf3to5\" data-file-name=\"GA078/4 - VIERTER VORTRAG, Stuttgart, i. September 1921\">GA078/4</a>)",
+    "sources": [
+      {
+        "ID": "GA329/9",
+        "index": "^qsky49",
+        "title": "DER GEIST ALS FÜHRER DURCH DIE SINNES- UND IN DIE ÜBERSINNLICHE WELT",
+        "fileName": "GA329/9 - DER GEIST ALS FÜHRER DURCH DIE SINNES- UND IN DIE ÜBERSINNLICHE WELT, Basel, 10. November 1919",
+        "score": 97,
+        "matchedTerms": [
+          "urpflanze"
+        ]
+      },
+      {
+        "ID": "GA078/4",
+        "index": "^cf3to5",
+        "title": "VIERTER VORTRAG",
+        "fileName": "GA078/4 - VIERTER VORTRAG, Stuttgart, i. September 1921",
+        "score": 137,
+        "matchedTerms": [
+          "ätherleib"
+        ]
+      },
+      {
+        "ID": "GA030/17",
+        "index": "^hphhnl",
+        "title": "ÜBER DEN GEWINN UNSERER ANSCHAUUNGEN VON GOETHES NATURWISSENSCHAFTLICHEN ARBEITEN DURCH DIE PUBLIKATIONEN DES GOETHE-ARCHIVS (1891)",
+        "fileName": "GA030/17 - ÜBER DEN GEWINN UNSERER ANSCHAUUNGEN VON GOETHES NATURWISSENSCHAFTLICHEN ARBEITEN DURCH DIE PUBLIKATIONEN DES GOETHE-ARCHIVS (1891)",
+        "score": 142,
+        "matchedTerms": [
+          "urpflanze"
+        ]
+      },
+      {
+        "ID": "GA006",
+        "index": "^1nz3ke",
+        "title": "Goethes Weltanschauung (1897)",
+        "fileName": "GA006 - Goethes Weltanschauung (1897)",
+        "score": 155,
+        "matchedTerms": [
+          "urpflanze"
+        ]
+      },
+      {
+        "ID": "GA055/2",
+        "index": "^a0vvzs",
+        "title": "BLUT IST EIN GANZ BESONDERER SAFT",
+        "fileName": "GA055/2 - BLUT IST EIN GANZ BESONDERER SAFT, Berlin, 25. Oktober 1906",
+        "score": 107,
+        "matchedTerms": [
+          "ätherleib"
+        ]
+      },
+      {
+        "ID": "GA329/8",
+        "index": "^ls4662",
+        "title": "DER GEIST ALS FÜHRER DURCH DIE SINNES- UND IN DIE ÜBERSINNLICHE WELT",
+        "fileName": "GA329/8 - DER GEIST ALS FÜHRER DURCH DIE SINNES- UND IN DIE ÜBERSINNLICHE WELT, Bern, 6. November 1919",
+        "score": 91,
+        "matchedTerms": [
+          "urpflanze"
+        ]
+      },
+      {
+        "ID": "GA060/10",
+        "index": "^vgv0ad",
+        "title": "GALILEI",
+        "fileName": "GA060/10 - GALILEI, GIORDANO BRUNO UND GOETHE, Berlin, 26. Januar 1911",
+        "score": 60,
+        "matchedTerms": [
+          "urpflanze"
+        ]
+      },
+      {
+        "ID": "GA056/5",
+        "index": "^7atlci",
+        "title": "INITIATION ODER EINWEIHUNG",
+        "fileName": "GA056/5 - INITIATION ODER EINWEIHUNG, Berlin, 28. November 1907",
+        "score": 66,
+        "matchedTerms": [
+          "urpflanze"
+        ]
+      },
+      {
+        "ID": "GA329/9",
+        "index": "^e35lh4",
+        "title": "DER GEIST ALS FÜHRER DURCH DIE SINNES- UND IN DIE ÜBERSINNLICHE WELT",
+        "fileName": "GA329/9 - DER GEIST ALS FÜHRER DURCH DIE SINNES- UND IN DIE ÜBERSINNLICHE WELT, Basel, 10. November 1919",
+        "score": 83,
+        "matchedTerms": [
+          "urpflanze"
+        ]
+      },
+      {
+        "ID": "GA030/17",
+        "index": "^vkvtpf",
+        "title": "ÜBER DEN GEWINN UNSERER ANSCHAUUNGEN VON GOETHES NATURWISSENSCHAFTLICHEN ARBEITEN DURCH DIE PUBLIKATIONEN DES GOETHE-ARCHIVS (1891)",
+        "fileName": "GA030/17 - ÜBER DEN GEWINN UNSERER ANSCHAUUNGEN VON GOETHES NATURWISSENSCHAFTLICHEN ARBEITEN DURCH DIE PUBLIKATIONEN DES GOETHE-ARCHIVS (1891)",
+        "score": 101,
+        "matchedTerms": [
+          "urpflanze"
+        ]
+      }
+    ],
+    "searchMethod": "hybrid-thematic-unified",
+    "totalMatches": 7927,
+    "llmUsed": true,
+    "timestamp": "2026-06-24T05:19:47.380Z"
   }
 }
