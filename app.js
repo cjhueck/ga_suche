@@ -15700,7 +15700,7 @@ function scrollToChronologicalYear(year) {
           const keyParts = (item.key || '').split('|');
           const limit = keyParts.length >= 3 ? parseInt(keyParts[2]) : 100;
           const modeLabel = limit === 300 ? '[breit]'
-                          : limit === 250 ? '[zitat]'
+                          : limit === 250 ? '[Zitat]'
                           : limit === 150 ? '[Essay]'
                           : '[tief]';
           const keyEnc = encodeURIComponent(item.key);
@@ -21038,7 +21038,7 @@ function formatAsteriskParagraphs() {
       // (100 = tief, 150 = Essay, 250 = zitat, 300 = breit)
       let modeLabel;
       if (currentThematicLimit === 300) modeLabel = '[breit]';
-      else if (currentThematicLimit === 250) modeLabel = '[zitat]';
+      else if (currentThematicLimit === 250) modeLabel = '[Zitat]';
       else if (currentThematicLimit === 150) modeLabel = '[Essay]';
       else modeLabel = '[tief]';
       const headingWithMode = `${headingBase} ${modeLabel}`;
