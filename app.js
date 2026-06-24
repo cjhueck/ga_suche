@@ -1918,6 +1918,9 @@ function normalizeGANumber(gaNumber) {
         if (summaryContent) {
           summaryContent.innerHTML = '<div id="toc-list"></div>';
         }
+        // Fixierten Titel-Kopf leeren (sonst bliebe ein alter Vortragstitel stehen)
+        const lectHeaderClose = document.getElementById('sidePanelLectureHeader');
+        if (lectHeaderClose) lectHeaderClose.innerHTML = '';
         
         // Update header position
         updateHeaderPosition();
@@ -2492,6 +2495,9 @@ function normalizeGANumber(gaNumber) {
     
     function switchTab(mode, skipHistory = false) {
       console.log('[HISTORY] *** switchTab aufgerufen:', mode, 'skipHistory:', skipHistory);
+      // Fixierten Side-Panel-Titel beim Tab-Wechsel leeren (kein veralteter Titel)
+      const _lectHeaderTab = document.getElementById('sidePanelLectureHeader');
+      if (_lectHeaderTab) _lectHeaderTab.innerHTML = '';
       var trackMode = mode;
       if (mode === 'thematic2') {
         trackMode = 'thematic2_' + (window._themenView || 'schwerpunkte');
@@ -11399,6 +11405,9 @@ function scrollToChronologicalYear(year) {
           console.error('[NAVIGATION] Keine Lecture-ID angegeben');
           return;
         }
+        // Sticky Side-Panel-Titel ausblenden – wir wechseln in den Texte-Tab
+        const _lhNav = document.getElementById('sidePanelLectureHeader');
+        if (_lhNav) _lhNav.innerHTML = '';
         
         // GA028-Kapitel abfangen: zum Texte-Tab wechseln und showBookChapter nutzen
         var resolved028 = resolveGA028ChapterId(lectureId);
@@ -11714,6 +11723,9 @@ function scrollToChronologicalYear(year) {
           console.error('[NAVIGATION] Keine GA-Nummer angegeben');
           return;
         }
+        // Sticky Side-Panel-Titel ausblenden – wir wechseln in den Texte-Tab
+        const _lhNavGA = document.getElementById('sidePanelLectureHeader');
+        if (_lhNavGA) _lhNavGA.innerHTML = '';
         
         // Wechsle zum Texte-Tab
         if (typeof switchTab === 'function') {
@@ -12439,11 +12451,11 @@ function scrollToChronologicalYear(year) {
         // Rendere den Vortrag im rechten Panel MIT Zwischenüberschriften
         const summaryContent = document.getElementById('summary-content');
         if (summaryContent && lecture.paragraphs) {
-          let html = '<div style="padding: 1rem;">';
+          let html = '<div style="padding: 1rem 1.4rem 2rem 1.4rem; font-size: var(--text-size);">';
           
           // Titel
           const displayTitle = lecture.fileName || lecture.title || lecture.ID;
-          html += `<h3 style="margin: 0 0 1rem 0; color: var(--heading-color);">${displayTitle}</h3>`;
+          // Titel wird separat im fixierten Kopf-Element #sidePanelLectureHeader gesetzt (siehe unten)
           
           // Finde den Index des Target-Paragraphs (falls paragraphIndex gesetzt ist)
           // Unterstützt sowohl Integer (erweiterte Suche) als auch String (Konzept-Übersicht)
@@ -12876,16 +12888,17 @@ function scrollToChronologicalYear(year) {
             }
           }
           
-          // Setze Titel-Text und mache ihn klickbar
-          documentTitle.textContent = fullTitle;
-          documentTitle.style.cursor = 'pointer';
-          documentTitle.style.color = 'var(--link-color)';
-          documentTitle.title = 'Klicken um zum Vortrag im Texte-Tab zu navigieren';
-          
-          // Kein Hover-Effekt mehr - Link soll bei Hover nicht verblassen
-          
-          // Füge onclick-Handler hinzu
-          documentTitle.onclick = () => navigateToLectureInTexteTab(lectureId);
+          // Vortragstitel klickbar OBEN IM RECHTEN SIDE-PANEL anzeigen
+          // (NICHT mehr in der Leiste über dem Main Viewer / #document-title –
+          //  diese behält den Inhalt des jeweiligen Tabs).
+          const sideHeader = document.getElementById('sidePanelLectureHeader');
+          if (sideHeader) {
+            sideHeader.innerHTML = '<h3></h3>';
+            const sideH3 = sideHeader.querySelector('h3');
+            sideH3.textContent = fullTitle;
+            sideH3.title = 'Klicken um zum Vortrag im Texte-Tab zu navigieren';
+            sideH3.onclick = () => navigateToLectureInTexteTab(lectureId);
+          }
         }
         
       } catch (error) {
@@ -13084,7 +13097,7 @@ function scrollToChronologicalYear(year) {
               }
           }
           
-          let html = '<div style="padding: 1rem;">';
+          let html = '<div style="padding: 1rem 1.4rem 2rem 1.4rem; font-size: var(--text-size);">';
           
           // Titel
           // Entferne GA-Nummer aus fileName falls title nicht vorhanden
@@ -13099,7 +13112,7 @@ function scrollToChronologicalYear(year) {
           if (book.yearRange && !displayTitle.includes(`(${book.yearRange})`)) {
             displayTitle = `${displayTitle} - ${book.yearRange})`;
           }
-          html += `<h3 style="margin: 0 0 1rem 0; color: var(--heading-color);">${displayTitle}</h3>`;
+          // Titel wird separat im fixierten Kopf-Element #sidePanelLectureHeader gesetzt (siehe unten)
           
           // Finde den Index des Target-Paragraphs (wie bei Vorträgen)
           let targetParagraphIdx = null;
@@ -13706,14 +13719,16 @@ function scrollToChronologicalYear(year) {
           }
           const fullTitle = `${formatLectureId(gaNumber)} - ${displayTitle}`;
           
-          documentTitle.textContent = fullTitle;
-          documentTitle.style.cursor = 'pointer';
-          documentTitle.style.color = 'var(--link-color)';
-          documentTitle.title = 'Klicken um zum Buch im Texte-Tab zu navigieren';
-          
-          // Kein Hover-Effekt mehr - Link soll bei Hover nicht verblassen
-          
-          documentTitle.onclick = () => navigateToGAInTexteTab(gaNumber);
+          // Buchtitel klickbar OBEN IM RECHTEN SIDE-PANEL anzeigen
+          // (NICHT mehr in der Leiste über dem Main Viewer / #document-title).
+          const sideHeader = document.getElementById('sidePanelLectureHeader');
+          if (sideHeader) {
+            sideHeader.innerHTML = '<h3></h3>';
+            const sideH3 = sideHeader.querySelector('h3');
+            sideH3.textContent = fullTitle;
+            sideH3.title = 'Klicken um zum Buch im Texte-Tab zu navigieren';
+            sideH3.onclick = () => navigateToGAInTexteTab(gaNumber);
+          }
         }
         
       } catch (error) {
