@@ -26673,19 +26673,23 @@ function displayKeywords(selectedLetter = 'Alle') {
   
   if (countContainer) countContainer.textContent = '';
   
-  // Erstelle HTML mit Alphabet-Navigation und Suchfeld oben
-  let html = '<div class="keyword-navigation-section">';
-  
-  // Alphabet-Navigation
-  html += '<div id="alphabet-nav-dynamic" class="alphabet-nav-container"></div>';
-  
-  // Suchfeld - mit gespeichertem Wert
-  html += '<div class="keyword-search-container">';
-  html += `<input type="text" id="keywordSearch" class="search-input" placeholder="Schlagwort suchen..." style="flex: 1; font-size: 0.85em;" value="${savedSearchValue.replace(/"/g, '&quot;')}" onkeydown="handleKeywordSearchKeypress(event)" oninput="handleKeywordSearchInput(event)" onfocus="this.removeAttribute('readonly');" onblur="this.setAttribute('readonly', true);" autocomplete="off" readonly>`;
-  html += '<button class="depth-btn" onclick="clearKeywordSearch()" style="padding: 4px 8px; font-size: 0.8em;">×</button>';
-  html += '</div>';
-  
-  html += '</div>';
+  // Navigation (Alphabet-Auswahl + Suchfeld) oberhalb der Trennlinie rendern
+  // (in #keyword-nav-top im oberen Panel); die Treffer-Liste bleibt unten im Anzeigefenster.
+  let navHtml = '<div class="keyword-navigation-section">';
+  navHtml += '<div id="alphabet-nav-dynamic" class="alphabet-nav-container"></div>';
+  navHtml += '<div class="keyword-search-container">';
+  navHtml += `<input type="text" id="keywordSearch" class="search-input" placeholder="Schlagwort suchen..." style="flex: 1; font-size: 0.85em;" value="${savedSearchValue.replace(/"/g, '&quot;')}" onkeydown="handleKeywordSearchKeypress(event)" oninput="handleKeywordSearchInput(event)" onfocus="this.removeAttribute('readonly');" onblur="this.setAttribute('readonly', true);" autocomplete="off" readonly>`;
+  navHtml += '<button class="depth-btn" onclick="clearKeywordSearch()" style="padding: 4px 8px; font-size: 0.8em;">×</button>';
+  navHtml += '</div>';
+  navHtml += '</div>';
+
+  const navTop = document.getElementById('keyword-nav-top');
+  let html = '';
+  if (navTop) {
+    navTop.innerHTML = navHtml;   // oberhalb der Trennlinie (oberes Panel)
+  } else {
+    html += navHtml;              // Fallback: oben im Ergebnisbereich
+  }
   
   if (filteredKeywords.length === 0) {
     html += '<p class="no-results-message">Keine Schlagwörter gefunden.</p>';
