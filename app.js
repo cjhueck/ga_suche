@@ -11869,6 +11869,11 @@ function scrollToChronologicalYear(year) {
       document.getElementById('viewer').innerHTML = '<div style="padding: 2rem; text-align: left; color: var(--secondary-text); font-style: italic; font-size: 0.9rem;">Bitte ein Suchergebnis auswählen</div>';
       document.getElementById('document-title').textContent = 'Suche';
       
+      // WICHTIG: Abfrage-Kontext zurücksetzen. Sonst bleibt currentThematicQuery von einer
+      // früheren Themen-Abfrage stehen und isFromThematicSearch wäre fälschlich true →
+      // im Suche-Tab würden dann nur Absätze, nicht die Suchworte im Text markiert.
+      currentThematicQuery = '';
+      
       // Setze currentLectureData zurück und verstecke Buttons
       currentLectureData = null;
       currentLectureSummary = null;
