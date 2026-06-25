@@ -14859,6 +14859,22 @@ function scrollToChronologicalYear(year) {
     function renderKeywordResults(query, results, word1, word2, word1IsPhrase = false, word2IsPhrase = false, proximity = null) {
       const container = document.getElementById('results');
       const scope = 'fulltext'; // Immer Volltext-Suche
+
+      // Entfernt strukturelles/Medien-HTML aus dem Treffer-Text, damit alle Snippets
+      // einheitlich als Fliesstext erscheinen. Hintergrund: manche Absatz-Inhalte
+      // enthalten Ueberschriften (<h2>/<h4>, z.B. Orts-/Datumszeilen wie "Goetheanum,
+      // Dornach ..." oder Kapiteltitel) sowie <img>/<br>/<sup>. Die Teilwortsuche
+      // (z.B. "Goethe" -> "Goetheanum") traf solche Ueberschriften, die per innerHTML
+      // als grosse, fette Titel gerendert wurden. NUR bekannte HTML-Tags werden
+      // entfernt – literale <…>-Anfuehrungszeichen (z.B. in Faust-Zitaten) bleiben.
+      const stripSnippetMarkup = (html) => {
+        if (!html) return '';
+        return String(html)
+          .replace(/<br\s*\/?>/gi, ' ')
+          .replace(/<\/?(?:h[1-6]|img|sup|sub|p|div|span|figure|figcaption|table|thead|tbody|tr|td|th|ul|ol|li)\b[^>]*>/gi, ' ')
+          .replace(/[ \t]{2,}/g, ' ')
+          .trim();
+      };
       
       // Update Relevanz-Filter basierend auf Anzahl der Treffer
       updateRelevanceFilterState(results.length);
@@ -15024,11 +15040,13 @@ function scrollToChronologicalYear(year) {
         if (scope === "fulltext") {
           let lectureChunks = lecture.chunks;
           
-          lectureChunks.slice(0, 5).forEach(chunk => {
+          // Alle Treffer-Absätze eines Vortrags/Werks anzeigen (zuvor künstlich auf 5
+          // begrenzt – bei Werken wie GA001 wurden dadurch nur 5 von hunderten gezeigt).
+          lectureChunks.forEach(chunk => {
             const snippetDiv = document.createElement("div");
             snippetDiv.className = "snippet";
             
-            const content = chunk.content || '';
+            const content = stripSnippetMarkup(chunk.content || chunk.text || '');
             
             let snippet = '';
             let foundPosition = -1;
@@ -21709,6 +21727,13 @@ function formatAsteriskParagraphs() {
   const summaryPanel = document.getElementById('summary-panel');
   const verticalResizeHandleWrapper = document.getElementById('verticalResizeHandleWrapper');
   const tocList = document.getElementById('toc-list');
+
+  // Suche-/Texte-Ansicht zeigt KEINEN fixierten Vortragstitel oben im rechten Panel
+  // (anders als Abfrage/Index, die showLectureFromAdvancedSearch nutzen und den Titel
+  // setzen). Einen evtl. noch aus dem Abfrage-Tab stammenden Titel-Kopf hier entfernen,
+  // damit er beim Klick auf ein Suchergebnis nicht stehen bleibt.
+  const _sideHeaderClear = document.getElementById('sidePanelLectureHeader');
+  if (_sideHeaderClear) _sideHeaderClear.innerHTML = '';
   
   // WICHTIG: Entferne Jahres-Buttons beim Anzeigen eines einzelnen Vortrags
   // da wir dann nicht mehr in der chronologischen Übersicht sind

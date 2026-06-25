@@ -1975,6 +1975,22 @@ body.dark-mode .ga-missing-text {
     body:has(.tab-button.active[onclick="switchTab('thematic')"]) #sidebar-content {
       padding-top: 1rem !important;
     }
+
+    /* Suche-Tab: geringerer Abstand oben zwischen Resize-Handle und erstem Treffer */
+    body:has(.tab-button.active[onclick="switchTab('keyword')"]) #sidebar-content {
+      padding-top: 1rem !important;
+    }
+
+    /* GA-Tab: geringerer Abstand oben zwischen Resize-Handle und oberster GA */
+    body:has(.tab-button.active[onclick="switchTab('ga')"]) #sidebar-content {
+      padding-top: 1rem !important;
+    }
+
+    /* Themen-Tab (Schwerpunkte/Karten): geringerer Abstand oben */
+    body.tab-thematic2-active #sidebar-content,
+    body:has(.tab-button.active[onclick="switchTab('thematic2')"]) #sidebar-content {
+      padding-top: 1rem !important;
+    }
     
     /* Zentrale Styles für alle Sidebar-Texte */
     #sidebar-content p {
@@ -3721,6 +3737,11 @@ body.dark-mode .ga-missing-text {
       border-bottom: none;
     }
     
+    /* Etwas Abstand zwischen oberer Panel-Kante und Beginn des TOC */
+    #toc-list {
+      padding-top: 0.9rem;
+    }
+
     /* H2, H3 und H4-Überschriften in TOC (rechtes Sidepanel) - konsistente Größen */
     #toc-list h2 {
       font-size: 0.9rem !important;
