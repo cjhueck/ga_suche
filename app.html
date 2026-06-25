@@ -1969,6 +1969,12 @@ body.dark-mode .ga-missing-text {
   word-break: break-word;
   /* Verwendet allgemeine Scrollbar-Regeln wie "Zuletzt gesucht" */
 }
+
+    /* Abfrage-Tab: geringerer Abstand oben zwischen Resize-Handle und "Beispiele"-Liste */
+    body.tab-thematic-active #sidebar-content,
+    body:has(.tab-button.active[onclick="switchTab('thematic')"]) #sidebar-content {
+      padding-top: 1rem !important;
+    }
     
     /* Zentrale Styles für alle Sidebar-Texte */
     #sidebar-content p {
