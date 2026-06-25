@@ -5266,7 +5266,8 @@ async function generateAnalysis(query, results, depth = 'allgemein', preferredPr
     'ausführlich': 8000,
     'broad': 32000,  // Breite Sammlung: Gemini 2.5 Flash unterstützt bis 65k
     'quote': 6000,   // Zitatsuche: ein bis wenige Zitate mit kurzer Begründung
-    'essay': 16000   // Essay-Modus: Synthese + Belege, braucht Raum
+    'essay': 16000,  // Essay-Modus: Synthese + Belege, braucht Raum
+    'recherche': 16000 // Recherche-Modus: tabellarische JSON-Sammlung vieler Aussagen
   };
   
   // Wähle Prompt basierend auf thematicMode
@@ -5592,6 +5593,69 @@ TEXTPASSAGEN:
 ${contextText}
 
 ESSAY:`;
+  } else if (thematicMode === 'recherche') {
+    // RECHERCHE-MODUS: Claude - sammelt moeglichst viele Aussagen Steiners zum Thema
+    // und gibt sie als strukturiertes JSON aus (Unterthemen mit Zeilen), das das
+    // Frontend als sortier-/filterbare Tabelle rendert.
+    console.log(`[ANALYSIS] Modus: Recherche (tabellarische Sammlung) - ${topResults.length} Quellen`);
+    prompt = `Du bist ein Rechercheassistent fuer das Werk Rudolf Steiners (Gesamtausgabe / GA). Deine Aufgabe ist es, moeglichst viele inhaltlich verschiedene Aussagen Rudolf Steiners zur folgenden Frage zusammenzutragen und als strukturierte, nach Unterthemen gegliederte Liste auszugeben.
+
+ANFRAGE DES NUTZERS
+"${query}"
+
+AUSGABE: AUSSCHLIESSLICH GUELTIGES JSON
+Gib NUR ein einziges JSON-Objekt aus – keinen Fliesstext davor oder danach, keine Markdown-Codefences. Struktur:
+
+{
+  "intro": "Optional: ein einziger einleitender Satz (oder leerer String).",
+  "subThemes": [
+    {
+      "title": "Praegnanter Titel des Unterthemas",
+      "rows": [
+        {
+          "aussage": "Telegrammartige Kurzform (Stichworte/Schlagzeile, KEIN ganzer Satz, KEIN Zitat).",
+          "zitat": "Ein WOERTLICHES, zusammenhaengendes Zitat aus GENAU EINER Textpassage, das die Aussage belegt.",
+          "ref": "GA###/lectureNum:index",
+          "relevance": "hoch"
+        }
+      ]
+    }
+  ]
+}
+
+INHALTLICHE REGELN
+- Gliedere das Material in mehrere sinnvolle Unterthemen (subThemes). Jedes Unterthema buendelt inhaltlich zusammengehoerige Aussagen.
+- Sammle BREIT: moeglichst viele inhaltlich UNTERSCHIEDLICHE Aussagen. Keine Redundanzen (gleiche Aussage nicht mehrfach).
+- "aussage": TELEGRAMMARTIG kurz – eine verdichtete Schlagzeile aus Stichworten, KEIN vollstaendiger Satz, KEIN Subjekt-Praedikat-Bau, keine Wendungen wie "Steiner sagt/meint", keine Fuellwoerter ("dass", "weil", "waehrend", "man koenne"). Oft hilfreich: ein Doppelpunkt, der Bezug und Kern trennt. Der ausfuehrliche Inhalt steht im Zitat, NICHT in der Aussage.
+  Gegenbeispiele (so NICHT) und richtige Kurzform (so):
+    FALSCH: "Goethe widersprach Kant aus seiner persoenlichen Seelenerfahrung, dass man durch anschauende Urteilskraft sich wirklich in die geistige Welt erheben koenne."
+    RICHTIG: "Widerspruch zu Kant: durch anschauende Urteilskraft Erhebung in die geistige Welt"
+    FALSCH: "Kant sprach dem Menschen die anschauende Urteilskraft ab, waehrend Goethe sie aus eigener Seelenerfahrung als moeglich wusste."
+    RICHTIG: "Goethe gegen Kant: anschauende Urteilskraft aus eigener Seelenerfahrung"
+- "zitat": das wichtigste, tragende woertliche Zitat aus dem Zusammenhang (1-4 Saetze), in dem die Aussage belegt ist. Deutsche Anfuehrungszeichen NICHT noetig (das Frontend setzt sie).
+
+ABSOLUT KRITISCHE QUELLEN-/ZITATREGELN (Verstoss = Aufgabe verfehlt)
+1. JEDES "zitat" MUSS WOERTLICH und ZUSAMMENHAENGEND in GENAU EINER der unten gelisteten Textpassagen stehen. Keine Kombination mehrerer Passagen. Auslassungen mit [...] sind erlaubt, wenn der Rest woertlich aus derselben Passage stammt.
+2. "ref" MUSS EXAKT eine der unten gelisteten verfuegbaren Referenzen sein (Format: GA###/lectureNum:index oder GA###:index). KEINE Quellen erfinden, KEINE Leerzeichen, KEINE Abweichungen. Die ref MUSS zur Passage gehoeren, aus der das Zitat stammt.
+3. Keine eigenen Interpretationen als Zitat ausgeben. "aussage" ist Zusammenfassung, "zitat" ist immer Steiners Wortlaut.
+
+RELEVANZBEWERTUNG ("relevance"): genau einer der Werte
+- "hoch": Steiner behandelt das angefragte Thema an dieser Stelle direkt und zentral.
+- "mittel": das Thema wird teilweise oder im Kontext behandelt.
+- "niedrig": das Thema wird nur am Rande gestreift.
+
+VERFUEGBARE REFERENZEN
+${availableRefs}
+
+DIREKTE KEYWORD-TREFFER (bevorzugt):
+${directRefIds}
+
+Anzahl Textpassagen: ${topResults.length}
+
+TEXTPASSAGEN:
+${contextText}
+
+JSON-AUSGABE:`;
   } else {
     // TIEFE ANALYSE: Claude - qualitative Analyse mit Zitaten (wie bisher)
     console.log(`[ANALYSIS] Modus: Tiefe Analyse - ${topResults.length} Quellen`);
@@ -5729,6 +5793,7 @@ ANALYSE:`;
   const effectiveMaxTokens = thematicMode === 'broad' ? maxTokens['broad']
                             : thematicMode === 'quote' ? maxTokens['quote']
                             : thematicMode === 'essay' ? maxTokens['essay']
+                            : thematicMode === 'recherche' ? maxTokens['recherche']
                             : maxTokens['ausführlich'];
 
   // Modell pro Modus aus .env (mit sinnvollen Defaults).
@@ -5737,7 +5802,7 @@ ANALYSE:`;
   const providerNameLower = (provider.name || '').toLowerCase();
   let modelForMode = null;
   if (providerNameLower === 'claude') {
-    if (thematicMode === 'deep' || thematicMode === 'essay') {
+    if (thematicMode === 'deep' || thematicMode === 'essay' || thematicMode === 'recherche') {
       modelForMode = process.env.CLAUDE_MODEL_DEEP || 'claude-opus-4-8';
     } else if (thematicMode === 'quote') {
       // Zitat nutzt jetzt ebenfalls Opus 4.8 (wie Tiefe/Essay)
@@ -5821,6 +5886,13 @@ ANALYSE:`;
       if (s.quoteDrift.length > 0) {
         console.log(`[ESSAY-VALIDATOR] Zitat-Drift markiert: ${s.quoteDrift.slice(0, 3).map(d => `${d.id}`).join(', ')}${s.quoteDrift.length > 3 ? ' …' : ''}`);
       }
+    }
+
+    // Recherche-Modus: Roh-JSON zurueckgeben. Parsing, Ref-Validierung und
+    // Datums-Anreicherung erfolgen im Endpoint (buildRechercheData). Die
+    // Markdown-/Link-Transformationen wuerden das JSON zerstoeren.
+    if (thematicMode === 'recherche') {
+      return analysisText;
     }
 
     analysisText = addClickableReferences(analysisText, topResults);
@@ -5941,6 +6013,179 @@ function addClickableReferences(text, results) {
   
   
   return linkedText;
+}
+
+// ============================================================================
+// RECHERCHE-MODUS HILFSFUNKTIONEN
+// ============================================================================
+
+// Sammelt alle aktuell geladenen GA-Baende (aus Vortraegen und Schriften).
+function getAllLoadedGABands() {
+  const bands = new Set();
+  for (const id of Object.keys(fullLectures)) {
+    const ga = extractGAFromLectureId(id);
+    if (ga) bands.add(ga.toUpperCase());
+  }
+  for (const id of Object.keys(fullBooks)) {
+    const ga = extractGAFromLectureId(id);
+    if (ga) bands.add(ga.toUpperCase());
+  }
+  return [...bands];
+}
+
+// Loest die Recherche-Auswahl (Quellenart + Themenbereich + GA-Filter) auf.
+// - sourceType: 'alle' | 'schriften' | 'vortraege'
+// - themeArea:  Theme-Name aus themes-database.json (oder '' / 'alle')
+// - gaFilter:   explizite GA-Band-Auswahl (Array oder kommagetrennt)
+// Rueckgabe: { gaFilter: <effektiver Filter|''>, themeKeywords: [...] }
+async function resolveRechercheScope(sourceType, themeArea, gaFilter) {
+  // Explizite GA-Auswahl normalisieren
+  let explicit = [];
+  if (Array.isArray(gaFilter)) {
+    explicit = gaFilter.map(s => String(s).trim()).filter(Boolean);
+  } else if (typeof gaFilter === 'string' && gaFilter.trim()) {
+    explicit = gaFilter.split(',').map(s => s.trim()).filter(Boolean);
+  }
+
+  // Quellenart -> Bandliste (Schriften = Buecher, Vortraege = alles uebrige)
+  let typeBands = null;
+  if (sourceType === 'schriften') {
+    typeBands = getAllLoadedGABands().filter(g => isSchriftForStats(g) || isBookGANumberBackend(g));
+  } else if (sourceType === 'vortraege') {
+    typeBands = getAllLoadedGABands().filter(g => !isSchriftForStats(g) && !isBookGANumberBackend(g));
+  }
+
+  // Effektiven GA-Filter bestimmen (UND-Verknuepfung von expliziter Auswahl und Quellenart)
+  let effective;
+  if (explicit.length && typeBands) {
+    const typeSet = new Set(typeBands.map(b => b.toUpperCase()));
+    effective = explicit.filter(b => typeSet.has(b.toUpperCase()));
+    // Leerer Schnitt: explizite GA-Auswahl hat Vorrang (sonst gar keine Treffer)
+    if (effective.length === 0) effective = explicit;
+  } else if (explicit.length) {
+    effective = explicit;
+  } else if (typeBands) {
+    effective = typeBands;
+  } else {
+    effective = [];
+  }
+
+  // Themenbereich -> Keywords zur weichen Retrieval-Anreicherung
+  let themeKeywords = [];
+  if (themeArea && themeArea !== 'alle') {
+    try {
+      const themesDB = await loadThemesDatabase();
+      const theme = themesDB[themeArea];
+      if (theme && Array.isArray(theme.keywords)) {
+        themeKeywords = theme.keywords.slice(0, 25);
+      }
+    } catch (e) {
+      console.warn('[RECHERCHE] Themenbereich-Keywords konnten nicht geladen werden:', e.message);
+    }
+  }
+
+  return { gaFilter: effective.length ? effective : '', themeKeywords };
+}
+
+// Parst die JSON-Ausgabe des Recherche-Prompts, validiert die Referenzen gegen
+// den Quellenpool und reichert Datum/Jahr aus den Vortrags-/Buch-Metadaten an.
+function buildRechercheData(jsonText, results) {
+  // Ref -> Metadaten-Mapping (analog addClickableReferences)
+  const refToDataMapping = {};
+  results.forEach(result => {
+    if (result.ID && result.index) {
+      const cleanIndex = String(result.index).replace(/^\^/, '');
+      const mapping = {
+        id: result.ID,
+        index: cleanIndex,
+        title: result.title,
+        fileName: result.fileName
+      };
+      refToDataMapping[`${result.ID}:${result.index}`.toLowerCase()] = mapping;
+      refToDataMapping[`${result.ID}:${cleanIndex}`.toLowerCase()] = mapping;
+    }
+  });
+
+  // Datum/Jahr aus Metadaten
+  const lookupDate = (id) => {
+    const lec = fullLectures[id];
+    if (lec && lec.date) {
+      const m = String(lec.date).match(/\d{4}/);
+      return { date: lec.date, year: m ? m[0] : '' };
+    }
+    const book = fullBooks[id];
+    if (book && (book.yearRange || book.date)) {
+      const raw = book.yearRange || book.date;
+      const m = String(raw).match(/\d{4}/);
+      return { date: raw, year: m ? m[0] : '' };
+    }
+    return { date: '', year: '' };
+  };
+
+  // JSON robust extrahieren (evtl. Codefences oder Begleittext entfernen)
+  let parsed = null;
+  if (jsonText) {
+    let cleaned = String(jsonText).trim();
+    cleaned = cleaned.replace(/^```(?:json)?\s*/i, '').replace(/\s*```$/i, '').trim();
+    try {
+      parsed = JSON.parse(cleaned);
+    } catch (e) {
+      const start = cleaned.indexOf('{');
+      const end = cleaned.lastIndexOf('}');
+      if (start !== -1 && end !== -1 && end > start) {
+        try { parsed = JSON.parse(cleaned.substring(start, end + 1)); } catch (_) {}
+      }
+    }
+  }
+
+  if (!parsed || !Array.isArray(parsed.subThemes)) {
+    return { intro: '', subThemes: [] };
+  }
+
+  const normRelevance = (r) => {
+    const v = String(r || '').toLowerCase().trim();
+    if (v.startsWith('hoch') || v === 'high') return 'hoch';
+    if (v.startsWith('niedrig') || v === 'low' || v.startsWith('gering')) return 'niedrig';
+    return 'mittel';
+  };
+
+  const subThemes = [];
+  parsed.subThemes.forEach(st => {
+    if (!st || !Array.isArray(st.rows)) return;
+    const rows = [];
+    st.rows.forEach(row => {
+      if (!row || !row.ref) return;
+      const ref = String(row.ref).trim();
+      const lastColon = ref.lastIndexOf(':');
+      if (lastColon === -1) return;
+      const idPart = ref.substring(0, lastColon).replace(/^\(|\)$/g, '');
+      const idxPart = ref.substring(lastColon + 1).replace(/^\^/, '');
+      const mapping = refToDataMapping[`${idPart}:${idxPart}`.toLowerCase()]
+                    || refToDataMapping[`${idPart}:^${idxPart}`.toLowerCase()];
+      if (!mapping) return; // halluzinierte/ungueltige Referenz verwerfen
+      const { date, year } = lookupDate(mapping.id);
+      rows.push({
+        aussage: String(row.aussage || '').trim(),
+        zitat: String(row.zitat || '').trim(),
+        id: mapping.id,
+        index: mapping.index,
+        ref: `${mapping.id}:${mapping.index}`,
+        fileName: mapping.fileName || '',
+        title: mapping.title || '',
+        relevance: normRelevance(row.relevance),
+        date,
+        year
+      });
+    });
+    if (rows.length > 0) {
+      subThemes.push({ title: String(st.title || '').trim() || 'Weitere Aussagen', rows });
+    }
+  });
+
+  return {
+    intro: typeof parsed.intro === 'string' ? parsed.intro.trim() : '',
+    subThemes
+  };
 }
 
 /**
@@ -11278,13 +11523,14 @@ app.post('/api/hybrid-search', async (req, res) => {
 
 app.post('/api/thematic-hybrid-search', async (req, res) => {
   try {
-    const { query, limit = 100, gaFilter = '', skipCache = false, preferredProvider = null, thematicMode = 'deep' } = req.body;
+    const { query, limit = 100, gaFilter = '', skipCache = false, preferredProvider = null, thematicMode = 'deep', sourceType = 'alle', themeArea = '' } = req.body;
     const effectiveDepth = 'ausführlich';
     
     // Log Analyse-Modus
     const modeLabel = thematicMode === 'deep' ? 'Tiefe Analyse (Claude)'
                     : thematicMode === 'quote' ? 'Zitatsuche (Claude)'
                     : thematicMode === 'essay' ? 'Essay – Synthese & Belege (Claude Opus)'
+                    : thematicMode === 'recherche' ? 'Recherche – tabellarische Sammlung (Claude Opus)'
                     : 'Breite Sammlung (Gemini)';
     console.log(`[THEMATIC] Modus: ${modeLabel}, Provider: ${preferredProvider || 'auto'}, Limit: ${limit}`);
     
@@ -11296,13 +11542,29 @@ app.post('/api/thematic-hybrid-search', async (req, res) => {
     
     // Themensuchen werden nur bei lokalem Server gespeichert
     const shouldCache = isLocalRequest && !skipCache;
-    
+
+    // RECHERCHE-MODUS: Quellenart (Schriften/Vortraege) -> effektiver GA-Filter,
+    // Themenbereich -> Keywords zur weichen Retrieval-Anreicherung.
+    let effectiveGaFilter = gaFilter;
+    let rechercheThemeKeywords = [];
+    if (thematicMode === 'recherche') {
+      const scope = await resolveRechercheScope(sourceType, themeArea, gaFilter);
+      effectiveGaFilter = scope.gaFilter;
+      rechercheThemeKeywords = scope.themeKeywords;
+      console.log(`[RECHERCHE] sourceType=${sourceType}, themeArea=${themeArea || '-'}, GA-Baende=${Array.isArray(effectiveGaFilter) ? effectiveGaFilter.length : 0}, themeKeywords=${rechercheThemeKeywords.length}`);
+    }
+
+    // Cache-Tiefe: fuer Recherche sourceType/themeArea einbeziehen, damit
+    // unterschiedliche Auswahlen (und andere Modi) nicht kollidieren.
+    const cacheDepth = thematicMode === 'recherche'
+      ? `recherche:${sourceType}:${(themeArea || 'alle').toLowerCase()}`
+      : effectiveDepth;
     
     // Konsolidierte Hybrid-Cache-Logik
-    const cacheKey = generateThematicCacheKey(query, effectiveDepth, limit, gaFilter);
+    const cacheKey = generateThematicCacheKey(query, cacheDepth, limit, effectiveGaFilter);
     const thematicDB = await loadThematicSearchDatabase();
     // Hybrid-Cache-Logik zuerst prüfen
-    const hybridHit = findHybridCacheHit(query, effectiveDepth, limit, gaFilter, thematicDB);
+    const hybridHit = findHybridCacheHit(query, cacheDepth, limit, effectiveGaFilter, thematicDB);
     if (hybridHit && hybridHit.key && thematicDB[hybridHit.key]) {
       const cachedResult = thematicDB[hybridHit.key];
       
@@ -11322,7 +11584,7 @@ app.post('/api/thematic-hybrid-search', async (req, res) => {
 
     // Kein Cache-Hit: Neue Suche
     const tStart = Date.now();
-    let keywordResults = performThematicKeywordSearch(query, paragraphsFromLectures, gaFilter);
+    let keywordResults = performThematicKeywordSearch(query, paragraphsFromLectures, effectiveGaFilter);
     const tKeyword = Date.now() - tStart;
 
     // Im Quote-Modus suchen wir gezielter, weil die Anfrage oft nur den Sinn,
@@ -11359,12 +11621,20 @@ app.post('/api/thematic-hybrid-search', async (req, res) => {
         console.warn('[THEMATIC] Semantische Anreicherung fehlgeschlagen:', err.message);
         return {};
       }),
-      findSemanticallySimilarParagraphs(query, gaFilter, paraThreshold, paraTopN).catch(err => {
+      findSemanticallySimilarParagraphs(query, effectiveGaFilter, paraThreshold, paraTopN).catch(err => {
         console.warn('[THEMATIC] Absatz-Embedding-Anreicherung fehlgeschlagen:', err.message);
         return {};
       })
     ]);
     const tParallel = Date.now() - tParallelStart;
+
+    // Recherche-Modus: Themenbereich-Keywords als zusaetzliche Expansionsbegriffe
+    // beigeben (weiche thematische Fokussierung, keine harte Exklusion).
+    if (thematicMode === 'recherche' && rechercheThemeKeywords.length > 0) {
+      for (const kw of rechercheThemeKeywords) {
+        if (kw && !expandedTerms.includes(kw)) expandedTerms.push(kw);
+      }
+    }
 
     // === SYNCHRONE VERARBEITUNG ===
     // Term-, Phrasen- und Semantik-Treffer in keywordResults aufnehmen.
@@ -11378,7 +11648,7 @@ app.post('/api/thematic-hybrid-search', async (req, res) => {
 
       for (const term of expandedTerms) {
         if (addedCount >= maxExpanded) break;
-        const termResults = performThematicKeywordSearch(`"${term}"`, paragraphsFromLectures, gaFilter);
+        const termResults = performThematicKeywordSearch(`"${term}"`, paragraphsFromLectures, effectiveGaFilter);
 
         for (const result of termResults) {
           if (addedCount >= maxExpanded) break;
@@ -11645,6 +11915,17 @@ app.post('/api/thematic-hybrid-search', async (req, res) => {
     const finalSemCount = topResults.filter(r => topSemanticKeys.has(`${r.ID}-${r.index}`)).length;
     console.log(`[THEMATIC] Ergebnis-Selektion: ${exactPhraseHits.length} exakte Phrasen, ${topSemanticHits.length} semantische Top-Treffer, ${directResults.length} direkte, ${indirectResults.length} indirekte → Top ${topResults.length} (davon ${topResults.filter(r => r.quoteExactMatch).length} exakte Phrasen-Treffer, ${finalSemCount} sem. Top-Treffer, Quote-Modus=${isQuoteMode})`);
 
+    // Recherche-Modus: harter Scope-Filter, damit die semantische Vortrags-Anreicherung
+    // keine Baende ausserhalb der gewaehlten Quellenart/GA-Auswahl einschleust.
+    if (thematicMode === 'recherche' && Array.isArray(effectiveGaFilter) && effectiveGaFilter.length > 0) {
+      const beforeScope = topResults.length;
+      const scopeUpper = effectiveGaFilter.map(f => String(f).toUpperCase());
+      topResults = topResults.filter(r => r.ID && scopeUpper.some(f => r.ID.toUpperCase().startsWith(f)));
+      if (topResults.length !== beforeScope) {
+        console.log(`[RECHERCHE] Scope-Filter angewendet: ${beforeScope} -> ${topResults.length} Quellen`);
+      }
+    }
+
     // Query-Tracking
     trackQueryTerms(query, topResults.length);
     
@@ -11654,6 +11935,15 @@ app.post('/api/thematic-hybrid-search', async (req, res) => {
     });
 
     let analysis = await generateAnalysis(query, topResults, effectiveDepth, preferredProvider, thematicMode);
+
+    // Recherche-Modus: Roh-JSON in strukturierte, validierte Tabellendaten umwandeln.
+    let rechercheData = null;
+    if (thematicMode === 'recherche') {
+      rechercheData = buildRechercheData(analysis, topResults);
+      const rowCount = (rechercheData.subThemes || []).reduce((n, st) => n + (st.rows ? st.rows.length : 0), 0);
+      console.log(`[RECHERCHE] ${rechercheData.subThemes.length} Unterthemen, ${rowCount} valide Aussagen`);
+      analysis = ''; // content wird im Recherche-Modus nicht genutzt
+    }
 
     let searchResult = {
       query: query,
@@ -11671,6 +11961,13 @@ app.post('/api/thematic-hybrid-search', async (req, res) => {
       llmUsed: !!process.env.CLAUDE_API_KEY
     };
 
+    if (rechercheData) {
+      searchResult.recherche = rechercheData;
+      // Scope (Quellenart/Themenbereich) mitspeichern, damit eine gespeicherte
+      // Recherche im linken Panel exakt wiederhergestellt werden kann.
+      searchResult.rechercheScope = { sourceType, themeArea };
+    }
+
     // Speichere Ergebnis nur bei localhost
     if (shouldCache) {
       thematicDB[cacheKey] = {
@@ -11686,7 +11983,9 @@ app.post('/api/thematic-hybrid-search', async (req, res) => {
     } else {
     }
 
-    return res.json(searchResult);
+    // cacheKey mitliefern, damit das Frontend die Anfrage gezielt loeschen kann
+    // (wichtig fuer Recherche, deren Cache-Tiefe/Scope sich vom Standard unterscheidet).
+    return res.json({ ...searchResult, cacheKey });
   } catch (error) {
     console.error('Hybrid-thematic-Search Fehler:', error);
     console.error('Fehler-Details:', {

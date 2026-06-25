@@ -3,6 +3,9 @@
 		{
 			"name": "ga_suche",
 			"path": "."
+		},
+		{
+			"path": "../../Akademie/Mitarbeiter/Simon Kuhn"
 		}
 	],
 	"settings": {
