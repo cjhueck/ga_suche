@@ -8186,7 +8186,7 @@ Wandtafeln
   <div class="custom-dropdown-list" id="thematicGAFilterList"></div>
 </div>
 <!-- Analyse-Modus Auswahl: Tiefe/Breite untereinander, Zitat rechts daneben -->
-<div style="display: flex; align-items: center; gap: 12px; margin-left: 2px;">
+<div style="display: flex; align-items: flex-start; gap: 12px; margin-left: 2px;">
   <div style="display: flex; flex-direction: column; gap: 2px;">
     <label style="display: flex; align-items: center; gap: 3px; cursor: pointer; font-size: 0.85em;">
       <input type="radio" name="thematicMode" value="deep" checked style="accent-color: var(--accent-color); width: 14px; height: 14px; cursor: pointer;">
@@ -8206,6 +8206,15 @@ Wandtafeln
       <input type="radio" name="thematicMode" value="essay" style="accent-color: var(--accent-color); width: 14px; height: 14px; cursor: pointer;">
       <span style="color: var(--text-color); font-weight: 500;">Essay</span>
     </label>
+  </div>
+  <div style="display: flex; flex-direction: column; gap: 6px;">
+    <label style="display: flex; align-items: center; gap: 3px; cursor: pointer; font-size: 0.85em;" title="Recherche: Sammelt möglichst viele Aussagen Steiners zum Thema als nach Unterthemen gegliederte, sortier- und filterbare Tabelle (Aussage | Zitat mit GA-Link | Jahr/Datum | Relevanz)">
+      <input type="radio" name="thematicMode" value="recherche" onchange="updateRechercheControlsVisibility()" style="accent-color: var(--accent-color); width: 14px; height: 14px; cursor: pointer;">
+      <span style="color: var(--text-color); font-weight: 500;">Recherche</span>
+    </label>
+    <button class="depth-btn primary" id="thematicSearchBtn" onclick="performThematicSearch()" style="align-self: flex-end; padding: 1px 12px; font-size: 0.85em; line-height: 1.2; min-height: 0; height: auto;">
+      Suchen
+    </button>
   </div>
 </div>
 <style>
@@ -8262,11 +8271,16 @@ Wandtafeln
     font-weight: 600;
   }
 </style>
-<div style="display: flex; gap: 8px; margin-left: auto;">
-<button class="depth-btn primary" id="thematicSearchBtn" onclick="performThematicSearch()">
-  Suchen
-</button>
 </div>
+<div id="rechercheControls" style="display: none; gap: 8px; margin-top: 6px; align-items: center; flex-wrap: wrap;">
+  <select id="rechercheSourceType" class="filter-dropdown" style="flex: 0 0 auto; min-width: 110px;" title="Quellenart: Schriften (Bücher), Vorträge oder alle">
+    <option value="alle">Quellenart: alle</option>
+    <option value="schriften">Schriften</option>
+    <option value="vortraege">Vorträge</option>
+  </select>
+  <select id="rechercheThemeArea" class="filter-dropdown" style="flex: 1 1 180px; min-width: 0; max-width: 100%;" title="Themenbereich (wie im Themen-Tab) zur thematischen Eingrenzung">
+    <option value="alle">Themenbereich: alle</option>
+  </select>
 </div>
 <div id="savedSearchButtons" style="display: none; gap: 8px; margin-top: 6px;">
 <button class="depth-btn" id="saveThematicSearchBtn" onclick="saveCurrentThematicSearch()" title="Themenabfrage speichern (nur für Mitglieder)" style="display: none; align-items: center; justify-content: center;">
@@ -11176,7 +11190,7 @@ PDF
 
 
 
-<script src="app.js?v=20260323a"></script>
+<script src="app.js?v=20260625a"></script>
 </body>
 </html>
 

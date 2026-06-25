@@ -1048,6 +1048,7 @@ const isLocal = window.location.hostname === 'localhost' ||
     let steinerImages = {}; // Bilder-Datenbank
     let currentThematicGAFilter = '';
     let currentThematicLimit = 100; // Limit basierend auf Modus (100 = Tiefe, 250 = Zitat, 300 = Breite)
+    let currentThematicCacheKey = ''; // Vom Backend gelieferter Cache-Key der aktuellen Abfrage (fuer gezieltes Loeschen)
     // Suchhistorie aus localStorage laden (falls vorhanden)
     let searchHistory = (function() {
       try {
@@ -3934,6 +3935,7 @@ function normalizeGANumber(gaNumber) {
   initTheme();
   initCustomDropdowns(); // Initialisiere Custom Multi-Select Dropdowns
   populateGADropdowns(); // Befüllt auch Jahre
+  initRechercheUI(); // Recherche-Modus: Themenbereiche befüllen + Modus-Umschaltung
   initGAFilter();
   updateButtonStates(); // Verstecke Buttons beim ersten Laden
   
@@ -15231,6 +15233,43 @@ function scrollToChronologicalYear(year) {
       document.getElementById('status').textContent = `${lectureCount} Vorträge mit ${chunkCount} Treffern`;
     }
 
+    // Zeigt/versteckt die Recherche-Auswahlfelder (Quellenart, Themenbereich)
+    // abhaengig vom gewaehlten Analyse-Modus.
+    function updateRechercheControlsVisibility() {
+      const modeRadio = document.querySelector('input[name="thematicMode"]:checked');
+      const mode = modeRadio ? modeRadio.value : 'deep';
+      const controls = document.getElementById('rechercheControls');
+      if (controls) controls.style.display = (mode === 'recherche') ? 'flex' : 'none';
+    }
+
+    // Befuellt das Themenbereich-Dropdown aus /api/themes-database und bindet
+    // die Modus-Umschaltung der Recherche-Controls.
+    async function initRechercheUI() {
+      // Modus-Wechsel ueberwachen (alle Radios, damit das Verstecken zuverlaessig ist)
+      document.querySelectorAll('input[name="thematicMode"]').forEach(radio => {
+        radio.addEventListener('change', updateRechercheControlsVisibility);
+      });
+      updateRechercheControlsVisibility();
+
+      // Themenbereiche laden
+      try {
+        const resp = await fetch(`${API_BASE}/api/themes-database`);
+        if (!resp.ok) return;
+        const themes = await resp.json();
+        const select = document.getElementById('rechercheThemeArea');
+        if (!select) return;
+        const names = Object.keys(themes || {}).sort((a, b) => a.localeCompare(b, 'de'));
+        names.forEach(name => {
+          const opt = document.createElement('option');
+          opt.value = name;
+          opt.textContent = name;
+          select.appendChild(opt);
+        });
+      } catch (e) {
+        console.warn('[RECHERCHE] Themenbereiche konnten nicht geladen werden:', e.message);
+      }
+    }
+
     async function performThematicSearch(skipHistory = false) {
       const query = document.getElementById('thematicQuery').value.trim();
       if (!query) return;
@@ -15294,11 +15333,24 @@ function scrollToChronologicalYear(year) {
         } else if (thematicMode === 'essay') {
           limit = 150;
           preferredProvider = 'claude';
+        } else if (thematicMode === 'recherche') {
+          limit = 200; // eindeutiges Limit (verhindert Cache-Kollision mit anderen Modi)
+          preferredProvider = 'claude';
         } else {
           limit = 100;
           preferredProvider = 'claude';
         }
         currentThematicLimit = limit; // Speichere für Lösch-Funktion
+
+        // Recherche-Modus: Quellenart + Themenbereich aus den Auswahlfeldern
+        let rechercheSourceType = 'alle';
+        let rechercheThemeArea = '';
+        if (thematicMode === 'recherche') {
+          const stEl = document.getElementById('rechercheSourceType');
+          const taEl = document.getElementById('rechercheThemeArea');
+          rechercheSourceType = stEl ? stEl.value : 'alle';
+          rechercheThemeArea = (taEl && taEl.value && taEl.value !== 'alle') ? taEl.value : '';
+        }
         
         const response = await fetch(`${API_BASE}/api/thematic-hybrid-search`, {
           method: 'POST',
@@ -15309,7 +15361,9 @@ function scrollToChronologicalYear(year) {
             limit: parseInt(limit),
             gaFilter: gaFilter,
             preferredProvider: preferredProvider,
-            thematicMode: thematicMode
+            thematicMode: thematicMode,
+            sourceType: rechercheSourceType,
+            themeArea: rechercheThemeArea
           })
         });
         
@@ -15329,10 +15383,19 @@ function scrollToChronologicalYear(year) {
         
         const answer = await response.json();
         let sources = answer.sources || [];
+        // Cache-Key der aktuellen Abfrage merken (fuer gezieltes Loeschen, alle Modi)
+        currentThematicCacheKey = answer.cacheKey || '';
         
         // GA-Filter wird jetzt bereits im Backend angewendet
         currentSources = sources;
-        renderThematicResults(query, answer.content, sources, (gaFilter || ''));
+        if (thematicMode === 'recherche' && answer.recherche) {
+          renderRechercheResults(query, answer.recherche, (gaFilter || ''), {
+            sourceType: rechercheSourceType,
+            themeArea: rechercheThemeArea
+          });
+        } else {
+          renderThematicResults(query, answer.content, sources, (gaFilter || ''));
+        }
 
         // Nach erfolgreicher Suche: Liste aktualisieren (nur lokal)
         if (isLocal) {
@@ -15698,10 +15761,11 @@ function scrollToChronologicalYear(year) {
         const recentItems = [];
         for (const e of entries) {
           const q = String(e.query).trim();
-          // Parse Limit aus Cache-Key für unique-Prüfung
+          // Parse Depth + Limit aus Cache-Key für unique-Prüfung
           const keyParts = (e.key || '').split('|');
+          const depth = keyParts.length >= 2 ? keyParts[1] : '';
           const limit = keyParts.length >= 3 ? keyParts[2] : '100';
-          const uniqueKey = `${q} - ${limit}`; // Query + Limit = unique
+          const uniqueKey = `${q} - ${depth} - ${limit}`; // Query + Depth + Limit = unique
           if (!seen.has(uniqueKey)) {
             seen.add(uniqueKey);
             recentItems.push({ query: q, key: e.key });
@@ -15716,10 +15780,12 @@ function scrollToChronologicalYear(year) {
             .replace(/&/g, '&amp;')
             .replace(/</g, '&lt;')
             .replace(/>/g, '&gt;');
-          // Parse Limit aus Cache-Key (Format: query|depth|limit|ga) für Modus-Label
+          // Parse Depth/Limit aus Cache-Key (Format: query|depth|limit|ga) für Modus-Label
           const keyParts = (item.key || '').split('|');
+          const depth = keyParts.length >= 2 ? keyParts[1] : '';
           const limit = keyParts.length >= 3 ? parseInt(keyParts[2]) : 100;
-          const modeLabel = limit === 300 ? '[breit]'
+          const modeLabel = (depth && depth.indexOf('recherche') === 0) ? '[Recherche]'
+                          : limit === 300 ? '[breit]'
                           : limit === 250 ? '[Zitat]'
                           : limit === 150 ? '[Essay]'
                           : '[tief]';
@@ -15755,9 +15821,47 @@ function scrollToChronologicalYear(year) {
         }
         const effectiveQuery = autocorrectQuery(query || entry.query || '');
         currentThematicQuery = effectiveQuery;
+        currentThematicCacheKey = cacheKey || '';
+        const parts = (cacheKey || '').split('|');
+        const depthSeg = parts && parts.length >= 2 ? (parts[1] || '') : '';
+        const isRecherche = !!entry.recherche || depthSeg.indexOf('recherche') === 0;
+
+        if (isRecherche) {
+          // Recherche-Modus wiederherstellen: Radio + Auswahlfelder + Tabelle
+          currentThematicLimit = parts && parts.length >= 3 ? parseInt(parts[2]) || 200 : 200;
+          const scope = entry.rechercheScope || {};
+          // Quellenart/Themenbereich bevorzugt aus gespeichertem Scope, sonst aus dem Key
+          let sourceType = scope.sourceType || 'alle';
+          let themeArea = scope.themeArea || '';
+          if ((!scope.sourceType || !scope.themeArea) && depthSeg.indexOf('recherche:') === 0) {
+            const segParts = depthSeg.split(':'); // recherche:sourceType:themeArea
+            if (!scope.sourceType && segParts[1]) sourceType = segParts[1];
+          }
+          const modeRadio = document.querySelector('input[name="thematicMode"][value="recherche"]');
+          if (modeRadio) modeRadio.checked = true;
+          if (typeof updateRechercheControlsVisibility === 'function') updateRechercheControlsVisibility();
+          // Auswahlfelder best-effort synchronisieren
+          const stEl = document.getElementById('rechercheSourceType');
+          if (stEl) stEl.value = ['alle', 'schriften', 'vortraege'].includes(sourceType) ? sourceType : 'alle';
+          const taEl = document.getElementById('rechercheThemeArea');
+          if (taEl && themeArea) {
+            const opt = Array.from(taEl.options).find(o => o.value.toLowerCase() === String(themeArea).toLowerCase());
+            taEl.value = opt ? opt.value : 'alle';
+          } else if (taEl) {
+            taEl.value = 'alle';
+          }
+          const input = document.getElementById('thematicQuery');
+          if (input) input.value = effectiveQuery;
+          currentSources = entry.sources || [];
+          const appliedGA = parts && parts.length >= 4 ? (parts[3] || '') : '';
+          renderRechercheResults(effectiveQuery, entry.recherche || { intro: '', subThemes: [] }, appliedGA, { sourceType, themeArea });
+          const sc = document.getElementById('sidebar-content');
+          if (sc) sc.scrollTop = 0;
+          return;
+        }
+
         // Parse GA-Filter und Limit aus dem Cache-Key (Format: query|depth|limit|ga)
         try {
-          const parts = (cacheKey || '').split('|');
           currentThematicGAFilter = parts && parts.length >= 4 ? (parts[3] || '') : '';
           currentThematicLimit = parts && parts.length >= 3 ? parseInt(parts[2]) || 100 : 100;
           // Dropdown visual synchronisieren (Multi-Select)
@@ -15770,9 +15874,11 @@ function scrollToChronologicalYear(year) {
           let modeValue;
           if (currentThematicLimit === 300) modeValue = 'broad';
           else if (currentThematicLimit === 250) modeValue = 'quote';
+          else if (currentThematicLimit === 150) modeValue = 'essay';
           else modeValue = 'deep';
           const modeRadio = document.querySelector(`input[name="thematicMode"][value="${modeValue}"]`);
           if (modeRadio) modeRadio.checked = true;
+          if (typeof updateRechercheControlsVisibility === 'function') updateRechercheControlsVisibility();
         } catch (_) { currentThematicGAFilter = ''; currentThematicLimit = 100; }
         const input = document.getElementById('thematicQuery');
         if (input) input.value = effectiveQuery;
@@ -17818,12 +17924,15 @@ function scrollToChronologicalYear(year) {
       }
       
       try {
-        // Erstelle den Cache-Key (gleiche Logik wie im Backend)
-        const gaFilter = currentThematicGAFilter || '';
-        // Normalisiere Query wie im Backend (toLowerCase + trim)
-        const normalizedQuery = currentThematicQuery.toLowerCase().trim();
-        // Verwende gespeichertes Limit (100 für Tiefe, 300 für Breite)
-        const cacheKey = `${normalizedQuery}|ausführlich|${currentThematicLimit}|${gaFilter}`;
+        // Bevorzugt den vom Backend gelieferten Cache-Key (deckt auch den
+        // Recherche-Modus ab, dessen Cache-Tiefe/Scope vom Standard abweicht).
+        let cacheKey = currentThematicCacheKey;
+        if (!cacheKey) {
+          // Fallback: Cache-Key wie im Backend rekonstruieren (Standard-Modi)
+          const gaFilter = currentThematicGAFilter || '';
+          const normalizedQuery = currentThematicQuery.toLowerCase().trim();
+          cacheKey = `${normalizedQuery}|ausführlich|${currentThematicLimit}|${gaFilter}`;
+        }
         
         // Rufe Backend-Endpunkt auf (muss im Backend implementiert sein!)
         const response = await fetch(`${API_BASE}/api/thematic-search/delete`, {
@@ -17856,6 +17965,7 @@ function scrollToChronologicalYear(year) {
           // Zurücksetzen der globalen Variablen
           currentThematicQuery = '';
           currentThematicGAFilter = '';
+          currentThematicCacheKey = '';
           currentSources = [];
           
           // Aktualisiere die "Zuletzt gesucht"-Liste
@@ -21035,6 +21145,210 @@ function formatAsteriskParagraphs() {
     // Global verfügbar machen für andere Script-Blöcke
     window.extractKeywordsFromQuery = extractKeywordsFromQuery;
     
+    // Rendert die Recherche-Ergebnisse als nach Unterthemen gegliederte,
+    // sortier- und filterbare Tabelle im Main Viewer.
+    function renderRechercheResults(query, recherche, appliedGA = '', scope = {}) {
+      const container = document.getElementById('viewer');
+      if (!container) return;
+
+      const esc = (s) => String(s == null ? '' : s)
+        .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;');
+
+      // Zitat von umschliessenden Anfuehrungszeichen/Leerraum befreien (fuer Snippet-Highlight)
+      const cleanQuote = (z) => String(z || '')
+        .replace(/^[\s„"""'\u2018\u2019\u201A\u201B\u201C\u201D\u201E\u201F«»]+/, '')
+        .replace(/[\s„"""'\u2018\u2019\u201A\u201B\u201C\u201D\u201E\u201F«»]+$/, '')
+        .replace(/\s+/g, ' ')
+        .trim();
+
+      // ISO-Datum (YYYY-MM-DD) -> DD.MM.YYYY, sonst Rohwert
+      const formatDate = (d) => {
+        if (!d) return '';
+        const m = String(d).match(/^(\d{4})-(\d{2})-(\d{2})$/);
+        return m ? `${m[3]}.${m[2]}.${m[1]}` : String(d);
+      };
+
+      const relRank = { hoch: 3, mittel: 2, niedrig: 1 };
+      const relDot = (r) => {
+        const color = r === 'hoch' ? '#22c55e' : (r === 'niedrig' ? '#ef4444' : '#eab308');
+        const label = r === 'hoch' ? 'hoch' : (r === 'niedrig' ? 'niedrig' : 'mittel');
+        return `<span title="Relevanz: ${label}" style="display:inline-block; width:12px; height:12px; border-radius:50%; background:${color};"></span>`;
+      };
+
+      const subThemes = (recherche && Array.isArray(recherche.subThemes)) ? recherche.subThemes : [];
+      const totalRows = subThemes.reduce((n, st) => n + ((st.rows && st.rows.length) || 0), 0);
+
+      // currentLectureData zuruecksetzen (kein Einzeltext geladen)
+      currentThematicQuery = query;
+
+      // Ueberschrift mit Modus-Label + angewandtem Scope
+      const headingBase = (typeof autocorrectQuery === 'function' ? autocorrectQuery(query) : query) || '';
+      let scopeParts = [];
+      if (scope.sourceType && scope.sourceType !== 'alle') {
+        scopeParts.push(scope.sourceType === 'schriften' ? 'Schriften' : 'Vorträge');
+      }
+      if (scope.themeArea) scopeParts.push(scope.themeArea);
+      let selectedGA = '';
+      if (Array.isArray(appliedGA)) selectedGA = appliedGA.join(', ');
+      else if (appliedGA) selectedGA = String(appliedGA).split(',').map(s => s.trim()).filter(Boolean).join(', ');
+      if (selectedGA) scopeParts.push(selectedGA);
+      const scopeStr = scopeParts.length ? ` (${esc(scopeParts.join(' · '))})` : '';
+
+      // Zustand fuer Sortierung/Filter
+      let sortBy = 'relevance'; // 'relevance' | 'date'
+      let relFilter = 'alle';   // 'alle' | 'hoch' | 'mittel' | 'niedrig'
+
+      const deleteButtonHTML = isLocal
+        ? `<button id="deleteThemaBtn" onclick="deleteCurrentThema()" style="padding: 4px 12px; font-size: 0.85em; border: 1px solid #d9534f; background: transparent; color: #d9534f; cursor: pointer; border-radius: 4px;">Suchanfrage löschen</button>`
+        : '';
+
+      container.innerHTML = `
+        <div class="semantic-answer recherche-answer">
+          <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.5rem; gap: 12px;">
+            <h1 style="margin: 0;">${esc(headingBase)} [Recherche]${scopeStr}</h1>
+            <div style="display: flex; flex-direction: column; align-items: flex-end; gap: 8px;">${deleteButtonHTML}</div>
+          </div>
+          ${recherche && recherche.intro ? `<p style="color: var(--secondary-text); margin: 0 0 0.75rem 0;">${esc(recherche.intro)}</p>` : ''}
+          <div id="rechercheControlsBar" style="display: flex; flex-wrap: wrap; align-items: center; gap: 14px; margin: 0.25rem 0 1rem 0; padding-bottom: 0.6rem; border-bottom: 1px solid var(--border-color); font-size: 0.85em;">
+            <div style="display: flex; align-items: center; gap: 6px;">
+              <span style="color: var(--secondary-text);">Sortieren:</span>
+              <button class="depth-btn recherche-sort-btn" data-sort="relevance">Relevanz</button>
+              <button class="depth-btn recherche-sort-btn" data-sort="date">Datum</button>
+            </div>
+            <div style="display: flex; align-items: center; gap: 6px;">
+              <span style="color: var(--secondary-text);">Relevanz:</span>
+              <select id="rechercheRelevanceFilter" class="filter-dropdown" style="padding: 4px 8px; font-size: 0.85em; width: auto;">
+                <option value="alle">alle</option>
+                <option value="hoch">nur hoch</option>
+                <option value="mittel">nur mittel</option>
+                <option value="niedrig">nur niedrig</option>
+              </select>
+            </div>
+            <span id="rechercheCountInfo" style="color: var(--secondary-text); margin-left: auto;"></span>
+          </div>
+          <div id="rechercheTables"></div>
+        </div>
+      `;
+
+      const tablesEl = document.getElementById('rechercheTables');
+      const countInfoEl = document.getElementById('rechercheCountInfo');
+
+      function buildRows(rows) {
+        // Filter
+        let filtered = rows.filter(r => relFilter === 'alle' ? true : r.relevance === relFilter);
+        // Sortierung innerhalb der Gruppe
+        filtered = filtered.slice().sort((a, b) => {
+          if (sortBy === 'date') {
+            const ka = a.date || a.year || '';
+            const kb = b.date || b.year || '';
+            if (ka && !kb) return -1;
+            if (!ka && kb) return 1;
+            return String(ka).localeCompare(String(kb));
+          }
+          // relevance: hoch -> niedrig, dann Datum aufsteigend
+          const diff = (relRank[b.relevance] || 0) - (relRank[a.relevance] || 0);
+          if (diff !== 0) return diff;
+          return String(a.date || a.year || '').localeCompare(String(b.date || b.year || ''));
+        });
+        return filtered;
+      }
+
+      function renderTables() {
+        let html = '';
+        let shown = 0;
+        subThemes.forEach(st => {
+          const rows = buildRows(st.rows || []);
+          if (rows.length === 0) return;
+          shown += rows.length;
+          html += `<h2 style="margin-top: 2.4rem !important; margin-bottom: 1rem !important; font-size: 1.15rem !important;">${esc(st.title)}</h2>`;
+          html += `<table class="recherche-table" style="width:100%; border-collapse: collapse; margin-bottom: 0.5rem;">
+            <thead>
+              <tr style="text-align:left; border-bottom: 2px solid var(--border-color);">
+                <th style="padding:6px 8px; width: 28%;">Aussage</th>
+                <th style="padding:6px 8px;">Zitat &amp; Quelle</th>
+                <th style="padding:6px 8px; width: 90px; white-space:nowrap;">Jahr/Datum</th>
+                <th style="padding:6px 8px; width: 70px; text-align:center;">Relevanz</th>
+              </tr>
+            </thead>
+            <tbody>`;
+          rows.forEach(r => {
+            const gaLabel = esc(r.id || '');
+            const link = `(<a href="#" class="ga-reference recherche-ga-link" data-id="${esc(r.id)}" data-index="${esc(r.index)}" data-quote="${esc(cleanQuote(r.zitat))}">${gaLabel}</a>)`;
+            const zitatHtml = r.zitat ? `„${esc(r.zitat)}" ${link}` : link;
+            html += `<tr style="border-bottom: 1px solid var(--border-color); vertical-align: top;">
+              <td style="padding:8px;">${esc(r.aussage)}</td>
+              <td style="padding:8px;">${zitatHtml}</td>
+              <td style="padding:8px; white-space:nowrap;">${esc(formatDate(r.date) || r.year || '—')}</td>
+              <td style="padding:8px; text-align:center;">${relDot(r.relevance)}</td>
+            </tr>`;
+          });
+          html += `</tbody></table>`;
+        });
+        if (shown === 0) {
+          html = `<p style="color: var(--secondary-text); font-style: italic;">Keine Aussagen für die gewählte Relevanzstufe.</p>`;
+        }
+        tablesEl.innerHTML = html;
+        if (countInfoEl) countInfoEl.textContent = `${shown} von ${totalRows} Aussagen`;
+        bindGaLinks();
+      }
+
+      function bindGaLinks() {
+        const links = tablesEl.querySelectorAll('.recherche-ga-link');
+        links.forEach(link => {
+          link.addEventListener('click', async (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            const lectureId = link.getAttribute('data-id');
+            const targetIndex = link.getAttribute('data-index');
+            const quote = link.getAttribute('data-quote') || '';
+            const keywords = (typeof extractKeywordsFromQuery === 'function') ? extractKeywordsFromQuery(currentThematicQuery) : [];
+            const searchTerm = keywords.length > 0 ? keywords[0] : '';
+            const snippets = quote && quote.length >= 5 ? [quote] : null;
+            if (lectureId && targetIndex) {
+              await showLectureFromAdvancedSearch(lectureId, searchTerm, targetIndex, snippets);
+            }
+          });
+        });
+      }
+
+      // Controls verdrahten
+      const sortBtns = container.querySelectorAll('.recherche-sort-btn');
+      const applySortBtnStyles = () => {
+        sortBtns.forEach(btn => {
+          const active = btn.getAttribute('data-sort') === sortBy;
+          btn.style.background = active ? 'var(--accent-color)' : 'transparent';
+          btn.style.color = active ? '#fff' : 'var(--accent-color)';
+          btn.style.border = '1px solid var(--accent-color)';
+          btn.style.padding = '4px 10px';
+        });
+      };
+      sortBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          sortBy = btn.getAttribute('data-sort');
+          applySortBtnStyles();
+          renderTables();
+        });
+      });
+      const relSelect = document.getElementById('rechercheRelevanceFilter');
+      if (relSelect) {
+        relSelect.addEventListener('change', () => {
+          relFilter = relSelect.value;
+          renderTables();
+        });
+      }
+
+      applySortBtnStyles();
+      renderTables();
+
+      // Status / Buttons aktualisieren
+      try { document.getElementById('status').textContent = `Recherche: ${totalRows} Aussagen aus ${subThemes.length} Unterthemen`; } catch (_) {}
+      if (appliedGA) currentGANumber = Array.isArray(appliedGA) ? (appliedGA[0] || '') : appliedGA;
+      if (typeof updateButtonStates === 'function') updateButtonStates();
+      const mainContainer = document.getElementById('main');
+      if (mainContainer) mainContainer.scrollTop = 0;
+    }
+
     function renderThematicResults(query, content, sources, appliedGA = '') {
       // Zeige Ergebnisse im Main Viewer (wie bei Index-Tab), nicht im linken Panel
       const container = document.getElementById('viewer');
