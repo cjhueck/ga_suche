@@ -20132,7 +20132,6 @@ function formatAsteriskParagraphs() {
         return m ? `${m[3]}.${m[2]}.${m[1]}` : String(d);
       };
 
-      const relRank = { hoch: 3, mittel: 2, niedrig: 1 };
       const relDot = (r) => {
         const color = r === 'hoch' ? '#22c55e' : (r === 'niedrig' ? '#ef4444' : '#eab308');
         const label = r === 'hoch' ? 'hoch' : (r === 'niedrig' ? 'niedrig' : 'mittel');
@@ -20158,8 +20157,8 @@ function formatAsteriskParagraphs() {
       if (selectedGA) scopeParts.push(selectedGA);
       const scopeStr = scopeParts.length ? ` (${esc(scopeParts.join(' · '))})` : '';
 
-      // Zustand fuer Sortierung/Filter
-      let sortBy = 'relevance'; // 'relevance' | 'date'
+      // Zustand fuer Ansicht/Filter
+      let sortBy = 'thematic'; // 'thematic' (gruppiert nach Unterthemen) | 'date' (flach, chronologisch)
       let relFilter = 'alle';   // 'alle' | 'hoch' | 'mittel' | 'niedrig'
 
       const deleteButtonHTML = isLocal
@@ -20175,9 +20174,9 @@ function formatAsteriskParagraphs() {
           <p style="color: var(--secondary-text); margin: 0 0 0.75rem 0;">${recherche && recherche.intro ? esc(recherche.intro) + ' ' : ''}<span style="font-style: italic;">(Aus technischen Gründen liefert die Recherche keine vollständige Auflistung sämtlicher Textstellen Steiners zum gesuchten Thema. Für eine vollständige Suche verwenden Sie bitte die <a href="#" onclick="switchTab('keyword'); return false;" style="color: var(--link-color); text-decoration: underline; cursor: pointer;">Suchfunktion</a>)</span></p>
           <div id="rechercheControlsBar" style="display: flex; flex-wrap: wrap; align-items: center; gap: 14px; margin: 0.25rem 0 1rem 0; padding-bottom: 0.6rem; border-bottom: 1px solid var(--border-color); font-size: 0.85em;">
             <div style="display: flex; align-items: center; gap: 6px;">
-              <span style="color: var(--secondary-text);">Sortieren:</span>
-              <button class="depth-btn recherche-sort-btn" data-sort="relevance">Relevanz</button>
-              <button class="depth-btn recherche-sort-btn" data-sort="date">Datum</button>
+              <span style="color: var(--secondary-text);">Ansicht:</span>
+              <button class="depth-btn recherche-sort-btn" data-sort="thematic">thematisch</button>
+              <button class="depth-btn recherche-sort-btn" data-sort="date">chronologisch</button>
             </div>
             <div style="display: flex; align-items: center; gap: 6px;">
               <span style="color: var(--secondary-text);">Relevanz:</span>
@@ -20197,35 +20196,30 @@ function formatAsteriskParagraphs() {
       const tablesEl = document.getElementById('rechercheTables');
       const countInfoEl = document.getElementById('rechercheCountInfo');
 
-      function buildRows(rows) {
-        // Filter
-        let filtered = rows.filter(r => relFilter === 'alle' ? true : r.relevance === relFilter);
-        // Sortierung innerhalb der Gruppe
-        filtered = filtered.slice().sort((a, b) => {
-          if (sortBy === 'date') {
-            const ka = a.date || a.year || '';
-            const kb = b.date || b.year || '';
-            if (ka && !kb) return -1;
-            if (!ka && kb) return 1;
-            return String(ka).localeCompare(String(kb));
-          }
-          // relevance: hoch -> niedrig, dann Datum aufsteigend
-          const diff = (relRank[b.relevance] || 0) - (relRank[a.relevance] || 0);
-          if (diff !== 0) return diff;
-          return String(a.date || a.year || '').localeCompare(String(b.date || b.year || ''));
-        });
-        return filtered;
-      }
+      // Relevanz-Filter anwenden (Dropdown gilt in beiden Ansichten)
+      const applyFilter = (rows) => rows.filter(r => relFilter === 'alle' ? true : r.relevance === relFilter);
+      // Chronologisch aufsteigend sortieren (Datums-Ansicht)
+      const sortByDate = (rows) => rows.slice().sort((a, b) => {
+        const ka = a.date || a.year || '';
+        const kb = b.date || b.year || '';
+        if (ka && !kb) return -1;
+        if (!ka && kb) return 1;
+        return String(ka).localeCompare(String(kb));
+      });
 
-      function renderTables() {
-        let html = '';
-        let shown = 0;
-        subThemes.forEach(st => {
-          const rows = buildRows(st.rows || []);
-          if (rows.length === 0) return;
-          shown += rows.length;
-          html += `<h2 style="margin-top: 2.4rem !important; margin-bottom: 1rem !important; font-size: 1.15rem !important;">${esc(st.title)}</h2>`;
-          html += `<table class="recherche-table" style="width:100%; border-collapse: collapse; margin-bottom: 0.5rem;">
+      const rowHtml = (r) => {
+        const gaLabel = esc(r.id || '');
+        const link = `(<a href="#" class="ga-reference recherche-ga-link" data-id="${esc(r.id)}" data-index="${esc(r.index)}" data-quote="${esc(cleanQuote(r.zitat))}">${gaLabel}</a>)`;
+        const zitatHtml = r.zitat ? `„${esc(r.zitat)}" ${link}` : link;
+        return `<tr style="border-bottom: 1px solid var(--border-color); vertical-align: top;">
+              <td style="padding:8px;">${esc(r.aussage)}</td>
+              <td style="padding:8px;">${zitatHtml}</td>
+              <td style="padding:8px; white-space:nowrap;">${esc(formatDate(r.date) || r.year || '—')}</td>
+              <td style="padding:8px; text-align:center;">${relDot(r.relevance)}</td>
+            </tr>`;
+      };
+
+      const tableHtml = (rows) => `<table class="recherche-table" style="width:100%; border-collapse: collapse; margin-bottom: 0.5rem;">
             <thead>
               <tr style="text-align:left; border-bottom: 2px solid var(--border-color);">
                 <th style="padding:6px 8px; width: 20%;">Aussage</th>
@@ -20234,20 +20228,30 @@ function formatAsteriskParagraphs() {
                 <th style="padding:6px 8px; width: 70px; text-align:center;">Relevanz</th>
               </tr>
             </thead>
-            <tbody>`;
-          rows.forEach(r => {
-            const gaLabel = esc(r.id || '');
-            const link = `(<a href="#" class="ga-reference recherche-ga-link" data-id="${esc(r.id)}" data-index="${esc(r.index)}" data-quote="${esc(cleanQuote(r.zitat))}">${gaLabel}</a>)`;
-            const zitatHtml = r.zitat ? `„${esc(r.zitat)}" ${link}` : link;
-            html += `<tr style="border-bottom: 1px solid var(--border-color); vertical-align: top;">
-              <td style="padding:8px;">${esc(r.aussage)}</td>
-              <td style="padding:8px;">${zitatHtml}</td>
-              <td style="padding:8px; white-space:nowrap;">${esc(formatDate(r.date) || r.year || '—')}</td>
-              <td style="padding:8px; text-align:center;">${relDot(r.relevance)}</td>
-            </tr>`;
+            <tbody>${rows.map(rowHtml).join('')}</tbody></table>`;
+
+      function renderTables() {
+        let html = '';
+        let shown = 0;
+
+        if (sortBy === 'date') {
+          // Flache, chronologische Liste ueber ALLE Unterthemen (ohne Zwischenueberschriften)
+          let all = [];
+          subThemes.forEach(st => (st.rows || []).forEach(r => all.push(r)));
+          const rows = sortByDate(applyFilter(all));
+          shown = rows.length;
+          if (rows.length > 0) html = tableHtml(rows);
+        } else {
+          // Thematisch: gruppiert nach Unterthemen mit Zwischenueberschriften
+          subThemes.forEach(st => {
+            const rows = applyFilter(st.rows || []);
+            if (rows.length === 0) return;
+            shown += rows.length;
+            html += `<h2 style="margin-top: 2.4rem !important; margin-bottom: 1rem !important; font-size: 1.1rem !important;">${esc(st.title)}</h2>`;
+            html += tableHtml(rows);
           });
-          html += `</tbody></table>`;
-        });
+        }
+
         if (shown === 0) {
           html = `<p style="color: var(--secondary-text); font-style: italic;">Keine Aussagen für die gewählte Relevanzstufe.</p>`;
         }
