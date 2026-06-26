@@ -29644,7 +29644,9 @@ const THEME_KEYWORDS = {
   "Vier Elemente / Ätherarten": "Elemente Feuer Luft Wasser Erde Äther Lebensäther Wärmeäther Lichtäther Klangäther Chemischer Äther",
   "Weltanschauungen": "Agnostizismus Materialismus Spiritualismus Monismus Idealismus Neuplatonismus Pragmatismus Deutscher Idealismus",
   "Wesensglieder": "Wesensglieder Physischer Leib Ätherleib Astralleib Ich Geistselbst Lebensgeist Geistesmensch Manas Atma Buddhi",
-  "Westen Mitte Osten": "West-Ost-Gegensatz Orient Okzident Amerika Europa Asien"
+  "Westen Mitte Osten": "West-Ost-Gegensatz Orient Okzident Amerika Europa Asien",
+  "Literatur / Dichtung": "Literatur Dichtung Dichter Dichtkunst Drama Tragödie Komödie Schauspiel Roman Epos Lyrik Poesie Vers Shakespeare Schiller Hamerling Hebbel Ibsen Novalis Jean Paul",
+  "Ästhetik / Kunsttheorie": "Ästhetik das Schöne Schönheit Kunstanschauung Kunsterkenntnis Kunsttheorie Stil Schein das Erhabene ästhetische Erziehung Wesen der Kunst Kunstschönheit"
 };
 
 const ALL_THEMES = Object.keys(THEME_KEYWORDS);
@@ -30031,7 +30033,7 @@ ANTWORT (nur JA oder NEIN):`;
 // API: Themen-Zuordnung für bestimmte GA-Bände durchführen
 app.post('/api/assign-themes-batch', async (req, res) => {
   try {
-    const { gaPattern, forceReassign = false, limit = 500 } = req.body;
+    const { gaPattern, forceReassign = false, reassignEmpty = false, limit = 500 } = req.body;
     
     if (!gaPattern) {
       return res.status(400).json({ error: 'gaPattern erforderlich (z.B. "GA046|GA05[1-9]|GA060")' });
@@ -30057,11 +30059,24 @@ app.post('/api/assign-themes-batch', async (req, res) => {
     // Finde passende Summaries
     const regex = new RegExp(`^(${gaPattern})`);
     const toProcess = [];
-    
+
+    // Welche IDs muessen (neu) verarbeitet werden?
+    // - immer: noch nicht zugeordnete IDs
+    // - forceReassign: komplette Neuzuordnung aller passenden IDs
+    // - reassignEmpty: zusaetzlich Eintraege mit aktuell 0 zugeordneten Themen
+    //   (gezielter Nachlauf der Erfassungsluecken, ohne korrekte Zuordnungen anzutasten)
+    const currentThemes = (a) => Array.isArray(a) ? a : (a && Array.isArray(a.themes) ? a.themes : []);
+    const needsProcessing = (id) => {
+      if (!assignments[id]) return true;
+      if (forceReassign) return true;
+      if (reassignEmpty && currentThemes(assignments[id]).length === 0) return true;
+      return false;
+    };
+
     // Aus summary-database
     for (const id in summaryDb) {
       if (regex.test(id)) {
-        if (!assignments[id] || forceReassign) {
+        if (needsProcessing(id)) {
           const summary = summaryDb[id];
           const text = summary.shortSummary || summary.summary || '';
           if (text.trim().length > 30) {
@@ -30074,7 +30089,7 @@ app.post('/api/assign-themes-batch', async (req, res) => {
     // Aus book-chapter-summaries
     for (const id in bookChapterSummaries) {
       if (regex.test(id)) {
-        if (!assignments[id] || forceReassign) {
+        if (needsProcessing(id)) {
           const chapter = bookChapterSummaries[id];
           const text = chapter.shortSummary || chapter.summary || '';
           if (text.trim().length > 30) {
@@ -30142,7 +30157,10 @@ app.post('/api/assign-themes-batch', async (req, res) => {
     
     // Finale Speicherung (mit Retry bei Dateifehler)
     await saveWithRetry(THEME_ASSIGNMENTS_FILE, assignments);
-    
+
+    // Status-Cache invalidieren, damit die Heatmap die neuen Zuordnungen sofort zeigt
+    themeAssignmentsStatusCache = null;
+
     console.log(`[THEME-ASSIGN] Fertig: ${processed} zugeordnet, ${errors.length} Fehler`);
     res.json({
       success: true,
