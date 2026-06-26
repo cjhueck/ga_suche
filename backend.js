@@ -2166,6 +2166,7 @@ async function deduplicateBooksAndLectures() {
   const FORCE_AS_LECTURES = new Set([
     'GA018', 'GA019', 'GA024', 'GA026', 'GA028',
     'GA029', 'GA030', 'GA031', 'GA032', 'GA033', 'GA034', 'GA035', 'GA036', 'GA037',
+    'GA040', 'GA040A',
     'GA041B', 'GA042', 'GA043', 'GA044', 'GA046'
   ]);
   
