@@ -20171,7 +20171,7 @@ function formatAsteriskParagraphs() {
             <h1 style="margin: 0;">${esc(headingBase)} [Recherche]${scopeStr}</h1>
             <div style="display: flex; flex-direction: column; align-items: flex-end; gap: 8px;">${deleteButtonHTML}</div>
           </div>
-          <p style="color: var(--secondary-text); margin: 0 0 0.75rem 0;">${recherche && recherche.intro ? esc(recherche.intro) + ' ' : ''}<span style="font-style: italic;">(Aus technischen Gründen liefert die Recherche keine vollständige Auflistung sämtlicher Textstellen Steiners zum gesuchten Thema. Für eine vollständige Suche verwenden Sie bitte die <a href="#" onclick="switchTab('keyword'); return false;" style="color: var(--link-color); text-decoration: underline; cursor: pointer;">Suchfunktion</a>)</span></p>
+          <p style="color: var(--secondary-text); margin: 0 0 0.75rem 0;"><span style="font-style: italic;">(Aus technischen Gründen liefert die Recherche keine vollständige Auflistung sämtlicher Textstellen Steiners zum gesuchten Thema. Für eine vollständige Suche verwenden Sie bitte die <a href="#" onclick="switchTab('keyword'); return false;" style="color: var(--link-color); text-decoration: underline; cursor: pointer;">Suchfunktion</a>.)</span></p>
           <div id="rechercheControlsBar" style="display: flex; flex-wrap: wrap; align-items: center; gap: 14px; margin: 0.25rem 0 1rem 0; padding-bottom: 0.6rem; border-bottom: 1px solid var(--border-color); font-size: 0.85em;">
             <div style="display: flex; align-items: center; gap: 6px;">
               <span style="color: var(--secondary-text);">Ansicht:</span>
