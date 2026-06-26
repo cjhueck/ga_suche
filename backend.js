@@ -5639,6 +5639,7 @@ INHALTLICHE REGELN
     FALSCH: "Kant sprach dem Menschen die anschauende Urteilskraft ab, waehrend Goethe sie aus eigener Seelenerfahrung als moeglich wusste."
     RICHTIG: "Goethe gegen Kant: anschauende Urteilskraft aus eigener Seelenerfahrung"
 - "zitat": das wichtigste, tragende woertliche Zitat aus dem Zusammenhang (1-4 Saetze), in dem die Aussage belegt ist. Deutsche Anfuehrungszeichen NICHT noetig (das Frontend setzt sie).
+- DEUTSCHE RECHTSCHREIBUNG: Schreibe "title", "aussage" und "intro" in korrektem Deutsch mit echten Umlauten (ä, ö, ü, Ä, Ö, Ü) und ß, wo es orthografisch korrekt ist. Verwende NIEMALS Ersatzschreibweisen wie ae, oe, ue oder ss anstelle von ä, ö, ü, ß. (Die ASCII-Schreibweise in dieser Anweisung ist nur technisch bedingt und darf NICHT uebernommen werden.)
 
 ABSOLUT KRITISCHE QUELLEN-/ZITATREGELN (Verstoss = Aufgabe verfehlt)
 1. JEDES "zitat" MUSS WOERTLICH und ZUSAMMENHAENGEND in GENAU EINER der unten gelisteten Textpassagen stehen. Keine Kombination mehrerer Passagen. Auslassungen mit [...] sind erlaubt, wenn der Rest woertlich aus derselben Passage stammt.
