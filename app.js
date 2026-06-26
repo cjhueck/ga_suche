@@ -14979,8 +14979,8 @@ function scrollToChronologicalYear(year) {
       const totalResults = results.length;
       const totalLecturesCount = sortedLectures.length;
       
-      let resultText = ` | ${totalResults} Treffer in ${totalLecturesCount} Vorträgen`;
-      document.getElementById('resultInfo').textContent = resultText;
+      let resultText = ` | <strong>${totalResults}</strong> Treffer in ${totalLecturesCount} Vorträgen`;
+      document.getElementById('resultInfo').innerHTML = resultText;
       
       // Setze currentGANumber basierend auf dem ersten Ergebnis für Info-Button
       // Extrahiere GA-Nummer aus dem ersten Ergebnis
@@ -15387,7 +15387,10 @@ function scrollToChronologicalYear(year) {
           limit = 150;
           preferredProvider = 'claude';
         } else if (thematicMode === 'recherche') {
-          limit = 200; // eindeutiges Limit (verhindert Cache-Kollision mit anderen Modi)
+          // Moeglichst vollstaendig sammeln: grosser Kandidaten-Pool (Sicherheits-
+          // Obergrenze). Wie viele davon das Modell real verarbeitet, begrenzt das
+          // Eingabe-Token-Budget im Backend (MAX_PROMPT_CHARS fuer Recherche).
+          limit = 2000;
           preferredProvider = 'claude';
         } else {
           limit = 100;
@@ -20169,7 +20172,7 @@ function formatAsteriskParagraphs() {
             <h1 style="margin: 0;">${esc(headingBase)} [Recherche]${scopeStr}</h1>
             <div style="display: flex; flex-direction: column; align-items: flex-end; gap: 8px;">${deleteButtonHTML}</div>
           </div>
-          ${recherche && recherche.intro ? `<p style="color: var(--secondary-text); margin: 0 0 0.75rem 0;">${esc(recherche.intro)}</p>` : ''}
+          <p style="color: var(--secondary-text); margin: 0 0 0.75rem 0;">${recherche && recherche.intro ? esc(recherche.intro) + ' ' : ''}<span style="font-style: italic;">(Aus technischen Gründen liefert die Recherche keine vollständige Auflistung sämtlicher Textstellen Steiners zum gesuchten Thema. Für eine vollständige Suche verwenden Sie bitte die <a href="#" onclick="switchTab('keyword'); return false;" style="color: var(--link-color); text-decoration: underline; cursor: pointer;">Suchfunktion</a>)</span></p>
           <div id="rechercheControlsBar" style="display: flex; flex-wrap: wrap; align-items: center; gap: 14px; margin: 0.25rem 0 1rem 0; padding-bottom: 0.6rem; border-bottom: 1px solid var(--border-color); font-size: 0.85em;">
             <div style="display: flex; align-items: center; gap: 6px;">
               <span style="color: var(--secondary-text);">Sortieren:</span>
