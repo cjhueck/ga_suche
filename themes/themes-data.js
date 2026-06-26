@@ -437,6 +437,20 @@ var SteinerThemesData = [
             { start: 1923, end: 1924, intensity: 0.7 }
         ],
         query: "West-Ost-Gegensatz Orient Okzident Amerika Europa Asien"
+    },
+{
+        theme: "Literatur / Dichtung",
+        ranges: [
+            { start: 1884, end: 1924, intensity: 0.6 }
+        ],
+        query: "Literatur Dichtung Dichter Dichtkunst Drama Tragödie Komödie Schauspiel Roman Epos Lyrik Poesie Vers Shakespeare Schiller Hamerling Hebbel Ibsen Novalis Jean Paul"
+    },
+{
+        theme: "Ästhetik / Kunsttheorie",
+        ranges: [
+            { start: 1884, end: 1924, intensity: 0.6 }
+        ],
+        query: "Ästhetik das Schöne Schönheit Kunstanschauung Kunsterkenntnis Kunsttheorie Stil Schein das Erhabene ästhetische Erziehung Wesen der Kunst Kunstschönheit"
     }
 ];
 
