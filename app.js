@@ -14950,13 +14950,27 @@ function scrollToChronologicalYear(year) {
         groupedByLecture[lectureId].chunks.push(result);
       });
       
+      // Sortierung: 1) GA-Nummer aufsteigend, 2) innerhalb einer GA nach Vortrags-/
+      // Aufsatznummer aufsteigend. (Die Reihenfolge der Treffer-Absätze innerhalb eines
+      // Vortrags/Textes bleibt die Textreihenfolge, s.u.) Buchstaben-Suffixe (z.B. GA040a,
+      // GA263a) werden nach dem reinen Zahlenband einsortiert.
+      const parseLectureSortKey = (id) => {
+        const m = String(id || '').match(/^GA(\d+)([a-z]*)(?:\/(\d+))?/i);
+        if (!m) {
+          return { ga: Number.MAX_SAFE_INTEGER, suffix: '\uffff', num: Number.MAX_SAFE_INTEGER };
+        }
+        return {
+          ga: parseInt(m[1], 10) || 0,
+          suffix: (m[2] || '').toLowerCase(),
+          num: m[3] != null ? (parseInt(m[3], 10) || 0) : 0
+        };
+      };
       const sortedLectures = Object.entries(groupedByLecture).sort((a, b) => {
-        const dateA = a[1].date || '';
-        const dateB = b[1].date || '';
-        // Einträge ohne Datum ans Ende sortieren
-        if (!dateA && dateB) return 1;  // a hat kein Datum, b schon -> a nach hinten
-        if (dateA && !dateB) return -1; // a hat Datum, b nicht -> a nach vorne
-        return dateA.localeCompare(dateB);
+        const ka = parseLectureSortKey(a[0]);
+        const kb = parseLectureSortKey(b[0]);
+        if (ka.ga !== kb.ga) return ka.ga - kb.ga;          // 1) GA-Nummer
+        if (ka.suffix !== kb.suffix) return ka.suffix.localeCompare(kb.suffix); // GA040 vor GA040a
+        return ka.num - kb.num;                              // 2) Vortrags-/Aufsatznummer
       });
       
       const filteredLectures = sortedLectures;
