@@ -1124,14 +1124,6 @@ const isLocal = window.location.hostname === 'localhost' ||
 
     async function loadSummaryFromDB(lectureId) {
       try {
-        // GA046: Keine Summaries, Keywords, AI-Headings (Sonderbehandlung)
-        // Extrahiere GA-Nummer aus lectureId (z.B. "GA046/1" -> "GA046")
-        const gaMatch = lectureId.match(/^(GA\d{1,3}[a-z]?)/i);
-        if (gaMatch && isGA046(gaMatch[1])) {
-          console.log(`[LOAD-SUMMARY] ${lectureId}: GA046 - keine Summaries/Keywords/Headings (Sonderbehandlung)`);
-          return null;
-        }
-        
         if (isLocal) {
           // Lokal: Nutze gecachte Summary-Database
           const summaryDB = await getSummaryDBCached();
@@ -5484,10 +5476,6 @@ function normalizeGANumber(gaNumber) {
         try {
           const parts = lecture.ID.split('/');
           if (parts.length === 2) {
-            // GA046: Keine Summaries (Sonderbehandlung)
-            if (isGA046(parts[0])) {
-              continue;
-            }
             const response = await fetch(`${API_BASE}/api/check-summary/${encodeURIComponent(parts[0])}/${encodeURIComponent(parts[1])}`);
             if (response.ok) {
               const summaryData = await response.json();
@@ -5551,6 +5539,29 @@ function toggleLectureSelection(lectureId) {
     selectedLectureIds.add(lectureId);
   }
   updateSelectionInfo();
+}
+
+/**
+ * Synchronisiert selectedLectureIds mit den aktuell im linken Panel SICHTBAR
+ * angehakten Checkboxen. Damit ist die sichtbare manuelle Auswahl die maßgebliche
+ * Quelle für die Batch-Buttons – auch wenn der In-Memory-Set durch zwischenzeitliche
+ * Re-Renders aus dem Tritt geraten sein sollte.
+ * Gibt true zurück, wenn überhaupt Checkboxen im Panel vorhanden sind (dann ist die
+ * Auswahl verlässlich), sonst false (dann bleibt der bisherige Set unverändert).
+ */
+function syncSelectedLectureIdsFromDOM() {
+  if (!isLocal) return false;
+  const boxes = document.querySelectorAll('#results .lecture-checkbox');
+  if (boxes.length === 0) return false;
+  selectedLectureIds.clear();
+  boxes.forEach(cb => {
+    if (cb.checked) {
+      const id = cb.id && cb.id.startsWith('chk-') ? cb.id.slice(4) : cb.id;
+      if (id) selectedLectureIds.add(id);
+    }
+  });
+  updateSelectionInfo();
+  return true;
 }
 
 // Funktion: Auswahl-Info aktualisieren (nur lokal)
@@ -19178,51 +19189,38 @@ function scrollToChronologicalYear(year) {
       const tocList = document.getElementById('toc-list');
       
       if (!currentLectureSummary) {
-        // UI während Summary-Generierung sperren
-        setUILocked(true);
-        
+        // Es wird ausschließlich eine bereits in der zentralen DB GESPEICHERTE
+        // Zusammenfassung geladen und angezeigt. Die frühere Funktion, beim Öffnen
+        // des Panels per ≡-Button eine Summary/Zwischenüberschriften/Schlagwörter
+        // on-the-fly zu GENERIEREN (ohne zu speichern), wurde entfernt.
         try {
           tocList.innerHTML = '<p class="loading-message" style="padding: 1rem; font-style: italic;">bitte warten...</p>';
           
-          const response = await fetch(`${API_BASE}/api/summarize-lecture`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              lectureId: currentLectureData.ID,
-              forceRegenerate: false
-            })
-          });
+          const entry = await loadSummaryFromDB(currentLectureData.ID);
           
-          if (!response.ok) {
-            const errorData = await response.json();
-            throw new Error(errorData.error || `Server Error: ${response.status}`);
+          if (!entry || !entry.summary) {
+            // Keine gespeicherte Zusammenfassung vorhanden (z.B. GA046) -> nichts generieren.
+            tocList.innerHTML = '<p style="padding: 1rem; color: #666; font-style: italic;">Keine gespeicherte Zusammenfassung vorhanden.</p>';
+            return;
           }
           
-          const data = await response.json();
-          
           currentLectureSummary = {
-            summary: data.summary,
-            headings: data.headings || [],
-            tableOfContents: data.tableOfContents || [],
-            lectureKeywords: data.lectureKeywords || [],
-            version: data.version || 'v2'
+            summary: entry.summary,
+            headings: entry.headings || [],
+            tableOfContents: entry.tableOfContents || [],
+            lectureKeywords: entry.lectureKeywords || [],
+            version: entry.version || 'v2'
           };
           
           // Weise Summary-Daten auch an currentLectureData zu (für TOC und Keywords)
-          currentLectureData.summary = data.summary;
-          currentLectureData.headings = data.headings || [];
-          currentLectureData.tableOfContents = data.tableOfContents || [];
-          currentLectureData.lectureKeywords = data.lectureKeywords || [];
-          
-          // KEIN automatisches Speichern von bereits existierenden Summaries
-          // (Werden bereits in der zentralen DB gespeichert)
+          currentLectureData.summary = entry.summary;
+          currentLectureData.headings = entry.headings || [];
+          currentLectureData.tableOfContents = entry.tableOfContents || [];
+          currentLectureData.lectureKeywords = entry.lectureKeywords || [];
         } catch (error) {
           console.error('Zusammenfassungs-Fehler:', error);
           tocList.innerHTML = `<p style="padding: 1rem; color: #c53030;">Fehler: ${error.message}</p>`;
           return;
-        } finally {
-          // UI wieder entsperren
-          setUILocked(false);
         }
       }
       
@@ -21283,7 +21281,7 @@ function formatAsteriskParagraphs() {
           html += `<table class="recherche-table" style="width:100%; border-collapse: collapse; margin-bottom: 0.5rem;">
             <thead>
               <tr style="text-align:left; border-bottom: 2px solid var(--border-color);">
-                <th style="padding:6px 8px; width: 28%;">Aussage</th>
+                <th style="padding:6px 8px; width: 20%;">Aussage</th>
                 <th style="padding:6px 8px;">Zitat &amp; Quelle</th>
                 <th style="padding:6px 8px; width: 90px; white-space:nowrap;">Jahr/Datum</th>
                 <th style="padding:6px 8px; width: 70px; text-align:center;">Relevanz</th>
@@ -21994,29 +21992,7 @@ function formatAsteriskParagraphs() {
     // GA-Übersicht wird bereits parallel oben gestartet (vor dem Hauptfetch)
     
     // Prüfe ob Zusammenfassung existiert (aus dem kombinierten Endpoint, kein separater Request)
-    // AUSNAHME: GA046 bekommt keine Summaries/Keywords/AI-Headings
     try {
-      // GA046: Keine Summaries, Keywords, AI-Headings (Sonderbehandlung)
-      const gaNumberForSummary = parts[0];
-      if (isGA046(gaNumberForSummary)) {
-        console.log('[LOAD-LECTURE] GA046 - keine Summaries/Keywords/Headings (Sonderbehandlung)');
-        // Zeige den Vortrag ohne Summary-Daten
-        showingSummaryInMain = false;
-        
-        let displayKeywords = keywords;
-        if (!displayKeywords || displayKeywords.length === 0) {
-          const currentWord1 = document.getElementById('word1')?.value?.trim();
-          const currentWord2 = document.getElementById('word2')?.value?.trim();
-          if (currentWord1 || currentWord2) {
-            displayKeywords = [currentWord1, currentWord2].filter(w => w && w.trim());
-          }
-        }
-        
-        updateButtonStates();
-        displayLecture(data.lecture, targetIndex, displayKeywords);
-        return; // Beende hier für GA046
-      }
-      
       // Summary-Daten kommen aus dem kombinierten Endpoint (kein separater Request nötig)
       const summaryData = data.summary || { exists: false, lectureId, summary: null, headings: [] };
       {
@@ -23700,6 +23676,9 @@ async function batchGenerateStructure() {
     return;
   }
   
+  // Sichtbare Checkbox-Auswahl als maßgebliche Quelle übernehmen
+  syncSelectedLectureIdsFromDOM();
+  
   // Button Status auf "aktiv..." setzen
   const btn = document.getElementById('batch-structure-btn');
   const originalText = btn.innerHTML;
@@ -23804,6 +23783,9 @@ async function batchGenerateKeywords() {
     return;
   }
   
+  // Sichtbare Checkbox-Auswahl als maßgebliche Quelle übernehmen
+  syncSelectedLectureIdsFromDOM();
+  
   // Button Status auf "aktiv..." setzen
   const btn = document.getElementById('batch-keywords-btn');
   const originalText = btn.innerHTML;
@@ -23905,6 +23887,9 @@ async function batchGenerateShortSummaries() {
     alert('Bitte wählen Sie zuerst einen GA-Band aus.');
     return;
   }
+  
+  // Sichtbare Checkbox-Auswahl als maßgebliche Quelle übernehmen
+  syncSelectedLectureIdsFromDOM();
   
   let lectureIds;
   
@@ -24016,6 +24001,9 @@ async function batchRegenerateAll() {
     alert('Bitte wählen Sie zuerst einen GA-Band aus.');
     return;
   }
+  
+  // Sichtbare Checkbox-Auswahl als maßgebliche Quelle übernehmen
+  syncSelectedLectureIdsFromDOM();
   
   let lectureIds;
   
@@ -24129,6 +24117,9 @@ async function batchGenerateHeadingsOnly() {
     alert('Bitte wählen Sie zuerst einen GA-Band aus.');
     return;
   }
+  
+  // Sichtbare Checkbox-Auswahl als maßgebliche Quelle übernehmen
+  syncSelectedLectureIdsFromDOM();
   
   let lectureIds;
   
@@ -25190,10 +25181,9 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
           // Formatiere Content für die Darstellung (* * * zu durchgezogener Linie, etc.)
           content = formatParagraphContentForDisplay(content);
           
-          // Bei Aufsatzbänden (GA029-GA037, NICHT GA046!) in der Summary-Ansicht:
+          // Bei Aufsatzbänden in der Summary-Ansicht:
           // Entferne manuelle Überschriften, da AI-generierte Überschriften verwendet werden
-          // AUSNAHME: GA046 behält manuelle Überschriften (keine AI-Summaries/Headings)
-          if (showingSummaryInMain && gaNumber && isEssayVolume(gaNumber) && !isGA046(gaNumber)) {
+          if (showingSummaryInMain && gaNumber && isEssayVolume(gaNumber)) {
             content = removeManualHeadingsFromContent(content);
           }
           
