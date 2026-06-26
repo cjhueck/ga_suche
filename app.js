@@ -15057,6 +15057,16 @@ function scrollToChronologicalYear(year) {
         titleLink.innerHTML = lecture.fileName + relevanceDot;
         titleLink.addEventListener('click', (e) => {
           e.preventDefault();
+          // Wenn die Treffer global ausgeblendet sind ("nur Titel"-Modus), beim Klick auf
+          // den Titel die Treffer-Snippets NUR FÜR DIESEN Text ein-/ausblenden (Toggle).
+          // Die anderen Vorträge bleiben unverändert verborgen.
+          if (currentView === 'title') {
+            const ownSnippets = lectureItem.querySelectorAll('.snippet');
+            if (ownSnippets.length > 0) {
+              const anyHidden = Array.from(ownSnippets).some(s => s.style.display === 'none');
+              ownSnippets.forEach(s => { s.style.display = anyHidden ? 'block' : 'none'; });
+            }
+          }
           showLectureTop(lectureId);
         });
         
