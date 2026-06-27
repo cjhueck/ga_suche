@@ -76,12 +76,10 @@ const isLocal = window.location.hostname === 'localhost' ||
         if (korrekturBtn) korrekturBtn.style.display = '';
         const btnContainer = document.getElementById('sidebar-action-buttons');
         if (btnContainer) {
-            btnContainer.style.display = 'grid';
-            btnContainer.style.gridTemplateColumns = 'repeat(2, auto)';
-            btnContainer.style.gridTemplateRows = 'repeat(3, auto)';
+            btnContainer.style.display = 'flex';
+            btnContainer.style.flexDirection = 'column';
+            btnContainer.style.alignItems = 'center';
             btnContainer.style.gap = '0.3rem';
-            btnContainer.style.justifyItems = 'end';
-            btnContainer.style.alignItems = 'end';
         }
     }
     if (document.readyState === 'loading') {
@@ -31467,6 +31465,55 @@ function scrollToDocsSection(sectionId) {
     section.scrollIntoView({ behavior: 'auto', block: 'start' });
   }
   return false;
+}
+
+// Newsletter Modal Functions
+function openNewsletterModal() {
+  const modal = document.getElementById('newsletterModal');
+  if (!modal) return;
+  modal.style.display = 'flex';
+  const status = document.getElementById('newsletterStatus');
+  if (status) { status.textContent = ''; status.style.color = ''; }
+  const input = document.getElementById('newsletterEmail');
+  if (input) { setTimeout(() => input.focus(), 50); }
+}
+
+function closeNewsletterModal() {
+  const modal = document.getElementById('newsletterModal');
+  if (modal) modal.style.display = 'none';
+}
+
+async function submitNewsletter(event) {
+  if (event) event.preventDefault();
+  const input = document.getElementById('newsletterEmail');
+  const btn = document.getElementById('newsletterSubmitBtn');
+  const status = document.getElementById('newsletterStatus');
+  const email = (input && input.value || '').trim();
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    if (status) { status.style.color = '#c0392b'; status.textContent = 'Bitte geben Sie eine gültige E-Mail-Adresse ein.'; }
+    return;
+  }
+  const apiBase = (window.API_BASE || '').replace(/\/$/, '');
+  if (btn) { btn.disabled = true; btn.style.opacity = '0.6'; }
+  if (status) { status.style.color = ''; status.textContent = 'Wird gesendet …'; }
+  try {
+    const resp = await fetch(`${apiBase}/api/newsletter-signup`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email })
+    });
+    const data = await resp.json().catch(() => ({}));
+    if (resp.ok) {
+      if (status) { status.style.color = '#2e7d32'; status.textContent = data.message || 'Bitte bestätigen Sie Ihre Anmeldung über den Link in der E-Mail.'; }
+      if (input) input.value = '';
+    } else {
+      if (status) { status.style.color = '#c0392b'; status.textContent = data.error || 'Die Anmeldung ist fehlgeschlagen. Bitte versuchen Sie es später erneut.'; }
+    }
+  } catch (err) {
+    if (status) { status.style.color = '#c0392b'; status.textContent = 'Verbindung fehlgeschlagen. Bitte versuchen Sie es später erneut.'; }
+  } finally {
+    if (btn) { btn.disabled = false; btn.style.opacity = ''; }
+  }
 }
 
 // Help Modal Functions

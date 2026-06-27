@@ -1478,6 +1478,7 @@
         <a href="members.html" target="_blank" rel="noopener noreferrer">Mitglieder</a>
         <a href="#" onclick="event.preventDefault(); openHelpModalDirect('quick');">Impressum</a>
         <a href="#" onclick="event.preventDefault(); openDatenschutzModal();">Datenschutz</a>
+        <a href="#" onclick="event.preventDefault(); openNewsletterModal();">Newsletter</a>
         <a href="https://www.paypal.com/donate/?hosted_button_id=KNV8BB4UPZESU" target="_blank" rel="noopener noreferrer" class="donate-button">Spenden</a>
       </div>
     </div>
@@ -1548,6 +1549,32 @@
 
         <p style="margin-top: 2rem; font-size: 0.85rem; color: var(--secondary-text);">
           Stand: Januar 2025
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Newsletter Modal -->
+  <style>
+    #newsletterModal #newsletterEmail:focus { outline: 2px solid var(--accent-color, #467886); outline-offset: 1px; border-color: var(--accent-color, #467886); }
+  </style>
+  <div id="newsletterModal" class="privacy-modal">
+    <div class="privacy-modal-content">
+      <div class="privacy-modal-header">
+        <h3>Newsletter</h3>
+        <button class="privacy-modal-close" onclick="closeNewsletterModal()">&times;</button>
+      </div>
+      <div class="privacy-modal-body">
+        <p>Melden Sie sich für unseren Newsletter an, um Neuigkeiten und wichtige Änderungen zu erfahren.</p>
+        <form id="newsletterForm" onsubmit="submitNewsletter(event); return false;" style="margin-top: 1.25rem; display: flex; flex-wrap: wrap; gap: 0.6rem; align-items: center;">
+          <input type="email" id="newsletterEmail" required placeholder="Ihre E-Mail-Adresse" autocomplete="email"
+                 style="flex: 1 1 240px; min-width: 200px; padding: 0.6rem 0.75rem; border: 1px solid var(--accent-color, #467886); border-radius: 6px; font-size: 1rem;">
+          <button type="submit" id="newsletterSubmitBtn"
+                  style="padding: 0.6rem 1.25rem; border: 1px solid var(--accent-color, #467886); background: var(--accent-color, #467886); color: #fff; border-radius: 6px; font-size: 1rem; cursor: pointer;">Anmelden</button>
+        </form>
+        <p id="newsletterStatus" role="status" aria-live="polite" style="margin-top: 0.85rem; min-height: 1.2em; font-size: 0.95rem;"></p>
+        <p style="margin-top: 0.5rem; font-size: 0.82rem; color: var(--secondary-text, #888); line-height: 1.5;">
+          Zur Bestätigung erhalten Sie eine E-Mail mit einem Bestätigungslink (Double-Opt-in). Erst nach Ihrer Bestätigung wird die Anmeldung gespeichert. Eine Abmeldung ist jederzeit über den Link am Ende jedes Newsletters möglich.
         </p>
       </div>
     </div>
@@ -1720,13 +1747,70 @@
         modal.classList.remove('active');
       }
     }
-    
+
+    // Newsletter Modal Functions
+    function openNewsletterModal() {
+      const modal = document.getElementById('newsletterModal');
+      if (modal) {
+        modal.classList.add('active');
+        const status = document.getElementById('newsletterStatus');
+        if (status) { status.textContent = ''; status.style.color = ''; }
+        const input = document.getElementById('newsletterEmail');
+        if (input) { setTimeout(() => input.focus(), 50); }
+      }
+    }
+
+    function closeNewsletterModal() {
+      const modal = document.getElementById('newsletterModal');
+      if (modal) {
+        modal.classList.remove('active');
+      }
+    }
+
+    async function submitNewsletter(event) {
+      if (event) event.preventDefault();
+      const input = document.getElementById('newsletterEmail');
+      const btn = document.getElementById('newsletterSubmitBtn');
+      const status = document.getElementById('newsletterStatus');
+      const email = (input && input.value || '').trim();
+      const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+      if (!emailOk) {
+        if (status) { status.style.color = '#c0392b'; status.textContent = 'Bitte geben Sie eine gültige E-Mail-Adresse ein.'; }
+        return;
+      }
+      const isLocal = window.location.hostname === 'localhost' ||
+                      window.location.hostname === '127.0.0.1' ||
+                      window.location.protocol === 'file:';
+      const API_BASE = isLocal ? 'http://localhost:3003' : 'https://ga-suche.onrender.com';
+      if (btn) { btn.disabled = true; btn.style.opacity = '0.6'; }
+      if (status) { status.style.color = ''; status.textContent = 'Wird gesendet …'; }
+      try {
+        const resp = await fetch(`${API_BASE}/api/newsletter-signup`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email })
+        });
+        const data = await resp.json().catch(() => ({}));
+        if (resp.ok) {
+          if (status) { status.style.color = '#2e7d32'; status.textContent = data.message || 'Bitte bestätigen Sie Ihre Anmeldung über den Link in der E-Mail.'; }
+          if (input) input.value = '';
+        } else {
+          if (status) { status.style.color = '#c0392b'; status.textContent = data.error || 'Die Anmeldung ist fehlgeschlagen. Bitte versuchen Sie es später erneut.'; }
+        }
+      } catch (err) {
+        if (status) { status.style.color = '#c0392b'; status.textContent = 'Verbindung fehlgeschlagen. Bitte versuchen Sie es später erneut.'; }
+      } finally {
+        if (btn) { btn.disabled = false; btn.style.opacity = ''; }
+      }
+    }
+
     // Close modal with ESC key
     document.addEventListener('keydown', function(event) {
       if (event.key === 'Escape') {
         const helpModal = document.getElementById('helpModal');
         const einfuehrungModal = document.getElementById('einfuehrungModal');
         const datenschutzModal = document.getElementById('datenschutzModal');
+        const newsletterModal = document.getElementById('newsletterModal');
         if (helpModal && helpModal.classList.contains('active')) {
           closeHelpModal();
         }
@@ -1735,6 +1819,9 @@
         }
         if (datenschutzModal && datenschutzModal.classList.contains('active')) {
           closeDatenschutzModal();
+        }
+        if (newsletterModal && newsletterModal.classList.contains('active')) {
+          closeNewsletterModal();
         }
       }
     });
@@ -1894,6 +1981,10 @@
       }
       if (event.target === datenschutzModal) {
         closeDatenschutzModal();
+      }
+      const newsletterModal = document.getElementById('newsletterModal');
+      if (event.target === newsletterModal) {
+        closeNewsletterModal();
       }
     });
     

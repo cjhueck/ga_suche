@@ -28895,6 +28895,175 @@ app.post('/api/spellcheck/notify-registration', express.json(), async (req, res)
 });
 
 // ============================================================================
+// NEWSLETTER-ANMELDUNG (Double-Opt-in -> Wix Contacts + Email Subscriptions)
+// ----------------------------------------------------------------------------
+// Ablauf (DSGVO-konform):
+//   1. POST /api/newsletter-signup  -> versendet eine Bestaetigungsmail (Resend)
+//      mit einem signierten, ablaufenden HMAC-Token. KEIN Wix-Eintrag bisher.
+//   2. GET  /api/newsletter-confirm -> prueft Token, legt den Kontakt in Wix an
+//      und setzt das Abo auf SUBSCRIBED (= bestaetigte Einwilligung).
+// Erforderliche Umgebungsvariablen: WIX_API_KEY, WIX_SITE_ID, NEWSLETTER_SECRET,
+//   RESEND_API_KEY, optional NEWSLETTER_FROM, PUBLIC_BASE_URL, WIX_ACCOUNT_ID.
+// ============================================================================
+const crypto = require('crypto');
+const NEWSLETTER_TOKEN_TTL_MS = 3 * 24 * 60 * 60 * 1000; // 3 Tage
+
+function nlBase64url(input) {
+  return Buffer.from(input).toString('base64')
+    .replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+}
+function nlBase64urlDecode(str) {
+  let s = String(str).replace(/-/g, '+').replace(/_/g, '/');
+  while (s.length % 4) s += '=';
+  return Buffer.from(s, 'base64');
+}
+function nlSecret() {
+  return process.env.NEWSLETTER_SECRET || '';
+}
+function signNewsletterToken(email) {
+  const payload = nlBase64url(JSON.stringify({ e: email.toLowerCase(), t: Date.now() }));
+  const sig = nlBase64url(crypto.createHmac('sha256', nlSecret()).update(payload).digest());
+  return `${payload}.${sig}`;
+}
+function verifyNewsletterToken(token) {
+  if (!token || typeof token !== 'string' || token.indexOf('.') < 0) return null;
+  const [payload, sig] = token.split('.');
+  if (!payload || !sig) return null;
+  const expected = nlBase64url(crypto.createHmac('sha256', nlSecret()).update(payload).digest());
+  const a = Buffer.from(sig);
+  const b = Buffer.from(expected);
+  if (a.length !== b.length || !crypto.timingSafeEqual(a, b)) return null;
+  let data;
+  try { data = JSON.parse(nlBase64urlDecode(payload).toString('utf8')); } catch (_) { return null; }
+  if (!data || !data.e || !data.t) return null;
+  if (Date.now() - data.t > NEWSLETTER_TOKEN_TTL_MS) return null;
+  return data.e;
+}
+function isValidEmail(email) {
+  return typeof email === 'string'
+    && email.length <= 320
+    && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+}
+async function wixApiCall(pathUrl, body) {
+  const apiKey = process.env.WIX_API_KEY;
+  const siteId = process.env.WIX_SITE_ID;
+  if (!apiKey || !siteId) throw new Error('WIX_API_KEY/WIX_SITE_ID nicht konfiguriert');
+  const headers = {
+    'Authorization': apiKey,
+    'wix-site-id': siteId,
+    'Content-Type': 'application/json'
+  };
+  if (process.env.WIX_ACCOUNT_ID) headers['wix-account-id'] = process.env.WIX_ACCOUNT_ID;
+  const resp = await fetch(`https://www.wixapis.com${pathUrl}`, {
+    method: 'POST',
+    headers,
+    body: JSON.stringify(body)
+  });
+  const text = await resp.text();
+  if (!resp.ok) throw new Error(`Wix API ${pathUrl} -> ${resp.status}: ${text}`);
+  try { return JSON.parse(text); } catch (_) { return {}; }
+}
+async function wixSubscribeConfirmed(email) {
+  // Kontakt anlegen (Duplikate erlaubt, damit erneutes Bestaetigen nicht scheitert)
+  try {
+    await wixApiCall('/contacts/v4/contacts', {
+      info: { emails: { items: [{ tag: 'MAIN', email }] } },
+      allowDuplicates: true
+    });
+  } catch (e) {
+    console.warn('[NEWSLETTER] Kontakt-Anlage (nicht kritisch):', e.message);
+  }
+  // Abo auf bestaetigt setzen
+  await wixApiCall('/email-marketing/v1/email-subscriptions', {
+    subscription: { email, subscriptionStatus: 'SUBSCRIBED' }
+  });
+}
+function newsletterResultPage(title, message) {
+  return `<!doctype html><html lang="de"><head><meta charset="utf-8">`
+    + `<meta name="viewport" content="width=device-width, initial-scale=1"><title>${title}</title>`
+    + `<style>body{font-family:Georgia,'Times New Roman',serif;background:#f7f5f0;color:#2b2b2b;`
+    + `display:flex;min-height:100vh;align-items:center;justify-content:center;margin:0}`
+    + `.card{background:#fff;max-width:480px;padding:2.5rem;border-radius:8px;`
+    + `box-shadow:0 2px 16px rgba(0,0,0,.08);text-align:center}`
+    + `h1{font-size:1.4rem;margin:0 0 1rem;color:#467886}p{line-height:1.6}a{color:#467886}</style></head>`
+    + `<body><div class="card"><h1>${title}</h1><p>${message}</p>`
+    + `<p><a href="/">Zur Startseite</a></p></div></body></html>`;
+}
+
+app.post('/api/newsletter-signup', express.json(), async (req, res) => {
+  try {
+    const email = ((req.body && req.body.email) || '').trim();
+    if (!isValidEmail(email)) {
+      return res.status(400).json({ error: 'Bitte eine gültige E-Mail-Adresse angeben.' });
+    }
+    if (!nlSecret()) {
+      console.warn('[NEWSLETTER] NEWSLETTER_SECRET fehlt – Anmeldung deaktiviert.');
+      return res.status(503).json({ error: 'Der Newsletter ist derzeit nicht verfügbar.' });
+    }
+    const resendKey = process.env.RESEND_API_KEY;
+    if (!resendKey) {
+      console.warn('[NEWSLETTER] RESEND_API_KEY fehlt – Anmeldung deaktiviert.');
+      return res.status(503).json({ error: 'Der Newsletter ist derzeit nicht verfügbar.' });
+    }
+
+    const token = signNewsletterToken(email);
+    const base = (process.env.PUBLIC_BASE_URL || `${req.protocol}://${req.get('host')}`).replace(/\/+$/, '');
+    const confirmUrl = `${base}/api/newsletter-confirm?token=${encodeURIComponent(token)}`;
+    const from = process.env.NEWSLETTER_FROM || 'Rudolf Steiner Online <onboarding@resend.dev>';
+
+    const resp = await fetch('https://api.resend.com/emails', {
+      method: 'POST',
+      headers: { 'Authorization': `Bearer ${resendKey}`, 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        from,
+        to: [email],
+        subject: 'Bitte bestätige deine Newsletter-Anmeldung',
+        html: `<div style="font-family:Georgia,serif;color:#2b2b2b;line-height:1.6;">`
+          + `<p>Guten Tag,</p>`
+          + `<p>vielen Dank für dein Interesse am Newsletter. Bitte bestätige deine Anmeldung mit einem Klick auf den folgenden Link:</p>`
+          + `<p><a href="${confirmUrl}" style="color:#467886;">Anmeldung bestätigen</a></p>`
+          + `<p style="color:#777;font-size:0.9em;">Wenn du dich nicht angemeldet hast, kannst du diese E-Mail einfach ignorieren – ohne deine Bestätigung wird nichts gespeichert.</p>`
+          + `</div>`,
+        text: `Bitte bestätige deine Newsletter-Anmeldung über diesen Link:\n${confirmUrl}\n\n`
+          + `Wenn du dich nicht angemeldet hast, ignoriere diese E-Mail einfach.`
+      })
+    });
+    if (!resp.ok) {
+      console.warn('[NEWSLETTER] Resend-Fehler:', resp.status, await resp.text().catch(() => ''));
+      return res.status(502).json({ error: 'Die Bestätigungs-E-Mail konnte nicht gesendet werden.' });
+    }
+    res.json({ ok: true, message: 'Fast geschafft! Bitte bestätige deine Anmeldung über den Link in der E-Mail, die wir dir gerade gesendet haben.' });
+  } catch (error) {
+    console.error('[NEWSLETTER] signup error:', error);
+    res.status(500).json({ error: 'Anmeldung fehlgeschlagen.' });
+  }
+});
+
+app.get('/api/newsletter-confirm', async (req, res) => {
+  try {
+    const email = verifyNewsletterToken(req.query.token);
+    if (!email) {
+      return res.status(400).send(newsletterResultPage(
+        'Bestätigung fehlgeschlagen',
+        'Der Bestätigungslink ist ungültig oder abgelaufen. Bitte melde dich erneut an.'
+      ));
+    }
+    await wixSubscribeConfirmed(email);
+    console.log(`[NEWSLETTER] Bestätigt & abonniert: ${email} (${new Date().toISOString()})`);
+    res.send(newsletterResultPage(
+      'Anmeldung bestätigt',
+      'Vielen Dank! Deine Anmeldung zum Newsletter ist jetzt bestätigt.'
+    ));
+  } catch (error) {
+    console.error('[NEWSLETTER] confirm error:', error);
+    res.status(500).send(newsletterResultPage(
+      'Bestätigung fehlgeschlagen',
+      'Es ist ein technischer Fehler aufgetreten. Bitte versuche es später noch einmal.'
+    ));
+  }
+});
+
+// ============================================================================
 
 
 async function startServer() {

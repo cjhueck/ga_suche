@@ -7196,30 +7196,55 @@ body.dark-mode .viewer-search-highlight.active {
 
 <!-- Globale Lightbox für Wandtafeln (immer verfügbar) -->
 <div id="chalkboard-lightbox" class="chalkboard-lightbox" onclick="closeChalkboardLightbox(event)">
-  <span class="chalkboard-lightbox-close" onclick="closeChalkboardLightbox(event)">&times;</span>
-  <img id="chalkboard-lightbox-img" src="" alt="">
-  <div id="chalkboard-lightbox-info" class="chalkboard-lightbox-info"></div>
+<span class="chalkboard-lightbox-close" onclick="closeChalkboardLightbox(event)">&times;</span>
+<img id="chalkboard-lightbox-img" src="" alt="">
+<div id="chalkboard-lightbox-info" class="chalkboard-lightbox-info"></div>
+</div>
+
+<!-- Newsletter-Modal (global verfügbar) -->
+<style>
+#newsletterModal #newsletterEmail:focus { outline: 2px solid var(--accent-color,#467886); outline-offset: 1px; border-color: var(--accent-color,#467886); }
+</style>
+<div id="newsletterModal" onclick="if(event.target===this)closeNewsletterModal()" style="display:none; position:fixed; inset:0; z-index:10000; background:rgba(0,0,0,0.5); align-items:center; justify-content:center;">
+<div style="background:var(--background-color,#fff); color:var(--text-color,#2b2b2b); max-width:480px; width:90%; padding:1.75rem; border-radius:8px; box-shadow:0 4px 24px rgba(0,0,0,.25); position:relative;">
+<button onclick="closeNewsletterModal()" title="Schließen" style="position:absolute; top:10px; right:12px; background:none; border:none; font-size:1.5rem; line-height:1; cursor:pointer; color:var(--secondary-text,#888);">&times;</button>
+<h3 style="margin:0 0 0.75rem 0; color:var(--heading-color,#467886);">Newsletter</h3>
+<p style="margin:0; line-height:1.5;">Melden Sie sich für unseren Newsletter an, um Neuigkeiten und wichtige Änderungen zu erfahren.</p>
+<form id="newsletterForm" onsubmit="submitNewsletter(event); return false;" style="margin-top:1.25rem; display:flex; flex-wrap:wrap; gap:0.6rem; align-items:center;">
+<input type="email" id="newsletterEmail" required placeholder="Ihre E-Mail-Adresse" autocomplete="email" style="flex:1 1 240px; min-width:200px; padding:0.6rem 0.75rem; border:1px solid var(--accent-color,#467886); border-radius:6px; font-size:1rem;">
+<button type="submit" id="newsletterSubmitBtn" style="padding:0.6rem 1.25rem; border:1px solid var(--accent-color,#467886); background:var(--accent-color,#467886); color:#fff; border-radius:6px; font-size:1rem; cursor:pointer;">Anmelden</button>
+</form>
+<p id="newsletterStatus" role="status" aria-live="polite" style="margin-top:0.85rem; min-height:1.2em; font-size:0.95rem;"></p>
+<p style="margin-top:0.5rem; font-size:0.82rem; color:var(--secondary-text,#888); line-height:1.5;">Zur Bestätigung erhalten Sie eine E-Mail mit einem Bestätigungslink (Double-Opt-in). Erst nach Ihrer Bestätigung wird die Anmeldung gespeichert. Eine Abmeldung ist jederzeit möglich.</p>
+</div>
 </div>
 
 <div id="sidebar">
 <div id="sidebar-header">
-<div style="display: flex; justify-content: space-between; align-items: flex-start;">
-<div class="site-header-flex" data-help="site-header">
+<div style="display: flex; align-items: flex-start; gap: 0.5rem;">
 <img src="images/steiner-logo.jpg" alt="Rudolf Steiner" class="site-logo" data-help="site-logo">
-<h1 id="site-title" style="padding-top: 10px;" data-help="site-title"><a href="index.html" style="display: block; line-height: 0;"><img src="images/steiner-sign.png" alt="Steiner GA-Suche" class="site-sign" style="height: 100px; width: auto; display: block;"></a></h1>
-</div>
-<div style="display: flex; flex-direction: column; align-items: flex-end; gap: 0.3rem;">
-<div style="display: flex; gap: 0.3rem; align-items: center;">
-<button id="backup-button" class="help-button" onclick="openBackupModal()" title="Backup-Verwaltung" style="display: none;">
-<i data-lucide="database"></i>
-</button>
+<div class="site-header-flex" data-help="site-header" style="display: flex; flex-direction: column; align-items: flex-start; gap: 0.4rem;">
+<!-- Immer sichtbare Funktionsbuttons: horizontale Reihe oberhalb des Schriftzugs -->
+<div style="display: flex; flex-direction: row; align-items: center; gap: 0.3rem;">
 <button id="theme-toggle" class="theme-toggle-btn" onclick="toggleTheme()" title="Dark Mode umschalten">
 <i id="theme-icon" data-lucide="moon"></i>
 </button>
-</div>
-<div id="sidebar-action-buttons" style="display: flex; flex-direction: column; align-items: flex-end; gap: 0.3rem;">
 <button class="help-button" onclick="openHelpModal()" title="Anleitung öffnen" data-help="help-button">
 <i data-lucide="info"></i>
+</button>
+<button id="error-report-button" class="help-button" onclick="openErrorReportModal()" title="Fehler melden">
+<i data-lucide="message-circle-warning"></i>
+</button>
+<button id="newsletter-button" class="help-button" onclick="openNewsletterModal()" title="Newsletter abonnieren">
+<i data-lucide="mail"></i>
+</button>
+</div>
+<h1 id="site-title" style="padding-top: 0; margin: 0;" data-help="site-title"><a href="index.html" style="display: block; line-height: 0;"><img src="images/steiner-sign.png" alt="Steiner GA-Suche" class="site-sign" style="height: 80px; width: auto; display: block;"></a></h1>
+</div>
+<!-- Nur lokal sichtbare Buttons: vertikal, oben rechts im Side-Panel beginnend (auf Höhe der oberen Button-Reihe) -->
+<div id="sidebar-action-buttons" style="display: flex; flex-direction: column; align-items: center; gap: 0.3rem;">
+<button id="backup-button" class="help-button" onclick="openBackupModal()" title="Backup-Verwaltung" style="display: none;">
+<i data-lucide="database"></i>
 </button>
 <button id="spellcheck-editor-button" class="help-button" onclick="document.getElementById('korrektur-tab-button').style.display=''; switchTab('korrektur');" title="Korrektur-Tab öffnen" data-help="spellcheck-editor" style="display:none;">
 <i data-lucide="spell-check"></i>
@@ -7228,10 +7253,6 @@ body.dark-mode .viewer-search-highlight.active {
 <i data-lucide="alert-triangle"></i>
 <span id="error-reports-badge" style="display: none; position: absolute; top: -4px; right: -4px; background: #dc2626; color: white; font-size: 10px; font-weight: bold; min-width: 16px; height: 16px; border-radius: 50%; display: flex; align-items: center; justify-content: center; line-height: 1;"></span>
 </button>
-<button id="error-report-button" class="help-button" onclick="openErrorReportModal()" title="Fehler melden">
-<i data-lucide="message-circle-warning"></i>
-</button>
-</div>
 </div>
 </div>
 <div class="tab-container" data-help="tab-container">
@@ -10575,7 +10596,7 @@ PDF
 
 
 
-<script src="app.js?v=20260626q"></script>
+<script src="app.js?v=20260626s"></script>
 </body>
 </html>
 
