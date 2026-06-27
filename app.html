@@ -985,6 +985,7 @@ body.dark-mode .site-logo:hover {
 
 /* Site-Sign Styling */
 .site-sign {
+  height: 80px;
   transition: all 0.3s ease;
 }
 
@@ -1313,8 +1314,48 @@ body.dark-mode .ga-missing-text {
 
 .site-header-flex {
   display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.4rem;
+}
+
+/* Immer sichtbare Symbole: Basis (lokal) = horizontale Reihe oberhalb des Schriftzugs */
+#always-visible-buttons {
+  display: flex;
+  flex-direction: row;
   align-items: center;
+  gap: 0.3rem;
+}
+
+/* Online-Version (kein body.is-local): Symbole als verkleinerte vertikale Saeule
+   rechts neben dem Schriftzug, Gesamthoehe = Bildhoehe (120px); Schriftzug groesser. */
+body:not(.is-local) .site-header-flex {
+  flex-direction: row-reverse;
+  align-items: flex-start;
+  gap: 0.6rem;
+}
+body:not(.is-local) #always-visible-buttons {
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
   gap: 0;
+  height: 120px;
+}
+body:not(.is-local) #always-visible-buttons .help-button,
+body:not(.is-local) #always-visible-buttons .theme-toggle-btn {
+  width: 26px;
+  height: 26px;
+  padding: 2px;
+}
+body:not(.is-local) #always-visible-buttons svg {
+  width: 18px;
+  height: 18px;
+}
+body:not(.is-local) #site-title .site-sign {
+  height: 105px;
+}
+body:not(.is-local) #sidebar-action-buttons {
+  display: none;
 }
     
     #sidebar-content {
@@ -7221,11 +7262,11 @@ body.dark-mode .viewer-search-highlight.active {
 
 <div id="sidebar">
 <div id="sidebar-header">
-<div style="display: flex; align-items: flex-start; gap: 0.5rem;">
+<div id="header-top-flex" style="display: flex; align-items: flex-start; gap: 0.5rem;">
 <img src="images/steiner-logo.jpg" alt="Rudolf Steiner" class="site-logo" data-help="site-logo">
-<div class="site-header-flex" data-help="site-header" style="display: flex; flex-direction: column; align-items: flex-start; gap: 0.4rem;">
-<!-- Immer sichtbare Funktionsbuttons: horizontale Reihe oberhalb des Schriftzugs -->
-<div style="display: flex; flex-direction: row; align-items: center; gap: 0.3rem;">
+<div class="site-header-flex" data-help="site-header">
+<!-- Immer sichtbare Funktionsbuttons: lokal horizontale Reihe oberhalb des Schriftzugs, online verkleinerte vertikale Saeule rechts neben dem Schriftzug -->
+<div id="always-visible-buttons">
 <button id="theme-toggle" class="theme-toggle-btn" onclick="toggleTheme()" title="Dark Mode umschalten">
 <i id="theme-icon" data-lucide="moon"></i>
 </button>
@@ -7239,7 +7280,7 @@ body.dark-mode .viewer-search-highlight.active {
 <i data-lucide="mail"></i>
 </button>
 </div>
-<h1 id="site-title" style="padding-top: 0; margin: 0;" data-help="site-title"><a href="index.html" style="display: block; line-height: 0;"><img src="images/steiner-sign.png" alt="Steiner GA-Suche" class="site-sign" style="height: 80px; width: auto; display: block;"></a></h1>
+<h1 id="site-title" style="padding-top: 0; margin: 0;" data-help="site-title"><a href="index.html" style="display: block; line-height: 0;"><img src="images/steiner-sign.png" alt="Steiner GA-Suche" class="site-sign" style="width: auto; display: block;"></a></h1>
 </div>
 <!-- Nur lokal sichtbare Buttons: vertikal, oben rechts im Side-Panel beginnend (auf Höhe der oberen Button-Reihe) -->
 <div id="sidebar-action-buttons" style="display: flex; flex-direction: column; align-items: center; gap: 0.3rem;">
