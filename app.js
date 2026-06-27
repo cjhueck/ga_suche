@@ -20280,10 +20280,11 @@ function formatAsteriskParagraphs() {
       // Controls verdrahten
       const sortBtns = container.querySelectorAll('.recherche-sort-btn');
       const applySortBtnStyles = () => {
+        const darkMode = document.body.classList.contains('dark-mode');
         sortBtns.forEach(btn => {
           const active = btn.getAttribute('data-sort') === sortBy;
           btn.style.background = active ? 'var(--accent-color)' : 'transparent';
-          btn.style.color = active ? '#fff' : 'var(--accent-color)';
+          btn.style.color = active ? (darkMode ? '#1a1a1a' : '#fff') : 'var(--accent-color)';
           btn.style.border = '1px solid var(--accent-color)';
           btn.style.padding = '4px 10px';
         });
