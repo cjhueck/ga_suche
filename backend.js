@@ -28903,10 +28903,15 @@ app.post('/api/spellcheck/notify-registration', express.json(), async (req, res)
 //   2. GET  /api/newsletter-confirm -> prueft Token, legt den Kontakt in Wix an
 //      und setzt das Abo auf SUBSCRIBED (= bestaetigte Einwilligung).
 // Erforderliche Umgebungsvariablen: WIX_API_KEY, WIX_SITE_ID, NEWSLETTER_SECRET,
-//   RESEND_API_KEY, optional NEWSLETTER_FROM, PUBLIC_BASE_URL, WIX_ACCOUNT_ID.
+//   RESEND_API_KEY, optional NEWSLETTER_FROM, PUBLIC_BASE_URL, WIX_ACCOUNT_ID,
+//   NEWSLETTER_WIX_LABEL (Label zur Trennung von anderen Newslettern, Default
+//   "Rudolf Steiner Online").
 // ============================================================================
 const crypto = require('crypto');
 const NEWSLETTER_TOKEN_TTL_MS = 3 * 24 * 60 * 60 * 1000; // 3 Tage
+// Wix-Label, mit dem GA-Newsletter-Kontakte markiert werden, damit sie sich von
+// anderen Newslettern (z. B. Akanthos Akademie) im selben Wix-Konto trennen lassen.
+const NEWSLETTER_WIX_LABEL = process.env.NEWSLETTER_WIX_LABEL || 'Rudolf Steiner Online';
 
 function nlBase64url(input) {
   return Buffer.from(input).toString('base64')
@@ -28963,17 +28968,52 @@ async function wixApiCall(pathUrl, body) {
   if (!resp.ok) throw new Error(`Wix API ${pathUrl} -> ${resp.status}: ${text}`);
   try { return JSON.parse(text); } catch (_) { return {}; }
 }
+// Holt (oder erstellt) das Label und gibt seinen unveraenderlichen key zurueck.
+async function wixFindOrCreateLabelKey(displayName) {
+  const result = await wixApiCall('/contacts/v4/labels', { displayName });
+  return result && result.label ? result.label.key : null;
+}
+// Findet die contactId zu einer E-Mail-Adresse (fuer das Nachlabeln bestehender Kontakte).
+async function wixFindContactIdByEmail(email) {
+  const result = await wixApiCall('/contacts/v4/contacts/query', {
+    query: { filter: { 'primaryInfo.email': email } }
+  });
+  const items = (result && result.contacts) || [];
+  return items.length ? items[0].id : null;
+}
 async function wixSubscribeConfirmed(email) {
-  // Kontakt anlegen (Duplikate erlaubt, damit erneutes Bestaetigen nicht scheitert)
+  // 1. Label-Key ermitteln (Trennung von anderen Newslettern, z. B. Akanthos).
+  let labelKey = null;
   try {
-    await wixApiCall('/contacts/v4/contacts', {
-      info: { emails: { items: [{ tag: 'MAIN', email }] } },
-      allowDuplicates: true
-    });
+    labelKey = await wixFindOrCreateLabelKey(NEWSLETTER_WIX_LABEL);
   } catch (e) {
-    console.warn('[NEWSLETTER] Kontakt-Anlage (nicht kritisch):', e.message);
+    console.warn('[NEWSLETTER] Label konnte nicht ermittelt werden:', e.message);
   }
-  // Abo auf bestaetigt setzen
+
+  // 2. Kontakt anlegen – nach Moeglichkeit direkt mit Label (atomar).
+  try {
+    const info = { emails: { items: [{ tag: 'MAIN', email }] } };
+    if (labelKey) info.labelKeys = { items: [labelKey] };
+    await wixApiCall('/contacts/v4/contacts', { info, allowDuplicates: false });
+  } catch (e) {
+    // Kontakt existiert bereits -> bestehenden Kontakt finden und nachlabeln.
+    if (labelKey && /DUPLICATE_CONTACT_EXISTS|ALREADY_EXISTS|409/i.test(e.message)) {
+      try {
+        const contactId = await wixFindContactIdByEmail(email);
+        if (contactId) {
+          await wixApiCall(`/contacts/v4/contacts/${contactId}/labels`, { labelKeys: [labelKey] });
+        } else {
+          console.warn('[NEWSLETTER] Bestehender Kontakt zum Labeln nicht gefunden:', email);
+        }
+      } catch (e2) {
+        console.warn('[NEWSLETTER] Nachlabeln fehlgeschlagen:', e2.message);
+      }
+    } else {
+      console.warn('[NEWSLETTER] Kontakt-Anlage (nicht kritisch):', e.message);
+    }
+  }
+
+  // 3. Abo auf bestaetigt setzen.
   await wixApiCall('/email-marketing/v1/email-subscriptions', {
     subscription: { email, subscriptionStatus: 'SUBSCRIBED' }
   });
