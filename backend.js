@@ -29057,22 +29057,22 @@ app.post('/api/newsletter-signup', express.json(), async (req, res) => {
       body: JSON.stringify({
         from,
         to: [email],
-        subject: 'Bitte bestätige deine Newsletter-Anmeldung',
+        subject: 'Bitte bestätigen Sie Ihre Newsletter-Anmeldung',
         html: `<div style="font-family:Georgia,serif;color:#2b2b2b;line-height:1.6;">`
           + `<p>Guten Tag,</p>`
-          + `<p>vielen Dank für dein Interesse am Newsletter. Bitte bestätige deine Anmeldung mit einem Klick auf den folgenden Link:</p>`
+          + `<p>vielen Dank für Ihr Interesse am Newsletter von Rudolf Steiner Texte online. Bitte bestätigen Sie Ihre Anmeldung mit einem Klick auf den folgenden Link:</p>`
           + `<p><a href="${confirmUrl}" style="color:#467886;">Anmeldung bestätigen</a></p>`
-          + `<p style="color:#777;font-size:0.9em;">Wenn du dich nicht angemeldet hast, kannst du diese E-Mail einfach ignorieren – ohne deine Bestätigung wird nichts gespeichert.</p>`
+          + `<p style="color:#777;font-size:0.9em;">Wenn Sie sich nicht angemeldet haben, können Sie diese E-Mail einfach ignorieren – ohne Ihre Bestätigung wird nichts gespeichert.</p>`
           + `</div>`,
-        text: `Bitte bestätige deine Newsletter-Anmeldung über diesen Link:\n${confirmUrl}\n\n`
-          + `Wenn du dich nicht angemeldet hast, ignoriere diese E-Mail einfach.`
+        text: `Bitte bestätigen Sie Ihre Newsletter-Anmeldung über diesen Link:\n${confirmUrl}\n\n`
+          + `Wenn Sie sich nicht angemeldet haben, ignorieren Sie diese E-Mail einfach.`
       })
     });
     if (!resp.ok) {
       console.warn('[NEWSLETTER] Resend-Fehler:', resp.status, await resp.text().catch(() => ''));
       return res.status(502).json({ error: 'Die Bestätigungs-E-Mail konnte nicht gesendet werden.' });
     }
-    res.json({ ok: true, message: 'Fast geschafft! Bitte bestätige deine Anmeldung über den Link in der E-Mail, die wir dir gerade gesendet haben.' });
+    res.json({ ok: true, message: 'Fast geschafft! Bitte bestätigen Sie Ihre Anmeldung über den Link in der E-Mail, die wir Ihnen gerade gesendet haben.' });
   } catch (error) {
     console.error('[NEWSLETTER] signup error:', error);
     res.status(500).json({ error: 'Anmeldung fehlgeschlagen.' });
@@ -29085,20 +29085,20 @@ app.get('/api/newsletter-confirm', async (req, res) => {
     if (!email) {
       return res.status(400).send(newsletterResultPage(
         'Bestätigung fehlgeschlagen',
-        'Der Bestätigungslink ist ungültig oder abgelaufen. Bitte melde dich erneut an.'
+        'Der Bestätigungslink ist ungültig oder abgelaufen. Bitte melden Sie sich erneut an.'
       ));
     }
     await wixSubscribeConfirmed(email);
     console.log(`[NEWSLETTER] Bestätigt & abonniert: ${email} (${new Date().toISOString()})`);
     res.send(newsletterResultPage(
       'Anmeldung bestätigt',
-      'Vielen Dank! Deine Anmeldung zum Newsletter ist jetzt bestätigt.'
+      'Vielen Dank! Ihre Anmeldung zum Newsletter ist jetzt bestätigt.'
     ));
   } catch (error) {
     console.error('[NEWSLETTER] confirm error:', error);
     res.status(500).send(newsletterResultPage(
       'Bestätigung fehlgeschlagen',
-      'Es ist ein technischer Fehler aufgetreten. Bitte versuche es später noch einmal.'
+      'Es ist ein technischer Fehler aufgetreten. Bitte versuchen Sie es später noch einmal.'
     ));
   }
 });
