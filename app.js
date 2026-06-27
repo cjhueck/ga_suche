@@ -37037,6 +37037,7 @@ document.addEventListener('DOMContentLoaded', async function() {
       <div class="hint-popup-content">
         <strong>Willkommen</strong> im Rudolf-Steiner-online Portal. Aktuell befindet sich das Portal noch in der Testphase und kann deshalb Fehler enthalten. Wir bitten dies zu entschuldigen und sind dankbar, wenn Sie uns über den Button <strong>„Fehler melden"</strong> oben links auf eventuelle Probleme aufmerksam machen.<br><br>
         Klicken Sie <strong>Strg+Klick</strong>, um Informationen über die einzelnen Bereiche und Funktionen zu erhalten.<br><br>
+        <a href="#" onclick="var hp=this.closest('.hint-popup'); if(hp){hp.remove();} openNewsletterModal(); return false;" style="color: var(--accent-color, #467886); text-decoration: underline; cursor: pointer;">Hier</a> können Sie sich für unseren Newsletter anmelden, der Sie über Neuigkeiten und Weiterentwicklungen des Portals informiert.<br><br>
         Weitere Tastenkombinationen über den <strong>Info-Button</strong> oben links.
       </div>
       <div class="hint-popup-footer">
