@@ -7587,20 +7587,27 @@ Wandtafeln
   <span>alle</span>
 </label>
 </div>
-<style>body.local-mode #texte-select-all-label { display: inline-flex !important; }</style>
+<style>
+body.local-mode #texte-select-all-label { display: inline-flex !important; }
+#texte-admin-buttons .depth-btn {
+  padding: 4px 7px;
+  font-size: 0.95em;
+  line-height: 1.1;
+}
+</style>
 <div id="texte-admin-buttons" style="display:none; gap:6px; align-items:center; margin-top: 0.5rem; flex-wrap: nowrap;">
   <!-- Export Button -->
-  <button id="export-ga-btn" class="depth-btn" onclick="exportCurrentGA()" style="padding: 6px 10px; font-size: 0.85em; background: transparent; color: #28a745; border: 1px solid #28a745;" title="GA-Band oder einzelnen Vortrag exportieren">
+  <button id="export-ga-btn" class="depth-btn" onclick="exportCurrentGA()" style="background: transparent; color: #28a745; border: 1px solid #28a745;" title="GA-Band oder einzelnen Vortrag exportieren">
     Export
   </button>
   <!-- BATCH GENERATION (nur lokal) -->
-  <button id="batch-regenerate-btn" class="depth-btn" onclick="batchRegenerateAll()" style="padding: 6px 10px; font-size: 0.85em; background: transparent; color: #d9534f; border: 1px solid #d9534f;">
+  <button id="batch-regenerate-btn" class="depth-btn" onclick="batchRegenerateAll()" style="background: transparent; color: #d9534f; border: 1px solid #d9534f;">
     S&H&C&K
   </button>
-  <button id="batch-headings-btn" class="depth-btn" onclick="batchGenerateHeadingsOnly()" style="padding: 6px 10px; font-size: 0.85em; background: transparent; color: #f0ad4e; border: 1px solid #f0ad4e;">
+  <button id="batch-headings-btn" class="depth-btn" onclick="batchGenerateHeadingsOnly()" style="background: transparent; color: #f0ad4e; border: 1px solid #f0ad4e;">
     H
   </button>
-  <button id="batch-short-summary-btn" class="depth-btn" onclick="batchGenerateShortSummaries()" style="padding: 6px 10px; font-size: 0.85em; background: transparent; color: #5cb85c; border: 1px solid #5cb85c;">
+  <button id="batch-short-summary-btn" class="depth-btn" onclick="batchGenerateShortSummaries()" style="background: transparent; color: #5cb85c; border: 1px solid #5cb85c;">
     Short
   </button>
   <select id="batch-provider-select" style="padding: 4px 6px; font-size: 0.85em; border: 1px solid var(--border-color); border-radius: 4px; background: var(--sidebar-bg); color: var(--text-color); min-width: 0; flex-shrink: 1;">
