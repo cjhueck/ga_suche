@@ -1526,29 +1526,41 @@
           <li>Kommunikation mit anderen Mitgliedern (falls Chat-Funktion genutzt wird)</li>
         </ul>
 
-        <h4>3. Datenverarbeitung</h4>
-        <p>Ihre Daten werden auf Servern von Supabase (supabase.com) gespeichert und verarbeitet. Die Datenübertragung erfolgt verschlüsselt über HTTPS.</p>
+        <h4>3. Datenverarbeitung und Speicherdauer</h4>
+        <p>Ihre Daten werden auf Servern von Supabase (supabase.com) gespeichert und verarbeitet. Die Datenübertragung erfolgt verschlüsselt über HTTPS. Die Daten Ihres Mitgliederkontos werden gespeichert, solange Ihr Konto besteht; nach einer Löschung des Kontos werden sie entfernt.</p>
 
-        <h4>4. Ihre Rechte</h4>
+        <h4>4. Server-Logfiles und Hosting</h4>
+        <p>Die Anwendung wird über einen Hosting-Dienst (Render, render.com) bereitgestellt. Bei jedem Aufruf werden technisch notwendige Zugriffsdaten verarbeitet, insbesondere die IP-Adresse, Datum und Uhrzeit der Anfrage sowie technische Angaben des Browsers. Diese Daten dienen dem sicheren und stabilen Betrieb der Website (Rechtsgrundlage: berechtigtes Interesse, Art. 6 Abs. 1 lit. f DSGVO) und werden nur für die Dauer des Betriebs bzw. zur Fehleranalyse vorübergehend verarbeitet.</p>
+
+        <h4>5. Newsletter</h4>
+        <p>Wenn Sie sich für unseren Newsletter anmelden, verarbeiten wir Ihre E-Mail-Adresse, um Ihnen Informationen über Neuigkeiten und Weiterentwicklungen des Portals zuzusenden. Rechtsgrundlage ist Ihre Einwilligung (Art. 6 Abs. 1 lit. a DSGVO). Wir verwenden das Double-Opt-in-Verfahren: Nach der Anmeldung erhalten Sie eine Bestätigungs-E-Mail; erst nach Ihrer Bestätigung wird die Anmeldung gespeichert.</p>
+        <p>Zur Verwaltung der Abonnenten nutzen wir Wix (Wix.com Ltd.), für den Versand der E-Mails den Dienst Resend (Resend, Inc.). Soweit dabei personenbezogene Daten in ein Drittland (z. B. USA) übermittelt werden, erfolgt dies auf Grundlage geeigneter Garantien gemäß Art. 44 ff. DSGVO (etwa dem EU-US Data Privacy Framework oder Standardvertragsklauseln).</p>
+        <p>Sie können Ihre Einwilligung jederzeit widerrufen und sich über den Abmeldelink am Ende jedes Newsletters abmelden. Ihre Daten werden dann für den Newsletter-Versand gelöscht.</p>
+
+        <h4>6. Ihre Rechte</h4>
         <p>Sie haben jederzeit das Recht:</p>
         <ul>
           <li>Auskunft über Ihre gespeicherten Daten zu erhalten</li>
           <li>Ihre Daten zu korrigieren oder zu löschen</li>
           <li>Ihren Account komplett zu löschen (über "Mein Account" → "Account löschen")</li>
           <li>Der Datenverarbeitung zu widersprechen</li>
+          <li>Die Übertragung Ihrer Daten in einem gängigen Format zu verlangen (Datenübertragbarkeit)</li>
+          <li>Sich bei einer Datenschutz-Aufsichtsbehörde zu beschweren</li>
         </ul>
 
-        <h4>5. Cookies und Tracking</h4>
-        <p>Diese Website verwendet keine Tracking-Cookies oder Analyse-Tools. Es werden lediglich technisch notwendige Cookies für die Authentifizierung verwendet.</p>
+        <h4>7. Cookies, Tracking und Reichweitenmessung</h4>
+        <p>Diese Website setzt <strong>keine Cookies</strong> und verwendet <strong>kein Tracking durch Google</strong> oder andere Drittanbieter. Für die Anmeldung im Mitgliederbereich wird lediglich technisch notwendiger lokaler Speicher (localStorage) Ihres Browsers genutzt.</p>
+        <p>Um zu erfahren, wie viele Menschen das Portal nutzen, führen wir eine eigene, datensparsame Reichweitenmessung durch. Dabei wird – nur mit Ihrer Einwilligung – eine zufällige, pseudonyme Kennung in Ihrem Browser gespeichert, die keine Rückschlüsse auf Ihre Person zulässt. Rechtsgrundlage ist Ihre Einwilligung (§ 25 Abs. 1 TTDSG, Art. 6 Abs. 1 lit. a DSGVO). Ohne Ihre Zustimmung findet keine Reichweitenmessung statt; die Website bleibt voll nutzbar.</p>
+        <p>Sie können Ihre Einwilligung jederzeit mit Wirkung für die Zukunft widerrufen: <a href="#" onclick="resetAnalyticsConsent(); return false;">Einwilligung zur Reichweitenmessung widerrufen</a>.</p>
 
-        <h4>6. Kontakt</h4>
+        <h4>8. Kontakt</h4>
         <p>Bei Fragen zum Datenschutz können Sie uns über die Kontaktmöglichkeiten im Impressum erreichen.</p>
 
-        <h4>7. Änderungen der Datenschutzerklärung</h4>
+        <h4>9. Änderungen der Datenschutzerklärung</h4>
         <p>Wir behalten uns vor, diese Datenschutzerklärung anzupassen. Über wesentliche Änderungen werden Sie per E-Mail informiert.</p>
 
         <p style="margin-top: 2rem; font-size: 0.85rem; color: var(--secondary-text);">
-          Stand: Januar 2025
+          Stand: Juni 2026
         </p>
       </div>
     </div>
@@ -1745,6 +1757,17 @@
       const modal = document.getElementById('datenschutzModal');
       if (modal) {
         modal.classList.remove('active');
+      }
+    }
+
+    // Einwilligung zur Reichweitenmessung widerrufen (gemeinsamer localStorage-Schlüssel mit der App).
+    function resetAnalyticsConsent() {
+      try {
+        localStorage.setItem('ga_analytics_consent', 'denied');
+        localStorage.removeItem('ga_visitor_id');
+        alert('Ihre Einwilligung zur Reichweitenmessung wurde widerrufen.');
+      } catch (e) {
+        alert('Der Widerruf konnte nicht gespeichert werden.');
       }
     }
 
