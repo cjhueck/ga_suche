@@ -12726,6 +12726,7 @@ app.get('/api/available-years', async (req, res) => {
 app.post('/api/reload-books', async (req, res) => {
   try {
     fullBooks = {}; // Leere den Cache
+    invalidateProcessedBookCache(); // Verarbeitete Bücher ebenfalls verwerfen
     const reloaded = await loadBooks();
     res.json({ 
       success: true, 
@@ -12901,6 +12902,17 @@ function withAbsoluteLectureImages(lecture, lectureId) {
   return { ...lecture, paragraphs };
 }
 
+// B: Cache für vollständig verarbeitete Bücher (Kopie + Text-Edits + absolute Bild-URLs).
+// Schlüssel: normalisierte GA-Nummer. Wird bei Text-Edits invalidiert (siehe saveTextEditsDatabase).
+const processedBookCache = new Map();
+function invalidateProcessedBookCache(gaNumber) {
+  if (gaNumber) {
+    processedBookCache.delete(String(gaNumber).toLowerCase());
+  } else {
+    processedBookCache.clear();
+  }
+}
+
 app.get('/api/book/:gaNumber', async (req, res) => {
   try {
     const gaNumberOriginal = req.params.gaNumber;
@@ -12911,6 +12923,12 @@ app.get('/api/book/:gaNumber', async (req, res) => {
     // PRÜFE: Wenn es ein Aufsatzband ist, sollte es NICHT als Buch geladen werden
     if (isEssayGANumber(gaNumberOriginal)) {
       return res.status(404).json({ error: `GA ${gaNumberOriginal} ist ein Aufsatzband und wird nicht als Buch behandelt` });
+    }
+
+    // B: Cache-Treffer? Verarbeitetes Buch direkt zurückgeben (spart Deep-Copy,
+    //    Text-Edits, Summary-DB-Zugriff und Bild-URL-Umschreibung bei jedem Aufruf).
+    if (processedBookCache.has(gaNumberNormalized)) {
+      return res.json(processedBookCache.get(gaNumberNormalized));
     }
 
     // DEBUG: Zeige geladene Version für GA002
@@ -12958,29 +12976,15 @@ app.get('/api/book/:gaNumber', async (req, res) => {
     
     if (book.headings && book.headings.length > 0) {
       try {
-        // Lade bestehende Datenbank - WICHTIG: Bei Fehler NICHT überschreiben!
+        // Lade bestehende Datenbank (gecacht) - WICHTIG: Bei Fehler NICHT überschreiben!
         let summaryDB = null;
         let dbLoadError = null;
         try {
-          const dbContent = await fs.readFile(SUMMARY_DB_FILE, 'utf8');
-          summaryDB = JSON.parse(dbContent);
+          summaryDB = await loadSummaryDatabase();
           
           // Prüfe ob Datenbank gültig ist (nicht leer nach Parse)
           if (!summaryDB || typeof summaryDB !== 'object') {
             throw new Error('Datenbank ist kein gültiges Objekt');
-          }
-          
-          // Prüfe ob Vortrags-Einträge vorhanden sind (GA051+)
-          const hasLectures = Object.keys(summaryDB).some(id => {
-            const match = id.match(/^GA(\d+)/);
-            if (match) {
-              const num = parseInt(match[1]);
-              return num >= 51; // Vorträge beginnen ab GA051
-            }
-            return false;
-          });
-          
-          if (hasLectures) {
           }
         } catch (e) {
           dbLoadError = e;
@@ -13023,6 +13027,8 @@ app.get('/api/book/:gaNumber', async (req, res) => {
 
             // Speichere zurück - Vortrags-Einträge bleiben erhalten
             await fs.writeFile(SUMMARY_DB_FILE, JSON.stringify(summaryDB, null, 2), 'utf8');
+            // Cache invalidieren, da wir das gecachte Objekt mutiert und neu geschrieben haben
+            invalidateSummaryDatabaseCache();
           }
           // Log entfernt: "Überschreibe NICHT" - zu verbose bei jedem Request
           const totalEntries = Object.keys(summaryDB).length;
@@ -13077,6 +13083,9 @@ app.get('/api/book/:gaNumber', async (req, res) => {
         });
       }
     }
+
+    // B: Verarbeitetes Buch cachen, damit erneutes Öffnen ohne teure Wiederholungsarbeit erfolgt.
+    processedBookCache.set(gaNumberNormalized, responseBook);
 
     res.json(responseBook);
 
@@ -25434,6 +25443,8 @@ async function saveTextEditsDatabase(editsDB) {
     }
     
     await fs.writeFile(TEXT_EDITS_DB_FILE, JSON.stringify(editsDB, null, 2), 'utf8');
+    // B: Verarbeitete Bücher neu aufbauen lassen, da sich Text-Edits geändert haben.
+    invalidateProcessedBookCache();
     return true;
   } catch (error) {
     console.error('[TEXT-EDITS] Fehler beim Speichern:', error);
@@ -26339,6 +26350,7 @@ app.post('/api/marked-words/apply-correction', async (req, res) => {
         await loadBooks();
         rebuildParagraphsFromLectures();
         invalidateSummaryDatabaseCache();
+        invalidateProcessedBookCache();
         cacheReloaded = true;
         console.log('[CORRECTION] In-Memory-Caches (Vorträge/Bücher/Summary) neu geladen');
       } catch (reloadErr) {

@@ -7595,6 +7595,53 @@ async function finishBookRendering(book, viewer, targetIndex, mainContainer, hig
       }
     }, 1500);
   }
+
+  // FIX (Timing/GA001): Bei progressivem Rendering grosser Buecher kehrt _displayBookImpl
+  // vorzeitig zurueck, BEVOR der Block laeuft, der im Texte-/Suche-Tab das rechte
+  // TOC-Panel oeffnet und buildTableOfContents() aufruft. Das holen wir hier nach,
+  // damit das Inhaltsverzeichnis auch bei grossen Buechern (z. B. GA001) automatisch erscheint.
+  // (finishBookRendering wird ausschliesslich im progressiven Pfad aufgerufen -> keine Doppeloeffnung.)
+  try {
+    const gaTabEl = document.getElementById('ga-tab');
+    const texteTabEl = document.getElementById('texte-tab');
+    const keywordTabEl = document.getElementById('keyword-tab');
+    const inGATab = gaTabEl && gaTabEl.classList.contains('active');
+    const inTexteTab = texteTabEl && texteTabEl.classList.contains('active');
+    const inKeywordTab = keywordTabEl && keywordTabEl.classList.contains('active');
+    const membersOpen = (typeof isMembersPanelActive === 'function' && isMembersPanelActive()) || window.membersNavigating === true;
+    if (!inGATab && (inTexteTab || inKeywordTab) && !membersOpen) {
+      const summaryPanel = document.getElementById('summary-panel');
+      const summaryContent = document.getElementById('summary-content');
+      if (summaryPanel) {
+        const wasAlreadyVisible = summaryPanel.classList.contains('visible');
+        if (typeof resetPanelSync === 'function') resetPanelSync();
+        summaryPanel.classList.add('visible');
+        summaryPanel.style.display = '';
+        const panelWidth = (typeof savedSummaryPanelWidth !== 'undefined' && savedSummaryPanelWidth) ? savedSummaryPanelWidth : 280;
+        summaryPanel.style.width = panelWidth + 'px';
+        summaryPanel.style.minWidth = panelWidth + 'px';
+        summaryPanel.style.marginRight = '0px';
+        if (!wasAlreadyVisible && summaryContent) {
+          summaryContent.innerHTML = '<div id="toc-list"></div>';
+        }
+        document.body.classList.remove('summary-panel-collapsed');
+        const mainContainerEl = document.getElementById('main-container');
+        if (mainContainerEl) mainContainerEl.style.marginRight = panelWidth + 'px';
+        if (typeof updateResizeHandle === 'function') updateResizeHandle();
+        if (typeof updateHeaderPosition === 'function') updateHeaderPosition();
+        setTimeout(() => {
+          if (wasAlreadyVisible && summaryContent) {
+            summaryContent.innerHTML = '<div id="toc-list"></div>';
+          }
+          if (typeof buildTableOfContents === 'function') buildTableOfContents();
+          if (typeof syncMainContainerWithPanel === 'function') syncMainContainerWithPanel();
+          if (typeof updateResizeHandle === 'function') updateResizeHandle();
+        }, 50);
+      }
+    }
+  } catch (e) {
+    console.warn('[FINISH-BOOK] TOC-Panel konnte nicht geoeffnet werden:', e && e.message);
+  }
 }
 
 // Funktion: Rendert ein Book (Schrift)
@@ -8324,7 +8371,12 @@ async function _displayBookImpl(book, highlightHeadingId = null, keywords = [], 
       return paraHtml;
   }
   
-  if (paragraphs.length > 0) {
+  if (isInGATab) {
+    // D: Im GA-Tab wird ausschließlich das Inhaltsverzeichnis angezeigt (siehe unten),
+    //    nicht der Buchtext. Den teuren HTML-Aufbau aller Absätze hier komplett überspringen,
+    //    damit das Inhaltsverzeichnis sofort erscheint.
+    htmlContent = '';
+  } else if (paragraphs.length > 0) {
     // OPTIMIERUNG: Bei großen Dokumenten progressives Rendering verwenden
     // WICHTIG: NICHT im GA-Tab verwenden - dort wird nur TOC angezeigt, kein Content
     if (isLargeDocument && !isInGATab) {
