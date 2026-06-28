@@ -31099,11 +31099,9 @@ function switchThemenView(view) {
     if (v === view) {
       btn.style.borderBottomColor = 'var(--accent-color)';
       btn.style.color = 'var(--accent-color)';
-      btn.style.fontWeight = '600';
     } else {
       btn.style.borderBottomColor = 'transparent';
       btn.style.color = 'var(--secondary-text)';
-      btn.style.fontWeight = '';
     }
   });
 

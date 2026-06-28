@@ -1401,6 +1401,10 @@ body:not(.is-local) #sidebar-action-buttons {
     body:has(.tab-button.active[onclick="switchTab('thematic2')"]) #sidebar-content {
       padding-top: 1rem !important;
     }
+
+    #themen-sub-nav .themen-sub-btn {
+      font-weight: 600;
+    }
     
     /* Zentrale Styles für alle Sidebar-Texte */
     #sidebar-content p {
@@ -7763,7 +7767,7 @@ Meine Abfragen
       onclick="switchThemenView('schwerpunkte')"
       style="flex:1; padding:6px 4px; font-size:0.82em; background:none; border:none;
              border-bottom:2px solid var(--accent-color); margin-bottom:-2px;
-             color:var(--accent-color); font-weight:600; cursor:pointer;">
+             color:var(--accent-color); cursor:pointer;">
       Schwerpunkte
     </button>
     <button id="themen-btn-timeline" class="themen-sub-btn"
@@ -10649,7 +10653,7 @@ PDF
 
 
 
-<script src="app.js?v=20260628c"></script>
+<script src="app.js?v=20260628d"></script>
 </body>
 </html>
 
