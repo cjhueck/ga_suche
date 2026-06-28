@@ -319,6 +319,16 @@ const isLocal = window.location.hostname === 'localhost' ||
     // ANALYTICS-FUNKTIONEN
     // ============================================================
     
+    // Analytics-Einwilligung (TTDSG/DSGVO): Reichweitenmessung nur nach Zustimmung.
+    // Werte: 'granted' | 'denied' | null (noch nicht entschieden)
+    const ANALYTICS_CONSENT_KEY = 'ga_analytics_consent';
+    function getAnalyticsConsent() {
+      try { return localStorage.getItem(ANALYTICS_CONSENT_KEY); } catch (e) { return null; }
+    }
+    function analyticsConsentGranted() {
+      return getAnalyticsConsent() === 'granted';
+    }
+
     // Generiere oder lade eine eindeutige Visitor-ID (persistent über localStorage)
     function getVisitorId() {
       try {
@@ -344,6 +354,8 @@ const isLocal = window.location.hostname === 'localhost' ||
     // Track Event an Server senden (fire-and-forget)
     function analyticsTrack(type, value = null) {
       try {
+        // Ohne Einwilligung zur Reichweitenmessung findet kein Tracking statt.
+        if (!analyticsConsentGranted()) return Promise.resolve();
         // Fußnoten-Anker (fn4, fnref11, ...) nicht tracken
         if (value && /^fn\d|^fnref\d/.test(value)) return Promise.resolve();
         
@@ -436,9 +448,49 @@ const isLocal = window.location.hostname === 'localhost' ||
       });
     }
     
-    // Starte Page View Tracking nach kurzer Verzögerung, damit API_BASE gesetzt werden kann
+    // Consent-Banner zur Reichweitenmessung (knapp, ohne Cookies/Google).
+    function showAnalyticsConsentBanner() {
+      if (document.getElementById('analytics-consent-banner')) return;
+      const dark = document.body.classList.contains('dark-mode');
+      const bar = document.createElement('div');
+      bar.id = 'analytics-consent-banner';
+      bar.setAttribute('role', 'dialog');
+      bar.setAttribute('aria-live', 'polite');
+      bar.style.cssText = [
+        'position:fixed', 'left:1rem', 'right:1rem', 'bottom:1rem', 'z-index:10050',
+        'max-width:560px', 'margin:0 auto', 'padding:0.9rem 1.1rem',
+        'display:flex', 'flex-wrap:wrap', 'align-items:center', 'gap:0.75rem',
+        'border-radius:10px', 'font-size:0.92rem', 'line-height:1.45',
+        'box-shadow:0 6px 24px rgba(0,0,0,0.25)',
+        'background:' + (dark ? '#222' : '#fff'),
+        'color:' + (dark ? '#eee' : '#2b2b2b'),
+        'border:1px solid var(--accent-color, #467886)'
+      ].join(';');
+      bar.innerHTML =
+        '<span style="flex:1 1 240px;">Dürfen wir Ihren Besuch anonym mitzählen? Kein Google-Tracking, keine Cookies.</span>'
+        + '<span style="display:flex; gap:0.5rem; flex:0 0 auto;">'
+        + '<button type="button" id="analytics-consent-yes" style="padding:0.45rem 1rem; border:1px solid var(--accent-color,#467886); background:var(--accent-color,#467886); color:#fff; border-radius:6px; cursor:pointer; font-size:0.92rem;">Ja</button>'
+        + '<button type="button" id="analytics-consent-no" style="padding:0.45rem 1rem; border:1px solid var(--accent-color,#467886); background:transparent; color:var(--accent-color,#467886); border-radius:6px; cursor:pointer; font-size:0.92rem;">Nein</button>'
+        + '</span>';
+      document.body.appendChild(bar);
+
+      function decide(value) {
+        try { localStorage.setItem(ANALYTICS_CONSENT_KEY, value); } catch (e) {}
+        if (bar.parentNode) bar.parentNode.removeChild(bar);
+        if (value === 'granted') trackPageView();
+      }
+      bar.querySelector('#analytics-consent-yes').addEventListener('click', () => decide('granted'));
+      bar.querySelector('#analytics-consent-no').addEventListener('click', () => decide('denied'));
+    }
+
+    // Page View nur bei vorhandener Einwilligung; sonst Banner anzeigen, falls noch nicht entschieden.
     setTimeout(() => {
-      trackPageView();
+      const consent = getAnalyticsConsent();
+      if (consent === 'granted') {
+        trackPageView();
+      } else if (consent === null) {
+        showAnalyticsConsentBanner();
+      }
     }, 1000);
     
     // Analytics: Nur Online-Daten (Render) verwenden
@@ -37037,7 +37089,7 @@ document.addEventListener('DOMContentLoaded', async function() {
       <div class="hint-popup-content">
         <strong>Willkommen</strong> im Rudolf-Steiner-online Portal. Aktuell befindet sich das Portal noch in der Testphase und kann deshalb Fehler enthalten. Wir bitten dies zu entschuldigen und sind dankbar, wenn Sie uns über den Button <strong>„Fehler melden"</strong> oben links auf eventuelle Probleme aufmerksam machen.<br><br>
         Klicken Sie <strong>Strg+Klick</strong>, um Informationen über die einzelnen Bereiche und Funktionen zu erhalten.<br><br>
-        <a href="#" onclick="var hp=this.closest('.hint-popup'); if(hp){hp.remove();} openNewsletterModal(); return false;" style="color: var(--accent-color, #467886); text-decoration: underline; cursor: pointer;">Hier</a> können Sie sich für unseren Newsletter anmelden, der Sie über Neuigkeiten und Weiterentwicklungen des Portals informiert.<br><br>
+        <a href="#" onclick="var hp=this.closest('.hint-popup'); if(hp){hp.remove();} openNewsletterModal(); return false;" style="color: var(--accent-color, #467886); text-decoration: underline; cursor: pointer; font-weight: bold;">Hier</a> können Sie sich für unseren Newsletter anmelden, der Sie über Neuigkeiten und Weiterentwicklungen des Portals informiert.<br><br>
         Weitere Tastenkombinationen über den <strong>Info-Button</strong> oben links.
       </div>
       <div class="hint-popup-footer">
