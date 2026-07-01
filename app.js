@@ -15295,43 +15295,6 @@ function scrollToChronologicalYear(year) {
       document.getElementById('status').textContent = `${lectureCount} Vorträge mit ${chunkCount} Treffern`;
     }
 
-    // Zeigt/versteckt die Recherche-Auswahlfelder (Quellenart, Themenbereich)
-    // abhaengig vom gewaehlten Analyse-Modus.
-    function updateRechercheControlsVisibility() {
-      const modeRadio = document.querySelector('input[name="thematicMode"]:checked');
-      const mode = modeRadio ? modeRadio.value : 'deep';
-      const controls = document.getElementById('rechercheControls');
-      if (controls) controls.style.display = (mode === 'recherche') ? 'flex' : 'none';
-    }
-
-    // Befuellt das Themenbereich-Dropdown aus /api/themes-database und bindet
-    // die Modus-Umschaltung der Recherche-Controls.
-    async function initRechercheUI() {
-      // Modus-Wechsel ueberwachen (alle Radios, damit das Verstecken zuverlaessig ist)
-      document.querySelectorAll('input[name="thematicMode"]').forEach(radio => {
-        radio.addEventListener('change', updateRechercheControlsVisibility);
-      });
-      updateRechercheControlsVisibility();
-
-      // Themenbereiche laden
-      try {
-        const resp = await fetch(`${API_BASE}/api/themes-database`);
-        if (!resp.ok) return;
-        const themes = await resp.json();
-        const select = document.getElementById('rechercheThemeArea');
-        if (!select) return;
-        const names = Object.keys(themes || {}).sort((a, b) => a.localeCompare(b, 'de'));
-        names.forEach(name => {
-          const opt = document.createElement('option');
-          opt.value = name;
-          opt.textContent = name;
-          select.appendChild(opt);
-        });
-      } catch (e) {
-        console.warn('[RECHERCHE] Themenbereiche konnten nicht geladen werden:', e.message);
-      }
-    }
-
     async function performThematicSearch(skipHistory = false) {
       const query = document.getElementById('thematicQuery').value.trim();
       if (!query) return;
@@ -15339,6 +15302,8 @@ function scrollToChronologicalYear(year) {
       // Analytics wird bereits im Backend getrackt (trackSearch) - kein Frontend-Tracking nötig
       
       currentThematicQuery = query;
+      
+      window._showingSavedThematicSearches = false;
       
       // Browser History Eintrag hinzufügen
       if (!skipHistory) {
@@ -15460,6 +15425,24 @@ function scrollToChronologicalYear(year) {
           });
         } else {
           renderThematicResults(query, answer.content, sources, (gaFilter || ''));
+        }
+
+        if (typeof window.syncThematicSavePayload === 'function') {
+          window.syncThematicSavePayload({
+            query,
+            mode: thematicMode,
+            gaFilter: gaFilterSorted.length ? gaFilterSorted.join(',') : '',
+            limit,
+            sources: currentSources || [],
+            rechercheScope: thematicMode === 'recherche'
+              ? { sourceType: rechercheSourceType, themeArea: rechercheThemeArea }
+              : null
+          });
+          setTimeout(() => {
+            if (typeof window.refreshThematicSaveContentFromDom === 'function') {
+              window.refreshThematicSaveContentFromDom();
+            }
+          }, 200);
         }
 
         // Nach erfolgreicher Suche: Liste aktualisieren (nur lokal)
@@ -15787,6 +15770,10 @@ function scrollToChronologicalYear(year) {
         // Prüfe, ob der Themen-Tab aktiv ist
         const thematicTab = document.getElementById('thematic-tab');
         if (!thematicTab || !thematicTab.classList.contains('active')) {
+          return;
+        }
+
+        if (window._showingSavedThematicSearches) {
           return;
         }
         
@@ -26074,6 +26061,7 @@ function switchTabExtended(mode) {
   if (mode === 'thematic') {
     // Warte kurz, damit der Tab-Inhalt zuerst sichtbar wird
     setTimeout(() => {
+      if (typeof populateRechercheThemeAreas === 'function') populateRechercheThemeAreas();
       loadRecentThematicQueries();
       // Korrigiere bestehende Inhalte im Viewer - mehrfach mit Verzögerung für dynamisch geladene Inhalte
       correctAllGermanQuotes();
@@ -32112,6 +32100,99 @@ async function loadKeywordsDatabase() {
   }
 }
 
+// --- Recherche-Modus: Themenbereich-Dropdown (Tab Abfrage) ---
+let _rechercheThemeAreasLoaded = false;
+let _rechercheThemeAreasLoading = null;
+
+function getThemesApiBase() {
+  if (window.API_BASE) return window.API_BASE;
+  const isLocalHost = window.location.hostname === 'localhost' ||
+    window.location.hostname === '127.0.0.1' ||
+    window.location.hostname.startsWith('192.168.') ||
+    window.location.hostname.startsWith('172.') ||
+    window.location.hostname.startsWith('10.') ||
+    window.location.protocol === 'file:';
+  return isLocalHost ? 'http://localhost:3003' : 'https://ga-suche.onrender.com';
+}
+
+async function populateRechercheThemeAreas(force = false) {
+  const select = document.getElementById('rechercheThemeArea');
+  if (!select) return;
+
+  if (_rechercheThemeAreasLoaded && !force && select.options.length > 1) return;
+  if (_rechercheThemeAreasLoading) return _rechercheThemeAreasLoading;
+
+  const savedValue = select.value;
+  select.innerHTML = '<option value="alle">Themenbereich: alle</option><option value="" disabled>Lade Themenbereiche…</option>';
+  select.disabled = true;
+
+  _rechercheThemeAreasLoading = (async () => {
+    try {
+      const resp = await fetch(`${getThemesApiBase()}/api/themes-database`);
+      if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+      const themes = await resp.json();
+      const raw = (themes && themes.clusters) ? themes.clusters : themes;
+      const names = Object.keys(raw || {}).filter(name => {
+        const entry = raw[name];
+        return entry && typeof entry === 'object' && Array.isArray(entry.keywords);
+      }).sort((a, b) => a.localeCompare(b, 'de'));
+
+      select.innerHTML = '<option value="alle">Themenbereich: alle</option>';
+      if (names.length === 0) {
+        const opt = document.createElement('option');
+        opt.value = '';
+        opt.disabled = true;
+        opt.textContent = 'Keine Themenbereiche verfügbar';
+        select.appendChild(opt);
+      } else {
+        names.forEach(name => {
+          const opt = document.createElement('option');
+          opt.value = name;
+          opt.textContent = name;
+          select.appendChild(opt);
+        });
+        _rechercheThemeAreasLoaded = true;
+      }
+      select.disabled = false;
+      if (savedValue && savedValue !== 'alle' && [...select.options].some(o => o.value === savedValue)) {
+        select.value = savedValue;
+      }
+    } catch (e) {
+      console.warn('[RECHERCHE] Themenbereiche konnten nicht geladen werden:', e.message);
+      select.innerHTML = '<option value="alle">Themenbereich: alle</option><option value="" disabled>Fehler beim Laden</option>';
+      select.disabled = false;
+      _rechercheThemeAreasLoaded = false;
+    } finally {
+      _rechercheThemeAreasLoading = null;
+    }
+  })();
+
+  return _rechercheThemeAreasLoading;
+}
+
+function updateRechercheControlsVisibility() {
+  const modeRadio = document.querySelector('input[name="thematicMode"]:checked');
+  const mode = modeRadio ? modeRadio.value : 'deep';
+  const controls = document.getElementById('rechercheControls');
+  if (controls) controls.style.display = (mode === 'recherche') ? 'flex' : 'none';
+  if (mode === 'recherche') populateRechercheThemeAreas();
+}
+
+function initRechercheUI() {
+  if (!initRechercheUI._bound) {
+    document.querySelectorAll('input[name="thematicMode"]').forEach(radio => {
+      radio.addEventListener('change', updateRechercheControlsVisibility);
+    });
+    initRechercheUI._bound = true;
+  }
+  updateRechercheControlsVisibility();
+  populateRechercheThemeAreas();
+}
+
+window.populateRechercheThemeAreas = populateRechercheThemeAreas;
+window.updateRechercheControlsVisibility = updateRechercheControlsVisibility;
+window.initRechercheUI = initRechercheUI;
+
 // Load available themes (aus thematic-clusters.json)
 async function loadTimelineThemes() {
   try {
@@ -37420,41 +37501,108 @@ window.cancelTextEditMode = function() {};
   }
 
   window.updateThematicSaveButtonVisibility = updateThematicSaveButtonVisibility;
+
+  // Payload für Speichern (alle Abfrage-Modi inkl. Recherche)
+  window.syncThematicSavePayload = function(meta) {
+    window.currentThematicSavePayload = {
+      ...(window.currentThematicSavePayload || {}),
+      ...meta
+    };
+  };
+
+  window.refreshThematicSaveContentFromDom = function() {
+    const payload = window.currentThematicSavePayload;
+    if (!payload) return false;
+
+    const answerContent = document.getElementById('answerContent');
+    if (answerContent && answerContent.innerHTML.trim()) {
+      payload.content = answerContent.innerHTML;
+      payload.contentType = 'thematic-html';
+      return true;
+    }
+
+    const rechercheEl = document.querySelector('#viewer .recherche-answer');
+    if (rechercheEl) {
+      payload.content = rechercheEl.outerHTML;
+      payload.contentType = 'recherche-html';
+      return true;
+    }
+
+    const semanticEl = document.querySelector('#viewer .semantic-answer');
+    if (semanticEl) {
+      payload.content = semanticEl.outerHTML;
+      payload.contentType = 'thematic-html';
+      return true;
+    }
+
+    return false;
+  };
+
+  function buildThematicSaveMeta(payload, gaFilterFull) {
+    const meta = {};
+    if (payload.mode) meta.mode = payload.mode;
+    if (payload.contentType) meta.contentType = payload.contentType;
+    if (payload.rechercheScope) meta.rechercheScope = payload.rechercheScope;
+    if (gaFilterFull && String(gaFilterFull).length > 50) {
+      meta.gaFilterFull = String(gaFilterFull);
+    }
+    return Object.keys(meta).length ? JSON.stringify(meta) : null;
+  }
   
   // Themenabfrage speichern
   window.saveCurrentThematicSearch = async function() {
+    try {
+      if (typeof window.getCurrentUser === 'function') {
+        currentMemberUser = await window.getCurrentUser();
+      }
+    } catch (_) {
+      currentMemberUser = null;
+    }
+
     if (!currentMemberUser) {
       alert('Bitte melden Sie sich im Mitgliederbereich an, um Themenabfragen zu speichern.');
       return;
     }
-    
-    const query = document.getElementById('thematicQuery').value.trim();
-    const answerContent = document.getElementById('answerContent');
-    
-    if (!query || !answerContent) {
-      alert('Keine Themenabfrage zum Speichern vorhanden.');
+
+    if (typeof window.refreshThematicSaveContentFromDom === 'function') {
+      window.refreshThematicSaveContentFromDom();
+    }
+
+    const payload = window.currentThematicSavePayload || {};
+    const query = (payload.query || document.getElementById('thematicQuery')?.value || '').trim();
+    const content = payload.content || '';
+
+    if (!query || !content.trim()) {
+      alert('Keine Themenabfrage zum Speichern vorhanden. Bitte zuerst eine Suche durchführen.');
       return;
     }
-    
-    const content = answerContent.innerHTML;
+
     const gaFilterArr = (typeof getThematicGAFilterValue === 'function') ? getThematicGAFilterValue() : [];
-    const gaFilter = gaFilterArr.length > 0 ? gaFilterArr.join(',') : null;
-    const limit = parseInt(document.getElementById('thematicLimitFilter')?.value) || 100;
+    const gaFilterFull = payload.gaFilter
+      || (gaFilterArr.length > 0 ? gaFilterArr.join(',') : '');
+    const gaFilterDb = gaFilterFull ? String(gaFilterFull).slice(0, 50) : null;
+    const limit = payload.limit || parseInt(document.getElementById('thematicLimitFilter')?.value) || 100;
+    const sources = payload.sources || currentSources || [];
+    const searchMethod = payload.mode === 'recherche' ? 'recherche' : 'hybrid-thematic-unified';
     
     try {
-      if (typeof saveThematicSearchAPI !== 'function') {
+      if (typeof window.saveThematicSearchAPI !== 'function') {
         throw new Error('API nicht verfügbar');
       }
       
-      const result = await saveThematicSearchAPI(query, content, currentSources || [], {
-        gaFilter: gaFilter,
+      const result = await window.saveThematicSearchAPI(query, content, sources, {
+        gaFilter: gaFilterDb,
         limitUsed: limit,
-        totalMatches: currentSources ? currentSources.length : 0
+        totalMatches: sources.length,
+        searchMethod,
+        notes: buildThematicSaveMeta(payload, gaFilterFull)
       });
       
       if (!result.success) throw new Error(result.error);
       
+      window._showingSavedThematicSearches = true;
       showThematicNotification('Themenabfrage gespeichert!', 'success');
+      await window.showSavedThematicSearches();
     } catch (error) {
       console.error('Fehler beim Speichern:', error);
       showThematicNotification('Fehler beim Speichern: ' + error.message, 'error');
@@ -37463,21 +37611,29 @@ window.cancelTextEditMode = function() {};
   
   // Gespeicherte Themenabfragen anzeigen (Liste im linken Panel)
   window.showSavedThematicSearches = async function() {
+    try {
+      if (typeof window.getCurrentUser === 'function') {
+        currentMemberUser = await window.getCurrentUser();
+      }
+    } catch (_) {
+      currentMemberUser = null;
+    }
+
     if (!currentMemberUser) {
       alert('Bitte melden Sie sich im Mitgliederbereich an.');
       return;
     }
     
     try {
-      if (typeof getSavedThematicSearchesAPI !== 'function') {
+      if (typeof window.getSavedThematicSearchesAPI !== 'function') {
         throw new Error('API nicht verfügbar');
       }
       
-      const result = await getSavedThematicSearchesAPI();
+      const result = await window.getSavedThematicSearchesAPI();
       if (!result.success) throw new Error(result.error);
       
-      // Liste im linken Panel anzeigen (statt Modal)
-      displaySavedSearchesList(result.data);
+      window._showingSavedThematicSearches = true;
+      displaySavedSearchesList(result.data || []);
     } catch (error) {
       console.error('Fehler beim Laden:', error);
       showThematicNotification('Fehler beim Laden: ' + error.message, 'error');
@@ -37487,13 +37643,16 @@ window.cancelTextEditMode = function() {};
   // Liste der gespeicherten Abfragen im linken Panel anzeigen
   function displaySavedSearchesList(searches) {
     const container = document.getElementById('results');
+    if (!container) return;
     
     if (searches.length === 0) {
       container.innerHTML = '<p style="color: var(--secondary-text, #666); text-align: center; padding: 1rem;">Keine gespeicherten Themenabfragen vorhanden.</p>';
+      document.getElementById('status').textContent = 'Keine gespeicherten Abfragen';
       return;
     }
     
-    let html = '<ul class="results-list" style="list-style: disc; padding-left: 1.2rem; margin: 0;">';
+    let html = '<div style="font-weight:600; margin-bottom:0.6rem; color:var(--text-color);">Meine Abfragen</div>';
+    html += '<ul class="results-list" style="list-style: disc; padding-left: 1.2rem; margin: 0;">';
     
     searches.forEach(search => {
       const date = new Date(search.created_at).toLocaleDateString('de-DE', {
@@ -37522,6 +37681,9 @@ window.cancelTextEditMode = function() {};
     container.innerHTML = html;
     
     document.getElementById('status').textContent = `${searches.length} gespeicherte Abfragen`;
+
+    const sidebarContent = document.getElementById('sidebar-content');
+    if (sidebarContent) sidebarContent.scrollTop = 0;
   }
   
   // Gespeicherte Abfrage laden und im Main Viewer anzeigen
@@ -37529,21 +37691,26 @@ window.cancelTextEditMode = function() {};
     if (!currentMemberUser) return;
     
     try {
-      if (typeof getSavedThematicSearchAPI !== 'function') {
+      if (typeof window.getSavedThematicSearchAPI !== 'function') {
         throw new Error('API nicht verfügbar');
       }
       
-      const result = await getSavedThematicSearchAPI(searchId);
+      const result = await window.getSavedThematicSearchAPI(searchId);
       if (!result.success) throw new Error(result.error);
       
       const data = result.data;
+      let saveMeta = {};
+      if (data.notes) {
+        try { saveMeta = JSON.parse(data.notes); } catch (_) {}
+      }
       
       // Query in Eingabefeld setzen
       document.getElementById('thematicQuery').value = data.query;
       
       // GA-Filter setzen falls vorhanden (Multi-Select)
-      if (data.ga_filter && thematicGAFilterDropdown) {
-        const gaList = String(data.ga_filter)
+      const gaFilterRaw = saveMeta.gaFilterFull || data.ga_filter || '';
+      if (gaFilterRaw && thematicGAFilterDropdown) {
+        const gaList = String(gaFilterRaw)
           .split(',').map(s => s.trim()).filter(Boolean);
         thematicGAFilterDropdown.setSelectedValues(gaList);
       }
@@ -37569,26 +37736,46 @@ window.cancelTextEditMode = function() {};
         day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit'
       });
       
-      viewer.innerHTML = `
-        <div class="saved-thematic-result">
-          <div style="font-size: 0.9em; color: var(--secondary-text, #666); margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 1px solid var(--border-color, #ddd);">
-            Gespeichert am ${date} - ${data.total_matches} Quellen${data.ga_filter ? ' | ' + data.ga_filter : ''}
+      const gaLabel = saveMeta.gaFilterFull || data.ga_filter || '';
+      const isRechercheHtml = saveMeta.contentType === 'recherche-html'
+        || (data.search_method === 'recherche')
+        || String(data.content || '').includes('recherche-answer');
+
+      if (isRechercheHtml) {
+        viewer.innerHTML = `
+          <div class="saved-thematic-result">
+            <div style="font-size: 0.9em; color: var(--secondary-text, #666); margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 1px solid var(--border-color, #ddd);">
+              Gespeichert am ${date} - ${data.total_matches} Quellen${gaLabel ? ' | ' + escapeHtmlThematic(gaLabel) : ''}
+            </div>
+            ${data.content}
           </div>
-          <div class="semantic-answer">
-            <div class="answer-content" id="answerContentViewer">${data.content}</div>
+        `;
+      } else {
+        viewer.innerHTML = `
+          <div class="saved-thematic-result">
+            <div style="font-size: 0.9em; color: var(--secondary-text, #666); margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 1px solid var(--border-color, #ddd);">
+              Gespeichert am ${date} - ${data.total_matches} Quellen${gaLabel ? ' | ' + escapeHtmlThematic(gaLabel) : ''}
+            </div>
+            <div class="semantic-answer">
+              <div class="answer-content" id="answerContentViewer">${data.content}</div>
+            </div>
           </div>
-        </div>
-      `;
+        `;
+      }
       
       // Nicht vom Backend verlinkte GA-Referenzen im DOM nachträglich klickbar machen
-      const savedAnswerDiv = document.getElementById('answerContentViewer');
+      const savedAnswerDiv = document.getElementById('answerContentViewer')
+        || viewer.querySelector('.recherche-answer')
+        || viewer.querySelector('.semantic-answer');
       if (savedAnswerDiv) {
         convertGAReferencesToLinksInKeywordResults(savedAnswerDiv);
       }
       
       // GA-Links: Öffnen Vortrag im rechten Summary Panel (wie bei normaler Themensuche)
       setTimeout(() => {
-        const answerDiv = document.getElementById('answerContentViewer');
+        const answerDiv = document.getElementById('answerContentViewer')
+          || viewer.querySelector('.recherche-answer')
+          || viewer.querySelector('.semantic-answer');
         if (answerDiv) {
           const gaLinks = answerDiv.querySelectorAll('.ga-reference');
           
@@ -37643,11 +37830,11 @@ window.cancelTextEditMode = function() {};
     if (!confirm('Möchten Sie diese Themenabfrage wirklich löschen?')) return;
     
     try {
-      if (typeof deleteSavedThematicSearchAPI !== 'function') {
+      if (typeof window.deleteSavedThematicSearchAPI !== 'function') {
         throw new Error('API nicht verfügbar');
       }
       
-      const result = await deleteSavedThematicSearchAPI(searchId);
+      const result = await window.deleteSavedThematicSearchAPI(searchId);
       if (!result.success) throw new Error(result.error);
       
       showThematicNotification('Gelöscht', 'success');

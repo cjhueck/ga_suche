@@ -1052,6 +1052,9 @@ export async function saveThematicSearch(query, content, sources = [], options =
       notes = null
     } = options;
 
+    // ga_filter-Spalte ist VARCHAR(50) – längere Filter gehoeren in notes (gaFilterFull)
+    const gaFilterDb = gaFilter ? String(gaFilter).slice(0, 50) : null;
+
     const { data, error } = await supabase
       .from('saved_thematic_searches')
       .insert({
@@ -1062,7 +1065,7 @@ export async function saveThematicSearch(query, content, sources = [], options =
         sources: sources,
         search_method: searchMethod,
         total_matches: totalMatches,
-        ga_filter: gaFilter,
+        ga_filter: gaFilterDb,
         limit_used: limitUsed,
         tags: tags,
         notes: notes
