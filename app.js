@@ -37618,15 +37618,6 @@ window.cancelTextEditMode = function() {};
 
     return subThemes.length ? { intro: '', subThemes } : null;
   }
-
-  function prependSavedRechercheBanner(viewer, date, totalMatches, gaLabel) {
-    if (!viewer) return;
-    const banner = document.createElement('div');
-    banner.className = 'saved-recherche-banner';
-    banner.style.cssText = 'font-size: 0.9em; color: var(--secondary-text, #666); margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 1px solid var(--border-color, #ddd);';
-    banner.textContent = `Gespeichert am ${date} - ${totalMatches} Quellen${gaLabel ? ' | ' + gaLabel : ''}`;
-    viewer.insertBefore(banner, viewer.firstChild);
-  }
   
   // Themenabfrage speichern
   window.saveCurrentThematicSearch = async function() {
@@ -37749,7 +37740,7 @@ window.cancelTextEditMode = function() {};
             ${escapeHtmlThematic(queryShort)}
           </a>
           <div style="font-size: 0.8em; color: var(--secondary-text, #888); margin-top: 2px;">
-            ${date} - ${search.total_matches} Quellen
+            ${date}
             <button onclick="deleteSavedThematicSearch('${search.id}'); event.stopPropagation();" 
                     style="background: none; border: none; color: #dc3545; cursor: pointer; font-size: 0.9em; margin-left: 8px;">
               [löschen]
@@ -37814,11 +37805,7 @@ window.cancelTextEditMode = function() {};
       
       // Ergebnisse im Main Viewer anzeigen
       const viewer = document.getElementById('viewer');
-      const date = new Date(data.created_at).toLocaleDateString('de-DE', {
-        day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit'
-      });
       
-      const gaLabel = saveMeta.gaFilterFull || data.ga_filter || '';
       const isRechercheHtml = saveMeta.contentType === 'recherche-html'
         || (data.search_method === 'recherche')
         || String(data.content || '').includes('recherche-answer');
@@ -37832,7 +37819,6 @@ window.cancelTextEditMode = function() {};
         if (recherche && typeof window.renderRechercheResults === 'function') {
           const scope = saveMeta.rechercheScope || {};
           window.renderRechercheResults(data.query, recherche, gaFilterRaw, scope);
-          prependSavedRechercheBanner(viewer, date, data.total_matches, gaLabel);
 
           if (typeof window.syncThematicSavePayload === 'function') {
             window.syncThematicSavePayload({
@@ -37851,24 +37837,14 @@ window.cancelTextEditMode = function() {};
             }, 200);
           }
 
-          document.getElementById('status').textContent = `Antwort aus ${data.total_matches} Quellen`;
+          document.getElementById('status').textContent = 'Gespeicherte Abfrage';
           return;
         }
 
-        viewer.innerHTML = `
-          <div class="saved-thematic-result">
-            <div style="font-size: 0.9em; color: var(--secondary-text, #666); margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 1px solid var(--border-color, #ddd);">
-              Gespeichert am ${date} - ${data.total_matches} Quellen${gaLabel ? ' | ' + escapeHtmlThematic(gaLabel) : ''}
-            </div>
-            ${data.content}
-          </div>
-        `;
+        viewer.innerHTML = `<div class="saved-thematic-result">${data.content}</div>`;
       } else {
         viewer.innerHTML = `
           <div class="saved-thematic-result">
-            <div style="font-size: 0.9em; color: var(--secondary-text, #666); margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 1px solid var(--border-color, #ddd);">
-              Gespeichert am ${date} - ${data.total_matches} Quellen${gaLabel ? ' | ' + escapeHtmlThematic(gaLabel) : ''}
-            </div>
             <div class="semantic-answer">
               <div class="answer-content" id="answerContentViewer">${data.content}</div>
             </div>
@@ -37928,7 +37904,7 @@ window.cancelTextEditMode = function() {};
         }
       }, 100);
       
-      document.getElementById('status').textContent = `Antwort aus ${data.total_matches} Quellen`;
+      document.getElementById('status').textContent = 'Gespeicherte Abfrage';
       
     } catch (error) {
       console.error('Fehler beim Laden:', error);
