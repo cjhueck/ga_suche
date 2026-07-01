@@ -3111,6 +3111,9 @@ function normalizeGANumber(gaNumber) {
       }
       if (mode === 'thematic') {
         document.body.classList.add('tab-thematic-active');
+        if (typeof window.updateThematicSaveButtonVisibility === 'function') {
+          window.updateThematicSaveButtonVisibility();
+        }
       } else {
         document.body.classList.remove('tab-thematic-active');
       }
@@ -37405,11 +37408,18 @@ window.cancelTextEditMode = function() {};
   // Speichern-Button Sichtbarkeit aktualisieren
   function updateThematicSaveButtonVisibility() {
     const savedSearchButtons = document.getElementById('savedSearchButtons');
-    
+    const saveBtn = document.getElementById('saveThematicSearchBtn');
+    const listBtn = document.getElementById('showSavedSearchesBtn');
+    const visible = !!currentMemberUser;
+
     if (savedSearchButtons) {
-      savedSearchButtons.style.display = currentMemberUser ? 'flex' : 'none';
+      savedSearchButtons.style.display = visible ? 'flex' : 'none';
     }
+    if (saveBtn) saveBtn.style.display = visible ? 'inline-block' : 'none';
+    if (listBtn) listBtn.style.display = visible ? 'inline-block' : 'none';
   }
+
+  window.updateThematicSaveButtonVisibility = updateThematicSaveButtonVisibility;
   
   // Themenabfrage speichern
   window.saveCurrentThematicSearch = async function() {
