@@ -52,7 +52,7 @@ _obsidianBC.onmessage = function(e) {
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script src="themes/themes-data.js"></script>
-    <script src="themes/thematic-visualization.js"></script>
+    <script src="themes/thematic-visualization.js?v=20260701f"></script>
     <link rel="stylesheet" href="themes/thematic.css">
 <!-- Mitglieder Panel Styles -->
 <link rel="stylesheet" href="members/members-panel.css">
@@ -1837,6 +1837,16 @@ body:not(.is-local) #sidebar-action-buttons {
     body.dark-mode #results .maps-sidepanel-content p,
     body.dark-mode #results .maps-sidepanel-content .paragraph {
       color: #b8b8b8 !important;
+    }
+
+    /* Themen-Schwerpunkte: Absätze im Blocksatz wie Summary-Panel */
+    #sidebar-content .maps-sidepanel-content.theme-summary-content p,
+    #sidebar-content .maps-sidepanel-content.theme-summary-content .paragraph,
+    #results .maps-sidepanel-content.theme-summary-content p,
+    #results .maps-sidepanel-content.theme-summary-content .paragraph {
+      display: block !important;
+      text-align: justify !important;
+      margin: var(--paragraph-margin) 0 !important;
     }
     
     /* Zentrale Styles für alle Überschriften im Summary-Panel - DIREKT */

@@ -565,22 +565,11 @@ async function loadThemeSummary(themeName, forceRegenerate) {
     }
 }
 
-// Konvertiert die KI-Zusammenfassung (Markdown-ähnlich) in HTML mit klickbaren GA-Links
-function convertThemeSummaryToHtml(text) {
-    // # Hauptüberschrift entfernen (Themenname wird separat angezeigt)
-    var html = text.replace(/^# .+$/gm, '');
-
-    // ### Überschriften -> <h3> (vor ## konvertieren, da ## auch in ### matcht)
-    html = html.replace(/^### (.+)$/gm, '<h3>$1</h3>');
-
-    // ## Überschriften -> <h2> (Styling via .maps-sidepanel-content CSS)
-    html = html.replace(/^## (.+)$/gm, '<h2>$1</h2>');
-
-    // **fett** -> <strong>
-    html = html.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
-
-    // GA-Links in eckigen Klammern klickbar machen und in runde Klammern konvertieren
-    html = html.replace(/\[([^\]]*?GA\d{1,3}[a-z]?\/\d{1,3}[^\]]*?)\]/g, function(match, inner) {
+// Inline-Formatierung (fett, GA-Links) für Themen-Zusammenfassungen
+function formatThemeSummaryInline(text) {
+    var s = String(text || '');
+    s = s.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+    s = s.replace(/\[([^\]]*?GA\d{1,3}[a-z]?\/\d{1,3}[^\]]*?)\]/g, function(match, inner) {
         var refs = inner.split(/,\s*/);
         var links = refs.map(function(ref) {
             ref = ref.trim();
@@ -597,13 +586,47 @@ function convertThemeSummaryToHtml(text) {
         });
         return '(' + links.join(', ') + ')';
     });
+    return s;
+}
 
-    // Zeilenumbrüche -> Absätze
-    html = html.replace(/\n\n/g, '</p><p>');
-    html = html.replace(/\n/g, '<br>');
-    html = '<p>' + html + '</p>';
+// Konvertiert die KI-Zusammenfassung (Markdown-ähnlich) in HTML mit klickbaren GA-Links
+function convertThemeSummaryToHtml(text) {
+    var lines = String(text || '').replace(/\r\n/g, '\n').split('\n');
+    var parts = [];
+    var paraLines = [];
 
-    return html;
+    function flushParagraph() {
+        if (!paraLines.length) return;
+        var joined = paraLines.join(' ').replace(/\s+/g, ' ').trim();
+        paraLines = [];
+        if (!joined) return;
+        parts.push('<p class="paragraph">' + formatThemeSummaryInline(joined) + '</p>');
+    }
+
+    lines.forEach(function(line) {
+        var trimmed = line.trim();
+        if (!trimmed) {
+            flushParagraph();
+            return;
+        }
+        if (/^# .+$/.test(trimmed)) return;
+        var h2 = trimmed.match(/^## (.+)$/);
+        if (h2) {
+            flushParagraph();
+            parts.push('<h2>' + formatThemeSummaryInline(h2[1]) + '</h2>');
+            return;
+        }
+        var h3 = trimmed.match(/^### (.+)$/);
+        if (h3) {
+            flushParagraph();
+            parts.push('<h3>' + formatThemeSummaryInline(h3[1]) + '</h3>');
+            return;
+        }
+        paraLines.push(trimmed);
+    });
+    flushParagraph();
+
+    return parts.join('\n');
 }
 
 // GA-Link aus der Zusammenfassung: Vortrag im Main Viewer des aktuellen Tabs öffnen (kein Tab-Wechsel)
