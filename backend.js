@@ -4095,300 +4095,249 @@ async function performHybridSearch(query, limit = 20) {
 // VOLLTEXT-SUCHE
 // ============================================================================
 
+async function performFulltextSearch({
+  word1,
+  word2 = '',
+  word1IsPhrase = false,
+  word2IsPhrase = false,
+  wordOperator = 'and',
+  proximity = null,
+  relevanceFilter = 'alle',
+  yearFilter = '',
+  gaFilter = '',
+  trackAnalytics = true
+}) {
+  if (!word1) {
+    throw new Error('Mindestens ein Suchwort erforderlich');
+  }
+
+  const effectiveProximity = proximity || null;
+
+  const searchInText = (text, searchTerm, isPhrase) => {
+    if (!searchTerm) return false;
+
+    if (isPhrase) {
+      const escapedTerm = searchTerm.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      const regex = new RegExp(`(^|[\\s,.;:!?()\\-—])${escapedTerm}($|[\\s,.;:!?()\\-—])`);
+      return regex.test(text);
+    }
+    const normalize = s => s.toLowerCase().replace(/ß/g, 'ss').replace(/[,;.:!?()"\-—–]/g, '');
+    return normalize(text).includes(normalize(searchTerm));
+  };
+
+  const results = [];
+  const addedParagraphs = new Set();
+
+  Object.values(fullLectures).forEach(lecture => {
+    if (gaFilter) {
+      const lectureGA = lecture.ID ? lecture.ID.split('/')[0] : '';
+      const gaFilters = gaFilter.split(',').map(f => f.trim()).filter(f => f);
+      const matchesFilter = gaFilters.some(filter =>
+        lectureGA === filter ||
+        lectureGA === `GA${filter}` ||
+        lectureGA.replace('GA', '').replace('ga', '') === filter
+      );
+      if (!matchesFilter) return;
+    }
+
+    if (yearFilter) {
+      const lectureYear = lecture.date ? lecture.date.substring(0, 4) : '';
+      const yearFilters = yearFilter.split(',').map(f => f.trim()).filter(f => f);
+      const matchesYearFilter = yearFilters.some(filter => lectureYear === filter);
+      if (!matchesYearFilter) return;
+    }
+
+    const paragraphs = lecture.paragraphs || [];
+    let lectureHasWord1 = false;
+    let lectureHasWord2 = false;
+    if (word2 && wordOperator === 'and' && !effectiveProximity) {
+      for (const para of paragraphs) {
+        const content = (para.content || para.text || '');
+        if (!lectureHasWord1) lectureHasWord1 = searchInText(content, word1, word1IsPhrase);
+        if (!lectureHasWord2) lectureHasWord2 = searchInText(content, word2, word2IsPhrase);
+        if (lectureHasWord1 && lectureHasWord2) break;
+      }
+    }
+
+    paragraphs.forEach((para, paraIndex) => {
+      const content = (para.content || para.text || '');
+      const hasWord1 = word1 && searchInText(content, word1, word1IsPhrase);
+      const hasWord2 = word2 && searchInText(content, word2, word2IsPhrase);
+      const paragraphsToAdd = [];
+
+      if (!word2) {
+        if (hasWord1) paragraphsToAdd.push(paraIndex);
+      } else if (wordOperator === 'or') {
+        if (hasWord1 || hasWord2) paragraphsToAdd.push(paraIndex);
+      } else if (!effectiveProximity) {
+        if (lectureHasWord1 && lectureHasWord2 && (hasWord1 || hasWord2)) paragraphsToAdd.push(paraIndex);
+      } else {
+        const maxDist = parseInt(effectiveProximity);
+        if (hasWord1 && hasWord2) {
+          paragraphsToAdd.push(paraIndex);
+        } else if (hasWord1) {
+          for (let i = Math.max(0, paraIndex - maxDist); i <= Math.min(paragraphs.length - 1, paraIndex + maxDist); i++) {
+            if (i !== paraIndex) {
+              const neighborContent = (paragraphs[i].content || paragraphs[i].text || '');
+              if (searchInText(neighborContent, word2, word2IsPhrase)) {
+                paragraphsToAdd.push(paraIndex);
+                paragraphsToAdd.push(i);
+                break;
+              }
+            }
+          }
+        } else if (hasWord2) {
+          for (let i = Math.max(0, paraIndex - maxDist); i <= Math.min(paragraphs.length - 1, paraIndex + maxDist); i++) {
+            if (i !== paraIndex) {
+              const neighborContent = (paragraphs[i].content || paragraphs[i].text || '');
+              if (searchInText(neighborContent, word1, word1IsPhrase)) {
+                paragraphsToAdd.push(paraIndex);
+                paragraphsToAdd.push(i);
+                break;
+              }
+            }
+          }
+        }
+      }
+
+      paragraphsToAdd.forEach(idx => {
+        const key = `${lecture.ID}-${idx}`;
+        if (!addedParagraphs.has(key)) {
+          addedParagraphs.add(key);
+          const p = paragraphs[idx];
+          const pContent = (p.content || p.text || '');
+          results.push({
+            ID: lecture.ID,
+            title: lecture.title,
+            fileName: lecture.fileName,
+            location: lecture.location,
+            date: lecture.date,
+            paragraphIndex: idx,
+            index: p.index,
+            content: p.content || p.text,
+            hasWord1: searchInText(pContent, word1, word1IsPhrase),
+            hasWord2: word2 && searchInText(pContent, word2, word2IsPhrase)
+          });
+        }
+      });
+    });
+  });
+
+  Object.values(fullBooks).forEach(book => {
+    if (gaFilter) {
+      const bookGA = book.ID || book.gaNumber || '';
+      const gaFilters = gaFilter.split(',').map(f => f.trim()).filter(f => f);
+      const matchesFilter = gaFilters.some(filter =>
+        bookGA === filter ||
+        bookGA === `GA${filter}` ||
+        bookGA.replace('GA', '').replace('ga', '') === filter
+      );
+      if (!matchesFilter) return;
+    }
+
+    const bookParagraphs = getBookParagraphsForSearch(book);
+    bookParagraphs.forEach((para, paraIndex) => {
+      const content = (para.content || para.text || '');
+      const hasWord1 = searchInText(content, word1, word1IsPhrase);
+      const hasWord2 = word2 && searchInText(content, word2, word2IsPhrase);
+      const paragraphsToAdd = [];
+
+      if (!word2) {
+        if (hasWord1) paragraphsToAdd.push(paraIndex);
+      } else if (wordOperator === 'and') {
+        if (hasWord1 && hasWord2) paragraphsToAdd.push(paraIndex);
+      } else if (wordOperator === 'or') {
+        if (hasWord1 || hasWord2) paragraphsToAdd.push(paraIndex);
+      }
+
+      paragraphsToAdd.forEach(idx => {
+        const key = `${book.ID || book.gaNumber}-${idx}`;
+        if (!addedParagraphs.has(key)) {
+          addedParagraphs.add(key);
+          const p = bookParagraphs[idx];
+          const pContent = (p.content || p.text || '');
+          results.push({
+            ID: book.ID || book.gaNumber,
+            title: book.title,
+            fileName: book.fileName,
+            location: null,
+            date: book.yearRange || null,
+            paragraphIndex: idx,
+            index: p.index,
+            content: p.content || p.text,
+            hasWord1: searchInText(pContent, word1, word1IsPhrase),
+            hasWord2: word2 && searchInText(pContent, word2, word2IsPhrase),
+            isBook: true
+          });
+        }
+      });
+    });
+  });
+
+  const searchQuery = word2 ? `${word1} ${word2}` : word1;
+  const resultsWithRelevance = addRelevanceScoringToResults(results, searchQuery);
+  let filteredResults = resultsWithRelevance;
+  if (relevanceFilter && relevanceFilter !== 'alle' && relevanceFilter !== 'ohne') {
+    filteredResults = resultsWithRelevance.filter(r => r.relevanceCategory === relevanceFilter);
+  }
+
+  if (trackAnalytics) {
+    if (word1) trackQueryTerms(word1, filteredResults.length);
+    if (word2) trackQueryTerms(word2, filteredResults.length);
+    const searchTerm = word2 ? `${word1} ${word2}` : word1;
+    trackSearch(searchTerm).catch(err => {
+      console.error('[ANALYTICS] Fehler beim Tracking der Volltext-Suche:', err.message);
+    });
+  }
+
+  return {
+    query: {
+      word1,
+      word2,
+      word1IsPhrase,
+      word2IsPhrase,
+      proximity: effectiveProximity,
+      originalProximity: proximity,
+      relevanceFilter
+    },
+    results: filteredResults,
+    resultCount: filteredResults.length,
+    unfilteredCount: results.length
+  };
+}
+
 app.post('/api/fulltext-search', async (req, res) => {
-  // TEST: Diese Meldung sollte IMMER erscheinen, wenn eine Anfrage ankommt
   console.log('========================================');
   console.log('[FULLTEXT-SEARCH] ENDPUNKT AUFGERUFEN!');
   console.log('[FULLTEXT-SEARCH] Zeit:', new Date().toISOString());
   console.log('[FULLTEXT-SEARCH] IP:', req.ip || req.connection.remoteAddress);
   console.log('========================================');
-  
+
   try {
     const { word1, word2, word1IsPhrase = false, word2IsPhrase = false, wordOperator = 'and', proximity = null, relevanceFilter = 'alle', yearFilter = '', gaFilter = '' } = req.body;
-    
+
     console.log(`[FULLTEXT-SEARCH] Parameter: word1="${word1}", word2="${word2}"`);
-    
+
     if (!word1) {
       console.log('[FULLTEXT-SEARCH] Fehler: Kein word1 vorhanden');
       return res.status(400).json({ error: 'Mindestens ein Suchwort erforderlich' });
     }
-    
-    // Proximity-Filter:
-    // null/"" = kein Limit (beliebiger Abstand im gesamten Vortrag)
-    // 1, 2 oder 3 = max. X Absätze Abstand zwischen den Wörtern
-    const effectiveProximity = proximity || null;
-    
-    const operatorText = word2 ? ` ${wordOperator.toUpperCase()} ` : '';
-    const proximityInfo = effectiveProximity ? ` (Proximity: max. ${effectiveProximity} Absätze)` : word2 ? ' (beliebiger Abstand)' : '';
-    
-    // Hilfsfunktion für exakte Phrasensuche oder flexible Wortsuche
-    const searchInText = (text, searchTerm, isPhrase) => {
-      if (!searchTerm) return false;
-      
-      if (isPhrase) {
-        // Exakte Phrasensuche: Wortgrenzen UND case-sensitive
-        // \b funktioniert nicht gut mit Umlauten, daher verwende manuelle Wortgrenze
-        const escapedTerm = searchTerm.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-        const regex = new RegExp(`(^|[\\s,.;:!?()\\-—])${escapedTerm}($|[\\s,.;:!?()\\-—])`);
-        return regex.test(text);
-      } else {
-        // Flexible Suche: auch Teilwörter erlaubt, case-insensitive
-        // Normalisierung: ß→ss und Interpunktion ignorieren für robustes Matching
-        const normalize = s => s.toLowerCase().replace(/ß/g, 'ss').replace(/[,;.:!?()"\-—–]/g, '');
-        return normalize(text).includes(normalize(searchTerm));
-      }
-    };
-    
-    const results = [];
-    const addedParagraphs = new Set();
-    
-    Object.values(fullLectures).forEach(lecture => {
-      // GA-Filter: Überspringe Vorträge, die nicht zu den ausgewählten GA-Bänden gehören
-      if (gaFilter) {
-        const lectureGA = lecture.ID ? lecture.ID.split('/')[0] : ''; // z.B. "GA110"
-        const gaFilters = gaFilter.split(',').map(f => f.trim()).filter(f => f);
-        
-        // Prüfe ob der Vortrag zu einem der ausgewählten GA-Bände gehört
-        const matchesFilter = gaFilters.some(filter => 
-          lectureGA === filter || 
-          lectureGA === `GA${filter}` || 
-          lectureGA.replace('GA', '').replace('ga', '') === filter
-        );
-        
-        if (!matchesFilter) {
-          return; // Überspringe diesen Vortrag
-        }
-      }
-      
-      // Jahr-Filter: Überspringe Vorträge, die nicht zu den ausgewählten Jahren gehören
-      if (yearFilter) {
-        const lectureYear = lecture.date ? lecture.date.substring(0, 4) : '';
-        const yearFilters = yearFilter.split(',').map(f => f.trim()).filter(f => f);
-        
-        // Prüfe ob der Vortrag zu einem der ausgewählten Jahre gehört
-        const matchesYearFilter = yearFilters.some(filter => lectureYear === filter);
-        
-        if (!matchesYearFilter) {
-          return; // Überspringe diesen Vortrag
-        }
-      }
-      
-      const paragraphs = lecture.paragraphs || [];
-      
-      // Bei UND ohne Proximity: Prüfe erst ob beide Wörter irgendwo im Vortrag vorkommen
-      let lectureHasWord1 = false;
-      let lectureHasWord2 = false;
-      if (word2 && wordOperator === 'and' && !effectiveProximity) {
-        for (const para of paragraphs) {
-          const content = (para.content || para.text || '');
-          if (!lectureHasWord1) lectureHasWord1 = searchInText(content, word1, word1IsPhrase);
-          if (!lectureHasWord2) lectureHasWord2 = searchInText(content, word2, word2IsPhrase);
-          if (lectureHasWord1 && lectureHasWord2) break;
-        }
-      }
-      
-      paragraphs.forEach((para, paraIndex) => {
-        const content = (para.content || para.text || '');
-        const hasWord1 = word1 && searchInText(content, word1, word1IsPhrase);
-        const hasWord2 = word2 && searchInText(content, word2, word2IsPhrase);
-        
-        const paragraphsToAdd = [];
-        
-        if (!word2) {
-          // Einzelwort-Suche
-          if (hasWord1) {
-            paragraphsToAdd.push(paraIndex);
-          }
-        } else if (wordOperator === 'or') {
-          // ODER-Suche: Mindestens ein Wort muss vorkommen (Proximity irrelevant)
-          if (hasWord1 || hasWord2) {
-            paragraphsToAdd.push(paraIndex);
-          }
-        } else if (!effectiveProximity) {
-          // UND-Suche OHNE Proximity-Limit (beide Wörter müssen irgendwo im Vortrag vorkommen)
-          if (lectureHasWord1 && lectureHasWord2 && (hasWord1 || hasWord2)) {
-            paragraphsToAdd.push(paraIndex);
-          }
-        } else {
-          // UND-Suche MIT Proximity-Limit (max. 1, 2 oder 3 Absätze)
-          const maxDist = parseInt(effectiveProximity);
-          
-          if (hasWord1 && hasWord2) {
-            // Beide Wörter im gleichen Absatz → immer hinzufügen
-            paragraphsToAdd.push(paraIndex);
-          } else if (hasWord1) {
-            // Nur word1 im aktuellen Absatz → suche word2 in benachbarten Absätzen
-            for (let i = Math.max(0, paraIndex - maxDist); i <= Math.min(paragraphs.length - 1, paraIndex + maxDist); i++) {
-              if (i !== paraIndex) {
-                const neighborContent = (paragraphs[i].content || paragraphs[i].text || '');
-                if (searchInText(neighborContent, word2, word2IsPhrase)) {
-                  paragraphsToAdd.push(paraIndex);
-                  paragraphsToAdd.push(i);
-                  break;
-                }
-              }
-            }
-          } else if (hasWord2) {
-            // Nur word2 im aktuellen Absatz → suche word1 in benachbarten Absätzen
-            for (let i = Math.max(0, paraIndex - maxDist); i <= Math.min(paragraphs.length - 1, paraIndex + maxDist); i++) {
-              if (i !== paraIndex) {
-                const neighborContent = (paragraphs[i].content || paragraphs[i].text || '');
-                if (searchInText(neighborContent, word1, word1IsPhrase)) {
-                  paragraphsToAdd.push(paraIndex);
-                  paragraphsToAdd.push(i);
-                  break;
-                }
-              }
-            }
-          }
-        }
-        
-        paragraphsToAdd.forEach(idx => {
-          const key = `${lecture.ID}-${idx}`;
-          if (!addedParagraphs.has(key)) {
-            addedParagraphs.add(key);
-            const p = paragraphs[idx];
-            const pContent = (p.content || p.text || '');
-            
-            results.push({
-              ID: lecture.ID,
-              title: lecture.title,
-              fileName: lecture.fileName,
-              location: lecture.location,
-              date: lecture.date,
-              paragraphIndex: idx,
-              index: p.index,
-              content: p.content || p.text,
-              hasWord1: searchInText(pContent, word1, word1IsPhrase),
-              hasWord2: word2 && searchInText(pContent, word2, word2IsPhrase)
-            });
-          }
-        });
-      });
+
+    const payload = await performFulltextSearch({
+      word1,
+      word2,
+      word1IsPhrase,
+      word2IsPhrase,
+      wordOperator,
+      proximity,
+      relevanceFilter,
+      yearFilter,
+      gaFilter,
+      trackAnalytics: true
     });
-    
-    // Durchsuche auch Bücher
-    Object.values(fullBooks).forEach(book => {
-      // GA-Filter: Überspringe Bücher, die nicht zu den ausgewählten GA-Bänden gehören
-      if (gaFilter) {
-        const bookGA = book.ID || book.gaNumber || '';
-        const gaFilters = gaFilter.split(',').map(f => f.trim()).filter(f => f);
-        
-        const matchesFilter = gaFilters.some(filter => 
-          bookGA === filter || 
-          bookGA === `GA${filter}` || 
-          bookGA.replace('GA', '').replace('ga', '') === filter
-        );
-        
-        if (!matchesFilter) {
-          return; // Überspringe dieses Buch
-        }
-      }
-      
-      // Konvertiere Buch in Paragraphs
-      const bookParagraphs = getBookParagraphsForSearch(book);
-      
-      bookParagraphs.forEach((para, paraIndex) => {
-        const content = (para.content || para.text || '');
-        
-        // Prüfe ob Paragraph die Suchwörter enthält
-        const hasWord1 = searchInText(content, word1, word1IsPhrase);
-        const hasWord2 = word2 && searchInText(content, word2, word2IsPhrase);
-        
-        const paragraphsToAdd = [];
-        
-        if (!word2) {
-          if (hasWord1) {
-            paragraphsToAdd.push(paraIndex);
-          }
-        } else {
-          // Zwei Wörter: Prüfe Operatoren und Proximity
-          if (wordOperator === 'and') {
-            if (hasWord1 && hasWord2) {
-              if (effectiveProximity === null) {
-                // Beliebiger Abstand im gesamten Buch
-                paragraphsToAdd.push(paraIndex);
-              } else {
-                // Proximity: Suche in benachbarten Absätzen
-                // Da Bücher keine klaren Absatz-Grenzen haben wie Vorträge,
-                // verwenden wir einen größeren Proximity-Bereich
-                paragraphsToAdd.push(paraIndex);
-              }
-            }
-          } else if (wordOperator === 'or') {
-            if (hasWord1 || hasWord2) {
-              paragraphsToAdd.push(paraIndex);
-            }
-          }
-        }
-        
-        paragraphsToAdd.forEach(idx => {
-          const key = `${book.ID || book.gaNumber}-${idx}`;
-          if (!addedParagraphs.has(key)) {
-            addedParagraphs.add(key);
-            const p = bookParagraphs[idx];
-            const pContent = (p.content || p.text || '');
-            
-            results.push({
-              ID: book.ID || book.gaNumber,
-              title: book.title,
-              fileName: book.fileName,
-              location: null, // Bücher haben keinen Ort
-              date: book.yearRange || null, // Bücher haben Jahr-Range statt Datum
-              paragraphIndex: idx,
-              index: p.index,
-              content: p.content || p.text,
-              hasWord1: searchInText(pContent, word1, word1IsPhrase),
-              hasWord2: word2 && searchInText(pContent, word2, word2IsPhrase),
-              isBook: true
-            });
-          }
-        });
-      });
-    });
-    
-    
-    // Relevanz-Scoring für Volltext-Suche hinzufügen
-    const searchQuery = word2 ? `${word1} ${word2}` : word1;
-    const resultsWithRelevance = addRelevanceScoringToResults(results, searchQuery);
-    
-    // Backend-Filterung nach Relevanz
-    let filteredResults = resultsWithRelevance;
-    if (relevanceFilter && relevanceFilter !== 'alle' && relevanceFilter !== 'ohne') {
-      filteredResults = resultsWithRelevance.filter(r => r.relevanceCategory === relevanceFilter);
-    }
-    
-    // Query-Tracking
-    if (word1) trackQueryTerms(word1, filteredResults.length);
-    if (word2) trackQueryTerms(word2, filteredResults.length);
-    
-    // Analytics-Tracking für externe Anfragen (non-blocking, aber mit Promise-Handling)
-    const searchTerm = word2 ? `${word1} ${word2}` : word1;
-    console.log(`[ANALYTICS] Rufe trackSearch auf für: "${searchTerm}"`);
-    trackSearch(searchTerm)
-      .then(() => {
-        console.log(`[ANALYTICS] trackSearch erfolgreich abgeschlossen für: "${searchTerm}"`);
-      })
-      .catch(err => {
-        console.error('[ANALYTICS] Fehler beim Tracking der Volltext-Suche:', err.message);
-        console.error('[ANALYTICS] Stack:', err.stack);
-      });
-    
-    res.json({
-      query: { 
-        word1, 
-        word2, 
-        word1IsPhrase, 
-        word2IsPhrase, 
-        proximity: effectiveProximity, // Verwende effectiveProximity statt proximity
-        originalProximity: proximity,   // Optional: ursprünglicher Wert
-        relevanceFilter 
-      },
-      results: filteredResults,
-      resultCount: filteredResults.length,
-      unfilteredCount: results.length
-    });
-    
+
+    res.json(payload);
+
   } catch (error) {
     console.error('Volltext-Suche Fehler:', error);
     res.status(500).json({ error: error.message });
@@ -12727,6 +12676,7 @@ app.post('/api/reload-books', async (req, res) => {
   try {
     fullBooks = {}; // Leere den Cache
     invalidateProcessedBookCache(); // Verarbeitete Bücher ebenfalls verwerfen
+    invalidateTimelineSearchCache();
     const reloaded = await loadBooks();
     res.json({ 
       success: true, 
@@ -12786,6 +12736,7 @@ function rebuildParagraphsFromLectures() {
 app.post('/api/reload-lectures', async (req, res) => {
   try {
     fullLectures = {}; // Leere den Cache
+    invalidateTimelineSearchCache();
     const reloaded = await loadFullLectures();
 
     // GA-Index neu aufbauen (wird sonst nur beim Boot erstellt)
@@ -17494,6 +17445,7 @@ app.post('/api/concepts-delete', async (req, res) => {
 const SUMMARY_DB_FILE = path.join(__dirname, 'summary-database.json');
 const SUMMARY_KEYWORDS_DB_FILE = path.join(__dirname, 'summary-keywords-database.json');
 const THEMATIC_SEARCH_DB_FILE = path.join(__dirname, 'thematic-search-database.json');
+const TIMELINE_SEARCH_CACHE_FILE = path.join(__dirname, 'timeline-search-cache.json');
 const KEYWORDS_DB_FILE = path.join(__dirname, 'keywords-database.json');
 const THEMES_DB_FILE = path.join(__dirname, 'themes', 'themes-database.json');
 const THEMES_DATA_FILE = path.join(__dirname, 'themes', 'themes-data.js');
@@ -19279,6 +19231,7 @@ async function saveCompleteKeywordsDatabase(keywordsDB) {
         
         // Speichere Datenbank
         await fs.writeFile(KEYWORDS_DB_FILE, JSON.stringify(keywordsDB, null, 2), 'utf8');
+        invalidateTimelineSearchCache();
         
         
         resolve(true);
@@ -19350,6 +19303,7 @@ async function saveKeywordsToDatabase(lectureId, keywordsData) {
         
         // Speichere Datenbank
         await fs.writeFile(KEYWORDS_DB_FILE, JSON.stringify(keywordsDB, null, 2), 'utf8');
+        invalidateTimelineSearchCache();
         
         
         resolve(true);
@@ -24191,6 +24145,212 @@ app.get('/api/timeline-data', async (req, res) => {
     
   } catch (error) {
     console.error('[TIMELINE-DATA] Fehler:', error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// ============================================================================
+// TIMELINE-SCHLAGWORT-SUCHE (Cache: Supabase primär, JSON-Fallback)
+// ============================================================================
+
+let timelineSearchCacheMemory = null;
+
+async function loadTimelineSearchCacheJson() {
+  if (timelineSearchCacheMemory !== null) return timelineSearchCacheMemory;
+  try {
+    const data = await fs.readFile(TIMELINE_SEARCH_CACHE_FILE, 'utf8');
+    timelineSearchCacheMemory = JSON.parse(data);
+  } catch {
+    timelineSearchCacheMemory = {};
+  }
+  return timelineSearchCacheMemory;
+}
+
+async function getTimelineSearchCacheFromJson(cacheKey) {
+  const cache = await loadTimelineSearchCacheJson();
+  const entry = cache[cacheKey];
+  if (entry && Array.isArray(entry.results)) {
+    return { ...entry, fromCache: true, cacheSource: 'json' };
+  }
+  return null;
+}
+
+async function saveTimelineSearchCacheToJson(cacheKey, entry) {
+  const cache = await loadTimelineSearchCacheJson();
+  cache[cacheKey] = entry;
+  timelineSearchCacheMemory = cache;
+  await fs.writeFile(TIMELINE_SEARCH_CACHE_FILE, JSON.stringify(cache, null, 2), 'utf8');
+}
+
+async function getTimelineSearchCacheFromSupabase(keyword) {
+  if (!supabaseClient) return null;
+  try {
+    const { data, error } = await supabaseClient.rpc('get_timeline_search_cache', {
+      p_keyword: keyword
+    });
+    if (error) {
+      if (error.message && error.message.includes('get_timeline_search_cache')) {
+        console.warn('[TIMELINE-CACHE-SUPABASE] RPC fehlt – bitte supabase-timeline-search-cache.sql ausführen');
+      } else {
+        console.warn('[TIMELINE-CACHE-SUPABASE] Lesefehler:', error.message);
+      }
+      return null;
+    }
+    if (data && Array.isArray(data.results)) {
+      return {
+        keyword: data.keyword || keyword,
+        results: data.results,
+        resultCount: data.resultCount ?? data.results.length,
+        timestamp: data.timestamp || new Date().toISOString(),
+        fromCache: true,
+        cacheSource: 'supabase'
+      };
+    }
+  } catch (err) {
+    console.warn('[TIMELINE-CACHE-SUPABASE] Lesefehler:', err.message);
+  }
+  return null;
+}
+
+async function saveTimelineSearchCacheToSupabase(entry) {
+  if (!supabaseClient) return false;
+  try {
+    const { error } = await supabaseClient.rpc('upsert_timeline_search_cache', {
+      p_keyword: entry.keyword,
+      p_keyword_display: entry.keyword,
+      p_results: entry.results,
+      p_result_count: entry.resultCount
+    });
+    if (error) {
+      console.warn('[TIMELINE-CACHE-SUPABASE] Speicherfehler:', error.message);
+      return false;
+    }
+    return true;
+  } catch (err) {
+    console.warn('[TIMELINE-CACHE-SUPABASE] Speicherfehler:', err.message);
+    return false;
+  }
+}
+
+async function saveTimelineSearchCacheEntry(cacheKey, entry) {
+  await saveTimelineSearchCacheToSupabase(entry);
+  await saveTimelineSearchCacheToJson(cacheKey, entry);
+}
+
+function invalidateTimelineSearchCache() {
+  timelineSearchCacheMemory = {};
+  fs.writeFile(TIMELINE_SEARCH_CACHE_FILE, '{}', 'utf8').catch(err => {
+    console.warn('[TIMELINE-CACHE] JSON-Invalidierung fehlgeschlagen:', err.message);
+  });
+  if (supabaseClient) {
+    supabaseClient.rpc('clear_timeline_search_cache').then(({ error }) => {
+      if (error) {
+        console.warn('[TIMELINE-CACHE-SUPABASE] Invalidierung fehlgeschlagen:', error.message);
+      }
+    }).catch(err => {
+      console.warn('[TIMELINE-CACHE-SUPABASE] Invalidierung fehlgeschlagen:', err.message);
+    });
+  }
+}
+
+function normalizeTimelineSearchKey(keyword) {
+  return String(keyword || '').trim().toLowerCase();
+}
+
+function parseTimelineKeyword(keyword) {
+  const trimmed = String(keyword || '').trim();
+  if (!trimmed) return { term: '', isPhrase: false };
+  if ((trimmed.startsWith('"') && trimmed.endsWith('"')) || (trimmed.startsWith("'") && trimmed.endsWith("'"))) {
+    return { term: trimmed.slice(1, -1), isPhrase: true };
+  }
+  return { term: trimmed, isPhrase: false };
+}
+
+async function buildKeywordDbTimelineResults(keyword) {
+  const keywordsDB = await loadKeywordsDatabase();
+  const keywordLower = keyword.toLowerCase();
+  const results = [];
+
+  for (const lecture of Object.values(keywordsDB)) {
+    if (!lecture.keywords || !Array.isArray(lecture.keywords)) continue;
+    for (const kw of lecture.keywords) {
+      if (kw.term && kw.term.toLowerCase() === keywordLower) {
+        results.push({
+          ID: lecture.lectureId,
+          title: lecture.lectureId,
+          fileName: lecture.lectureId,
+          location: '',
+          date: lecture.date,
+          paragraphIndex: 0,
+          index: kw.index,
+          content: '',
+          hasWord1: true,
+          hasWord2: false,
+          source: 'keyword-db'
+        });
+      }
+    }
+  }
+
+  return results;
+}
+
+async function executeTimelineKeywordSearch(keyword) {
+  const parsed = parseTimelineKeyword(keyword);
+  const word1 = parsed.term || String(keyword).trim();
+  const cacheKey = normalizeTimelineSearchKey(word1);
+
+  const supabaseHit = await getTimelineSearchCacheFromSupabase(word1);
+  if (supabaseHit) {
+    console.log(`[TIMELINE-CACHE] Supabase-Treffer für "${word1}"`);
+    return supabaseHit;
+  }
+
+  const jsonHit = await getTimelineSearchCacheFromJson(cacheKey);
+  if (jsonHit) {
+    console.log(`[TIMELINE-CACHE] JSON-Fallback-Treffer für "${word1}" – backfill nach Supabase`);
+    await saveTimelineSearchCacheToSupabase(jsonHit);
+    return jsonHit;
+  }
+
+  console.log(`[TIMELINE-CACHE] Miss für "${word1}" – berechne und speichere`);
+  const keywordResults = await buildKeywordDbTimelineResults(word1);
+  const searchData = await performFulltextSearch({
+    word1,
+    word2: '',
+    word1IsPhrase: parsed.isPhrase,
+    word2IsPhrase: false,
+    wordOperator: 'and',
+    proximity: null,
+    relevanceFilter: 'hoch',
+    yearFilter: '',
+    gaFilter: '',
+    trackAnalytics: false
+  });
+
+  const allResults = [...keywordResults, ...(searchData.results || [])];
+  const entry = {
+    keyword: word1,
+    results: allResults,
+    resultCount: allResults.length,
+    timestamp: new Date().toISOString()
+  };
+
+  await saveTimelineSearchCacheEntry(cacheKey, entry);
+
+  return { ...entry, fromCache: false };
+}
+
+app.post('/api/timeline-keyword-search', async (req, res) => {
+  try {
+    const { keyword } = req.body || {};
+    if (!keyword || !String(keyword).trim()) {
+      return res.status(400).json({ error: 'keyword erforderlich' });
+    }
+    const result = await executeTimelineKeywordSearch(String(keyword).trim());
+    res.json(result);
+  } catch (error) {
+    console.error('[TIMELINE-KEYWORD-SEARCH] Fehler:', error);
     res.status(500).json({ error: error.message });
   }
 });
