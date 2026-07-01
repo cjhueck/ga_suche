@@ -80,6 +80,37 @@ let sortOrder = 'desc'; // 'asc' oder 'desc' - Standard: neueste zuerst
 let multiDeleteMode = false; // Multi-Delete-Modus aktiviert?
 let selectedGAFilter = ''; // Aktuell ausgewähltes GA-Band für Filterung
 
+const MEMBERS_PANEL_DEFAULT_WIDTH = 340; // ~15 % schmaler als 400px
+
+function getMembersPanelDefaultWidth() {
+  return MEMBERS_PANEL_DEFAULT_WIDTH;
+}
+
+/** Aktuelle Panel-Breite während einer geöffneten Sitzung (z. B. Navigation) */
+function getMembersPanelActiveWidth() {
+  const summaryPanel = document.getElementById('summary-panel');
+  if (summaryPanel) {
+    const styleWidth = parseInt(summaryPanel.style.width, 10);
+    if (styleWidth >= 280 && styleWidth <= 500) {
+      return styleWidth;
+    }
+  }
+  return MEMBERS_PANEL_DEFAULT_WIDTH;
+}
+
+function applyMembersPanelOpenWidth(summaryPanel, mainContainer) {
+  const width = getMembersPanelDefaultWidth();
+  if (summaryPanel) {
+    summaryPanel.style.width = width + 'px';
+    summaryPanel.style.minWidth = width + 'px';
+    summaryPanel.style.removeProperty('max-width');
+  }
+  if (mainContainer) {
+    mainContainer.style.marginRight = width + 'px';
+  }
+  return width;
+}
+
 /**
  * Speichert die aktuelle Scroll-Position ALLER scrollenden Elemente UND die Panel-Position
  */
@@ -351,23 +382,30 @@ function showMembersLoginPanel() {
   const summaryPanel = document.getElementById('summary-panel');
   const summaryContent = document.getElementById('summary-content');
   const resizeHandle = document.getElementById('verticalResizeHandle');
+  const mainContainer = document.getElementById('main-container');
   
   if (!summaryPanel || !summaryContent) return;
   
   membersPanelActive = true;
   
-  // Panel öffnen
-  summaryPanel.classList.add('visible');
+  // Panel öffnen – immer Standardbreite, Breite vor .visible setzen (CSS-Fallback 280px vermeiden)
   if (resizeHandle) {
     resizeHandle.classList.add('visible');
   }
-  summaryPanel.style.width = '350px';
-  summaryPanel.style.minWidth = '350px';
+  const mbWidth = applyMembersPanelOpenWidth(summaryPanel, mainContainer);
+  summaryPanel.classList.add('visible');
   summaryPanel.style.marginRight = '0px';
   summaryPanel.style.display = 'block'; // Explizit sichtbar machen
   summaryPanel.style.opacity = '1';
   summaryPanel.style.visibility = 'visible';
   document.body.classList.remove('summary-panel-collapsed');
+
+  if (typeof resetPanelSync === 'function') {
+    resetPanelSync();
+  }
+  if (mainContainer) {
+    mainContainer.style.marginRight = mbWidth + 'px';
+  }
   
   // Setze Klasse auf summary-panel und summary-content
   summaryPanel.classList.add('has-members-panel');
@@ -643,13 +681,11 @@ async function showMembersContent() {
   updateMembersButtonStatus();
   
   // Panel öffnen - stelle sicher, dass es sichtbar bleibt
-  summaryPanel.classList.add('visible');
   if (resizeHandle) {
     resizeHandle.classList.add('visible');
   }
-  const mbWidth = 400; // Breite für Mitgliederbereich
-  summaryPanel.style.width = mbWidth + 'px';
-  summaryPanel.style.minWidth = mbWidth + 'px';
+  const mbWidth = applyMembersPanelOpenWidth(summaryPanel, mainContainer);
+  summaryPanel.classList.add('visible');
   summaryPanel.style.marginRight = '0px';
   summaryPanel.style.display = 'block'; // Explizit sichtbar machen
   summaryPanel.style.opacity = '1';
@@ -667,8 +703,6 @@ async function showMembersContent() {
   if (mainContainer) {
     mainContainer.style.marginRight = mbWidth + 'px';
   }
-  
-  // Warte kurz, damit die Panel-Breite korrekt gesetzt ist, bevor zentrale Funktionen aufgerufen werden
   setTimeout(() => {
     // Main-Container wird automatisch von syncMainContainerWithPanel() angepasst (läuft alle 100ms)
     // Aber rufe es einmal direkt auf für sofortige Anpassung
@@ -709,11 +743,11 @@ async function showMembersContent() {
     <div class="members-panel">
       <div class="members-header-container">
         <div class="members-header">
-          <div style="flex: 1;">
+          <div class="members-header-top">
             <h2 style="font-size: 1.4rem;"><a href="#" onclick="openMembersWindow(); return false;" style="color: inherit; text-decoration: none; cursor: pointer;">Mitgliederbereich</a></h2>
-            <div style="font-size: 0.75rem; color: var(--text-color); opacity: 0.7; margin-top: 0.25rem;">Textstellen per Rechtsklick speichern</div>
+            <button class="members-logout-btn" onclick="handleMembersLogout()" title="Abmelden">Abmelden</button>
           </div>
-          <button class="close-btn" onclick="closeMembersPanel()">×</button>
+          <div class="members-header-subtitle">Textstellen per Rechtsklick speichern</div>
         </div>
         
         <div class="members-tabs" data-help="members-tabs">
@@ -736,7 +770,7 @@ async function showMembersContent() {
             </div>
             <div class="keyword-filter-tab" style="flex: 1; min-width: 0;" data-help="members-keyword-filter">
               <select id="keyword-filter-select" onchange="handleKeywordFilter(this.value)" class="keyword-select-btn">
-                <option value="">Schlagwörter</option>
+                <option value="">Schlagworte</option>
               </select>
             </div>
             <button class="members-tab ${currentMembersTab === 'chat' ? 'active' : ''}" onclick="switchMembersTab('chat')" id="members-chat-tab-btn" style="display: none;" data-help="members-tab-chat">
@@ -778,11 +812,11 @@ async function showMembersContent() {
       <div class="members-panel">
         <div class="members-header-container">
           <div class="members-header">
-            <div style="flex: 1;">
+            <div class="members-header-top">
               <h2 style="font-size: 1.4rem;"><a href="#" onclick="openMembersWindow(); return false;" style="color: inherit; text-decoration: none; cursor: pointer;">Mitgliederbereich</a></h2>
-              <div style="font-size: 0.75rem; color: var(--text-color); opacity: 0.7; margin-top: 0.25rem;">Textstellen per Rechtsklick speichern</div>
+              <button class="members-logout-btn" onclick="handleMembersLogout()" title="Abmelden">Abmelden</button>
             </div>
-            <button class="close-btn" onclick="closeMembersPanel()">×</button>
+            <div class="members-header-subtitle">Textstellen per Rechtsklick speichern</div>
           </div>
           
           <div class="members-tabs" data-help="members-tabs">
@@ -805,7 +839,7 @@ async function showMembersContent() {
               </div>
               <div class="keyword-filter-tab" style="flex: 1; min-width: 0;" data-help="members-keyword-filter">
                 <select id="keyword-filter-select" onchange="handleKeywordFilter(this.value)" class="keyword-select-btn">
-                  <option value="">Schlagwörter</option>
+                  <option value="">Schlagworte</option>
                 </select>
               </div>
               <button class="members-tab ${currentMembersTab === 'chat' ? 'active' : ''}" onclick="switchMembersTab('chat')" id="members-chat-tab-btn-2" style="display: none;" data-help="members-tab-chat">
@@ -2417,7 +2451,7 @@ async function navigateToQuoteById(quoteId) {
   
   const summaryPanel = document.getElementById('summary-panel');
   if (summaryPanel) {
-    summaryPanel.style.setProperty('width', '400px', 'important');
+    summaryPanel.style.setProperty('width', getMembersPanelActiveWidth() + 'px', 'important');
     summaryPanel.style.setProperty('display', 'block', 'important');
     summaryPanel.classList.add('visible');
     document.body.classList.remove('summary-panel-collapsed');
@@ -2760,7 +2794,7 @@ async function navigateToHighlightById(highlightId) {
   
   const summaryPanel = document.getElementById('summary-panel');
   if (summaryPanel) {
-    summaryPanel.style.setProperty('width', '400px', 'important');
+    summaryPanel.style.setProperty('width', getMembersPanelActiveWidth() + 'px', 'important');
     summaryPanel.style.setProperty('display', 'block', 'important');
     summaryPanel.classList.add('visible');
     document.body.classList.remove('summary-panel-collapsed');
@@ -3117,7 +3151,7 @@ async function navigateToNoteById(noteId) {
   
   const summaryPanel = document.getElementById('summary-panel');
   if (summaryPanel) {
-    summaryPanel.style.setProperty('width', '400px', 'important');
+    summaryPanel.style.setProperty('width', getMembersPanelActiveWidth() + 'px', 'important');
     summaryPanel.style.setProperty('display', 'block', 'important');
     summaryPanel.classList.add('visible');
     document.body.classList.remove('summary-panel-collapsed');
@@ -3847,7 +3881,7 @@ async function navigateToLectureFromMembersPanel(lectureId, targetIndex = null, 
     return;
   }
   
-  const mbWidth = 400;
+  const mbWidth = getMembersPanelActiveWidth();
   
   // WICHTIG: Stelle Panel-Breite SOFORT sicher, BEVOR irgendetwas anderes passiert
   // Das verhindert, dass das Panel während der Navigation springt
@@ -4017,7 +4051,7 @@ async function navigateToLectureFromMembersPanel(lectureId, targetIndex = null, 
         const currentWidth = summaryPanel.style.width || window.getComputedStyle(summaryPanel).width;
         const widthValue = parseInt(currentWidth);
         
-        // Wenn Breite nicht 400px ist, stelle sie sofort wieder her
+        // Wenn Breite vom Mitglieder-Panel abweicht, stelle sie sofort wieder her
         if (widthValue !== mbWidth) {
           summaryPanel.style.setProperty('width', mbWidth + 'px', 'important');
           summaryPanel.style.setProperty('min-width', mbWidth + 'px', 'important');
@@ -9747,6 +9781,33 @@ async function jumpToBookmarkOrQuote(lectureId, paragraphId, hasBookmark, hasQuo
 /**
  * Login/Register Handlers
  */
+async function handleMembersLogout() {
+  try {
+    await initSupabase();
+
+    if (window.chatChannel && typeof unsubscribeFromChat === 'function') {
+      unsubscribeFromChat(window.chatChannel);
+      window.chatChannel = null;
+    }
+
+    const { error } = await supabaseClient.auth.signOut();
+    if (error) throw error;
+
+    currentUser = null;
+    window.currentUser = null;
+
+    if (typeof updateChatBadge === 'function') {
+      updateChatBadge();
+    }
+    updateMembersButtonStatus();
+
+    showMembersLoginPanel();
+  } catch (error) {
+    console.error('Logout fehlgeschlagen:', error);
+    alert('Abmelden fehlgeschlagen: ' + (error.message || 'Unbekannter Fehler'));
+  }
+}
+
 async function handleMembersLogin() {
   const email = document.getElementById('members-email').value;
   const password = document.getElementById('members-password').value;
@@ -9776,9 +9837,9 @@ async function handleMembersLogin() {
       updateChatBadge();
     }, 100);
     
-    setTimeout(() => {
-      window.location.href = 'index.html';
-    }, 1000);
+    setTimeout(async () => {
+      await showMembersContent();
+    }, 500);
     
   } catch (error) {
     messageDiv.innerHTML = `<div class="error-msg">✗ ${error.message}</div>`;
@@ -10162,6 +10223,7 @@ function closeMembersPanel() {
     document.body.classList.add('summary-panel-collapsed');
     summaryPanel.style.width = '0';
     summaryPanel.style.minWidth = '0';
+    summaryPanel.style.removeProperty('max-width');
     
     // Zurück zur Standard-TOC-Ansicht
     summaryPanel.classList.remove('has-members-panel');
@@ -10416,7 +10478,7 @@ function updateKeywordFilterDropdown(keywords) {
   if (!select) return;
   
   // Reset
-  select.innerHTML = '<option value="">Schlagwörter</option>';
+  select.innerHTML = '<option value="">Schlagworte</option>';
   
   // Füge Keywords hinzu
   if (keywords && keywords.length > 0) {
@@ -11293,6 +11355,7 @@ window.loadSavedNotes = loadSavedNotes;
 window.addBookmarkNoteIndicator = addBookmarkNoteIndicator;
 window.getNoteColor = getNoteColor;
 window.handleMembersLogin = handleMembersLogin;
+window.handleMembersLogout = handleMembersLogout;
 window.handleMembersRegister = handleMembersRegister;
 window.showMembersLogin = showMembersLogin;
 window.showMembersRegister = showMembersRegister;
@@ -11432,3 +11495,30 @@ window.updateMembersPanelIfOpen = updateMembersPanelIfOpen;
 window.invalidateMembersCache = invalidateMembersCache;
 window.openMembersPanelAndShowTab = openMembersPanelAndShowTab;
 
+(function initMembersUrlNavigation() {
+  const urlParams = new URLSearchParams(window.location.search);
+  const pendingNav = [
+    ['memberQuote', 'navigateToQuoteById'],
+    ['memberHighlight', 'navigateToHighlightById'],
+    ['memberNote', 'navigateToNoteById']
+  ];
+
+  for (const [param, fnName] of pendingNav) {
+    const itemId = urlParams.get(param);
+    const navFn = window[fnName];
+    if (!itemId || typeof navFn !== 'function') continue;
+
+    window.addEventListener('load', () => {
+      setTimeout(async () => {
+        window.membersNavigating = true;
+        if (typeof membersPanelActive !== 'undefined') {
+          membersPanelActive = true;
+        }
+        await navFn(itemId);
+        const cleanUrl = window.location.pathname + (window.location.hash || '');
+        window.history.replaceState({}, '', cleanUrl);
+      }, 800);
+    }, { once: true });
+    break;
+  }
+})();
