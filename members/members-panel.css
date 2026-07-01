@@ -78,6 +78,34 @@
   background: var(--background-color);
 }
 
+.members-header:has(.members-header-top) {
+  flex-direction: column;
+  align-items: stretch;
+  padding: 0.75rem 1rem 0.75rem 0.75rem;
+}
+
+.members-header-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 0.5rem;
+  width: 100%;
+}
+
+.members-header-top h2 {
+  margin: 0;
+  flex: 1;
+  min-width: 0;
+  line-height: 1.2;
+}
+
+.members-header-subtitle {
+  font-size: 0.75rem;
+  color: var(--text-color);
+  opacity: 0.7;
+  margin-top: 0.25rem;
+}
+
 .members-header h2 {
   margin: 0;
   font-size: 1.1rem;
@@ -104,6 +132,26 @@
 
 .close-btn:hover {
   color: var(--accent-color);
+}
+
+.members-logout-btn {
+  flex-shrink: 0;
+  margin: 0;
+  background: transparent;
+  border: 1px solid var(--accent-color);
+  border-radius: 4px;
+  font-size: 0.7rem;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Ubuntu, sans-serif;
+  color: var(--text-color);
+  cursor: pointer;
+  padding: 0.25rem 0.5rem;
+  line-height: 1.2;
+  transition: all 0.2s;
+}
+
+.members-logout-btn:hover {
+  background: var(--accent-color);
+  color: #fff;
 }
 
 /* Tabs */
@@ -814,6 +862,16 @@ body.dark-mode .close-btn {
 
 body.dark-mode .close-btn:hover {
   color: var(--dark-accent-color);
+}
+
+body.dark-mode .members-logout-btn {
+  color: var(--dark-text-color);
+  border-color: var(--dark-accent-color);
+}
+
+body.dark-mode .members-logout-btn:hover {
+  background: var(--dark-accent-color);
+  color: #1a1a1a;
 }
 
 body.dark-mode .members-tab {

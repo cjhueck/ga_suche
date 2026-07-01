@@ -44,7 +44,7 @@
     header {
       background: white;
       border-bottom: 2px solid var(--accent-color);
-      padding: 1.5rem 2rem;
+      padding: 0.65rem 1.5rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -53,8 +53,16 @@
 
     header h1 {
       color: var(--heading-color);
-      font-size: 1.8rem;
+      font-size: 1.35rem;
       font-weight: normal;
+      line-height: 1.2;
+    }
+
+    header .ga-suche-btn,
+    header button.secondary {
+      height: 32px;
+      padding: 0.35rem 0.85rem;
+      font-size: 0.85rem;
     }
 
     .user-info {
@@ -508,6 +516,18 @@
 
     .item-full-paragraph.show {
       display: block;
+    }
+
+    .viewer-search-highlight {
+      background: rgba(70, 120, 134, 0.2);
+      padding: 2px 0;
+      border-radius: 2px;
+      color: inherit;
+    }
+
+    body.dark-mode .viewer-search-highlight {
+      background: rgba(70, 120, 134, 0.5);
+      color: var(--dark-text-color, var(--text-color));
     }
 
     .item-expand-btn {
@@ -2539,7 +2559,7 @@
                 ${multiDeleteMode ? `<input type="checkbox" class="item-checkbox" data-id="${item.id}" onchange="updateDeleteButton()">` : ''}
                 <div style="display: flex; align-items: center; gap: 0.25rem;">
                   ${canNavigate
-                    ? `<strong><a href="#" class="item-ga" data-ga="${gaReference}" data-paragraph-id="${paragraphId || ''}" data-text-start-offset="${textStartOffset !== null ? textStartOffset : ''}" data-text-end-offset="${textEndOffset !== null ? textEndOffset : ''}" data-is-highlight="false" style="color: var(--link-color); text-decoration: none; cursor: pointer;">${gaReference}${dateDisplay}</a></strong>`
+                    ? `<strong><a href="#" class="item-ga" onclick="event.stopPropagation(); navigateToNoteById('${item.id}'); return false;" style="color: var(--link-color); text-decoration: none; cursor: pointer;" title="Zur Textstelle springen">${gaReference}${dateDisplay}</a></strong>`
                     : `<strong>${gaReference || 'Notiz'}${dateDisplay}</strong>`
                   }
                 </div>
@@ -2547,11 +2567,8 @@
                   <span class="item-date">${new Date(item.created_at).toLocaleDateString('de-DE')}</span>
                 </div>
               </div>
-              ${canNavigate
-                ? `<div class="item-text"><a href="#" class="item-ga" data-ga="${gaReference}" data-paragraph-id="${paragraphId || ''}" data-text-start-offset="${textStartOffset !== null ? textStartOffset : ''}" data-text-end-offset="${textEndOffset !== null ? textEndOffset : ''}" data-is-highlight="false" style="color: var(--text-color); text-decoration: none; cursor: pointer; font-weight: normal;" title="Zur Textstelle springen">„${contentPreview}${hasMore ? '...' : ''}"</a></div>`
-                : `<div class="item-text">„${contentPreview}${hasMore ? '...' : ''}"</div>`
-              }
-              ${((groups.length > 0) || (tags.length > 0)) ? `<div class="item-tags">${groups.length > 0 ? groups.map(group => `<span class="item-tag group-tag clickable-tag" onclick="filterByGroup('${group.replace(/'/g, "\\'")}'); return false;" style="cursor: pointer;" title="Nach dieser Gruppe filtern">${group.toUpperCase()}</span>`).join(' · ') : ''}${(groups.length > 0) && (tags.length > 0) ? ' · ' : ''}${tags.length > 0 ? tags.map(tag => `<span class="item-tag clickable-tag" onclick="filterByKeyword('${tag.replace(/'/g, "\\'")}'); return false;" style="cursor: pointer;" title="Nach diesem Schlagwort filtern">${tag}</span>`).join(' · ') : ''}</div>` : ''}
+              <div class="item-text">„${contentPreview}${hasMore ? '...' : ''}"</div>
+              ${((groups.length > 0) || (tags.length > 0)) ? `<div class="item-tags">${groups.length > 0 ? groups.map(group => `<span class="item-tag group-tag clickable-tag" onclick="event.stopPropagation(); filterByGroup('${group.replace(/'/g, "\\'")}'); return false;" style="cursor: pointer;" title="Nach dieser Gruppe filtern">${group.toUpperCase()}</span>`).join(' · ') : ''}${(groups.length > 0) && (tags.length > 0) ? ' · ' : ''}${tags.length > 0 ? tags.map(tag => `<span class="item-tag clickable-tag" onclick="event.stopPropagation(); filterByKeyword('${tag.replace(/'/g, "\\'")}'); return false;" style="cursor: pointer;" title="Nach diesem Schlagwort filtern">${tag}</span>`).join(' · ') : ''}</div>` : ''}
               <div class="item-tags-row">
                 ${!multiDeleteMode ? `
                   <div class="item-actions">
@@ -2618,20 +2635,24 @@
               ${multiDeleteMode ? `<input type="checkbox" class="item-checkbox" data-id="${item.id}" onchange="updateDeleteButton()">` : ''}
               <div style="display: flex; align-items: center; gap: 0.25rem;">
                 ${!isHighlight && quoteMarkerColor ? `
-                  <span class="quote-bookmark-icon-header" style="display: inline-block; color: ${getHighlightColor(quoteMarkerColor)}; vertical-align: middle;">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                      <rect x="4" y="4" width="16" height="16"></rect>
-                    </svg>
-                  </span>
+                  <a href="#" onclick="event.stopPropagation(); navigateToQuoteById('${item.id}'); return false;" style="display: inline-block; text-decoration: none; cursor: pointer;" title="Zur Textstelle springen">
+                    <span class="quote-bookmark-icon-header" style="display: inline-block; color: ${getHighlightColor(quoteMarkerColor)}; vertical-align: middle;">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="12" y1="2" x2="12" y2="22"></line>
+                      </svg>
+                    </span>
+                  </a>
                 ` : ''}
                 ${isHighlight ? `
-                  <span class="highlight-icon-header" style="display: inline-block; color: ${highlightColor}; vertical-align: middle;">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                      <line x1="4" y1="20" x2="20" y2="20"></line>
-                    </svg>
-                  </span>
+                  <a href="#" onclick="event.stopPropagation(); navigateToHighlightById('${item.id}'); return false;" style="display: inline-block; text-decoration: none; cursor: pointer;" title="Zur Textstelle springen">
+                    <span class="highlight-icon-header" style="display: inline-block; color: ${highlightColor}; vertical-align: middle;">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="4" y1="20" x2="20" y2="20"></line>
+                      </svg>
+                    </span>
+                  </a>
                 ` : ''}
-                <a href="#" class="item-ga" data-ga="${gaNumber}" data-paragraph-id="${item.paragraph_id || ''}" data-text-start-offset="${item.text_start_offset !== null && item.text_start_offset !== undefined ? item.text_start_offset : ''}" data-text-end-offset="${item.text_end_offset !== null && item.text_end_offset !== undefined ? item.text_end_offset : ''}" data-is-highlight="${isHighlight ? 'true' : 'false'}" style="color: var(--link-color); text-decoration: none; cursor: pointer;">
+                <a href="#" class="item-ga" onclick="event.stopPropagation(); ${isHighlight ? `navigateToHighlightById('${item.id}')` : `navigateToQuoteById('${item.id}')`}; return false;" style="color: var(--link-color); text-decoration: none; cursor: pointer;" title="Zur Textstelle springen">
                   ${gaNumber}${dateDisplay}
                 </a>
               </div>
@@ -2649,7 +2670,7 @@
               </div>
             </div>
             <div class="item-text" style="font-style: italic;">„${text}"</div>
-            ${((item.groups && item.groups.length > 0) || tags.length > 0) ? `<div class="item-tags">${item.groups && item.groups.length > 0 ? item.groups.map(group => `<span class="item-tag group-tag clickable-tag" onclick="filterByGroup('${group.replace(/'/g, "\\'")}'); return false;" style="cursor: pointer;" title="Nach dieser Gruppe filtern">${group.toUpperCase()}</span>`).join(' · ') : ''}${(item.groups && item.groups.length > 0) && tags.length > 0 ? ' · ' : ''}${tags.length > 0 ? tags.map(tag => `<span class="item-tag clickable-tag" onclick="filterByKeyword('${tag.replace(/'/g, "\\'")}'); return false;" style="cursor: pointer;" title="Nach diesem Schlagwort filtern">${tag}</span>`).join(' · ') : ''}</div>` : ''}
+            ${((item.groups && item.groups.length > 0) || tags.length > 0) ? `<div class="item-tags">${item.groups && item.groups.length > 0 ? item.groups.map(group => `<span class="item-tag group-tag clickable-tag" onclick="event.stopPropagation(); filterByGroup('${group.replace(/'/g, "\\'")}'); return false;" style="cursor: pointer;" title="Nach dieser Gruppe filtern">${group.toUpperCase()}</span>`).join(' · ') : ''}${(item.groups && item.groups.length > 0) && tags.length > 0 ? ' · ' : ''}${tags.length > 0 ? tags.map(tag => `<span class="item-tag clickable-tag" onclick="event.stopPropagation(); filterByKeyword('${tag.replace(/'/g, "\\'")}'); return false;" style="cursor: pointer;" title="Nach diesem Schlagwort filtern">${tag}</span>`).join(' · ') : ''}</div>` : ''}
             <div class="item-tags-row">
               ${!multiDeleteMode ? `
                 <div class="item-actions">
@@ -2671,15 +2692,10 @@
         `;
       }).join('');
       
-      // Event-Delegation für GA-Links (funktioniert auch nach dynamischem Rendern)
-      // Entferne alte Listener falls vorhanden
-      container.removeEventListener('click', handleGALinkClick);
-      container.addEventListener('click', handleGALinkClick);
-      
       // Add click listeners für Item-Cards
       container.querySelectorAll('.item-card').forEach(card => {
         card.addEventListener('click', (e) => {
-          if (e.target.type === 'checkbox' || e.target.classList.contains('item-ga')) return;
+          if (e.target.type === 'checkbox' || e.target.closest('.item-header a') || e.target.closest('.clickable-tag')) return;
           const itemId = card.dataset.id;
           selectItem(itemId);
         });
@@ -2975,6 +2991,68 @@
       ? 'http://localhost:3003'
       : 'https://ga-suche.onrender.com';
     
+    function escapeHtml(text) {
+      return String(text)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;');
+    }
+
+    function getSavedExcerptFromItem(item, isHighlight) {
+      if (!item) return { excerpt: '', startOffset: null, endOffset: null };
+      if (isHighlight) {
+        const startOffset = item.text_start_offset ?? null;
+        const endOffset = item.text_end_offset ?? null;
+        const excerpt = item.quote_text || (item.paragraph_text
+          ? item.paragraph_text.substring(startOffset || 0, endOffset ?? item.paragraph_text.length)
+          : '');
+        return { excerpt, startOffset, endOffset };
+      }
+      return { excerpt: item.quote_text || '', startOffset: null, endOffset: null };
+    }
+
+    function renderParagraphWithExcerptHighlight(fullText, item, isHighlight) {
+      if (!fullText) return '';
+      const { excerpt, startOffset, endOffset } = getSavedExcerptFromItem(item, isHighlight);
+      const mark = (text) => `<span class="viewer-search-highlight">${escapeHtml(text)}</span>`;
+      const looksLikeHtml = /<[a-z][\s\S]*>/i.test(fullText);
+
+      if (isHighlight && item?.paragraph_text && fullText === item.paragraph_text
+          && startOffset != null && endOffset != null
+          && startOffset >= 0 && endOffset <= fullText.length && startOffset < endOffset) {
+        return escapeHtml(fullText.slice(0, startOffset))
+          + mark(fullText.slice(startOffset, endOffset))
+          + escapeHtml(fullText.slice(endOffset));
+      }
+
+      const plainExcerpt = (excerpt || '').trim();
+      if (!plainExcerpt) {
+        return looksLikeHtml ? fullText : escapeHtml(fullText);
+      }
+
+      const idx = fullText.indexOf(plainExcerpt);
+      if (idx !== -1) {
+        if (looksLikeHtml) {
+          return fullText.slice(0, idx) + mark(plainExcerpt) + fullText.slice(idx + plainExcerpt.length);
+        }
+        return escapeHtml(fullText.slice(0, idx)) + mark(plainExcerpt) + escapeHtml(fullText.slice(idx + plainExcerpt.length));
+      }
+
+      const prefix = plainExcerpt.slice(0, Math.min(80, plainExcerpt.length));
+      const idx2 = fullText.indexOf(prefix);
+      if (idx2 !== -1) {
+        const end = Math.min(idx2 + plainExcerpt.length, fullText.length);
+        const matched = fullText.slice(idx2, end);
+        if (looksLikeHtml) {
+          return fullText.slice(0, idx2) + mark(matched) + fullText.slice(end);
+        }
+        return escapeHtml(fullText.slice(0, idx2)) + mark(matched) + escapeHtml(fullText.slice(end));
+      }
+
+      return looksLikeHtml ? fullText : escapeHtml(fullText);
+    }
+
     async function toggleExpandParagraph(event, itemId, gaReference, paragraphId, isHighlight = false) {
       event.stopPropagation();
       
@@ -3071,13 +3149,16 @@
         }
         
         if (fullText) {
+          const item = currentItems.find(i => i.id === itemId);
+          const highlightedHtml = renderParagraphWithExcerptHighlight(fullText, item, isHighlight);
+
           // Speichere Metadaten als Daten-Attribute für Context-Menü
           fullParagraphDiv.setAttribute('data-ga-reference', gaReference || '');
           fullParagraphDiv.setAttribute('data-paragraph-id', paragraphId || '');
           fullParagraphDiv.setAttribute('data-item-id', itemId || '');
           fullParagraphDiv.setAttribute('data-is-highlight', isHighlight ? 'true' : 'false');
           
-          fullParagraphDiv.innerHTML = `<div class="full-paragraph-text" style="white-space: pre-wrap;" data-ga-reference="${gaReference || ''}" data-paragraph-id="${paragraphId || ''}">${fullText}</div>`;
+          fullParagraphDiv.innerHTML = `<div class="full-paragraph-text" style="white-space: pre-wrap;" data-ga-reference="${gaReference || ''}" data-paragraph-id="${paragraphId || ''}">${highlightedHtml}</div>`;
           fullParagraphDiv.dataset.loaded = 'true';
         } else {
           fullParagraphDiv.innerHTML = '<span style="color: var(--error-color);">Vollständiger Absatz nicht gefunden</span>';
@@ -3216,85 +3297,84 @@
       }
     }
     
-    // Event-Handler für GA-Link-Clicks (Event-Delegation)
-    function handleGALinkClick(e) {
-      const link = e.target.closest('.item-ga');
-      if (!link) return;
-      
-      e.preventDefault();
-      e.stopPropagation();
-      
-      const gaNumber = link.dataset.ga;
-      const paragraphId = link.dataset.paragraphId || '';
-      const textStartOffset = link.dataset.textStartOffset !== '' ? parseInt(link.dataset.textStartOffset) : null;
-      const textEndOffset = link.dataset.textEndOffset !== '' ? parseInt(link.dataset.textEndOffset) : null;
-      const isHighlight = link.dataset.isHighlight === 'true';
-      
-      if (!gaNumber) {
-        console.error('[MEMBERS-CLICK] Keine GA-Nummer gefunden!');
-        return;
-      }
-      
-      // WICHTIG: Fokussiere das opener-Fenster SOFORT beim Click (funktioniert besser bei direkter User-Interaktion)
-      if (window.opener && !window.opener.closed) {
+    // ===== Navigation zu Textstellen (wie Side-Panel in app.html) =====
+    function setOpenerNavFlags(openerWindow) {
+      if (!openerWindow) return;
+      openerWindow.membersNavigating = true;
+      openerWindow.membersPanelActive = true;
+      openerWindow._membersNavLock = true;
+    }
+
+    function focusOpenerAfterNav() {
+      setTimeout(() => {
         try {
-          window.opener.focus();
-          // Versuche auch über window-Objekt
-          if (window.opener.window) {
-            window.opener.window.focus();
+          if (window.opener && !window.opener.closed) {
+            window.opener.focus();
+            window.close();
           }
         } catch (err) {
-          console.warn('[MEMBERS-CLICK] Konnte opener-Fenster nicht fokussieren:', err);
+          console.warn('[MEMBERS-NAV] Fensterwechsel fehlgeschlagen:', err);
         }
-      }
-      
-      try {
-        if (typeof window.saveMembersScrollPosition === 'function') {
-          window.saveMembersScrollPosition();
-        } else {
-          console.warn('[MEMBERS-CLICK] saveMembersScrollPosition ist keine Funktion!');
-        }
-      } catch (err) {
-        console.error('[MEMBERS-CLICK] Fehler bei saveMembersScrollPosition:', err);
-      }
-      
-      if (typeof window.navigateToLectureFromMembersPanel === 'function') {
-        // Rufe Navigation auf mit allen Parametern (wie im Members Panel)
-        // shouldHighlightParagraph: true für Zitate, false für Highlights
-        window.navigateToLectureFromMembersPanel(
-          gaNumber, 
-          paragraphId || null, 
-          textStartOffset, 
-          textEndOffset, 
-          !isHighlight // true für Zitate, false für Highlights
-        );
-        
-        // Nach kurzer Verzögerung: Fokussiere opener-Fenster und schließe dieses Fenster
-        setTimeout(() => {
-          try {
-            if (window.opener && !window.opener.closed) {
-              window.opener.focus();
-              // Schließe dieses Fenster
-              window.close();
-            }
-          } catch (err) {
-            console.warn('[MEMBERS-CLICK] Fehler beim Zurückkehren:', err);
-            // Falls window.close() nicht funktioniert, versuche trotzdem zu fokussieren
-            try {
-              if (window.opener && !window.opener.closed) {
-                window.opener.focus();
-              }
-            } catch (e) {
-              console.error('[MEMBERS-CLICK] Konnte Fenster nicht fokussieren:', e);
-            }
-          }
-        }, 500); // Kurze Verzögerung, damit die Navigation starten kann
-      } else {
-        console.error('[MEMBERS-CLICK] navigateToLectureFromMembersPanel nicht verfügbar!');
-        console.error('[MEMBERS-CLICK] Verfügbare window-Funktionen:', Object.keys(window).filter(k => k.includes('navigate') || k.includes('Lecture')));
-      }
+      }, 500);
     }
-    
+
+    async function navigateToMemberItem(type, itemId) {
+      if (!itemId) return;
+
+      const navFunctions = {
+        quote: 'navigateToQuoteById',
+        highlight: 'navigateToHighlightById',
+        note: 'navigateToNoteById'
+      };
+      const urlParams = {
+        quote: 'memberQuote',
+        highlight: 'memberHighlight',
+        note: 'memberNote'
+      };
+
+      const fnName = navFunctions[type];
+      const urlKey = urlParams[type];
+      if (!fnName || !urlKey) return;
+
+      saveMembersScrollPosition();
+
+      if (window.opener && !window.opener.closed) {
+        const openerWindow = window.opener;
+        setOpenerNavFlags(openerWindow);
+        try {
+          openerWindow.focus();
+        } catch (err) {
+          console.warn('[MEMBERS-NAV] Konnte opener-Fenster nicht fokussieren:', err);
+        }
+
+        if (typeof openerWindow[fnName] === 'function') {
+          await openerWindow[fnName](itemId);
+          focusOpenerAfterNav();
+          return;
+        }
+
+        console.warn('[MEMBERS-NAV]', fnName, 'im opener nicht verfügbar, Fallback auf URL-Navigation');
+      }
+
+      window.location.href = `app.html?${urlKey}=${encodeURIComponent(itemId)}`;
+    }
+
+    async function navigateToQuoteById(quoteId) {
+      await navigateToMemberItem('quote', quoteId);
+    }
+
+    async function navigateToHighlightById(highlightId) {
+      await navigateToMemberItem('highlight', highlightId);
+    }
+
+    async function navigateToNoteById(noteId) {
+      await navigateToMemberItem('note', noteId);
+    }
+
+    window.navigateToQuoteById = navigateToQuoteById;
+    window.navigateToHighlightById = navigateToHighlightById;
+    window.navigateToNoteById = navigateToNoteById;
+
     function saveMembersScrollPosition() {
       try {
         // Wenn wir in einem neuen Fenster sind, rufe die Funktion im opener-Fenster auf
@@ -3482,19 +3562,20 @@
       if (!select) return;
       
       // Prüfe ob API-Funktionen verfügbar sind
-      if (typeof getQuotes !== 'function' || typeof getHighlights !== 'function') {
+      if (typeof getQuotes !== 'function' || typeof getHighlights !== 'function' || typeof getNotes !== 'function') {
         console.warn('[MEMBERS-HTML] API-Funktionen für Keywords nicht verfügbar');
         return;
       }
       
       try {
-        // Lade Quotes und Highlights parallel
-        const [quotesResult, highlightsResult] = await Promise.all([
+        // Lade Quotes, Highlights und Notizen parallel
+        const [quotesResult, highlightsResult, notesResult] = await Promise.all([
           getQuotes(),
-          getHighlights()
+          getHighlights(),
+          getNotes()
         ]);
         
-        // Sammle alle Keywords aus beiden Quellen
+        // Sammle alle Keywords aus allen Quellen
         const allKeywords = new Set();
         
         if (quotesResult.success && quotesResult.data) {
@@ -3509,6 +3590,14 @@
           highlightsResult.data.forEach(highlight => {
             if (highlight.tags && Array.isArray(highlight.tags)) {
               highlight.tags.forEach(tag => allKeywords.add(tag));
+            }
+          });
+        }
+
+        if (notesResult.success && notesResult.data) {
+          notesResult.data.forEach(note => {
+            if (note.tags && Array.isArray(note.tags)) {
+              note.tags.forEach(tag => allKeywords.add(tag));
             }
           });
         }
@@ -3537,184 +3626,107 @@
       }
     }
 
+    function syncKeywordFilterSelect(keyword) {
+      const keywordSelect = document.getElementById('keyword-filter');
+      if (!keywordSelect) return;
+      if (!keyword) {
+        keywordSelect.value = '';
+        return;
+      }
+      const exists = Array.from(keywordSelect.options).some(option => option.value === keyword);
+      if (!exists) {
+        const option = document.createElement('option');
+        option.value = keyword;
+        option.textContent = keyword;
+        keywordSelect.appendChild(option);
+      }
+      keywordSelect.value = keyword;
+    }
+
+    function buildKeywordFilteredItems(keyword, quotesResult, highlightsResult, notesResult) {
+      const filteredQuotes = quotesResult.success && quotesResult.data
+        ? quotesResult.data.filter(quote =>
+            quote.tags && Array.isArray(quote.tags) && quote.tags.includes(keyword)
+          )
+        : [];
+
+      const filteredHighlights = highlightsResult.success && highlightsResult.data
+        ? highlightsResult.data.filter(highlight =>
+            highlight.tags && Array.isArray(highlight.tags) && highlight.tags.includes(keyword)
+          )
+        : [];
+
+      const filteredNotes = notesResult.success && notesResult.data
+        ? notesResult.data.filter(note =>
+            note.tags && Array.isArray(note.tags) && note.tags.includes(keyword)
+          )
+        : [];
+
+      return [
+        ...filteredQuotes.map(q => ({
+          ...q,
+          item_type: 'quote',
+          ga_reference: q.ga_reference || q.ga_number,
+          quote_text: q.quote_text || '',
+          tags: q.tags || [],
+          groups: q.groups || []
+        })),
+        ...filteredHighlights.map(h => ({
+          ...h,
+          item_type: 'highlight',
+          ga_reference: h.ga_number,
+          quote_text: h.paragraph_text ? h.paragraph_text.substring(
+            h.text_start_offset || 0,
+            h.text_end_offset || h.paragraph_text.length
+          ) : '',
+          tags: h.tags || [],
+          groups: h.groups || [],
+          color: h.color || 'blue'
+        })),
+        ...filteredNotes.map(note => ({
+          ...note,
+          item_type: 'note',
+          quote_text: note.content || '',
+          tags: note.tags || [],
+          groups: note.groups || []
+        }))
+      ].sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+    }
+
     async function filterByKeyword(keyword) {
-      // Setze Gruppen-Dropdown zurück
       const groupSelect = document.getElementById('group-filter');
       if (groupSelect) {
         groupSelect.value = '';
       }
-      
-      // Setze Schlagwörter-Dropdown auf den ausgewählten Wert
-      const keywordSelect = document.getElementById('keyword-filter');
-      if (keywordSelect && keyword) {
-        keywordSelect.value = keyword;
-      }
-      
+
+      syncKeywordFilterSelect(keyword || '');
+
       if (!keyword) {
         loadItems();
         return;
       }
-      
+
       const container = document.getElementById('items-list');
       container.innerHTML = '<div class="empty-state">Lade gefilterte Items...</div>';
-      
+
       try {
-        // Lade Quotes und Highlights parallel
-        const [quotesResult, highlightsResult] = await Promise.all([
+        const [quotesResult, highlightsResult, notesResult] = await Promise.all([
           getQuotes(),
-          getHighlights()
+          getHighlights(),
+          getNotes()
         ]);
-        
-        // Filtere Items mit dem Keyword
-        const filteredQuotes = quotesResult.success && quotesResult.data
-          ? quotesResult.data.filter(quote => 
-              quote.tags && Array.isArray(quote.tags) && quote.tags.includes(keyword)
-            )
-          : [];
-        
-        const filteredHighlights = highlightsResult.success && highlightsResult.data
-          ? highlightsResult.data.filter(highlight => 
-              highlight.tags && Array.isArray(highlight.tags) && highlight.tags.includes(keyword)
-            )
-          : [];
-        
-        // Kombiniere beide Typen
-        const allFilteredItems = [
-          ...filteredQuotes.map(q => ({
-            ...q,
-            item_type: 'quote',
-            ga_reference: q.ga_reference || q.ga_number,
-            quote_text: q.quote_text || '',
-            tags: q.tags || []
-          })),
-          ...filteredHighlights.map(h => ({
-            ...h,
-            item_type: 'highlight',
-            ga_reference: h.ga_number,
-            quote_text: h.paragraph_text ? h.paragraph_text.substring(
-              h.text_start_offset || 0,
-              h.text_end_offset || h.paragraph_text.length
-            ) : '',
-            tags: h.tags || [],
-            color: h.color || 'blue'
-          }))
-        ];
-        
+
+        const allFilteredItems = buildKeywordFilteredItems(keyword, quotesResult, highlightsResult, notesResult);
+
         if (allFilteredItems.length === 0) {
-          container.innerHTML = `<div class="empty-state">Keine Items mit Schlagwort "${keyword}" gefunden</div>`;
+          currentItems = [];
+          container.innerHTML = `<div class="empty-state">Keine Einträge mit Schlagwort "${keyword}" gefunden</div>`;
           return;
         }
-        
-        // Temporär currentItems für Rendering setzen
-        const originalItems = currentItems;
+
         currentItems = allFilteredItems;
-        
-        container.innerHTML = allFilteredItems.map((item, index) => {
-        // Same rendering as renderItems but with filtered data
-        const gaNumber = item.ga_reference || item.ga_number;
-        const text = item.quote_text || (item.paragraph_text ? item.paragraph_text.substring(
-          item.text_start_offset || 0,
-          item.text_end_offset || item.paragraph_text.length
-        ) : '');
-        const tags = item.tags || [];
-        const isHighlight = currentTab === 'highlights' || item.item_type === 'highlight';
-        
-        // Get highlight color for highlights
-        const highlightColor = isHighlight ? getHighlightColor(item.color || 'blue') : '';
-        
-        // Für Highlights: marker_color für Marker-Dot (blue, red, yellow)
-        let markerColor = '';
-        if (isHighlight && item.marker_color !== undefined && item.marker_color !== null) {
-          const colorStr = String(item.marker_color).trim();
-          if (colorStr === 'blue' || colorStr === 'red' || colorStr === 'yellow') {
-            markerColor = colorStr;
-          }
-        }
-        
-        // Für Zitate: marker_color für Bookmark-Icon (blue, red, yellow)
-        let quoteMarkerColor = '';
-        if (!isHighlight && item.marker_color !== undefined && item.marker_color !== null) {
-          const colorStr = String(item.marker_color).trim();
-          if (colorStr === 'blue' || colorStr === 'red' || colorStr === 'yellow') {
-            quoteMarkerColor = colorStr;
-          } else {
-            quoteMarkerColor = 'blue'; // Standard für Zitate
-          }
-        } else if (!isHighlight) {
-          quoteMarkerColor = 'blue'; // Standard für Zitate ohne marker_color
-        }
-        
-        // Hole Vortragsdatum
-        const lectureDate = getLectureDate(item);
-        const dateDisplay = lectureDate ? `, <span style="font-size: 1rem; font-weight: normal; color: var(--secondary-text);">${lectureDate}</span>` : '';
-        
-        return `
-          <div class="item-card ${selectedItemId === item.id ? 'selected' : ''}" 
-               data-id="${item.id}" 
-               data-index="${index}">
-            <div class="item-header">
-              <div style="display: flex; align-items: center; gap: 0.25rem;">
-                ${!isHighlight && quoteMarkerColor ? `
-                  <span class="quote-bookmark-icon-header" style="display: inline-block; color: ${getHighlightColor(quoteMarkerColor)}; vertical-align: middle;">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                      <rect x="4" y="4" width="16" height="16"></rect>
-                    </svg>
-                  </span>
-                ` : ''}
-                ${isHighlight ? `
-                  <span class="highlight-icon-header" style="display: inline-block; color: ${highlightColor}; vertical-align: middle;">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                      <line x1="4" y1="20" x2="20" y2="20"></line>
-                    </svg>
-                  </span>
-                ` : ''}
-                <a href="#" class="item-ga" data-ga="${gaNumber}" data-paragraph-id="${item.paragraph_id || ''}" data-text-start-offset="${item.text_start_offset !== null && item.text_start_offset !== undefined ? item.text_start_offset : ''}" data-text-end-offset="${item.text_end_offset !== null && item.text_end_offset !== undefined ? item.text_end_offset : ''}" data-is-highlight="${isHighlight ? 'true' : 'false'}" style="color: var(--link-color); text-decoration: none; cursor: pointer;">
-                  ${gaNumber}${dateDisplay}
-                </a>
-              </div>
-              <div class="item-header-right">
-                <div style="position: relative;">
-                  <div class="item-marker-dot ${isHighlight ? (markerColor || '') : (quoteMarkerColor || '')}" data-id="${item.id}" data-item-type="${item.item_type || (isHighlight ? 'highlight' : 'quote')}" data-marker-color="${isHighlight ? (markerColor || '') : (quoteMarkerColor || '')}" onclick="toggleMarkerMenu(event, '${item.id}')" title="Markierung ändern"></div>
-                  <div id="marker-menu-${item.id}" class="item-marker-menu" style="display: none;">
-                    <div class="item-marker-option none" onclick="updateMarkerColorFiltered('${item.id}', '', '${item.item_type || (isHighlight ? 'highlight' : 'quote')}')" title="Keine Markierung"></div>
-                    <div class="item-marker-option blue" onclick="updateMarkerColorFiltered('${item.id}', 'blue', '${item.item_type || (isHighlight ? 'highlight' : 'quote')}')" title="Blau"></div>
-                    <div class="item-marker-option red" onclick="updateMarkerColorFiltered('${item.id}', 'red', '${item.item_type || (isHighlight ? 'highlight' : 'quote')}')" title="Rot"></div>
-                    <div class="item-marker-option yellow" onclick="updateMarkerColorFiltered('${item.id}', 'yellow', '${item.item_type || (isHighlight ? 'highlight' : 'quote')}')" title="Gelb"></div>
-                  </div>
-                </div>
-                <span class="item-date">${new Date(item.created_at).toLocaleDateString('de-DE')}</span>
-              </div>
-            </div>
-            <div class="item-text" style="font-style: italic;">„${text}"</div>
-            ${((item.groups && item.groups.length > 0) || tags.length > 0) ? `<div class="item-tags">${item.groups && item.groups.length > 0 ? item.groups.map(group => `<span class="item-tag group-tag clickable-tag" onclick="filterByGroup('${group.replace(/'/g, "\\'")}'); return false;" style="cursor: pointer;" title="Nach dieser Gruppe filtern">${group.toUpperCase()}</span>`).join(' · ') : ''}${(item.groups && item.groups.length > 0) && tags.length > 0 ? ' · ' : ''}${tags.length > 0 ? tags.map(tag => `<span class="item-tag clickable-tag" onclick="filterByKeyword('${tag.replace(/'/g, "\\'")}'); return false;" style="cursor: pointer;" title="Nach diesem Schlagwort filtern">${tag}</span>`).join(' · ') : ''}</div>` : ''}
-            <div class="item-tags-row">
-              ${!multiDeleteMode ? `
-                <div class="item-actions">
-                  <button class="item-delete-btn" onclick="deleteSingleItem(event, '${item.id}')" title="Löschen">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                      <rect x="4" y="6" width="16" height="14" rx="1"/>
-                      <path d="M7 6V5a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v1"/>
-                      <line x1="4" y1="6" x2="20" y2="6"/>
-                      <line x1="10" y1="10" x2="10" y2="16"/>
-                      <line x1="14" y1="10" x2="14" y2="16"/>
-                    </svg>
-                  </button>
-                  <button class="item-expand-btn" onclick="toggleExpandParagraph(event, '${item.id}', '${gaNumber}', '${item.paragraph_id || ''}', ${isHighlight ? 'true' : 'false'})" title="Vollständigen Absatz anzeigen"></button>
-                </div>
-              ` : ''}
-            </div>
-            <div id="full-paragraph-${item.id}" class="item-full-paragraph"></div>
-          </div>
-        `;
-        }).join('');
-        
-        // Stelle originalItems wieder her
-        currentItems = originalItems;
-        
-        // Event-Delegation für GA-Links
-        container.removeEventListener('click', handleGALinkClick);
-        container.addEventListener('click', handleGALinkClick);
-        
+        selectedItemId = null;
+        renderItems();
       } catch (error) {
         console.error('[MEMBERS-HTML] Fehler beim Filtern nach Keyword:', error);
         container.innerHTML = '<div class="empty-state">Fehler beim Laden der gefilterten Items</div>';
@@ -3876,106 +3888,14 @@
         allFilteredItems.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
         
         if (allFilteredItems.length === 0) {
+          currentItems = [];
           container.innerHTML = `<div class="empty-state">Keine Einträge mit Gruppe "${group.toUpperCase()}" gefunden</div>`;
           return;
         }
-        
-        // Speichere originalItems vor dem Überschreiben
-        const originalItems = [...currentItems];
+
         currentItems = allFilteredItems;
-        
-        // Render gefilterte Items
-        container.innerHTML = allFilteredItems.map((item, index) => {
-          const gaNumber = item.ga_reference || item.ga_number;
-          const isNote = item.item_type === 'note';
-          const isHighlight = item.item_type === 'highlight';
-          const isQuote = item.item_type === 'quote';
-          const text = isNote 
-            ? (item.content || '').replace(/^Aus\s*\[\[[^\]]+\]\]\s*[-:]\s*/i, '').replace(/^["']\s*/, '').trim().substring(0, 150)
-            : (item.quote_text || '').substring(0, 150);
-          const hasMore = (isNote ? (item.content || '').length : (item.quote_text || '').length) > 150;
-          const tags = item.tags || [];
-          const groups = item.groups || [];
-          const highlightColor = isHighlight ? getHighlightColor(item.color || 'blue') : '';
-          const quoteMarkerColor = isQuote ? getHighlightColor(item.marker_color || 'blue') : '';
-          const paragraphId = item.paragraph_id || '';
-          const textStartOffset = item.text_start_offset !== null ? item.text_start_offset : '';
-          const textEndOffset = item.text_end_offset !== null ? item.text_end_offset : '';
-          
-          return `
-          <div class="item-card ${selectedItemId === item.id ? 'selected' : ''} ${multiDeleteMode ? 'multi-delete' : ''}" 
-               data-id="${item.id}" 
-               data-index="${index}">
-            <div class="item-header ${multiDeleteMode ? 'with-checkbox' : ''}">
-              ${multiDeleteMode ? `<input type="checkbox" class="item-checkbox" data-id="${item.id}" onchange="updateDeleteButton()">` : ''}
-              <div style="display: flex; align-items: center; gap: 0.25rem;">
-                ${isQuote ? `
-                  <span class="quote-bookmark-icon-header" style="display: inline-block; color: ${quoteMarkerColor}; vertical-align: middle;">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                      <rect x="4" y="4" width="16" height="16"></rect>
-                    </svg>
-                  </span>
-                ` : ''}
-                ${isHighlight ? `
-                  <span class="highlight-icon-header" style="display: inline-block; color: ${highlightColor}; vertical-align: middle;">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                      <line x1="4" y1="20" x2="20" y2="20"></line>
-                    </svg>
-                  </span>
-                ` : ''}
-                ${isNote ? `
-                  <span class="note-icon-header" style="display: inline-block; color: var(--accent-color); vertical-align: middle;">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                      <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
-                    </svg>
-                  </span>
-                ` : ''}
-                ${gaNumber
-                  ? `<strong><a href="#" class="item-ga" data-ga="${gaNumber}" data-paragraph-id="${paragraphId}" data-text-start-offset="${textStartOffset}" data-text-end-offset="${textEndOffset}" data-is-highlight="${isHighlight}" style="color: var(--link-color); text-decoration: none; cursor: pointer;">${gaNumber}</a></strong>`
-                  : `<strong>${isNote ? 'Notiz' : 'Eintrag'}</strong>`
-                }
-              </div>
-              <div class="item-header-right">
-                <div style="position: relative;">
-                  <div class="item-marker-dot ${isHighlight ? (item.marker_color || '') : isQuote ? (item.marker_color || 'blue') : ''}" data-id="${item.id}" data-item-type="${item.item_type}" data-marker-color="${isHighlight ? (item.marker_color || '') : isQuote ? (item.marker_color || 'blue') : ''}" onclick="toggleMarkerMenu(event, '${item.id}')" title="Markierung ändern"></div>
-                  <div id="marker-menu-${item.id}" class="item-marker-menu" style="display: none;">
-                    <div class="item-marker-option none" onclick="updateMarkerColorFiltered('${item.id}', '', '${item.item_type}')" title="Keine Markierung"></div>
-                    <div class="item-marker-option blue" onclick="updateMarkerColorFiltered('${item.id}', 'blue', '${item.item_type}')" title="Blau"></div>
-                    <div class="item-marker-option red" onclick="updateMarkerColorFiltered('${item.id}', 'red', '${item.item_type}')" title="Rot"></div>
-                    <div class="item-marker-option yellow" onclick="updateMarkerColorFiltered('${item.id}', 'yellow', '${item.item_type}')" title="Gelb"></div>
-                  </div>
-                </div>
-                <span class="item-date">${new Date(item.created_at).toLocaleDateString('de-DE')}</span>
-              </div>
-            </div>
-            <div class="item-text" style="font-style: italic;">„${text}${hasMore ? '...' : ''}"</div>
-            ${((groups.length > 0) || (tags.length > 0)) ? `<div class="item-tags">${groups.length > 0 ? groups.map(g => `<span class="item-tag group-tag clickable-tag" onclick="filterByGroup('${g.replace(/'/g, "\\'")}'); return false;" style="cursor: pointer;" title="Nach dieser Gruppe filtern">${g.toUpperCase()}</span>`).join(' · ') : ''}${(groups.length > 0) && (tags.length > 0) ? ' · ' : ''}${tags.length > 0 ? tags.map(tag => `<span class="item-tag clickable-tag" onclick="filterByKeyword('${tag.replace(/'/g, "\\'")}'); return false;" style="cursor: pointer;" title="Nach diesem Schlagwort filtern">${tag}</span>`).join(' · ') : ''}</div>` : ''}
-            <div class="item-tags-row">
-              ${!multiDeleteMode ? `
-                <div class="item-actions">
-                  <button class="item-delete-btn" onclick="deleteSingleItem(event, '${item.id}')" title="Löschen">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                      <rect x="4" y="6" width="16" height="14" rx="1"/>
-                      <path d="M7 6V5a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v1"/>
-                      <line x1="4" y1="6" x2="20" y2="6"/>
-                      <line x1="10" y1="10" x2="10" y2="16"/>
-                      <line x1="14" y1="10" x2="14" y2="16"/>
-                    </svg>
-                  </button>
-                </div>
-              ` : ''}
-            </div>
-          </div>
-        `;
-        }).join('');
-        
-        // Stelle originalItems wieder her
-        currentItems = originalItems;
-        
-        // Event-Delegation für GA-Links
-        container.removeEventListener('click', handleGALinkClick);
-        container.addEventListener('click', handleGALinkClick);
-        
+        selectedItemId = null;
+        renderItems();
       } catch (error) {
         console.error('[MEMBERS-HTML] Fehler beim Filtern nach Gruppe:', error);
         container.innerHTML = '<div class="empty-state">Fehler beim Laden der gefilterten Items</div>';
