@@ -11,6 +11,7 @@ backups/
 # Runtime data (should persist between deployments)
 analytics-data.json
 query-log.json
+timeline-search-cache.json
 
 # Environment variables (API keys!)
 .env

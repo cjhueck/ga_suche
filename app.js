@@ -9985,25 +9985,6 @@ let timelineBackToGA = null;
 let timelineBackToLecture = null; // Speichere die Lecture ID für Zurück-Navigation
 let timelineBackToLeftPanel = null; // Speichere den HTML-Inhalt des linken Panels
 let timelinePendingKeyword = null; // Keyword das nach Tab-Wechsel gesetzt werden soll
-// Cache für Timeline-Schlagwort-Suchergebnisse (Schlagwort -> {results, keywords})
-const TIMELINE_KEYWORD_CACHE_KEY = 'ga_timeline_keyword_cache';
-const TIMELINE_KEYWORD_CACHE_MAX = 30;
-let timelineKeywordSearchCache = (() => {
-  try {
-    const raw = sessionStorage.getItem(TIMELINE_KEYWORD_CACHE_KEY);
-    return raw ? JSON.parse(raw) : {};
-  } catch { return {}; }
-})();
-function saveTimelineKeywordCache() {
-  try {
-    const keys = Object.keys(timelineKeywordSearchCache);
-    if (keys.length > TIMELINE_KEYWORD_CACHE_MAX) {
-      const sorted = keys.sort((a, b) => (timelineKeywordSearchCache[b].ts || 0) - (timelineKeywordSearchCache[a].ts || 0));
-      sorted.slice(TIMELINE_KEYWORD_CACHE_MAX).forEach(k => delete timelineKeywordSearchCache[k]);
-    }
-    sessionStorage.setItem(TIMELINE_KEYWORD_CACHE_KEY, JSON.stringify(timelineKeywordSearchCache));
-  } catch (e) { console.warn('[TIMELINE-CACHE] Speichern fehlgeschlagen:', e); }
-}
 
 // Navigation zum Timeline-Tab und Keyword auswählen
 async function navigateToTimelineKeyword(keyword, gaNumber, lectureId = null) {
@@ -10127,103 +10108,26 @@ async function showKeywordSearchInTimeline(keyword) {
   timelineContainer.innerHTML = '<div style="text-align: center; padding: 2rem; color: var(--secondary-text); font-style: italic;">Führe GA-Suche durch, bitte einen Moment Geduld...</div>';
   
   try {
-    // SCHRITT 1: Lade vorhandene Keyword-Einträge aus keywords-database.json
-    const keywordsDB = await loadKeywordsDatabase();
-    const summaryDBResponse = await fetch(`${API_BASE}/summary-database.json`);
-    const summaryDB = summaryDBResponse.ok ? await summaryDBResponse.json() : {};
-    
-    // Lade Vortragsdaten für Überschriften
-    await loadFullLecturesForTimeline();
-    
-    // Sammle vorhandene Keyword-Einträge und konvertiere in das gleiche Format wie Suchergebnisse
-    const keywordResults = [];
-    for (const lecture of Object.values(keywordsDB)) {
-      if (lecture.keywords && Array.isArray(lecture.keywords)) {
-        for (const kw of lecture.keywords) {
-          if (kw.term.toLowerCase() === keyword.toLowerCase()) {
-            // Finde beste Überschrift für diesen Absatz
-            const bestHeading = await findBestHeadingForIndex(
-              kw.index,
-              summaryDB[lecture.lectureId]?.headings || [],
-              lecture.lectureId
-            );
-            
-            // Konvertiere in das gleiche Format wie Suchergebnisse
-            keywordResults.push({
-              ID: lecture.lectureId,
-              title: lecture.lectureId,
-              fileName: lecture.lectureId,
-              location: '',
-              date: lecture.date,
-              paragraphIndex: 0,
-              index: kw.index,
-              content: '',
-              hasWord1: true,
-              hasWord2: false,
-              source: 'keyword-db'
-            });
-          }
-        }
-      }
-    }
-    
-    // SCHRITT 2: Führe GA-Suche mit Relevanz-Filter "hoch" durch
-    // Verwende die gleiche Logik wie die normale Suche (performKeywordSearch)
-    
-    // Parse Suchbegriff auf Phrasen (wie in performKeywordSearch)
-    const keywordParsed = parseSearchTerm(keyword);
-    const word1 = keywordParsed.term || keyword;
-    const word2 = null; // Timeline-Suche verwendet nur ein Wort
-    const word1IsPhrase = keywordParsed.isPhrase;
-    const word2IsPhrase = false;
-    
-    // Hole Filter-Werte (wie in performKeywordSearch)
-    const gaFilterValues = getGAFilterValue();
-    const yearFilterValues = getYearFilterValue();
-    const gaFilter = gaFilterValues.length > 0 ? gaFilterValues.join(',') : '';
-    const yearFilter = yearFilterValues.length > 0 ? yearFilterValues.join(',') : '';
-    
-    // Hole UND/ODER Operator (wie in performKeywordSearch)
-    const wordOperatorElement = document.querySelector('input[name="wordOperator"]:checked');
-    const wordOperator = wordOperatorElement ? wordOperatorElement.value : 'and';
-    
-    // Proximity: Leer = kein Limit (wie in performKeywordSearch)
-    const proximityFilterElement = document.getElementById('proximityFilter');
-    const proximityFilter = proximityFilterElement ? proximityFilterElement.value : '';
-    const proximity = proximityFilter || null;
-    
-    const searchResponse = await fetch(`${API_BASE}/api/fulltext-search`, {
+    const searchResponse = await fetch(`${API_BASE}/api/timeline-keyword-search`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        word1: word1,
-        word2: word2 || '',
-        word1IsPhrase: word1IsPhrase,
-        word2IsPhrase: word2IsPhrase,
-        wordOperator: wordOperator,
-        proximity: proximity,
-        relevanceFilter: 'hoch',  // IMMER Relevanz: hoch (wie gewünscht)
-        yearFilter: yearFilter,
-        gaFilter: gaFilter
-      })
+      body: JSON.stringify({ keyword })
     });
-    
+
     if (!searchResponse.ok) {
-      throw new Error(`GA-Suche fehlgeschlagen: ${searchResponse.status}`);
+      throw new Error(`Timeline-Suche fehlgeschlagen: ${searchResponse.status}`);
     }
-    
+
     const searchData = await searchResponse.json();
-    const searchResults = searchData.results || [];
-    // SCHRITT 3: Kombiniere beide Ergebnislisten
-    const allResults = [...keywordResults, ...searchResults];
-    // SCHRITT 4: Setze globale Variablen für showSearchResultsTimelineV2
-    // searchResults ist lokal, aber showSearchResultsTimelineV2 greift darauf zu
-    // Wir müssen es im globalen Scope setzen
+    const allResults = searchData.results || [];
+
+    if (searchData.fromCache) {
+      console.log(`[TIMELINE-CACHE] Server-Cache für "${keyword}" (${allResults.length} Treffer)`);
+    }
+
     window._tempSearchResults = allResults;
     window._tempSearchKeywords = [keyword];
-    
-    // Rufe die bestehende Funktion auf - sie verwendet jetzt window._tempSearchResults
-    // Wir müssen showSearchResultsTimelineV2 leicht anpassen, um window._tempSearchResults zu verwenden
+
     await showSearchResultsTimelineV2(allResults, [keyword]);
     
     } catch (error) {
