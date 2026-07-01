@@ -15436,7 +15436,8 @@ function scrollToChronologicalYear(year) {
             sources: currentSources || [],
             rechercheScope: thematicMode === 'recherche'
               ? { sourceType: rechercheSourceType, themeArea: rechercheThemeArea }
-              : null
+              : null,
+            rechercheData: (thematicMode === 'recherche' && answer.recherche) ? answer.recherche : null
           });
           setTimeout(() => {
             if (typeof window.refreshThematicSaveContentFromDom === 'function') {
@@ -20311,6 +20312,9 @@ function formatAsteriskParagraphs() {
       if (typeof updateButtonStates === 'function') updateButtonStates();
       const mainContainer = document.getElementById('main');
       if (mainContainer) mainContainer.scrollTop = 0;
+
+      window.currentRechercheData = recherche;
+      window.renderRechercheResults = renderRechercheResults;
     }
 
     function renderThematicResults(query, content, sources, appliedGA = '') {
@@ -37543,10 +37547,85 @@ window.cancelTextEditMode = function() {};
     if (payload.mode) meta.mode = payload.mode;
     if (payload.contentType) meta.contentType = payload.contentType;
     if (payload.rechercheScope) meta.rechercheScope = payload.rechercheScope;
+    if (payload.rechercheData) meta.rechercheData = payload.rechercheData;
     if (gaFilterFull && String(gaFilterFull).length > 50) {
       meta.gaFilterFull = String(gaFilterFull);
     }
     return Object.keys(meta).length ? JSON.stringify(meta) : null;
+  }
+
+  // Rekonstruiert Recherche-Daten aus gespeichertem HTML (Fallback für ältere Einträge)
+  function parseRechercheFromSavedHtml(contentOrEl) {
+    const root = typeof contentOrEl === 'string'
+      ? (() => { const d = document.createElement('div'); d.innerHTML = contentOrEl; return d; })()
+      : contentOrEl;
+    const answer = root.querySelector('.recherche-answer') || root;
+    const tablesContainer = answer.querySelector('#rechercheTables');
+    if (!tablesContainer) return null;
+
+    const parseRelevance = (cell) => {
+      const title = cell.querySelector('[title]')?.getAttribute('title') || '';
+      if (title.includes('hoch')) return 'hoch';
+      if (title.includes('niedrig')) return 'niedrig';
+      return 'mittel';
+    };
+
+    const parseTable = (table) => {
+      const rows = [];
+      table.querySelectorAll('tbody tr').forEach(tr => {
+        const cells = tr.querySelectorAll('td');
+        if (cells.length < 4) return;
+        const link = cells[1].querySelector('.recherche-ga-link, .ga-reference');
+        let zitat = link?.getAttribute('data-quote') || '';
+        if (!zitat) {
+          zitat = cells[1].textContent.replace(/\([^)]*\)\s*$/, '').trim();
+        }
+        rows.push({
+          aussage: cells[0].textContent.trim(),
+          zitat,
+          id: link?.getAttribute('data-id') || '',
+          index: link?.getAttribute('data-index') || '',
+          date: cells[2].textContent.trim(),
+          year: cells[2].textContent.trim(),
+          relevance: parseRelevance(cells[3])
+        });
+      });
+      return rows;
+    };
+
+    const subThemes = [];
+    let pendingTitle = null;
+
+    for (const node of tablesContainer.children) {
+      if (node.tagName === 'H2') {
+        pendingTitle = node.textContent.trim();
+      } else if (node.tagName === 'TABLE') {
+        const rows = parseTable(node);
+        if (rows.length) {
+          subThemes.push({ title: pendingTitle || 'Recherche', rows });
+          pendingTitle = null;
+        }
+      }
+    }
+
+    if (!subThemes.length) {
+      const table = tablesContainer.querySelector('table');
+      if (table) {
+        const rows = parseTable(table);
+        if (rows.length) subThemes.push({ title: 'Recherche', rows });
+      }
+    }
+
+    return subThemes.length ? { intro: '', subThemes } : null;
+  }
+
+  function prependSavedRechercheBanner(viewer, date, totalMatches, gaLabel) {
+    if (!viewer) return;
+    const banner = document.createElement('div');
+    banner.className = 'saved-recherche-banner';
+    banner.style.cssText = 'font-size: 0.9em; color: var(--secondary-text, #666); margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 1px solid var(--border-color, #ddd);';
+    banner.textContent = `Gespeichert am ${date} - ${totalMatches} Quellen${gaLabel ? ' | ' + gaLabel : ''}`;
+    viewer.insertBefore(banner, viewer.firstChild);
   }
   
   // Themenabfrage speichern
@@ -37569,6 +37648,9 @@ window.cancelTextEditMode = function() {};
     }
 
     const payload = window.currentThematicSavePayload || {};
+    if (payload.mode === 'recherche' && !payload.rechercheData && window.currentRechercheData) {
+      payload.rechercheData = window.currentRechercheData;
+    }
     const query = (payload.query || document.getElementById('thematicQuery')?.value || '').trim();
     const content = payload.content || '';
 
@@ -37742,6 +37824,37 @@ window.cancelTextEditMode = function() {};
         || String(data.content || '').includes('recherche-answer');
 
       if (isRechercheHtml) {
+        let recherche = saveMeta.rechercheData || null;
+        if (!recherche) {
+          recherche = parseRechercheFromSavedHtml(data.content);
+        }
+
+        if (recherche && typeof window.renderRechercheResults === 'function') {
+          const scope = saveMeta.rechercheScope || {};
+          window.renderRechercheResults(data.query, recherche, gaFilterRaw, scope);
+          prependSavedRechercheBanner(viewer, date, data.total_matches, gaLabel);
+
+          if (typeof window.syncThematicSavePayload === 'function') {
+            window.syncThematicSavePayload({
+              query: data.query,
+              mode: 'recherche',
+              gaFilter: gaFilterRaw,
+              limit: data.limit_used,
+              sources: data.sources || [],
+              rechercheScope: scope,
+              rechercheData: recherche
+            });
+            setTimeout(() => {
+              if (typeof window.refreshThematicSaveContentFromDom === 'function') {
+                window.refreshThematicSaveContentFromDom();
+              }
+            }, 200);
+          }
+
+          document.getElementById('status').textContent = `Antwort aus ${data.total_matches} Quellen`;
+          return;
+        }
+
         viewer.innerHTML = `
           <div class="saved-thematic-result">
             <div style="font-size: 0.9em; color: var(--secondary-text, #666); margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 1px solid var(--border-color, #ddd);">

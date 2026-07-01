@@ -1679,5 +1679,1127 @@
       "themeArea": ""
     },
     "timestamp": "2026-06-26T17:41:42.276Z"
+  },
+  "abstammung der tiere vom menschen|recherche:alle:alle|2000|": {
+    "query": "Abstammung der Tiere vom Menschen",
+    "content": "",
+    "sources": [
+      {
+        "ID": "GA091/9",
+        "index": "^o7wik1",
+        "title": "ÜBER MEDITATION II",
+        "fileName": "GA091/9 - ÜBER MEDITATION II, Zweite Stunde, Graal, 18. August 1904",
+        "score": 130,
+        "matchedTerms": [
+          "tiere",
+          "menschen"
+        ]
+      },
+      {
+        "ID": "GA034/19",
+        "index": "^84tmu9",
+        "title": "HAECKEL",
+        "fileName": "GA034/19 - HAECKEL, DIE WELTRÄTSEL UND DIE THEOSOPHIE EIN VORTRAG, GEHALTEN IN BERLIN AM 5. Oktober 1905",
+        "score": 129,
+        "matchedTerms": [
+          "abstammung der",
+          "abstammung",
+          "tiere",
+          "menschen"
+        ]
+      },
+      {
+        "ID": "GA353/10",
+        "index": "^ybte0i",
+        "title": "ZEHNTER VORTRAG",
+        "fileName": "GA353/10 - ZEHNTER VORTRAG, Dornach, 5. Mai 1924",
+        "score": 127,
+        "matchedTerms": [
+          "vom menschen",
+          "tiere",
+          "menschen"
+        ]
+      },
+      {
+        "ID": "GA349/12",
+        "index": "^4orlme",
+        "title": "ZWÖLFTER VORTRAG",
+        "fileName": "GA349/12 - ZWÖLFTER VORTRAG, Dornach, 5. Mai 1923",
+        "score": 124,
+        "matchedTerms": [
+          "vom menschen",
+          "tiere",
+          "menschen"
+        ]
+      },
+      {
+        "ID": "GA099/11",
+        "index": "^yw34rz",
+        "title": "ELFTER VORTRAG",
+        "fileName": "GA099/11 - ELFTER VORTRAG, München, 4. Juni 1907",
+        "score": 121,
+        "matchedTerms": [
+          "tiere",
+          "menschen"
+        ]
+      },
+      {
+        "ID": "GA068b/36",
+        "index": "^plgx32",
+        "title": "DIE NATURWISSENSCHAFT AM SCHEIDEWEGE",
+        "fileName": "GA068b/36 - DIE NATURWISSENSCHAFT AM SCHEIDEWEGE, Pforzheim, 17. Januar 1909",
+        "score": 121,
+        "matchedTerms": [
+          "abstammung",
+          "tiere",
+          "menschen"
+        ]
+      },
+      {
+        "ID": "GA094/28",
+        "index": "^f8j1y9",
+        "title": "POPULÄRER OKKULTISMUS",
+        "fileName": "GA094/28 - POPULÄRER OKKULTISMUS, Zehnter Vortrag, Leipzig, 7. Juli 1906",
+        "score": 121,
+        "matchedTerms": [
+          "tiere",
+          "menschen"
+        ]
+      },
+      {
+        "ID": "GA095/16",
+        "index": "^dmr7mc",
+        "title": "FRAGENBEANTWORTUNG",
+        "fileName": "GA095/16 - FRAGENBEANTWORTUNG, Stuttgart, 4. September 1906",
+        "score": 120,
+        "matchedTerms": [
+          "vom menschen",
+          "tiere",
+          "menschen"
+        ]
+      },
+      {
+        "ID": "GA111/18",
+        "index": "^hnnq7i",
+        "title": "OKKULTISMUS UND ESOTERIK",
+        "fileName": "GA111/18 - OKKULTISMUS UND ESOTERIK, Den Haag, 6. März 1908, nachmittags",
+        "score": 119,
+        "matchedTerms": [
+          "vom menschen",
+          "tiere",
+          "menschen"
+        ]
+      },
+      {
+        "ID": "GA054/1",
+        "index": "^640sb2",
+        "title": "HAECKEL",
+        "fileName": "GA054/1 - HAECKEL, DIE WELTRÄTSEL UND DIE THEOSOPHIE, Berlin, 5. Oktober 1905",
+        "score": 118,
+        "matchedTerms": [
+          "abstammung der",
+          "abstammung",
+          "tiere",
+          "menschen"
+        ]
+      }
+    ],
+    "searchMethod": "hybrid-thematic-unified",
+    "totalMatches": 86657,
+    "llmUsed": true,
+    "recherche": {
+      "intro": "Rudolf Steiner kehrt die darwinistische Abstammungslehre um: Nicht der Mensch stammt vom Tier ab, sondern die Tiere sind zurückgebliebene, abgesonderte Abzweigungen vom Menschen.",
+      "subThemes": [
+        {
+          "title": "Grundthese: Tiere als Abspaltungen vom Menschen",
+          "rows": [
+            {
+              "aussage": "Tiere stammen unmittelbar vom Menschen ab, nicht umgekehrt",
+              "zitat": "Rückwärtsblickend auf den Entwicklungsprozess, sind die niederen Tierformen die zurückgebliebenen Brüder des Menschen. Sie geben Stadien der früheren menschlichen Entwicklung an, sodass die Tiere unmittelbar vom Menschen abstammen und nicht umgekehrt.",
+              "id": "GA111/18",
+              "index": "hnnq7i",
+              "ref": "GA111/18:hnnq7i",
+              "fileName": "GA111/18 - OKKULTISMUS UND ESOTERIK, Den Haag, 6. März 1908, nachmittags",
+              "title": "OKKULTISMUS UND ESOTERIK",
+              "relevance": "hoch",
+              "date": "1908-03-06",
+              "year": "1908"
+            },
+            {
+              "aussage": "Tierreich einst im Menschen enthalten: ausgeschiedene Teile",
+              "zitat": "Das gesamte Tierreich war einstmals im Menschen darinnen, das heißt der Mensch stand auf einer Stufe zwischen dem heutigen Tierreich und Menschenreich. Um sich weiter entwickeln zu können, musste er die Teile aus sich ausscheiden, die seine Entwickelung nicht mitmachen konnten. Er schied damals das aus, was dann heute unser Tierreich bildet.",
+              "id": "GA095/16",
+              "index": "dmr7mc",
+              "ref": "GA095/16:dmr7mc",
+              "fileName": "GA095/16 - FRAGENBEANTWORTUNG, Stuttgart, 4. September 1906",
+              "title": "FRAGENBEANTWORTUNG",
+              "relevance": "hoch",
+              "date": "1906-09-04",
+              "year": "1906"
+            },
+            {
+              "aussage": "Mensch als Erstgeborener, Tiere als degenerierte Abzweigung",
+              "zitat": "der Unterschied ist nur der, dass Haeckel erst die Tierformen entstehen und diese sich dann bis zum Menschen hinaufentwickeln lässt, während wir in der Urform bereits den Menschen sehen und die Tierwelt nur als Abzweigung, als entartete Menschen betrachten. Tatsächlich ist der Mensch der Erstgeborene der Erde; er hat sich in gerader Linie weiterentwickelt, hat die andern Wesen an den verschiedenen Etappen zurückgelassen.",
+              "id": "GA100/21",
+              "index": "0tzcan",
+              "ref": "GA100/21:0tzcan",
+              "fileName": "GA100/21 - DAS JOHANNES-EVANGELIUM - SIEBENTER VORTRAG, Basel, 22. November 1907",
+              "title": "DAS JOHANNES-EVANGELIUM - SIEBENTER VORTRAG",
+              "relevance": "hoch",
+              "date": "1907-11-22",
+              "year": "1907"
+            },
+            {
+              "aussage": "Tiere als in Degeneration ausgestoßene Menschen",
+              "zitat": "So sind alle Tiere, die um uns leben, in die Degeneration ausgestoßene Menschen. Nur dadurch, dass sich gewisse Wesenheiten opfern, ist der Aufstieg anderer möglich. Das Höhere stoßt das Niedrigere aus, um noch höher hinauf zu können.",
+              "id": "GA094/28",
+              "index": "0l9iis",
+              "ref": "GA094/28:0l9iis",
+              "fileName": "GA094/28 - POPULÄRER OKKULTISMUS, Zehnter Vortrag, Leipzig, 7. Juli 1906",
+              "title": "POPULÄRER OKKULTISMUS",
+              "relevance": "hoch",
+              "date": "1906-07-07",
+              "year": "1906"
+            },
+            {
+              "aussage": "Tierwelt als Absonderung vom Menschen",
+              "zitat": "Denn die Tierwelt ist eine Absonderung vom Menschen, sollte eine Absonderung sein, damit der Mensch gewissermaßen die Herrschaft seines Daseins über sich hinaus verbreitete.",
+              "id": "GA175/11",
+              "index": "x18eax",
+              "ref": "GA175/11:x18eax",
+              "fileName": "GA175/11 - ELFTER VORTRAG, Berlin, 12. April 1917",
+              "title": "ELFTER VORTRAG",
+              "relevance": "hoch",
+              "date": "1917-04-12",
+              "year": "1917"
+            },
+            {
+              "aussage": "Absonderung der Tierwelt zur Entwicklung des Geistigen nötig",
+              "zitat": "So müssen wir die Tierwelt darauf zurückführen, dass der Mensch, damit er sein Geistiges entwickeln konnte, wie er es heute hat, die gesamte Tierwelt zunächst absondern musste, damit er als feinere geistige Wesenheit so sich oben auf dem Untergrunde der tierischen Welt entwickeln konnte.",
+              "id": "GA061/9",
+              "index": "g6197j",
+              "ref": "GA061/9:g6197j",
+              "fileName": "GA061/9 - DER URSPRUNG DER TIERWELT, Berlin, 18. Januar 1912",
+              "title": "DER URSPRUNG DER TIERWELT",
+              "relevance": "hoch",
+              "date": "1912-01-18",
+              "year": "1912"
+            },
+            {
+              "aussage": "Mensch als Erstgeborener, Tierwelt als zweitgeborene Schöpfung",
+              "zitat": "So haben wir im Beginne der Evolution, der Entwicklung, den Menschen als den Erstgeborenen unserer Schöpfung und wir haben die Tierwelt als die zweitgeborene Schöpfung, als dasjenige, was nicht mitgekommen und daher immer zurückgeblieben ist.",
+              "id": "GA068b/47",
+              "index": "8xaegx",
+              "ref": "GA068b/47:8xaegx",
+              "fileName": "GA068b/47 - DAS WESEN DES MENSCHEN ALS SCHLÜSSEL ZU DEN GEHEIMNISSEN DER WELT, Wien, 24. November 1908",
+              "title": "DAS WESEN DES MENSCHEN ALS SCHLÜSSEL ZU DEN GEHEIMNISSEN DER WELT",
+              "relevance": "hoch",
+              "date": "1908-11-24",
+              "year": "1908"
+            },
+            {
+              "aussage": "Tiere als Abfälle aus der Gesamtströmung, Mensch am Ursprung",
+              "zitat": "sondern wenn man vom Vollkommensten, vom Menschen ausgehe und den Menschen an den Ursprung stelle, und dann die andern Reiche - Tiere, Pflanzen, Mineralien - betrachte und so betrachte, dass sie wie Abfälle aus der Gesamtströmung entstanden seien.",
+              "id": "GA070b/16",
+              "index": "62xgdm",
+              "ref": "GA070b/16:62xgdm",
+              "fileName": "GA070b/16 - ZUR DEUTSCHEN GEDANKENENTWICKLUNG. EIN VERGESSENES STREBEN NACH GEISTESWISSENSCHAFT INNERHALB DERSELBEN, München, 17. März 1916",
+              "title": "ZUR DEUTSCHEN GEDANKENENTWICKLUNG. EIN VERGESSENES STREBEN NACH GEISTESWISSENSCHAFT INNERHALB DERSELBEN",
+              "relevance": "hoch",
+              "date": "1916-03-17",
+              "year": "1916"
+            }
+          ]
+        },
+        {
+          "title": "Kritik der Affen-Abstammung: der Denkfehler",
+          "rows": [
+            {
+              "aussage": "Affe und Mensch als Brüder mit gemeinsamem Vater",
+              "zitat": "Sie brauchen ja gar nicht voneinander abzustammen, sondern sie können einen gemeinsamen Vater haben und Brüder sein. Der eine entwickelt sich hinauf, der andere geht in die Dekadenz. So ist auch das Verhältnis zwischen Affe und Mensch anzusehen.",
+              "id": "GA094/28",
+              "index": "0l9iis",
+              "ref": "GA094/28:0l9iis",
+              "fileName": "GA094/28 - POPULÄRER OKKULTISMUS, Zehnter Vortrag, Leipzig, 7. Juli 1906",
+              "title": "POPULÄRER OKKULTISMUS",
+              "relevance": "hoch",
+              "date": "1906-07-07",
+              "year": "1906"
+            },
+            {
+              "aussage": "Denkfehler: höher Stehender stamme vom niedrig Stehenden ab",
+              "zitat": "Man könne, sagen wir, durch irgendeine Tatsache die Verwandtschaft der beiden feststellen. Wird man nun schließen dürfen, dass die höher stehende von einer solchen abstammt, die der niedrig stehenden gleichwertig ist? Nimmermehr. [...] die beiden Personen sind verwandt; sie sind Brüder. Aber der gemeinsame Vater war weder dem einen, noch dem andern Bruder ganz gleichwertig. Der eine der Brüder ist herabgekommen; der andere hat sich emporgearbeitet.",
+              "id": "GA034/19",
+              "index": "dgvc7a",
+              "ref": "GA034/19:dgvc7a",
+              "fileName": "GA034/19 - HAECKEL, DIE WELTRÄTSEL UND DIE THEOSOPHIE EIN VORTRAG, GEHALTEN IN BERLIN AM 5. Oktober 1905",
+              "title": "HAECKEL",
+              "relevance": "hoch",
+              "date": "1905-10-05",
+              "year": "1905"
+            },
+            {
+              "aussage": "Affe als herabgekommener, Mensch als hinaufgestiegener Bruder",
+              "zitat": "Sie müsste vielmehr ein Urwesen - einen gemeinsamen physischen Stammvater - annehmen; aber der Affe ist der herabgekommene, der Mensch der höher hinaufgestiegene Bruder.",
+              "id": "GA054/1",
+              "index": "wufg2j",
+              "ref": "GA054/1:wufg2j",
+              "fileName": "GA054/1 - HAECKEL, DIE WELTRÄTSEL UND DIE THEOSOPHIE, Berlin, 5. Oktober 1905",
+              "title": "HAECKEL",
+              "relevance": "hoch",
+              "date": "1905-10-05",
+              "year": "1905"
+            },
+            {
+              "aussage": "Affen als Karikatur, nicht als Ahnherr des Menschen",
+              "zitat": "Sieht daher der heutige Mensch diesen Affen an, sieht er ihn namentlich mit dem Gemüte an, [dann] erscheint er ihm wie eine Karikatur seines eigenen Wesens, keineswegs wie ein Ahnherr.",
+              "id": "GA068b/32",
+              "index": "amfa37",
+              "ref": "GA068b/32:amfa37",
+              "fileName": "GA068b/32 - DIE ABSTAMMUNG DES MENSCHEN, Berlin, 31. Oktober 1907",
+              "title": "DIE ABSTAMMUNG DES MENSCHEN",
+              "relevance": "hoch",
+              "date": "1907-10-31",
+              "year": "1907"
+            },
+            {
+              "aussage": "Affen als in Dekadenz geratene leibliche Brüder des Menschen",
+              "zitat": "Die affenartigen Gestalten aber sind teilweise in Dekadenz geraten und zu den heutigen Affen geworden. Die Affen sind deshalb die in Dekadenz geratenen leiblichen Brüder der Menschen.",
+              "id": "GA094/28",
+              "index": "0l9iis",
+              "ref": "GA094/28:0l9iis",
+              "fileName": "GA094/28 - POPULÄRER OKKULTISMUS, Zehnter Vortrag, Leipzig, 7. Juli 1906",
+              "title": "POPULÄRER OKKULTISMUS",
+              "relevance": "hoch",
+              "date": "1906-07-07",
+              "year": "1906"
+            },
+            {
+              "aussage": "Affe kein Vorfahre, sondern Nachkomme des Urmenschen",
+              "zitat": "Also im Affen haben wir keinen Vorfahren zu sehen, sondern einen Nachkommen des ursprünglichen Menschen. [...] Damals hat der Mensch, damit er sich freier, in edleren Eigenschaften nach aufwärts entwickeln konnte, die Natur, die heute die Affenbildung ausmacht, abgestoßen. Dadurch ist das Affengeschlecht degeneriert.",
+              "id": "GA053/10",
+              "index": "db8vty",
+              "ref": "GA053/10:db8vty",
+              "fileName": "GA053/10 - URSPRUNG UND ZIEL DES MENSCHEN, Berlin, 9. Februar 1905",
+              "title": "URSPRUNG UND ZIEL DES MENSCHEN",
+              "relevance": "hoch",
+              "date": "1905-02-09",
+              "year": "1905"
+            },
+            {
+              "aussage": "Embryonalbefund gegen Affenabstammung: Mensch früher gestaltet",
+              "zitat": "Es wird keine Bestätigung für die Affen-Abstammung des Menschen sein, wenn der Naturforscher Emil Selenka gefunden hat, dass die Affennatur in ihrem embryonalen Zustande der Menschengestalt viel näher ist als die spätere Affengestalt, woraus man annehmen kann, dass der Mensch viel früher gestaltet ist als die Affengestalt.",
+              "id": "GA061/9",
+              "index": "g6197j",
+              "ref": "GA061/9:g6197j",
+              "fileName": "GA061/9 - DER URSPRUNG DER TIERWELT, Berlin, 18. Januar 1912",
+              "title": "DER URSPRUNG DER TIERWELT",
+              "relevance": "hoch",
+              "date": "1912-01-18",
+              "year": "1912"
+            },
+            {
+              "aussage": "Aus heutigen Affen entstehen niemals Menschen",
+              "zitat": "Aus dem heutigen Affen werden niemals Menschen entstehen. Dagegen könnte es sehr leicht sein, [...] dass die Menschen, die heute alles auf Macht gründen wollen, dass die allmählich wiederum eine tierische Körperlichkeit annehmen.",
+              "id": "GA354/8",
+              "index": "vhxb3o",
+              "ref": "GA354/8:vhxb3o",
+              "fileName": "GA354/8 - ACHTER VORTRAG, Dornach, 6. August 1924",
+              "title": "ACHTER VORTRAG",
+              "relevance": "hoch",
+              "date": "1924-08-06",
+              "year": "1924"
+            }
+          ]
+        },
+        {
+          "title": "Der gemeinsame Ahnherr war menschenähnlich",
+          "rows": [
+            {
+              "aussage": "Gemeinschaftlicher Ahnherr näher dem Menschen als dem Tier",
+              "zitat": "Wenn wir von den heutigen höheren Säugetieren und vom Menschen zurückgehen, so kommen wir allerdings zu einem gemeinschaftlichen Ahnherrn. Aber dieser war kein Tier im heutigen Sinne. Dieser Ahnherr war viel näher dem Menschen, als er einem heutigen Tier ähnlich war.",
+              "id": "GA056/8",
+              "index": "jhzl0r",
+              "ref": "GA056/8:jhzl0r",
+              "fileName": "GA056/8 - DIE SEELE DER TIERE, Berlin, 23. Januar 1908",
+              "title": "DIE SEELE DER TIERE",
+              "relevance": "hoch",
+              "date": "1908-01-23",
+              "year": "1908"
+            },
+            {
+              "aussage": "Urwesen menschenähnlich, heutige Affen stehengeblieben",
+              "zitat": "Von jenem Urwesen, das in urferner Vergangenheit vorhanden war und zu dem sich der Mensch hinaufentwickelt hat, stammen zwar die heutigen Affen ab, aber sie sind stehen geblieben auf [einem älteren Standpunkt], stellen daher in heutigem Zustand [...] keine Ahnherren der Menschheit dar.",
+              "id": "GA068b/32",
+              "index": "amfa37",
+              "ref": "GA068b/32:amfa37",
+              "fileName": "GA068b/32 - DIE ABSTAMMUNG DES MENSCHEN, Berlin, 31. Oktober 1907",
+              "title": "DIE ABSTAMMUNG DES MENSCHEN",
+              "relevance": "hoch",
+              "date": "1907-10-31",
+              "year": "1907"
+            },
+            {
+              "aussage": "Fischähnliche, halb menschenähnliche Urtiere ohne heutige Gestalten",
+              "zitat": "Dagegen hat es, könnte man sagen, fischähnliche Tiere gegeben - nicht so wie die heutigen Fische, schon menschenähnlich -, halb menschenähnliche, halb fischähnliche Tiere, die man ebensogut Menschen nennen könnte.",
+              "id": "GA354/4",
+              "index": "u6viop",
+              "ref": "GA354/4:u6viop",
+              "fileName": "GA354/4 - VIERTER VORTRAG, Dornach, 9. Juli 1924",
+              "title": "VIERTER VORTRAG",
+              "relevance": "hoch",
+              "date": "1924-07-09",
+              "year": "1924"
+            },
+            {
+              "aussage": "Mensch früher da, Tier später aus Verwandlungszustand",
+              "zitat": "Wahr ist an der Sache, dass der Mensch mit den Tieren verwandt ist seiner äußeren Gestalt nach. Aber der Mensch war früher da und das Tier hat sich eigentlich später herausgebildet, als schon ein Verwandlungszustand in der Welt da war.",
+              "id": "GA354/1",
+              "index": "dftaw1",
+              "ref": "GA354/1:dftaw1",
+              "fileName": "GA354/1 - ERSTER VORTRAG, Dornach, 30. Juni 1924",
+              "title": "ERSTER VORTRAG",
+              "relevance": "hoch",
+              "date": "1924-06-30",
+              "year": "1924"
+            },
+            {
+              "aussage": "Ursprünglich Tiere weniger vom Menschen unterschieden, dann Degeneration",
+              "zitat": "Ursprünglich also waren die Tiere weit weniger vom Menschen unterschieden als jetzt. Sie degenerierten dann",
+              "id": "GA095/16",
+              "index": "dmr7mc",
+              "ref": "GA095/16:dmr7mc",
+              "fileName": "GA095/16 - FRAGENBEANTWORTUNG, Stuttgart, 4. September 1906",
+              "title": "FRAGENBEANTWORTUNG",
+              "relevance": "hoch",
+              "date": "1906-09-04",
+              "year": "1906"
+            }
+          ]
+        },
+        {
+          "title": "Der geistig-seelische Ursprung des Menschen",
+          "rows": [
+            {
+              "aussage": "Mensch stammt von geistiger Urform, nicht vom Tier",
+              "zitat": "Das Tier ging dem Menschen voran. Der Mensch aber stammt nicht vom Tiere ab, sondern von seiner geistigen Urform. Diejenigen geistigen Urformen, welche zu Tieren geworden sind, sind früher heruntergestiegen als der Mensch, der am längsten oben geblieben ist in den geistigen Regionen.",
+              "id": "GA069d/10",
+              "index": "rqkbop",
+              "ref": "GA069d/10:rqkbop",
+              "fileName": "GA069d/10 - DER URSPRUNG DES MENSCHEN IM LICHT DER GEISTESWISSENSCHAFT, München, 26. Februar 1912",
+              "title": "DER URSPRUNG DES MENSCHEN IM LICHT DER GEISTESWISSENSCHAFT",
+              "relevance": "hoch",
+              "date": "1912-02-26",
+              "year": "1912"
+            },
+            {
+              "aussage": "Menschenseele wartete, Tiere verhärteten sich früher",
+              "zitat": "Die Tierseele hat sozusagen, früher als die Menschenseele, ihre einzelnen Merkmale festgehalten, verhärtet, verfestigt. Und da sie sie verfestigt hatte, waren die Tiere nicht mehr bildungsfähig, sie sind auf der alten Stufe stehengeblieben.",
+              "id": "GA056/8",
+              "index": "x3vkaq",
+              "ref": "GA056/8:x3vkaq",
+              "fileName": "GA056/8 - DIE SEELE DER TIERE, Berlin, 23. Januar 1908",
+              "title": "DIE SEELE DER TIERE",
+              "relevance": "hoch",
+              "date": "1908-01-23",
+              "year": "1908"
+            },
+            {
+              "aussage": "Menschenseele wartete mit Verkörperung nach den Tieren",
+              "zitat": "Die Menschenseele hat gewartet mit der Verkörperung, nachdem die Tiere schon physisch geworden waren. Der menschliche Leib hat sich herauskristallisiert aus dem Geistigen. Die Tierleiber haben sich früher verhärtet.",
+              "id": "GA056/8",
+              "index": "ukhsqp",
+              "ref": "GA056/8:ukhsqp",
+              "fileName": "GA056/8 - DIE SEELE DER TIERE, Berlin, 23. Januar 1908",
+              "title": "DIE SEELE DER TIERE",
+              "relevance": "hoch",
+              "date": "1908-01-23",
+              "year": "1908"
+            },
+            {
+              "aussage": "Ursprung des Menschen nur im Seelisch-Geistigen erkennbar",
+              "zitat": "Niemals kann man dies, denn der Ursprung des Menschen ist nicht im Sinnlichen gelegen, sondern im Seelisch-Geistigen. Erst wenn man von dem Sinnlichen aufsteigt zum Seelisch-Geistigen [...] können wir wiederum zu einer den Menschen wirklich befriedigenden Abstammungslehre kommen.",
+              "id": "GA053/10",
+              "index": "h7wrtj",
+              "ref": "GA053/10:h7wrtj",
+              "fileName": "GA053/10 - URSPRUNG UND ZIEL DES MENSCHEN, Berlin, 9. Februar 1905",
+              "title": "URSPRUNG UND ZIEL DES MENSCHEN",
+              "relevance": "hoch",
+              "date": "1905-02-09",
+              "year": "1905"
+            },
+            {
+              "aussage": "Sinnliches erweist sich als Ergebnis, nicht als Ursprung",
+              "zitat": "Dasjenige, wovon man geglaubt hat, dass es das Ergebnis des Sinnlichen wäre, erweist sich als das Ursprüngliche, als das Erste, als das Schöpferische, und als Ergebnis das Sinnliche.",
+              "id": "GA061/8",
+              "index": "4y5iat",
+              "ref": "GA061/8:4y5iat",
+              "fileName": "GA061/8 - DER URSPRUNG DES MENSCHEN, Berlin, 4. Januar 1912",
+              "title": "DER URSPRUNG DES MENSCHEN",
+              "relevance": "hoch",
+              "date": "1912-01-04",
+              "year": "1912"
+            },
+            {
+              "aussage": "Als geistig-seelisch geformtes Wesen musste der Mensch warten",
+              "zitat": "Da erst gestaltete sich die heutige Art der Fortpflanzung. Als geistig-seelisch geformtes Wesen musste der Mensch warten.",
+              "id": "GA069d/10",
+              "index": "k9v9zp",
+              "ref": "GA069d/10:k9v9zp",
+              "fileName": "GA069d/10 - DER URSPRUNG DES MENSCHEN IM LICHT DER GEISTESWISSENSCHAFT, München, 26. Februar 1912",
+              "title": "DER URSPRUNG DES MENSCHEN IM LICHT DER GEISTESWISSENSCHAFT",
+              "relevance": "hoch",
+              "date": "1912-02-26",
+              "year": "1912"
+            }
+          ]
+        },
+        {
+          "title": "Der Kopf als Ursprung der Tierheit im Menschen",
+          "rows": [
+            {
+              "aussage": "Nur menschliches Haupt stammt von der Tierheit ab",
+              "zitat": "Der Mensch hat äußerlich [...] eine Tierbildung gehabt, als es noch gar keine Tiere gab. Die Tiere haben sich später zum Menschen hinzugebildet. Dasjenige aber, was im Menschen Tierbildung gehabt hat, das ist heute menschliches Haupt, menschlicher Kopf geworden.",
+              "id": "GA194/2",
+              "index": "kwaatv",
+              "ref": "GA194/2:kwaatv",
+              "fileName": "GA194/2 - ZWEITER VORTRAG, Dornach, 22. November 1919",
+              "title": "ZWEITER VORTRAG",
+              "relevance": "hoch",
+              "date": "1919-11-22",
+              "year": "1919"
+            },
+            {
+              "aussage": "Nur das Luziferische am Menschen stammt von der Tierheit",
+              "zitat": "es wurde einem zur Antwort gegeben, der Mensch stamme von der Tierheit ab, während in Wahrheit nur dasjenige, was am Menschen das Luziferische ist, von der Tierheit abstammt.",
+              "id": "GA194/2",
+              "index": "d9rmxu",
+              "ref": "GA194/2:d9rmxu",
+              "fileName": "GA194/2 - ZWEITER VORTRAG, Dornach, 22. November 1919",
+              "title": "ZWEITER VORTRAG",
+              "relevance": "hoch",
+              "date": "1919-11-22",
+              "year": "1919"
+            },
+            {
+              "aussage": "Kopf weist auf weiter zurückliegende Vorzeit als alle Tiere",
+              "zitat": "es zeigt sich sogar, dass das Wesen, welches in seiner Umwandlung die heutige Kopfform des Menschen möglich gemacht hat, in viel weiter zurückliegender Vorzeit gesucht werden muss als die heutigen sämtlichen Tiere oder Pflanzen.",
+              "id": "GA073/3",
+              "index": "sgz4fu",
+              "ref": "GA073/3:sgz4fu",
+              "fileName": "GA073/3 - ANTHROPOSOPHIE UND NATURWISSENSCHAFT, Zürich, 12. November 1917",
+              "title": "ANTHROPOSOPHIE UND NATURWISSENSCHAFT",
+              "relevance": "hoch",
+              "date": "1917-11-12",
+              "year": "1917"
+            },
+            {
+              "aussage": "Kopf als Deszendenz, Rumpf gleichzeitig mit den Tieren angesetzt",
+              "zitat": "insofern der Mensch ein Kopfwesen ist, stammt er von Vorfahren ab, die sich allmählich umgewandelt haben [...] die aber ihre Nachkommenschaft eigentlich nur im menschlichen Haupte haben. Und in der Zeit, in der sich [...] solche Wesen bilden konnten, wie wir sie heute im Tierreiche haben, hat der Mensch zu seinem Menschen eben auch dasjenige, was in seinem Tiertum ist, hinzugefügt.",
+              "id": "GA073/3",
+              "index": "goj4n3",
+              "ref": "GA073/3:goj4n3",
+              "fileName": "GA073/3 - ANTHROPOSOPHIE UND NATURWISSENSCHAFT, Zürich, 12. November 1917",
+              "title": "ANTHROPOSOPHIE UND NATURWISSENSCHAFT",
+              "relevance": "hoch",
+              "date": "1917-11-12",
+              "year": "1917"
+            },
+            {
+              "aussage": "Menschenhaupt als umgewandelte, gesteigerte Tiergestalt",
+              "zitat": "wie alles im Haupte umgewandelte, erhöhte, gesteigerte Tiergestalt ist, dann werden Sie im Haupte des Menschen, im Kopfe des Menschen erkennen, dass auf höherer Stufe das erscheint, was in den Tieren in der verschiedensten Weise ausgebildet ist.",
+              "id": "GA079/5",
+              "index": "oipov1",
+              "ref": "GA079/5:oipov1",
+              "fileName": "GA079/5 - DIE WELTENTWICKELUNG IM LICHTE DER ANTHROPOSOPHIE, Kristiania, 1. Dezember 1921",
+              "title": "DIE WELTENTWICKELUNG IM LICHTE DER ANTHROPOSOPHIE",
+              "relevance": "hoch",
+              "date": "1921-12-01",
+              "year": "1921"
+            },
+            {
+              "aussage": "Ätherische Tierheit im Haupt: Wurzel der Darwinschen Theorie",
+              "zitat": "Wir tragen daher in unserem Haupt eine Tierheit, aber eine ätherische Tierheit. [...] Sie setzten sich in den Kopf, dass sich der Mensch «tierisch» fühlen müsse, was dann gipfelte in der Darwinschen Abstammungstheorie des Menschen vom Tier.",
+              "id": "GA181/9",
+              "index": "bf0a58",
+              "ref": "GA181/9:bf0a58",
+              "fileName": "GA181/9 - NEUNTER VORTRAG, Berlin, 1. April 1918",
+              "title": "NEUNTER VORTRAG",
+              "relevance": "hoch",
+              "date": "1918-04-01",
+              "year": "1918"
+            }
+          ]
+        },
+        {
+          "title": "Der Mensch als Synthese des ganzen Tierreichs",
+          "rows": [
+            {
+              "aussage": "Mensch vereint alle Tiere synthetisch in sich",
+              "zitat": "All das naturwissenschaftliche Geschwätz, dass der Mensch von einem Tiere abstamme, wird belacht werden von solchen Menschen, die so erzogen worden sind. Denn man wird erkennen, dass der Mensch das ganze Tierreich, die einzelnen Glieder synthetisch in sich vereinigt.",
+              "id": "GA311/3",
+              "index": "rftupu",
+              "ref": "GA311/3:rftupu",
+              "fileName": "GA311/3 - DRITTER VORTRAG, Torquay, 14. August 1924",
+              "title": "DRITTER VORTRAG",
+              "relevance": "hoch",
+              "date": "1924-08-14",
+              "year": "1924"
+            },
+            {
+              "aussage": "Tierwelt als auseinandergelegter Fächer der Menschheit (Paracelsus)",
+              "zitat": "So ist die ganze Tierwelt für Paracelsus die wie ein Fächer auseinandergelegte Menschheit. Er sieht alles, was in den Formen der Tiere verteilt ist, in sich selbst, unsichtbar in seinem inneren Menschen.",
+              "id": "GA054/21",
+              "index": "dm7vha",
+              "ref": "GA054/21:dm7vha",
+              "fileName": "GA054/21 - PARACELSUS, Berlin, 26. April 1906",
+              "title": "PARACELSUS",
+              "relevance": "hoch",
+              "date": "1906-04-26",
+              "year": "1906"
+            },
+            {
+              "aussage": "Jedes Tier ein Buchstabe, der Mensch das ganze Wort",
+              "zitat": "Wenn wir hinausschauen in die Tierwelt, dann ist uns jedes Tier wie ein Buchstabe, und der Mensch ist das Wort, das aus den einzelnen Buchstaben zusammengesetzt ist.",
+              "id": "GA056/8",
+              "index": "jbxph5",
+              "ref": "GA056/8:jbxph5",
+              "fileName": "GA056/8 - DIE SEELE DER TIERE, Berlin, 23. Januar 1908",
+              "title": "DIE SEELE DER TIERE",
+              "relevance": "hoch",
+              "date": "1908-01-23",
+              "year": "1908"
+            },
+            {
+              "aussage": "Tierreich als auseinandergelegter Mensch, im Menschen individuell vereinigt",
+              "zitat": "So begreifen wir auch, warum das Tierreich uns wie ein auseinandergelegter Mensch erscheint. [...] So ist im Menschen das Tierreich individuell geworden, im Menschen sind die Eigenschaften der Tierwelt in einer Einheit vereinigt.",
+              "id": "GA056/8",
+              "index": "ukhsqp",
+              "ref": "GA056/8:ukhsqp",
+              "fileName": "GA056/8 - DIE SEELE DER TIERE, Berlin, 23. Januar 1908",
+              "title": "DIE SEELE DER TIERE",
+              "relevance": "hoch",
+              "date": "1908-01-23",
+              "year": "1908"
+            },
+            {
+              "aussage": "Tiere sind unvollkommene Menschen",
+              "zitat": "unsere Zivilisation heute begreift den Menschen von der Natur aus als das höchste Tier. Aber was sie nicht begreift, das ist, inwiefern die Tiere unvollkommene Menschen sind.",
+              "id": "GA217/13",
+              "index": "7mx5wk",
+              "ref": "GA217/13:7mx5wk",
+              "fileName": "GA217/13 - DREIZEHNTER VORTRAG, Stuttgart, 15. Oktober 1922",
+              "title": "DREIZEHNTER VORTRAG",
+              "relevance": "hoch",
+              "date": "1922-10-15",
+              "year": "1922"
+            }
+          ]
+        },
+        {
+          "title": "Die Stufenfolge der Absonderungen",
+          "rows": [
+            {
+              "aussage": "Um Ätherleib eingegliederten Stufe zurückgeblieben: Tiervorfahren",
+              "zitat": "Diejenigen Wesen, die so auf der ersten Stufe des Menschen blieben, als der Mensch sich seinen Ätherleib eingliederte, sind um eine Stufe zurückgebliebene Menschen [...]. Diese Wesen sind die Vorfahren unserer heutigen Tiere.",
+              "id": "GA068b/47",
+              "index": "8xaegx",
+              "ref": "GA068b/47:8xaegx",
+              "fileName": "GA068b/47 - DAS WESEN DES MENSCHEN ALS SCHLÜSSEL ZU DEN GEHEIMNISSEN DER WELT, Wien, 24. November 1908",
+              "title": "DAS WESEN DES MENSCHEN ALS SCHLÜSSEL ZU DEN GEHEIMNISSEN DER WELT",
+              "relevance": "hoch",
+              "date": "1908-11-24",
+              "year": "1908"
+            },
+            {
+              "aussage": "Zurückgebliebene Stufen der Entwicklung in den Tieren",
+              "zitat": "Bei einem Teil fiel er heraus. Das sind heute die unvollkommensten Lebewesen. [...] dann folgten andere Tiere bis zur Entwicklung des Menschen. Die Stufen seiner fortlaufenden Entwicklung ließ er zurück in den Tieren. Sie sind entartete Entwicklung des Menschen.",
+              "id": "GA068b/35",
+              "index": "6ijope",
+              "ref": "GA068b/35:6ijope",
+              "fileName": "GA068b/35 - DIE NATURWISSENSCHAFT AM SCHEIDEWEGE, Leipzig, 17. Februar 1908",
+              "title": "DIE NATURWISSENSCHAFT AM SCHEIDEWEGE",
+              "relevance": "hoch",
+              "date": "1908-02-17",
+              "year": "1908"
+            },
+            {
+              "aussage": "Zwei Strömungen: aufsteigende Menschen, absteigende Tiere",
+              "zitat": "Der nächste Zustand besteht darin, dass sich die Äthermenschen gleichsam in zwei Strömungen teilen, eine aufsteigende und eine absteigende. Aus der absteigenden gehen die Tiere hervor. [...] so teilen sich die Menschen in zwei Gruppen, die Menschen und degenerierte Menschen, die Tiere.",
+              "id": "GA094/40",
+              "index": "eo4n0n",
+              "ref": "GA094/40:eo4n0n",
+              "fileName": "GA094/40 - DIE THEOSOPHIE ANHAND DES JOHANNES-EVANGELIUMS, Fünfter Vortrag, München, 3. November 1906",
+              "title": "DIE THEOSOPHIE ANHAND DES JOHANNES-EVANGELIUMS",
+              "relevance": "hoch",
+              "date": "1906-11-03",
+              "year": "1906"
+            },
+            {
+              "aussage": "Verästelung in der Atlantis: Aufstieg zum Mensch, Abstieg zum Affen",
+              "zitat": "In der atlantischen Zeit fand also eine Verästelung statt, eine Abzweigung innerhalb der Menschenart: der eine Hauptstamm entwickelte sich zum heutigen Menschen hinauf, der andere zum heutigen Affen hinab.",
+              "id": "GA094/28",
+              "index": "0l9iis",
+              "ref": "GA094/28:0l9iis",
+              "fileName": "GA094/28 - POPULÄRER OKKULTISMUS, Zehnter Vortrag, Leipzig, 7. Juli 1906",
+              "title": "POPULÄRER OKKULTISMUS",
+              "relevance": "hoch",
+              "date": "1906-07-07",
+              "year": "1906"
+            },
+            {
+              "aussage": "Nur der geistige Mensch war im Anfang der Erdentwicklung da",
+              "zitat": "Für die Geisteswissenschaft gibt es einen Satz: Alle andern Wesen auf der Erde, [Mineralien, Pflanzen, Tiere], sind später entstanden als der geistige Mensch. [Im Beginne war nichts da als der geistige Mensch!]",
+              "id": "GA068b/34",
+              "index": "rp18pg",
+              "ref": "GA068b/34:rp18pg",
+              "fileName": "GA068b/34 - ERDENANFANG UND ERDENENDE, Elberfeld, 16. Dezember 1907",
+              "title": "ERDENANFANG UND ERDENENDE",
+              "relevance": "hoch",
+              "date": "1907-12-16",
+              "year": "1907"
+            },
+            {
+              "aussage": "Mensch in seiner Anlage älter als das Tier",
+              "zitat": "Da waren noch gar keine Tiere da; die sind erst später während des Sonnendaseins gekommen. So dass der Mensch in seiner Anlage älter ist als das Tier.",
+              "id": "GA227/14",
+              "index": "b8j8vl",
+              "ref": "GA227/14:b8j8vl",
+              "fileName": "GA227/14 - ZWÖLFTER VORTRAG, Penmaenmawr, 30. August 1923",
+              "title": "ZWÖLFTER VORTRAG",
+              "relevance": "hoch",
+              "date": "1923-08-30",
+              "year": "1923"
+            },
+            {
+              "aussage": "Höhere Säugetiere in der Atlantis vom Menschen abgestoßen",
+              "zitat": "Hier wird noch einmal etwas abgestoßen vom Menschen: Es werden die höheren Säugetiere abgeschieden. Der Mensch hatte zuerst noch die Natur der höheren Säugetiere in sich.",
+              "id": "GA053/10",
+              "index": "db8vty",
+              "ref": "GA053/10:db8vty",
+              "fileName": "GA053/10 - URSPRUNG UND ZIEL DES MENSCHEN, Berlin, 9. Februar 1905",
+              "title": "URSPRUNG UND ZIEL DES MENSCHEN",
+              "relevance": "hoch",
+              "date": "1905-02-09",
+              "year": "1905"
+            }
+          ]
+        },
+        {
+          "title": "Auseinandersetzung mit dem Darwinismus und Haeckel",
+          "rows": [
+            {
+              "aussage": "Haeckel: Abstammung aus echten Affen als logische Konsequenz",
+              "zitat": "Hier behandelt Haeckel neuerdings die Konsequenz, die sich für jeden logisch Denkenden ohne weiteres aus dem Darwinismus ergibt, dass der Mensch sich aus niederen Wirbeltieren, und zwar zunächst aus echten Affen, entwickelt hat.",
+              "id": "GA030/7",
+              "index": "2fkwdn",
+              "ref": "GA030/7:2fkwdn",
+              "fileName": "GA030/7 - HAECKEL UND SEINE GEGNER (1899)",
+              "title": "HAECKEL UND SEINE GEGNER (1899)",
+              "relevance": "hoch",
+              "date": "",
+              "year": ""
+            },
+            {
+              "aussage": "Haeckel verfolgt tierische Ahnenreihe bis zu den Urtieren",
+              "zitat": "Der Mensch hat mit den Ostaffen zusammen gemeinsame Stammeltern in einer ausgestorbenen Affenart. [...] hat Haeckel die in der Zeit weiter vorausliegenden tierischen Vorfahren des Menschen, über die Halbaffen, Beuteltiere, Urfische bis hinauf zu den Urdarmtieren und den nur aus einer Zelle bestehenden Urtieren verfolgt.",
+              "id": "GA030/7",
+              "index": "hkyq46",
+              "ref": "GA030/7:hkyq46",
+              "fileName": "GA030/7 - HAECKEL UND SEINE GEGNER (1899)",
+              "title": "HAECKEL UND SEINE GEGNER (1899)",
+              "relevance": "hoch",
+              "date": "",
+              "year": ""
+            },
+            {
+              "aussage": "Huxley: geringerer Unterschied Mensch-Affe als zwischen Affenarten",
+              "zitat": "Er hat es ausgesprochen, dass eine so große Ähnlichkeit im äußeren Bau zwischen dem Menschen und den höheren Tieren besteht, dass diese Ähnlichkeit größer sei, als die Ähnlichkeit zwischen den höheren und niederen Affenarten. Man könne daraus nur schließen, dass eine Abstammung des Menschen von den höheren Tieren bestehe.",
+              "id": "GA054/1",
+              "index": "640sb2",
+              "ref": "GA054/1:640sb2",
+              "fileName": "GA054/1 - HAECKEL, DIE WELTRÄTSEL UND DIE THEOSOPHIE, Berlin, 5. Oktober 1905",
+              "title": "HAECKEL",
+              "relevance": "hoch",
+              "date": "1905-10-05",
+              "year": "1905"
+            },
+            {
+              "aussage": "Haeckel 1864: reale Abstammung des Menschen aus höherer Tierwelt",
+              "zitat": "dass er energisch die unmittelbare reale Abstammung, das wirkliche Hervorgehen des Menschen von und aus der höheren Tierwelt vertrat.",
+              "id": "GA061/8",
+              "index": "rkuu5q",
+              "ref": "GA061/8:rkuu5q",
+              "fileName": "GA061/8 - DER URSPRUNG DES MENSCHEN, Berlin, 4. Januar 1912",
+              "title": "DER URSPRUNG DES MENSCHEN",
+              "relevance": "hoch",
+              "date": "1912-01-04",
+              "year": "1912"
+            },
+            {
+              "aussage": "Virchow: Der Mensch stammt ganz gewiss nicht vom Affen ab",
+              "zitat": "Er hat jede ihm passend erscheinende Gelegenheit ergriffen, um die natürliche Entwickelungsgeschichte zu bekämpfen und seinen Lieblingssatz zu wiederholen: «Es ist ganz gewiss, dass der Mensch nicht vom Affen abstammt.»",
+              "id": "GA030/7",
+              "index": "cf5t43",
+              "ref": "GA030/7:cf5t43",
+              "fileName": "GA030/7 - HAECKEL UND SEINE GEGNER (1899)",
+              "title": "HAECKEL UND SEINE GEGNER (1899)",
+              "relevance": "mittel",
+              "date": "",
+              "year": ""
+            },
+            {
+              "aussage": "Anatomische Unmöglichkeit, Menschenbau an Affenbau anzulehnen",
+              "zitat": "In den letzten Jahren hat sich aber die Unmöglichkeit gezeigt, den Menschenbau an den Affenbau anzulehnen. In gewisser Beziehung hat allerdings der Mensch mit dem Gibbon große Ähnlichkeit, nur hat der Gibbon furchtbar große Vorderfüße.",
+              "id": "GA068b/36",
+              "index": "plgx32",
+              "ref": "GA068b/36:plgx32",
+              "fileName": "GA068b/36 - DIE NATURWISSENSCHAFT AM SCHEIDEWEGE, Pforzheim, 17. Januar 1909",
+              "title": "DIE NATURWISSENSCHAFT AM SCHEIDEWEGE",
+              "relevance": "hoch",
+              "date": "1909-01-17",
+              "year": "1909"
+            },
+            {
+              "aussage": "Abstammungslehre nahe am Bankrott, Urahn lebt nicht mehr",
+              "zitat": "Heute ist ohnedies die Abstammungslehre schon nahe am Bankrott. [...] Es wird gesagt, dass es unmöglich sei, dass der Mensch ein Nachkomme der Affen sei. [...] so dass gewisse Forscher auf dem Standpunkte stehen, dass der Urahn, von dem der Mensch abstammt, gar nicht mehr lebt.",
+              "id": "GA056/8",
+              "index": "jhzl0r",
+              "ref": "GA056/8:jhzl0r",
+              "fileName": "GA056/8 - DIE SEELE DER TIERE, Berlin, 23. Januar 1908",
+              "title": "DIE SEELE DER TIERE",
+              "relevance": "hoch",
+              "date": "1908-01-23",
+              "year": "1908"
+            },
+            {
+              "aussage": "Huxley lieber tierähnliche Vorfahren als vernunftleugnende",
+              "zitat": "Huxley sagte einst: «Ich will lieber von solchen Vorfahren abstammen, die tierähnlich sind, als von solchen, welche die menschliche Vernunft leugnen.»",
+              "id": "GA034/19",
+              "index": "84tmu9",
+              "ref": "GA034/19:84tmu9",
+              "fileName": "GA034/19 - HAECKEL, DIE WELTRÄTSEL UND DIE THEOSOPHIE EIN VORTRAG, GEHALTEN IN BERLIN AM 5. Oktober 1905",
+              "title": "HAECKEL",
+              "relevance": "mittel",
+              "date": "1905-10-05",
+              "year": "1905"
+            },
+            {
+              "aussage": "Darwins Buch «Die Abstammung des Menschen» ohne wesentliche Neuerung",
+              "zitat": "Diese Art der Weltbetrachtung ist auch nicht viel anders geworden in dem Werke, das dann Darwin hat nachfolgen lassen, und das den Titel trägt: «Die Abstammung des Menschen». In bezug auf das eben Charakterisierte ist eigentlich bei Darwin selbst nichts dazugekommen.",
+              "id": "GA303/3",
+              "index": "ifhggo",
+              "ref": "GA303/3:ifhggo",
+              "fileName": "GA303/3 - DRITTER VORTRAG, Dornach, 25. Dezember 1921",
+              "title": "DRITTER VORTRAG",
+              "relevance": "mittel",
+              "date": "1921-12-25",
+              "year": "1921"
+            }
+          ]
+        },
+        {
+          "title": "Grenzen des Darwinismus: Erkenntnis macht vor dem Menschen halt",
+          "rows": [
+            {
+              "aussage": "Darwinismus kommt nur bis zur Tierentwicklung, nicht bis zum Menschen",
+              "zitat": "Der Darwinismus kommt aber nicht weiter als bis zur Entwickelung der Tiere. Er stellt dann an die Spitze den Menschen. Vor dem Menschen macht er eigentlich halt. Man kommt mit der Erkenntnis nicht bis zum Menschen.",
+              "id": "GA197/10",
+              "index": "6lhr52",
+              "ref": "GA197/10:6lhr52",
+              "fileName": "GA197/10 - ZEHNTER VORTRAG, Stuttgart, 14. November 1920",
+              "title": "ZEHNTER VORTRAG",
+              "relevance": "hoch",
+              "date": "1920-11-14",
+              "year": "1920"
+            },
+            {
+              "aussage": "Intellektualismus begreift nur bis zum Affen, nicht den Menschen",
+              "zitat": "Er ist nur dazu gekommen, die Entwickelung der Tiere bis herauf zum Affen zu begreifen, und er hat dann den Menschen angeschlossen, ohne innerlich zum Menschen vorrücken zu können. [...] Und es ist gar nicht wahr, dass der Mensch zum Beispiel die höheren Tiere noch begreift.",
+              "id": "GA220/9",
+              "index": "s238kj",
+              "ref": "GA220/9:s238kj",
+              "fileName": "GA220/9 - NEUNTER VORTRAG, Dornach, 21. Januar 1923",
+              "title": "NEUNTER VORTRAG",
+              "relevance": "hoch",
+              "date": "1923-01-21",
+              "year": "1923"
+            },
+            {
+              "aussage": "Naturwissenschaft kennt nur das Gespenst des Menschen",
+              "zitat": "Aber die Sache ist diese, dass etwas in uns schon abstammt von den Tieren, oder wenigstens eine gemeinschaftliche Abstammung von den Tieren hat, doch das sind wir nicht als Menschen, sondern das ist das Gespenst, das die Naturwissenschaft von uns kennt.",
+              "id": "GA184/13",
+              "index": "56w385",
+              "ref": "GA184/13:56w385",
+              "fileName": "GA184/13 - DREIZEHNTER VORTRAG, Dornach, 11. Oktober 1918",
+              "title": "DREIZEHNTER VORTRAG",
+              "relevance": "hoch",
+              "date": "1918-10-11",
+              "year": "1918"
+            },
+            {
+              "aussage": "Zeitgenössische Wissenschaft bleibt bei Verhältnissen der Tierwelt stehen",
+              "zitat": "Der Mensch des 19. Jahrhunderts kommt durch seine Wissenschaft, indem er den Menschen begreifen will, nicht über das Begreifen der Verhältnisse in der Tierwelt hinaus. Gar kein Wunder, dass er auch bei der Abstammung des Menschen bei der Tierwelt stehenbleibt!",
+              "id": "GA180/6",
+              "index": "49b3zl",
+              "ref": "GA180/6:49b3zl",
+              "fileName": "GA180/6 - SECHSTER VORTRAG, Dornach, 30. Dezember 1917",
+              "title": "SECHSTER VORTRAG",
+              "relevance": "hoch",
+              "date": "1917-12-30",
+              "year": "1917"
+            },
+            {
+              "aussage": "Abstammung des Menschen: die Frage aller Fragen",
+              "zitat": "Man hat dasjenige, was uns heute beschäftigen soll, die Frage aller Fragen genannt. [...] als das Nachdenken über seinen Ursprung, über seine Abstammung, denn ein jeder hat wohl die Ahnung davon, dass in dieser Frage eingeschlossen liegt vieles von dem, was den Menschen allein aufklären kann über sein wahres Wesen.",
+              "id": "GA068b/32",
+              "index": "jjgnsr",
+              "ref": "GA068b/32:jjgnsr",
+              "fileName": "GA068b/32 - DIE ABSTAMMUNG DES MENSCHEN, Berlin, 31. Oktober 1907",
+              "title": "DIE ABSTAMMUNG DES MENSCHEN",
+              "relevance": "mittel",
+              "date": "1907-10-31",
+              "year": "1907"
+            }
+          ]
+        },
+        {
+          "title": "Der Unterschied von Mensch und Tier",
+          "rows": [
+            {
+              "aussage": "Gewaltige Kluft zwischen Mensch und Tier trotz Verwandtschaft",
+              "zitat": "Die Geisteswissenschaft sieht mit unbefangenem Blick auf alle die verwandten Züge im Menschen und in der Tierwelt, aber da sie [...] bis zur geistigen Grundlage des Daseins geht, ist sie imstande, die gewaltige Kluft zu zeigen, die sich zwischen Mensch und Tier auftut.",
+              "id": "GA056/8",
+              "index": "fbhbbx",
+              "ref": "GA056/8:fbhbbx",
+              "fileName": "GA056/8 - DIE SEELE DER TIERE, Berlin, 23. Januar 1908",
+              "title": "DIE SEELE DER TIERE",
+              "relevance": "hoch",
+              "date": "1908-01-23",
+              "year": "1908"
+            },
+            {
+              "aussage": "Mensch als Individuum eine Gattung für sich",
+              "zitat": "Der Mensch ist als Individualität eine Gattung für sich. Was wir etwa beim Löwen haben als Vater, Sohn, Enkel, Urenkel, hat so viel miteinander gemein, dass wir uns für den Löwen als Gattung [...] in demselben Maße nur interessieren, wie wir uns für die einzelne Menschenindividualität [...] interessieren.",
+              "id": "GA056/8",
+              "index": "fbhbbx",
+              "ref": "GA056/8:fbhbbx",
+              "fileName": "GA056/8 - DIE SEELE DER TIERE, Berlin, 23. Januar 1908",
+              "title": "DIE SEELE DER TIERE",
+              "relevance": "mittel",
+              "date": "1908-01-23",
+              "year": "1908"
+            },
+            {
+              "aussage": "Zählen als Grenzpunkt: Tiere zählen nicht",
+              "zitat": "Man nehme doch nur die durch einwandfreie Beobachtung festgestellte Tatsache, dass die Tiere, auch die höchststehenden, nicht zählen [...]. Schon in alten Weisheitsschulen galt es als ein vielsagender Satz, dass sich der Mensch dadurch vom Tiere unterscheide, dass er zählen könne.",
+              "id": "GA034/6",
+              "index": "wdsxfv",
+              "ref": "GA034/6:wdsxfv",
+              "fileName": "GA034/6 - REINKARNATION UND KARMA VOM STANDPUNKTE DER MODERNEN NATURWISSENSCHAFT NOTWENDIGE VORSTELLUNGEN",
+              "title": "REINKARNATION UND KARMA VOM STANDPUNKTE DER MODERNEN NATURWISSENSCHAFT NOTWENDIGE VORSTELLUNGEN",
+              "relevance": "mittel",
+              "date": "",
+              "year": ""
+            },
+            {
+              "aussage": "Tiergruppenseele auf Astralplan, Menschen-Ich auf physischem Plan",
+              "zitat": "Dagegen hat der Mensch hier unten eine individuelle Seele, das Tier aber eine Gruppenseele. Viele Tiere haben zusammen eine Gruppenseele, so dass wir, wenn wir die Seele der Tiere betrachten wollen, hinaufsteigen müssen auf den astralen Plan.",
+              "id": "GA283/3",
+              "index": "jym567",
+              "ref": "GA283/3:jym567",
+              "fileName": "GA283/3 - DRITTER VORTRAG Berlin, 26. November 1906",
+              "title": "DRITTER VORTRAG Berlin",
+              "relevance": "mittel",
+              "date": "1906-11-26",
+              "year": "1906"
+            },
+            {
+              "aussage": "Verstand walte übersinnlich in der Tierreihe, nicht im einzelnen Tier",
+              "zitat": "Überall wo wir in der Tierwelt hinschauen, beim Biber, bei den Wespen und so weiter, sehen wir Verstand walten, sehen wir Geist walten, der sich der Tiere bedient. Man kann nicht sagen, dass dieser Verstand in den einzelnen Tieren drinnen sei.",
+              "id": "GA061/9",
+              "index": "g6197j",
+              "ref": "GA061/9:g6197j",
+              "fileName": "GA061/9 - DER URSPRUNG DER TIERWELT, Berlin, 18. Januar 1912",
+              "title": "DER URSPRUNG DER TIERWELT",
+              "relevance": "mittel",
+              "date": "1912-01-18",
+              "year": "1912"
+            },
+            {
+              "aussage": "Vier Wesensglieder beim Menschen, drei beim Tier",
+              "zitat": "Bei Tieren sprechen wir in der Geistesforschung vom physischen Leib, vom Ätherleib und vom Astralleib. Beim Menschen sprechen wir von vier Gliedern: vom physischen Leib, Ätherleib, Astralleib und von dem Ichträger.",
+              "id": "GA068b/9",
+              "index": "hq1q81",
+              "ref": "GA068b/9:hq1q81",
+              "fileName": "GA068b/9 - DER KREISLAUF DES MENSCHEN INNERHALB DER SINNES-, SEELEN UND GEISTESWELT. DAS LEBEN NACH DEM TODE, EINE TATSACHE DER WIRKLICHKEIT, Hamburg, 14. März 1909",
+              "title": "DER KREISLAUF DES MENSCHEN INNERHALB DER SINNES-",
+              "relevance": "mittel",
+              "date": "1909-03-14",
+              "year": "1909"
+            },
+            {
+              "aussage": "Tiere haben fertige Fähigkeiten, Mensch muss sie erwerben",
+              "zitat": "Wenn wir den Menschen betrachten, so sehen wir, dass er sich, nachdem er da ist, diejenigen Fähigkeiten erst aneignen muss, die in die Tiere schon hineingeformt sind. [...] Daran kann man einen Maßstab haben, an dem man sehen kann, dass die Tiere früher geformt sind, und dass der Mensch noch fortgeformt wird, nachdem er bereits geboren ist.",
+              "id": "GA061/9",
+              "index": "g6197j",
+              "ref": "GA061/9:g6197j",
+              "fileName": "GA061/9 - DER URSPRUNG DER TIERWELT, Berlin, 18. Januar 1912",
+              "title": "DER URSPRUNG DER TIERWELT",
+              "relevance": "mittel",
+              "date": "1912-01-18",
+              "year": "1912"
+            }
+          ]
+        },
+        {
+          "title": "Pädagogik: den Menschen vom Tier her verstehen",
+          "rows": [
+            {
+              "aussage": "Beim Tierunterricht vom Menschen ausgehen",
+              "zitat": "Nehmen wir an, wir wollen begreiflich machen dem Kinde nach dem neunten Jahr den Unterschied der niederen Tiere von den höheren Tieren und vom Menschen; da geht man vom Menschen aus. [...] dann kann man das, was man am Menschen so gefunden hat, anwenden auf niedere und höhere Tiere.",
+              "id": "GA297/2",
+              "index": "zquqpo",
+              "ref": "GA297/2:zquqpo",
+              "fileName": "GA297/2 - AUS WELCHEM GEISTE KANN SICH EINE ERZIEHUNGSKUNST DER GEGENWART ENTWICKELN , Stuttgart, 31. August 1919 (nachmittags)",
+              "title": "AUS WELCHEM GEISTE KANN SICH EINE ERZIEHUNGSKUNST DER GEGENWART ENTWICKELN",
+              "relevance": "hoch",
+              "date": "1919-08-31",
+              "year": "1919"
+            },
+            {
+              "aussage": "Niedere Tiere verwandt mit Kopf, höhere Tiere mit Rumpf des Menschen",
+              "zitat": "Es ist nämlich die Wirklichkeit so, dass die niederen Tiere zwar einfach gestaltet sind, aber dass die Gestaltung, die einfach sich bei den niederen Tieren findet, beim menschlichen Haupte wiederkehrt. [...] Und das, was sich bei den höheren Tieren [...] findet, das ist nur zu vergleichen mit dem, was sich im Rumpfleben des Menschen vorfindet.",
+              "id": "GA297/2",
+              "index": "zquqpo",
+              "ref": "GA297/2:zquqpo",
+              "fileName": "GA297/2 - AUS WELCHEM GEISTE KANN SICH EINE ERZIEHUNGSKUNST DER GEGENWART ENTWICKELN , Stuttgart, 31. August 1919 (nachmittags)",
+              "title": "AUS WELCHEM GEISTE KANN SICH EINE ERZIEHUNGSKUNST DER GEGENWART ENTWICKELN",
+              "relevance": "hoch",
+              "date": "1919-08-31",
+              "year": "1919"
+            },
+            {
+              "aussage": "Kind empfindet den Menschen als über alle Tiere hinausragend",
+              "zitat": "Und von den Tieren bekommt das Kind die Empfindung, als ob alle Tiere etwas Verwandtes hätten mit dem Menschen, aber auch die Vorstellung, dass der Mensch etwas über alle Tiere Hinausragendes hat, weil er alle Tiere in sich vereint.",
+              "id": "GA311/3",
+              "index": "rftupu",
+              "ref": "GA311/3:rftupu",
+              "fileName": "GA311/3 - DRITTER VORTRAG, Torquay, 14. August 1924",
+              "title": "DRITTER VORTRAG",
+              "relevance": "hoch",
+              "date": "1924-08-14",
+              "year": "1924"
+            }
+          ]
+        },
+        {
+          "title": "Sonstige Aspekte der Mensch-Tier-Verwandtschaft",
+          "rows": [
+            {
+              "aussage": "Freiheit vs. Naturnotwendigkeit: komplizierte Abstammung des Menschen",
+              "zitat": "Die hängt innig zusammen mit dem, was dann, nur in gröberer Weise, in der Statuierung der Abstammung des Menschen von den Tieren herausgekommen ist, während er in Wahrheit eine so komplizierte Abstammung hat, wie ich es auseinandergesetzt habe.",
+              "id": "GA181/9",
+              "index": "p87nqu",
+              "ref": "GA181/9:p87nqu",
+              "fileName": "GA181/9 - NEUNTER VORTRAG, Berlin, 1. April 1918",
+              "title": "NEUNTER VORTRAG",
+              "relevance": "mittel",
+              "date": "1918-04-01",
+              "year": "1918"
+            },
+            {
+              "aussage": "Warnung: materialistische Weltanschauung führt zu tierischem Leben",
+              "zitat": "Aber diese Weltanschauung wird unbedingt kommen, und sie wird im Gefolge haben, dass die Menschen mit dieser Weltanschauung auch wie Tiere leben werden, heruntersinken werden in die bloßen tierischen Triebe und tierischen Leidenschaften.",
+              "id": "GA107/16",
+              "index": "w3aiji",
+              "ref": "GA107/16:w3aiji",
+              "fileName": "GA107/16 - SECHZEHNTER VORTRAG, Berlin, 22. März 1909",
+              "title": "SECHZEHNTER VORTRAG",
+              "relevance": "mittel",
+              "date": "1909-03-22",
+              "year": "1909"
+            },
+            {
+              "aussage": "Tiergruppenseelen werden auf dem Jupiter eine Art Menschentum erreichen",
+              "zitat": "Die Gruppenseele der Tiere entwickelt sich hinauf, sie wird ein anderes Wesen sein auf dem Jupiter. Sie werden freilich nicht in dem heutigen Sinne Menschen, aber auf dem Jupiter erreichen diese Gruppenseelen eine Art Menschentum.",
+              "id": "GA110/11",
+              "index": "phj8xu",
+              "ref": "GA110/11:phj8xu",
+              "fileName": "GA110/11 - FRAGENBEANTWORTUNG, Düsseldorf, 21. April 1909, abends",
+              "title": "FRAGENBEANTWORTUNG",
+              "relevance": "mittel",
+              "date": "1909-04-21",
+              "year": "1909"
+            },
+            {
+              "aussage": "Zwischenkieferknochen: Goethes Nachweis der Tier-Mensch-Verwandtschaft",
+              "zitat": "wenn Sie diesen Knochen abrechnen, so fehlt Ihnen nichts, um nicht alles vom Menschen auf die Tiere transferieren zu können. [...] dass dieses os intermaxillare [...] selbst bei Tieren vorhanden ist, die keine Schneidezähne in der obern Kinnlade haben.",
+              "id": "GA001",
+              "index": "c1vfot",
+              "ref": "GA001:c1vfot",
+              "fileName": "GA001 - Einleitungen zu Goethes Naturwissenschaftlichen Schriften (1884-1897)",
+              "title": "Einleitungen zu Goethes Naturwissenschaftlichen Schriften (1884-1897)",
+              "relevance": "mittel",
+              "date": "1884-1897",
+              "year": "1884"
+            },
+            {
+              "aussage": "Zwischenkieferknochen als konstruierte Kluft im 18. Jahrhundert",
+              "zitat": "Diesen Zwischenkieferknochen hätten die Menschen nicht, bei ihm säßen die Schneidezähne im oberkiefer, so sagte man im achtzehnten Jahrhundert und konstruierte damit eine Kluft zwischen den Tieren und den Menschen.",
+              "id": "GA069d/21",
+              "index": "j78pkt",
+              "ref": "GA069d/21:j78pkt",
+              "fileName": "GA069d/21 - MENSCHENSEELE UND TIERSEELE, Kassel, 3. Dezember 1910",
+              "title": "MENSCHENSEELE UND TIERSEELE",
+              "relevance": "mittel",
+              "date": "1910-12-03",
+              "year": "1910"
+            },
+            {
+              "aussage": "Vermischung mit Tieren: Entstehung affenähnlicher Wesen",
+              "zitat": "Die Vermischung der Menschen mit Tieren: Dadurch, dass die Körper verschlechtert waren, entstanden die affenähnlichen Wesen [...]. Die höchst entwickelten Affen sind solche Menschen, die sich in einer Sackgasse verloren und den Anschluss versäumt haben.",
+              "id": "GA090a/71",
+              "index": "13q2as",
+              "ref": "GA090a/71:13q2as",
+              "fileName": "GA090a/71 - ENTSTEHUNG VON KARMA, Berlin, 14. November 1904",
+              "title": "ENTSTEHUNG VON KARMA",
+              "relevance": "mittel",
+              "date": "1904-11-14",
+              "year": "1904"
+            },
+            {
+              "aussage": "Höhere Säugetiere und Mensch: Absonderung durch Eigenwärme",
+              "zitat": "Alle Tiere, die Eigenwärme haben, haben sich erst danach vom Menschen abgespalten. Erst durch die Eigenwärme konnte Kama in die Menschen einziehen.",
+              "id": "GA090b/26",
+              "index": "8sg5ln",
+              "ref": "GA090b/26:8sg5ln",
+              "fileName": "GA090b/26 - ÜBER DIE PLANETARISCHE ENTWICKLUNG, Köln, 18. März 1905",
+              "title": "ÜBER DIE PLANETARISCHE ENTWICKLUNG",
+              "relevance": "mittel",
+              "date": "1905-03-18",
+              "year": "1905"
+            },
+            {
+              "aussage": "Tiere entlaufen dem absterbenden Erdenkopf",
+              "zitat": "Ja, meine Herren, denken Sie sich, die Erde war einmal ein solcher Menschenkopf im Weltenraum und ist abgestorben. Brauchen Sie sich zu verwundern, dass da alles mögliche Getier herauslief? [...] Da haben Sie die Entstehung der Tiere.",
+              "id": "GA347/10",
+              "index": "pt7k41",
+              "ref": "GA347/10:pt7k41",
+              "fileName": "GA347/10 - ZEHNTER VORTRAG, Dornach, 30. September 1922",
+              "title": "ZEHNTER VORTRAG",
+              "relevance": "mittel",
+              "date": "1922-09-30",
+              "year": "1922"
+            }
+          ]
+        }
+      ]
+    },
+    "rechercheScope": {
+      "sourceType": "alle",
+      "themeArea": ""
+    },
+    "timestamp": "2026-07-01T14:39:08.285Z"
   }
 }
