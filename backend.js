@@ -4387,6 +4387,32 @@ function findLecturesByGaNumber(gaCompare) {
   return results;
 }
 
+function normalizeDateForCompare(dateStr) {
+  if (!dateStr) return null;
+  const s = String(dateStr).trim();
+  const iso = s.match(/^(\d{4})-(\d{2})-(\d{2})$/);
+  if (iso) return `${iso[1]}-${iso[2]}-${iso[3]}`;
+  const de = s.match(/^(\d{1,2})\.(\d{1,2})\.(\d{2,4})$/);
+  if (de) {
+    let y = de[3];
+    if (y.length === 2) y = (parseInt(y, 10) >= 50 ? '18' : '19') + y.padStart(2, '0');
+    return `${y}-${de[2].padStart(2, '0')}-${de[1].padStart(2, '0')}`;
+  }
+  return s;
+}
+
+function buildResolveLectureJson(id, lecture, page) {
+  const paragraphIndex = page ? findParagraphIndexForPage(lecture, page) : null;
+  return {
+    success: true,
+    lectureId: id,
+    title: lecture.title || '',
+    date: lecture.date || '',
+    location: lecture.location || '',
+    paragraphIndex: paragraphIndex || null
+  };
+}
+
 app.get('/api/resolve-lecture', (req, res) => {
   try {
     const { ga, date, page } = req.query;
@@ -4396,59 +4422,52 @@ app.get('/api/resolve-lecture', (req, res) => {
     if (!date && !page) {
       return res.status(400).json({ error: 'Parameter date oder page erforderlich' });
     }
-    
+
     const gaNumber = ga.startsWith('GA') ? ga : `GA${ga}`;
     const gaCompare = normalizeGaNumberForCompare(gaNumber);
+    const normDate = date ? normalizeDateForCompare(date) : null;
+    const candidates = findLecturesByGaNumber(gaCompare);
 
-    if (date) {
-      for (const [id, lecture] of Object.entries(fullLectures)) {
-        if (!lecture.gaNumber || !lecture.date) continue;
-        if (normalizeGaNumberForCompare(lecture.gaNumber) !== gaCompare) continue;
-        if (lecture.date === date) {
-          const paragraphIndex = page ? findParagraphIndexForPage(lecture, page) : null;
-          return res.json({
-            success: true,
-            lectureId: id,
-            title: lecture.title || '',
-            date: lecture.date,
-            location: lecture.location || '',
-            paragraphIndex: paragraphIndex || null
-          });
+    if (normDate) {
+      for (const [id, lecture] of candidates) {
+        if (!lecture.date) continue;
+        if (normalizeDateForCompare(lecture.date) !== normDate) continue;
+        return res.json(buildResolveLectureJson(id, lecture, page));
+      }
+
+      if (page) {
+        for (const [id, lecture] of Object.entries(fullLectures)) {
+          if (!lecture.date || normalizeDateForCompare(lecture.date) !== normDate) continue;
+          const paragraphIndex = findParagraphIndexForPage(lecture, page);
+          if (paragraphIndex) {
+            return res.json(buildResolveLectureJson(id, lecture, page));
+          }
+        }
+      } else {
+        for (const [id, lecture] of Object.entries(fullLectures)) {
+          if (!lecture.date || normalizeDateForCompare(lecture.date) !== normDate) continue;
+          if (lecture.gaNumber && normalizeGaNumberForCompare(lecture.gaNumber) === gaCompare) {
+            return res.json(buildResolveLectureJson(id, lecture, page));
+          }
         }
       }
-      return res.status(404).json({ error: `Kein Vortrag gefunden für GA ${ga}, Datum ${date}` });
     }
 
-    const candidates = findLecturesByGaNumber(gaCompare);
     if (page) {
       for (const [id, lecture] of candidates) {
         const paragraphIndex = findParagraphIndexForPage(lecture, page);
         if (paragraphIndex) {
-          return res.json({
-            success: true,
-            lectureId: id,
-            title: lecture.title || '',
-            date: lecture.date || '',
-            location: lecture.location || '',
-            paragraphIndex
-          });
+          return res.json(buildResolveLectureJson(id, lecture, page));
         }
       }
     }
 
     if (candidates.length === 1) {
       const [id, lecture] = candidates[0];
-      return res.json({
-        success: true,
-        lectureId: id,
-        title: lecture.title || '',
-        date: lecture.date || '',
-        location: lecture.location || '',
-        paragraphIndex: page ? findParagraphIndexForPage(lecture, page) : null
-      });
+      return res.json(buildResolveLectureJson(id, lecture, page));
     }
 
-    res.status(404).json({ error: `Kein Text gefunden für GA ${ga}${page ? ', Seite ' + page : ''}` });
+    res.status(404).json({ error: `Kein Text gefunden für GA ${ga}${page ? ', Seite ' + page : ''}${normDate ? ', Datum ' + date : ''}` });
   } catch (error) {
     console.error('[RESOLVE-LECTURE] Fehler:', error);
     res.status(500).json({ error: error.message });
