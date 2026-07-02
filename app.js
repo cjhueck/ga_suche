@@ -25109,6 +25109,161 @@ async function navigateToGAPage(ga, date, page, searchText, vault, file) {
   }
 }
 
+var MAPS_GA_CITATION_RE = /\[GA\s+(\d{1,3}[a-z]?),\s*S\.\s*(\d+)(?:\s*[–\-—]\s*\d+)?(?:[,\s;]+\s*(\d{1,2})\.(\d{1,2})\.(\d{2,4}))?\]/g;
+
+function mapsCitationDateToIso(day, month, year) {
+  if (!day || !month || !year) return null;
+  var fullYear = String(year);
+  if (fullYear.length === 2) {
+    fullYear = (parseInt(fullYear, 10) >= 50 ? '18' : '19') + fullYear.padStart(2, '0');
+  }
+  return fullYear + '-' + String(month).padStart(2, '0') + '-' + String(day).padStart(2, '0');
+}
+
+function prepareMapsObsidianMarkdown(md) {
+  return md
+    .replace(/\[\[#([^\]]+)\]\]/g, function(_, h) { return '[' + h + '](#' + encodeURIComponent(h) + ')'; })
+    .replace(/\[GA\s+\d{1,3}[a-z]?[^\]]*\]\s*(?=\^[a-z0-9]+)/g, '')
+    .replace(/\s*\^([a-z0-9]+)(?=[ \[;\s]|$)/gm, ' <span class="blkref" data-bid="$1"></span>');
+}
+
+function createMapsObsidianGaLinkFragment(lid, paragraphIndex) {
+  var a = document.createElement('a');
+  a.href = '#';
+  a.textContent = lid || '';
+  a.style.fontWeight = 'bold';
+  a.addEventListener('click', function(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    if (typeof window.showLectureFromAdvancedSearch === 'function') {
+      var paraIdx = null;
+      if (paragraphIndex) {
+        var p = String(paragraphIndex);
+        paraIdx = p.startsWith('^') ? p : '^' + p;
+      }
+      window.showLectureFromAdvancedSearch(lid, '', paraIdx);
+    }
+  });
+  var frag = document.createDocumentFragment();
+  frag.appendChild(document.createTextNode('('));
+  frag.appendChild(a);
+  frag.appendChild(document.createTextNode(')'));
+  return frag;
+}
+
+function linkMapsPlainGaCitations(container, apiBase) {
+  if (!container) return;
+  var base = apiBase || (typeof API_BASE !== 'undefined' ? API_BASE : (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' ? 'http://localhost:3003' : ''));
+
+  container.querySelectorAll('p.paragraph, p').forEach(function(para) {
+    var textNodes = [];
+    var walker = document.createTreeWalker(para, NodeFilter.SHOW_TEXT, null);
+    while (walker.nextNode()) {
+      var node = walker.currentNode;
+      if (node.parentElement && node.parentElement.closest('a')) continue;
+      MAPS_GA_CITATION_RE.lastIndex = 0;
+      if (MAPS_GA_CITATION_RE.test(node.textContent)) textNodes.push(node);
+    }
+
+    textNodes.forEach(function(textNode) {
+      var text = textNode.textContent;
+      var matches = [];
+      var match;
+      MAPS_GA_CITATION_RE.lastIndex = 0;
+      while ((match = MAPS_GA_CITATION_RE.exec(text)) !== null) {
+        matches.push({
+          full: match[0],
+          ga: match[1],
+          page: match[2],
+          day: match[3],
+          month: match[4],
+          year: match[5],
+          index: match.index
+        });
+      }
+      if (matches.length === 0) return;
+
+      var frag = document.createDocumentFragment();
+      var lastIndex = 0;
+      matches.forEach(function(item) {
+        if (item.index > lastIndex) {
+          frag.appendChild(document.createTextNode(text.slice(lastIndex, item.index)));
+        }
+        var placeholder = document.createElement('span');
+        placeholder.textContent = item.full;
+        frag.appendChild(placeholder);
+        lastIndex = item.index + item.full.length;
+
+        var isoDate = mapsCitationDateToIso(item.day, item.month, item.year);
+        var url = base + '/api/resolve-lecture?ga=' + encodeURIComponent(item.ga) + '&page=' + encodeURIComponent(item.page);
+        if (isoDate) url += '&date=' + encodeURIComponent(isoDate);
+
+        fetch(url)
+          .then(function(r) { return r.ok ? r.json() : null; })
+          .then(function(data) {
+            if (!data || !data.success || !data.lectureId) return;
+            var linkFrag = createMapsObsidianGaLinkFragment(data.lectureId, data.paragraphIndex || null);
+            if (placeholder.parentNode) placeholder.parentNode.replaceChild(linkFrag, placeholder);
+          })
+          .catch(function() {});
+      });
+
+      if (lastIndex < text.length) {
+        frag.appendChild(document.createTextNode(text.slice(lastIndex)));
+      }
+      if (textNode.parentNode) textNode.parentNode.replaceChild(frag, textNode);
+    });
+  });
+}
+
+function applyMapsObsidianGaLinks(container, apiBase) {
+  if (!container) return;
+  var base = apiBase || (typeof API_BASE !== 'undefined' ? API_BASE : (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' ? 'http://localhost:3003' : ''));
+
+  container.querySelectorAll('.blkref[data-bid]').forEach(function(span) {
+    var blockId = span.dataset.bid;
+    if (!blockId) return;
+    var captured = blockId;
+    fetch(base + '/api/resolve-block-id?id=' + encodeURIComponent(blockId))
+      .then(function(r) { return r.ok ? r.json() : null; })
+      .then(function(data) {
+        if (!data || !data.success || !data.lectureId) return;
+        var parent = span.parentNode;
+        if (parent) parent.replaceChild(createMapsObsidianGaLinkFragment(data.lectureId, captured), span);
+      })
+      .catch(function() {});
+  });
+
+  linkMapsPlainGaCitations(container, base);
+}
+
+function renderMapsObsidianSidebar(resultsDiv, markdown, apiBase) {
+  var md = prepareMapsObsidianMarkdown(markdown);
+  var html = (typeof marked !== 'undefined' ? marked.parse(md, { breaks: true, gfm: true }) : md.replace(/\n/g, '<br>'));
+  var wrap = document.createElement('div');
+  wrap.innerHTML = html;
+  wrap.querySelectorAll('h1,h2,h3,h4,h5,h6').forEach(function(h) {
+    var txt = (h.textContent || '').trim();
+    if (txt) h.id = txt;
+  });
+  wrap.querySelectorAll('p').forEach(function(p) {
+    p.classList.add('paragraph');
+  });
+  resultsDiv.innerHTML = '<div id="maps-obsidian-content" class="maps-sidepanel-content">' + wrap.innerHTML + '</div>';
+  resultsDiv.querySelectorAll('#maps-obsidian-content a[href^="#"]').forEach(function(a) {
+    a.addEventListener('click', function(e) {
+      var h = this.getAttribute('href').slice(1);
+      var id = h ? decodeURIComponent(h).replace(/\+/g, ' ') : '';
+      var el = id ? document.getElementById(id) : null;
+      if (el) {
+        e.preventDefault();
+        el.scrollIntoView({ behavior: 'auto', block: 'start' });
+      }
+    });
+  });
+  applyMapsObsidianGaLinks(resultsDiv.querySelector('#maps-obsidian-content'), apiBase);
+}
+
 // Gepufferte BroadcastChannel-Nachrichten verarbeiten (falls goto.html schneller war als diese Datei)
 if (_obsidianPendingQ) {
   runObsidianSearch(_obsidianPendingQ);
@@ -30870,62 +31025,7 @@ async function showMapsInViewer() {
       const res = await fetch(apiBase + '/api/maps-content?map=' + encodeURIComponent(map.contentMapId));
       if (!res.ok) throw new Error('Datei nicht gefunden');
       const data = await res.json();
-      let md = data.markdown.replace(/\[\[#([^\]]+)\]\]/g, (_, h) => `[${h}](#${encodeURIComponent(h)})`);
-      md = md.replace(/\[GA\s+\d+[a-z]?,[^\]]+\]\s*(?=\^[a-z0-9]+)/g, '');
-      // Block-IDs als unsichtbare Spans einbetten (für Navigation, nicht sichtbar)
-      md = md.replace(/ \^([a-z0-9]+)(?=[ \[;\s]|$)/g, ' <span class="blkref" data-bid="$1"></span>');
-      let html = (typeof marked !== 'undefined' ? marked.parse(md, { breaks: true, gfm: true }) : md.replace(/\n/g, '<br>'));
-      const wrap = document.createElement('div');
-      wrap.innerHTML = html;
-      const appBaseUrl = (window.location.origin || '') + (window.location.pathname || '/app.html');
-      const coggleLinkBase = appBaseUrl.replace(/app\.html\/?$/i, 'coggle-link.html');
-      wrap.querySelectorAll('h1,h2,h3,h4,h5,h6').forEach(h => {
-        const txt = (h.textContent || '').trim();
-        if (txt) {
-          h.id = txt;
-        }
-      });
-      wrap.querySelectorAll('p').forEach(p => {
-        p.classList.add('paragraph');
-      });
-      resultsDiv.innerHTML = '<div id="maps-obsidian-content" class="maps-sidepanel-content">' + wrap.innerHTML + '</div>';
-      resultsDiv.querySelectorAll('#maps-obsidian-content a[href^="#"]').forEach(a => {
-        a.addEventListener('click', function(e) {
-          const h = this.getAttribute('href').slice(1);
-          const id = h ? decodeURIComponent(h).replace(/\+/g, ' ') : '';
-          const el = id ? document.getElementById(id) : null;
-          if (el) {
-            e.preventDefault();
-            el.scrollIntoView({ behavior: 'auto', block: 'start' });
-          }
-        });
-      });
-      // blkref-Spans in klickbare GA-Links umwandeln
-      (function() {
-        var apiBase = typeof API_BASE !== 'undefined' ? API_BASE : (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' ? 'http://localhost:3003' : '');
-        resultsDiv.querySelectorAll('#maps-obsidian-content .blkref[data-bid]').forEach(function(span) {
-          var blockId = span.dataset.bid;
-          if (!blockId) return;
-          var captured = blockId;
-          fetch(apiBase + '/api/resolve-block-id?id=' + encodeURIComponent(blockId))
-            .then(function(r) { return r.ok ? r.json() : null; })
-            .then(function(data) {
-              if (!data || !data.success || !data.lectureId) return;
-              var lid = data.lectureId;
-              var a = document.createElement('a');
-              a.href = '#';
-              a.textContent = '(' + (lid || '') + ')'; a.style.fontWeight = 'bold';
-              a.addEventListener('click', function(e) {
-                e.preventDefault();
-                if (typeof window.showLectureFromAdvancedSearch === 'function') {
-                  window.showLectureFromAdvancedSearch(lid, '', '^' + captured);
-                }
-              });
-              if (span.parentNode) span.parentNode.replaceChild(a, span);
-            })
-            .catch(function() {});
-        });
-      })();
+      renderMapsObsidianSidebar(resultsDiv, data.markdown, apiBase);
       const hash = (window.location.hash || '').replace(/^#/, '');
       let frag = '';
       if (hash.includes('&scroll=')) {
