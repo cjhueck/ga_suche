@@ -4347,36 +4347,108 @@ app.post('/api/fulltext-search', async (req, res) => {
 // ============================================================================
 // OBSIDIAN-LINK: GA + Datum → Lecture-ID auflösen
 // ============================================================================
+function normalizeGaNumberForCompare(ga) {
+  const raw = String(ga || '').replace(/^GA/i, '');
+  const match = raw.match(/^(\d{1,3})([a-z]?)$/i);
+  if (!match) return 'ga' + raw.toLowerCase();
+  return 'ga' + String(parseInt(match[1], 10)).padStart(3, '0') + match[2].toLowerCase();
+}
+
+function findParagraphIndexForPage(lecture, pageNum) {
+  const page = parseInt(String(pageNum).trim(), 10);
+  if (!page || !lecture || !Array.isArray(lecture.paragraphs)) return null;
+
+  const pageMarkerRe = new RegExp(`\\|<?${page}>?\\|`);
+
+  for (let i = 0; i < lecture.paragraphs.length; i++) {
+    const content = lecture.paragraphs[i].content || '';
+    if (!pageMarkerRe.test(content)) continue;
+
+    const nextPara = lecture.paragraphs[i + 1];
+    const target = nextPara || lecture.paragraphs[i];
+    return target && target.index ? String(target.index).replace(/^\^/, '') : null;
+  }
+
+  return null;
+}
+
+function findLecturesByGaNumber(gaCompare) {
+  const results = [];
+  for (const [id, lecture] of Object.entries(fullLectures)) {
+    if (lecture.gaNumber && normalizeGaNumberForCompare(lecture.gaNumber) === gaCompare) {
+      results.push([id, lecture]);
+      continue;
+    }
+    const idGa = id.split('/')[0];
+    if (normalizeGaNumberForCompare(idGa) === gaCompare) {
+      results.push([id, lecture]);
+    }
+  }
+  return results;
+}
+
 app.get('/api/resolve-lecture', (req, res) => {
   try {
-    const { ga, date } = req.query;
-    if (!ga || !date) {
-      return res.status(400).json({ error: 'Parameter ga und date erforderlich' });
+    const { ga, date, page } = req.query;
+    if (!ga) {
+      return res.status(400).json({ error: 'Parameter ga erforderlich' });
+    }
+    if (!date && !page) {
+      return res.status(400).json({ error: 'Parameter date oder page erforderlich' });
     }
     
-    // GA-Nummer normalisieren (z.B. "110" -> "GA110")
     const gaNumber = ga.startsWith('GA') ? ga : `GA${ga}`;
-    
-    // Suche Vortrag mit passendem GA und Datum
-    for (const [id, lecture] of Object.entries(fullLectures)) {
-      if (!lecture.gaNumber || !lecture.date) continue;
-      
-      // GA-Nummer vergleichen (case-insensitive)
-      if (lecture.gaNumber.toLowerCase() !== gaNumber.toLowerCase()) continue;
-      
-      // Datum vergleichen (lecture.date ist im ISO-Format "YYYY-MM-DD")
-      if (lecture.date === date) {
-        return res.json({
-          success: true,
-          lectureId: id,
-          title: lecture.title || '',
-          date: lecture.date,
-          location: lecture.location || ''
-        });
+    const gaCompare = normalizeGaNumberForCompare(gaNumber);
+
+    if (date) {
+      for (const [id, lecture] of Object.entries(fullLectures)) {
+        if (!lecture.gaNumber || !lecture.date) continue;
+        if (normalizeGaNumberForCompare(lecture.gaNumber) !== gaCompare) continue;
+        if (lecture.date === date) {
+          const paragraphIndex = page ? findParagraphIndexForPage(lecture, page) : null;
+          return res.json({
+            success: true,
+            lectureId: id,
+            title: lecture.title || '',
+            date: lecture.date,
+            location: lecture.location || '',
+            paragraphIndex: paragraphIndex || null
+          });
+        }
+      }
+      return res.status(404).json({ error: `Kein Vortrag gefunden für GA ${ga}, Datum ${date}` });
+    }
+
+    const candidates = findLecturesByGaNumber(gaCompare);
+    if (page) {
+      for (const [id, lecture] of candidates) {
+        const paragraphIndex = findParagraphIndexForPage(lecture, page);
+        if (paragraphIndex) {
+          return res.json({
+            success: true,
+            lectureId: id,
+            title: lecture.title || '',
+            date: lecture.date || '',
+            location: lecture.location || '',
+            paragraphIndex
+          });
+        }
       }
     }
-    
-    res.status(404).json({ error: `Kein Vortrag gefunden für GA ${ga}, Datum ${date}` });
+
+    if (candidates.length === 1) {
+      const [id, lecture] = candidates[0];
+      return res.json({
+        success: true,
+        lectureId: id,
+        title: lecture.title || '',
+        date: lecture.date || '',
+        location: lecture.location || '',
+        paragraphIndex: page ? findParagraphIndexForPage(lecture, page) : null
+      });
+    }
+
+    res.status(404).json({ error: `Kein Text gefunden für GA ${ga}${page ? ', Seite ' + page : ''}` });
   } catch (error) {
     console.error('[RESOLVE-LECTURE] Fehler:', error);
     res.status(500).json({ error: error.message });
