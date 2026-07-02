@@ -31086,7 +31086,7 @@ async function showMapsInViewer() {
 function switchThemenView(view) {
   window._themenView = view;
   analyticsTrack('tab_view', 'thematic2_' + view);
-  const views = ['schwerpunkte', 'timeline', 'karten', 'sammlungen'];
+  const views = ['schwerpunkte', 'timeline', 'sammlungen', 'karten'];
 
   // Rechtes Side Panel schliessen
   if (typeof closeSummaryPanelFromHeader === 'function') closeSummaryPanelFromHeader();
