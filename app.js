@@ -4797,6 +4797,9 @@ function normalizeGANumber(gaNumber) {
     
     // Custom Multi-Select Dropdown Verwaltung
     class MultiSelectDropdown {
+      static _instances = new Map();
+      static _documentListenersBound = false;
+
       constructor(containerId, buttonId, listId, placeholderText) {
         // IDs merken, damit wir bei jedem Event das aktuelle DOM-Element
         // nachschlagen können (falls der Tab-Inhalt zwischenzeitlich
@@ -4808,9 +4811,10 @@ function normalizeGANumber(gaNumber) {
         this.button = document.getElementById(buttonId);
         this.list = document.getElementById(listId);
         this.placeholderText = placeholderText;
-        this.selectedValues = new Set();
-        this.items = [];
-        this.lastClickedIndex = -1;
+        const prev = MultiSelectDropdown._instances.get(containerId);
+        this.selectedValues = prev ? new Set(prev.selectedValues) : new Set();
+        this.items = prev ? prev.items.slice() : [];
+        this.lastClickedIndex = prev ? prev.lastClickedIndex : -1;
 
         if (!this.container || !this.button || !this.list) {
           console.error('[DROPDOWN-INIT-FAIL]', containerId, {
@@ -4820,6 +4824,7 @@ function normalizeGANumber(gaNumber) {
           });
           return;
         }
+        MultiSelectDropdown._instances.set(containerId, this);
         this.init();
       }
 
@@ -4830,30 +4835,46 @@ function normalizeGANumber(gaNumber) {
       _liveContainer() { return document.getElementById(this.containerId); }
       _liveButton()    { return document.getElementById(this.buttonId); }
       _liveList()      { return document.getElementById(this.listId); }
-      
-      init() {
-        // Event-Delegation auf document, damit der Listener auch dann
-        // funktioniert, wenn andere Codepfade den Tab-Inhalt nach dem
-        // Konstruktor ersetzen (cloneNode/replaceChild oder innerHTML).
-        // Vermeidet, dass Klicks ins Leere gehen, weil this.button auf
-        // ein abgetrenntes Element zeigt.
+
+      static _bindDocumentListenersOnce() {
+        if (MultiSelectDropdown._documentListenersBound) return;
+        MultiSelectDropdown._documentListenersBound = true;
+
         document.addEventListener('click', (e) => {
-          const button = this._liveButton();
-          const list = this._liveList();
-          if (button && (e.target === button || button.contains(e.target))) {
-            e.stopPropagation();
-            this.toggle();
-            return;
+          for (const instance of MultiSelectDropdown._instances.values()) {
+            const button = instance._liveButton();
+            if (button && (e.target === button || button.contains(e.target))) {
+              e.stopPropagation();
+              instance.toggle();
+              return;
+            }
           }
-          // Klick außerhalb → Dropdown schließen
-          const container = this._liveContainer();
-          if (container && !container.contains(e.target) && (!list || !list.contains(e.target))) {
-            this.close();
+
+          for (const instance of MultiSelectDropdown._instances.values()) {
+            const container = instance._liveContainer();
+            const list = instance._liveList();
+            if (container && (container.contains(e.target) || (list && list.contains(e.target)))) {
+              return;
+            }
+          }
+
+          for (const instance of MultiSelectDropdown._instances.values()) {
+            instance.close();
           }
         });
 
-        // Schließe bei Scroll/Resize
-        window.addEventListener('resize', () => this.close());
+        window.addEventListener('resize', () => {
+          for (const instance of MultiSelectDropdown._instances.values()) {
+            instance.close();
+          }
+        });
+      }
+      
+      init() {
+        MultiSelectDropdown._bindDocumentListenersOnce();
+        if (this.items.length > 0) {
+          this.updateDisplay();
+        }
       }
       
       positionList() {
@@ -25109,7 +25130,7 @@ async function navigateToGAPage(ga, date, page, searchText, vault, file) {
   }
 }
 
-var MAPS_GA_CITATION_RE = /\[GA\s+(\d{1,3}[a-z]?),\s*S\.\s*(\d+)(?:\s*[–\-—]\s*\d+)?(?:[,\s;]+\s*(\d{1,2})\.(\d{1,2})\.(\d{2,4}))?\]/g;
+var MAPS_GA_CITATION_RE = /\[GA\s+(\d{1,3}[a-z]?),\s*S\.\s*(\d+)(?:\s*[–\-—]\s*\d+)?(?:[,\s;]+\s*(?:(\d{1,2})\.(\d{1,2})\.(\d{2,4})|GA\s+\d{1,3}[a-z]?\s+(\d{1,2})\.(\d{1,2})\.(\d{2,4})))?\]/g;
 
 function mapsCitationDateToIso(day, month, year) {
   if (!day || !month || !year) return null;
@@ -25151,6 +25172,32 @@ function createMapsObsidianGaLinkFragment(lid, paragraphIndex) {
   return frag;
 }
 
+function resolveMapsCitationToLink(base, item, placeholder) {
+  function applyLink(data) {
+    if (!data || !data.success || !data.lectureId) return false;
+    var linkFrag = createMapsObsidianGaLinkFragment(data.lectureId, data.paragraphIndex || null);
+    if (placeholder.parentNode) placeholder.parentNode.replaceChild(linkFrag, placeholder);
+    return true;
+  }
+
+  function fetchResolve(url) {
+    return fetch(url)
+      .then(function(r) { return r.ok ? r.json() : null; })
+      .catch(function() { return null; });
+  }
+
+  var isoDate = mapsCitationDateToIso(item.day, item.month, item.year);
+  var urlWithDate = base + '/api/resolve-lecture?ga=' + encodeURIComponent(item.ga) + '&page=' + encodeURIComponent(item.page);
+  if (isoDate) urlWithDate += '&date=' + encodeURIComponent(isoDate);
+  var urlPageOnly = base + '/api/resolve-lecture?ga=' + encodeURIComponent(item.ga) + '&page=' + encodeURIComponent(item.page);
+
+  fetchResolve(urlWithDate).then(function(data) {
+    if (applyLink(data)) return;
+    if (!isoDate) return;
+    return fetchResolve(urlPageOnly).then(applyLink);
+  });
+}
+
 function linkMapsPlainGaCitations(container, apiBase) {
   if (!container) return;
   var base = apiBase || (typeof API_BASE !== 'undefined' ? API_BASE : (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' ? 'http://localhost:3003' : ''));
@@ -25160,7 +25207,7 @@ function linkMapsPlainGaCitations(container, apiBase) {
     var walker = document.createTreeWalker(para, NodeFilter.SHOW_TEXT, null);
     while (walker.nextNode()) {
       var node = walker.currentNode;
-      if (node.parentElement && node.parentElement.closest('a')) continue;
+      if (node.parentElement && node.parentElement.closest('a, .maps-ga-citation-pending')) continue;
       MAPS_GA_CITATION_RE.lastIndex = 0;
       if (MAPS_GA_CITATION_RE.test(node.textContent)) textNodes.push(node);
     }
@@ -25175,9 +25222,9 @@ function linkMapsPlainGaCitations(container, apiBase) {
           full: match[0],
           ga: match[1],
           page: match[2],
-          day: match[3],
-          month: match[4],
-          year: match[5],
+          day: match[3] || match[6],
+          month: match[4] || match[7],
+          year: match[5] || match[8],
           index: match.index
         });
       }
@@ -25190,22 +25237,11 @@ function linkMapsPlainGaCitations(container, apiBase) {
           frag.appendChild(document.createTextNode(text.slice(lastIndex, item.index)));
         }
         var placeholder = document.createElement('span');
+        placeholder.className = 'maps-ga-citation-pending';
         placeholder.textContent = item.full;
         frag.appendChild(placeholder);
         lastIndex = item.index + item.full.length;
-
-        var isoDate = mapsCitationDateToIso(item.day, item.month, item.year);
-        var url = base + '/api/resolve-lecture?ga=' + encodeURIComponent(item.ga) + '&page=' + encodeURIComponent(item.page);
-        if (isoDate) url += '&date=' + encodeURIComponent(isoDate);
-
-        fetch(url)
-          .then(function(r) { return r.ok ? r.json() : null; })
-          .then(function(data) {
-            if (!data || !data.success || !data.lectureId) return;
-            var linkFrag = createMapsObsidianGaLinkFragment(data.lectureId, data.paragraphIndex || null);
-            if (placeholder.parentNode) placeholder.parentNode.replaceChild(linkFrag, placeholder);
-          })
-          .catch(function() {});
+        resolveMapsCitationToLink(base, item, placeholder);
       });
 
       if (lastIndex < text.length) {
