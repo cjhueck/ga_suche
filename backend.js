@@ -160,27 +160,33 @@ function sanitizeString(input, maxLength = 1000) {
 */
 
 // API: Bilder aus GA-Ordnern servieren (für Bücher) - MUSS VOR express.static kommen!
+function normalizeGaFolderPrefix(ga) {
+  const raw = String(ga || '').trim().replace(/^GA/i, '');
+  const match = raw.match(/^(\d{1,3})([a-z]?)$/i);
+  if (!match) return String(ga || '').trim();
+  return 'GA' + String(parseInt(match[1], 10)).padStart(3, '0') + (match[2] || '').toLowerCase();
+}
+
 app.get('/assets/*', async (req, res) => {
   try {
     const imagePath = req.path.replace('/assets/', '');
-    const decodedPath = decodeURIComponent(imagePath);
+    const decodedPath = decodeURIComponent(imagePath).split('?')[0].split('#')[0];
     
-    // GA-Nummer extrahieren: 1) Am Anfang des Pfades, 2) ?ga= Parameter, 3) Irgendwo im Pfad (z.B. "Steiner, Rudolf GA 091...")
+    // GA-Nummer: ?ga= bevorzugen (zuverlässig), sonst aus Pfad
     let gaNumber = null;
-    const gaMatch = decodedPath.match(/^(GA)?(\d{3}[a-z]?)/i);
-    if (gaMatch) {
-      gaNumber = gaMatch[1] ? gaMatch[0].toUpperCase() : 'GA' + gaMatch[2];
-    } else if (req.query.ga) {
-      const q = String(req.query.ga).trim();
-      const qMatch = q.match(/^(GA)?(\d{3}[a-z]?)$/i);
-      if (qMatch) {
-        gaNumber = qMatch[1] ? qMatch[0].toUpperCase() : 'GA' + qMatch[2];
+    if (req.query.ga) {
+      gaNumber = normalizeGaFolderPrefix(req.query.ga);
+    }
+    if (!gaNumber) {
+      const gaMatch = decodedPath.match(/^(GA)?(\d{3}[a-z]?)/i);
+      if (gaMatch) {
+        gaNumber = normalizeGaFolderPrefix(gaMatch[0]);
       }
     }
     if (!gaNumber) {
       const midMatch = decodedPath.match(/GA\s*(\d{3}[a-z]?)/i);
       if (midMatch) {
-        gaNumber = 'GA' + midMatch[1];
+        gaNumber = normalizeGaFolderPrefix('GA' + midMatch[1]);
       }
     }
     if (!gaNumber) {
@@ -196,11 +202,12 @@ app.get('/assets/*', async (req, res) => {
     }
     
     const steinerGADir = path.join(__dirname, 'Steiner_GA');
+    const gaPrefixUpper = gaNumber.toUpperCase();
     
     const files = await fs.readdir(steinerGADir);
     const gaFolder = files.find(f => {
       const stat = fsSync.statSync(path.join(steinerGADir, f));
-      return stat.isDirectory() && f.startsWith(gaNumber);
+      return stat.isDirectory() && f.toUpperCase().startsWith(gaPrefixUpper);
     });
     
     if (!gaFolder) {
@@ -12895,9 +12902,11 @@ function absolutizeImageSrcInContent(content, gaSegment) {
     if (file.includes('?')) return tag; // bereits aufgelöst (z.B. ?ga=...) → nicht erneut anfassen
 
     const encFile = file.split('/').map(seg => encodeURIComponent(seg)).join('/');
+    const gaLocal = normalizeGaFolderPrefix(gaSegment);
+    const gaR2 = gaLocal.toUpperCase();
     const url = SERVE_IMAGES_FROM_LOCAL
-      ? `/assets/${encFile}?ga=${encodeURIComponent(gaSegment)}`
-      : `${IMAGES_BASE_URL}/${encodeURIComponent(gaSegment)}/${encFile}`;
+      ? `/assets/${encFile}?ga=${encodeURIComponent(gaLocal)}`
+      : `${IMAGES_BASE_URL}/${encodeURIComponent(gaR2)}/${encFile}`;
     let out = tag.replace(srcMatch[0], `src=${quote}${url}${quote}`);
 
     // Präsentations-Klasse zentral setzen, damit Bilder von Anfang an korrekt

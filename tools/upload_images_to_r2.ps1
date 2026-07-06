@@ -120,12 +120,16 @@ foreach ($gaFolder in $gaFolders) {
 
         try {
             Write-Host "  $($img.Name) -> $targetKey ..." -NoNewline
-            npx wrangler r2 object put "${BucketName}/${targetKey}" --file="$($img.FullName)" --content-type="$ct" --remote 2>&1 | Out-Null
-            if ($LASTEXITCODE -eq 0) {
+            $prevEap = $ErrorActionPreference
+            $ErrorActionPreference = 'Continue'
+            & npx wrangler r2 object put "${BucketName}/${targetKey}" --file="$($img.FullName)" --content-type="$ct" --remote 2>$null | Out-Null
+            $exit = $LASTEXITCODE
+            $ErrorActionPreference = $prevEap
+            if ($exit -eq 0) {
                 Write-Host " OK" -ForegroundColor Green
                 $uploaded++
             } else {
-                Write-Host " FEHLER (exit $LASTEXITCODE)" -ForegroundColor Red
+                Write-Host " FEHLER (exit $exit)" -ForegroundColor Red
                 $errors++
             }
         } catch {
