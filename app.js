@@ -4501,7 +4501,10 @@ function normalizeGANumber(gaNumber) {
 
         let decodedSrc;
         try { decodedSrc = decodeURIComponent(src); } catch { decodedSrc = src; }
-        const cleanSrc = decodedSrc.replace(/^[<"']|[>"']$/g, '').trim();
+        let cleanSrc = decodedSrc.replace(/^[<"']|[>"']$/g, '').trim();
+        cleanSrc = cleanSrc.split('?')[0].split('#')[0];
+        if (cleanSrc.startsWith('/assets/')) cleanSrc = cleanSrc.slice('/assets/'.length);
+        else if (cleanSrc.startsWith('assets/')) cleanSrc = cleanSrc.slice('assets/'.length);
 
         if (!/\.(png|jpe?g|webp|gif)$/i.test(cleanSrc)) return;
 
@@ -4513,9 +4516,14 @@ function normalizeGANumber(gaNumber) {
         const isChalkboard = /\d{3}-T\d+\./i.test(filename);
         const isWebP = /\.webp$/i.test(filename);
 
-        const r2Url = `${IMAGES_R2_BASE}${encodeURIComponent(gaNumber)}/${encodeURIComponent(filename)}`;
+        const gaMatch = gaNumber.match(/^GA(\d{1,3})([a-z]?)$/i);
+        const gaLocal = gaMatch
+          ? 'GA' + String(parseInt(gaMatch[1], 10)).padStart(3, '0') + (gaMatch[2] || '').toLowerCase()
+          : gaNumber;
+        const gaR2 = gaLocal.toUpperCase();
+        const r2Url = `${IMAGES_R2_BASE}${encodeURIComponent(gaR2)}/${encodeURIComponent(filename)}`;
         imgTag.setAttribute('src', r2Url);
-        imgTag.setAttribute('data-local-src', `/assets/${encodeURIComponent(filename)}?ga=${encodeURIComponent(gaNumber)}`);
+        imgTag.setAttribute('data-local-src', `/assets/${encodeURIComponent(filename)}?ga=${encodeURIComponent(gaLocal)}`);
 
         // onerror: R2 Extensions → R2 mit Doppel-Leerzeichen → lokaler Fallback
         imgTag.setAttribute('onerror',
