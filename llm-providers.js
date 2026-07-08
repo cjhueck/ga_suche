@@ -494,7 +494,8 @@ async function generateCompletionWithFallback(prompt, options = {}, task = 'keyw
       // Prüfe ob es ein Rate-Limit-Fehler ist
       const isRateLimit = error.message.includes('Rate Limit') || 
                          error.message.includes('429') ||
-                         error.message.includes('quota');
+                         error.message.includes('quota') ||
+                         /credit balance|too low to access/i.test(error.message);
       
       if (isRateLimit) {
         // Markiere Provider als Rate-Limited (5 Minuten Cooldown)

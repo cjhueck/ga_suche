@@ -2801,5 +2801,117 @@
       "themeArea": ""
     },
     "timestamp": "2026-07-01T14:39:08.285Z"
+  },
+  "in welchem aufsatz diskutiert steiner \"goethes raumbegriff\"?|ausführlich|250|": {
+    "query": "In welchem Aufsatz diskutiert Steiner \"Goethes Raumbegriff\"?",
+    "content": "## Kein passendes Zitat gefunden\n\nKeine der vorliegenden Textpassagen enthält den in der Anfrage beschriebenen Sachverhalt eindeutig.",
+    "sources": [
+      {
+        "ID": "GA266b/63",
+        "index": "^mt7z12",
+        "title": "Esoterische Stunde",
+        "fileName": "GA266b/63 - Esoterische Stunde, München, 1. September 1912",
+        "score": 26,
+        "matchedTerms": [
+          "steiner"
+        ]
+      },
+      {
+        "ID": "GA001",
+        "index": "^dwhtz3",
+        "title": "Einleitungen zu Goethes Naturwissenschaftlichen Schriften (1884-1897)",
+        "fileName": "GA001 - Einleitungen zu Goethes Naturwissenschaftlichen Schriften (1884-1897)",
+        "score": 41,
+        "matchedTerms": [
+          "steiner"
+        ]
+      },
+      {
+        "ID": "GA291a/3",
+        "index": "^qbsm5f",
+        "title": "Was Weimars Goethe–Archiv uns ist auf Grund persönlicher Erfahrung (1889)",
+        "fileName": "GA291a/3 - Was Weimars Goethe–Archiv uns ist auf Grund persönlicher Erfahrung (1889)",
+        "score": 82,
+        "matchedTerms": [
+          "welchem",
+          "steiner"
+        ]
+      },
+      {
+        "ID": "GA046/27",
+        "index": "^5u04e5",
+        "title": "Lebenslauf (1892)",
+        "fileName": "GA046/27 - Lebenslauf (1892)",
+        "score": 32,
+        "matchedTerms": [
+          "[absatz-semantisch]"
+        ]
+      },
+      {
+        "ID": "GA068c/1",
+        "index": "^4cxabw",
+        "title": "WAS WEIMARS GOETHE-ARCHIV UNS IST",
+        "fileName": "GA068c/1 - WAS WEIMARS GOETHE-ARCHIV UNS IST, AUFGRUND PERSÖNLICHER ERFAHRUNG, öffentlicher Vortrag Wien, 22. November 1889",
+        "score": 82,
+        "matchedTerms": [
+          "welchem",
+          "steiner"
+        ]
+      },
+      {
+        "ID": "GA068c/3",
+        "index": "^d8c6oc",
+        "title": "ÜBER DAS GEHEIMNIS IN GOETHES RÄTSELMÄRCHEN IN DEN «UNTERHALTUNGEN DEUTSCHER AUSGEWANDERTER»",
+        "fileName": "GA068c/3 - ÜBER DAS GEHEIMNIS IN GOETHES RÄTSELMÄRCHEN IN DEN «UNTERHALTUNGEN DEUTSCHER AUSGEWANDERTER», öffentlicher Vortrag Wien, 27. November 1891",
+        "score": 49,
+        "matchedTerms": [
+          "steiner"
+        ]
+      },
+      {
+        "ID": "GA262/20",
+        "index": "^y7a7k1",
+        "title": "1923",
+        "fileName": "GA262/20 - 1923",
+        "score": 41,
+        "matchedTerms": [
+          "steiner"
+        ]
+      },
+      {
+        "ID": "GA068b/24",
+        "index": "^9f4u3h",
+        "title": "Bericht - THEOSOPHIE",
+        "fileName": "GA068b/24 - Bericht - THEOSOPHIE, GOETHE UND HEGEL, Göteborg, 6. April 1908",
+        "score": 52,
+        "matchedTerms": [
+          "steiner"
+        ]
+      },
+      {
+        "ID": "GA030/4",
+        "index": "^lbkbbm",
+        "title": "GOETHES NATURANSCHAUUNG gemäß den neuesten Veröffentlichungen des Goethe-Archivs (1894)",
+        "fileName": "GA030/4 - GOETHES NATURANSCHAUUNG gemäß den neuesten Veröffentlichungen des Goethe-Archivs (1894)",
+        "score": 62,
+        "matchedTerms": [
+          "aufsatz"
+        ]
+      },
+      {
+        "ID": "GA271/6",
+        "index": "^t6w9dr",
+        "title": "ÜBER WAHRHEIT UND WAHRSCHEINLICHKEIT DER KUNSTWERKE (1898)",
+        "fileName": "GA271/6 - ÜBER WAHRHEIT UND WAHRSCHEINLICHKEIT DER KUNSTWERKE (1898)",
+        "score": 53,
+        "matchedTerms": [
+          "aufsatz"
+        ]
+      }
+    ],
+    "searchMethod": "hybrid-thematic-unified",
+    "totalMatches": 11870,
+    "llmUsed": true,
+    "timestamp": "2026-07-08T08:37:23.999Z"
   }
 }

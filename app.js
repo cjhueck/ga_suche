@@ -15434,6 +15434,9 @@ function scrollToChronologicalYear(year) {
             if (errorData.error) {
               errorMessage = errorData.error;
             }
+            if (isLocal && errorData.details && !errorMessage.includes(errorData.details)) {
+              errorMessage += `\n\n(Technisch: ${errorData.details.slice(0, 300)})`;
+            }
           } catch (_) {
             // Wenn JSON-Parsing fehlschlägt, verwende Standard-Nachricht
           }
@@ -15483,12 +15486,25 @@ function scrollToChronologicalYear(year) {
       } catch (error) {
         console.error('Thematic Search Error:', error);
         const errorMessage = error.message || 'Suche fehlgeschlagen - bitte Anfrage anders formulieren, relevante Suchworte in Anführungszeichen setzen und in Kürze noch einmal versuchen';
-        
-        document.getElementById('results').innerHTML = `
-          <div class="error-message">
-            ${errorMessage}
-          </div>
-        `;
+        const safeError = String(errorMessage)
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/\n/g, '<br>');
+
+        const viewer = document.getElementById('viewer');
+        if (viewer) {
+          viewer.innerHTML = `
+            <div id="viewer-content">
+              <div class="error-message" style="padding: 1rem;">
+                ${safeError}
+              </div>
+            </div>
+          `;
+        }
+
+        const resultsEl = document.getElementById('results');
+        if (resultsEl) resultsEl.innerHTML = '';
       } finally {
         isThematicSearchRunning = false;
         // UI wieder freigeben
