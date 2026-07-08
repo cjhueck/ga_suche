@@ -5743,6 +5743,56 @@ let currentGANumber = null; // Speichert aktuell angezeigten GA-Band
 let gaVolumesLoading = false; // Verhindert doppeltes Laden
 let gaVolumesRetryCount = 0; // Zählt Retry-Versuche
 let selectedGABandFilter = null; // Filter für GA-Band-Auswahl im GA-Tab
+let gaVolumeSearchQuery = ''; // Textsuche GA-Nummer/Titel im GA-Tab
+
+function gaVolumeMatchesSearch(ga, rawQuery) {
+  const q = String(rawQuery || '').trim().toLowerCase();
+  if (!q) return true;
+
+  const num = String(ga.number || '').toLowerCase();
+  const title = String(ga.title || '').toLowerCase();
+  const numNorm = normalizeGANumber(num).toLowerCase();
+
+  if (num.includes(q) || numNorm.includes(q) || title.includes(q)) return true;
+
+  const qNorm = q.replace(/^ga\s*/i, '');
+  if (/^\d{1,3}[a-z]?$/i.test(qNorm)) {
+    const suffix = (qNorm.match(/[a-z]$/i) || [''])[0].toLowerCase();
+    const digits = qNorm.replace(/[a-z]/i, '');
+    const candidate = normalizeGANumber(`GA${parseInt(digits, 10)}${suffix}`).toLowerCase();
+    if (numNorm === candidate || numNorm.startsWith(candidate)) return true;
+  }
+
+  return false;
+}
+
+function getFilteredGAVolumesForSidebar() {
+  let filteredData = gaVolumesData.filter(ga => ga.number.toUpperCase() !== 'GA014');
+  if (selectedGABandFilter) {
+    filteredData = filteredData.filter(ga =>
+      ga.number.toLowerCase() === selectedGABandFilter.toLowerCase()
+    );
+  }
+  if (gaVolumeSearchQuery) {
+    filteredData = filteredData.filter(ga => gaVolumeMatchesSearch(ga, gaVolumeSearchQuery));
+  }
+  return filteredData;
+}
+
+function handleGAVolumeSearchInput() {
+  const el = document.getElementById('gaVolumeSearch');
+  gaVolumeSearchQuery = el ? el.value : '';
+  displayGAVolumesInSidebar();
+}
+
+function handleGAVolumeSearchKeydown(event) {
+  if (!event || event.key !== 'Enter') return;
+  event.preventDefault();
+  const matches = getFilteredGAVolumesForSidebar();
+  if (matches.length >= 1 && typeof showGALectures === 'function') {
+    showGALectures(matches[0].number);
+  }
+}
 let selectedYearFilter = null; // Filter für Jahr-Auswahl im GA-Tab
 let selectedChalkboardsYearFilter = null; // Filter für Jahr-Auswahl bei Wandtafelzeichnungen
 let allChronologicalLectures = null; // Speichert alle geladenen chronologischen Vorträge
@@ -5945,17 +5995,11 @@ function displayGAVolumesInSidebar() {
     return;
   }
   
-  // Filtere nach ausgewähltem GA-Band falls Filter aktiv
-  // GA014 wird nicht angezeigt
-  let filteredData = gaVolumesData.filter(ga => ga.number.toUpperCase() !== 'GA014');
-  if (selectedGABandFilter) {
-    filteredData = filteredData.filter(ga => {
-      return ga.number.toLowerCase() === selectedGABandFilter.toLowerCase();
-    });
-  }
+  // Filtere nach ausgewähltem GA-Band und Textsuche
+  let filteredData = getFilteredGAVolumesForSidebar();
   
   // Prüfe ob alle Bände wieder angezeigt werden (kein Filter aktiv)
-  const isShowingAllVolumes = !selectedGABandFilter;
+  const isShowingAllVolumes = !selectedGABandFilter && !gaVolumeSearchQuery;
   
   // Wenn alle Bände wieder angezeigt werden, setze Viewer zurück
   if (isShowingAllVolumes) {
