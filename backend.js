@@ -2933,6 +2933,66 @@ function performKeywordSearch(query, paragraphsFromLectures) {
   return results;
 }
 
+function phraseSearchVariants(phrase) {
+  const variants = new Set([phrase]);
+  // Steiner schreibt oft „goethesche/goetheschen“, Nutzer suchen „Goethes …“
+  if (/\bgoethes\b/.test(phrase)) {
+    variants.add(phrase.replace(/\bgoethes\b/g, 'goethesche'));
+    variants.add(phrase.replace(/\bgoethes\b/g, 'goetheschen'));
+  }
+  if (/\bgoethe's\b/.test(phrase)) {
+    variants.add(phrase.replace(/\bgoethe's\b/g, 'goethesche'));
+  }
+  return [...variants].filter(v => v.length > 3);
+}
+
+/** Sucht eine Phrase (exakt, Varianten, sonst alle Wörter im selben Absatz). */
+function searchQuotedPhraseCandidates(phrase, paragraphs, stopWords = []) {
+  const cleaned = String(phrase || '').replace(/['"]/g, '').trim().toLowerCase();
+  if (!cleaned) return [];
+
+  let results = [];
+  for (const variant of phraseSearchVariants(cleaned)) {
+    results = results.concat(performKeywordSearch(variant, paragraphs).map(r => ({
+      ...r,
+      quoteExactMatch: variant === cleaned,
+      matchedTerms: [...(r.matchedTerms || []), variant === cleaned ? `[phrase:"${cleaned}"]` : `[phrase-variant:"${variant}"]`]
+    })));
+  }
+
+  if (results.length > 0) {
+    const unique = new Map();
+    results.forEach(r => {
+      const key = `${r.ID}-${r.index}`;
+      if (!unique.has(key) || (unique.get(key).keywordScore || 0) < (r.keywordScore || 0)) {
+        unique.set(key, r);
+      }
+    });
+    return Array.from(unique.values());
+  }
+
+  const words = cleaned.replace(/[.,;:!?]/g, ' ').split(/\s+/)
+    .filter(w => w.length > 3 && !stopWords.includes(w));
+  if (words.length < 2) return [];
+
+  const andResults = paragraphs.filter(p => {
+    const c = (p.content || '').toLowerCase();
+    const t = (p.title || '').toLowerCase();
+    const haystack = `${c}\n${t}`;
+    return words.every(w => {
+      if (haystack.includes(w)) return true;
+      return phraseSearchVariants(w).some(v => v !== w && haystack.includes(v));
+    });
+  }).map(p => ({
+    ...p,
+    keywordScore: 800,
+    quoteExactMatch: true,
+    matchedTerms: [`[phrase-words:${cleaned}]`]
+  }));
+
+  return andResults;
+}
+
 function extractKeyTerms(query) {
   const stopWords = [
     'wie', 'ist', 'das', 'verhältnis', 'von', 'und', 'der', 'die', 'des', 
@@ -2950,6 +3010,14 @@ function extractKeyTerms(query) {
       const cleaned = phrase.replace(/['"]/g, '').trim().toLowerCase();
       if (cleaned.length > 3) {
         terms.push(cleaned);
+        // Auch Einzelwörter aus Anführungszeichen indexieren (sonst bei reiner
+        // Phrasensuche nur ein exakter Term, z. B. „goethes raumbegriff“ statt
+        // „raumbegriff“ einzeln – trifft nicht auf „goethesche raumbegriff“).
+        cleaned.replace(/[.,;:!?]/g, ' ').split(/\s+/).forEach(word => {
+          if (word.length > 3 && !stopWords.includes(word)) {
+            terms.push(word);
+          }
+        });
       }
     });
   }
@@ -3038,18 +3106,21 @@ function performThematicKeywordSearch(query, paragraphsFromLectures, gaFilter = 
   // NEUE STRATEGIE: Suche zuerst nach Phrasen in Anführungszeichen
   const quotedPhrases = query.match(/"([^"]+)"|'([^']+)'/g);
   if (quotedPhrases && quotedPhrases.length > 0) {
-    
+    const stopWords = [
+      'wie', 'ist', 'das', 'verhältnis', 'von', 'und', 'der', 'die', 'des',
+      'den', 'dem', 'ein', 'eine', 'einem', 'einen', 'was', 'welche', 'welcher',
+      'zwischen', 'bei', 'nach', 'für', 'mit', 'aus', 'über', 'sich', 'zur',
+      'hat', 'haben', 'wird', 'werden', 'sein', 'ihre', 'seiner', 'ihren'
+    ];
     let phraseResults = [];
     quotedPhrases.forEach(phrase => {
-      const cleaned = phrase.replace(/['"]/g, '').trim().toLowerCase();
-      const results = performKeywordSearch(cleaned, filteredParagraphs);
-      // Verwende concat statt push(...) um Stack Overflow bei großen Arrays zu vermeiden
-      phraseResults = phraseResults.concat(results);
+      phraseResults = phraseResults.concat(
+        searchQuotedPhraseCandidates(phrase.replace(/['"]/g, ''), filteredParagraphs, stopWords)
+      );
     });
-    
+
     // Wenn Phrasen-Treffer vorhanden: NUR diese verwenden
     if (phraseResults.length > 0) {
-      // Dedupliziere nach ID-index
       const uniqueResults = new Map();
       phraseResults.forEach(result => {
         const key = `${result.ID}-${result.index}`;
@@ -3057,11 +3128,9 @@ function performThematicKeywordSearch(query, paragraphsFromLectures, gaFilter = 
           uniqueResults.set(key, result);
         }
       });
-      
-      const finalResults = Array.from(uniqueResults.values())
+
+      return Array.from(uniqueResults.values())
         .sort((a, b) => b.keywordScore - a.keywordScore);
-      
-      return finalResults;
     }
   }
   
@@ -5233,6 +5302,29 @@ async function generateAnalysis(query, results, depth = 'allgemein', preferredPr
   // Begrenze Ergebnisse basierend auf Provider-Token-Limits
   // Gemini: 1-2 Mio Tokens, Claude: 200k, OpenAI: 128k
   let topResults = results;
+
+  // Zitatsuche: viele Retrieval-Treffer, aber Fallback-Provider (OpenAI) haben
+  // kleinere Kontextfenster → vorab auf die besten Kandidaten kürzen.
+  if (thematicMode === 'quote' && topResults.length > 45) {
+    const resultKey = (r) => `${r.ID}-${r.index}`;
+    const seen = new Set();
+    const prioritized = [];
+    const pushUnique = (arr) => {
+      for (const r of arr) {
+        const k = resultKey(r);
+        if (seen.has(k)) continue;
+        seen.add(k);
+        prioritized.push(r);
+      }
+    };
+    pushUnique(topResults.filter(r => r.quoteExactMatch).sort((a, b) => (b.finalScore || 0) - (a.finalScore || 0)));
+    pushUnique(topResults
+      .filter(r => (r.paragraphSemanticSimilarity || 0) >= 0.55)
+      .sort((a, b) => (b.paragraphSemanticSimilarity || 0) - (a.paragraphSemanticSimilarity || 0)));
+    pushUnique(topResults);
+    topResults = prioritized.slice(0, 45);
+    console.log(`[ANALYSIS] Zitatsuche: Quellen ${results.length} → ${topResults.length} für LLM gekürzt`);
+  }
   
   // Provider-spezifische Limits (Zeichen, ca. 4 Zeichen pro Token)
   const providerName = provider.name?.toLowerCase() || 'claude';
@@ -5883,7 +5975,24 @@ ANALYSE:`;
 
     console.log(`[ANALYSIS] Provider=${provider.name}, Modell=${modelForMode || '(provider-default)'}, Modus=${thematicMode}`);
 
-    let analysisText = await provider.generateCompletion(prompt, baseCallOptions);
+    let analysisText;
+    let analysisViaFallback = false;
+    try {
+      if (preferredProvider && providerNameLower === 'claude' && isProviderRateLimited('claude')) {
+        throw new Error('[Claude] vorübergehend nicht verfügbar (Rate-Limit/Guthaben)');
+      }
+      analysisText = await provider.generateCompletion(prompt, baseCallOptions);
+    } catch (primaryErr) {
+      const errMsg = primaryErr?.message || '';
+      const canFallback = /credit balance|too low|rate limit|429|quota|overloaded|529|503|insufficient|nicht verfügbar|maximum context|context length|too many tokens|prompt is too long|model_not_found|does not exist/i.test(errMsg);
+      if (!canFallback) throw primaryErr;
+      console.warn(`[ANALYSIS] ${provider.name} fehlgeschlagen (${errMsg.slice(0, 120)}…), versuche Fallback-Provider…`);
+      const { model: _claudeModel, ...fallbackOptions } = baseCallOptions;
+      const fallbackResult = await generateCompletionWithFallback(prompt, fallbackOptions, 'analysis');
+      analysisText = fallbackResult.text;
+      analysisViaFallback = true;
+      console.log(`[ANALYSIS] Fallback erfolgreich mit ${fallbackResult.provider}`);
+    }
 
     // Im Quote-Modus: Halluzinations-Filter. Jedes ausgegebene Zitat muss wörtlich
     // (ggf. mit Auslassungen) in den bereitgestellten Textpassagen vorkommen,
@@ -5905,16 +6014,15 @@ ANALYSE:`;
       const isClaude = providerNameLower === 'claude';
       const alreadyOnFallback = modelForMode === fallbackModel;
 
-      if (!validation.hasValidResults && isClaude && !alreadyOnFallback && fallbackModel) {
+      if (!validation.hasValidResults && isClaude && !alreadyOnFallback && fallbackModel && !analysisViaFallback) {
         console.log(`[QUOTE-ESCALATE] Kein gültiges Zitat mit ${modelForMode || '(default)'} → Eskalation auf ${fallbackModel}`);
         try {
-          const escalatedText = await provider.generateCompletion(prompt, {
-            ...baseCallOptions,
-            model: fallbackModel
-          });
+          const { model: _escModel, ...escOptions } = baseCallOptions;
+          const escalated = await generateCompletionWithFallback(prompt, escOptions, 'analysis');
+          const escalatedText = escalated.text;
           const validation2 = validateQuoteAnalysis(escalatedText, topResults);
           if (validation2.hasValidResults) {
-            console.log(`[QUOTE-ESCALATE] Erfolg mit ${fallbackModel}: ${validation2.removed} halluziniert gefiltert, valide Treffer übernommen`);
+            console.log(`[QUOTE-ESCALATE] Erfolg mit ${escalated.provider}: ${validation2.removed} halluziniert gefiltert, valide Treffer übernommen`);
             analysisText = validation2.text;
           } else {
             console.log(`[QUOTE-ESCALATE] Auch ${fallbackModel} fand kein gültiges Zitat → "Kein passendes Zitat gefunden" bleibt`);
@@ -5962,8 +6070,12 @@ ANALYSE:`;
     console.error('Stack:', error.stack);
     
     // Spezielle Behandlung für "Prompt zu lang" Fehler
-    if (error.message && error.message.includes('prompt is too long')) {
+    if (error.message && /prompt is too long|maximum context|context length|too many tokens/i.test(error.message)) {
       throw new Error('Zu viele Textstellen gefunden. Bitte die Suche spezifischer formulieren oder relevante Suchworte in Anführungszeichen setzen.');
+    }
+
+    if (/credit balance|too low to access the Anthropic API/i.test(error.message || '')) {
+      throw new Error('Claude-API-Guthaben aufgebraucht. Bitte Guthaben aufladen oder Modus „Breite Sammlung“ (Gemini) wählen.');
     }
     
     throw error;
@@ -11726,15 +11838,51 @@ app.post('/api/thematic-hybrid-search', async (req, res) => {
 
     // 2) Phrasen-Expansion (nur Quote-Modus): EXAKTE Phrase-Match-Suche
     if (isQuoteMode && phrases.length > 0) {
-      // Map zur schnellen Existenz-Prüfung (vorher .find() = O(n) pro Treffer)
       const resultsMap = new Map(keywordResults.map(r => [`${r.ID}-${r.index}`, r]));
       let exactMatchCount = 0;
       const maxAddedFromPhrases = 400;
-      // Early-Exit-Schwelle: ab 15 echten Phrase-Treffern brechen wir die weitere
-      // Phrasen-Suche ab. Schon ein einziger guter Phrase-Treffer reicht zur
-      // Identifikation des Zitats, 15 ist ein großzügiger Sicherheitspuffer.
       const earlyExitThreshold = 15;
       const phraseHitsPerPhrase = [];
+      const maxPhraseHits = 80;
+      const gaFilteredParagraphs = (() => {
+        if (!gaFilter || (Array.isArray(gaFilter) ? gaFilter.length === 0 : !gaFilter)) return paragraphsFromLectures;
+        const filters = Array.isArray(gaFilter) ? gaFilter : String(gaFilter).split(',').map(s => s.trim()).filter(Boolean);
+        return paragraphsFromLectures.filter(p => p.ID && filters.some(f => p.ID.startsWith(f)));
+      })();
+
+      const addPhraseResults = (phrase, exactResults, label) => {
+        for (const result of exactResults) {
+          if (exactMatchCount >= maxAddedFromPhrases) break;
+          const key = `${result.ID}-${result.index}`;
+          const existing = resultsMap.get(key);
+          if (existing) {
+            existing.quoteExactMatch = true;
+            existing.keywordScore = (existing.keywordScore || 0) + 1500;
+            existing.matchedTerms = [...(existing.matchedTerms || []), `[${label}:"${phrase}"]`];
+            exactMatchCount++;
+            continue;
+          }
+          const newEntry = {
+            ...result,
+            keywordScore: (result.keywordScore || 0) * 5 + 1500,
+            matchedTerms: [...(result.matchedTerms || []), `[${label}:"${phrase}"]`],
+            quoteExactMatch: true
+          };
+          keywordResults.push(newEntry);
+          resultsMap.set(key, newEntry);
+          exactMatchCount++;
+        }
+      };
+
+      const userQuoted = (query.match(/"([^"]+)"|'([^']+)'/g) || [])
+        .map(p => p.replace(/['"]/g, '').trim())
+        .filter(Boolean);
+      for (const userPhrase of userQuoted) {
+        const userResults = searchQuotedPhraseCandidates(userPhrase, gaFilteredParagraphs);
+        phraseHitsPerPhrase.push({ phrase: userPhrase, hits: userResults.length, user: true });
+        addPhraseResults(userPhrase, userResults, 'user-phrase');
+        if (exactMatchCount >= earlyExitThreshold) break;
+      }
 
       for (const phrase of phrases) {
         if (exactMatchCount >= maxAddedFromPhrases) break;
@@ -11742,32 +11890,17 @@ app.post('/api/thematic-hybrid-search', async (req, res) => {
           console.log(`[THEMATIC-QUOTE] Early-Exit: ${exactMatchCount} exakte Treffer reichen, weitere ${phrases.length - phraseHitsPerPhrase.length} Phrasen übersprungen`);
           break;
         }
+        if (userQuoted.some(u => u.toLowerCase() === phrase.toLowerCase())) continue;
 
-        const exactResults = performThematicKeywordSearch(`"${phrase}"`, paragraphsFromLectures, gaFilter);
+        const exactResults = searchQuotedPhraseCandidates(phrase, gaFilteredParagraphs);
         phraseHitsPerPhrase.push({ phrase, hits: exactResults.length });
 
-        for (const result of exactResults) {
-          if (exactMatchCount >= maxAddedFromPhrases) break;
-          const key = `${result.ID}-${result.index}`;
-          const existing = resultsMap.get(key);
-          if (existing) {
-            // Bestehender Treffer wird als ExactMatch markiert + Score-Boost
-            existing.quoteExactMatch = true;
-            existing.keywordScore = (existing.keywordScore || 0) + 1500;
-            existing.matchedTerms = [...(existing.matchedTerms || []), `[exact:"${phrase}"]`];
-            exactMatchCount++;
-            continue;
-          }
-          const newEntry = {
-            ...result,
-            keywordScore: (result.keywordScore || 0) * 5 + 1500,
-            matchedTerms: [...(result.matchedTerms || []), `[exact:"${phrase}"]`],
-            quoteExactMatch: true
-          };
-          keywordResults.push(newEntry);
-          resultsMap.set(key, newEntry);
-          exactMatchCount++;
+        if (exactResults.length > maxPhraseHits) {
+          console.log(`[THEMATIC-QUOTE] Phrase zu unspezifisch (${exactResults.length} Treffer), übersprungen: "${phrase}"`);
+          continue;
         }
+
+        addPhraseResults(phrase, exactResults, 'exact');
       }
 
       const topHits = phraseHitsPerPhrase
@@ -12049,9 +12182,16 @@ app.post('/api/thematic-hybrid-search', async (req, res) => {
       query: req.body.query
     });
     // Spezielle Fehlermeldung für KI-Suche
+    const userError = /credit balance|too low to access the Anthropic API/i.test(error.message || '')
+      ? 'Claude-API-Guthaben aufgebraucht. Bitte Guthaben aufladen (console.anthropic.com → Billing) oder Modus „Breite Sammlung“ (Gemini) wählen.'
+      : /Alle \d+ Provider fehlgeschlagen/i.test(error.message || '')
+      ? 'KI-Analyse derzeit nicht verfügbar (alle API-Provider fehlgeschlagen). Bitte später erneut versuchen oder Modus „Breite Sammlung“ wählen.'
+      : /prompt is too long|maximum context|context length|too many tokens/i.test(error.message || '')
+      ? 'Zu viele Treffer für die KI-Analyse. Bitte die Anfrage präziser formulieren oder GA-Filter setzen.'
+      : 'Suche fehlgeschlagen - bitte Anfrage anders formulieren, relevante Suchworte in Anführungszeichen setzen und in Kürze noch einmal versuchen';
     res.status(500).json({ 
-      error: 'Suche fehlgeschlagen - bitte Anfrage anders formulieren, relevante Suchworte in Anführungszeichen setzen und in Kürze noch einmal versuchen',
-      details: process.env.NODE_ENV === 'development' ? error.message : undefined
+      error: userError,
+      details: error.message
     });
   }
 });
