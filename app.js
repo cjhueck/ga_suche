@@ -1098,6 +1098,7 @@ const isLocal = window.location.hostname === 'localhost' ||
     let steinerImages = {}; // Bilder-Datenbank
     let currentThematicGAFilter = '';
     let currentThematicLimit = 100; // Limit basierend auf Modus (100 = Tiefe, 250 = Zitat, 300 = Breite)
+    let currentThematicMode = 'deep';
     let currentThematicCacheKey = ''; // Vom Backend gelieferter Cache-Key der aktuellen Abfrage (fuer gezieltes Loeschen)
     // Suchhistorie aus localStorage laden (falls vorhanden)
     let searchHistory = (function() {
@@ -1123,6 +1124,7 @@ const isLocal = window.location.hostname === 'localhost' ||
     let viewerH4Collapsed = false;
     let isGeneratingSummary = false;
     let isThematicSearchRunning = false;
+    let thematicSearchAbortController = null;
     let isKeywordSearchRunning = false;
     let savedSummaryPanelWidth = null; // Speichert die manuell angepasste Breite des Summary-Panels
     let fullLecturesData = {}; // Speichert vollständige Vortragsdaten mit Absatz-Reihenfolge
@@ -3114,8 +3116,10 @@ function normalizeGANumber(gaNumber) {
         if (typeof window.updateThematicSaveButtonVisibility === 'function') {
           window.updateThematicSaveButtonVisibility();
         }
+        if (window.ThematicChatUI?.onTabActivate) window.ThematicChatUI.onTabActivate();
       } else {
         document.body.classList.remove('tab-thematic-active');
+        if (window.ThematicChatUI?.onTabDeactivate) window.ThematicChatUI.onTabDeactivate();
       }
       if (mode === 'thematic2') {
         // Nur zurücksetzen wenn KEIN pending Keyword wartet (Navigation von Lecture Keywords)
@@ -13007,6 +13011,95 @@ function scrollToChronologicalYear(year) {
       }
     }
     window.showLectureFromAdvancedSearch = showLectureFromAdvancedSearch;
+
+    function normalizeThematicQuoteSnippet(raw) {
+      return String(raw || '').trim()
+        .replace(/^[\s„"""'\u2018\u2019\u201A\u201B\u201C\u201D\u201E\u201F«»]+/, '')
+        .replace(/[\s„"""'\u2018\u2019\u201A\u201B\u201C\u201D\u201E\u201F«»]+$/, '')
+        .replace(/\s+/g, ' ')
+        .trim();
+    }
+
+    function thematicQuoteSnippetsFromText(quoteText, minLen = 5) {
+      if (!quoteText) return null;
+      const parts = String(quoteText).split('|||')
+        .map(normalizeThematicQuoteSnippet)
+        .filter(s => s.length >= minLen);
+      if (parts.length) return parts;
+      const single = normalizeThematicQuoteSnippet(quoteText);
+      return single.length >= minLen ? [single] : null;
+    }
+
+    function findBlockquoteBeforeQuelleLink(linkEl) {
+      if (!linkEl) return null;
+      const containingP = linkEl.closest('p');
+      if (!containingP || !/Quelle\s*:/i.test(containingP.textContent || '')) return null;
+      let prev = containingP.previousElementSibling;
+      while (prev && /^(BR|HR)$/i.test(prev.tagName)) {
+        prev = prev.previousElementSibling;
+      }
+      return (prev && prev.tagName && prev.tagName.toLowerCase() === 'blockquote') ? prev : null;
+    }
+
+    function extractQuoteNearThematicLink(linkEl) {
+      if (!linkEl) return null;
+      const block = linkEl.closest('p, li, td, th, blockquote, .essay-beleg') || linkEl.parentElement;
+      if (!block || !block.contains(linkEl)) return null;
+
+      try {
+        const range = document.createRange();
+        range.selectNodeContents(block);
+        range.setEndBefore(linkEl);
+        const beforeText = range.toString().replace(/\s+/g, ' ').trim();
+        if (!beforeText) return null;
+
+        const quotePatterns = [
+          /\u201e([^\u201c"]+)[\u201c"]/g,
+          /„([^"]+)"/g,
+          /"([^"]+)"/g,
+          /'([^']{5,})'/g,
+          /«([^»]+)»/g
+        ];
+        let lastMatch = null;
+        for (const re of quotePatterns) {
+          let m;
+          while ((m = re.exec(beforeText)) !== null) {
+            const sn = normalizeThematicQuoteSnippet(m[1]);
+            if (sn.length >= 5) lastMatch = sn;
+          }
+        }
+        return lastMatch ? [lastMatch] : null;
+      } catch (_) {
+        return null;
+      }
+    }
+
+    function resolveThematicHighlightSnippets(linkEl, options = {}) {
+      const { quoteText = '', isEssayBeleg = false } = options;
+      if (isEssayBeleg) {
+        return quoteText ? (thematicQuoteSnippetsFromText(quoteText) || []) : [];
+      }
+      const nearQuote = extractQuoteNearThematicLink(linkEl);
+      if (nearQuote) return nearQuote;
+      const fromAttr = thematicQuoteSnippetsFromText(quoteText);
+      if (fromAttr) return fromAttr;
+      const bq = findBlockquoteBeforeQuelleLink(linkEl);
+      if (bq) {
+        const raw = normalizeThematicQuoteSnippet(bq.textContent);
+        if (raw.length >= 5) return [raw];
+      }
+      return null;
+    }
+
+    // Thematische Abfrage-Ergebnisse: nur das zugehoerige Zitat markieren (wie Recherche),
+    // nie den ganzen Absatz und nie Suchbegriffe.
+    async function openThematicGaReference(lectureId, targetIndex, options = {}) {
+      const { linkEl = null, quoteText = '', isEssayBeleg = false } = options;
+      const resolved = resolveThematicHighlightSnippets(linkEl, { quoteText, isEssayBeleg });
+      const snippets = Array.isArray(resolved) ? resolved : [];
+      await showLectureFromAdvancedSearch(lectureId, '', targetIndex, snippets);
+    }
+    window.openThematicGaReference = openThematicGaReference;
     
     // Funktion: Zeigt ein Buch im rechten Panel (für erweiterte Suche)
     async function showBookFromAdvancedSearch(gaNumber, searchTerm, paragraphIndex = null, highlightSnippets = null) {
@@ -15368,9 +15461,122 @@ function scrollToChronologicalYear(year) {
       document.getElementById('status').textContent = `${lectureCount} Vorträge mit ${chunkCount} Treffern`;
     }
 
-    async function performThematicSearch(skipHistory = false) {
-      const query = document.getElementById('thematicQuery').value.trim();
+    // THEMATIC-CHAT-UI: replay a prior answer in the main viewer
+    const thematicViewerStack = [];
+
+    function thematicLimitForMode(mode) {
+      switch (mode) {
+        case 'broad': return 300;
+        case 'quote': return 250;
+        case 'essay': return 150;
+        case 'recherche': return 2000;
+        case 'internet': return 100;
+        case 'chat': return 40;
+        default: return 100;
+      }
+    }
+
+    function ensureThematicMainViewerVisible() {
+      const timelineSplit = document.getElementById('timelineSplitView');
+      if (timelineSplit && timelineSplit.style.display && timelineSplit.style.display !== 'none') {
+        if (typeof closeTimeline === 'function') closeTimeline();
+      }
+      const viewer = document.getElementById('viewer');
+      const viewerHeader = document.getElementById('viewer-header');
+      const docTitle = document.getElementById('document-title');
+      if (viewer) viewer.style.display = 'block';
+      if (viewerHeader) viewerHeader.style.display = 'flex';
+      if (docTitle) docTitle.style.display = 'block';
+    }
+
+    function injectThematicViewerBackBar() {
+      const viewer = document.getElementById('viewer');
+      if (!viewer || thematicViewerStack.length === 0) return;
+      viewer.querySelector('.thematic-viewer-backbar')?.remove();
+      const bar = document.createElement('div');
+      bar.className = 'thematic-viewer-backbar';
+      bar.innerHTML = '<button type="button" class="thematic-viewer-back-btn" onclick="restoreThematicViewerPrevious()">← Zurück zur vorherigen Ansicht</button>';
+      viewer.insertBefore(bar, viewer.firstChild);
+    }
+
+    window.clearThematicViewerStack = function() {
+      thematicViewerStack.length = 0;
+      document.getElementById('viewer')?.querySelector('.thematic-viewer-backbar')?.remove();
+    };
+
+    window.restoreThematicViewerPrevious = function() {
+      const prev = thematicViewerStack.pop();
+      if (!prev) return false;
+      window.replayThematicTurn(prev, { skipPush: true, force: true });
+      if (window.ThematicChatUI?.setActiveTurnByViewerData) {
+        window.ThematicChatUI.setActiveTurnByViewerData(prev);
+      }
+      return true;
+    };
+
+    function ensureThematicViewer() {
+      let viewer = document.getElementById('viewer');
+      const main = document.getElementById('main');
+      if (!viewer && main && typeof createViewerElement === 'function') {
+        viewer = createViewerElement();
+        main.appendChild(viewer);
+      }
+      return viewer;
+    }
+
+    window.replayThematicTurn = function(turn, options = {}) {
+      if (!turn) return;
+      const { skipPush = false, force = false, previousViewerData = null } = options;
+      try {
+        if (!skipPush && previousViewerData && previousViewerData.turnId !== turn.turnId) {
+          thematicViewerStack.push(previousViewerData);
+        }
+
+        currentThematicQuery = turn.query || '';
+        currentSources = Array.isArray(turn.sources) ? turn.sources : [];
+        currentThematicLimit = thematicLimitForMode(turn.mode);
+        currentThematicMode = turn.mode || 'deep';
+        if (turn.gaFilter) currentThematicGAFilter = String(turn.gaFilter);
+
+        const docTitle = document.getElementById('document-title');
+        if (docTitle) docTitle.textContent = turn.query || 'Themen';
+
+        ensureThematicMainViewerVisible();
+        ensureThematicViewer();
+
+        if (turn.mode === 'recherche' && turn.rechercheData) {
+          const fn = window.renderRechercheResults || renderRechercheResults;
+          fn(turn.query, turn.rechercheData, turn.gaFilter || '', turn.rechercheScope || {});
+        } else {
+          const fn = window.renderThematicResults || renderThematicResults;
+          fn(turn.query, turn.content || '', turn.sources || [], turn.gaFilter || '');
+        }
+
+        injectThematicViewerBackBar();
+
+        if (window.ThematicChatUI?.syncModeForTurn) {
+          window.ThematicChatUI.syncModeForTurn(turn);
+        }
+
+        const mainContainer = document.getElementById('main');
+        if (mainContainer) mainContainer.scrollTop = 0;
+      } catch (err) {
+        console.error('[THEMATIC-CHAT] replay failed:', err);
+      }
+    };
+
+    async function performThematicSearch(skipHistory = false, queryOverride = null) {
+      const query = String(
+        queryOverride
+        || window.ThematicChatUI?.getQueryText?.()
+        || document.getElementById('thematicQuery')?.value
+        || ''
+      ).trim();
       if (!query) return;
+
+      if (window.ThematicChatUI?.onSearchStart) {
+        window.ThematicChatUI.onSearchStart(query);
+      }
       
       // Analytics wird bereits im Backend getrackt (trackSearch) - kein Frontend-Tracking nötig
       
@@ -15396,14 +15602,34 @@ function scrollToChronologicalYear(year) {
       const button = document.getElementById('thematicSearchBtn');
       
       try {
+        if (thematicSearchAbortController) {
+          thematicSearchAbortController.abort();
+        }
+        thematicSearchAbortController = new AbortController();
+
         isThematicSearchRunning = true;
-        button.disabled = true;
-        button.classList.add('processing');
-        button.innerHTML = '<em>Suche...</em>';
+        if (button) {
+          button.disabled = true;
+          button.classList.add('processing');
+          button.innerHTML = '<em>Suche...</em>';
+        }
         
+        const thematicModeRadio = document.querySelector('input[name="thematicMode"]:checked');
+        const thematicMode = (window.ThematicChatUI?.enabled && typeof window.ThematicChatUI.getEffectiveSearchMode === 'function')
+          ? window.ThematicChatUI.getEffectiveSearchMode()
+          : (thematicModeRadio ? thematicModeRadio.value : 'deep');
+
         const viewer = document.getElementById('viewer');
         if (viewer) {
-          viewer.innerHTML = '<div id="viewer-content"><div style="color: var(--secondary-text); text-align: left; font-style: italic; font-size: 0.9rem;">Suche wird durchgeführt, bitte warten.</div></div>';
+          const chatActive = window.ThematicChatUI?.isChatOutputModeActive?.();
+          const waitMsg = thematicMode === 'internet'
+            ? (chatActive
+              ? 'Chat mit Internet-Recherche wird erstellt, bitte warten (kann etwas länger dauern).'
+              : 'GA-Analyse und Internet-Recherche werden durchgeführt, bitte warten (kann etwas länger dauern).')
+            : thematicMode === 'chat'
+              ? 'Chat-Antwort wird erstellt, bitte warten.'
+              : 'Suche wird durchgeführt, bitte warten.';
+          viewer.innerHTML = `<div id="viewer-content"><div style="color: var(--secondary-text); text-align: left; font-style: italic; font-size: 0.9rem;">${waitMsg}</div></div>`;
         }
         
         // Multi-Select: Array von ausgewählten GA-Bänden ('' wenn keiner)
@@ -15412,10 +15638,6 @@ function scrollToChronologicalYear(year) {
         const gaFilterSorted = [...gaFilterArr].sort();
         const gaFilter = gaFilterSorted.length > 0 ? gaFilterSorted : '';
         currentThematicGAFilter = gaFilterSorted.join(',');
-        
-        // Hole Analyse-Modus aus Radio-Buttons
-        const thematicModeRadio = document.querySelector('input[name="thematicMode"]:checked');
-        const thematicMode = thematicModeRadio ? thematicModeRadio.value : 'deep';
         
         // Modus-basierte Einstellungen:
         // - "deep" (Tiefe Analyse): Claude, begrenzte Quellen, qualitative Analyse
@@ -15439,16 +15661,24 @@ function scrollToChronologicalYear(year) {
           // Eingabe-Token-Budget im Backend (MAX_PROMPT_CHARS fuer Recherche).
           limit = 2000;
           preferredProvider = 'claude';
+        } else if (thematicMode === 'internet') {
+          const chatActive = window.ThematicChatUI?.isChatOutputModeActive?.();
+          limit = chatActive ? 40 : 100;
+          preferredProvider = 'claude';
+        } else if (thematicMode === 'chat') {
+          limit = 40;
+          preferredProvider = 'claude';
         } else {
           limit = 100;
           preferredProvider = 'claude';
         }
         currentThematicLimit = limit; // Speichere für Lösch-Funktion
+        currentThematicMode = thematicMode;
 
-        // Recherche-Modus: Quellenart + Themenbereich aus den Auswahlfeldern
+        // Quellenart + Themenbereich fuer alle oberen Modi (nicht Chat)
         let rechercheSourceType = 'alle';
         let rechercheThemeArea = '';
-        if (thematicMode === 'recherche') {
+        if (thematicMode !== 'chat') {
           const stEl = document.getElementById('rechercheSourceType');
           const taEl = document.getElementById('rechercheThemeArea');
           rechercheSourceType = stEl ? stEl.value : 'alle';
@@ -15458,6 +15688,7 @@ function scrollToChronologicalYear(year) {
         const response = await fetch(`${API_BASE}/api/thematic-hybrid-search`, {
           method: 'POST',
           keepalive: true,
+          signal: thematicSearchAbortController.signal,
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
             query: query,
@@ -15466,7 +15697,10 @@ function scrollToChronologicalYear(year) {
             preferredProvider: preferredProvider,
             thematicMode: thematicMode,
             sourceType: rechercheSourceType,
-            themeArea: rechercheThemeArea
+            themeArea: rechercheThemeArea,
+            conversationHistory: window.ThematicChatUI?.getConversationHistory?.() || [],
+            skipCache: !!(window.ThematicChatUI?.getConversationHistory?.()?.length) || thematicMode === 'internet' || thematicMode === 'chat',
+            chatMode: !!(window.ThematicChatUI?.isChatOutputModeActive?.())
           })
         });
         
@@ -15503,6 +15737,20 @@ function scrollToChronologicalYear(year) {
           renderThematicResults(query, answer.content, sources, (gaFilter || ''));
         }
 
+        if (window.ThematicChatUI?.onSearchComplete) {
+          window.ThematicChatUI.onSearchComplete({
+            query,
+            content: thematicMode === 'recherche' ? '(Recherche-Tabelle)' : (answer.content || ''),
+            sources,
+            gaFilter: gaFilterSorted.length ? gaFilterSorted.join(', ') : '',
+            mode: thematicMode,
+            rechercheData: answer.recherche || null,
+            rechercheScope: thematicMode !== 'chat'
+              ? { sourceType: rechercheSourceType, themeArea: rechercheThemeArea }
+              : null
+          });
+        }
+
         if (typeof window.syncThematicSavePayload === 'function') {
           window.syncThematicSavePayload({
             query,
@@ -15510,7 +15758,7 @@ function scrollToChronologicalYear(year) {
             gaFilter: gaFilterSorted.length ? gaFilterSorted.join(',') : '',
             limit,
             sources: currentSources || [],
-            rechercheScope: thematicMode === 'recherche'
+            rechercheScope: thematicMode !== 'chat'
               ? { sourceType: rechercheSourceType, themeArea: rechercheThemeArea }
               : null,
             rechercheData: (thematicMode === 'recherche' && answer.recherche) ? answer.recherche : null
@@ -15528,6 +15776,16 @@ function scrollToChronologicalYear(year) {
         }
         
       } catch (error) {
+        if (error && error.name === 'AbortError') {
+          const viewer = document.getElementById('viewer');
+          if (viewer) {
+            viewer.innerHTML = '<div id="viewer-content"><div style="color: var(--secondary-text); text-align: left; font-style: italic; font-size: 0.9rem;">Abgebrochen.</div></div>';
+          }
+          if (window.ThematicChatUI?.onSearchCancelled) {
+            window.ThematicChatUI.onSearchCancelled();
+          }
+          return;
+        }
         console.error('Thematic Search Error:', error);
         const errorMessage = error.message || 'Suche fehlgeschlagen - bitte Anfrage anders formulieren, relevante Suchworte in Anführungszeichen setzen und in Kürze noch einmal versuchen';
         const safeError = String(errorMessage)
@@ -15549,15 +15807,29 @@ function scrollToChronologicalYear(year) {
 
         const resultsEl = document.getElementById('results');
         if (resultsEl) resultsEl.innerHTML = '';
+
+        if (window.ThematicChatUI?.onSearchError) {
+          window.ThematicChatUI.onSearchError(errorMessage);
+        }
       } finally {
         isThematicSearchRunning = false;
+        thematicSearchAbortController = null;
         // UI wieder freigeben
         setUILocked(false);
-        button.disabled = false;
-        button.classList.remove('processing');
-        button.textContent = 'Suchen';
+        if (button) {
+          button.disabled = false;
+          button.classList.remove('processing');
+          button.textContent = 'Suchen';
+        }
       }
     }
+    window.performThematicSearch = performThematicSearch;
+
+    window.cancelThematicSearch = function cancelThematicSearch() {
+      if (thematicSearchAbortController) {
+        thematicSearchAbortController.abort();
+      }
+    };
 
     function updateButtonStates() {
   // Prüfe ob Buttons existieren, bevor du sie verwendest
@@ -15863,6 +16135,10 @@ function scrollToChronologicalYear(year) {
           return;
         }
 
+        if (window.ThematicChatUI?.shouldSkipRecentQueries?.()) {
+          return;
+        }
+
         if (window._showingSavedThematicSearches) {
           return;
         }
@@ -15978,6 +16254,7 @@ function scrollToChronologicalYear(year) {
           if ((!scope.sourceType || !scope.themeArea) && depthSeg.indexOf('recherche:') === 0) {
             const segParts = depthSeg.split(':'); // recherche:sourceType:themeArea
             if (!scope.sourceType && segParts[1]) sourceType = segParts[1];
+            if (!scope.themeArea && segParts[2] && segParts[2] !== 'alle') themeArea = segParts[2];
           }
           const modeRadio = document.querySelector('input[name="thematicMode"][value="recherche"]');
           if (modeRadio) modeRadio.checked = true;
@@ -16021,6 +16298,25 @@ function scrollToChronologicalYear(year) {
           const modeRadio = document.querySelector(`input[name="thematicMode"][value="${modeValue}"]`);
           if (modeRadio) modeRadio.checked = true;
           if (typeof updateRechercheControlsVisibility === 'function') updateRechercheControlsVisibility();
+          const scope = entry.rechercheScope || {};
+          let sourceType = scope.sourceType || 'alle';
+          let themeArea = scope.themeArea || '';
+          if ((!scope.sourceType || !scope.themeArea) && depthSeg.includes(':') && depthSeg.indexOf('recherche:') !== 0) {
+            const segParts = depthSeg.split(':');
+            if (segParts.length >= 3) {
+              if (!scope.sourceType && segParts[1]) sourceType = segParts[1];
+              if (!scope.themeArea && segParts[2] && segParts[2] !== 'alle') themeArea = segParts[2];
+            }
+          }
+          const stEl = document.getElementById('rechercheSourceType');
+          if (stEl) stEl.value = ['alle', 'schriften', 'vortraege'].includes(sourceType) ? sourceType : 'alle';
+          const taEl = document.getElementById('rechercheThemeArea');
+          if (taEl && themeArea) {
+            const opt = Array.from(taEl.options).find(o => o.value.toLowerCase() === String(themeArea).toLowerCase());
+            taEl.value = opt ? opt.value : 'alle';
+          } else if (taEl) {
+            taEl.value = 'alle';
+          }
         } catch (_) { currentThematicGAFilter = ''; currentThematicLimit = 100; }
         const input = document.getElementById('thematicQuery');
         if (input) input.value = effectiveQuery;
@@ -20194,8 +20490,6 @@ function formatAsteriskParagraphs() {
     // Global verfügbar machen für andere Script-Blöcke
     window.extractKeywordsFromQuery = extractKeywordsFromQuery;
     
-    // Rendert die Recherche-Ergebnisse als nach Unterthemen gegliederte,
-    // sortier- und filterbare Tabelle im Main Viewer.
     function renderRechercheResults(query, recherche, appliedGA = '', scope = {}) {
       const container = document.getElementById('viewer');
       if (!container) return;
@@ -20355,11 +20649,8 @@ function formatAsteriskParagraphs() {
             const lectureId = link.getAttribute('data-id');
             const targetIndex = link.getAttribute('data-index');
             const quote = link.getAttribute('data-quote') || '';
-            const keywords = (typeof extractKeywordsFromQuery === 'function') ? extractKeywordsFromQuery(currentThematicQuery) : [];
-            const searchTerm = keywords.length > 0 ? keywords[0] : '';
-            const snippets = quote && quote.length >= 5 ? [quote] : null;
             if (lectureId && targetIndex) {
-              await showLectureFromAdvancedSearch(lectureId, searchTerm, targetIndex, snippets);
+              await openThematicGaReference(lectureId, targetIndex, { linkEl: link, quoteText: quote });
             }
           });
         });
@@ -20404,11 +20695,20 @@ function formatAsteriskParagraphs() {
 
       window.currentRechercheData = recherche;
       window.renderRechercheResults = renderRechercheResults;
+      injectThematicViewerBackBar();
     }
 
     function renderThematicResults(query, content, sources, appliedGA = '') {
       // Zeige Ergebnisse im Main Viewer (wie bei Index-Tab), nicht im linken Panel
-      const container = document.getElementById('viewer');
+      let container = document.getElementById('viewer');
+      if (!container) {
+        const main = document.getElementById('main');
+        if (main && typeof createViewerElement === 'function') {
+          container = createViewerElement();
+          main.appendChild(container);
+        }
+      }
+      if (!container) return;
       
       const sortedSources = [...sources].sort((a, b) => {
         const dateA = a.date || '';
@@ -20428,7 +20728,9 @@ function formatAsteriskParagraphs() {
       // Modus-Label basierend auf currentThematicLimit
       // (100 = tief, 150 = Essay, 250 = zitat, 300 = breit)
       let modeLabel;
-      if (currentThematicLimit === 300) modeLabel = '[breit]';
+      if (currentThematicMode === 'internet') modeLabel = '[+ Internet]';
+      else if (currentThematicMode === 'chat') modeLabel = '[Chat]';
+      else if (currentThematicLimit === 300) modeLabel = '[breit]';
       else if (currentThematicLimit === 250) modeLabel = '[Zitat]';
       else if (currentThematicLimit === 150) modeLabel = '[Essay]';
       else modeLabel = '[tief]';
@@ -20485,6 +20787,8 @@ function formatAsteriskParagraphs() {
       convertToGermanQuotes(answerDiv);
       // Nicht vom Backend verlinkte GA-Referenzen im DOM nachträglich klickbar machen
       convertGAReferencesToLinksInKeywordResults(answerDiv);
+      // Internet-/Web-Links in neuem Tab öffnen
+      configureExternalLinksInNewTab(answerDiv);
       
       // Zusätzlich: Korrigiere auch nach kurzer Verzögerung (falls dynamisch geladen)
       setTimeout(() => {
@@ -20566,115 +20870,54 @@ function formatAsteriskParagraphs() {
         gaLinks.forEach(link => {
           const lectureId = link.getAttribute('data-id');
           const targetIndex = link.getAttribute('data-index');
-          // Essay-Modus erkennen: PRIMÄR über das data-essay-Attribut am Link selbst
-          // (robust gegen DOM-Veränderungen durch markdown-Rendering),
-          // SEKUNDÄR über das Essay-Beleg-Parent-Element.
           const isEssayBeleg = link.getAttribute('data-essay') === 'true' ||
                                !!(link.closest && link.closest('.essay-beleg'));
-          const quoteText = link.getAttribute('data-quote-text');
-          
-          // Auch für Zitat-Modus: vorangehendes <blockquote> als Quelle für
-          // Snippet-Highlighting im Side-Panel finden (analog zum Essay-Modus,
-          // nur ohne data-quote-text-Attribut, weil dieses nur Essay-Belege haben).
-          let quoteSourceEl = null;
-          if (!isEssayBeleg) {
-            const containingP = link.closest('p');
-            if (containingP && /Quelle\s*:/i.test(containingP.textContent || '')) {
-              let prev = containingP.previousElementSibling;
-              while (prev && /^(BR|HR)$/i.test(prev.tagName)) {
-                prev = prev.previousElementSibling;
-              }
-              if (prev && prev.tagName && prev.tagName.toLowerCase() === 'blockquote') {
-                quoteSourceEl = prev;
-              }
-            }
-          }
+          const quoteText = link.getAttribute('data-quote-text') || link.getAttribute('data-quote') || '';
 
           if (lectureId && targetIndex) {
             link.addEventListener('click', async (e) => {
               e.preventDefault();
               e.stopPropagation();
-              
-
-              // Zeige Text im rechten Side-Panel (wie bei Index-Tab)
-              const keywords = extractKeywordsFromQuery(currentThematicQuery);
-              const searchTerm = keywords.length > 0 ? keywords[0] : '';
-              // Im Essay-Modus immer Array übergeben (auch leer), damit
-              // showLectureFromAdvancedSearch das Absatz-Highlight unterdrückt.
-              // Im Zitat-Modus: vorangehendes <blockquote> als Snippet
-              //   weiterreichen, damit das Side-Panel das Zitat hervorhebt.
-              // In anderen Modi: null → Standardverhalten.
-              let snippets = null;
-              if (isEssayBeleg) {
-                snippets = quoteText
-                  ? quoteText.split('|||').map(s => s.trim()).filter(s => s.length > 0)
-                  : [];
-              } else if (quoteSourceEl) {
-                const raw = (quoteSourceEl.textContent || '').trim()
-                  .replace(/^[\s„"""'\u2018\u2019\u201A\u201B\u201C\u201D\u201E\u201F«»]+/, '')
-                  .replace(/[\s„"""'\u2018\u2019\u201A\u201B\u201C\u201D\u201E\u201F«»]+$/, '')
-                  .replace(/\s+/g, ' ')
-                  .trim();
-                if (raw.length >= 5) snippets = [raw];
-              }
-              await showLectureFromAdvancedSearch(lectureId, searchTerm, targetIndex, snippets);
+              link.removeAttribute('onclick');
+              await openThematicGaReference(lectureId, targetIndex, {
+                linkEl: link,
+                quoteText,
+                isEssayBeleg
+              });
             });
           }
         });
 
         // Click-Handler auch für nachträglich erzeugte ga-keyword-link Elemente.
-        // Im Zitat-Modus liefert der LLM die Treffer im Format
-        //   > [wörtliches Zitat]
-        //   Quelle: (GA###:^xyz)
-        // Wir erkennen dieses Muster und reichen das Blockquote-Zitat als
-        // Snippet ans Side-Panel weiter, damit es dort gehighlighted wird —
-        // analog zum Essay-Modus.
         const kwLinks = answerDiv.querySelectorAll('.ga-keyword-link');
         kwLinks.forEach(link => {
           if (link.__thematicBound) return;
           link.__thematicBound = true;
-
-          // Vorangehendes <blockquote> identifizieren (für Zitat-Modus-Treffer)
-          let quoteSourceEl = null;
-          const containingP = link.closest('p');
-          if (containingP && /Quelle\s*:/i.test(containingP.textContent || '')) {
-            let prev = containingP.previousElementSibling;
-            // Reine Inline-Trenner überspringen
-            while (prev && /^(BR|HR)$/i.test(prev.tagName)) {
-              prev = prev.previousElementSibling;
-            }
-            if (prev && prev.tagName && prev.tagName.toLowerCase() === 'blockquote') {
-              quoteSourceEl = prev;
-            }
+          const savedOnclick = link.getAttribute('onclick') || '';
+          if (savedOnclick) {
+            link.setAttribute('data-thematic-onclick', savedOnclick);
+            link.removeAttribute('onclick');
           }
 
           link.addEventListener('click', async (e) => {
             e.preventDefault();
             e.stopPropagation();
-            const onclickAttr = link.getAttribute('onclick') || '';
-            const m = onclickAttr.match(/showLectureFromAdvancedSearch\('([^']+)',\s*'([^']*)',\s*'?([^')]*)'?\)/);
+            const m = savedOnclick.match(/showLectureFromAdvancedSearch\('([^']+)',\s*'([^']*)',\s*'?([^')]*)'?\)/);
             if (m) {
-              const keywords = extractKeywordsFromQuery(currentThematicQuery);
-              const searchTerm = keywords.length > 0 ? keywords[0] : (m[2] || '');
-
-              // Wenn ein <blockquote>-Zitat über dem Quellen-Link steht:
-              // dessen Text als Snippet weiterreichen, damit das Side-Panel
-              // genau dieses Zitat (statt nur des Suchbegriffs) hervorhebt.
-              let snippets = null;
-              if (quoteSourceEl) {
-                const raw = (quoteSourceEl.textContent || '').trim()
-                  .replace(/^[\s„"""'\u2018\u2019\u201A\u201B\u201C\u201D\u201E\u201F«»]+/, '')
-                  .replace(/[\s„"""'\u2018\u2019\u201A\u201B\u201C\u201D\u201E\u201F«»]+$/, '')
-                  .replace(/\s+/g, ' ')
-                  .trim();
-                if (raw.length >= 5) snippets = [raw];
-              }
-
-              await showLectureFromAdvancedSearch(m[1], searchTerm, m[3] || null, snippets);
+              await openThematicGaReference(m[1], m[3] || null, { linkEl: link });
+              return;
+            }
+            const lectureId = link.getAttribute('data-id');
+            const targetIndex = link.getAttribute('data-index');
+            if (lectureId && targetIndex) {
+              await openThematicGaReference(lectureId, targetIndex, { linkEl: link });
             }
           });
         });
       }, 100);
+
+      window.renderThematicResults = renderThematicResults;
+      injectThematicViewerBackBar();
     }
 
     async function showLectureTop(lectureId) {
@@ -24364,6 +24607,7 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
     function handleThematicKeydown(event) {
       if (event.key === 'Enter' && !event.shiftKey) {
         event.preventDefault();
+        if (window.ThematicChatUI?.enabled) return;
         performThematicSearch();
       }
     }
@@ -26079,6 +26323,9 @@ function switchTabExtended(mode) {
     trackMode = 'thematic2_' + (window._themenView || 'schwerpunkte');
   }
   analyticsTrack('tab_view', trackMode);
+
+  // THEMATIC-CHAT-UI: panel back into tab before innerHTML snapshots
+  if (window.ThematicChatUI?.prepareTabSwitch) window.ThematicChatUI.prepareTabSwitch();
   
   // Speichere ursprüngliche HTML-Struktur des aktuellen Tabs, falls noch nicht gespeichert
   const prevActive = document.querySelector('.tab-content.active');
@@ -26457,6 +26704,11 @@ function switchTabExtended(mode) {
 
   // Gewünschten Tab-Inhalt anzeigen und auf ursprüngliche Struktur zurücksetzen
   if (targetContent) {
+    // THEMATIC-CHAT-UI: stale tab cache without chat panel would break restore
+    if (targetId === 'thematic-tab' && tabOriginalContent[targetId] &&
+        !tabOriginalContent[targetId].includes('id="thematic-chat-panel"')) {
+      delete tabOriginalContent[targetId];
+    }
     // Stelle die ursprüngliche HTML-Struktur wieder her, falls gespeichert (nicht für Korrektur-Tab)
     if (tabOriginalContent[targetId] && targetId !== 'korrektur-tab') {
       targetContent.innerHTML = tabOriginalContent[targetId];
@@ -26489,6 +26741,29 @@ function switchTabExtended(mode) {
     }
   } else {
     console.warn('[TABS] Tab-Content nicht gefunden für:', mode);
+  }
+
+  // THEMATIC-CHAT-UI: body classes + chat panel (switchTabExtended is the active switchTab)
+  if (mode === 'schlagworte') {
+    document.body.classList.add('tab-schlagworte-active');
+  } else {
+    document.body.classList.remove('tab-schlagworte-active');
+  }
+  if (mode === 'thematic') {
+    document.body.classList.add('tab-thematic-active');
+    if (typeof window.updateThematicSaveButtonVisibility === 'function') {
+      window.updateThematicSaveButtonVisibility();
+    }
+    if (typeof initRechercheUI === 'function') initRechercheUI();
+    if (window.ThematicChatUI?.onTabActivate) window.ThematicChatUI.onTabActivate();
+  } else {
+    document.body.classList.remove('tab-thematic-active');
+    if (window.ThematicChatUI?.onTabDeactivate) window.ThematicChatUI.onTabDeactivate();
+  }
+  if (mode === 'thematic2') {
+    document.body.classList.add('tab-thematic2-active');
+  } else {
+    document.body.classList.remove('tab-thematic2-active');
   }
   
   // Setze Standard-Viewer-Ansicht und Document-Title für jeden Tab
@@ -27168,6 +27443,17 @@ async function performKeywordThematicSearch(keyword) {
       `;
     }
   }
+}
+
+// Externe Links (Internet-Recherche) in neuem Tab öffnen
+function configureExternalLinksInNewTab(container) {
+  if (!container) return;
+  container.querySelectorAll('a[href]').forEach((link) => {
+    const href = (link.getAttribute('href') || '').trim();
+    if (!/^https?:\/\//i.test(href)) return;
+    link.setAttribute('target', '_blank');
+    link.setAttribute('rel', 'noopener noreferrer');
+  });
 }
 
 // Funktion: Konvertiere GA-Referenzen in klickbare Links im DOM (für Keyword-Ergebnisse)
@@ -32323,20 +32609,33 @@ function getThemesApiBase() {
   return isLocalHost ? 'http://localhost:3003' : 'https://ga-suche.onrender.com';
 }
 
-async function populateRechercheThemeAreas(force = false) {
+async function populateRechercheThemeAreas(force = false, opts = {}) {
+  const silent = !!opts.silent;
   const select = document.getElementById('rechercheThemeArea');
   if (!select) return;
 
-  if (_rechercheThemeAreasLoaded && !force && select.options.length > 1) return;
+  if (_rechercheThemeAreasLoaded && !force && select.options.length > 1) {
+    select.disabled = false;
+    return;
+  }
   if (_rechercheThemeAreasLoading) return _rechercheThemeAreasLoading;
 
   const savedValue = select.value;
-  select.innerHTML = '<option value="alle">Themenbereich: alle</option><option value="" disabled>Lade Themenbereiche…</option>';
-  select.disabled = true;
+  const hasRealOptions = select.options.length > 1 &&
+    ![...select.options].some(o => o.disabled && /Lade Themenbereiche|Fehler beim Laden/i.test(o.textContent || ''));
+
+  if (!silent && !hasRealOptions) {
+    select.innerHTML = '<option value="alle">Themenbereich: alle</option><option value="" disabled>Lade Themenbereiche…</option>';
+  }
+  select.disabled = false;
 
   _rechercheThemeAreasLoading = (async () => {
     try {
-      const resp = await fetch(`${getThemesApiBase()}/api/themes-database`);
+      const apiBase = window.API_BASE || getThemesApiBase();
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 20000);
+      const resp = await fetch(`${apiBase}/api/themes-database`, { signal: controller.signal });
+      clearTimeout(timeoutId);
       if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
       const themes = await resp.json();
       const raw = (themes && themes.clusters) ? themes.clusters : themes;
@@ -32352,6 +32651,7 @@ async function populateRechercheThemeAreas(force = false) {
         opt.disabled = true;
         opt.textContent = 'Keine Themenbereiche verfügbar';
         select.appendChild(opt);
+        _rechercheThemeAreasLoaded = false;
       } else {
         names.forEach(name => {
           const opt = document.createElement('option');
@@ -32367,7 +32667,9 @@ async function populateRechercheThemeAreas(force = false) {
       }
     } catch (e) {
       console.warn('[RECHERCHE] Themenbereiche konnten nicht geladen werden:', e.message);
-      select.innerHTML = '<option value="alle">Themenbereich: alle</option><option value="" disabled>Fehler beim Laden</option>';
+      if (!silent || select.options.length <= 1) {
+        select.innerHTML = '<option value="alle">Themenbereich: alle</option><option value="" disabled>Fehler beim Laden</option>';
+      }
       select.disabled = false;
       _rechercheThemeAreasLoaded = false;
     } finally {
@@ -32380,21 +32682,35 @@ async function populateRechercheThemeAreas(force = false) {
 
 function updateRechercheControlsVisibility() {
   const modeRadio = document.querySelector('input[name="thematicMode"]:checked');
-  const mode = modeRadio ? modeRadio.value : 'deep';
+  const mode = modeRadio ? modeRadio.value : 'chat';
   const controls = document.getElementById('rechercheControls');
-  if (controls) controls.style.display = (mode === 'recherche') ? 'flex' : 'none';
-  if (mode === 'recherche') populateRechercheThemeAreas();
+  // Quellenart/Themenbereich bei allen oberen Modi anzeigen, nur im Chat ausblenden
+  const showControls = mode !== 'chat';
+  if (controls) controls.style.display = showControls ? 'flex' : 'none';
+  const select = document.getElementById('rechercheThemeArea');
+  if (select) select.disabled = false;
+  if (showControls) {
+    populateRechercheThemeAreas();
+  } else if (!_rechercheThemeAreasLoaded && !_rechercheThemeAreasLoading) {
+    populateRechercheThemeAreas(false, { silent: true });
+  }
 }
 
 function initRechercheUI() {
   if (!initRechercheUI._bound) {
-    document.querySelectorAll('input[name="thematicMode"]').forEach(radio => {
-      radio.addEventListener('change', updateRechercheControlsVisibility);
+    document.addEventListener('change', (e) => {
+      if (e.target && e.target.name === 'thematicMode') {
+        updateRechercheControlsVisibility();
+      }
+    });
+    document.addEventListener('click', (e) => {
+      if (e.target.closest('#thematic-mode-options label, .thematic-chat-mode-option')) {
+        setTimeout(updateRechercheControlsVisibility, 0);
+      }
     });
     initRechercheUI._bound = true;
   }
   updateRechercheControlsVisibility();
-  populateRechercheThemeAreas();
 }
 
 window.populateRechercheThemeAreas = populateRechercheThemeAreas;
@@ -37706,6 +38022,12 @@ window.cancelTextEditMode = function() {};
     }
     if (saveBtn) saveBtn.style.display = visible ? 'inline-block' : 'none';
     if (listBtn) listBtn.style.display = visible ? 'inline-block' : 'none';
+
+    if (window.ThematicChatUI?.updateMenuMemberAccess) {
+      window.ThematicChatUI.updateMenuMemberAccess(visible);
+    } else if (window.ThematicChatUI?.updateMemberSaveHint) {
+      window.ThematicChatUI.updateMemberSaveHint(!visible);
+    }
   }
 
   window.updateThematicSaveButtonVisibility = updateThematicSaveButtonVisibility;
@@ -37825,17 +38147,10 @@ window.cancelTextEditMode = function() {};
   
   // Themenabfrage speichern
   window.saveCurrentThematicSearch = async function() {
-    try {
-      if (typeof window.getCurrentUser === 'function') {
-        currentMemberUser = await window.getCurrentUser();
-      }
-    } catch (_) {
-      currentMemberUser = null;
-    }
+    if (!(await ensureThematicMemberSaveAccess({ showNotice: true }))) return;
 
-    if (!currentMemberUser) {
-      alert('Bitte melden Sie sich im Mitgliederbereich an, um Themenabfragen zu speichern.');
-      return;
+    if (window.ThematicChatUI?.syncSavePayloadFromActiveTurn) {
+      window.ThematicChatUI.syncSavePayloadFromActiveTurn();
     }
 
     if (typeof window.refreshThematicSaveContentFromDom === 'function') {
@@ -37860,7 +38175,9 @@ window.cancelTextEditMode = function() {};
     const gaFilterDb = gaFilterFull ? String(gaFilterFull).slice(0, 50) : null;
     const limit = payload.limit || parseInt(document.getElementById('thematicLimitFilter')?.value) || 100;
     const sources = payload.sources || currentSources || [];
-    const searchMethod = payload.mode === 'recherche' ? 'recherche' : 'hybrid-thematic-unified';
+    const searchMethod = payload.mode === 'recherche'
+      ? 'recherche'
+      : (payload.mode || 'hybrid-thematic-unified');
     
     try {
       if (typeof window.saveThematicSearchAPI !== 'function') {
@@ -37888,18 +38205,7 @@ window.cancelTextEditMode = function() {};
   
   // Gespeicherte Themenabfragen anzeigen (Liste im linken Panel)
   window.showSavedThematicSearches = async function() {
-    try {
-      if (typeof window.getCurrentUser === 'function') {
-        currentMemberUser = await window.getCurrentUser();
-      }
-    } catch (_) {
-      currentMemberUser = null;
-    }
-
-    if (!currentMemberUser) {
-      alert('Bitte melden Sie sich im Mitgliederbereich an.');
-      return;
-    }
+    if (!(await ensureThematicMemberSaveAccess({ showNotice: true }))) return;
     
     try {
       if (typeof window.getSavedThematicSearchesAPI !== 'function') {
@@ -37919,6 +38225,10 @@ window.cancelTextEditMode = function() {};
   
   // Liste der gespeicherten Abfragen im linken Panel anzeigen
   function displaySavedSearchesList(searches) {
+    if (window.ThematicChatUI?.displaySavedSearches?.(searches)) {
+      return;
+    }
+
     const container = document.getElementById('results');
     if (!container) return;
     
@@ -38075,16 +38385,19 @@ window.cancelTextEditMode = function() {};
           gaLinks.forEach(link => {
             const lectureId = link.getAttribute('data-id');
             const targetIndex = link.getAttribute('data-index');
+            const isEssayBeleg = link.getAttribute('data-essay') === 'true' ||
+                                 !!(link.closest && link.closest('.essay-beleg'));
+            const quoteText = link.getAttribute('data-quote-text') || link.getAttribute('data-quote') || '';
             
             if (lectureId && targetIndex) {
               link.addEventListener('click', async (e) => {
                 e.preventDefault();
                 e.stopPropagation();
-                
-                // Zeige Text im rechten Side-Panel (wie bei normaler Themensuche)
-                const keywords = extractKeywordsFromQuery(currentThematicQuery);
-                const searchTerm = keywords.length > 0 ? keywords[0] : '';
-                await showLectureFromAdvancedSearch(lectureId, searchTerm, targetIndex);
+                await openThematicGaReference(lectureId, targetIndex, {
+                  linkEl: link,
+                  quoteText,
+                  isEssayBeleg
+                });
               });
             }
           });
@@ -38093,15 +38406,17 @@ window.cancelTextEditMode = function() {};
           kwLinks.forEach(link => {
             if (link.__thematicBound) return;
             link.__thematicBound = true;
+            const savedOnclick = link.getAttribute('onclick') || '';
+            if (savedOnclick) {
+              link.setAttribute('data-thematic-onclick', savedOnclick);
+              link.removeAttribute('onclick');
+            }
             link.addEventListener('click', async (e) => {
               e.preventDefault();
               e.stopPropagation();
-              const onclickAttr = link.getAttribute('onclick') || '';
-              const m = onclickAttr.match(/showLectureFromAdvancedSearch\('([^']+)',\s*'([^']*)',\s*'?([^')]*)'?\)/);
+              const m = savedOnclick.match(/showLectureFromAdvancedSearch\('([^']+)',\s*'([^']*)',\s*'?([^')]*)'?\)/);
               if (m) {
-                const keywords = extractKeywordsFromQuery(currentThematicQuery);
-                const searchTerm = keywords.length > 0 ? keywords[0] : (m[2] || '');
-                await showLectureFromAdvancedSearch(m[1], searchTerm, m[3] || null);
+                await openThematicGaReference(m[1], m[3] || null, { linkEl: link });
               }
             });
           });
@@ -38155,7 +38470,10 @@ window.cancelTextEditMode = function() {};
       position: fixed;
       top: 20px;
       right: 20px;
-      padding: 15px 25px;
+      padding: 12px 18px;
+      max-width: min(360px, calc(100vw - 40px));
+      font-size: 0.88rem;
+      line-height: 1.4;
       background: ${type === 'success' ? 'var(--accent-color, #467886)' : type === 'error' ? '#dc3545' : '#2196F3'};
       color: white;
       border-radius: 4px;
@@ -38167,8 +38485,43 @@ window.cancelTextEditMode = function() {};
     
     setTimeout(() => {
       notification.remove();
-    }, 3000);
+    }, 4000);
   }
+
+  const THEMATIC_MEMBER_SAVE_NOTICE = 'Abfragen können gespeichert werden — dafür ist eine Anmeldung als Mitglied erforderlich.';
+
+  function isOnlineThematicVersion() {
+    return !document.body.classList.contains('is-local');
+  }
+
+  async function ensureThematicMemberSaveAccess(options = {}) {
+    const { showNotice = false } = options;
+    try {
+      if (typeof window.getCurrentUser === 'function') {
+        currentMemberUser = await window.getCurrentUser();
+      }
+    } catch (_) {
+      currentMemberUser = null;
+    }
+
+    if (currentMemberUser) return true;
+
+    if (showNotice) {
+      const message = isOnlineThematicVersion()
+        ? THEMATIC_MEMBER_SAVE_NOTICE
+        : 'Bitte melden Sie sich im Mitgliederbereich an, um Themenabfragen zu speichern.';
+      showThematicNotification(message, 'info');
+    }
+    return false;
+  }
+
+  window.showThematicNotification = showThematicNotification;
+  window.ensureThematicMemberSaveAccess = ensureThematicMemberSaveAccess;
+  window.isOnlineThematicVersion = isOnlineThematicVersion;
+
+  window.onThematicChatMenuOpen = async function() {
+    await ensureThematicMemberSaveAccess({ showNotice: false });
+  };
   
   // Initialisierung
   window.addEventListener('members-api-loaded', function() {

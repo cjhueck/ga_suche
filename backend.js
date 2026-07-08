@@ -5277,7 +5277,181 @@ function transformEssayMarkup(essayText, contextResults) {
   return { text, stats };
 }
 
-async function generateAnalysis(query, results, depth = 'allgemein', preferredProvider = null, thematicMode = 'deep') {
+/** THEMATIC-CHAT-UI: prefix for follow-up questions in Abfrage tab */
+function buildFormalAddressBlock() {
+  return `ANSPRACHE (verbindlich):
+- Siezen Sie den Nutzer durchgängig (Sie/Ihnen/Ihr).
+- Keine Du-Anrede, keine Aufforderungen in der du-Form.
+- Formulieren Sie Einleitungen und Rückfragen höflich und sachlich.
+
+`;
+}
+
+function buildConversationPrefix(conversationHistory) {
+  if (!Array.isArray(conversationHistory) || conversationHistory.length === 0) return '';
+  const lines = conversationHistory.slice(-6).map(turn => {
+    const role = turn.role === 'assistant' ? 'Assistent' : 'Nutzer';
+    let content = String(turn.content || '').trim();
+    if (turn.role === 'assistant' && content.length > 900) {
+      content = content.substring(0, 900) + '…';
+    }
+    return `[${role}]: ${content}`;
+  }).join('\n\n');
+  return `KONVERSATIONSVERLAUF (Follow-up-Anfrage)
+Der Nutzer führt ein Gespräch fort. Die aktuelle Anfrage bezieht sich auf diesen Verlauf — berücksichtige ihn bei der Antwort, ohne den neuen Retrieval-Kontext zu ignorieren.
+
+${lines}
+
+AKTUELLE ANFRAGE (neue Suche):
+`;
+}
+
+function extractOpenAIWebResponseText(data) {
+  const messageItem = (data?.output || []).find(o => o.type === 'message');
+  return (messageItem?.content || [])
+    .filter(c => c.type === 'output_text' && typeof c.text === 'string')
+    .map(c => c.text)
+    .join('\n')
+    .trim();
+}
+
+function extractOpenAIWebSources(data) {
+  const messageItem = (data?.output || []).find(o => o.type === 'message');
+  const annotations = (messageItem?.content || []).flatMap(c => c.annotations || []);
+  const urlCitations = annotations
+    .filter(a => a.type === 'url_citation' && a.url)
+    .map(a => ({ url: a.url, title: a.title || a.url }));
+  const webSearchSources = (data?.output || [])
+    .filter(o => o.type === 'web_search_call')
+    .flatMap(ws => ws.action?.sources || [])
+    .filter(s => s && s.url)
+    .map(s => ({ url: s.url, title: s.title || s.url }));
+  const seen = new Set();
+  return [...urlCitations, ...webSearchSources].filter(s => {
+    if (seen.has(s.url)) return false;
+    seen.add(s.url);
+    return true;
+  });
+}
+
+/**
+ * Echte Web-Recherche für den Abfrage-Modus "+ Internet" (OpenAI Responses API + web_search).
+ * Liefert { text, sources, error } — bei Fehler leere text/sources, Analyse läuft trotzdem weiter.
+ */
+async function fetchThematicWebContext(userQuery) {
+  const openaiKey = process.env.OPENAI_API_KEY;
+  if (!openaiKey || !openaiKey.startsWith('sk-')) {
+    console.warn('[INTERNET] OPENAI_API_KEY nicht konfiguriert — Web-Ergänzung übersprungen');
+    return { text: '', sources: [], error: 'OPENAI_API_KEY nicht konfiguriert' };
+  }
+
+  const model = process.env.THEMATIC_WEB_SEARCH_MODEL
+    || process.env.GOETHE_OPENAI_MODEL
+    || 'gpt-4o-mini';
+  const timeoutMs = parseInt(
+    process.env.THEMATIC_WEB_SEARCH_TIMEOUT_MS
+      || process.env.GOETHE_OPENAI_TIMEOUT_MS
+      || '120000',
+    10
+  );
+
+  const systemPrompt = `Sie recherchieren im öffentlichen Internet zu einer Frage über Rudolf Steiner, die Anthroposophie oder verwandte geisteswissenschaftliche Themen.
+
+Aufgabe:
+- Führen Sie gezielte Websuchen durch (max. 3–4 Suchen).
+- Fassen Sie nur belastbare, relevante Zusatzinformationen zusammen, die den Steiner-GA-Kontext ergänzen können (Historie, Begriffe, Debatten, Sekundärliteratur).
+- Maximal 350 Wörter, sachlich, auf Deutsch.
+- Erfinden Sie nichts — nur was durch die Websuche belegt ist.
+- Nennen Sie am Ende die wichtigsten Quellen als Markdown-Links: [Titel](URL).`;
+
+  const openaiPayload = {
+    model,
+    input: [
+      { role: 'system', content: systemPrompt },
+      { role: 'user', content: String(userQuery || '').trim() }
+    ],
+    tools: [{ type: 'web_search' }],
+    tool_choice: 'auto',
+    include: ['web_search_call.action.sources'],
+    max_output_tokens: 4096
+  };
+
+  const isReasoningModel = /^(gpt-5|o\d)/i.test(model);
+  if (isReasoningModel) {
+    const effort = (process.env.THEMATIC_WEB_SEARCH_EFFORT || process.env.GOETHE_REASONING_EFFORT || 'low').toLowerCase();
+    openaiPayload.reasoning = { effort: ['low', 'medium', 'high'].includes(effort) ? effort : 'low' };
+  } else {
+    openaiPayload.temperature = 0.2;
+  }
+
+  async function callOnce() {
+    const abortCtl = new AbortController();
+    const timeoutId = setTimeout(() => abortCtl.abort(), timeoutMs);
+    try {
+      const apiRes = await fetch('https://api.openai.com/v1/responses', {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${openaiKey}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(openaiPayload),
+        signal: abortCtl.signal
+      });
+      clearTimeout(timeoutId);
+      const rawText = await apiRes.text();
+      let data = null;
+      let parseError = null;
+      try {
+        data = rawText ? JSON.parse(rawText) : {};
+      } catch (e) {
+        parseError = e;
+      }
+      const isUpstreamPlainText = parseError && /upstream|cloudflare|gateway|timeout|connect error/i.test(rawText);
+      const isTransientStatus = [502, 503, 504, 520, 521, 522, 524].includes(apiRes.status);
+      const transient = isUpstreamPlainText || isTransientStatus;
+      return { ok: apiRes.ok, status: apiRes.status, data, rawText, parseError, transient, abort: false };
+    } catch (err) {
+      clearTimeout(timeoutId);
+      if (err.name === 'AbortError') {
+        return { ok: false, status: 504, abort: true, transient: false };
+      }
+      return { ok: false, status: 0, transient: true, networkError: err, abort: false };
+    }
+  }
+
+  const tStart = Date.now();
+  let attempt = 0;
+  let result;
+  while (true) {
+    attempt++;
+    result = await callOnce();
+    if (result.abort) {
+      console.warn(`[INTERNET] Web-Suche Timeout nach ${timeoutMs}ms (${model})`);
+      return { text: '', sources: [], error: 'timeout' };
+    }
+    if (!result.ok && result.transient && attempt === 1) {
+      console.warn('[INTERNET] Transient-Fehler bei Web-Suche — Retry…');
+      await new Promise(r => setTimeout(r, 1500));
+      continue;
+    }
+    break;
+  }
+
+  const elapsed = Date.now() - tStart;
+  if (!result.ok || !result.data || result.parseError) {
+    const errMsg = result.data?.error?.message || result.rawText?.slice(0, 160) || `HTTP ${result.status}`;
+    console.warn(`[INTERNET] Web-Suche fehlgeschlagen (${elapsed}ms): ${errMsg}`);
+    return { text: '', sources: [], error: errMsg };
+  }
+
+  const text = extractOpenAIWebResponseText(result.data);
+  const sources = extractOpenAIWebSources(result.data);
+  const webSearchCalls = (result.data.output || []).filter(o => o.type === 'web_search_call').length;
+  console.log(`[INTERNET] Web-Suche ok (${elapsed}ms, ${model}): ${webSearchCalls} Suchen, ${sources.length} Quellen, ${text.length} Zeichen`);
+  return { text, sources, error: null };
+}
+
+async function generateAnalysis(query, results, depth = 'allgemein', preferredProvider = null, thematicMode = 'deep', conversationHistory = [], useFormalAddress = false, chatMode = false, webContext = null) {
   
   // Hole passenden LLM-Provider
   let provider;
@@ -5412,7 +5586,8 @@ async function generateAnalysis(query, results, depth = 'allgemein', preferredPr
     'broad': 32000,  // Breite Sammlung: Gemini 2.5 Flash unterstützt bis 65k
     'quote': 6000,   // Zitatsuche: ein bis wenige Zitate mit kurzer Begründung
     'essay': 16000,  // Essay-Modus: Synthese + Belege, braucht Raum
-    'recherche': 32000 // Recherche-Modus: tabellarische JSON-Sammlung vieler Aussagen (Opus-Output-Maximum, damit die Trefferzahl nicht durch das Token-Budget gedeckelt wird)
+    'recherche': 32000, // Recherche-Modus: tabellarische JSON-Sammlung vieler Aussagen (Opus-Output-Maximum, damit die Trefferzahl nicht durch das Token-Budget gedeckelt wird)
+    'chat': 3000     // Chat-Modus: dialogische Kurzantwort
   };
   
   // Wähle Prompt basierend auf thematicMode
@@ -5802,6 +5977,32 @@ TEXTPASSAGEN:
 ${contextText}
 
 JSON-AUSGABE:`;
+  } else if (thematicMode === 'chat' || (thematicMode === 'internet' && chatMode)) {
+    const chatLabel = thematicMode === 'internet' ? 'Chat + Internet' : 'Chat';
+    console.log(`[ANALYSIS] Modus: ${chatLabel} (dialogisch) - ${topResults.length} Quellen`);
+    const isFollowUp = Array.isArray(conversationHistory) && conversationHistory.length > 0;
+    prompt = `Sie führen ein dialogisches Gespräch über Rudolf Steiners Werk (Gesamtausgabe / GA) mit einem Nutzer.
+
+AKTUELLE NUTZERFRAGE:
+"${query}"
+
+MODUS: CHAT (Konversation)
+- Antworten Sie direkt, dialogisch und auf Augenhöhe — nicht als ausführlicher Synthese-Aufsatz.
+- ${isFollowUp ? 'Beziehen Sie sich auf den Konversationsverlauf; wiederholen Sie nicht, was bereits gesagt wurde.' : 'Eröffnen Sie mit einer klaren, fokussierten Antwort auf die Frage.'}
+- Länge: ${isFollowUp ? 'kurz bis mittel (typisch 120–350 Wörter)' : 'mittel (typisch 200–500 Wörter)'}, es sei denn, die Frage verlangt ausdrücklich mehr.
+- Nutzen Sie die unten stehenden Textpassagen als Beleggrundlage; erfinden Sie keine Inhalte.
+- Zitate oder Kernaussagen Steiners: kurz in „…", Quelle direkt danach als (GA###/lectureNum:index).
+- Keine große Abschnitts-Gliederung mit vielen ##-Überschriften; maximal 1–2 Zwischenüberschriften, wenn wirklich nötig.
+- KEIN Abschnitt „## Fazit" und KEIN „## Weitere relevante Quellen".
+- Keine Meta-Kommentare über die Suchqualität oder fehlende Texte.
+- Bleiben Sie sachlich-nüchtern; keine überflüssigen Einleitungen.
+
+Verfügbare Referenzen: ${availableRefs}
+
+TEXTPASSAGEN:
+${contextText}
+
+ANTWORT:`;
   } else {
     // TIEFE ANALYSE: Claude - qualitative Analyse mit Zitaten (wie bisher)
     console.log(`[ANALYSIS] Modus: Tiefe Analyse - ${topResults.length} Quellen`);
@@ -5934,25 +6135,98 @@ ${contextText}
 
 ANALYSE:`;
   }
+
+  if (thematicMode === 'internet') {
+    const webText = webContext?.text ? String(webContext.text).trim() : '';
+    const webSources = Array.isArray(webContext?.sources) ? webContext.sources : [];
+    if (webText) {
+      const sourceLines = webSources.slice(0, 12).map(s => `- [Web: ${s.title}](${s.url})`).join('\n');
+      if (chatMode) {
+        prompt += `
+
+INTERNET-RECHERCHE (bereits durchgeführt — nur diese Ergebnisse verwenden):
+${webText}
+${sourceLines ? `\nGefundene Web-Quellen:\n${sourceLines}` : ''}
+
+ANWEISUNG CHAT+INTERNET:
+- Antwort bleibt dialogisch (Chat-Modus); kein ausführlicher Synthese-Aufsatz.
+- Web-Informationen knapp einweben oder am Ende ein kurzer Abschnitt "## Ergänzung aus dem Internet" (max. 1–2 Absätze).
+- Nutzen Sie ausschließlich die obigen Web-Recherche-Ergebnisse — erfinden Sie keine weiteren Web-Quellen.
+- Kennzeichnen Sie jede Internet-Quelle mit [Web: Titel](URL).
+- Wenn die Web-Recherche nichts Relevantes liefert, schreiben Sie: "Keine belastbare Internet-Ergänzung ermittelt."`;
+      } else {
+        prompt += `
+
+INTERNET-RECHERCHE (bereits durchgeführt — nur diese Ergebnisse verwenden):
+${webText}
+${sourceLines ? `\nGefundene Web-Quellen:\n${sourceLines}` : ''}
+
+ANWEISUNG INTERNET-MODUS:
+- Die GA-Analyse im Hauptteil bleibt unverändert und hat Vorrang.
+- Fügen Sie am Ende einen eigenen Abschnitt "## Ergänzung aus dem Internet" hinzu.
+- Nutzen Sie ausschließlich die obigen Web-Recherche-Ergebnisse — erfinden Sie keine weiteren Web-Quellen.
+- Kennzeichnen Sie jede Internet-Quelle mit [Web: Titel](URL).
+- Wenn die Web-Recherche nichts Relevantes liefert, schreiben Sie: "Keine belastbare Internet-Ergänzung ermittelt."`;
+      }
+    } else {
+      const noWebSection = chatMode
+        ? `Fügen Sie am Ende den Abschnitt "## Ergänzung aus dem Internet" hinzu mit dem Satz:
+"Keine belastbare Internet-Ergänzung ermittelt."
+Erfinden Sie keine Internet-Quellen. Die Chat-Antwort im Hauptteil bleibt dialogisch.`
+        : `Fügen Sie am Ende den Abschnitt "## Ergänzung aus dem Internet" hinzu mit dem Satz:
+"Keine belastbare Internet-Ergänzung ermittelt."
+Erfinden Sie keine Internet-Quellen.`;
+      prompt += `
+
+INTERNET-MODUS:
+Eine Web-Recherche war nicht verfügbar oder lieferte keine Ergebnisse.
+${noWebSection}`;
+      if (webContext?.error) {
+        console.log(`[INTERNET] Keine Web-Kontextdaten für Analyse (${webContext.error})`);
+      }
+    }
+  }
+
+  if (conversationHistory && conversationHistory.length > 0) {
+    prompt = buildConversationPrefix(conversationHistory) + prompt;
+    console.log(`[ANALYSIS] Konversationsverlauf: ${conversationHistory.length} Turns`);
+  }
+
+  if (useFormalAddress) {
+    prompt = buildFormalAddressBlock() + prompt;
+  }
   
   // Bestimme maxTokens basierend auf Modus
   const effectiveMaxTokens = thematicMode === 'broad' ? maxTokens['broad']
                             : thematicMode === 'quote' ? maxTokens['quote']
                             : thematicMode === 'essay' ? maxTokens['essay']
                             : thematicMode === 'recherche' ? maxTokens['recherche']
+                            : thematicMode === 'chat' || (thematicMode === 'internet' && chatMode) ? maxTokens['chat']
                             : maxTokens['ausführlich'];
 
   // Modell pro Modus aus .env (mit sinnvollen Defaults).
-  // Tiefe/Essay -> Opus 4.8 (qualitative Synthese), Zitat -> Sonnet 4.6 (schnell),
-  // Zitat-Eskalation -> Opus 4.8, Breite -> Gemini 2.5 Pro (großer Kontext).
+  // Chat/Konversation + Tiefe/Internet -> Sonnet 4.6 (schnell, kosteneffizient),
+  // Essay/Recherche -> Opus 4.8 (tiefe Synthese), Zitat -> Sonnet 4.6 mit Opus-Eskalation,
+  // Breite -> Gemini 2.5 Pro (großer Kontext).
   const providerNameLower = (provider.name || '').toLowerCase();
+  const hasConversation = Array.isArray(conversationHistory) && conversationHistory.length > 0;
+  const isChatContext = !!chatMode || hasConversation;
+  const synthesisModel = process.env.CLAUDE_MODEL_SYNTHESIS || 'claude-opus-4-8';
+  const chatModel = process.env.CLAUDE_MODEL_CHAT || 'claude-sonnet-4-6';
+  const deepModel = process.env.CLAUDE_MODEL_DEEP || 'claude-sonnet-4-6';
+  const quoteModel = process.env.CLAUDE_MODEL_QUOTE || 'claude-sonnet-4-6';
   let modelForMode = null;
   if (providerNameLower === 'claude') {
-    if (thematicMode === 'deep' || thematicMode === 'essay' || thematicMode === 'recherche') {
-      modelForMode = process.env.CLAUDE_MODEL_DEEP || 'claude-opus-4-8';
+    if (thematicMode === 'essay' || thematicMode === 'recherche') {
+      modelForMode = synthesisModel;
     } else if (thematicMode === 'quote') {
-      // Zitat nutzt jetzt ebenfalls Opus 4.8 (wie Tiefe/Essay)
-      modelForMode = process.env.CLAUDE_MODEL_QUOTE || 'claude-opus-4-8';
+      modelForMode = quoteModel;
+    } else if (thematicMode === 'chat' || (thematicMode === 'internet' && chatMode)) {
+      modelForMode = chatModel;
+    } else if (isChatContext && (thematicMode === 'deep' || thematicMode === 'internet')) {
+      modelForMode = chatModel;
+    } else if (thematicMode === 'deep' || thematicMode === 'internet') {
+      modelForMode = deepModel;
     }
   } else if (providerNameLower === 'gemini') {
     if (thematicMode === 'broad') {
@@ -5973,7 +6247,7 @@ ANALYSE:`;
     };
     if (modelForMode) baseCallOptions.model = modelForMode;
 
-    console.log(`[ANALYSIS] Provider=${provider.name}, Modell=${modelForMode || '(provider-default)'}, Modus=${thematicMode}`);
+    console.log(`[ANALYSIS] Provider=${provider.name}, Modell=${modelForMode || '(provider-default)'}, Modus=${thematicMode}${isChatContext ? ', Chat' : ''}`);
 
     let analysisText;
     let analysisViaFallback = false;
@@ -6083,6 +6357,7 @@ ANALYSE:`;
 }
 
 function addClickableReferences(text, results) {
+  const escapeHtmlAttr = (s) => String(s).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;');
   
   // Bereich der "Weitere relevante Quellen"-Sektion ermitteln, um dort Klammern zu vermeiden
   const sourcesHeading = '## Weitere relevante Quellen';
@@ -6158,7 +6433,14 @@ function addClickableReferences(text, results) {
       const cleanIndex = chunkData.index.replace(/^\^/, '');
       // Entferne Klammern aus dem ursprünglichen Text
       const cleanIdPart = idPart.replace(/^\(|\)$/g, '');
-      const anchor = `<a href="#" class="ga-reference" data-id="${chunkData.id}" data-index="${cleanIndex}" data-file-name="${chunkData.fileName || ''}">${cleanIdPart}</a>`;
+      let quoteForHighlight = '';
+      if (chunkData.content) {
+        quoteForHighlight = String(chunkData.content).replace(/\s+/g, ' ').trim().slice(0, 500);
+      }
+      const quoteAttr = quoteForHighlight.length >= 5
+        ? ` data-quote-text="${escapeHtmlAttr(quoteForHighlight)}"`
+        : '';
+      const anchor = `<a href="#" class="ga-reference" data-id="${chunkData.id}" data-index="${cleanIndex}" data-file-name="${chunkData.fileName || ''}"${quoteAttr}>${cleanIdPart}</a>`;
       // In der "Weitere relevante Quellen"-Sektion keine Klammern um die Links
       const inSourcesSection = sourcesStart !== -1 && matchInfo.position >= sourcesStart && (sourcesEnd === -1 || matchInfo.position < sourcesEnd);
       const replacement = inSourcesSection ? ` ${anchor}` : ` (${anchor})`;
@@ -6251,6 +6533,18 @@ async function resolveRechercheScope(sourceType, themeArea, gaFilter) {
   }
 
   return { gaFilter: effective.length ? effective : '', themeKeywords };
+}
+
+// Cache-Tiefe: Recherche und andere Modi mit Quellenart/Themenbereich trennen.
+function buildThematicCacheDepth(thematicMode, sourceType, themeArea, fallbackDepth) {
+  const themeSeg = (themeArea || 'alle').toLowerCase();
+  if (thematicMode === 'recherche') {
+    return `recherche:${sourceType}:${themeSeg}`;
+  }
+  if (thematicMode !== 'chat' && (sourceType !== 'alle' || (themeArea && themeArea !== 'alle'))) {
+    return `${thematicMode}:${sourceType}:${themeSeg}`;
+  }
+  return fallbackDepth;
 }
 
 // Parst die JSON-Ausgabe des Recherche-Prompts, validiert die Referenzen gegen
@@ -11689,14 +11983,20 @@ app.post('/api/hybrid-search', async (req, res) => {
 
 app.post('/api/thematic-hybrid-search', async (req, res) => {
   try {
-    const { query, limit = 100, gaFilter = '', skipCache = false, preferredProvider = null, thematicMode = 'deep', sourceType = 'alle', themeArea = '' } = req.body;
+    const { query, limit = 100, gaFilter = '', skipCache = false, preferredProvider = null, thematicMode = 'deep', sourceType = 'alle', themeArea = '', conversationHistory = [], chatMode = false } = req.body;
     const effectiveDepth = 'ausführlich';
+    const hasConversation = Array.isArray(conversationHistory) && conversationHistory.length > 0;
+    const effectiveSkipCache = skipCache || hasConversation || thematicMode === 'internet' || thematicMode === 'chat';
+    const useFormalAddress = !!chatMode || hasConversation;
     
     // Log Analyse-Modus
     const modeLabel = thematicMode === 'deep' ? 'Tiefe Analyse (Claude)'
                     : thematicMode === 'quote' ? 'Zitatsuche (Claude)'
                     : thematicMode === 'essay' ? 'Essay – Synthese & Belege (Claude Opus)'
                     : thematicMode === 'recherche' ? 'Recherche – tabellarische Sammlung (Claude Opus)'
+                    : thematicMode === 'internet' && chatMode ? 'Chat + Internet (Claude Sonnet + Web-Suche)'
+                    : thematicMode === 'internet' ? 'Tiefe Analyse + Internet (Claude + Web-Suche)'
+                    : thematicMode === 'chat' ? 'Chat (dialogisch, Claude Sonnet)'
                     : 'Breite Sammlung (Gemini)';
     console.log(`[THEMATIC] Modus: ${modeLabel}, Provider: ${preferredProvider || 'auto'}, Limit: ${limit}`);
     
@@ -11707,24 +12007,22 @@ app.post('/api/thematic-hybrid-search', async (req, res) => {
                            req.ip === '127.0.0.1';
     
     // Themensuchen werden nur bei lokalem Server gespeichert
-    const shouldCache = isLocalRequest && !skipCache;
+    const shouldCache = isLocalRequest && !effectiveSkipCache;
 
-    // RECHERCHE-MODUS: Quellenart (Schriften/Vortraege) -> effektiver GA-Filter,
-    // Themenbereich -> Keywords zur weichen Retrieval-Anreicherung.
+    // Quellenart (Schriften/Vortraege) -> effektiver GA-Filter,
+    // Themenbereich -> Keywords zur weichen Retrieval-Anreicherung (alle oberen Modi).
     let effectiveGaFilter = gaFilter;
-    let rechercheThemeKeywords = [];
-    if (thematicMode === 'recherche') {
+    let thematicScopeKeywords = [];
+    if (thematicMode !== 'chat') {
       const scope = await resolveRechercheScope(sourceType, themeArea, gaFilter);
       effectiveGaFilter = scope.gaFilter;
-      rechercheThemeKeywords = scope.themeKeywords;
-      console.log(`[RECHERCHE] sourceType=${sourceType}, themeArea=${themeArea || '-'}, GA-Baende=${Array.isArray(effectiveGaFilter) ? effectiveGaFilter.length : 0}, themeKeywords=${rechercheThemeKeywords.length}`);
+      thematicScopeKeywords = scope.themeKeywords;
+      if (sourceType !== 'alle' || themeArea) {
+        console.log(`[THEMATIC-SCOPE] mode=${thematicMode}, sourceType=${sourceType}, themeArea=${themeArea || '-'}, GA-Baende=${Array.isArray(effectiveGaFilter) ? effectiveGaFilter.length : 0}, themeKeywords=${thematicScopeKeywords.length}`);
+      }
     }
 
-    // Cache-Tiefe: fuer Recherche sourceType/themeArea einbeziehen, damit
-    // unterschiedliche Auswahlen (und andere Modi) nicht kollidieren.
-    const cacheDepth = thematicMode === 'recherche'
-      ? `recherche:${sourceType}:${(themeArea || 'alle').toLowerCase()}`
-      : effectiveDepth;
+    const cacheDepth = buildThematicCacheDepth(thematicMode, sourceType, themeArea, effectiveDepth);
     
     // Konsolidierte Hybrid-Cache-Logik
     const cacheKey = generateThematicCacheKey(query, cacheDepth, limit, effectiveGaFilter);
@@ -11756,6 +12054,7 @@ app.post('/api/thematic-hybrid-search', async (req, res) => {
     // Im Quote-Modus suchen wir gezielter, weil die Anfrage oft nur den Sinn,
     // nicht aber Steiners Originalwortlaut enthält.
     const isQuoteMode = thematicMode === 'quote';
+    const retrievalMode = (thematicMode === 'internet' && chatMode) ? 'chat' : thematicMode;
 
     // === PARALLEL-PHASE ===
     // Drei unabhängige async-Calls (zwei LLM-Calls + ein Embedding-Call) gleichzeitig
@@ -11766,13 +12065,15 @@ app.post('/api/thematic-hybrid-search', async (req, res) => {
     const semTopN = isQuoteMode ? 50 : 30;
     // Absatz-Embeddings: höhere Schwelle (Absätze sind spezifischer als Summaries),
     // im Essay-Modus mehr Treffer (großzügigerer Pool für Belege).
-    const paraThreshold = thematicMode === 'essay' ? 0.50
+    const paraThreshold = retrievalMode === 'essay' ? 0.50
+                        : retrievalMode === 'chat' ? 0.52
                         : isQuoteMode ? 0.55
                         : 0.55;
-    const paraTopN = thematicMode === 'essay' ? 40
+    const paraTopN = retrievalMode === 'essay' ? 40
+                   : retrievalMode === 'chat' ? 18
                    : isQuoteMode ? 30
                    : 25;
-    const [expandedTerms, phrases, lectureSimilarities, paragraphSimilarities] = await Promise.all([
+    const [expandedTerms, phrases, lectureSimilarities, paragraphSimilarities, webContext] = await Promise.all([
       expandQueryWithLLM(query).catch(err => {
         console.warn('[THEMATIC] Query-Expansion fehlgeschlagen:', err.message);
         return [];
@@ -11790,14 +12091,20 @@ app.post('/api/thematic-hybrid-search', async (req, res) => {
       findSemanticallySimilarParagraphs(query, effectiveGaFilter, paraThreshold, paraTopN).catch(err => {
         console.warn('[THEMATIC] Absatz-Embedding-Anreicherung fehlgeschlagen:', err.message);
         return {};
-      })
+      }),
+      thematicMode === 'internet'
+        ? fetchThematicWebContext(query).catch(err => {
+            console.warn('[INTERNET] Web-Suche fehlgeschlagen:', err.message);
+            return { text: '', sources: [], error: err.message };
+          })
+        : Promise.resolve(null)
     ]);
     const tParallel = Date.now() - tParallelStart;
 
-    // Recherche-Modus: Themenbereich-Keywords als zusaetzliche Expansionsbegriffe
+    // Themenbereich-Keywords als zusaetzliche Expansionsbegriffe
     // beigeben (weiche thematische Fokussierung, keine harte Exklusion).
-    if (thematicMode === 'recherche' && rechercheThemeKeywords.length > 0) {
-      for (const kw of rechercheThemeKeywords) {
+    if (thematicScopeKeywords.length > 0) {
+      for (const kw of thematicScopeKeywords) {
         if (kw && !expandedTerms.includes(kw)) expandedTerms.push(kw);
       }
     }
@@ -12102,14 +12409,14 @@ app.post('/api/thematic-hybrid-search', async (req, res) => {
     const finalSemCount = topResults.filter(r => topSemanticKeys.has(`${r.ID}-${r.index}`)).length;
     console.log(`[THEMATIC] Ergebnis-Selektion: ${exactPhraseHits.length} exakte Phrasen, ${topSemanticHits.length} semantische Top-Treffer, ${directResults.length} direkte, ${indirectResults.length} indirekte → Top ${topResults.length} (davon ${topResults.filter(r => r.quoteExactMatch).length} exakte Phrasen-Treffer, ${finalSemCount} sem. Top-Treffer, Quote-Modus=${isQuoteMode})`);
 
-    // Recherche-Modus: harter Scope-Filter, damit die semantische Vortrags-Anreicherung
-    // keine Baende ausserhalb der gewaehlten Quellenart/GA-Auswahl einschleust.
-    if (thematicMode === 'recherche' && Array.isArray(effectiveGaFilter) && effectiveGaFilter.length > 0) {
+    // Harter Scope-Filter bei Quellenart (Schriften/Vortraege), damit die semantische
+    // Vortrags-Anreicherung keine Baende ausserhalb der gewaehlten Quellenart einschleust.
+    if (thematicMode !== 'chat' && sourceType !== 'alle' && Array.isArray(effectiveGaFilter) && effectiveGaFilter.length > 0) {
       const beforeScope = topResults.length;
       const scopeUpper = effectiveGaFilter.map(f => String(f).toUpperCase());
       topResults = topResults.filter(r => r.ID && scopeUpper.some(f => r.ID.toUpperCase().startsWith(f)));
       if (topResults.length !== beforeScope) {
-        console.log(`[RECHERCHE] Scope-Filter angewendet: ${beforeScope} -> ${topResults.length} Quellen`);
+        console.log(`[THEMATIC-SCOPE] Scope-Filter angewendet: ${beforeScope} -> ${topResults.length} Quellen`);
       }
     }
 
@@ -12121,7 +12428,7 @@ app.post('/api/thematic-hybrid-search', async (req, res) => {
       console.error('[ANALYTICS] Fehler beim Tracking der Themen-Suche:', err.message);
     });
 
-    let analysis = await generateAnalysis(query, topResults, effectiveDepth, preferredProvider, thematicMode);
+    let analysis = await generateAnalysis(query, topResults, effectiveDepth, preferredProvider, thematicMode, conversationHistory, useFormalAddress, chatMode, webContext);
 
     // Recherche-Modus: Roh-JSON in strukturierte, validierte Tabellendaten umwandeln.
     let rechercheData = null;
@@ -12150,9 +12457,16 @@ app.post('/api/thematic-hybrid-search', async (req, res) => {
 
     if (rechercheData) {
       searchResult.recherche = rechercheData;
-      // Scope (Quellenart/Themenbereich) mitspeichern, damit eine gespeicherte
-      // Recherche im linken Panel exakt wiederhergestellt werden kann.
-      searchResult.rechercheScope = { sourceType, themeArea };
+    }
+    if (thematicMode !== 'chat') {
+      // Scope (Quellenart/Themenbereich) mitspeichern, damit gespeicherte
+      // Abfragen im linken Panel exakt wiederhergestellt werden koennen.
+      searchResult.rechercheScope = { sourceType, themeArea: themeArea || '' };
+    }
+
+    if (thematicMode === 'internet') {
+      searchResult.webSources = webContext?.sources || [];
+      searchResult.internetUsed = !!(webContext?.text);
     }
 
     // Speichere Ergebnis nur bei localhost

@@ -221,7 +221,7 @@ _obsidianBC.onmessage = function(e) {
     body.dark-mode .thematic-input {
       background-color: #333;
       color: var(--dark-text-color);
-      border-color: #555;
+      border-color: #666;
     }
     body.dark-mode .filter-dropdown option {
     background-color: #333;
@@ -1380,9 +1380,9 @@ body:not(.is-local) #sidebar-action-buttons {
   /* Verwendet allgemeine Scrollbar-Regeln wie "Zuletzt gesucht" */
 }
 
-    /* Abfrage-Tab: geringerer Abstand oben zwischen Resize-Handle und "Beispiele"-Liste */
-    body.tab-thematic-active #sidebar-content,
-    body:has(.tab-button.active[onclick="switchTab('thematic')"]) #sidebar-content {
+    /* Abfrage-Tab: geringerer Abstand oben (Chat-Modus: padding in thematic-chat-ui.css) */
+    body.tab-thematic-active:not(.thematic-chat-enabled) #sidebar-content,
+    body:has(.tab-button.active[onclick="switchTab('thematic')"]):not(.thematic-chat-enabled) #sidebar-content {
       padding-top: 1rem !important;
     }
 
@@ -3330,13 +3330,23 @@ gap: 4px !important;
       padding: 5px 10px 10px 10px;
       margin: 0px 0;
       box-sizing: border-box;
-      border: 1px solid var(--link-color);
+      border: 1px solid #aaa;
       background: var(--background-color);
       font-size: 12px;
       min-height: 85px;
       resize: vertical;
       border-radius: 4px;
       line-height: 15px; 
+    }
+
+    .thematic-input:focus {
+      outline: none;
+      border: 1px solid var(--accent-color, #467886);
+      box-shadow: none;
+    }
+
+    body.dark-mode .thematic-input:focus {
+      border-color: var(--accent-color, #6BA3B8);
     }
     
     .thematic-input::placeholder {
@@ -3560,7 +3570,7 @@ gap: 4px !important;
       padding: 8px;
       margin: 2px 0;
       box-sizing: border-box;
-      border: 1px solid #ccc;
+      border: 1px solid #aaa;
       background: var(--background-color);
       font-size: 0.8em;
     }
@@ -7673,7 +7683,10 @@ body.local-mode #texte-select-all-label { display: inline-flex !important; }
 </div>
 </div>
 <div class="tab-content" id="thematic-tab">
+<!-- THEMATIC-CHAT-UI: legacy textarea (fallback when chat disabled) -->
+<div id="thematic-query-legacy">
 <textarea class="thematic-input" id="thematicQuery" onkeydown="handleThematicKeydown(event)" placeholder="Stellen Sie eine thematische Frage. Wichtige Suchworte in Anführungszeichen. Ihre Frage und die Antwort werden nicht aufgezeichnet, können aber bei Anmeldung als Mitglied gespeichert werden."></textarea>
+</div>
 <div class="semantic-options">
 <div class="filter-row">
 <div class="custom-dropdown" id="thematicGAFilterContainer">
@@ -7684,33 +7697,37 @@ body.local-mode #texte-select-all-label { display: inline-flex !important; }
   <div class="custom-dropdown-list" id="thematicGAFilterList"></div>
 </div>
 <!-- Analyse-Modus Auswahl: Tiefe/Breite untereinander, Zitat rechts daneben -->
-<div style="display: flex; align-items: flex-start; gap: 12px; margin-left: 2px;">
+<div id="thematic-mode-options" style="display: flex; align-items: flex-start; gap: 12px; margin-left: 2px;">
   <div style="display: flex; flex-direction: column; gap: 2px;">
     <label style="display: flex; align-items: center; gap: 3px; cursor: pointer; font-size: 0.85em;" title="Tiefe: Qualitative Tiefenanalyse mit wörtlichen Zitaten und Quellenbezug. Findet das Retrieval nur thematisch ferne Stellen, meldet der Modus bewusst „keine relevanten Stellen“, statt zu raten (Standard)">
-      <input type="radio" name="thematicMode" value="deep" checked style="accent-color: var(--accent-color); width: 14px; height: 14px; cursor: pointer;">
+      <input type="radio" name="thematicMode" value="deep" onchange="updateRechercheControlsVisibility()" style="accent-color: var(--accent-color); width: 14px; height: 14px; cursor: pointer;">
       <span style="color: var(--text-color); font-weight: 500;">Tiefe</span>
     </label>
     <label style="display: flex; align-items: center; gap: 3px; cursor: pointer; font-size: 0.85em;" title="Breite: Umfassende Quellensammlung mit großem Kontextfenster – listet viele Fundstellen breit auf und ist toleranter gegenüber schwächeren Treffern als die Tiefenanalyse">
-      <input type="radio" name="thematicMode" value="broad" style="accent-color: var(--accent-color); width: 14px; height: 14px; cursor: pointer;">
+      <input type="radio" name="thematicMode" value="broad" onchange="updateRechercheControlsVisibility()" style="accent-color: var(--accent-color); width: 14px; height: 14px; cursor: pointer;">
       <span style="color: var(--text-color); font-weight: 500;">Breite</span>
     </label>
   </div>
   <div style="display: flex; flex-direction: column; gap: 2px;">
     <label style="display: flex; align-items: center; gap: 3px; cursor: pointer; font-size: 0.85em;" title="Zitatsuche: Findet ein bestimmtes Zitat anhand des sinngemäßen Inhalts, wenn der genaue Wortlaut unbekannt ist">
-      <input type="radio" name="thematicMode" value="quote" style="accent-color: var(--accent-color); width: 14px; height: 14px; cursor: pointer;">
+      <input type="radio" name="thematicMode" value="quote" onchange="updateRechercheControlsVisibility()" style="accent-color: var(--accent-color); width: 14px; height: 14px; cursor: pointer;">
       <span style="color: var(--text-color); font-weight: 500;">Zitat</span>
     </label>
     <label style="display: flex; align-items: center; gap: 3px; cursor: pointer; font-size: 0.85em;" title="Essay: Mehrstufige Synthese mit expliziter Trennung von belegten Aussagen (klickbar verlinkt) und interpretierenden Deutungen (philosophiegeschichtliche Einordnungen, eigene Lesarten)">
-      <input type="radio" name="thematicMode" value="essay" style="accent-color: var(--accent-color); width: 14px; height: 14px; cursor: pointer;">
+      <input type="radio" name="thematicMode" value="essay" onchange="updateRechercheControlsVisibility()" style="accent-color: var(--accent-color); width: 14px; height: 14px; cursor: pointer;">
       <span style="color: var(--text-color); font-weight: 500;">Essay</span>
     </label>
   </div>
-  <div style="display: flex; flex-direction: column; gap: 6px;">
+  <div style="display: flex; flex-direction: column; gap: 2px;">
     <label style="display: flex; align-items: center; gap: 3px; cursor: pointer; font-size: 0.85em;" title="Recherche: Sammelt möglichst viele Aussagen Steiners zum Thema als nach Unterthemen gegliederte, sortier- und filterbare Tabelle (Aussage | Zitat mit GA-Link | Jahr/Datum | Relevanz)">
       <input type="radio" name="thematicMode" value="recherche" onchange="updateRechercheControlsVisibility()" style="accent-color: var(--accent-color); width: 14px; height: 14px; cursor: pointer;">
       <span style="color: var(--text-color); font-weight: 500;">Recherche</span>
     </label>
-    <button class="depth-btn primary" id="thematicSearchBtn" onclick="performThematicSearch()" style="align-self: flex-end; padding: 1px 12px; font-size: 0.85em; line-height: 1.2; min-height: 0; height: auto;">
+    <label id="thematic-header-internet-option" style="display: flex; align-items: center; gap: 3px; cursor: pointer; font-size: 0.85em;" title="Internet: Tiefe GA-Analyse mit ergänzender Recherche im öffentlichen Internet (Web-Quellen werden gesondert gekennzeichnet)">
+      <input type="radio" name="thematicMode" value="internet" style="accent-color: var(--accent-color); width: 14px; height: 14px; cursor: pointer;">
+      <span style="color: var(--text-color); font-weight: 500;">+ Internet</span>
+    </label>
+    <button class="depth-btn primary" id="thematicSearchBtn" onclick="performThematicSearch()" style="align-self: flex-end; margin-top: 4px; padding: 1px 12px; font-size: 0.85em; line-height: 1.2; min-height: 0; height: auto;">
       Suchen
     </button>
   </div>
@@ -7792,6 +7809,55 @@ Meine Abfragen
 <div id="thematicSearchInfo" style="font-size: 0.85em; color: #666; margin-top: 0.5rem; margin-bottom: 0.3rem; padding-bottom: 0.5rem;">
 <span id="thematicServerInfo"></span>
 </div>
+<!-- THEMATIC-CHAT-UI: chat panel (shown when thematic-chat-ui.js enabled) -->
+<div id="thematic-chat-panel">
+  <div class="thematic-chat-header" style="position: relative;">
+    <div class="thematic-chat-mode-radios">
+      <label class="thematic-chat-mode-option" style="display: flex; align-items: center; gap: 3px; cursor: pointer; font-size: 0.85em;" title="Dialogischer Chat: kurze, gesprächige Antworten auf Basis der GA">
+        <input type="radio" name="thematicMode" value="chat" id="thematicChatMode" checked onchange="updateRechercheControlsVisibility()">
+        <span class="thematic-chat-header-title" style="color: var(--text-color); font-weight: 500;">Chat</span>
+      </label>
+      <label class="thematic-chat-internet-option" id="thematicChatInternetLabel" style="display: flex; align-items: center; gap: 3px; cursor: pointer; font-size: 0.85em;" title="Ergänzende Web-Recherche (nur im Chat-Modus)">
+        <input type="checkbox" id="thematicChatInternet">
+        <span style="color: var(--text-color); font-weight: 500;">+ Internet</span>
+      </label>
+    </div>
+    <div class="thematic-chat-header-actions">
+      <button type="button" class="thematic-chat-icon-btn" id="thematic-chat-menu-btn" title="Funktionsmenü">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+          <line x1="4" y1="7" x2="20" y2="7"/>
+          <line x1="4" y1="12" x2="20" y2="12"/>
+          <line x1="4" y1="17" x2="20" y2="17"/>
+        </svg>
+      </button>
+      <div id="thematic-chat-menu">
+        <div id="thematic-chat-menu-hint" class="thematic-chat-menu-hint" hidden>Speichern erfordert Mitglieder-Anmeldung</div>
+        <button type="button" id="thematic-chat-menu-save">Speichern</button>
+        <button type="button" id="thematic-chat-menu-saved">Meine Abfragen</button>
+        <button type="button" id="thematic-chat-menu-clear">Verlauf löschen</button>
+      </div>
+    </div>
+  </div>
+  <div id="thematic-chat-messages" class="thematic-chat-messages"></div>
+  <div id="thematic-chat-saved-overlay" class="thematic-chat-saved-overlay">
+    <button type="button" class="saved-back" id="thematic-chat-saved-back">← Zurück zum Chat</button>
+    <div id="thematic-chat-saved-list"></div>
+  </div>
+  <div class="thematic-chat-input-row">
+    <div class="thematic-chat-input-wrap">
+      <textarea id="thematicChatInput" rows="4" placeholder="Stellen Sie eine Frage oder folgen Sie nach… (Enter = senden)"></textarea>
+      <button type="button" id="thematicChatSendBtn" class="thematic-chat-action-btn" title="Senden" aria-label="Senden">
+        <span class="thematic-chat-btn-icon thematic-chat-btn-icon-send" aria-hidden="true">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5"/><path d="M5 12l7-7 7 7"/></svg>
+        </span>
+        <span class="thematic-chat-btn-icon thematic-chat-btn-icon-stop" aria-hidden="true">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="6" width="12" height="12" rx="1.5"/></svg>
+        </span>
+      </button>
+    </div>
+  </div>
+</div>
+<!-- /THEMATIC-CHAT-UI -->
 </div>
 
 <div class="tab-content" id="thematic2-tab" style="overflow-y: auto; max-height: calc(100vh - 200px);">
@@ -10688,7 +10754,11 @@ PDF
 
 
 
-<script src="app.js?v=20260708c"></script>
+<!-- THEMATIC-CHAT-UI (Revert: remove next 2 lines + hooks in app.js) -->
+<link rel="stylesheet" href="thematic-chat-ui.css?v=20260709c">
+<script src="thematic-chat-ui.js?v=20260709d"></script>
+
+<script src="app.js?v=20260709i"></script>
 </body>
 </html>
 
