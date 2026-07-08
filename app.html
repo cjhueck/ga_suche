@@ -3565,6 +3565,16 @@ gap: 4px !important;
       font-size: 0.8em;
     }
 
+    .search-input:focus {
+      outline: none;
+      border: 1px solid var(--accent-color, #467886);
+      box-shadow: none;
+    }
+
+    body.dark-mode .search-input:focus {
+      border-color: var(--accent-color, #6BA3B8);
+    }
+
     .has-clear-btn {
       display: flex !important;
       align-items: stretch;
@@ -7353,6 +7363,16 @@ Wandtafeln
 <option value="">GA-Bände</option>
 </select>
 </div>
+<input
+  class="search-input"
+  id="gaVolumeSearch"
+  type="text"
+  autocomplete="off"
+  placeholder="GA-Nummer oder Titel …"
+  oninput="handleGAVolumeSearchInput()"
+  onkeydown="handleGAVolumeSearchKeydown(event)"
+  style="width: 100%; margin-bottom: 0.5rem; box-sizing: border-box; font-size: 0.85em; padding: 8px;"
+/>
 <div id="ga-volumes-info" style="font-size: 0.85em; color: var(--text-color);">
 <span id="ga-volumes-count">--</span>
 </div>
@@ -10668,7 +10688,7 @@ PDF
 
 
 
-<script src="app.js?v=20260708b"></script>
+<script src="app.js?v=20260708c"></script>
 </body>
 </html>
 
