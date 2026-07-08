@@ -13,6 +13,8 @@ body.thematic-chat-enabled.tab-thematic-active #sidebar-header {
   display: flex;
   flex-direction: column;
   overflow: hidden;
+  padding-top: 0.35rem;
+  padding-bottom: 0.3rem;
 }
 
 body.thematic-chat-enabled.tab-thematic-active .tab-container {
@@ -24,10 +26,8 @@ body.thematic-chat-enabled.tab-thematic-active .tab-container {
   margin-bottom: 0;
 }
 
-body.thematic-chat-enabled.tab-thematic-active #search-panel-toggle {
-  display: block;
-  flex-shrink: 0;
-  margin-top: 0;
+body.thematic-chat-enabled.tab-thematic-active .tab-container .tab-buttons {
+  margin-bottom: 0.65rem !important;
 }
 
 body.thematic-chat-enabled.tab-thematic-active #thematic-tab.tab-content.active {
@@ -36,7 +36,28 @@ body.thematic-chat-enabled.tab-thematic-active #thematic-tab.tab-content.active 
   flex: 0 0 auto;
   min-height: 0;
   overflow: hidden;
-  padding-bottom: 0;
+  padding-bottom: 0.15rem;
+  padding-top: 0;
+}
+
+body.thematic-chat-enabled.tab-thematic-active #thematic-tab .semantic-options {
+  margin: 6px 0 8px 0;
+}
+
+body.thematic-chat-enabled.tab-thematic-active #thematic-tab .filter-row {
+  margin-top: 2px;
+  gap: 8px;
+}
+
+body.thematic-chat-enabled.tab-thematic-active #rechercheControls {
+  flex-shrink: 0;
+  margin-top: 4px !important;
+}
+
+body.thematic-chat-enabled.tab-thematic-active #search-panel-toggle {
+  display: block;
+  flex-shrink: 0;
+  margin-top: 0;
 }
 
 body.thematic-chat-enabled.tab-thematic-active #thematic-query-legacy {
@@ -53,10 +74,6 @@ body.thematic-chat-enabled.tab-thematic-active #savedSearchButtons {
 
 body.thematic-chat-enabled.tab-thematic-active #thematicSearchInfo {
   display: none;
-}
-
-body.thematic-chat-enabled.tab-thematic-active #rechercheControls {
-  flex-shrink: 0;
 }
 
 body.thematic-chat-enabled.tab-thematic-active .semantic-options {
