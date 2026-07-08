@@ -5061,12 +5061,256 @@ function normalizeGANumber(gaNumber) {
         return this.getSelectedValues().join(',');
       }
     }
+
+    class SingleSelectSearchDropdown {
+      static _instances = new Map();
+      static _documentListenersBound = false;
+
+      constructor(containerId, buttonId, listId, placeholderText, options = {}) {
+        this.containerId = containerId;
+        this.buttonId = buttonId;
+        this.listId = listId;
+        this.placeholderText = placeholderText;
+        this.searchPlaceholder = options.searchPlaceholder || 'Suchen…';
+        this.container = document.getElementById(containerId);
+        this.button = document.getElementById(buttonId);
+        this.list = document.getElementById(listId);
+        const prev = SingleSelectSearchDropdown._instances.get(containerId);
+        this.selectedValue = prev ? prev.selectedValue : '';
+        this.searchQuery = '';
+        this.items = prev ? prev.items.slice() : [];
+
+        if (!this.container || !this.button || !this.list) {
+          console.error('[SINGLE-DROPDOWN-INIT-FAIL]', containerId);
+          return;
+        }
+        SingleSelectSearchDropdown._instances.set(containerId, this);
+        this.init();
+      }
+
+      _liveContainer() { return document.getElementById(this.containerId); }
+      _liveButton() { return document.getElementById(this.buttonId); }
+      _liveList() { return document.getElementById(this.listId); }
+
+      static _bindDocumentListenersOnce() {
+        if (SingleSelectSearchDropdown._documentListenersBound) return;
+        SingleSelectSearchDropdown._documentListenersBound = true;
+
+        document.addEventListener('click', (e) => {
+          for (const instance of SingleSelectSearchDropdown._instances.values()) {
+            const button = instance._liveButton();
+            if (button && (e.target === button || button.contains(e.target))) {
+              e.stopPropagation();
+              instance.toggle();
+              return;
+            }
+          }
+
+          for (const instance of SingleSelectSearchDropdown._instances.values()) {
+            const container = instance._liveContainer();
+            const list = instance._liveList();
+            if (container && (container.contains(e.target) || (list && list.contains(e.target)))) {
+              return;
+            }
+          }
+
+          for (const instance of SingleSelectSearchDropdown._instances.values()) {
+            instance.close();
+          }
+        });
+
+        window.addEventListener('resize', () => {
+          for (const instance of SingleSelectSearchDropdown._instances.values()) {
+            instance.close();
+          }
+        });
+      }
+
+      init() {
+        SingleSelectSearchDropdown._bindDocumentListenersOnce();
+        this.updateButtonLabel();
+      }
+
+      positionList() {
+        const button = this._liveButton();
+        const list = this._liveList();
+        if (!button || !list) return;
+        const rect = button.getBoundingClientRect();
+        list.style.top = rect.bottom + 'px';
+        list.style.left = rect.left + 'px';
+        list.style.minWidth = rect.width + 'px';
+        list.style.width = 'auto';
+        list.style.maxWidth = Math.max(rect.width, window.innerWidth - rect.left - 12) + 'px';
+      }
+
+      toggle() {
+        const container = this._liveContainer();
+        if (!container) return;
+        const isOpen = container.classList.contains('open');
+        document.querySelectorAll('.custom-dropdown.open').forEach(dd => {
+          dd.classList.remove('open');
+        });
+
+        if (!isOpen) {
+          this.searchQuery = '';
+          container.classList.add('open');
+          this.render();
+          this.positionList();
+          const input = this._liveList()?.querySelector('.custom-dropdown-search-input');
+          if (input) {
+            setTimeout(() => input.focus(), 0);
+          }
+        }
+      }
+
+      close() {
+        const container = this._liveContainer();
+        if (container) container.classList.remove('open');
+        this.searchQuery = '';
+      }
+
+      getFilteredItems() {
+        const q = String(this.searchQuery || '').trim();
+        if (!q) return this.items;
+        return this.items.filter(item => {
+          const ga = { number: item.value, title: item.label };
+          return typeof gaVolumeMatchesSearch === 'function'
+            ? gaVolumeMatchesSearch(ga, q)
+            : item.label.toLowerCase().includes(q.toLowerCase());
+        });
+      }
+
+      setItems(items) {
+        this.items = Array.isArray(items) ? items : [];
+        this.updateButtonLabel();
+      }
+
+      setSelectedValue(value) {
+        this.selectedValue = value || '';
+        this.updateButtonLabel();
+      }
+
+      setPlaceholder(text) {
+        this.placeholderText = text || '';
+        this.updateButtonLabel();
+      }
+
+      render() {
+        const list = this._liveList();
+        if (!list) return;
+        list.innerHTML = '';
+
+        const searchWrap = document.createElement('div');
+        searchWrap.className = 'custom-dropdown-search';
+        const searchInput = document.createElement('input');
+        searchInput.type = 'text';
+        searchInput.className = 'custom-dropdown-search-input';
+        searchInput.placeholder = this.searchPlaceholder;
+        searchInput.value = this.searchQuery;
+        searchInput.autocomplete = 'off';
+        searchInput.addEventListener('input', (e) => {
+          e.stopPropagation();
+          this.searchQuery = e.target.value;
+          this.renderItems(searchInput);
+        });
+        searchInput.addEventListener('click', (e) => e.stopPropagation());
+        searchInput.addEventListener('keydown', (e) => {
+          e.stopPropagation();
+          if (e.key === 'Enter') {
+            e.preventDefault();
+            const filtered = this.getFilteredItems();
+            if (filtered.length) this.selectValue(filtered[0].value);
+          } else if (e.key === 'Escape') {
+            this.close();
+          }
+        });
+        searchWrap.appendChild(searchInput);
+        list.appendChild(searchWrap);
+        this.renderItems(searchInput);
+      }
+
+      renderItems(preserveFocusInput) {
+        const list = this._liveList();
+        if (!list) return;
+        list.querySelectorAll('.custom-dropdown-item, .custom-dropdown-separator').forEach(el => el.remove());
+
+        const clearDiv = document.createElement('div');
+        clearDiv.className = 'custom-dropdown-item custom-dropdown-clear';
+        clearDiv.textContent = 'keine';
+        clearDiv.addEventListener('click', (e) => {
+          e.stopPropagation();
+          this.selectValue('');
+        });
+        list.appendChild(clearDiv);
+
+        const separator = document.createElement('div');
+        separator.className = 'custom-dropdown-separator';
+        list.appendChild(separator);
+
+        const filtered = this.getFilteredItems();
+        filtered.forEach((item) => {
+          const div = document.createElement('div');
+          div.className = 'custom-dropdown-item';
+          if (item.value === this.selectedValue) {
+            div.classList.add('selected');
+          }
+          div.dataset.value = item.value;
+          div.textContent = item.label;
+          div.title = item.label;
+          div.addEventListener('click', (e) => {
+            e.stopPropagation();
+            this.selectValue(item.value);
+          });
+          list.appendChild(div);
+        });
+
+        if (preserveFocusInput && document.activeElement === preserveFocusInput) {
+          preserveFocusInput.focus();
+        }
+      }
+
+      selectValue(value) {
+        this.selectedValue = value || '';
+        this.searchQuery = '';
+        this.updateButtonLabel();
+        this.close();
+        this.triggerChange();
+      }
+
+      updateButtonLabel() {
+        const button = this._liveButton();
+        if (!button) return;
+        const textSpan = button.querySelector('.custom-dropdown-text');
+        if (!textSpan) return;
+
+        textSpan.textContent = this.placeholderText;
+        textSpan.style.fontWeight = 'normal';
+        textSpan.style.color = '';
+
+        if (this.selectedValue) {
+          const item = this.items.find(i => i.value === this.selectedValue);
+          button.title = item ? item.label : this.selectedValue;
+        } else {
+          button.title = this.placeholderText;
+        }
+      }
+
+      triggerChange() {
+        const container = this._liveContainer();
+        if (!container) return;
+        container.dispatchEvent(new CustomEvent('singleselect-change', {
+          detail: { value: this.selectedValue }
+        }));
+      }
+    }
+    window.SingleSelectSearchDropdown = SingleSelectSearchDropdown;
     
     // Initialisiere Custom Dropdowns
     let yearFilterDropdown = null;
     let gaFilterDropdown = null;
     let advancedGAFilterDropdown = null;
     let thematicGAFilterDropdown = null;
+    let texteGAFilterDropdown = null;
     
     function initCustomDropdowns() {
       // Entferne alte Event-Listener, falls vorhanden (durch Klonen der Container)
@@ -5206,32 +5450,32 @@ function normalizeGANumber(gaNumber) {
         // Befülle normale Dropdowns in anderen Tabs
         const texteGAFilter = document.getElementById('texteGAFilter');
         const conceptOverviewGAFilter = document.getElementById('conceptOverviewGAFilter');
+        const texteGAItems = gaList.map(ga => ({
+          value: ga.number,
+          label: ga.title && ga.title !== ga.number ? `${ga.number} - ${ga.title}` : ga.number
+        }));
         if (texteGAFilter) {
-          // Speichere den aktuellen Wert, falls vorhanden
+          initTexteGAFilterDropdown();
           const currentValue = texteGAFilter.value;
-          
+
           texteGAFilter.innerHTML = '<option value="">GA-Band auswählen...</option>';
           gaList.forEach(ga => {
             const option = document.createElement('option');
             option.value = ga.number;
-            // Zeige Nummer und Titel (falls verfügbar und nicht identisch)
             option.textContent = ga.title && ga.title !== ga.number ? `${ga.number} - ${ga.title}` : ga.number;
             option.className = 'available-ga';
             texteGAFilter.appendChild(option);
           });
-          
-          // Stelle den vorherigen Wert wieder her, falls vorhanden
+
           if (currentValue) {
             texteGAFilter.value = currentValue;
           }
-          
-          // Entferne alle alten Event-Listener durch Klonen des Elements
-          const newTexteGAFilter = texteGAFilter.cloneNode(true);
-          newTexteGAFilter.value = texteGAFilter.value;
-          texteGAFilter.parentNode.replaceChild(newTexteGAFilter, texteGAFilter);
-          // Listener wird ausschließlich über initGAFilter() registriert
-          
+
+          if (texteGAFilterDropdown) {
+            texteGAFilterDropdown.setItems(texteGAItems);
+            texteGAFilterDropdown.setSelectedValue(texteGAFilter.value || '');
           }
+        }
         
         // Befülle Concept Overview GA-Filter
         if (conceptOverviewGAFilter) {
@@ -5292,7 +5536,54 @@ function normalizeGANumber(gaNumber) {
         }
     }
 
+    function hookTexteGAFilterValueSync() {
+      const texteGAFilter = document.getElementById('texteGAFilter');
+      if (!texteGAFilter || texteGAFilter._valueHooked) return;
+      texteGAFilter._valueHooked = true;
+      const descriptor = Object.getOwnPropertyDescriptor(HTMLSelectElement.prototype, 'value');
+      Object.defineProperty(texteGAFilter, 'value', {
+        get() { return descriptor.get.call(this); },
+        set(v) {
+          descriptor.set.call(this, v);
+          if (texteGAFilterDropdown) {
+            texteGAFilterDropdown.setSelectedValue(v || '');
+          }
+        },
+        configurable: true
+      });
+    }
+
+    function initTexteGAFilterDropdown() {
+      const container = document.getElementById('texteGAFilterContainer');
+      if (!container || container._texteDropdownInitialized) return;
+      container._texteDropdownInitialized = true;
+
+      texteGAFilterDropdown = new SingleSelectSearchDropdown(
+        'texteGAFilterContainer',
+        'texteGAFilterButton',
+        'texteGAFilterList',
+        'GA-Band auswählen...',
+        { searchPlaceholder: 'GA-Nummer oder Titel …' }
+      );
+
+      hookTexteGAFilterValueSync();
+
+      if (!container._singleselectListenerBound) {
+        container._singleselectListenerBound = true;
+        container.addEventListener('singleselect-change', (e) => {
+          const texteGAFilter = document.getElementById('texteGAFilter');
+          if (!texteGAFilter) return;
+          const selectedGA = e.detail.value || '';
+          const descriptor = Object.getOwnPropertyDescriptor(HTMLSelectElement.prototype, 'value');
+          descriptor.set.call(texteGAFilter, selectedGA);
+          texteGAFilter.dispatchEvent(new Event('change', { bubbles: true }));
+        });
+      }
+    }
+
     function initGAFilter() {
+      initTexteGAFilterDropdown();
+
       const texteGAFilter = document.getElementById('texteGAFilter');
 
       // Texte-Tab: Direkt GA-Übersicht öffnen bei Auswahl
@@ -5747,7 +6038,7 @@ let currentGANumber = null; // Speichert aktuell angezeigten GA-Band
 let gaVolumesLoading = false; // Verhindert doppeltes Laden
 let gaVolumesRetryCount = 0; // Zählt Retry-Versuche
 let selectedGABandFilter = null; // Filter für GA-Band-Auswahl im GA-Tab
-let gaVolumeSearchQuery = ''; // Textsuche GA-Nummer/Titel im GA-Tab
+let gaBandFilterDropdown = null;
 
 function gaVolumeMatchesSearch(ga, rawQuery) {
   const q = String(rawQuery || '').trim().toLowerCase();
@@ -5777,26 +6068,55 @@ function getFilteredGAVolumesForSidebar() {
       ga.number.toLowerCase() === selectedGABandFilter.toLowerCase()
     );
   }
-  if (gaVolumeSearchQuery) {
-    filteredData = filteredData.filter(ga => gaVolumeMatchesSearch(ga, gaVolumeSearchQuery));
-  }
   return filteredData;
 }
 
-function handleGAVolumeSearchInput() {
-  const el = document.getElementById('gaVolumeSearch');
-  gaVolumeSearchQuery = el ? el.value : '';
-  displayGAVolumesInSidebar();
+function hookGABandFilterValueSync() {
+  const gaBandFilter = document.getElementById('ga-band-filter-dropdown');
+  if (!gaBandFilter || gaBandFilter._valueHooked) return;
+  gaBandFilter._valueHooked = true;
+  const descriptor = Object.getOwnPropertyDescriptor(HTMLSelectElement.prototype, 'value');
+  Object.defineProperty(gaBandFilter, 'value', {
+    get() { return descriptor.get.call(this); },
+    set(v) {
+      descriptor.set.call(this, v);
+      if (gaBandFilterDropdown) {
+        gaBandFilterDropdown.setSelectedValue(v || '');
+      }
+    },
+    configurable: true
+  });
 }
 
-function handleGAVolumeSearchKeydown(event) {
-  if (!event || event.key !== 'Enter') return;
-  event.preventDefault();
-  const matches = getFilteredGAVolumesForSidebar();
-  if (matches.length >= 1 && typeof showGALectures === 'function') {
-    showGALectures(matches[0].number);
+function initGABandFilterDropdown() {
+  const container = document.getElementById('gaBandFilterContainer');
+  if (!container || container._gaBandDropdownInitialized) return;
+  if (typeof window.SingleSelectSearchDropdown !== 'function') return;
+  container._gaBandDropdownInitialized = true;
+
+  gaBandFilterDropdown = new window.SingleSelectSearchDropdown(
+    'gaBandFilterContainer',
+    'gaBandFilterButton',
+    'gaBandFilterList',
+    'GA-Bände',
+    { searchPlaceholder: 'GA-Nummer oder Titel …' }
+  );
+
+  hookGABandFilterValueSync();
+
+  if (!container._singleselectListenerBound) {
+    container._singleselectListenerBound = true;
+    container.addEventListener('singleselect-change', (e) => {
+      const gaBandFilter = document.getElementById('ga-band-filter-dropdown');
+      if (!gaBandFilter) return;
+      const selectedGA = e.detail.value || '';
+      const descriptor = Object.getOwnPropertyDescriptor(HTMLSelectElement.prototype, 'value');
+      descriptor.set.call(gaBandFilter, selectedGA);
+      handleGABandFilterChange(selectedGA);
+    });
   }
 }
+
 let selectedYearFilter = null; // Filter für Jahr-Auswahl im GA-Tab
 let selectedChalkboardsYearFilter = null; // Filter für Jahr-Auswahl bei Wandtafelzeichnungen
 let allChronologicalLectures = null; // Speichert alle geladenen chronologischen Vorträge
@@ -6003,7 +6323,7 @@ function displayGAVolumesInSidebar() {
   let filteredData = getFilteredGAVolumesForSidebar();
   
   // Prüfe ob alle Bände wieder angezeigt werden (kein Filter aktiv)
-  const isShowingAllVolumes = !selectedGABandFilter && !gaVolumeSearchQuery;
+  const isShowingAllVolumes = !selectedGABandFilter;
   
   // Wenn alle Bände wieder angezeigt werden, setze Viewer zurück
   if (isShowingAllVolumes) {
@@ -6084,6 +6404,8 @@ function populateGABandFilterDropdown(chalkboardsOnly = false) {
     console.warn('[GA-TAB] Dropdown nicht gefunden');
     return;
   }
+
+  initGABandFilterDropdown();
   
   // Speichere aktuellen Wert
   const currentValue = dropdown.value;
@@ -6092,11 +6414,8 @@ function populateGABandFilterDropdown(chalkboardsOnly = false) {
   const gasWithChalkboards = chalkboardsOnly ? getGAsWithChalkboards() : [];
   
   // Leere Dropdown
-  if (chalkboardsOnly) {
-    dropdown.innerHTML = '<option value="">Alle Tafeln</option>';
-  } else {
-    dropdown.innerHTML = '<option value="">GA-Bände</option>';
-  }
+  const placeholder = chalkboardsOnly ? 'Alle Tafeln' : 'GA-Bände';
+  dropdown.innerHTML = `<option value="">${placeholder}</option>`;
   
   // Sortiere GA-Bände nach Nummer (GA014 wird nicht angezeigt)
   let sortedGAs = [...gaVolumesData]
@@ -6117,6 +6436,11 @@ function populateGABandFilterDropdown(chalkboardsOnly = false) {
     });
     console.log(`[GA-DROPDOWN] Gefiltert auf ${sortedGAs.length} GAs mit Tafeln`);
   }
+
+  const gaBandItems = sortedGAs.map(ga => ({
+    value: ga.number,
+    label: `${ga.number} - ${ga.title}`
+  }));
   
   // Füge GA-Bände hinzu
   sortedGAs.forEach(ga => {
@@ -6127,16 +6451,24 @@ function populateGABandFilterDropdown(chalkboardsOnly = false) {
   });
   
   // Stelle vorherigen Wert wieder her falls vorhanden und gültig
+  let restoredValue = '';
   if (currentValue) {
     // Prüfe ob der Wert noch in der Liste ist
     const valueExists = Array.from(dropdown.options).some(opt => opt.value === currentValue);
     if (valueExists) {
       dropdown.value = currentValue;
+      restoredValue = currentValue;
     } else {
       // Wert existiert nicht mehr (z.B. weil GA keine Tafeln hat) - reset
       dropdown.value = '';
       selectedGABandFilter = null;
     }
+  }
+
+  if (gaBandFilterDropdown) {
+    gaBandFilterDropdown.setPlaceholder(placeholder);
+    gaBandFilterDropdown.setItems(gaBandItems);
+    gaBandFilterDropdown.setSelectedValue(restoredValue);
   }
 }
 

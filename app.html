@@ -3723,8 +3723,61 @@ gap: 4px !important;
     }
     
     #gaFilterList,
-    #advancedGAFilterList {
+    #advancedGAFilterList,
+    #texteGAFilterList,
+    #gaBandFilterList {
       width: auto;
+    }
+
+    #texteGAFilterList,
+    #gaBandFilterList {
+      max-width: calc(100vw - 12px);
+    }
+
+    #texteGAFilterList .custom-dropdown-item,
+    #gaBandFilterList .custom-dropdown-item {
+      overflow: visible;
+      text-overflow: clip;
+      max-width: none;
+    }
+
+    #texteGAFilterButton .custom-dropdown-text,
+    #gaBandFilterButton .custom-dropdown-text {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      flex: 1;
+      min-width: 0;
+    }
+
+    .custom-dropdown-search {
+      position: sticky;
+      top: 0;
+      z-index: 1;
+      padding: 6px 8px;
+      background: #FAF8F3 !important;
+      border-bottom: 1px solid #ddd;
+    }
+
+    body.dark-mode .custom-dropdown-search {
+      background: var(--sidebar-bg, #2a2a2a) !important;
+      border-bottom-color: #555;
+    }
+
+    .custom-dropdown-search-input {
+      width: 100%;
+      box-sizing: border-box;
+      font-size: 0.82em;
+      padding: 6px 8px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      background: var(--background-color);
+      color: var(--text-color);
+    }
+
+    .custom-dropdown-search-input:focus {
+      outline: none;
+      border-color: var(--accent-color, #467886);
     }
     
     .custom-dropdown.open .custom-dropdown-list {
@@ -3744,12 +3797,13 @@ gap: 4px !important;
     }
     
     .custom-dropdown-item:hover {
-      background: #cce5ff !important;
+      background: color-mix(in srgb, var(--accent-color) 14%, transparent) !important;
+      color: inherit;
     }
     
     .custom-dropdown-item.selected {
-      background: #0078d4 !important;
-      color: #fff;
+      background: color-mix(in srgb, var(--accent-color) 22%, transparent) !important;
+      color: inherit;
     }
     
     .custom-dropdown-clear {
@@ -3794,12 +3848,13 @@ gap: 4px !important;
     }
     
     body.dark-mode .custom-dropdown-item:hover {
-      background-color: #2a4a5a !important;
+      background: color-mix(in srgb, var(--accent-color) 18%, transparent) !important;
+      color: inherit;
     }
     
     body.dark-mode .custom-dropdown-item.selected {
-      background-color: #1a5276 !important;
-      color: #fff;
+      background: color-mix(in srgb, var(--accent-color) 26%, transparent) !important;
+      color: inherit;
     }
     
     .radio-group {
@@ -7369,20 +7424,17 @@ Wandtafeln
 <select id="ga-year-filter-dropdown" class="filter-dropdown" onchange="handleYearFilterChange(this.value)" style="display: none; padding: 8px; font-size: 0.85em; border: 1.5px solid var(--accent-color); border-radius: 4px; background: var(--background-color); color: var(--text-color); cursor: pointer; width: 90px; flex-shrink: 0;">
 <option value="">Jahr</option>
 </select>
-<select id="ga-band-filter-dropdown" class="filter-dropdown" onchange="handleGABandFilterChange(this.value)" style="padding: 8px; font-size: 0.85em; border: 1.5px solid var(--accent-color); border-radius: 4px; background: var(--background-color); color: var(--text-color); cursor: pointer; flex: 1; min-width: 0; max-width: 100%;">
+<select id="ga-band-filter-dropdown" class="filter-dropdown" style="display: none;" aria-hidden="true" tabindex="-1">
 <option value="">GA-Bände</option>
 </select>
+<div class="custom-dropdown" id="gaBandFilterContainer" style="flex: 1; min-width: 0; max-width: 100%;">
+  <button type="button" class="filter-dropdown custom-dropdown-button" id="gaBandFilterButton" style="padding: 8px; font-size: 0.85em; border: 1.5px solid var(--accent-color); border-radius: 4px; background: var(--background-color); color: var(--text-color); cursor: pointer; width: 100%;">
+    <span class="custom-dropdown-text">GA-Bände</span>
+    <span class="custom-dropdown-arrow"></span>
+  </button>
+  <div class="custom-dropdown-list" id="gaBandFilterList"></div>
 </div>
-<input
-  class="search-input"
-  id="gaVolumeSearch"
-  type="text"
-  autocomplete="off"
-  placeholder="GA-Nummer oder Titel …"
-  oninput="handleGAVolumeSearchInput()"
-  onkeydown="handleGAVolumeSearchKeydown(event)"
-  style="width: 100%; margin-bottom: 0.5rem; box-sizing: border-box; font-size: 0.85em; padding: 8px;"
-/>
+</div>
 <div id="ga-volumes-info" style="font-size: 0.85em; color: var(--text-color);">
 <span id="ga-volumes-count">--</span>
 </div>
@@ -7634,9 +7686,16 @@ Wandtafeln
 <div class="tab-content" id="texte-tab">
 <div style="padding: 0;">
 <div class="filter-row" style="display: flex; align-items: center; gap: 8px;">
-<select class="filter-dropdown" id="texteGAFilter" style="flex: 1; max-width: 100%; min-width: 0;">
+<select class="filter-dropdown" id="texteGAFilter" style="display: none;" aria-hidden="true" tabindex="-1">
 <option value="">GA-Band auswählen...</option>
 </select>
+<div class="custom-dropdown" id="texteGAFilterContainer" style="flex: 1; max-width: 100%; min-width: 0;">
+  <button type="button" class="filter-dropdown custom-dropdown-button" id="texteGAFilterButton">
+    <span class="custom-dropdown-text">GA-Band auswählen...</span>
+    <span class="custom-dropdown-arrow"></span>
+  </button>
+  <div class="custom-dropdown-list" id="texteGAFilterList"></div>
+</div>
 <label id="texte-select-all-label" style="display: none; align-items: center; gap: 4px; font-size: 0.85em; cursor: pointer; flex-shrink: 0; color: var(--text-color);" title="Alle aktuell angezeigten Texte auswählen oder abwählen">
   <input type="checkbox" id="texte-select-all-checkbox" onchange="toggleSelectAllVisibleTexteLectures()" style="margin: 0; cursor: pointer;">
   <span>alle</span>
@@ -10758,7 +10817,7 @@ PDF
 <link rel="stylesheet" href="thematic-chat-ui.css?v=20260709h">
 <script src="thematic-chat-ui.js?v=20260709d"></script>
 
-<script src="app.js?v=20260709i"></script>
+<script src="app.js?v=20260709n"></script>
 </body>
 </html>
 
