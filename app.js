@@ -12727,7 +12727,7 @@ function scrollToChronologicalYear(year) {
       showLectureFromAdvancedSearch(lectureId, searchTerm, paragraphIndex);
     }
     
-    async function showLectureFromAdvancedSearch(lectureId, searchTerm, paragraphIndex = null, highlightSnippets = null) {
+    async function showLectureFromAdvancedSearch(lectureId, searchTerm, paragraphIndex = null, highlightSnippets = null, thematicHighlightAnchor = null) {
       // Essay-Modus erkennen: highlightSnippets ist als Array übergeben (auch wenn leer).
       // In diesem Fall werden:
       //   - keine Absatz-Klasse 'highlighted-paragraph' gesetzt
@@ -12744,7 +12744,7 @@ function scrollToChronologicalYear(year) {
         const gaNumber = gaMatch[1];
         if (isBookGANumber(gaNumber)) {
           // Für Bücher: Verwende showBookFromAdvancedSearch, Snippets weiterreichen
-          await showBookFromAdvancedSearch(gaNumber, searchTerm, paragraphIndex, highlightSnippets);
+          await showBookFromAdvancedSearch(gaNumber, searchTerm, paragraphIndex, highlightSnippets, thematicHighlightAnchor);
           return;
         }
       }
@@ -13027,11 +13027,23 @@ function scrollToChronologicalYear(year) {
               return out;
             };
             const termsToHighlight = useSnippetMode
-              ? expandSnippetFragments(highlightSnippets, 3)
+              ? expandSnippetFragments(
+                  (highlightSnippets || []).map(s => prepareThematicSnippetForMatch(s)).filter(s => s.length >= 3),
+                  3
+                )
               : (searchTerm && searchTerm.trim() ? [searchTerm.trim()] : []);
             const useSnippets = useSnippetMode; // Beibehalten für die flag-Logik unten
 
-            if (termsToHighlight.length > 0) {
+            const applySnippetHighlightHere = termsToHighlight.length > 0 &&
+              (!useSnippetMode || isTargetPara || targetParagraphIdx === null);
+
+            if (applySnippetHighlightHere) {
+              if (useSnippets) {
+                content = applyThematicSnippetHighlightsToHtml(content, highlightSnippets, {
+                  anchorChar: thematicHighlightAnchor,
+                  minLen: 3
+                });
+              } else {
               // Inline-Elemente, die mitten im Zitat-Quelltext stehen können —
               // vor allem Seitenumbruch-Spans wie
               //   <span class="page-break-container">…<span class="page-break-num">222</span><span class="page-break-bar">|</span></span>
@@ -13096,11 +13108,13 @@ function scrollToChronologicalYear(year) {
                 return out;
               };
 
-              termsToHighlight.forEach(rawTerm => {
+              let paraHighlightApplied = false;
+              for (const rawTerm of termsToHighlight) {
+                if (paraHighlightApplied) break;
                 const cleanTerm = rawTerm.trim();
                 const isExactMatch = cleanTerm.startsWith('"') && cleanTerm.endsWith('"');
                 const termToHighlight = isExactMatch ? cleanTerm.slice(1, -1) : cleanTerm;
-                if (!termToHighlight || termToHighlight.length < 3) return;
+                if (!termToHighlight || termToHighlight.length < 3) continue;
                 const flags = useSnippets ? 'gi' : (isExactMatch ? 'g' : 'gi');
                 const tryMatch = (subTerm) => {
                   if (!subTerm || subTerm.length < 3) return false;
@@ -13117,19 +13131,16 @@ function scrollToChronologicalYear(year) {
                     return false;
                   }
                 };
-                // Versuch 1: ganzes Fragment.
-                if (tryMatch(termToHighlight)) return;
-                // Versuch 2: bei Snippet-Mode auf Satz-/Komma-Grenzen splitten.
-                // (Klassischer Fall: LLM korrigiert einen Steiner-Druckfehler in
-                // einem Wort, ganzes Fragment matchet nicht mehr — die meisten
-                // Teilstücke aber doch.)
-                if (useSnippets) {
-                  const subParts = termToHighlight.split(/[.,;:]+\s+/)
-                    .map(s => s.trim().replace(/^[\s,;.:!?„"""'\u2018\u2019\u201C\u201D\u201E«»\-–—]+|[\s,;.:!?„"""'\u2018\u2019\u201C\u201D\u201E«»\-–—]+$/g, ''))
-                    .filter(s => s.length >= 12);
-                  subParts.forEach(p => tryMatch(p));
+                const attempts = useSnippets
+                  ? buildQuoteHighlightAttempts(termToHighlight)
+                  : [termToHighlight];
+                for (const attempt of attempts) {
+                  if (tryMatch(attempt)) {
+                    paraHighlightApplied = true;
+                    break;
+                  }
                 }
-              });
+              }
 
               // Sentinels in der Reihenfolge zurück auflösen: zuerst die
               // einzelnen Tags, dann die Page-Break-Blöcke.
@@ -13138,6 +13149,7 @@ function scrollToChronologicalYear(year) {
               let pbIdx = 0;
               workingHTML = workingHTML.replace(new RegExp(PB_RE_FRAG, 'g'), () => pbMarkers[pbIdx++] || '');
               content = workingHTML;
+              }
             }
             
             // Wenn kein searchTerm, aber currentKeywordText vorhanden und Ziel-Absatz: Markiere Keyword-Text
@@ -13169,6 +13181,15 @@ function scrollToChronologicalYear(year) {
           
           html += '</div>';
           summaryContent.innerHTML = html;
+
+          if (useSnippetMode && highlightSnippets && highlightSnippets.length > 0 && targetParagraphId) {
+            scheduleThematicSnippetHighlightReapply(
+              summaryContent,
+              targetParagraphId,
+              highlightSnippets,
+              thematicHighlightAnchor
+            );
+          }
           
           // Erkenne und formatiere Gedichte/kurze Zeilen (nach DOM-Rendering)
           setTimeout(() => {
@@ -13196,7 +13217,8 @@ function scrollToChronologicalYear(year) {
                 // Wenn der Ziel-Absatz Markierungen (<mark>) enthält:
                 // die erste Markierung vertikal zentrieren — das ist das,
                 // was der Nutzer sehen will. Sonst den ganzen Absatz.
-                const firstMarkInTarget = targetElement.querySelector('mark');
+                const firstMarkInTarget = targetElement.querySelector('mark.thematic-quote-mark') ||
+                  targetElement.querySelector('mark');
                 const scrollTo = firstMarkInTarget || targetElement;
                 scrollTo.scrollIntoView({ behavior: 'auto', block: 'center' });
 
@@ -13288,21 +13310,198 @@ function scrollToChronologicalYear(year) {
     }
     window.showLectureFromAdvancedSearch = showLectureFromAdvancedSearch;
 
+    const THEMATIC_HIGHLIGHT_MAX_SNIPPET = 400;
+    const THEMATIC_MARK_CLASS = 'thematic-quote-mark';
+    const THEMATIC_MARK_OPEN = '<mark class="thematic-quote-mark">';
+
+    function stripThematicQuoteMarksFromHtml(html) {
+      return String(html || '').replace(
+        /<mark class="thematic-quote-mark">([\s\S]*?)<\/mark>/gi,
+        '$1'
+      );
+    }
+
+    function capThematicSnippetForHighlight(raw, maxLen = THEMATIC_HIGHLIGHT_MAX_SNIPPET) {
+      const s = prepareThematicSnippetForMatch(raw);
+      if (!s) return '';
+      if (s.length <= maxLen) return s;
+      const cut = s.slice(0, maxLen);
+      const lastSpace = cut.lastIndexOf(' ');
+      return (lastSpace > maxLen * 0.5 ? cut.slice(0, lastSpace) : cut).trim();
+    }
+
+    function buildQuoteHighlightAttempts(quote) {
+      const attempts = [];
+      const addFromPrepared = (prepared) => {
+        if (!prepared || prepared.length < 8) return;
+        if (!attempts.includes(prepared)) attempts.push(prepared);
+        const words = prepared.split(/\s+/);
+        if (words.length <= 8) return;
+        for (let n = words.length - 1; n >= Math.max(8, Math.ceil(words.length * 0.72)); n--) {
+          const prefix = words.slice(0, n).join(' ');
+          if (prefix.length >= 35 && !attempts.includes(prefix)) attempts.push(prefix);
+        }
+      };
+      String(quote || '').split('|||').forEach(part => {
+        addFromPrepared(prepareThematicSnippetForMatch(part));
+      });
+      return attempts;
+    }
+
     function normalizeThematicQuoteSnippet(raw) {
       return String(raw || '').trim()
         .replace(/^[\s„"""'\u2018\u2019\u201A\u201B\u201C\u201D\u201E\u201F«»]+/, '')
         .replace(/[\s„"""'\u2018\u2019\u201A\u201B\u201C\u201D\u201E\u201F«»]+$/, '')
+        .replace(/(?:\s*(?:…|\.{2,3})\s*)+$/, '')
         .replace(/\s+/g, ' ')
         .trim();
+    }
+
+    function prepareThematicSnippetForMatch(raw) {
+      return normalizeThematicQuoteSnippet(String(raw || ''))
+        .replace(/\|(\d{1,4})\|/g, ' ')
+        .replace(/\s+/g, ' ')
+        .trim();
+    }
+
+    function applyThematicSnippetHighlightsToHtml(html, highlightSnippets, options = {}) {
+      const minLen = options.minLen != null ? options.minLen : 5;
+      const anchorChar = options.anchorChar != null ? options.anchorChar : null;
+      if (!html || !Array.isArray(highlightSnippets) || highlightSnippets.length === 0) return html;
+
+      const ESSAY_ELLIPSIS_RE = /\[\s*(?:\.\s*){2,}\.?\s*\]|\[\s*…\s*\]|\(\s*(?:\.\s*){2,}\.?\s*\)|\(\s*…\s*\)|\[[A-Za-zÄÖÜäöüß][A-Za-zÄÖÜäöüß. ]{0,28}\]/g;
+      const rawExpanded = [];
+      highlightSnippets.forEach(snip => {
+        const prepared = prepareThematicSnippetForMatch(snip);
+        if (!prepared) return;
+        ESSAY_ELLIPSIS_RE.lastIndex = 0;
+        if (ESSAY_ELLIPSIS_RE.test(prepared)) {
+          ESSAY_ELLIPSIS_RE.lastIndex = 0;
+          prepared.split(ESSAY_ELLIPSIS_RE).forEach(frag => {
+            const t = prepareThematicSnippetForMatch(frag);
+            if (t.length >= minLen) rawExpanded.push(t);
+          });
+        } else if (prepared.length >= minLen) {
+          rawExpanded.push(prepared);
+        }
+        ESSAY_ELLIPSIS_RE.lastIndex = 0;
+      });
+      const expandedSnippets = rawExpanded.filter(s => s.length >= minLen);
+      if (!expandedSnippets.length) return html;
+
+      const QUOTE_CHARS_RE = /[\u0022\u0027\u00AB\u00BB\u00B4\u2018\u2019\u201A\u201B\u201C\u201D\u201E\u201F\u2032\u2033\u2039\u203A]/;
+      const QUOTE_FLEX_CLASS = '[\u0022\u0027\u00AB\u00BB\u00B4\u2018\u2019\u201A\u201B\u201C\u201D\u201E\u201F\u2032\u2033\u2039\u203A]?';
+      const PB_SENTINEL = '\u0002P\u0002';
+      const PB_RE_FRAG = '\\u0002P\\u0002';
+      const TAG_SENTINEL = '\u0001T\u0001';
+      const TAG_RE_FRAG = '\\u0001T\\u0001';
+      const NOISE_RE_FRAG = '[\u00B2\u00B3\u00B9\u2070-\u2079\u2080-\u2089]';
+      const SENTINEL_OPT = `(?:${PB_RE_FRAG}|${TAG_RE_FRAG}|${NOISE_RE_FRAG})*`;
+      const PB_FULL_RE = /<span\s+class="page-break-container"[^>]*>\s*<span\s+class="page-break-num"[^>]*>[^<]*<\/span>\s*<span\s+class="page-break-bar"[^>]*>[^<]*<\/span>\s*<\/span>/g;
+
+      const buildFlexRegex = (term) => {
+        let out = '';
+        for (let i = 0; i < term.length; i++) {
+          const ch = term[i];
+          if (QUOTE_CHARS_RE.test(ch)) {
+            out += QUOTE_FLEX_CLASS;
+          } else if (/\s/.test(ch)) {
+            while (i + 1 < term.length && /\s/.test(term[i + 1])) i++;
+            out += `(?:\\s|${PB_RE_FRAG}|${TAG_RE_FRAG}|${NOISE_RE_FRAG})+`;
+          } else {
+            out += ch.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+          }
+          if (i < term.length - 1) out += SENTINEL_OPT;
+        }
+        return out;
+      };
+
+      const pbMarkers = [];
+      let workingHTML = html.replace(PB_FULL_RE, (m) => {
+        pbMarkers.push(m);
+        return PB_SENTINEL;
+      });
+      const tagMarkers = [];
+      workingHTML = workingHTML.replace(/<[^>]+>/g, (m) => {
+        tagMarkers.push(m);
+        return TAG_SENTINEL;
+      });
+
+      const htmlIndexToPlainIndex = (text, htmlIdx) => {
+        let plain = 0;
+        for (let i = 0; i < htmlIdx && i < text.length; i++) {
+          if (text.startsWith(TAG_SENTINEL, i)) {
+            i += TAG_SENTINEL.length - 1;
+            continue;
+          }
+          if (text.startsWith(PB_SENTINEL, i)) {
+            i += PB_SENTINEL.length - 1;
+            continue;
+          }
+          plain++;
+        }
+        return plain;
+      };
+
+      const tryMatch = (subTerm) => {
+        if (!subTerm || subTerm.length < minLen) return false;
+        try {
+          const re = new RegExp('(' + buildFlexRegex(subTerm) + ')', 'gi');
+          let bestIdx = -1;
+          let bestMatch = '';
+          let bestScore = Infinity;
+          let m;
+          while ((m = re.exec(workingHTML)) !== null) {
+            const plainIdx = htmlIndexToPlainIndex(workingHTML, m.index);
+            const score = anchorChar != null
+              ? Math.abs(plainIdx - anchorChar)
+              : plainIdx;
+            if (
+              bestIdx === -1 ||
+              score < bestScore ||
+              (score === bestScore && m[0].length > bestMatch.length)
+            ) {
+              bestIdx = m.index;
+              bestMatch = m[0];
+              bestScore = score;
+            }
+          }
+          if (bestIdx === -1) return false;
+          workingHTML = workingHTML.slice(0, bestIdx) +
+            THEMATIC_MARK_OPEN + bestMatch + '</mark>' +
+            workingHTML.slice(bestIdx + bestMatch.length);
+          return true;
+        } catch (e) {
+          console.warn('[THEMATIC-HIGHLIGHT] Regex-Fehler:', e.message);
+          return false;
+        }
+      };
+
+      let highlightApplied = false;
+      for (const rawSnippet of expandedSnippets) {
+        if (highlightApplied) break;
+        for (const attempt of buildQuoteHighlightAttempts(rawSnippet)) {
+          if (tryMatch(attempt)) {
+            highlightApplied = true;
+            break;
+          }
+        }
+      }
+
+      let tagIdx = 0;
+      workingHTML = workingHTML.replace(new RegExp(TAG_RE_FRAG, 'g'), () => tagMarkers[tagIdx++] || '');
+      let pbIdx = 0;
+      workingHTML = workingHTML.replace(new RegExp(PB_RE_FRAG, 'g'), () => pbMarkers[pbIdx++] || '');
+      return workingHTML;
     }
 
     function thematicQuoteSnippetsFromText(quoteText, minLen = 5) {
       if (!quoteText) return null;
       const parts = String(quoteText).split('|||')
-        .map(normalizeThematicQuoteSnippet)
+        .map(s => prepareThematicSnippetForMatch(s))
         .filter(s => s.length >= minLen);
       if (parts.length) return parts;
-      const single = normalizeThematicQuoteSnippet(quoteText);
+      const single = prepareThematicSnippetForMatch(quoteText);
       return single.length >= minLen ? [single] : null;
     }
 
@@ -13317,48 +13516,294 @@ function scrollToChronologicalYear(year) {
       return (prev && prev.tagName && prev.tagName.toLowerCase() === 'blockquote') ? prev : null;
     }
 
-    function extractQuoteNearThematicLink(linkEl) {
-      if (!linkEl) return null;
+    function getTextBeforeGaLink(linkEl) {
+      if (!linkEl) return '';
       const block = linkEl.closest('p, li, td, th, blockquote, .essay-beleg') || linkEl.parentElement;
-      if (!block || !block.contains(linkEl)) return null;
-
+      if (!block || !block.contains(linkEl)) return '';
       try {
         const range = document.createRange();
         range.selectNodeContents(block);
         range.setEndBefore(linkEl);
-        const beforeText = range.toString().replace(/\s+/g, ' ').trim();
-        if (!beforeText) return null;
+        return range.toString().replace(/\s+/g, ' ').trim();
+      } catch (_) {
+        return '';
+      }
+    }
 
-        const quotePatterns = [
-          /\u201e([^\u201c"]+)[\u201c"]/g,
-          /„([^"]+)"/g,
-          /"([^"]+)"/g,
-          /'([^']{5,})'/g,
-          /«([^»]+)»/g
-        ];
-        let lastMatch = null;
-        for (const re of quotePatterns) {
+    function extractQuoteNearThematicLink(linkEl) {
+      const beforeText = getTextBeforeGaLink(linkEl);
+      if (!beforeText) return null;
+
+      const candidates = [];
+      const addCandidate = (raw, priority = 0) => {
+        const sn = capThematicSnippetForHighlight(prepareThematicSnippetForMatch(raw));
+        if (sn.length >= 5) candidates.push({ text: sn, priority });
+      };
+
+      const closedQuotePatterns = [
+        /\u201e([^\u201c"]+)[\u201c"]/g,
+        /„([^"]+)"/g,
+        /"([^"]+)"/g,
+        /'([^']{5,})'/g,
+        /«([^»]+)»/g
+      ];
+      for (const re of closedQuotePatterns) {
+        let m;
+        while ((m = re.exec(beforeText)) !== null) {
+          addCandidate(m[1], 0);
+        }
+      }
+
+      const unclosedQuotePatterns = [
+        /\u201e([^\u201c"]{8,})$/,
+        /„([^"]{8,})$/,
+        /"([^"]{8,})$/,
+        /«([^»]{8,})$/
+      ];
+      for (const re of unclosedQuotePatterns) {
+        const m = beforeText.match(re);
+        if (m) addCandidate(m[1], 1);
+      }
+
+      const colonIdx = beforeText.lastIndexOf(':');
+      if (colonIdx !== -1) {
+        let segment = beforeText.slice(colonIdx + 1).trim();
+        segment = segment.replace(/\s*\(?\s*GA[\d.a-zA-Z\/]+(?::[^\s)]*)?\s*\)?\s*$/i, '').trim();
+        for (const re of closedQuotePatterns) {
           let m;
-          while ((m = re.exec(beforeText)) !== null) {
-            const sn = normalizeThematicQuoteSnippet(m[1]);
-            if (sn.length >= 5) lastMatch = sn;
+          re.lastIndex = 0;
+          while ((m = re.exec(segment)) !== null) {
+            addCandidate(m[1], 1);
           }
         }
-        return lastMatch ? [lastMatch] : null;
+        for (const re of unclosedQuotePatterns) {
+          const m = segment.match(re);
+          if (m) addCandidate(m[1], 1);
+        }
+        const indirect = segment.match(/\b(?:könne|kann|soll|werde|wird|würde|müsse|muss|dürfe|darf)\s+(.{8,})$/i);
+        if (indirect) {
+          let part = indirect[1].replace(/^[\u201e„"'«]+/, '').trim();
+          addCandidate(part, 2);
+        }
+      }
+
+      if (!candidates.length) return null;
+      candidates.sort((a, b) => a.priority - b.priority || a.text.length - b.text.length);
+      return [candidates[0].text];
+    }
+
+    function normalizeForSnippetWordMatch(text) {
+      return String(text || '')
+        .toLowerCase()
+        .replace(/\|(\d{1,4})\|/g, ' ')
+        .replace(/[^\p{L}\p{N}\s]/gu, ' ')
+        .replace(/\s+/g, ' ')
+        .trim();
+    }
+
+    function findBestMatchingSnippetInSource(beforeText, sourceText) {
+      const srcClean = String(sourceText || '').replace(/\|(\d{1,4})\|/g, ' ');
+      const srcNorm = normalizeForSnippetWordMatch(srcClean);
+      const words = normalizeForSnippetWordMatch(beforeText).split(' ').filter(w => w.length > 2);
+      if (!srcNorm || words.length < 4) return null;
+
+      // Nur Präfixe ab Satzanfang des Antworttextes — nie mitten im Satz
+      for (let win = Math.min(20, words.length); win >= 4; win--) {
+        const phrase = words.slice(0, win).join(' ');
+        if (phrase.length < 18) continue;
+        if (srcNorm.indexOf(phrase) !== -1) {
+          return extractSourceHighlightPhrase(sourceText, phrase);
+        }
+      }
+      return null;
+    }
+
+    function extractSourceHighlightAlignment(sourceText, quoteSnippet, maxLen = THEMATIC_HIGHLIGHT_MAX_SNIPPET) {
+      const prepared = prepareThematicSnippetForMatch(quoteSnippet);
+      if (!prepared) return { phrase: '', startChar: 0, matched: 0 };
+      if (!sourceText) return { phrase: prepared, startChar: 0, matched: 0 };
+
+      const quoteWords = prepared.split(/\s+/).filter(Boolean)
+        .map(w => normalizeForSnippetWordMatch(w))
+        .filter(w => w.length > 0);
+      if (quoteWords.length < 4) {
+        return { phrase: prepared, startChar: 0, matched: 0 };
+      }
+
+      const { srcClean, tokens } = tokenizeWordsWithPositions(sourceText);
+      if (!tokens.length) return { phrase: prepared, startChar: 0, matched: 0 };
+
+      let best = null;
+      for (let startTok = 0; startTok < tokens.length; startTok++) {
+        if (tokens[startTok].norm !== quoteWords[0]) continue;
+        let matched = 1;
+        while (
+          matched < quoteWords.length &&
+          startTok + matched < tokens.length &&
+          tokens[startTok + matched].norm === quoteWords[matched]
+        ) {
+          matched++;
+        }
+        if (matched >= 4 && (
+          !best ||
+          matched > best.matched ||
+          (matched === best.matched && startTok < best.startTok)
+        )) {
+          best = { startTok, matched };
+        }
+      }
+
+      if (!best) return { phrase: prepared, startChar: 0, matched: 0 };
+
+      const startChar = tokens[best.startTok].start;
+      let endTok = best.startTok + best.matched - 1;
+      let endChar = tokens[endTok].end;
+      const maxEnd = startChar + maxLen;
+      while (endChar < maxEnd && endChar < srcClean.length && !/[\p{L}\p{N}]/u.test(srcClean[endChar])) {
+        endChar++;
+      }
+      return {
+        phrase: srcClean.slice(startChar, Math.min(endChar, maxEnd)).trim(),
+        startChar,
+        matched: best.matched
+      };
+    }
+
+    function extractSourceHighlightPhrase(sourceText, quoteSnippet, maxLen = THEMATIC_HIGHLIGHT_MAX_SNIPPET) {
+      return extractSourceHighlightAlignment(sourceText, quoteSnippet, maxLen).phrase;
+    }
+
+    async function fetchParagraphContentForHighlight(lectureId, targetIndex) {
+      if (!lectureId || targetIndex == null || targetIndex === '') return null;
+      const cleanIndex = String(targetIndex).replace(/^\^/, '');
+      try {
+        const gaMatch = lectureId.match(/^(GA\d{1,3}[a-z]?)/i);
+        if (gaMatch && typeof isBookGANumber === 'function' && isBookGANumber(gaMatch[1])) {
+          const response = await fetch(`${API_BASE}/api/book/${encodeURIComponent(gaMatch[1])}`);
+          if (!response.ok) return null;
+          const book = await response.json();
+          const paragraphs = book.paragraphs || [];
+          const para = paragraphs.find(p => String(p.index || '').replace(/^\^/, '') === cleanIndex);
+          return para?.content || para?.text || null;
+        }
+        const parts = String(lectureId).split('/');
+        const url = parts.length === 2
+          ? `${API_BASE}/api/full-lecture/${encodeURIComponent(parts[0])}/${encodeURIComponent(parts[1])}`
+          : `${API_BASE}/api/full-lecture/${encodeURIComponent(lectureId)}`;
+        const response = await fetch(url);
+        if (!response.ok) return null;
+        const data = await response.json();
+        const para = (data.lecture?.paragraphs || []).find(p =>
+          String(p.index || '').replace(/^\^/, '') === cleanIndex
+        );
+        return para?.content || para?.text || null;
       } catch (_) {
         return null;
       }
     }
 
+    function tokenizeWordsWithPositions(text) {
+      const srcClean = String(text || '').replace(/\|(\d{1,4})\|/g, ' ');
+      const tokens = [];
+      const wordRe = /[\p{L}\p{N}]+/gu;
+      let m;
+      while ((m = wordRe.exec(srcClean)) !== null) {
+        tokens.push({
+          norm: m[0].toLowerCase(),
+          start: m.index,
+          end: m.index + m[0].length
+        });
+      }
+      return { srcClean, tokens };
+    }
+
+    function findTargetParagraphElementForHighlight(root, targetIndex) {
+      if (!root || targetIndex == null || targetIndex === '') return null;
+      const clean = String(targetIndex).replace(/^\^/, '');
+      const marker = root.querySelector(
+        `#adv-para-${clean}, [data-paragraph-id="${clean}"], [data-index="${targetIndex}"], [data-index="^${clean}"], #para-${clean}`
+      );
+      if (!marker) return null;
+      if (marker.id && marker.id.startsWith('adv-para-')) return marker;
+      return marker.closest('.paragraph, p, li, blockquote') || marker.parentElement;
+    }
+
+    function reapplyThematicSnippetHighlightsInSummary(summaryContent, targetIndex, highlightSnippets, anchorChar = null) {
+      if (!summaryContent || !Array.isArray(highlightSnippets) || !highlightSnippets.length || !targetIndex) {
+        return false;
+      }
+      const targetEl = findTargetParagraphElementForHighlight(summaryContent, targetIndex);
+      if (!targetEl) return false;
+      if (targetEl.querySelector('mark.thematic-quote-mark')) return true;
+
+      const tryHighlightInElement = (el) => {
+        if (!el || el.querySelector('mark.thematic-quote-mark')) return false;
+        const before = stripThematicQuoteMarksFromHtml(el.innerHTML);
+        const after = applyThematicSnippetHighlightsToHtml(before, highlightSnippets, { anchorChar });
+        if (after.includes('thematic-quote-mark')) {
+          el.innerHTML = after;
+          return true;
+        }
+        return false;
+      };
+
+      let nodesToTry = [targetEl];
+      if (targetEl.classList && targetEl.classList.contains('paragraph')) {
+        const innerPs = targetEl.querySelectorAll('p');
+        if (innerPs.length) nodesToTry = [...innerPs];
+      }
+      for (const el of nodesToTry) {
+        if (tryHighlightInElement(el)) return true;
+      }
+
+      let prev = targetEl.previousElementSibling;
+      while (prev) {
+        if (prev.matches('p, li, blockquote, .paragraph')) {
+          if (tryHighlightInElement(prev)) return true;
+        }
+        if (prev.querySelector && prev.querySelector('[data-index]')) break;
+        prev = prev.previousElementSibling;
+      }
+      return false;
+    }
+
+    function scheduleThematicSnippetHighlightReapply(summaryContent, targetIndex, highlightSnippets, anchorChar = null) {
+      if (!summaryContent || !Array.isArray(highlightSnippets) || !highlightSnippets.length || !targetIndex) {
+        return;
+      }
+      const run = () => {
+        const targetEl = findTargetParagraphElementForHighlight(summaryContent, targetIndex);
+        if (targetEl && targetEl.querySelector('mark.thematic-quote-mark')) return;
+        reapplyThematicSnippetHighlightsInSummary(summaryContent, targetIndex, highlightSnippets, anchorChar);
+      };
+      setTimeout(run, 0);
+      setTimeout(run, 200);
+    }
+
+    function alignQuoteSnippetWithSource(quoteSnippet, sourceText) {
+      const phrase = extractSourceHighlightPhrase(sourceText, quoteSnippet);
+      if (phrase && phrase.length >= 5) return phrase;
+      return capThematicSnippetForHighlight(quoteSnippet);
+    }
+
     function resolveThematicHighlightSnippets(linkEl, options = {}) {
-      const { quoteText = '', isEssayBeleg = false } = options;
+      const { quoteText = '', isEssayBeleg = false, fromDataQuote = false } = options;
       if (isEssayBeleg) {
         return quoteText ? (thematicQuoteSnippetsFromText(quoteText) || []) : [];
       }
+      // Recherche: data-quote ist das verbindliche Zitat aus der Tabellenzelle
+      if (fromDataQuote && quoteText) {
+        const s = prepareThematicSnippetForMatch(quoteText);
+        return s.length >= 5 ? [s] : [];
+      }
+      // data-quote-text stammt aus dem Such-Chunk (Quelltext) — vor Antworttext bevorzugen
+      const attrQuote = linkEl
+        ? (linkEl.getAttribute('data-quote-text') || linkEl.getAttribute('data-quote') || '')
+        : quoteText;
+      const fromAttr = thematicQuoteSnippetsFromText(attrQuote || quoteText);
+      if (fromAttr) return fromAttr.filter(s => s.length >= 5);
       const nearQuote = extractQuoteNearThematicLink(linkEl);
       if (nearQuote) return nearQuote;
-      const fromAttr = thematicQuoteSnippetsFromText(quoteText);
-      if (fromAttr) return fromAttr;
       const bq = findBlockquoteBeforeQuelleLink(linkEl);
       if (bq) {
         const raw = normalizeThematicQuoteSnippet(bq.textContent);
@@ -13367,18 +13812,108 @@ function scrollToChronologicalYear(year) {
       return null;
     }
 
+    async function resolveThematicHighlightSnippetsAsync(linkEl, options = {}) {
+      const { quoteText = '', isEssayBeleg = false, fromDataQuote = false, lectureId = '', targetIndex = '' } = options;
+      const sourceText = await fetchParagraphContentForHighlight(lectureId, targetIndex);
+
+      if (isEssayBeleg) {
+        const snippets = resolveThematicHighlightSnippets(linkEl, { quoteText, isEssayBeleg, fromDataQuote }) || [];
+        if (sourceText && snippets.length) {
+          const align = extractSourceHighlightAlignment(sourceText, snippets[0]);
+          return { snippets: [align.phrase || snippets[0]], anchorChar: align.startChar || 0 };
+        }
+        return { snippets, anchorChar: null };
+      }
+
+      if (fromDataQuote && quoteText) {
+        const s = prepareThematicSnippetForMatch(quoteText);
+        if (!s || s.length < 5) return { snippets: [], anchorChar: null };
+        if (sourceText) {
+          const align = extractSourceHighlightAlignment(sourceText, s);
+          return { snippets: [align.phrase || s], anchorChar: align.startChar || 0 };
+        }
+        return { snippets: [s], anchorChar: null };
+      }
+
+      const nearQuote = linkEl ? extractQuoteNearThematicLink(linkEl) : null;
+      const attrQuote = linkEl
+        ? (linkEl.getAttribute('data-quote-text') || linkEl.getAttribute('data-quote') || '')
+        : quoteText;
+      const attrSnippets = thematicQuoteSnippetsFromText(attrQuote || quoteText) || [];
+
+      const candidates = [];
+      if (nearQuote) {
+        nearQuote.forEach(text => candidates.push({ text, fromAnswer: true }));
+      }
+      attrSnippets.forEach(text => candidates.push({ text, fromAnswer: false }));
+
+      if (sourceText && candidates.length) {
+        let best = null;
+        for (const candidate of candidates) {
+          const align = extractSourceHighlightAlignment(sourceText, candidate.text);
+          if (align.matched < 4 || !align.phrase) continue;
+          const score = align.matched + (candidate.fromAnswer ? 1000 : 0);
+          if (!best || score > best.score) {
+            best = { ...align, score };
+          }
+        }
+        if (best) {
+          return { snippets: [best.phrase], anchorChar: best.startChar };
+        }
+      }
+
+      if (nearQuote && nearQuote.length) {
+        return { snippets: nearQuote, anchorChar: null };
+      }
+      if (attrSnippets.length) {
+        return { snippets: attrSnippets.filter(s => s.length >= 5), anchorChar: null };
+      }
+
+      const beforeText = getTextBeforeGaLink(linkEl);
+      if (beforeText && sourceText) {
+        const overlap = findBestMatchingSnippetInSource(beforeText, sourceText);
+        if (overlap) {
+          const align = extractSourceHighlightAlignment(sourceText, overlap);
+          return { snippets: [align.phrase || overlap], anchorChar: align.startChar || 0 };
+        }
+      }
+
+      const bq = findBlockquoteBeforeQuelleLink(linkEl);
+      if (bq) {
+        const raw = normalizeThematicQuoteSnippet(bq.textContent);
+        if (raw.length >= 5) return { snippets: [raw], anchorChar: null };
+      }
+
+      return { snippets: [], anchorChar: null };
+    }
+
     // Thematische Abfrage-Ergebnisse: nur das zugehoerige Zitat markieren (wie Recherche),
     // nie den ganzen Absatz und nie Suchbegriffe.
     async function openThematicGaReference(lectureId, targetIndex, options = {}) {
       const { linkEl = null, quoteText = '', isEssayBeleg = false } = options;
-      const resolved = resolveThematicHighlightSnippets(linkEl, { quoteText, isEssayBeleg });
-      const snippets = Array.isArray(resolved) ? resolved : [];
-      await showLectureFromAdvancedSearch(lectureId, '', targetIndex, snippets);
+      const fromDataQuote = !!(linkEl && linkEl.getAttribute('data-quote'));
+      const resolvedQuote = quoteText ||
+        (linkEl && (linkEl.getAttribute('data-quote') || linkEl.getAttribute('data-quote-text'))) ||
+        '';
+      const resolved = await resolveThematicHighlightSnippetsAsync(linkEl, {
+        quoteText: resolvedQuote,
+        isEssayBeleg,
+        fromDataQuote,
+        lectureId,
+        targetIndex
+      });
+      await showLectureFromAdvancedSearch(
+        lectureId,
+        '',
+        targetIndex,
+        resolved.snippets,
+        resolved.anchorChar
+      );
     }
     window.openThematicGaReference = openThematicGaReference;
     
     // Funktion: Zeigt ein Buch im rechten Panel (für erweiterte Suche)
-    async function showBookFromAdvancedSearch(gaNumber, searchTerm, paragraphIndex = null, highlightSnippets = null) {
+    async function showBookFromAdvancedSearch(gaNumber, searchTerm, paragraphIndex = null, highlightSnippets = null, thematicHighlightAnchor = null) {
       // Essay-Snippet-Modus: wenn highlightSnippets gesetzt ist (auch leeres Array),
       // werden weder Absatz-Klasse 'highlighted-paragraph' noch addHighlightingWithAutoRemove
       // angewendet, und der searchTerm wird NICHT markiert. Stattdessen werden die
@@ -13739,6 +14274,47 @@ function scrollToChronologicalYear(year) {
             }
           });
           
+          // Thematische Zitat-Schnipsel nur im Ziel-Absatz markieren (nicht im ganzen Buch)
+          if (useSnippetMode && highlightSnippets && highlightSnippets.length > 0 &&
+              hasValidIndex && targetParagraphIdx !== null && targetParagraphIdx >= 0) {
+            const targetPara = bookParagraphs[targetParagraphIdx];
+            if (targetPara && targetPara.index) {
+              const paraIndexClean = String(targetPara.index).replace(/^\^/, '');
+              const paraMarker = tempDiv.querySelector(
+                `[data-index="${targetPara.index}"], [data-index="^${paraIndexClean}"], #para-${paraIndexClean}`
+              );
+              if (paraMarker) {
+                let paragraphEl = paraMarker.closest('p, li, blockquote, div.paragraph') || paraMarker.parentElement;
+                if (paragraphEl) {
+                  paragraphEl.innerHTML = applyThematicSnippetHighlightsToHtml(
+                    paragraphEl.innerHTML,
+                    highlightSnippets,
+                    { anchorChar: thematicHighlightAnchor }
+                  );
+                  // Lange logische Absätze können über mehrere <p> verteilt sein;
+                  // Index steht am Ende — Zitat oft am Anfang eines früheren <p>.
+                  if (!paragraphEl.querySelector('mark.thematic-quote-mark')) {
+                    let prev = paragraphEl.previousElementSibling;
+                    while (prev) {
+                      if (prev.matches('p, li, blockquote')) {
+                        const before = prev.innerHTML;
+                        const after = applyThematicSnippetHighlightsToHtml(before, highlightSnippets, {
+                          anchorChar: thematicHighlightAnchor
+                        });
+                        if (after.includes('thematic-quote-mark')) {
+                          prev.innerHTML = after;
+                          break;
+                        }
+                      }
+                      if (prev.querySelector('[data-index]')) break;
+                      prev = prev.previousElementSibling;
+                    }
+                  }
+                }
+              }
+            }
+          }
+          
           // Setze IDs für Überschriften basierend auf book.headings
           if (book.headings && book.headings.length > 0) {
             book.headings.forEach(heading => {
@@ -13854,6 +14430,15 @@ function scrollToChronologicalYear(year) {
           
           html += '</div>';
           summaryContent.innerHTML = html;
+
+          if (useSnippetMode && highlightSnippets && highlightSnippets.length > 0 && hasValidIndex && paragraphIndexStr) {
+            scheduleThematicSnippetHighlightReapply(
+              summaryContent,
+              paragraphIndexStr,
+              highlightSnippets,
+              thematicHighlightAnchor
+            );
+          }
           
           // Erkenne und formatiere Gedichte/kurze Zeilen (nach DOM-Rendering)
           setTimeout(() => {
@@ -13881,9 +14466,19 @@ function scrollToChronologicalYear(year) {
                   if (!paragraphElement) paragraphElement = paraElement.parentElement;
                   
                   if (paragraphElement) {
-                    // Wenn der Ziel-Absatz Markierungen (<mark>) enthält:
-                    // erste Markierung vertikal zentrieren — Sonst Absatz selbst.
-                    const firstMarkInTarget = paragraphElement.querySelector('mark');
+                    // Fallback-Markierung nur im Ziel-Absatz (nicht im ganzen Buch)
+                    if (useSnippetMode && highlightSnippets.length > 0 && !summaryContent.querySelector('.book-content mark.thematic-quote-mark')) {
+                      reapplyThematicSnippetHighlightsInSummary(
+                        summaryContent,
+                        paragraphIndexStr,
+                        highlightSnippets,
+                        thematicHighlightAnchor
+                      );
+                    }
+
+                    // Wenn Zitat-Markierungen vorhanden sind: erste Markierung zentrieren
+                    const firstMarkInTarget = summaryContent.querySelector('.book-content mark.thematic-quote-mark') ||
+                      paragraphElement.querySelector('mark.thematic-quote-mark');
                     const scrollTo = firstMarkInTarget || paragraphElement;
                     scrollTo.scrollIntoView({ behavior: 'auto', block: 'center' });
                     
@@ -13896,107 +14491,6 @@ function scrollToChronologicalYear(year) {
                       } else {
                         paragraphElement.classList.add('highlighted-paragraph');
                       }
-                    }
-                    
-                    // Im Essay-Snippet-Modus: explizite Zitat-Schnipsel mit Quote-Flex
-                    // im Zielabsatz hervorheben (keine searchTerm-Markierung).
-                    if (useSnippetMode && highlightSnippets.length > 0) {
-                      // Quote-Flex: deutsche „…" / Guillemets «…» / ASCII "…" /
-                      // ASCII '…' / curly '…' / prime ′…″ / etc. matchen einander.
-                      const QUOTE_CHARS_RE = /[\u0022\u0027\u00AB\u00BB\u00B4\u2018\u2019\u201A\u201B\u201C\u201D\u201E\u201F\u2032\u2033\u2039\u203A]/;
-                      const QUOTE_FLEX_CLASS = '[\u0022\u0027\u00AB\u00BB\u00B4\u2018\u2019\u201A\u201B\u201C\u201D\u201E\u201F\u2032\u2033\u2039\u203A]?';
-                      const PB_SENTINEL = '\u0002P\u0002';
-                      const PB_RE_FRAG = '\\u0002P\\u0002';
-                      const TAG_SENTINEL = '\u0001T\u0001';
-                      const TAG_RE_FRAG = '\\u0001T\\u0001';
-                      const NOISE_RE_FRAG = '[\u00B2\u00B3\u00B9\u2070-\u2079\u2080-\u2089]';
-                      const SENTINEL_OPT = `(?:${PB_RE_FRAG}|${TAG_RE_FRAG}|${NOISE_RE_FRAG})*`;
-                      const PB_FULL_RE = /<span\s+class="page-break-container"[^>]*>\s*<span\s+class="page-break-num"[^>]*>[^<]*<\/span>\s*<span\s+class="page-break-bar"[^>]*>[^<]*<\/span>\s*<\/span>/g;
-                      const buildFlexRegex = (term) => {
-                        let out = '';
-                        for (let i = 0; i < term.length; i++) {
-                          const ch = term[i];
-                          if (QUOTE_CHARS_RE.test(ch)) {
-                            out += QUOTE_FLEX_CLASS;
-                          } else if (/\s/.test(ch)) {
-                            while (i + 1 < term.length && /\s/.test(term[i + 1])) i++;
-                            out += `(?:\\s|${PB_RE_FRAG}|${TAG_RE_FRAG}|${NOISE_RE_FRAG})+`;
-                          } else {
-                            out += ch.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-                          }
-                          if (i < term.length - 1) out += SENTINEL_OPT;
-                        }
-                        return out;
-                      };
-
-                      // Klammer-Splitting: Auslassungen UND editorische
-                      // Einfügungen wie [ist], [kann], [sic] zerlegen das Zitat.
-                      const ESSAY_ELLIPSIS_RE_BOOK = /\[\s*(?:\.\s*){2,}\.?\s*\]|\[\s*…\s*\]|\(\s*(?:\.\s*){2,}\.?\s*\)|\(\s*…\s*\)|\[[A-Za-zÄÖÜäöüß][A-Za-zÄÖÜäöüß. ]{0,28}\]/g;
-                      const expandedSnippets = [];
-                      (highlightSnippets || []).forEach(snip => {
-                        if (!snip) return;
-                        const s = String(snip).trim();
-                        if (!s) return;
-                        ESSAY_ELLIPSIS_RE_BOOK.lastIndex = 0;
-                        if (ESSAY_ELLIPSIS_RE_BOOK.test(s)) {
-                          ESSAY_ELLIPSIS_RE_BOOK.lastIndex = 0;
-                          s.split(ESSAY_ELLIPSIS_RE_BOOK).forEach(frag => {
-                            const t = frag.trim();
-                            if (t.length >= 5) expandedSnippets.push(t);
-                          });
-                        } else if (s.length >= 5) {
-                          expandedSnippets.push(s);
-                        }
-                        ESSAY_ELLIPSIS_RE_BOOK.lastIndex = 0;
-                      });
-
-                      
-
-                      // ZUERST den ganzen Page-Break-Block (Tag + Text + Tag)
-                      // als Einheit durch Sentinel ersetzen, DANN restliche Tags.
-                      const pbMarkers = [];
-                      let workingHTML = paragraphElement.innerHTML.replace(PB_FULL_RE, (m) => {
-                        pbMarkers.push(m);
-                        return PB_SENTINEL;
-                      });
-                      const tagMarkers = [];
-                      workingHTML = workingHTML.replace(/<[^>]+>/g, (m) => {
-                        tagMarkers.push(m);
-                        return TAG_SENTINEL;
-                      });
-
-                      const tryBookMatch = (subTerm) => {
-                        if (!subTerm || subTerm.length < 5) return false;
-                        try {
-                          const re = new RegExp('(' + buildFlexRegex(subTerm) + ')', 'gi');
-                          const before = workingHTML;
-                          workingHTML = workingHTML.replace(re, (m) => '<mark>' + m + '</mark>');
-                          return workingHTML !== before;
-                        } catch (e) {
-                          console.warn('[ESSAY-HIGHLIGHT-BUCH] Regex-Fehler:', e.message);
-                          return false;
-                        }
-                      };
-                      expandedSnippets.forEach(rawSnippet => {
-                        const term = (rawSnippet || '').trim();
-                        if (term.length < 5) return;
-                        if (tryBookMatch(term)) return;
-                        // Fallback: an Satz-/Komma-Grenzen splitten und Teilstücke
-                        // einzeln matchen (z.B. wenn LLM einen Druckfehler stillschweigend
-                        // korrigiert hat und das ganze Fragment dadurch nicht matcht).
-                        const subParts = term.split(/[.,;:]+\s+/)
-                          .map(s => s.trim().replace(/^[\s,;.:!?„"""'\u2018\u2019\u201C\u201D\u201E«»\-–—]+|[\s,;.:!?„"""'\u2018\u2019\u201C\u201D\u201E«»\-–—]+$/g, ''))
-                          .filter(s => s.length >= 12);
-                        subParts.forEach(p => tryBookMatch(p));
-                      });
-
-                      // Sentinels in der Reihenfolge zurück auflösen: zuerst die
-                      // einzelnen Tags, dann die Page-Break-Blöcke.
-                      let tagIdx = 0;
-                      workingHTML = workingHTML.replace(new RegExp(TAG_RE_FRAG, 'g'), () => tagMarkers[tagIdx++] || '');
-                      let pbIdx = 0;
-                      workingHTML = workingHTML.replace(new RegExp(PB_RE_FRAG, 'g'), () => pbMarkers[pbIdx++] || '');
-                      paragraphElement.innerHTML = workingHTML;
                     }
 
                     // Markiere auch das Suchwort im Absatz (falls vorhanden UND im Absatz vorkommend)
@@ -14154,7 +14648,8 @@ function scrollToChronologicalYear(year) {
                 
                 // Scrolle zum Absatz - genau wie bei Vorträgen, dabei wenn
                 // möglich die erste Markierung im Absatz vertikal zentrieren.
-                const firstMarkInTarget = targetElement.querySelector('mark');
+                const firstMarkInTarget = targetElement.querySelector('mark.thematic-quote-mark') ||
+                  targetElement.querySelector('mark');
                 (firstMarkInTarget || targetElement).scrollIntoView({ behavior: 'auto', block: 'center' });
                 } else {
                 console.warn(`[BOOK-ADV-SEARCH] Paragraph-Element #adv-para-${targetParagraphIdx} nicht gefunden`);
@@ -21144,6 +21639,8 @@ function formatAsteriskParagraphs() {
         const gaLinks = answerDiv.querySelectorAll('.ga-reference');
         
         gaLinks.forEach(link => {
+          if (link.__thematicBound) return;
+          link.__thematicBound = true;
           const lectureId = link.getAttribute('data-id');
           const targetIndex = link.getAttribute('data-index');
           const isEssayBeleg = link.getAttribute('data-essay') === 'true' ||
@@ -38367,6 +38864,8 @@ window.cancelTextEditMode = function() {};
     if (gaFilterFull && String(gaFilterFull).length > 50) {
       meta.gaFilterFull = String(gaFilterFull);
     }
+    const chatTurns = window.ThematicChatUI?.getSaveableChatTurns?.();
+    if (chatTurns?.length) meta.chatTurns = chatTurns;
     return Object.keys(meta).length ? JSON.stringify(meta) : null;
   }
 
@@ -38580,12 +39079,37 @@ window.cancelTextEditMode = function() {};
       if (data.notes) {
         try { saveMeta = JSON.parse(data.notes); } catch (_) {}
       }
+
+      const gaFilterRaw = saveMeta.gaFilterFull || data.ga_filter || '';
+
+      if (saveMeta.chatTurns?.length && window.ThematicChatUI?.restoreChatTurns) {
+        document.getElementById('thematicQuery').value = data.query;
+
+        if (gaFilterRaw && thematicGAFilterDropdown) {
+          const gaList = String(gaFilterRaw)
+            .split(',').map(s => s.trim()).filter(Boolean);
+          thematicGAFilterDropdown.setSelectedValues(gaList);
+        }
+
+        const limitFilter = document.getElementById('thematicLimitFilter');
+        if (limitFilter && data.limit_used) {
+          limitFilter.value = data.limit_used;
+        }
+
+        currentSources = data.sources || [];
+        currentThematicQuery = data.query;
+        window._showingSavedThematicSearches = false;
+        window.ThematicChatUI.restoreChatTurns(saveMeta.chatTurns, { replayActive: true });
+        window.ThematicChatUI.syncSavePayloadFromActiveTurn?.();
+        window.ThematicChatUI.closeSavedOverlay?.();
+        document.getElementById('status').textContent = 'Gespeicherte Abfrage';
+        return;
+      }
       
       // Query in Eingabefeld setzen
       document.getElementById('thematicQuery').value = data.query;
       
       // GA-Filter setzen falls vorhanden (Multi-Select)
-      const gaFilterRaw = saveMeta.gaFilterFull || data.ga_filter || '';
       if (gaFilterRaw && thematicGAFilterDropdown) {
         const gaList = String(gaFilterRaw)
           .split(',').map(s => s.trim()).filter(Boolean);
@@ -38673,6 +39197,8 @@ window.cancelTextEditMode = function() {};
           const gaLinks = answerDiv.querySelectorAll('.ga-reference');
           
           gaLinks.forEach(link => {
+            if (link.__thematicBound) return;
+            link.__thematicBound = true;
             const lectureId = link.getAttribute('data-id');
             const targetIndex = link.getAttribute('data-index');
             const isEssayBeleg = link.getAttribute('data-essay') === 'true' ||
