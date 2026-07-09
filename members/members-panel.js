@@ -5736,12 +5736,8 @@ function showNoteKeywordsDialog(content) {
       }
     });
     
-    // Click auf Overlay schließt Dialog
-    dialog.addEventListener('click', (e) => {
-      if (e.target === dialog) {
-        handleCancel();
-      }
-    });
+    // Click auf Overlay schließt Dialog (nur bei echtem Klick, nicht bei Textauswahl)
+    attachKeywordDialogOverlayDismiss(dialog, handleCancel);
   });
 }
 
@@ -6085,14 +6081,13 @@ async function editMemberQuote(id) {
       groups: quote.groups ? quote.groups.join(', ') : '',
       keywords: quote.tags ? quote.tags.join(', ') : '',
       note: quote.personal_note || ''
-    });
+    }, 'quote');
     
     if (editResult === null) {
-      // Benutzer hat abgebrochen
       return;
     }
     
-    const { groups, keywords, note } = editResult;
+    const { groups, keywords, note, markingType, originalMarkingType } = editResult;
     const groupsArray = groups
       .split(',')
       .map(g => g.trim().toUpperCase())
@@ -6101,8 +6096,22 @@ async function editMemberQuote(id) {
       .split(',')
       .map(kw => kw.trim())
       .filter(kw => kw.length > 0);
+
+    if (markingType !== originalMarkingType) {
+      const convertResult = await convertMemberMarking(originalMarkingType, id, markingType, quote, {
+        groupsArray,
+        tags,
+        note,
+        text: quote.quote_text
+      });
+      if (!convertResult.success) {
+        alert('Fehler bei der Umwandlung: ' + convertResult.error);
+        return;
+      }
+      await reloadMembersTabForMarkingType(markingType);
+      return;
+    }
     
-    // Update in Supabase
     const updateResult = await updateQuote(id, {
       groups: groupsArray,
       tags: tags,
@@ -6151,14 +6160,13 @@ async function editMemberHighlight(id) {
       groups: highlight.groups ? highlight.groups.join(', ') : '',
       keywords: highlight.tags ? highlight.tags.join(', ') : '',
       note: highlight.personal_note || ''
-    });
+    }, 'highlight');
     
     if (editResult === null) {
-      // Benutzer hat abgebrochen
       return;
     }
     
-    const { groups, keywords, note } = editResult;
+    const { groups, keywords, note, markingType, originalMarkingType } = editResult;
     const groupsArray = groups
       .split(',')
       .map(g => g.trim().toUpperCase())
@@ -6167,8 +6175,22 @@ async function editMemberHighlight(id) {
       .split(',')
       .map(kw => kw.trim())
       .filter(kw => kw.length > 0);
+
+    if (markingType !== originalMarkingType) {
+      const convertResult = await convertMemberMarking(originalMarkingType, id, markingType, highlight, {
+        groupsArray,
+        tags,
+        note,
+        text: highlightedText
+      });
+      if (!convertResult.success) {
+        alert('Fehler bei der Umwandlung: ' + convertResult.error);
+        return;
+      }
+      await reloadMembersTabForMarkingType(markingType);
+      return;
+    }
     
-    // Update in Supabase
     if (typeof updateHighlight !== 'function') {
       alert('Fehler: updateHighlight Funktion nicht verfügbar. Bitte Seite neu laden.');
       console.error('[MB-HIGHLIGHTS] updateHighlight nicht verfügbar');
@@ -6197,18 +6219,250 @@ async function editMemberHighlight(id) {
   }
 }
 
+const MEMBER_MARKING_TYPES = {
+  quote: { key: 'quote', label: 'Anstreichung', tab: 'quotes' },
+  highlight: { key: 'highlight', label: 'Unterstreichung', tab: 'highlights' },
+  note: { key: 'note', label: 'Notiz', tab: 'notes' }
+};
+
+function markingTypeFromEditLabel(typeLabel) {
+  if (typeLabel === 'Unterstreichung') return 'highlight';
+  if (typeLabel === 'Notiz') return 'note';
+  return 'quote';
+}
+
+function buildMarkingTypeSelectHtml(currentType) {
+  const options = Object.values(MEMBER_MARKING_TYPES).map((entry) =>
+    `<option value="${entry.key}"${entry.key === currentType ? ' selected' : ''}>${entry.label}</option>`
+  ).join('');
+  return `<select id="edit-marking-type-select" class="marking-type-select" title="Markierungsart ändern">${options}</select>`;
+}
+
+/** Overlay-Schließen nur bei echtem Klick auf den Hintergrund (nicht bei Textauswahl aus Textarea) */
+function attachKeywordDialogOverlayDismiss(dialog, handleCancel) {
+  let mouseDownOnOverlay = false;
+  dialog.addEventListener('mousedown', (e) => {
+    mouseDownOnOverlay = e.target === dialog;
+  });
+  dialog.addEventListener('click', (e) => {
+    if (e.target === dialog && mouseDownOnOverlay) {
+      handleCancel();
+    }
+    mouseDownOnOverlay = false;
+  });
+}
+
+function getMarkedTextFromRecord(markingType, record) {
+  if (!record) return '';
+  if (markingType === 'quote') {
+    return record.quote_text || '';
+  }
+  if (markingType === 'highlight') {
+    if (record.paragraph_text && record.text_start_offset != null && record.text_end_offset != null) {
+      return record.paragraph_text.substring(record.text_start_offset, record.text_end_offset);
+    }
+    return record.paragraph_text || '';
+  }
+  let content = record.content || '';
+  content = content.replace(/^Aus\s*\[\[[^\]]+\]\]\s*[-:]\s*/i, '').trim();
+  if (record.paragraph_text && record.text_start_offset != null && record.text_end_offset != null) {
+    return record.paragraph_text.substring(record.text_start_offset, record.text_end_offset);
+  }
+  return content;
+}
+
+function getLectureIdFromRecord(markingType, record) {
+  if (!record) return null;
+  if (markingType === 'quote') return record.ga_reference || null;
+  if (markingType === 'highlight') return record.ga_number || null;
+  if (markingType === 'note' && record.ga_references && record.ga_references.length > 0) {
+    return record.ga_references[0];
+  }
+  return null;
+}
+
+function removeNoteFromText(noteId) {
+  const idString = String(noteId);
+  document.querySelectorAll(`.bookmark-note-indicator[data-note-id="${idString}"]`).forEach((el) => el.remove());
+  document.querySelectorAll(`mark.note-highlight[data-note-id="${idString}"]`).forEach((mark) => {
+    const parent = mark.parentNode;
+    if (!parent) return;
+    while (mark.firstChild) {
+      parent.insertBefore(mark.firstChild, mark);
+    }
+    parent.removeChild(mark);
+    parent.normalize();
+  });
+}
+
+async function refreshMarkingsAfterConversion(lectureId, newType, newRecord, markedText) {
+  if (!lectureId) return;
+
+  if (typeof invalidateMembersCache === 'function') {
+    invalidateMembersCache('quotes');
+    invalidateMembersCache('highlights');
+  }
+
+  if (typeof markParagraphsWithBookmarksAndQuotes === 'function') {
+    await markParagraphsWithBookmarksAndQuotes(lectureId);
+  }
+
+  if (newType === 'quote' && newRecord && typeof applyStoredQuoteLine === 'function') {
+    applyStoredQuoteLine(newRecord);
+  } else if (newType === 'highlight' && newRecord && typeof applyStoredHighlight === 'function') {
+    applyStoredHighlight(newRecord);
+  } else if (newType === 'note' && newRecord) {
+    if (typeof getNotes === 'function' && typeof addBookmarkNoteIndicator === 'function') {
+      const notesResult = await getNotes();
+      if (newRecord.paragraph_id) {
+        addBookmarkNoteIndicator(newRecord.paragraph_id, lectureId, notesResult);
+      }
+    }
+    if (typeof markNoteTextByOffset === 'function' && newRecord.paragraph_id) {
+      markNoteTextByOffset(
+        newRecord.paragraph_id,
+        newRecord.text_start_offset,
+        newRecord.text_end_offset,
+        markedText || getMarkedTextFromRecord('note', newRecord),
+        newRecord.id
+      );
+    }
+  }
+}
+
+async function convertMemberMarking(originalType, originalId, newType, sourceRecord, editFields) {
+  if (!sourceRecord || originalType === newType) {
+    return { success: true, converted: false, newType: originalType, newId: originalId };
+  }
+
+  const user = (typeof currentUser !== 'undefined' && currentUser) || window.currentUser;
+  if (!user) {
+    return { success: false, error: 'Nicht angemeldet' };
+  }
+  if (typeof supabaseClient === 'undefined' || !supabaseClient) {
+    return { success: false, error: 'Supabase Client nicht initialisiert' };
+  }
+
+  const groupsArray = editFields.groupsArray || [];
+  const tags = editFields.tags || [];
+  const personalNote = editFields.note || '';
+  const markedText = editFields.text || getMarkedTextFromRecord(originalType, sourceRecord);
+  const lectureId = getLectureIdFromRecord(originalType, sourceRecord);
+
+  const positionData = {
+    paragraph_id: sourceRecord.paragraph_id || null,
+    paragraph_text: sourceRecord.paragraph_text || null,
+    text_start_offset: sourceRecord.text_start_offset ?? null,
+    text_end_offset: sourceRecord.text_end_offset ?? null,
+    end_paragraph_id: sourceRecord.end_paragraph_id || null,
+    lecture_date: sourceRecord.lecture_date || null
+  };
+
+  const quoteColor = sourceRecord.marker_color || sourceRecord.color || 'blue';
+  const highlightColor = sourceRecord.color || sourceRecord.marker_color || 'blue';
+  const noteColor = sourceRecord.marker_color || sourceRecord.color || 'blue';
+
+  if (originalType === 'quote') removeQuoteFromText(originalId);
+  else if (originalType === 'highlight') removeHighlightFromText(originalId);
+  else if (originalType === 'note') removeNoteFromText(originalId);
+
+  let newRecord = null;
+
+  try {
+    if (newType === 'quote') {
+      const insertData = {
+        user_id: user.id,
+        quote_text: markedText,
+        ga_reference: lectureId,
+        personal_note: personalNote,
+        tags,
+        groups: groupsArray,
+        is_public: false,
+        marker_color: quoteColor,
+        ...positionData
+      };
+      const { data, error } = await supabaseClient.from('quotes').insert(insertData).select().single();
+      if (error) throw error;
+      newRecord = data;
+    } else if (newType === 'highlight') {
+      const insertData = {
+        user_id: user.id,
+        ga_number: lectureId,
+        color: highlightColor,
+        personal_note: personalNote,
+        tags,
+        groups: groupsArray,
+        ...positionData
+      };
+      const { data, error } = await supabaseClient.from('highlights').insert(insertData).select().single();
+      if (error) throw error;
+      newRecord = data;
+    } else if (newType === 'note') {
+      const noteContent = editFields.noteContent || editFields.note || markedText || personalNote;
+      const title = (noteContent || '').split('\n')[0].substring(0, 50) || 'Notiz';
+      const gaRefs = lectureId ? [lectureId] : (sourceRecord.ga_references || []);
+      const insertData = {
+        user_id: user.id,
+        title,
+        content: noteContent,
+        ga_references: gaRefs,
+        wiki_links: [],
+        tags,
+        groups: groupsArray,
+        is_public: false,
+        marker_color: noteColor,
+        ...positionData
+      };
+      const { data, error } = await supabaseClient.from('notes').insert(insertData).select().single();
+      if (error) throw error;
+      newRecord = data;
+    }
+
+    if (originalType === 'quote') {
+      await deleteQuote(originalId);
+    } else if (originalType === 'highlight' && typeof deleteHighlight === 'function') {
+      await deleteHighlight(originalId);
+    } else if (originalType === 'note' && typeof deleteNote === 'function') {
+      await deleteNote(originalId);
+    }
+
+    await refreshMarkingsAfterConversion(lectureId, newType, newRecord, markedText);
+    return { success: true, converted: true, newType, newId: newRecord?.id, lectureId };
+  } catch (error) {
+    console.error('[MB-CONVERT] Fehler bei Markierungs-Umwandlung:', error);
+    return { success: false, error: error.message || 'Umwandlung fehlgeschlagen' };
+  }
+}
+
+async function reloadMembersTabForMarkingType(markingType) {
+  const tab = MEMBER_MARKING_TYPES[markingType]?.tab;
+  if (tab === 'notes') {
+    if (typeof loadSavedNotes === 'function') await loadSavedNotes();
+  } else if (tab && typeof loadMembersTab === 'function') {
+    await loadMembersTab(tab);
+  }
+  if (typeof updateKeywordFilterDropdownWithAllKeywords === 'function') {
+    await updateKeywordFilterDropdownWithAllKeywords();
+  }
+  if (typeof updateGroupFilterDropdownWithAllGroups === 'function') {
+    await updateGroupFilterDropdownWithAllGroups();
+  }
+}
+
 /**
  * Spezieller Bearbeitungs-Dialog für Notizen (mit Textfeld für Content)
  */
-function showNoteEditDialog(content, keywords = '', groups = '') {
+function showNoteEditDialog(content, keywords = '', groups = '', markingType = 'note') {
   return new Promise((resolve) => {
     // Erstelle Dialog
     const dialog = document.createElement('div');
     dialog.className = 'keyword-dialog-overlay';
     dialog.innerHTML = `
       <div class="keyword-dialog" style="max-width: 600px;">
-        <div class="keyword-dialog-header">
+        <div class="keyword-dialog-header keyword-dialog-header-with-type">
           <h3>Notiz bearbeiten</h3>
+          <label class="marking-type-label" for="edit-marking-type-select">Art:</label>
+          ${buildMarkingTypeSelectHtml(markingType)}
         </div>
         <div class="keyword-dialog-body">
           <label for="note-content-input" style="display: block; margin-bottom: 0.5rem;">Inhalt:</label>
@@ -6243,8 +6497,10 @@ function showNoteEditDialog(content, keywords = '', groups = '') {
       const text = contentInput.value.trim();
       const groups = groupInput.value.trim();
       const keywords = keywordInput.value.trim();
+      const typeSelect = dialog.querySelector('#edit-marking-type-select');
+      const selectedMarkingType = typeSelect ? typeSelect.value : markingType;
       dialog.remove();
-      resolve({ groups, keywords, text });
+      resolve({ groups, keywords, text, markingType: selectedMarkingType, originalMarkingType: markingType });
     };
     
     const handleCancel = () => {
@@ -6265,12 +6521,8 @@ function showNoteEditDialog(content, keywords = '', groups = '') {
     groupInput.addEventListener('keydown', handleEnterKey);
     keywordInput.addEventListener('keydown', handleEnterKey);
     
-    // ESC zum Abbrechen
-    dialog.addEventListener('click', (e) => {
-      if (e.target === dialog) {
-        handleCancel();
-      }
-    });
+    // Click auf Overlay schließt Dialog (nur bei echtem Klick, nicht bei Textauswahl)
+    attachKeywordDialogOverlayDismiss(dialog, handleCancel);
     
     // ESC-Taste zum Abbrechen
     const handleEsc = (e) => {
@@ -6286,15 +6538,18 @@ function showNoteEditDialog(content, keywords = '', groups = '') {
 /**
  * Bearbeitungs-Dialog anzeigen
  */
-function showEditDialog(type, data) {
+function showEditDialog(type, data, markingType = null) {
+  const originalMarkingType = markingType || markingTypeFromEditLabel(type);
   return new Promise((resolve) => {
     // Erstelle Dialog
     const dialog = document.createElement('div');
     dialog.className = 'keyword-dialog-overlay';
     dialog.innerHTML = `
       <div class="keyword-dialog">
-        <div class="keyword-dialog-header">
+        <div class="keyword-dialog-header keyword-dialog-header-with-type">
           <h3>${type} bearbeiten</h3>
+          <label class="marking-type-label" for="edit-marking-type-select">Art:</label>
+          ${buildMarkingTypeSelectHtml(originalMarkingType)}
         </div>
         <div class="keyword-dialog-body">
           <div class="keyword-preview">"${data.text.substring(0, 100)}${data.text.length > 100 ? '...' : ''}"</div>
@@ -6330,8 +6585,17 @@ function showEditDialog(type, data) {
       const groups = groupInput.value.trim();
       const keywords = input.value.trim();
       const note = noteInput.value.trim();
+      const typeSelect = dialog.querySelector('#edit-marking-type-select');
+      const selectedMarkingType = typeSelect ? typeSelect.value : originalMarkingType;
       dialog.remove();
-      resolve({ groups, keywords, note, text: data.text }); // Füge text hinzu für Notizen
+      resolve({
+        groups,
+        keywords,
+        note,
+        text: data.text,
+        markingType: selectedMarkingType,
+        originalMarkingType
+      });
     };
     
     const handleCancel = () => {
@@ -6359,12 +6623,8 @@ function showEditDialog(type, data) {
       }
     });
     
-    // Click auf Overlay schließt Dialog
-    dialog.addEventListener('click', (e) => {
-      if (e.target === dialog) {
-        handleCancel();
-      }
-    });
+    // Click auf Overlay schließt Dialog (nur bei echtem Klick, nicht bei Textauswahl)
+    attachKeywordDialogOverlayDismiss(dialog, handleCancel);
   });
 }
 
@@ -6394,14 +6654,13 @@ async function editMemberNote(id) {
     displayContent = displayContent.replace(/^Aus\s*\[\[[^\]]+\]\]\s*[-:]\s*/i, '').trim();
     
     // Zeige speziellen Bearbeitungs-Dialog für Notizen (mit Textfeld für Content)
-    const editResult = await showNoteEditDialog(displayContent, note.tags ? note.tags.join(', ') : '', note.groups ? note.groups.join(', ') : '');
+    const editResult = await showNoteEditDialog(displayContent, note.tags ? note.tags.join(', ') : '', note.groups ? note.groups.join(', ') : '', 'note');
     
     if (editResult === null) {
-      // Benutzer hat abgebrochen
       return;
     }
     
-    const { groups, keywords, text } = editResult;
+    const { groups, keywords, text, markingType, originalMarkingType } = editResult;
     const groupsArray = groups
       .split(',')
       .map(g => g.trim().toUpperCase())
@@ -6410,6 +6669,24 @@ async function editMemberNote(id) {
       .split(',')
       .map(kw => kw.trim())
       .filter(kw => kw.length > 0);
+
+    if (markingType !== originalMarkingType) {
+      let updatedContent = text || '';
+      updatedContent = updatedContent.replace(/^Aus\s*\[\[[^\]]+\]\]\s*[-:]\s*/i, '').trim();
+      const convertResult = await convertMemberMarking(originalMarkingType, id, markingType, note, {
+        groupsArray,
+        tags,
+        note: '',
+        noteContent: updatedContent,
+        text: getMarkedTextFromRecord('note', note) || updatedContent
+      });
+      if (!convertResult.success) {
+        alert('Fehler bei der Umwandlung: ' + convertResult.error);
+        return;
+      }
+      await reloadMembersTabForMarkingType(markingType);
+      return;
+    }
     
     // Stelle sicher, dass Text vorhanden ist
     if (!text && text !== '') {
