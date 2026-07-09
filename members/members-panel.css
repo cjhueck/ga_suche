@@ -1126,3 +1126,40 @@ span[data-highlight="true"],
   fill: none;
 }
 
+/* Bearbeitungsdialog: Markierungsart-Umschalter */
+.keyword-dialog-header-with-type {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.keyword-dialog-header-with-type h3 {
+  margin: 0;
+  flex: 1 1 auto;
+}
+
+.marking-type-label {
+  font-size: 0.85rem;
+  color: var(--secondary-text, #666);
+  white-space: nowrap;
+}
+
+.marking-type-select {
+  padding: 0.35rem 0.5rem;
+  border: 1px solid var(--border-color, #ccc);
+  border-radius: 4px;
+  background: var(--background-color, #fff);
+  color: var(--text-color, #333);
+  font-size: 0.85rem;
+  cursor: pointer;
+  min-width: 9rem;
+}
+
+body.dark-mode .marking-type-select {
+  background: var(--dark-background-color, #2a2a2a);
+  color: var(--dark-text-color, #eee);
+  border-color: var(--border-color, #555);
+}
+
