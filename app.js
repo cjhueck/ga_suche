@@ -6118,6 +6118,7 @@ function initGABandFilterDropdown() {
 }
 
 let selectedYearFilter = null; // Filter für Jahr-Auswahl im GA-Tab
+let chronologicalNavYear = null; // null = keine Nav-Auswahl, 'all' = Alle geklickt, sonst Jahr-String
 let selectedChalkboardsYearFilter = null; // Filter für Jahr-Auswahl bei Wandtafelzeichnungen
 let allChronologicalLectures = null; // Speichert alle geladenen chronologischen Vorträge
 
@@ -6476,7 +6477,6 @@ function populateGABandFilterDropdown(chalkboardsOnly = false) {
 function toggleChronologicalView() {
   const gaBandDropdown = document.getElementById('ga-band-filter-dropdown');
   const yearDropdown = document.getElementById('ga-year-filter-dropdown');
-  const btn = document.getElementById('ga-chronological-view-btn');
   const chalkboardsBtn = document.getElementById('ga-chalkboards-btn');
   
   // Deaktiviere Wandtafeln-Ansicht wenn aktiv
@@ -6494,49 +6494,56 @@ function toggleChronologicalView() {
     populateGABandFilterDropdown(false);
   }
   
-  // Prüfe ob irgendein Filter aktiv ist
-  if (selectedGABandFilter || selectedYearFilter) {
-    // Filter sind aktiv -> Zurücksetzen auf "Alle Bände"
-    console.log('[GA-TOGGLE] Setze alle Filter zurück');
+  // Button zeigt "Alle Bände" (chronologische Ansicht aktiv)
+  if (currentGAView === 'chronological') {
+    console.log('[GA-TOGGLE] Setze Filter zurück, zeige alle Bände chronologisch');
     
-    // GA-Band Dropdown auf Default zurücksetzen
     if (gaBandDropdown) {
       gaBandDropdown.value = '';
     }
+    if (gaBandFilterDropdown) {
+      gaBandFilterDropdown.setSelectedValue('');
+    }
     selectedGABandFilter = null;
     
-    // Jahr Dropdown auf Default zurücksetzen
     if (yearDropdown) {
       yearDropdown.value = '';
     }
     selectedYearFilter = null;
+    chronologicalNavYear = null;
     
-    // Button-Text zurücksetzen
-    if (btn) {
-      btn.textContent = 'Chronologisch';
-    }
-    
-    // Alle Bände im Sidebar anzeigen
     displayGAVolumesInSidebar();
     
-    // Alle Vorträge chronologisch anzeigen (ohne Filter)
     if (allChronologicalLectures && allChronologicalLectures.length > 0) {
+      currentGAView = 'chronological';
+      updateChronologicalButtonText();
       displayGAChronological(allChronologicalLectures);
     } else {
       showGAChronologicalView(true);
     }
   } else {
-    // Keine Filter aktiv -> Chronologische Ansicht anzeigen
-    console.log('[GA-TOGGLE] Zeige chronologische Ansicht');
+    // Button zeigt "Chronologisch" -> chronologische Ansicht (Bandfilter bleibt erhalten)
+    console.log('[GA-TOGGLE] Zeige chronologische Ansicht',
+      selectedGABandFilter ? 'für ' + selectedGABandFilter : '(alle Bände)');
     showGAChronologicalView();
   }
 }
 
-// Funktion: Aktualisiere Button-Text basierend auf Dropdown-Auswahl
+// Funktion: Aktualisiere Chronologisch-Button (Text + Styling)
 function updateChronologicalButtonText() {
   const btn = document.getElementById('ga-chronological-view-btn');
-  if (btn) {
-    btn.textContent = (selectedGABandFilter || selectedYearFilter) ? 'Alle Bände' : 'Chronologisch';
+  if (!btn) return;
+
+  if (currentGAView === 'chronological') {
+    btn.textContent = 'Alle Bände';
+    btn.style.background = 'var(--accent-color)';
+    btn.style.color = 'white';
+    btn.style.border = '1px solid var(--accent-color)';
+  } else {
+    btn.textContent = 'Chronologisch';
+    btn.style.background = 'transparent';
+    btn.style.color = 'var(--accent-color)';
+    btn.style.border = '1px solid var(--accent-color)';
   }
 }
 
@@ -7479,98 +7486,38 @@ function handleGABandFilterChange(value) {
     console.log('[GA-FILTER] Nicht im GA-Tab, keine Aktualisierung');
     return;
   }
-  
-  // Prüfe ob chronologische Ansicht aktiv ist - einfache und direkte Prüfung
-  const titleElement = document.getElementById('document-title');
-  const viewer = document.getElementById('viewer');
-  const chronologicalViewerContent = document.getElementById('chronological-viewer-content');
-  // Verwende entweder viewer oder chronological-viewer-content für die Prüfung
-  const targetElement = chronologicalViewerContent || viewer;
-  
-  const hasChronologicalTitle = titleElement && titleElement.textContent.includes('Vorträge chronologisch');
-  const hasChronologicalLinks = targetElement && targetElement.querySelector('.chronological-lecture-link') !== null;
-  const hasChronologicalTable = targetElement && targetElement.querySelector('table thead th') && 
-                                 targetElement.querySelector('table thead th').textContent.includes('Jahr');
-  // Wenn chronological-viewer-content existiert, ist die chronologische Ansicht definitiv aktiv
-  const hasChronologicalWrapper = chronologicalViewerContent !== null;
-  
-  const isChronologicalViewActive = (currentGAView === 'chronological') || 
-                                     hasChronologicalTitle || 
-                                     hasChronologicalTable ||
-                                     hasChronologicalLinks ||
-                                     hasChronologicalWrapper;
-  
-  console.log('[GA-FILTER] Prüfung:', {
-    isInGATab: isInGATab,
-    currentGAView: currentGAView,
-    hasChronologicalTitle: hasChronologicalTitle,
-    hasChronologicalTable: hasChronologicalTable,
-    hasChronologicalLinks: hasChronologicalLinks,
-    hasChronologicalWrapper: hasChronologicalWrapper,
-    isChronologicalViewActive: isChronologicalViewActive,
-    allChronologicalLectures: allChronologicalLectures ? allChronologicalLectures.length : 0
-  });
-  
-  // Wenn chronologische Ansicht aktiv ist UND wir bereits Vorträge geladen haben,
-  // filtere sie direkt ohne neu zu laden
-  if (isChronologicalViewActive && allChronologicalLectures && allChronologicalLectures.length > 0) {
-    console.log('[GA-FILTER] Filtere bereits geladene Vorträge direkt');
-    
-    // WICHTIG: Setze currentGAView explizit auf 'chronological', damit Jahr-Buttons nicht entfernt werden
+
+  if (selectedGABandFilter) {
+    console.log('[GA-FILTER] Zeige Inhaltsverzeichnis für', selectedGABandFilter);
+    showGALectures(selectedGABandFilter, true);
+    return;
+  }
+
+  if (selectedYearFilter) {
+    console.log('[GA-FILTER] Jahr-Filter aktiv, zeige chronologische Ansicht');
     currentGAView = 'chronological';
-    
-    // Filtere die bereits geladenen Vorträge
-    let filteredLectures = allChronologicalLectures;
-    
-    // Filter nach GA-Band
-    if (selectedGABandFilter) {
-      const normalizedFilter = normalizeGANumber(selectedGABandFilter);
-      filteredLectures = filteredLectures.filter(lecture => {
-        if (!lecture.gaNumber) return false;
-        const normalizedLectureGA = normalizeGANumber(lecture.gaNumber);
-        return normalizedLectureGA === normalizedFilter;
-      });
-      console.log('[GA-FILTER] Nach GA-Band gefiltert:', filteredLectures.length, 'Vorträge für', normalizedFilter);
-    }
-    
-    // Filter nach Jahr (falls auch ausgewählt)
-    if (selectedYearFilter) {
-      filteredLectures = filteredLectures.filter(lecture => {
-        if (!lecture.date) return false;
-        const year = new Date(lecture.date).getFullYear();
-        return year === selectedYearFilter;
-      });
-      console.log('[GA-FILTER] Nach Jahr gefiltert:', filteredLectures.length, 'Vorträge für Jahr', selectedYearFilter);
-    }
-    
-    // WICHTIG: Entferne das alte Layout komplett, damit es neu erstellt wird
-    const existingWrapper = document.getElementById('chronological-year-nav-wrapper');
-    if (existingWrapper && existingWrapper.parentNode) {
-      const newViewer = createViewerElement();
-      existingWrapper.parentNode.replaceChild(newViewer, existingWrapper);
-      const mainEl = document.getElementById('main');
-      if (mainEl) {
-        mainEl.style.overflow = '';
-        mainEl.style.height = '';
-      }
-    }
-    
-    // Zeige gefilterte Vorträge an - Layout wird komplett neu erstellt
-    displayGAChronological(filteredLectures);
-  } 
-  // Wenn chronologische Ansicht aktiv ist aber keine Vorträge geladen sind,
-  // oder wenn wir im GA-Tab sind und ein Filter gesetzt wird,
-  // lade die Ansicht neu
-  else if (isChronologicalViewActive || (isInGATab && selectedGABandFilter)) {
-    console.log('[GA-FILTER] Aktualisiere chronologische Ansicht mit Filter:', selectedGABandFilter);
-    // Setze currentGAView explizit, falls es nicht gesetzt ist
-    if (!currentGAView || currentGAView !== 'chronological') {
-      currentGAView = 'chronological';
-    }
-    // Rufe showGAChronologicalView auf, um die Ansicht neu zu laden und zu filtern
-    showGAChronologicalView(true); // skipHistory = true, um History-Eintrag zu vermeiden
-  } else {
-    console.log('[GA-FILTER] Chronologische Ansicht nicht aktiv, keine Aktualisierung');
+    showGAChronologicalView(true);
+    return;
+  }
+
+  console.log('[GA-FILTER] Filter zurückgesetzt, zeige Platzhalter');
+  currentGAView = 'volumes';
+  currentGANumber = null;
+
+  if (typeof removeChronologicalYearButtons === 'function') {
+    removeChronologicalYearButtons();
+  }
+
+  const viewer = document.getElementById('viewer');
+  if (viewer) {
+    viewer.innerHTML = '<div id="viewer-content"><div style="color: var(--secondary-text); text-align: left; font-style: italic; font-size: 0.9rem;">Wählen Sie einen GA-Band aus der linken Liste aus.</div></div>';
+  }
+  const documentTitle = document.getElementById('document-title');
+  if (documentTitle) {
+    documentTitle.textContent = 'GA-Bände Übersicht';
+  }
+  if (typeof updateButtonStates === 'function') {
+    updateButtonStates();
   }
 }
 
@@ -10032,6 +9979,7 @@ async function showGALectures(gaNumber, skipHistory = false) {
   try {
     // Setze Ansicht auf 'volumes', da wir einen einzelnen GA-Band anzeigen
     currentGAView = 'volumes';
+    updateChronologicalButtonText();
     
     // WICHTIG: Deaktiviere Wandtafeln-Ansicht falls aktiv und stelle Scroll-Verhalten wieder her
     if (isChalkboardsViewActive) {
@@ -11004,6 +10952,7 @@ function showGAVolumesView() {
 // Zeige chronologische Ansicht
 async function showGAChronologicalView(skipHistory = false) {
   currentGAView = 'chronological';
+  chronologicalNavYear = null;
   
   // Chalkboards-Ansicht deaktivieren und Buttons ausblenden
   if (isChalkboardsViewActive) {
@@ -11044,12 +10993,7 @@ async function showGAChronologicalView(skipHistory = false) {
     }, '', url);
     }
   
-  // Update Button Styling
-  const chronBtn = document.getElementById('ga-chronological-view-btn');
-  if (chronBtn) {
-    chronBtn.style.background = 'var(--accent-color)';
-    chronBtn.style.color = 'white';
-  }
+  updateChronologicalButtonText();
   
   // Lade alle Vorträge chronologisch
   try {
@@ -11215,12 +11159,12 @@ function displayGAChronological(lectures) {
   
   // Erstelle sticky Jahres-Header mit ALLEN Jahren
   const yearButtonsHtml = years.map(year => {
-    const isActive = selectedYearFilter === year;
+    const isActive = chronologicalNavYear === year;
     return `<button class="year-nav-btn ${isActive ? 'active-year-btn' : ''}" onclick="scrollToChronologicalYear('${year}')" data-year="${year}" style="padding: 0.4rem 0.8rem; margin: 0 0.2rem; border: 1px solid var(--accent-color); background: ${isActive ? 'var(--accent-color)' : 'var(--background-color)'}; color: ${isActive ? 'white' : 'var(--text-color)'}; cursor: pointer; border-radius: 4px; font-size: 0.85em; transition: all 0.2s;">${year}</button>`;
   }).join('');
   
-  // "Alle" Button am Ende
-  const isAllActive = selectedYearFilter === null;
+  // "Alle" Button am Ende – nur aktiv nach explizitem Klick
+  const isAllActive = chronologicalNavYear === 'all';
   const allButton = `<button class="year-nav-btn ${isAllActive ? 'active-year-btn' : ''}" onclick="scrollToChronologicalYear(null)" data-year="all" style="padding: 0.4rem 0.8rem; margin: 0 0.2rem; border: 1px solid var(--accent-color); background: ${isAllActive ? 'var(--accent-color)' : 'var(--background-color)'}; color: ${isAllActive ? 'white' : 'var(--text-color)'}; cursor: pointer; border-radius: 4px; font-size: 0.85em; transition: all 0.2s;">Alle</button>`;
   
   const allYearButtonsHtml = yearButtonsHtml + allButton;
@@ -11710,7 +11654,7 @@ function displayGAChronological(lectures) {
 
 // Filtert die chronologische Ansicht nach Jahr (oder zeigt alle wenn year=null)
 function scrollToChronologicalYear(year) {
-  // Speichere den Jahr-Filter
+  chronologicalNavYear = year === null ? 'all' : String(year);
   selectedYearFilter = year;
   
   // Entferne aktive Markierung von allen Buttons
@@ -30848,83 +30792,97 @@ async function saveMarkedWord(word, gaTitle) {
   }
 }
 
-// Event-Listener für Rechtsklick im Viewer und Summary-Panel (für Textmarkierung und Schreibfehlerkorrektur)
-// DEAKTIVIERT - Wird durch Members Context Menu ersetzt
-// Nur noch bei Strg+Shift+Rechtsklick aktiv (für Fehlerkorrektur)
-document.addEventListener('DOMContentLoaded', function() {
-  const viewer = document.getElementById('viewer');
-  const summaryPanel = document.getElementById('summary-panel');
-  
-  // Gemeinsame Funktion für Schreibfehler-Markierung
-  function handleTypoMarking(e) {
-    // Hole markierten Text
-    const selection = window.getSelection();
-    const selectedText = selection.toString().trim();
-    
-    if (!selectedText || selectedText.length === 0) {
-      return;
+// Hilfsfunktion: Wort an Klickposition ermitteln (für Alt+Klick ohne vorherige Markierung)
+function getWordAtClickPoint(e) {
+  let range;
+  if (document.caretRangeFromPoint) {
+    range = document.caretRangeFromPoint(e.clientX, e.clientY);
+  } else if (document.caretPositionFromPoint) {
+    const pos = document.caretPositionFromPoint(e.clientX, e.clientY);
+    if (pos) {
+      range = document.createRange();
+      range.setStart(pos.offsetNode, pos.offset);
+      range.setEnd(pos.offsetNode, pos.offset);
     }
-    
-    // Hole aktuellen Vortragstitel
+  }
+
+  if (!range || !range.startContainer || range.startContainer.nodeType !== Node.TEXT_NODE) {
+    return null;
+  }
+
+  const text = range.startContainer.textContent;
+  const offset = range.startOffset;
+  let start = offset;
+  let end = offset;
+  while (start > 0 && /[\wäöüÄÖÜß\-]/i.test(text[start - 1])) start--;
+  while (end < text.length && /[\wäöüÄÖÜß\-]/i.test(text[end])) end++;
+
+  const word = text.slice(start, end).trim();
+  return word.length >= 2 ? word : null;
+}
+
+function isTypoMarkingTarget(target) {
+  if (!target || !target.closest) return false;
+  if (target.closest('a, script, style, code, pre, button, input, textarea, select, .spellcheck-context-menu, #members-context-menu, #sc-correction-popup')) {
+    return false;
+  }
+  return !!target.closest('#viewer, #viewer-content, #chronological-viewer-content, #summary-panel, #summary-content, #main');
+}
+
+function getTypoMarkText(e) {
+  const selection = window.getSelection();
+  const selectedText = selection && !selection.isCollapsed ? selection.toString().trim() : '';
+  if (selectedText) return selectedText;
+  return getWordAtClickPoint(e) || '';
+}
+
+// Event-Listener für Rechtsklick im Viewer und Summary-Panel (für Textmarkierung und Schreibfehlerkorrektur)
+// Document-Delegation: funktioniert auch wenn #viewer durch createViewerElement() ersetzt wird
+function initTypoMarkingListeners() {
+  if (initTypoMarkingListeners._initialized) return;
+  initTypoMarkingListeners._initialized = true;
+
+  function handleTypoMarking(selectedText) {
+    if (!selectedText) return;
+
     const documentTitle = document.getElementById('document-title');
     const gaTitle = documentTitle ? documentTitle.textContent : 'Unbekannt';
-    
-    // Zeige Bestätigungsdialog
     const confirmed = confirm(`Wort "${selectedText}" als fehlerhaft markieren?\n\nVortrag: ${gaTitle}`);
-    
+
     if (confirmed) {
       saveMarkedWord(selectedText, gaTitle);
     }
   }
-  
-  // Funktion zum Hinzufügen der Event-Listener zu einem Element
-  function addTypoMarkingListeners(element) {
-    if (!element) return;
-    
-    // Rechtsklick-Handler: Nur bei Strg+Shift+Rechtsklick
-    element.addEventListener('contextmenu', function(e) {
-      const selection = window.getSelection();
-      const selectedText = selection.toString().trim();
-      
-      // NUR bei Strg+Shift+Rechtsklick (für Fehlerkorrektur)
-      // Normaler Rechtsklick wird vom Members Context Menu behandelt
-      if (selectedText && selectedText.length > 0 && e.ctrlKey && e.shiftKey) {
-        e.preventDefault(); // Verhindere Standard-Kontextmenü
-        handleTypoMarking(e);
-      }
-    });
-    
-    // Klick-Handler: Bei Alt+Klick (linke Maustaste) für Rechtschreibfehler
-    element.addEventListener('click', function(e) {
-      // Nur wenn Alt-Taste gedrückt ist (für Fehlerkorrektur)
-      if (e.altKey && !e.ctrlKey && !e.shiftKey && !e.metaKey) {
-        // Prüfe ob geklicktes Element ein Link ist - dann nicht blockieren
-        const target = e.target;
-        const isLink = target.tagName === 'A' || target.closest('a');
-        
-        if (isLink) {
-          return; // Link normal funktionieren lassen
-        }
-        
-        const selection = window.getSelection();
-        const selectedText = selection.toString().trim();
-        
-        // Nur wenn Text markiert ist
-        if (selectedText && selectedText.length > 0) {
-          e.preventDefault();
-          e.stopPropagation();
-          handleTypoMarking(e);
-        }
-      }
-    });
-  }
-  
-  // Event-Listener für Viewer (linkes Hauptpanel)
-  addTypoMarkingListeners(viewer);
-  
-  // Event-Listener für Summary-Panel (rechtes Panel)
-  addTypoMarkingListeners(summaryPanel);
-});
+
+  document.addEventListener('contextmenu', function(e) {
+    if (!e.ctrlKey || !e.shiftKey) return;
+    if (!isTypoMarkingTarget(e.target)) return;
+
+    const selectedText = getTypoMarkText(e);
+    if (!selectedText) return;
+
+    e.preventDefault();
+    handleTypoMarking(selectedText);
+  });
+
+  document.addEventListener('mouseup', function(e) {
+    if (!e.altKey || e.ctrlKey || e.shiftKey || e.metaKey) return;
+    if (e.button !== 0) return;
+    if (!isTypoMarkingTarget(e.target)) return;
+
+    const selectedText = getTypoMarkText(e);
+    if (!selectedText) return;
+
+    e.preventDefault();
+    e.stopPropagation();
+    handleTypoMarking(selectedText);
+  }, true);
+}
+
+document.addEventListener('DOMContentLoaded', initTypoMarkingListeners);
+if (document.readyState !== 'loading') {
+  initTypoMarkingListeners();
+}
 
 // ============================================
 // Auto-Scroll zu Absatz bei URL-Parameter &index=...
