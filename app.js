@@ -5061,12 +5061,256 @@ function normalizeGANumber(gaNumber) {
         return this.getSelectedValues().join(',');
       }
     }
+
+    class SingleSelectSearchDropdown {
+      static _instances = new Map();
+      static _documentListenersBound = false;
+
+      constructor(containerId, buttonId, listId, placeholderText, options = {}) {
+        this.containerId = containerId;
+        this.buttonId = buttonId;
+        this.listId = listId;
+        this.placeholderText = placeholderText;
+        this.searchPlaceholder = options.searchPlaceholder || 'Suchen…';
+        this.container = document.getElementById(containerId);
+        this.button = document.getElementById(buttonId);
+        this.list = document.getElementById(listId);
+        const prev = SingleSelectSearchDropdown._instances.get(containerId);
+        this.selectedValue = prev ? prev.selectedValue : '';
+        this.searchQuery = '';
+        this.items = prev ? prev.items.slice() : [];
+
+        if (!this.container || !this.button || !this.list) {
+          console.error('[SINGLE-DROPDOWN-INIT-FAIL]', containerId);
+          return;
+        }
+        SingleSelectSearchDropdown._instances.set(containerId, this);
+        this.init();
+      }
+
+      _liveContainer() { return document.getElementById(this.containerId); }
+      _liveButton() { return document.getElementById(this.buttonId); }
+      _liveList() { return document.getElementById(this.listId); }
+
+      static _bindDocumentListenersOnce() {
+        if (SingleSelectSearchDropdown._documentListenersBound) return;
+        SingleSelectSearchDropdown._documentListenersBound = true;
+
+        document.addEventListener('click', (e) => {
+          for (const instance of SingleSelectSearchDropdown._instances.values()) {
+            const button = instance._liveButton();
+            if (button && (e.target === button || button.contains(e.target))) {
+              e.stopPropagation();
+              instance.toggle();
+              return;
+            }
+          }
+
+          for (const instance of SingleSelectSearchDropdown._instances.values()) {
+            const container = instance._liveContainer();
+            const list = instance._liveList();
+            if (container && (container.contains(e.target) || (list && list.contains(e.target)))) {
+              return;
+            }
+          }
+
+          for (const instance of SingleSelectSearchDropdown._instances.values()) {
+            instance.close();
+          }
+        });
+
+        window.addEventListener('resize', () => {
+          for (const instance of SingleSelectSearchDropdown._instances.values()) {
+            instance.close();
+          }
+        });
+      }
+
+      init() {
+        SingleSelectSearchDropdown._bindDocumentListenersOnce();
+        this.updateButtonLabel();
+      }
+
+      positionList() {
+        const button = this._liveButton();
+        const list = this._liveList();
+        if (!button || !list) return;
+        const rect = button.getBoundingClientRect();
+        list.style.top = rect.bottom + 'px';
+        list.style.left = rect.left + 'px';
+        list.style.minWidth = rect.width + 'px';
+        list.style.width = 'auto';
+        list.style.maxWidth = Math.max(rect.width, window.innerWidth - rect.left - 12) + 'px';
+      }
+
+      toggle() {
+        const container = this._liveContainer();
+        if (!container) return;
+        const isOpen = container.classList.contains('open');
+        document.querySelectorAll('.custom-dropdown.open').forEach(dd => {
+          dd.classList.remove('open');
+        });
+
+        if (!isOpen) {
+          this.searchQuery = '';
+          container.classList.add('open');
+          this.render();
+          this.positionList();
+          const input = this._liveList()?.querySelector('.custom-dropdown-search-input');
+          if (input) {
+            setTimeout(() => input.focus(), 0);
+          }
+        }
+      }
+
+      close() {
+        const container = this._liveContainer();
+        if (container) container.classList.remove('open');
+        this.searchQuery = '';
+      }
+
+      getFilteredItems() {
+        const q = String(this.searchQuery || '').trim();
+        if (!q) return this.items;
+        return this.items.filter(item => {
+          const ga = { number: item.value, title: item.label };
+          return typeof gaVolumeMatchesSearch === 'function'
+            ? gaVolumeMatchesSearch(ga, q)
+            : item.label.toLowerCase().includes(q.toLowerCase());
+        });
+      }
+
+      setItems(items) {
+        this.items = Array.isArray(items) ? items : [];
+        this.updateButtonLabel();
+      }
+
+      setSelectedValue(value) {
+        this.selectedValue = value || '';
+        this.updateButtonLabel();
+      }
+
+      setPlaceholder(text) {
+        this.placeholderText = text || '';
+        this.updateButtonLabel();
+      }
+
+      render() {
+        const list = this._liveList();
+        if (!list) return;
+        list.innerHTML = '';
+
+        const searchWrap = document.createElement('div');
+        searchWrap.className = 'custom-dropdown-search';
+        const searchInput = document.createElement('input');
+        searchInput.type = 'text';
+        searchInput.className = 'custom-dropdown-search-input';
+        searchInput.placeholder = this.searchPlaceholder;
+        searchInput.value = this.searchQuery;
+        searchInput.autocomplete = 'off';
+        searchInput.addEventListener('input', (e) => {
+          e.stopPropagation();
+          this.searchQuery = e.target.value;
+          this.renderItems(searchInput);
+        });
+        searchInput.addEventListener('click', (e) => e.stopPropagation());
+        searchInput.addEventListener('keydown', (e) => {
+          e.stopPropagation();
+          if (e.key === 'Enter') {
+            e.preventDefault();
+            const filtered = this.getFilteredItems();
+            if (filtered.length) this.selectValue(filtered[0].value);
+          } else if (e.key === 'Escape') {
+            this.close();
+          }
+        });
+        searchWrap.appendChild(searchInput);
+        list.appendChild(searchWrap);
+        this.renderItems(searchInput);
+      }
+
+      renderItems(preserveFocusInput) {
+        const list = this._liveList();
+        if (!list) return;
+        list.querySelectorAll('.custom-dropdown-item, .custom-dropdown-separator').forEach(el => el.remove());
+
+        const clearDiv = document.createElement('div');
+        clearDiv.className = 'custom-dropdown-item custom-dropdown-clear';
+        clearDiv.textContent = 'keine';
+        clearDiv.addEventListener('click', (e) => {
+          e.stopPropagation();
+          this.selectValue('');
+        });
+        list.appendChild(clearDiv);
+
+        const separator = document.createElement('div');
+        separator.className = 'custom-dropdown-separator';
+        list.appendChild(separator);
+
+        const filtered = this.getFilteredItems();
+        filtered.forEach((item) => {
+          const div = document.createElement('div');
+          div.className = 'custom-dropdown-item';
+          if (item.value === this.selectedValue) {
+            div.classList.add('selected');
+          }
+          div.dataset.value = item.value;
+          div.textContent = item.label;
+          div.title = item.label;
+          div.addEventListener('click', (e) => {
+            e.stopPropagation();
+            this.selectValue(item.value);
+          });
+          list.appendChild(div);
+        });
+
+        if (preserveFocusInput && document.activeElement === preserveFocusInput) {
+          preserveFocusInput.focus();
+        }
+      }
+
+      selectValue(value) {
+        this.selectedValue = value || '';
+        this.searchQuery = '';
+        this.updateButtonLabel();
+        this.close();
+        this.triggerChange();
+      }
+
+      updateButtonLabel() {
+        const button = this._liveButton();
+        if (!button) return;
+        const textSpan = button.querySelector('.custom-dropdown-text');
+        if (!textSpan) return;
+
+        textSpan.textContent = this.placeholderText;
+        textSpan.style.fontWeight = 'normal';
+        textSpan.style.color = '';
+
+        if (this.selectedValue) {
+          const item = this.items.find(i => i.value === this.selectedValue);
+          button.title = item ? item.label : this.selectedValue;
+        } else {
+          button.title = this.placeholderText;
+        }
+      }
+
+      triggerChange() {
+        const container = this._liveContainer();
+        if (!container) return;
+        container.dispatchEvent(new CustomEvent('singleselect-change', {
+          detail: { value: this.selectedValue }
+        }));
+      }
+    }
+    window.SingleSelectSearchDropdown = SingleSelectSearchDropdown;
     
     // Initialisiere Custom Dropdowns
     let yearFilterDropdown = null;
     let gaFilterDropdown = null;
     let advancedGAFilterDropdown = null;
     let thematicGAFilterDropdown = null;
+    let texteGAFilterDropdown = null;
     
     function initCustomDropdowns() {
       // Entferne alte Event-Listener, falls vorhanden (durch Klonen der Container)
@@ -5206,32 +5450,32 @@ function normalizeGANumber(gaNumber) {
         // Befülle normale Dropdowns in anderen Tabs
         const texteGAFilter = document.getElementById('texteGAFilter');
         const conceptOverviewGAFilter = document.getElementById('conceptOverviewGAFilter');
+        const texteGAItems = gaList.map(ga => ({
+          value: ga.number,
+          label: ga.title && ga.title !== ga.number ? `${ga.number} - ${ga.title}` : ga.number
+        }));
         if (texteGAFilter) {
-          // Speichere den aktuellen Wert, falls vorhanden
+          initTexteGAFilterDropdown();
           const currentValue = texteGAFilter.value;
-          
+
           texteGAFilter.innerHTML = '<option value="">GA-Band auswählen...</option>';
           gaList.forEach(ga => {
             const option = document.createElement('option');
             option.value = ga.number;
-            // Zeige Nummer und Titel (falls verfügbar und nicht identisch)
             option.textContent = ga.title && ga.title !== ga.number ? `${ga.number} - ${ga.title}` : ga.number;
             option.className = 'available-ga';
             texteGAFilter.appendChild(option);
           });
-          
-          // Stelle den vorherigen Wert wieder her, falls vorhanden
+
           if (currentValue) {
             texteGAFilter.value = currentValue;
           }
-          
-          // Entferne alle alten Event-Listener durch Klonen des Elements
-          const newTexteGAFilter = texteGAFilter.cloneNode(true);
-          newTexteGAFilter.value = texteGAFilter.value;
-          texteGAFilter.parentNode.replaceChild(newTexteGAFilter, texteGAFilter);
-          // Listener wird ausschließlich über initGAFilter() registriert
-          
+
+          if (texteGAFilterDropdown) {
+            texteGAFilterDropdown.setItems(texteGAItems);
+            texteGAFilterDropdown.setSelectedValue(texteGAFilter.value || '');
           }
+        }
         
         // Befülle Concept Overview GA-Filter
         if (conceptOverviewGAFilter) {
@@ -5292,7 +5536,54 @@ function normalizeGANumber(gaNumber) {
         }
     }
 
+    function hookTexteGAFilterValueSync() {
+      const texteGAFilter = document.getElementById('texteGAFilter');
+      if (!texteGAFilter || texteGAFilter._valueHooked) return;
+      texteGAFilter._valueHooked = true;
+      const descriptor = Object.getOwnPropertyDescriptor(HTMLSelectElement.prototype, 'value');
+      Object.defineProperty(texteGAFilter, 'value', {
+        get() { return descriptor.get.call(this); },
+        set(v) {
+          descriptor.set.call(this, v);
+          if (texteGAFilterDropdown) {
+            texteGAFilterDropdown.setSelectedValue(v || '');
+          }
+        },
+        configurable: true
+      });
+    }
+
+    function initTexteGAFilterDropdown() {
+      const container = document.getElementById('texteGAFilterContainer');
+      if (!container || container._texteDropdownInitialized) return;
+      container._texteDropdownInitialized = true;
+
+      texteGAFilterDropdown = new SingleSelectSearchDropdown(
+        'texteGAFilterContainer',
+        'texteGAFilterButton',
+        'texteGAFilterList',
+        'GA-Band auswählen...',
+        { searchPlaceholder: 'GA-Nummer oder Titel …' }
+      );
+
+      hookTexteGAFilterValueSync();
+
+      if (!container._singleselectListenerBound) {
+        container._singleselectListenerBound = true;
+        container.addEventListener('singleselect-change', (e) => {
+          const texteGAFilter = document.getElementById('texteGAFilter');
+          if (!texteGAFilter) return;
+          const selectedGA = e.detail.value || '';
+          const descriptor = Object.getOwnPropertyDescriptor(HTMLSelectElement.prototype, 'value');
+          descriptor.set.call(texteGAFilter, selectedGA);
+          texteGAFilter.dispatchEvent(new Event('change', { bubbles: true }));
+        });
+      }
+    }
+
     function initGAFilter() {
+      initTexteGAFilterDropdown();
+
       const texteGAFilter = document.getElementById('texteGAFilter');
 
       // Texte-Tab: Direkt GA-Übersicht öffnen bei Auswahl
@@ -5747,7 +6038,7 @@ let currentGANumber = null; // Speichert aktuell angezeigten GA-Band
 let gaVolumesLoading = false; // Verhindert doppeltes Laden
 let gaVolumesRetryCount = 0; // Zählt Retry-Versuche
 let selectedGABandFilter = null; // Filter für GA-Band-Auswahl im GA-Tab
-let gaVolumeSearchQuery = ''; // Textsuche GA-Nummer/Titel im GA-Tab
+let gaBandFilterDropdown = null;
 
 function gaVolumeMatchesSearch(ga, rawQuery) {
   const q = String(rawQuery || '').trim().toLowerCase();
@@ -5777,27 +6068,57 @@ function getFilteredGAVolumesForSidebar() {
       ga.number.toLowerCase() === selectedGABandFilter.toLowerCase()
     );
   }
-  if (gaVolumeSearchQuery) {
-    filteredData = filteredData.filter(ga => gaVolumeMatchesSearch(ga, gaVolumeSearchQuery));
-  }
   return filteredData;
 }
 
-function handleGAVolumeSearchInput() {
-  const el = document.getElementById('gaVolumeSearch');
-  gaVolumeSearchQuery = el ? el.value : '';
-  displayGAVolumesInSidebar();
+function hookGABandFilterValueSync() {
+  const gaBandFilter = document.getElementById('ga-band-filter-dropdown');
+  if (!gaBandFilter || gaBandFilter._valueHooked) return;
+  gaBandFilter._valueHooked = true;
+  const descriptor = Object.getOwnPropertyDescriptor(HTMLSelectElement.prototype, 'value');
+  Object.defineProperty(gaBandFilter, 'value', {
+    get() { return descriptor.get.call(this); },
+    set(v) {
+      descriptor.set.call(this, v);
+      if (gaBandFilterDropdown) {
+        gaBandFilterDropdown.setSelectedValue(v || '');
+      }
+    },
+    configurable: true
+  });
 }
 
-function handleGAVolumeSearchKeydown(event) {
-  if (!event || event.key !== 'Enter') return;
-  event.preventDefault();
-  const matches = getFilteredGAVolumesForSidebar();
-  if (matches.length >= 1 && typeof showGALectures === 'function') {
-    showGALectures(matches[0].number);
+function initGABandFilterDropdown() {
+  const container = document.getElementById('gaBandFilterContainer');
+  if (!container || container._gaBandDropdownInitialized) return;
+  if (typeof window.SingleSelectSearchDropdown !== 'function') return;
+  container._gaBandDropdownInitialized = true;
+
+  gaBandFilterDropdown = new window.SingleSelectSearchDropdown(
+    'gaBandFilterContainer',
+    'gaBandFilterButton',
+    'gaBandFilterList',
+    'GA-Bände',
+    { searchPlaceholder: 'GA-Nummer oder Titel …' }
+  );
+
+  hookGABandFilterValueSync();
+
+  if (!container._singleselectListenerBound) {
+    container._singleselectListenerBound = true;
+    container.addEventListener('singleselect-change', (e) => {
+      const gaBandFilter = document.getElementById('ga-band-filter-dropdown');
+      if (!gaBandFilter) return;
+      const selectedGA = e.detail.value || '';
+      const descriptor = Object.getOwnPropertyDescriptor(HTMLSelectElement.prototype, 'value');
+      descriptor.set.call(gaBandFilter, selectedGA);
+      handleGABandFilterChange(selectedGA);
+    });
   }
 }
+
 let selectedYearFilter = null; // Filter für Jahr-Auswahl im GA-Tab
+let chronologicalNavYear = null; // null = keine Nav-Auswahl, 'all' = Alle geklickt, sonst Jahr-String
 let selectedChalkboardsYearFilter = null; // Filter für Jahr-Auswahl bei Wandtafelzeichnungen
 let allChronologicalLectures = null; // Speichert alle geladenen chronologischen Vorträge
 
@@ -6003,7 +6324,7 @@ function displayGAVolumesInSidebar() {
   let filteredData = getFilteredGAVolumesForSidebar();
   
   // Prüfe ob alle Bände wieder angezeigt werden (kein Filter aktiv)
-  const isShowingAllVolumes = !selectedGABandFilter && !gaVolumeSearchQuery;
+  const isShowingAllVolumes = !selectedGABandFilter;
   
   // Wenn alle Bände wieder angezeigt werden, setze Viewer zurück
   if (isShowingAllVolumes) {
@@ -6084,6 +6405,8 @@ function populateGABandFilterDropdown(chalkboardsOnly = false) {
     console.warn('[GA-TAB] Dropdown nicht gefunden');
     return;
   }
+
+  initGABandFilterDropdown();
   
   // Speichere aktuellen Wert
   const currentValue = dropdown.value;
@@ -6092,11 +6415,8 @@ function populateGABandFilterDropdown(chalkboardsOnly = false) {
   const gasWithChalkboards = chalkboardsOnly ? getGAsWithChalkboards() : [];
   
   // Leere Dropdown
-  if (chalkboardsOnly) {
-    dropdown.innerHTML = '<option value="">Alle Tafeln</option>';
-  } else {
-    dropdown.innerHTML = '<option value="">GA-Bände</option>';
-  }
+  const placeholder = chalkboardsOnly ? 'Alle Tafeln' : 'GA-Bände';
+  dropdown.innerHTML = `<option value="">${placeholder}</option>`;
   
   // Sortiere GA-Bände nach Nummer (GA014 wird nicht angezeigt)
   let sortedGAs = [...gaVolumesData]
@@ -6117,6 +6437,11 @@ function populateGABandFilterDropdown(chalkboardsOnly = false) {
     });
     console.log(`[GA-DROPDOWN] Gefiltert auf ${sortedGAs.length} GAs mit Tafeln`);
   }
+
+  const gaBandItems = sortedGAs.map(ga => ({
+    value: ga.number,
+    label: `${ga.number} - ${ga.title}`
+  }));
   
   // Füge GA-Bände hinzu
   sortedGAs.forEach(ga => {
@@ -6127,16 +6452,24 @@ function populateGABandFilterDropdown(chalkboardsOnly = false) {
   });
   
   // Stelle vorherigen Wert wieder her falls vorhanden und gültig
+  let restoredValue = '';
   if (currentValue) {
     // Prüfe ob der Wert noch in der Liste ist
     const valueExists = Array.from(dropdown.options).some(opt => opt.value === currentValue);
     if (valueExists) {
       dropdown.value = currentValue;
+      restoredValue = currentValue;
     } else {
       // Wert existiert nicht mehr (z.B. weil GA keine Tafeln hat) - reset
       dropdown.value = '';
       selectedGABandFilter = null;
     }
+  }
+
+  if (gaBandFilterDropdown) {
+    gaBandFilterDropdown.setPlaceholder(placeholder);
+    gaBandFilterDropdown.setItems(gaBandItems);
+    gaBandFilterDropdown.setSelectedValue(restoredValue);
   }
 }
 
@@ -6144,7 +6477,6 @@ function populateGABandFilterDropdown(chalkboardsOnly = false) {
 function toggleChronologicalView() {
   const gaBandDropdown = document.getElementById('ga-band-filter-dropdown');
   const yearDropdown = document.getElementById('ga-year-filter-dropdown');
-  const btn = document.getElementById('ga-chronological-view-btn');
   const chalkboardsBtn = document.getElementById('ga-chalkboards-btn');
   
   // Deaktiviere Wandtafeln-Ansicht wenn aktiv
@@ -6162,49 +6494,56 @@ function toggleChronologicalView() {
     populateGABandFilterDropdown(false);
   }
   
-  // Prüfe ob irgendein Filter aktiv ist
-  if (selectedGABandFilter || selectedYearFilter) {
-    // Filter sind aktiv -> Zurücksetzen auf "Alle Bände"
-    console.log('[GA-TOGGLE] Setze alle Filter zurück');
+  // Button zeigt "Alle Bände" (chronologische Ansicht aktiv)
+  if (currentGAView === 'chronological') {
+    console.log('[GA-TOGGLE] Setze Filter zurück, zeige alle Bände chronologisch');
     
-    // GA-Band Dropdown auf Default zurücksetzen
     if (gaBandDropdown) {
       gaBandDropdown.value = '';
     }
+    if (gaBandFilterDropdown) {
+      gaBandFilterDropdown.setSelectedValue('');
+    }
     selectedGABandFilter = null;
     
-    // Jahr Dropdown auf Default zurücksetzen
     if (yearDropdown) {
       yearDropdown.value = '';
     }
     selectedYearFilter = null;
+    chronologicalNavYear = null;
     
-    // Button-Text zurücksetzen
-    if (btn) {
-      btn.textContent = 'Chronologisch';
-    }
-    
-    // Alle Bände im Sidebar anzeigen
     displayGAVolumesInSidebar();
     
-    // Alle Vorträge chronologisch anzeigen (ohne Filter)
     if (allChronologicalLectures && allChronologicalLectures.length > 0) {
+      currentGAView = 'chronological';
+      updateChronologicalButtonText();
       displayGAChronological(allChronologicalLectures);
     } else {
       showGAChronologicalView(true);
     }
   } else {
-    // Keine Filter aktiv -> Chronologische Ansicht anzeigen
-    console.log('[GA-TOGGLE] Zeige chronologische Ansicht');
+    // Button zeigt "Chronologisch" -> chronologische Ansicht (Bandfilter bleibt erhalten)
+    console.log('[GA-TOGGLE] Zeige chronologische Ansicht',
+      selectedGABandFilter ? 'für ' + selectedGABandFilter : '(alle Bände)');
     showGAChronologicalView();
   }
 }
 
-// Funktion: Aktualisiere Button-Text basierend auf Dropdown-Auswahl
+// Funktion: Aktualisiere Chronologisch-Button (Text + Styling)
 function updateChronologicalButtonText() {
   const btn = document.getElementById('ga-chronological-view-btn');
-  if (btn) {
-    btn.textContent = (selectedGABandFilter || selectedYearFilter) ? 'Alle Bände' : 'Chronologisch';
+  if (!btn) return;
+
+  if (currentGAView === 'chronological') {
+    btn.textContent = 'Alle Bände';
+    btn.style.background = 'var(--accent-color)';
+    btn.style.color = 'white';
+    btn.style.border = '1px solid var(--accent-color)';
+  } else {
+    btn.textContent = 'Chronologisch';
+    btn.style.background = 'transparent';
+    btn.style.color = 'var(--accent-color)';
+    btn.style.border = '1px solid var(--accent-color)';
   }
 }
 
@@ -7147,98 +7486,38 @@ function handleGABandFilterChange(value) {
     console.log('[GA-FILTER] Nicht im GA-Tab, keine Aktualisierung');
     return;
   }
-  
-  // Prüfe ob chronologische Ansicht aktiv ist - einfache und direkte Prüfung
-  const titleElement = document.getElementById('document-title');
-  const viewer = document.getElementById('viewer');
-  const chronologicalViewerContent = document.getElementById('chronological-viewer-content');
-  // Verwende entweder viewer oder chronological-viewer-content für die Prüfung
-  const targetElement = chronologicalViewerContent || viewer;
-  
-  const hasChronologicalTitle = titleElement && titleElement.textContent.includes('Vorträge chronologisch');
-  const hasChronologicalLinks = targetElement && targetElement.querySelector('.chronological-lecture-link') !== null;
-  const hasChronologicalTable = targetElement && targetElement.querySelector('table thead th') && 
-                                 targetElement.querySelector('table thead th').textContent.includes('Jahr');
-  // Wenn chronological-viewer-content existiert, ist die chronologische Ansicht definitiv aktiv
-  const hasChronologicalWrapper = chronologicalViewerContent !== null;
-  
-  const isChronologicalViewActive = (currentGAView === 'chronological') || 
-                                     hasChronologicalTitle || 
-                                     hasChronologicalTable ||
-                                     hasChronologicalLinks ||
-                                     hasChronologicalWrapper;
-  
-  console.log('[GA-FILTER] Prüfung:', {
-    isInGATab: isInGATab,
-    currentGAView: currentGAView,
-    hasChronologicalTitle: hasChronologicalTitle,
-    hasChronologicalTable: hasChronologicalTable,
-    hasChronologicalLinks: hasChronologicalLinks,
-    hasChronologicalWrapper: hasChronologicalWrapper,
-    isChronologicalViewActive: isChronologicalViewActive,
-    allChronologicalLectures: allChronologicalLectures ? allChronologicalLectures.length : 0
-  });
-  
-  // Wenn chronologische Ansicht aktiv ist UND wir bereits Vorträge geladen haben,
-  // filtere sie direkt ohne neu zu laden
-  if (isChronologicalViewActive && allChronologicalLectures && allChronologicalLectures.length > 0) {
-    console.log('[GA-FILTER] Filtere bereits geladene Vorträge direkt');
-    
-    // WICHTIG: Setze currentGAView explizit auf 'chronological', damit Jahr-Buttons nicht entfernt werden
+
+  if (selectedGABandFilter) {
+    console.log('[GA-FILTER] Zeige Inhaltsverzeichnis für', selectedGABandFilter);
+    showGALectures(selectedGABandFilter, true);
+    return;
+  }
+
+  if (selectedYearFilter) {
+    console.log('[GA-FILTER] Jahr-Filter aktiv, zeige chronologische Ansicht');
     currentGAView = 'chronological';
-    
-    // Filtere die bereits geladenen Vorträge
-    let filteredLectures = allChronologicalLectures;
-    
-    // Filter nach GA-Band
-    if (selectedGABandFilter) {
-      const normalizedFilter = normalizeGANumber(selectedGABandFilter);
-      filteredLectures = filteredLectures.filter(lecture => {
-        if (!lecture.gaNumber) return false;
-        const normalizedLectureGA = normalizeGANumber(lecture.gaNumber);
-        return normalizedLectureGA === normalizedFilter;
-      });
-      console.log('[GA-FILTER] Nach GA-Band gefiltert:', filteredLectures.length, 'Vorträge für', normalizedFilter);
-    }
-    
-    // Filter nach Jahr (falls auch ausgewählt)
-    if (selectedYearFilter) {
-      filteredLectures = filteredLectures.filter(lecture => {
-        if (!lecture.date) return false;
-        const year = new Date(lecture.date).getFullYear();
-        return year === selectedYearFilter;
-      });
-      console.log('[GA-FILTER] Nach Jahr gefiltert:', filteredLectures.length, 'Vorträge für Jahr', selectedYearFilter);
-    }
-    
-    // WICHTIG: Entferne das alte Layout komplett, damit es neu erstellt wird
-    const existingWrapper = document.getElementById('chronological-year-nav-wrapper');
-    if (existingWrapper && existingWrapper.parentNode) {
-      const newViewer = createViewerElement();
-      existingWrapper.parentNode.replaceChild(newViewer, existingWrapper);
-      const mainEl = document.getElementById('main');
-      if (mainEl) {
-        mainEl.style.overflow = '';
-        mainEl.style.height = '';
-      }
-    }
-    
-    // Zeige gefilterte Vorträge an - Layout wird komplett neu erstellt
-    displayGAChronological(filteredLectures);
-  } 
-  // Wenn chronologische Ansicht aktiv ist aber keine Vorträge geladen sind,
-  // oder wenn wir im GA-Tab sind und ein Filter gesetzt wird,
-  // lade die Ansicht neu
-  else if (isChronologicalViewActive || (isInGATab && selectedGABandFilter)) {
-    console.log('[GA-FILTER] Aktualisiere chronologische Ansicht mit Filter:', selectedGABandFilter);
-    // Setze currentGAView explizit, falls es nicht gesetzt ist
-    if (!currentGAView || currentGAView !== 'chronological') {
-      currentGAView = 'chronological';
-    }
-    // Rufe showGAChronologicalView auf, um die Ansicht neu zu laden und zu filtern
-    showGAChronologicalView(true); // skipHistory = true, um History-Eintrag zu vermeiden
-  } else {
-    console.log('[GA-FILTER] Chronologische Ansicht nicht aktiv, keine Aktualisierung');
+    showGAChronologicalView(true);
+    return;
+  }
+
+  console.log('[GA-FILTER] Filter zurückgesetzt, zeige Platzhalter');
+  currentGAView = 'volumes';
+  currentGANumber = null;
+
+  if (typeof removeChronologicalYearButtons === 'function') {
+    removeChronologicalYearButtons();
+  }
+
+  const viewer = document.getElementById('viewer');
+  if (viewer) {
+    viewer.innerHTML = '<div id="viewer-content"><div style="color: var(--secondary-text); text-align: left; font-style: italic; font-size: 0.9rem;">Wählen Sie einen GA-Band aus der linken Liste aus.</div></div>';
+  }
+  const documentTitle = document.getElementById('document-title');
+  if (documentTitle) {
+    documentTitle.textContent = 'GA-Bände Übersicht';
+  }
+  if (typeof updateButtonStates === 'function') {
+    updateButtonStates();
   }
 }
 
@@ -9700,6 +9979,7 @@ async function showGALectures(gaNumber, skipHistory = false) {
   try {
     // Setze Ansicht auf 'volumes', da wir einen einzelnen GA-Band anzeigen
     currentGAView = 'volumes';
+    updateChronologicalButtonText();
     
     // WICHTIG: Deaktiviere Wandtafeln-Ansicht falls aktiv und stelle Scroll-Verhalten wieder her
     if (isChalkboardsViewActive) {
@@ -10672,6 +10952,7 @@ function showGAVolumesView() {
 // Zeige chronologische Ansicht
 async function showGAChronologicalView(skipHistory = false) {
   currentGAView = 'chronological';
+  chronologicalNavYear = null;
   
   // Chalkboards-Ansicht deaktivieren und Buttons ausblenden
   if (isChalkboardsViewActive) {
@@ -10712,12 +10993,7 @@ async function showGAChronologicalView(skipHistory = false) {
     }, '', url);
     }
   
-  // Update Button Styling
-  const chronBtn = document.getElementById('ga-chronological-view-btn');
-  if (chronBtn) {
-    chronBtn.style.background = 'var(--accent-color)';
-    chronBtn.style.color = 'white';
-  }
+  updateChronologicalButtonText();
   
   // Lade alle Vorträge chronologisch
   try {
@@ -10883,12 +11159,12 @@ function displayGAChronological(lectures) {
   
   // Erstelle sticky Jahres-Header mit ALLEN Jahren
   const yearButtonsHtml = years.map(year => {
-    const isActive = selectedYearFilter === year;
+    const isActive = chronologicalNavYear === year;
     return `<button class="year-nav-btn ${isActive ? 'active-year-btn' : ''}" onclick="scrollToChronologicalYear('${year}')" data-year="${year}" style="padding: 0.4rem 0.8rem; margin: 0 0.2rem; border: 1px solid var(--accent-color); background: ${isActive ? 'var(--accent-color)' : 'var(--background-color)'}; color: ${isActive ? 'white' : 'var(--text-color)'}; cursor: pointer; border-radius: 4px; font-size: 0.85em; transition: all 0.2s;">${year}</button>`;
   }).join('');
   
-  // "Alle" Button am Ende
-  const isAllActive = selectedYearFilter === null;
+  // "Alle" Button am Ende – nur aktiv nach explizitem Klick
+  const isAllActive = chronologicalNavYear === 'all';
   const allButton = `<button class="year-nav-btn ${isAllActive ? 'active-year-btn' : ''}" onclick="scrollToChronologicalYear(null)" data-year="all" style="padding: 0.4rem 0.8rem; margin: 0 0.2rem; border: 1px solid var(--accent-color); background: ${isAllActive ? 'var(--accent-color)' : 'var(--background-color)'}; color: ${isAllActive ? 'white' : 'var(--text-color)'}; cursor: pointer; border-radius: 4px; font-size: 0.85em; transition: all 0.2s;">Alle</button>`;
   
   const allYearButtonsHtml = yearButtonsHtml + allButton;
@@ -11378,7 +11654,7 @@ function displayGAChronological(lectures) {
 
 // Filtert die chronologische Ansicht nach Jahr (oder zeigt alle wenn year=null)
 function scrollToChronologicalYear(year) {
-  // Speichere den Jahr-Filter
+  chronologicalNavYear = year === null ? 'all' : String(year);
   selectedYearFilter = year;
   
   // Entferne aktive Markierung von allen Buttons
@@ -12451,7 +12727,7 @@ function scrollToChronologicalYear(year) {
       showLectureFromAdvancedSearch(lectureId, searchTerm, paragraphIndex);
     }
     
-    async function showLectureFromAdvancedSearch(lectureId, searchTerm, paragraphIndex = null, highlightSnippets = null) {
+    async function showLectureFromAdvancedSearch(lectureId, searchTerm, paragraphIndex = null, highlightSnippets = null, thematicHighlightAnchor = null) {
       // Essay-Modus erkennen: highlightSnippets ist als Array übergeben (auch wenn leer).
       // In diesem Fall werden:
       //   - keine Absatz-Klasse 'highlighted-paragraph' gesetzt
@@ -12468,7 +12744,7 @@ function scrollToChronologicalYear(year) {
         const gaNumber = gaMatch[1];
         if (isBookGANumber(gaNumber)) {
           // Für Bücher: Verwende showBookFromAdvancedSearch, Snippets weiterreichen
-          await showBookFromAdvancedSearch(gaNumber, searchTerm, paragraphIndex, highlightSnippets);
+          await showBookFromAdvancedSearch(gaNumber, searchTerm, paragraphIndex, highlightSnippets, thematicHighlightAnchor);
           return;
         }
       }
@@ -12751,11 +13027,23 @@ function scrollToChronologicalYear(year) {
               return out;
             };
             const termsToHighlight = useSnippetMode
-              ? expandSnippetFragments(highlightSnippets, 3)
+              ? expandSnippetFragments(
+                  (highlightSnippets || []).map(s => prepareThematicSnippetForMatch(s)).filter(s => s.length >= 3),
+                  3
+                )
               : (searchTerm && searchTerm.trim() ? [searchTerm.trim()] : []);
             const useSnippets = useSnippetMode; // Beibehalten für die flag-Logik unten
 
-            if (termsToHighlight.length > 0) {
+            const applySnippetHighlightHere = termsToHighlight.length > 0 &&
+              (!useSnippetMode || isTargetPara || targetParagraphIdx === null);
+
+            if (applySnippetHighlightHere) {
+              if (useSnippets) {
+                content = applyThematicSnippetHighlightsToHtml(content, highlightSnippets, {
+                  anchorChar: thematicHighlightAnchor,
+                  minLen: 3
+                });
+              } else {
               // Inline-Elemente, die mitten im Zitat-Quelltext stehen können —
               // vor allem Seitenumbruch-Spans wie
               //   <span class="page-break-container">…<span class="page-break-num">222</span><span class="page-break-bar">|</span></span>
@@ -12820,11 +13108,13 @@ function scrollToChronologicalYear(year) {
                 return out;
               };
 
-              termsToHighlight.forEach(rawTerm => {
+              let paraHighlightApplied = false;
+              for (const rawTerm of termsToHighlight) {
+                if (paraHighlightApplied) break;
                 const cleanTerm = rawTerm.trim();
                 const isExactMatch = cleanTerm.startsWith('"') && cleanTerm.endsWith('"');
                 const termToHighlight = isExactMatch ? cleanTerm.slice(1, -1) : cleanTerm;
-                if (!termToHighlight || termToHighlight.length < 3) return;
+                if (!termToHighlight || termToHighlight.length < 3) continue;
                 const flags = useSnippets ? 'gi' : (isExactMatch ? 'g' : 'gi');
                 const tryMatch = (subTerm) => {
                   if (!subTerm || subTerm.length < 3) return false;
@@ -12841,19 +13131,16 @@ function scrollToChronologicalYear(year) {
                     return false;
                   }
                 };
-                // Versuch 1: ganzes Fragment.
-                if (tryMatch(termToHighlight)) return;
-                // Versuch 2: bei Snippet-Mode auf Satz-/Komma-Grenzen splitten.
-                // (Klassischer Fall: LLM korrigiert einen Steiner-Druckfehler in
-                // einem Wort, ganzes Fragment matchet nicht mehr — die meisten
-                // Teilstücke aber doch.)
-                if (useSnippets) {
-                  const subParts = termToHighlight.split(/[.,;:]+\s+/)
-                    .map(s => s.trim().replace(/^[\s,;.:!?„"""'\u2018\u2019\u201C\u201D\u201E«»\-–—]+|[\s,;.:!?„"""'\u2018\u2019\u201C\u201D\u201E«»\-–—]+$/g, ''))
-                    .filter(s => s.length >= 12);
-                  subParts.forEach(p => tryMatch(p));
+                const attempts = useSnippets
+                  ? buildQuoteHighlightAttempts(termToHighlight)
+                  : [termToHighlight];
+                for (const attempt of attempts) {
+                  if (tryMatch(attempt)) {
+                    paraHighlightApplied = true;
+                    break;
+                  }
                 }
-              });
+              }
 
               // Sentinels in der Reihenfolge zurück auflösen: zuerst die
               // einzelnen Tags, dann die Page-Break-Blöcke.
@@ -12862,6 +13149,7 @@ function scrollToChronologicalYear(year) {
               let pbIdx = 0;
               workingHTML = workingHTML.replace(new RegExp(PB_RE_FRAG, 'g'), () => pbMarkers[pbIdx++] || '');
               content = workingHTML;
+              }
             }
             
             // Wenn kein searchTerm, aber currentKeywordText vorhanden und Ziel-Absatz: Markiere Keyword-Text
@@ -12893,6 +13181,15 @@ function scrollToChronologicalYear(year) {
           
           html += '</div>';
           summaryContent.innerHTML = html;
+
+          if (useSnippetMode && highlightSnippets && highlightSnippets.length > 0 && targetParagraphId) {
+            scheduleThematicSnippetHighlightReapply(
+              summaryContent,
+              targetParagraphId,
+              highlightSnippets,
+              thematicHighlightAnchor
+            );
+          }
           
           // Erkenne und formatiere Gedichte/kurze Zeilen (nach DOM-Rendering)
           setTimeout(() => {
@@ -12920,7 +13217,8 @@ function scrollToChronologicalYear(year) {
                 // Wenn der Ziel-Absatz Markierungen (<mark>) enthält:
                 // die erste Markierung vertikal zentrieren — das ist das,
                 // was der Nutzer sehen will. Sonst den ganzen Absatz.
-                const firstMarkInTarget = targetElement.querySelector('mark');
+                const firstMarkInTarget = targetElement.querySelector('mark.thematic-quote-mark') ||
+                  targetElement.querySelector('mark');
                 const scrollTo = firstMarkInTarget || targetElement;
                 scrollTo.scrollIntoView({ behavior: 'auto', block: 'center' });
 
@@ -13012,21 +13310,198 @@ function scrollToChronologicalYear(year) {
     }
     window.showLectureFromAdvancedSearch = showLectureFromAdvancedSearch;
 
+    const THEMATIC_HIGHLIGHT_MAX_SNIPPET = 400;
+    const THEMATIC_MARK_CLASS = 'thematic-quote-mark';
+    const THEMATIC_MARK_OPEN = '<mark class="thematic-quote-mark">';
+
+    function stripThematicQuoteMarksFromHtml(html) {
+      return String(html || '').replace(
+        /<mark class="thematic-quote-mark">([\s\S]*?)<\/mark>/gi,
+        '$1'
+      );
+    }
+
+    function capThematicSnippetForHighlight(raw, maxLen = THEMATIC_HIGHLIGHT_MAX_SNIPPET) {
+      const s = prepareThematicSnippetForMatch(raw);
+      if (!s) return '';
+      if (s.length <= maxLen) return s;
+      const cut = s.slice(0, maxLen);
+      const lastSpace = cut.lastIndexOf(' ');
+      return (lastSpace > maxLen * 0.5 ? cut.slice(0, lastSpace) : cut).trim();
+    }
+
+    function buildQuoteHighlightAttempts(quote) {
+      const attempts = [];
+      const addFromPrepared = (prepared) => {
+        if (!prepared || prepared.length < 8) return;
+        if (!attempts.includes(prepared)) attempts.push(prepared);
+        const words = prepared.split(/\s+/);
+        if (words.length <= 8) return;
+        for (let n = words.length - 1; n >= Math.max(8, Math.ceil(words.length * 0.72)); n--) {
+          const prefix = words.slice(0, n).join(' ');
+          if (prefix.length >= 35 && !attempts.includes(prefix)) attempts.push(prefix);
+        }
+      };
+      String(quote || '').split('|||').forEach(part => {
+        addFromPrepared(prepareThematicSnippetForMatch(part));
+      });
+      return attempts;
+    }
+
     function normalizeThematicQuoteSnippet(raw) {
       return String(raw || '').trim()
         .replace(/^[\s„"""'\u2018\u2019\u201A\u201B\u201C\u201D\u201E\u201F«»]+/, '')
         .replace(/[\s„"""'\u2018\u2019\u201A\u201B\u201C\u201D\u201E\u201F«»]+$/, '')
+        .replace(/(?:\s*(?:…|\.{2,3})\s*)+$/, '')
         .replace(/\s+/g, ' ')
         .trim();
+    }
+
+    function prepareThematicSnippetForMatch(raw) {
+      return normalizeThematicQuoteSnippet(String(raw || ''))
+        .replace(/\|(\d{1,4})\|/g, ' ')
+        .replace(/\s+/g, ' ')
+        .trim();
+    }
+
+    function applyThematicSnippetHighlightsToHtml(html, highlightSnippets, options = {}) {
+      const minLen = options.minLen != null ? options.minLen : 5;
+      const anchorChar = options.anchorChar != null ? options.anchorChar : null;
+      if (!html || !Array.isArray(highlightSnippets) || highlightSnippets.length === 0) return html;
+
+      const ESSAY_ELLIPSIS_RE = /\[\s*(?:\.\s*){2,}\.?\s*\]|\[\s*…\s*\]|\(\s*(?:\.\s*){2,}\.?\s*\)|\(\s*…\s*\)|\[[A-Za-zÄÖÜäöüß][A-Za-zÄÖÜäöüß. ]{0,28}\]/g;
+      const rawExpanded = [];
+      highlightSnippets.forEach(snip => {
+        const prepared = prepareThematicSnippetForMatch(snip);
+        if (!prepared) return;
+        ESSAY_ELLIPSIS_RE.lastIndex = 0;
+        if (ESSAY_ELLIPSIS_RE.test(prepared)) {
+          ESSAY_ELLIPSIS_RE.lastIndex = 0;
+          prepared.split(ESSAY_ELLIPSIS_RE).forEach(frag => {
+            const t = prepareThematicSnippetForMatch(frag);
+            if (t.length >= minLen) rawExpanded.push(t);
+          });
+        } else if (prepared.length >= minLen) {
+          rawExpanded.push(prepared);
+        }
+        ESSAY_ELLIPSIS_RE.lastIndex = 0;
+      });
+      const expandedSnippets = rawExpanded.filter(s => s.length >= minLen);
+      if (!expandedSnippets.length) return html;
+
+      const QUOTE_CHARS_RE = /[\u0022\u0027\u00AB\u00BB\u00B4\u2018\u2019\u201A\u201B\u201C\u201D\u201E\u201F\u2032\u2033\u2039\u203A]/;
+      const QUOTE_FLEX_CLASS = '[\u0022\u0027\u00AB\u00BB\u00B4\u2018\u2019\u201A\u201B\u201C\u201D\u201E\u201F\u2032\u2033\u2039\u203A]?';
+      const PB_SENTINEL = '\u0002P\u0002';
+      const PB_RE_FRAG = '\\u0002P\\u0002';
+      const TAG_SENTINEL = '\u0001T\u0001';
+      const TAG_RE_FRAG = '\\u0001T\\u0001';
+      const NOISE_RE_FRAG = '[\u00B2\u00B3\u00B9\u2070-\u2079\u2080-\u2089]';
+      const SENTINEL_OPT = `(?:${PB_RE_FRAG}|${TAG_RE_FRAG}|${NOISE_RE_FRAG})*`;
+      const PB_FULL_RE = /<span\s+class="page-break-container"[^>]*>\s*<span\s+class="page-break-num"[^>]*>[^<]*<\/span>\s*<span\s+class="page-break-bar"[^>]*>[^<]*<\/span>\s*<\/span>/g;
+
+      const buildFlexRegex = (term) => {
+        let out = '';
+        for (let i = 0; i < term.length; i++) {
+          const ch = term[i];
+          if (QUOTE_CHARS_RE.test(ch)) {
+            out += QUOTE_FLEX_CLASS;
+          } else if (/\s/.test(ch)) {
+            while (i + 1 < term.length && /\s/.test(term[i + 1])) i++;
+            out += `(?:\\s|${PB_RE_FRAG}|${TAG_RE_FRAG}|${NOISE_RE_FRAG})+`;
+          } else {
+            out += ch.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+          }
+          if (i < term.length - 1) out += SENTINEL_OPT;
+        }
+        return out;
+      };
+
+      const pbMarkers = [];
+      let workingHTML = html.replace(PB_FULL_RE, (m) => {
+        pbMarkers.push(m);
+        return PB_SENTINEL;
+      });
+      const tagMarkers = [];
+      workingHTML = workingHTML.replace(/<[^>]+>/g, (m) => {
+        tagMarkers.push(m);
+        return TAG_SENTINEL;
+      });
+
+      const htmlIndexToPlainIndex = (text, htmlIdx) => {
+        let plain = 0;
+        for (let i = 0; i < htmlIdx && i < text.length; i++) {
+          if (text.startsWith(TAG_SENTINEL, i)) {
+            i += TAG_SENTINEL.length - 1;
+            continue;
+          }
+          if (text.startsWith(PB_SENTINEL, i)) {
+            i += PB_SENTINEL.length - 1;
+            continue;
+          }
+          plain++;
+        }
+        return plain;
+      };
+
+      const tryMatch = (subTerm) => {
+        if (!subTerm || subTerm.length < minLen) return false;
+        try {
+          const re = new RegExp('(' + buildFlexRegex(subTerm) + ')', 'gi');
+          let bestIdx = -1;
+          let bestMatch = '';
+          let bestScore = Infinity;
+          let m;
+          while ((m = re.exec(workingHTML)) !== null) {
+            const plainIdx = htmlIndexToPlainIndex(workingHTML, m.index);
+            const score = anchorChar != null
+              ? Math.abs(plainIdx - anchorChar)
+              : plainIdx;
+            if (
+              bestIdx === -1 ||
+              score < bestScore ||
+              (score === bestScore && m[0].length > bestMatch.length)
+            ) {
+              bestIdx = m.index;
+              bestMatch = m[0];
+              bestScore = score;
+            }
+          }
+          if (bestIdx === -1) return false;
+          workingHTML = workingHTML.slice(0, bestIdx) +
+            THEMATIC_MARK_OPEN + bestMatch + '</mark>' +
+            workingHTML.slice(bestIdx + bestMatch.length);
+          return true;
+        } catch (e) {
+          console.warn('[THEMATIC-HIGHLIGHT] Regex-Fehler:', e.message);
+          return false;
+        }
+      };
+
+      let highlightApplied = false;
+      for (const rawSnippet of expandedSnippets) {
+        if (highlightApplied) break;
+        for (const attempt of buildQuoteHighlightAttempts(rawSnippet)) {
+          if (tryMatch(attempt)) {
+            highlightApplied = true;
+            break;
+          }
+        }
+      }
+
+      let tagIdx = 0;
+      workingHTML = workingHTML.replace(new RegExp(TAG_RE_FRAG, 'g'), () => tagMarkers[tagIdx++] || '');
+      let pbIdx = 0;
+      workingHTML = workingHTML.replace(new RegExp(PB_RE_FRAG, 'g'), () => pbMarkers[pbIdx++] || '');
+      return workingHTML;
     }
 
     function thematicQuoteSnippetsFromText(quoteText, minLen = 5) {
       if (!quoteText) return null;
       const parts = String(quoteText).split('|||')
-        .map(normalizeThematicQuoteSnippet)
+        .map(s => prepareThematicSnippetForMatch(s))
         .filter(s => s.length >= minLen);
       if (parts.length) return parts;
-      const single = normalizeThematicQuoteSnippet(quoteText);
+      const single = prepareThematicSnippetForMatch(quoteText);
       return single.length >= minLen ? [single] : null;
     }
 
@@ -13041,48 +13516,294 @@ function scrollToChronologicalYear(year) {
       return (prev && prev.tagName && prev.tagName.toLowerCase() === 'blockquote') ? prev : null;
     }
 
-    function extractQuoteNearThematicLink(linkEl) {
-      if (!linkEl) return null;
+    function getTextBeforeGaLink(linkEl) {
+      if (!linkEl) return '';
       const block = linkEl.closest('p, li, td, th, blockquote, .essay-beleg') || linkEl.parentElement;
-      if (!block || !block.contains(linkEl)) return null;
-
+      if (!block || !block.contains(linkEl)) return '';
       try {
         const range = document.createRange();
         range.selectNodeContents(block);
         range.setEndBefore(linkEl);
-        const beforeText = range.toString().replace(/\s+/g, ' ').trim();
-        if (!beforeText) return null;
+        return range.toString().replace(/\s+/g, ' ').trim();
+      } catch (_) {
+        return '';
+      }
+    }
 
-        const quotePatterns = [
-          /\u201e([^\u201c"]+)[\u201c"]/g,
-          /„([^"]+)"/g,
-          /"([^"]+)"/g,
-          /'([^']{5,})'/g,
-          /«([^»]+)»/g
-        ];
-        let lastMatch = null;
-        for (const re of quotePatterns) {
+    function extractQuoteNearThematicLink(linkEl) {
+      const beforeText = getTextBeforeGaLink(linkEl);
+      if (!beforeText) return null;
+
+      const candidates = [];
+      const addCandidate = (raw, priority = 0) => {
+        const sn = capThematicSnippetForHighlight(prepareThematicSnippetForMatch(raw));
+        if (sn.length >= 5) candidates.push({ text: sn, priority });
+      };
+
+      const closedQuotePatterns = [
+        /\u201e([^\u201c"]+)[\u201c"]/g,
+        /„([^"]+)"/g,
+        /"([^"]+)"/g,
+        /'([^']{5,})'/g,
+        /«([^»]+)»/g
+      ];
+      for (const re of closedQuotePatterns) {
+        let m;
+        while ((m = re.exec(beforeText)) !== null) {
+          addCandidate(m[1], 0);
+        }
+      }
+
+      const unclosedQuotePatterns = [
+        /\u201e([^\u201c"]{8,})$/,
+        /„([^"]{8,})$/,
+        /"([^"]{8,})$/,
+        /«([^»]{8,})$/
+      ];
+      for (const re of unclosedQuotePatterns) {
+        const m = beforeText.match(re);
+        if (m) addCandidate(m[1], 1);
+      }
+
+      const colonIdx = beforeText.lastIndexOf(':');
+      if (colonIdx !== -1) {
+        let segment = beforeText.slice(colonIdx + 1).trim();
+        segment = segment.replace(/\s*\(?\s*GA[\d.a-zA-Z\/]+(?::[^\s)]*)?\s*\)?\s*$/i, '').trim();
+        for (const re of closedQuotePatterns) {
           let m;
-          while ((m = re.exec(beforeText)) !== null) {
-            const sn = normalizeThematicQuoteSnippet(m[1]);
-            if (sn.length >= 5) lastMatch = sn;
+          re.lastIndex = 0;
+          while ((m = re.exec(segment)) !== null) {
+            addCandidate(m[1], 1);
           }
         }
-        return lastMatch ? [lastMatch] : null;
+        for (const re of unclosedQuotePatterns) {
+          const m = segment.match(re);
+          if (m) addCandidate(m[1], 1);
+        }
+        const indirect = segment.match(/\b(?:könne|kann|soll|werde|wird|würde|müsse|muss|dürfe|darf)\s+(.{8,})$/i);
+        if (indirect) {
+          let part = indirect[1].replace(/^[\u201e„"'«]+/, '').trim();
+          addCandidate(part, 2);
+        }
+      }
+
+      if (!candidates.length) return null;
+      candidates.sort((a, b) => a.priority - b.priority || a.text.length - b.text.length);
+      return [candidates[0].text];
+    }
+
+    function normalizeForSnippetWordMatch(text) {
+      return String(text || '')
+        .toLowerCase()
+        .replace(/\|(\d{1,4})\|/g, ' ')
+        .replace(/[^\p{L}\p{N}\s]/gu, ' ')
+        .replace(/\s+/g, ' ')
+        .trim();
+    }
+
+    function findBestMatchingSnippetInSource(beforeText, sourceText) {
+      const srcClean = String(sourceText || '').replace(/\|(\d{1,4})\|/g, ' ');
+      const srcNorm = normalizeForSnippetWordMatch(srcClean);
+      const words = normalizeForSnippetWordMatch(beforeText).split(' ').filter(w => w.length > 2);
+      if (!srcNorm || words.length < 4) return null;
+
+      // Nur Präfixe ab Satzanfang des Antworttextes — nie mitten im Satz
+      for (let win = Math.min(20, words.length); win >= 4; win--) {
+        const phrase = words.slice(0, win).join(' ');
+        if (phrase.length < 18) continue;
+        if (srcNorm.indexOf(phrase) !== -1) {
+          return extractSourceHighlightPhrase(sourceText, phrase);
+        }
+      }
+      return null;
+    }
+
+    function extractSourceHighlightAlignment(sourceText, quoteSnippet, maxLen = THEMATIC_HIGHLIGHT_MAX_SNIPPET) {
+      const prepared = prepareThematicSnippetForMatch(quoteSnippet);
+      if (!prepared) return { phrase: '', startChar: 0, matched: 0 };
+      if (!sourceText) return { phrase: prepared, startChar: 0, matched: 0 };
+
+      const quoteWords = prepared.split(/\s+/).filter(Boolean)
+        .map(w => normalizeForSnippetWordMatch(w))
+        .filter(w => w.length > 0);
+      if (quoteWords.length < 4) {
+        return { phrase: prepared, startChar: 0, matched: 0 };
+      }
+
+      const { srcClean, tokens } = tokenizeWordsWithPositions(sourceText);
+      if (!tokens.length) return { phrase: prepared, startChar: 0, matched: 0 };
+
+      let best = null;
+      for (let startTok = 0; startTok < tokens.length; startTok++) {
+        if (tokens[startTok].norm !== quoteWords[0]) continue;
+        let matched = 1;
+        while (
+          matched < quoteWords.length &&
+          startTok + matched < tokens.length &&
+          tokens[startTok + matched].norm === quoteWords[matched]
+        ) {
+          matched++;
+        }
+        if (matched >= 4 && (
+          !best ||
+          matched > best.matched ||
+          (matched === best.matched && startTok < best.startTok)
+        )) {
+          best = { startTok, matched };
+        }
+      }
+
+      if (!best) return { phrase: prepared, startChar: 0, matched: 0 };
+
+      const startChar = tokens[best.startTok].start;
+      let endTok = best.startTok + best.matched - 1;
+      let endChar = tokens[endTok].end;
+      const maxEnd = startChar + maxLen;
+      while (endChar < maxEnd && endChar < srcClean.length && !/[\p{L}\p{N}]/u.test(srcClean[endChar])) {
+        endChar++;
+      }
+      return {
+        phrase: srcClean.slice(startChar, Math.min(endChar, maxEnd)).trim(),
+        startChar,
+        matched: best.matched
+      };
+    }
+
+    function extractSourceHighlightPhrase(sourceText, quoteSnippet, maxLen = THEMATIC_HIGHLIGHT_MAX_SNIPPET) {
+      return extractSourceHighlightAlignment(sourceText, quoteSnippet, maxLen).phrase;
+    }
+
+    async function fetchParagraphContentForHighlight(lectureId, targetIndex) {
+      if (!lectureId || targetIndex == null || targetIndex === '') return null;
+      const cleanIndex = String(targetIndex).replace(/^\^/, '');
+      try {
+        const gaMatch = lectureId.match(/^(GA\d{1,3}[a-z]?)/i);
+        if (gaMatch && typeof isBookGANumber === 'function' && isBookGANumber(gaMatch[1])) {
+          const response = await fetch(`${API_BASE}/api/book/${encodeURIComponent(gaMatch[1])}`);
+          if (!response.ok) return null;
+          const book = await response.json();
+          const paragraphs = book.paragraphs || [];
+          const para = paragraphs.find(p => String(p.index || '').replace(/^\^/, '') === cleanIndex);
+          return para?.content || para?.text || null;
+        }
+        const parts = String(lectureId).split('/');
+        const url = parts.length === 2
+          ? `${API_BASE}/api/full-lecture/${encodeURIComponent(parts[0])}/${encodeURIComponent(parts[1])}`
+          : `${API_BASE}/api/full-lecture/${encodeURIComponent(lectureId)}`;
+        const response = await fetch(url);
+        if (!response.ok) return null;
+        const data = await response.json();
+        const para = (data.lecture?.paragraphs || []).find(p =>
+          String(p.index || '').replace(/^\^/, '') === cleanIndex
+        );
+        return para?.content || para?.text || null;
       } catch (_) {
         return null;
       }
     }
 
+    function tokenizeWordsWithPositions(text) {
+      const srcClean = String(text || '').replace(/\|(\d{1,4})\|/g, ' ');
+      const tokens = [];
+      const wordRe = /[\p{L}\p{N}]+/gu;
+      let m;
+      while ((m = wordRe.exec(srcClean)) !== null) {
+        tokens.push({
+          norm: m[0].toLowerCase(),
+          start: m.index,
+          end: m.index + m[0].length
+        });
+      }
+      return { srcClean, tokens };
+    }
+
+    function findTargetParagraphElementForHighlight(root, targetIndex) {
+      if (!root || targetIndex == null || targetIndex === '') return null;
+      const clean = String(targetIndex).replace(/^\^/, '');
+      const marker = root.querySelector(
+        `#adv-para-${clean}, [data-paragraph-id="${clean}"], [data-index="${targetIndex}"], [data-index="^${clean}"], #para-${clean}`
+      );
+      if (!marker) return null;
+      if (marker.id && marker.id.startsWith('adv-para-')) return marker;
+      return marker.closest('.paragraph, p, li, blockquote') || marker.parentElement;
+    }
+
+    function reapplyThematicSnippetHighlightsInSummary(summaryContent, targetIndex, highlightSnippets, anchorChar = null) {
+      if (!summaryContent || !Array.isArray(highlightSnippets) || !highlightSnippets.length || !targetIndex) {
+        return false;
+      }
+      const targetEl = findTargetParagraphElementForHighlight(summaryContent, targetIndex);
+      if (!targetEl) return false;
+      if (targetEl.querySelector('mark.thematic-quote-mark')) return true;
+
+      const tryHighlightInElement = (el) => {
+        if (!el || el.querySelector('mark.thematic-quote-mark')) return false;
+        const before = stripThematicQuoteMarksFromHtml(el.innerHTML);
+        const after = applyThematicSnippetHighlightsToHtml(before, highlightSnippets, { anchorChar });
+        if (after.includes('thematic-quote-mark')) {
+          el.innerHTML = after;
+          return true;
+        }
+        return false;
+      };
+
+      let nodesToTry = [targetEl];
+      if (targetEl.classList && targetEl.classList.contains('paragraph')) {
+        const innerPs = targetEl.querySelectorAll('p');
+        if (innerPs.length) nodesToTry = [...innerPs];
+      }
+      for (const el of nodesToTry) {
+        if (tryHighlightInElement(el)) return true;
+      }
+
+      let prev = targetEl.previousElementSibling;
+      while (prev) {
+        if (prev.matches('p, li, blockquote, .paragraph')) {
+          if (tryHighlightInElement(prev)) return true;
+        }
+        if (prev.querySelector && prev.querySelector('[data-index]')) break;
+        prev = prev.previousElementSibling;
+      }
+      return false;
+    }
+
+    function scheduleThematicSnippetHighlightReapply(summaryContent, targetIndex, highlightSnippets, anchorChar = null) {
+      if (!summaryContent || !Array.isArray(highlightSnippets) || !highlightSnippets.length || !targetIndex) {
+        return;
+      }
+      const run = () => {
+        const targetEl = findTargetParagraphElementForHighlight(summaryContent, targetIndex);
+        if (targetEl && targetEl.querySelector('mark.thematic-quote-mark')) return;
+        reapplyThematicSnippetHighlightsInSummary(summaryContent, targetIndex, highlightSnippets, anchorChar);
+      };
+      setTimeout(run, 0);
+      setTimeout(run, 200);
+    }
+
+    function alignQuoteSnippetWithSource(quoteSnippet, sourceText) {
+      const phrase = extractSourceHighlightPhrase(sourceText, quoteSnippet);
+      if (phrase && phrase.length >= 5) return phrase;
+      return capThematicSnippetForHighlight(quoteSnippet);
+    }
+
     function resolveThematicHighlightSnippets(linkEl, options = {}) {
-      const { quoteText = '', isEssayBeleg = false } = options;
+      const { quoteText = '', isEssayBeleg = false, fromDataQuote = false } = options;
       if (isEssayBeleg) {
         return quoteText ? (thematicQuoteSnippetsFromText(quoteText) || []) : [];
       }
+      // Recherche: data-quote ist das verbindliche Zitat aus der Tabellenzelle
+      if (fromDataQuote && quoteText) {
+        const s = prepareThematicSnippetForMatch(quoteText);
+        return s.length >= 5 ? [s] : [];
+      }
+      // data-quote-text stammt aus dem Such-Chunk (Quelltext) — vor Antworttext bevorzugen
+      const attrQuote = linkEl
+        ? (linkEl.getAttribute('data-quote-text') || linkEl.getAttribute('data-quote') || '')
+        : quoteText;
+      const fromAttr = thematicQuoteSnippetsFromText(attrQuote || quoteText);
+      if (fromAttr) return fromAttr.filter(s => s.length >= 5);
       const nearQuote = extractQuoteNearThematicLink(linkEl);
       if (nearQuote) return nearQuote;
-      const fromAttr = thematicQuoteSnippetsFromText(quoteText);
-      if (fromAttr) return fromAttr;
       const bq = findBlockquoteBeforeQuelleLink(linkEl);
       if (bq) {
         const raw = normalizeThematicQuoteSnippet(bq.textContent);
@@ -13091,18 +13812,108 @@ function scrollToChronologicalYear(year) {
       return null;
     }
 
+    async function resolveThematicHighlightSnippetsAsync(linkEl, options = {}) {
+      const { quoteText = '', isEssayBeleg = false, fromDataQuote = false, lectureId = '', targetIndex = '' } = options;
+      const sourceText = await fetchParagraphContentForHighlight(lectureId, targetIndex);
+
+      if (isEssayBeleg) {
+        const snippets = resolveThematicHighlightSnippets(linkEl, { quoteText, isEssayBeleg, fromDataQuote }) || [];
+        if (sourceText && snippets.length) {
+          const align = extractSourceHighlightAlignment(sourceText, snippets[0]);
+          return { snippets: [align.phrase || snippets[0]], anchorChar: align.startChar || 0 };
+        }
+        return { snippets, anchorChar: null };
+      }
+
+      if (fromDataQuote && quoteText) {
+        const s = prepareThematicSnippetForMatch(quoteText);
+        if (!s || s.length < 5) return { snippets: [], anchorChar: null };
+        if (sourceText) {
+          const align = extractSourceHighlightAlignment(sourceText, s);
+          return { snippets: [align.phrase || s], anchorChar: align.startChar || 0 };
+        }
+        return { snippets: [s], anchorChar: null };
+      }
+
+      const nearQuote = linkEl ? extractQuoteNearThematicLink(linkEl) : null;
+      const attrQuote = linkEl
+        ? (linkEl.getAttribute('data-quote-text') || linkEl.getAttribute('data-quote') || '')
+        : quoteText;
+      const attrSnippets = thematicQuoteSnippetsFromText(attrQuote || quoteText) || [];
+
+      const candidates = [];
+      if (nearQuote) {
+        nearQuote.forEach(text => candidates.push({ text, fromAnswer: true }));
+      }
+      attrSnippets.forEach(text => candidates.push({ text, fromAnswer: false }));
+
+      if (sourceText && candidates.length) {
+        let best = null;
+        for (const candidate of candidates) {
+          const align = extractSourceHighlightAlignment(sourceText, candidate.text);
+          if (align.matched < 4 || !align.phrase) continue;
+          const score = align.matched + (candidate.fromAnswer ? 1000 : 0);
+          if (!best || score > best.score) {
+            best = { ...align, score };
+          }
+        }
+        if (best) {
+          return { snippets: [best.phrase], anchorChar: best.startChar };
+        }
+      }
+
+      if (nearQuote && nearQuote.length) {
+        return { snippets: nearQuote, anchorChar: null };
+      }
+      if (attrSnippets.length) {
+        return { snippets: attrSnippets.filter(s => s.length >= 5), anchorChar: null };
+      }
+
+      const beforeText = getTextBeforeGaLink(linkEl);
+      if (beforeText && sourceText) {
+        const overlap = findBestMatchingSnippetInSource(beforeText, sourceText);
+        if (overlap) {
+          const align = extractSourceHighlightAlignment(sourceText, overlap);
+          return { snippets: [align.phrase || overlap], anchorChar: align.startChar || 0 };
+        }
+      }
+
+      const bq = findBlockquoteBeforeQuelleLink(linkEl);
+      if (bq) {
+        const raw = normalizeThematicQuoteSnippet(bq.textContent);
+        if (raw.length >= 5) return { snippets: [raw], anchorChar: null };
+      }
+
+      return { snippets: [], anchorChar: null };
+    }
+
     // Thematische Abfrage-Ergebnisse: nur das zugehoerige Zitat markieren (wie Recherche),
     // nie den ganzen Absatz und nie Suchbegriffe.
     async function openThematicGaReference(lectureId, targetIndex, options = {}) {
       const { linkEl = null, quoteText = '', isEssayBeleg = false } = options;
-      const resolved = resolveThematicHighlightSnippets(linkEl, { quoteText, isEssayBeleg });
-      const snippets = Array.isArray(resolved) ? resolved : [];
-      await showLectureFromAdvancedSearch(lectureId, '', targetIndex, snippets);
+      const fromDataQuote = !!(linkEl && linkEl.getAttribute('data-quote'));
+      const resolvedQuote = quoteText ||
+        (linkEl && (linkEl.getAttribute('data-quote') || linkEl.getAttribute('data-quote-text'))) ||
+        '';
+      const resolved = await resolveThematicHighlightSnippetsAsync(linkEl, {
+        quoteText: resolvedQuote,
+        isEssayBeleg,
+        fromDataQuote,
+        lectureId,
+        targetIndex
+      });
+      await showLectureFromAdvancedSearch(
+        lectureId,
+        '',
+        targetIndex,
+        resolved.snippets,
+        resolved.anchorChar
+      );
     }
     window.openThematicGaReference = openThematicGaReference;
     
     // Funktion: Zeigt ein Buch im rechten Panel (für erweiterte Suche)
-    async function showBookFromAdvancedSearch(gaNumber, searchTerm, paragraphIndex = null, highlightSnippets = null) {
+    async function showBookFromAdvancedSearch(gaNumber, searchTerm, paragraphIndex = null, highlightSnippets = null, thematicHighlightAnchor = null) {
       // Essay-Snippet-Modus: wenn highlightSnippets gesetzt ist (auch leeres Array),
       // werden weder Absatz-Klasse 'highlighted-paragraph' noch addHighlightingWithAutoRemove
       // angewendet, und der searchTerm wird NICHT markiert. Stattdessen werden die
@@ -13463,6 +14274,47 @@ function scrollToChronologicalYear(year) {
             }
           });
           
+          // Thematische Zitat-Schnipsel nur im Ziel-Absatz markieren (nicht im ganzen Buch)
+          if (useSnippetMode && highlightSnippets && highlightSnippets.length > 0 &&
+              hasValidIndex && targetParagraphIdx !== null && targetParagraphIdx >= 0) {
+            const targetPara = bookParagraphs[targetParagraphIdx];
+            if (targetPara && targetPara.index) {
+              const paraIndexClean = String(targetPara.index).replace(/^\^/, '');
+              const paraMarker = tempDiv.querySelector(
+                `[data-index="${targetPara.index}"], [data-index="^${paraIndexClean}"], #para-${paraIndexClean}`
+              );
+              if (paraMarker) {
+                let paragraphEl = paraMarker.closest('p, li, blockquote, div.paragraph') || paraMarker.parentElement;
+                if (paragraphEl) {
+                  paragraphEl.innerHTML = applyThematicSnippetHighlightsToHtml(
+                    paragraphEl.innerHTML,
+                    highlightSnippets,
+                    { anchorChar: thematicHighlightAnchor }
+                  );
+                  // Lange logische Absätze können über mehrere <p> verteilt sein;
+                  // Index steht am Ende — Zitat oft am Anfang eines früheren <p>.
+                  if (!paragraphEl.querySelector('mark.thematic-quote-mark')) {
+                    let prev = paragraphEl.previousElementSibling;
+                    while (prev) {
+                      if (prev.matches('p, li, blockquote')) {
+                        const before = prev.innerHTML;
+                        const after = applyThematicSnippetHighlightsToHtml(before, highlightSnippets, {
+                          anchorChar: thematicHighlightAnchor
+                        });
+                        if (after.includes('thematic-quote-mark')) {
+                          prev.innerHTML = after;
+                          break;
+                        }
+                      }
+                      if (prev.querySelector('[data-index]')) break;
+                      prev = prev.previousElementSibling;
+                    }
+                  }
+                }
+              }
+            }
+          }
+          
           // Setze IDs für Überschriften basierend auf book.headings
           if (book.headings && book.headings.length > 0) {
             book.headings.forEach(heading => {
@@ -13578,6 +14430,15 @@ function scrollToChronologicalYear(year) {
           
           html += '</div>';
           summaryContent.innerHTML = html;
+
+          if (useSnippetMode && highlightSnippets && highlightSnippets.length > 0 && hasValidIndex && paragraphIndexStr) {
+            scheduleThematicSnippetHighlightReapply(
+              summaryContent,
+              paragraphIndexStr,
+              highlightSnippets,
+              thematicHighlightAnchor
+            );
+          }
           
           // Erkenne und formatiere Gedichte/kurze Zeilen (nach DOM-Rendering)
           setTimeout(() => {
@@ -13605,9 +14466,19 @@ function scrollToChronologicalYear(year) {
                   if (!paragraphElement) paragraphElement = paraElement.parentElement;
                   
                   if (paragraphElement) {
-                    // Wenn der Ziel-Absatz Markierungen (<mark>) enthält:
-                    // erste Markierung vertikal zentrieren — Sonst Absatz selbst.
-                    const firstMarkInTarget = paragraphElement.querySelector('mark');
+                    // Fallback-Markierung nur im Ziel-Absatz (nicht im ganzen Buch)
+                    if (useSnippetMode && highlightSnippets.length > 0 && !summaryContent.querySelector('.book-content mark.thematic-quote-mark')) {
+                      reapplyThematicSnippetHighlightsInSummary(
+                        summaryContent,
+                        paragraphIndexStr,
+                        highlightSnippets,
+                        thematicHighlightAnchor
+                      );
+                    }
+
+                    // Wenn Zitat-Markierungen vorhanden sind: erste Markierung zentrieren
+                    const firstMarkInTarget = summaryContent.querySelector('.book-content mark.thematic-quote-mark') ||
+                      paragraphElement.querySelector('mark.thematic-quote-mark');
                     const scrollTo = firstMarkInTarget || paragraphElement;
                     scrollTo.scrollIntoView({ behavior: 'auto', block: 'center' });
                     
@@ -13620,107 +14491,6 @@ function scrollToChronologicalYear(year) {
                       } else {
                         paragraphElement.classList.add('highlighted-paragraph');
                       }
-                    }
-                    
-                    // Im Essay-Snippet-Modus: explizite Zitat-Schnipsel mit Quote-Flex
-                    // im Zielabsatz hervorheben (keine searchTerm-Markierung).
-                    if (useSnippetMode && highlightSnippets.length > 0) {
-                      // Quote-Flex: deutsche „…" / Guillemets «…» / ASCII "…" /
-                      // ASCII '…' / curly '…' / prime ′…″ / etc. matchen einander.
-                      const QUOTE_CHARS_RE = /[\u0022\u0027\u00AB\u00BB\u00B4\u2018\u2019\u201A\u201B\u201C\u201D\u201E\u201F\u2032\u2033\u2039\u203A]/;
-                      const QUOTE_FLEX_CLASS = '[\u0022\u0027\u00AB\u00BB\u00B4\u2018\u2019\u201A\u201B\u201C\u201D\u201E\u201F\u2032\u2033\u2039\u203A]?';
-                      const PB_SENTINEL = '\u0002P\u0002';
-                      const PB_RE_FRAG = '\\u0002P\\u0002';
-                      const TAG_SENTINEL = '\u0001T\u0001';
-                      const TAG_RE_FRAG = '\\u0001T\\u0001';
-                      const NOISE_RE_FRAG = '[\u00B2\u00B3\u00B9\u2070-\u2079\u2080-\u2089]';
-                      const SENTINEL_OPT = `(?:${PB_RE_FRAG}|${TAG_RE_FRAG}|${NOISE_RE_FRAG})*`;
-                      const PB_FULL_RE = /<span\s+class="page-break-container"[^>]*>\s*<span\s+class="page-break-num"[^>]*>[^<]*<\/span>\s*<span\s+class="page-break-bar"[^>]*>[^<]*<\/span>\s*<\/span>/g;
-                      const buildFlexRegex = (term) => {
-                        let out = '';
-                        for (let i = 0; i < term.length; i++) {
-                          const ch = term[i];
-                          if (QUOTE_CHARS_RE.test(ch)) {
-                            out += QUOTE_FLEX_CLASS;
-                          } else if (/\s/.test(ch)) {
-                            while (i + 1 < term.length && /\s/.test(term[i + 1])) i++;
-                            out += `(?:\\s|${PB_RE_FRAG}|${TAG_RE_FRAG}|${NOISE_RE_FRAG})+`;
-                          } else {
-                            out += ch.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-                          }
-                          if (i < term.length - 1) out += SENTINEL_OPT;
-                        }
-                        return out;
-                      };
-
-                      // Klammer-Splitting: Auslassungen UND editorische
-                      // Einfügungen wie [ist], [kann], [sic] zerlegen das Zitat.
-                      const ESSAY_ELLIPSIS_RE_BOOK = /\[\s*(?:\.\s*){2,}\.?\s*\]|\[\s*…\s*\]|\(\s*(?:\.\s*){2,}\.?\s*\)|\(\s*…\s*\)|\[[A-Za-zÄÖÜäöüß][A-Za-zÄÖÜäöüß. ]{0,28}\]/g;
-                      const expandedSnippets = [];
-                      (highlightSnippets || []).forEach(snip => {
-                        if (!snip) return;
-                        const s = String(snip).trim();
-                        if (!s) return;
-                        ESSAY_ELLIPSIS_RE_BOOK.lastIndex = 0;
-                        if (ESSAY_ELLIPSIS_RE_BOOK.test(s)) {
-                          ESSAY_ELLIPSIS_RE_BOOK.lastIndex = 0;
-                          s.split(ESSAY_ELLIPSIS_RE_BOOK).forEach(frag => {
-                            const t = frag.trim();
-                            if (t.length >= 5) expandedSnippets.push(t);
-                          });
-                        } else if (s.length >= 5) {
-                          expandedSnippets.push(s);
-                        }
-                        ESSAY_ELLIPSIS_RE_BOOK.lastIndex = 0;
-                      });
-
-                      
-
-                      // ZUERST den ganzen Page-Break-Block (Tag + Text + Tag)
-                      // als Einheit durch Sentinel ersetzen, DANN restliche Tags.
-                      const pbMarkers = [];
-                      let workingHTML = paragraphElement.innerHTML.replace(PB_FULL_RE, (m) => {
-                        pbMarkers.push(m);
-                        return PB_SENTINEL;
-                      });
-                      const tagMarkers = [];
-                      workingHTML = workingHTML.replace(/<[^>]+>/g, (m) => {
-                        tagMarkers.push(m);
-                        return TAG_SENTINEL;
-                      });
-
-                      const tryBookMatch = (subTerm) => {
-                        if (!subTerm || subTerm.length < 5) return false;
-                        try {
-                          const re = new RegExp('(' + buildFlexRegex(subTerm) + ')', 'gi');
-                          const before = workingHTML;
-                          workingHTML = workingHTML.replace(re, (m) => '<mark>' + m + '</mark>');
-                          return workingHTML !== before;
-                        } catch (e) {
-                          console.warn('[ESSAY-HIGHLIGHT-BUCH] Regex-Fehler:', e.message);
-                          return false;
-                        }
-                      };
-                      expandedSnippets.forEach(rawSnippet => {
-                        const term = (rawSnippet || '').trim();
-                        if (term.length < 5) return;
-                        if (tryBookMatch(term)) return;
-                        // Fallback: an Satz-/Komma-Grenzen splitten und Teilstücke
-                        // einzeln matchen (z.B. wenn LLM einen Druckfehler stillschweigend
-                        // korrigiert hat und das ganze Fragment dadurch nicht matcht).
-                        const subParts = term.split(/[.,;:]+\s+/)
-                          .map(s => s.trim().replace(/^[\s,;.:!?„"""'\u2018\u2019\u201C\u201D\u201E«»\-–—]+|[\s,;.:!?„"""'\u2018\u2019\u201C\u201D\u201E«»\-–—]+$/g, ''))
-                          .filter(s => s.length >= 12);
-                        subParts.forEach(p => tryBookMatch(p));
-                      });
-
-                      // Sentinels in der Reihenfolge zurück auflösen: zuerst die
-                      // einzelnen Tags, dann die Page-Break-Blöcke.
-                      let tagIdx = 0;
-                      workingHTML = workingHTML.replace(new RegExp(TAG_RE_FRAG, 'g'), () => tagMarkers[tagIdx++] || '');
-                      let pbIdx = 0;
-                      workingHTML = workingHTML.replace(new RegExp(PB_RE_FRAG, 'g'), () => pbMarkers[pbIdx++] || '');
-                      paragraphElement.innerHTML = workingHTML;
                     }
 
                     // Markiere auch das Suchwort im Absatz (falls vorhanden UND im Absatz vorkommend)
@@ -13878,7 +14648,8 @@ function scrollToChronologicalYear(year) {
                 
                 // Scrolle zum Absatz - genau wie bei Vorträgen, dabei wenn
                 // möglich die erste Markierung im Absatz vertikal zentrieren.
-                const firstMarkInTarget = targetElement.querySelector('mark');
+                const firstMarkInTarget = targetElement.querySelector('mark.thematic-quote-mark') ||
+                  targetElement.querySelector('mark');
                 (firstMarkInTarget || targetElement).scrollIntoView({ behavior: 'auto', block: 'center' });
                 } else {
                 console.warn(`[BOOK-ADV-SEARCH] Paragraph-Element #adv-para-${targetParagraphIdx} nicht gefunden`);
@@ -20868,6 +21639,8 @@ function formatAsteriskParagraphs() {
         const gaLinks = answerDiv.querySelectorAll('.ga-reference');
         
         gaLinks.forEach(link => {
+          if (link.__thematicBound) return;
+          link.__thematicBound = true;
           const lectureId = link.getAttribute('data-id');
           const targetIndex = link.getAttribute('data-index');
           const isEssayBeleg = link.getAttribute('data-essay') === 'true' ||
@@ -30516,83 +31289,97 @@ async function saveMarkedWord(word, gaTitle) {
   }
 }
 
-// Event-Listener für Rechtsklick im Viewer und Summary-Panel (für Textmarkierung und Schreibfehlerkorrektur)
-// DEAKTIVIERT - Wird durch Members Context Menu ersetzt
-// Nur noch bei Strg+Shift+Rechtsklick aktiv (für Fehlerkorrektur)
-document.addEventListener('DOMContentLoaded', function() {
-  const viewer = document.getElementById('viewer');
-  const summaryPanel = document.getElementById('summary-panel');
-  
-  // Gemeinsame Funktion für Schreibfehler-Markierung
-  function handleTypoMarking(e) {
-    // Hole markierten Text
-    const selection = window.getSelection();
-    const selectedText = selection.toString().trim();
-    
-    if (!selectedText || selectedText.length === 0) {
-      return;
+// Hilfsfunktion: Wort an Klickposition ermitteln (für Alt+Klick ohne vorherige Markierung)
+function getWordAtClickPoint(e) {
+  let range;
+  if (document.caretRangeFromPoint) {
+    range = document.caretRangeFromPoint(e.clientX, e.clientY);
+  } else if (document.caretPositionFromPoint) {
+    const pos = document.caretPositionFromPoint(e.clientX, e.clientY);
+    if (pos) {
+      range = document.createRange();
+      range.setStart(pos.offsetNode, pos.offset);
+      range.setEnd(pos.offsetNode, pos.offset);
     }
-    
-    // Hole aktuellen Vortragstitel
+  }
+
+  if (!range || !range.startContainer || range.startContainer.nodeType !== Node.TEXT_NODE) {
+    return null;
+  }
+
+  const text = range.startContainer.textContent;
+  const offset = range.startOffset;
+  let start = offset;
+  let end = offset;
+  while (start > 0 && /[\wäöüÄÖÜß\-]/i.test(text[start - 1])) start--;
+  while (end < text.length && /[\wäöüÄÖÜß\-]/i.test(text[end])) end++;
+
+  const word = text.slice(start, end).trim();
+  return word.length >= 2 ? word : null;
+}
+
+function isTypoMarkingTarget(target) {
+  if (!target || !target.closest) return false;
+  if (target.closest('a, script, style, code, pre, button, input, textarea, select, .spellcheck-context-menu, #members-context-menu, #sc-correction-popup')) {
+    return false;
+  }
+  return !!target.closest('#viewer, #viewer-content, #chronological-viewer-content, #summary-panel, #summary-content, #main');
+}
+
+function getTypoMarkText(e) {
+  const selection = window.getSelection();
+  const selectedText = selection && !selection.isCollapsed ? selection.toString().trim() : '';
+  if (selectedText) return selectedText;
+  return getWordAtClickPoint(e) || '';
+}
+
+// Event-Listener für Rechtsklick im Viewer und Summary-Panel (für Textmarkierung und Schreibfehlerkorrektur)
+// Document-Delegation: funktioniert auch wenn #viewer durch createViewerElement() ersetzt wird
+function initTypoMarkingListeners() {
+  if (initTypoMarkingListeners._initialized) return;
+  initTypoMarkingListeners._initialized = true;
+
+  function handleTypoMarking(selectedText) {
+    if (!selectedText) return;
+
     const documentTitle = document.getElementById('document-title');
     const gaTitle = documentTitle ? documentTitle.textContent : 'Unbekannt';
-    
-    // Zeige Bestätigungsdialog
     const confirmed = confirm(`Wort "${selectedText}" als fehlerhaft markieren?\n\nVortrag: ${gaTitle}`);
-    
+
     if (confirmed) {
       saveMarkedWord(selectedText, gaTitle);
     }
   }
-  
-  // Funktion zum Hinzufügen der Event-Listener zu einem Element
-  function addTypoMarkingListeners(element) {
-    if (!element) return;
-    
-    // Rechtsklick-Handler: Nur bei Strg+Shift+Rechtsklick
-    element.addEventListener('contextmenu', function(e) {
-      const selection = window.getSelection();
-      const selectedText = selection.toString().trim();
-      
-      // NUR bei Strg+Shift+Rechtsklick (für Fehlerkorrektur)
-      // Normaler Rechtsklick wird vom Members Context Menu behandelt
-      if (selectedText && selectedText.length > 0 && e.ctrlKey && e.shiftKey) {
-        e.preventDefault(); // Verhindere Standard-Kontextmenü
-        handleTypoMarking(e);
-      }
-    });
-    
-    // Klick-Handler: Bei Alt+Klick (linke Maustaste) für Rechtschreibfehler
-    element.addEventListener('click', function(e) {
-      // Nur wenn Alt-Taste gedrückt ist (für Fehlerkorrektur)
-      if (e.altKey && !e.ctrlKey && !e.shiftKey && !e.metaKey) {
-        // Prüfe ob geklicktes Element ein Link ist - dann nicht blockieren
-        const target = e.target;
-        const isLink = target.tagName === 'A' || target.closest('a');
-        
-        if (isLink) {
-          return; // Link normal funktionieren lassen
-        }
-        
-        const selection = window.getSelection();
-        const selectedText = selection.toString().trim();
-        
-        // Nur wenn Text markiert ist
-        if (selectedText && selectedText.length > 0) {
-          e.preventDefault();
-          e.stopPropagation();
-          handleTypoMarking(e);
-        }
-      }
-    });
-  }
-  
-  // Event-Listener für Viewer (linkes Hauptpanel)
-  addTypoMarkingListeners(viewer);
-  
-  // Event-Listener für Summary-Panel (rechtes Panel)
-  addTypoMarkingListeners(summaryPanel);
-});
+
+  document.addEventListener('contextmenu', function(e) {
+    if (!e.ctrlKey || !e.shiftKey) return;
+    if (!isTypoMarkingTarget(e.target)) return;
+
+    const selectedText = getTypoMarkText(e);
+    if (!selectedText) return;
+
+    e.preventDefault();
+    handleTypoMarking(selectedText);
+  });
+
+  document.addEventListener('mouseup', function(e) {
+    if (!e.altKey || e.ctrlKey || e.shiftKey || e.metaKey) return;
+    if (e.button !== 0) return;
+    if (!isTypoMarkingTarget(e.target)) return;
+
+    const selectedText = getTypoMarkText(e);
+    if (!selectedText) return;
+
+    e.preventDefault();
+    e.stopPropagation();
+    handleTypoMarking(selectedText);
+  }, true);
+}
+
+document.addEventListener('DOMContentLoaded', initTypoMarkingListeners);
+if (document.readyState !== 'loading') {
+  initTypoMarkingListeners();
+}
 
 // ============================================
 // Auto-Scroll zu Absatz bei URL-Parameter &index=...
@@ -38077,6 +38864,8 @@ window.cancelTextEditMode = function() {};
     if (gaFilterFull && String(gaFilterFull).length > 50) {
       meta.gaFilterFull = String(gaFilterFull);
     }
+    const chatTurns = window.ThematicChatUI?.getSaveableChatTurns?.();
+    if (chatTurns?.length) meta.chatTurns = chatTurns;
     return Object.keys(meta).length ? JSON.stringify(meta) : null;
   }
 
@@ -38290,12 +39079,37 @@ window.cancelTextEditMode = function() {};
       if (data.notes) {
         try { saveMeta = JSON.parse(data.notes); } catch (_) {}
       }
+
+      const gaFilterRaw = saveMeta.gaFilterFull || data.ga_filter || '';
+
+      if (saveMeta.chatTurns?.length && window.ThematicChatUI?.restoreChatTurns) {
+        document.getElementById('thematicQuery').value = data.query;
+
+        if (gaFilterRaw && thematicGAFilterDropdown) {
+          const gaList = String(gaFilterRaw)
+            .split(',').map(s => s.trim()).filter(Boolean);
+          thematicGAFilterDropdown.setSelectedValues(gaList);
+        }
+
+        const limitFilter = document.getElementById('thematicLimitFilter');
+        if (limitFilter && data.limit_used) {
+          limitFilter.value = data.limit_used;
+        }
+
+        currentSources = data.sources || [];
+        currentThematicQuery = data.query;
+        window._showingSavedThematicSearches = false;
+        window.ThematicChatUI.restoreChatTurns(saveMeta.chatTurns, { replayActive: true });
+        window.ThematicChatUI.syncSavePayloadFromActiveTurn?.();
+        window.ThematicChatUI.closeSavedOverlay?.();
+        document.getElementById('status').textContent = 'Gespeicherte Abfrage';
+        return;
+      }
       
       // Query in Eingabefeld setzen
       document.getElementById('thematicQuery').value = data.query;
       
       // GA-Filter setzen falls vorhanden (Multi-Select)
-      const gaFilterRaw = saveMeta.gaFilterFull || data.ga_filter || '';
       if (gaFilterRaw && thematicGAFilterDropdown) {
         const gaList = String(gaFilterRaw)
           .split(',').map(s => s.trim()).filter(Boolean);
@@ -38383,6 +39197,8 @@ window.cancelTextEditMode = function() {};
           const gaLinks = answerDiv.querySelectorAll('.ga-reference');
           
           gaLinks.forEach(link => {
+            if (link.__thematicBound) return;
+            link.__thematicBound = true;
             const lectureId = link.getAttribute('data-id');
             const targetIndex = link.getAttribute('data-index');
             const isEssayBeleg = link.getAttribute('data-essay') === 'true' ||

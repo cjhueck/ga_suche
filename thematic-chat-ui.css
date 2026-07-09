@@ -36,7 +36,7 @@ body.thematic-chat-enabled.tab-thematic-active #thematic-tab.tab-content.active 
   flex: 0 0 auto;
   min-height: 0;
   overflow: hidden;
-  padding-bottom: 0.25rem;
+  padding-bottom: 0.55rem;
   padding-top: 0;
 }
 
@@ -307,6 +307,11 @@ body.dark-mode .thematic-chat-bubble.user {
   cursor: pointer;
 }
 
+.thematic-chat-bubble.assistant:not(.loading) * {
+  cursor: pointer;
+  pointer-events: none;
+}
+
 .thematic-chat-bubble.assistant:hover {
   border-color: var(--link-color, #467886);
 }
@@ -335,13 +340,6 @@ body.dark-mode .thematic-chat-bubble.user {
   -webkit-line-clamp: 4;
   -webkit-box-orient: vertical;
   overflow: hidden;
-}
-
-.thematic-chat-bubble-hint {
-  font-size: 0.72rem;
-  color: var(--link-color, #467886);
-  margin-top: 0.25rem;
-  cursor: pointer;
 }
 
 /* Back navigation in main viewer when replaying chat turns */

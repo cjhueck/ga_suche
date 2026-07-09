@@ -6356,6 +6356,26 @@ ${noWebSection}`;
   }
 }
 
+function getParagraphContentForHighlight(lectureId, paragraphIndex) {
+  if (!lectureId || paragraphIndex == null || paragraphIndex === '') return '';
+  const cleanIndex = String(paragraphIndex).replace(/^\^/, '');
+  const lecture = fullLectures[lectureId];
+  if (lecture?.paragraphs) {
+    const para = lecture.paragraphs.find(p => String(p.index || '').replace(/^\^/, '') === cleanIndex);
+    if (para?.content || para?.text) return para.content || para.text;
+  }
+  const gaMatch = String(lectureId).match(/^(GA\d{1,3}[a-z]?)/i);
+  if (gaMatch) {
+    const book = fullBooks[gaMatch[1]] || fullBooks[gaMatch[1].toUpperCase()];
+    if (book) {
+      const paragraphs = book.paragraphs || convertBookToParagraphs(book);
+      const para = paragraphs.find(p => String(p.index || '').replace(/^\^/, '') === cleanIndex);
+      if (para?.content || para?.text) return para.content || para.text;
+    }
+  }
+  return '';
+}
+
 function addClickableReferences(text, results) {
   const escapeHtmlAttr = (s) => String(s).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;');
   
@@ -6388,6 +6408,8 @@ function addClickableReferences(text, results) {
 
       refToDataMapping[key1] = mapping;
       refToDataMapping[key2] = mapping;
+      refToDataMapping[key1.toLowerCase()] = mapping;
+      refToDataMapping[key2.toLowerCase()] = mapping;
     }
   });
   

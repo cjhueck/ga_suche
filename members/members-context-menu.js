@@ -2281,12 +2281,8 @@ function showContextNoteDialog(text, preselectedColor = 'blue') {
       }
     });
     
-    // Klick außerhalb zum Abbrechen
-    dialog.addEventListener('click', (e) => {
-      if (e.target === dialog) {
-        handleCancel();
-      }
-    });
+    // Klick außerhalb zum Abbrechen (nur bei echtem Klick, nicht bei Textauswahl)
+    attachKeywordDialogOverlayDismiss(dialog, handleCancel);
   });
 }
 
@@ -2893,6 +2889,22 @@ function applyQuoteToSelection(range, quoteId, gaNumber, paragraphId, markerColo
 }
 
 /**
+ * Overlay-Schließen nur bei echtem Klick auf den Hintergrund (nicht bei Textauswahl aus Textarea)
+ */
+function attachKeywordDialogOverlayDismiss(dialog, handleCancel) {
+  let mouseDownOnOverlay = false;
+  dialog.addEventListener('mousedown', (e) => {
+    mouseDownOnOverlay = e.target === dialog;
+  });
+  dialog.addEventListener('click', (e) => {
+    if (e.target === dialog && mouseDownOnOverlay) {
+      handleCancel();
+    }
+    mouseDownOnOverlay = false;
+  });
+}
+
+/**
  * Keyword-Eingabe-Dialog anzeigen (mit Gruppen- und Notizen-Feld)
  */
 function showKeywordDialog(type, text) {
@@ -2974,12 +2986,8 @@ function showKeywordDialog(type, text) {
       }
     });
     
-    // Click auf Overlay schließt Dialog
-    dialog.addEventListener('click', (e) => {
-      if (e.target === dialog) {
-        handleCancel();
-      }
-    });
+    // Click auf Overlay schließt Dialog (nur bei echtem Klick, nicht bei Textauswahl)
+    attachKeywordDialogOverlayDismiss(dialog, handleCancel);
   });
 }
 
