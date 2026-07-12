@@ -9609,6 +9609,23 @@ function scrollToBookHeading(headingId) {
   }
 }
 
+/** Scrollt ein Ziel im Main-Viewer direkt unter den fixierten #viewer-header. */
+function scrollViewerTargetBelowHeader(targetEl, scrollBehavior) {
+  const mainContainer = document.getElementById('main');
+  const header = document.getElementById('viewer-header');
+  if (!targetEl) return;
+  if (!mainContainer) {
+    targetEl.scrollIntoView({ behavior: scrollBehavior === 'smooth' ? 'smooth' : 'auto', block: 'start' });
+    return;
+  }
+  const behavior = scrollBehavior === 'smooth' ? 'smooth' : 'auto';
+  const headerBottom = header ? header.getBoundingClientRect().bottom : 0;
+  const gap = 8;
+  const targetRect = targetEl.getBoundingClientRect();
+  const delta = targetRect.top - headerBottom - gap;
+  mainContainer.scrollTo({ top: Math.max(0, mainContainer.scrollTop + delta), behavior });
+}
+
 // Hilfsfunktion: Konvertiert Fußnoten zu klickbaren Links (für Books und Lectures)
 function convertFootnotesToLinks() {
   console.log('[FOOTNOTES] *** Funktion aufgerufen ***');
@@ -9826,8 +9843,7 @@ function convertFootnotesToLinks() {
           e.preventDefault();
           const footnote = document.getElementById(`fn${part.id}`);
           if (footnote) {
-            // Scrolle zur Fußnote mit etwas Abstand oben
-            footnote.scrollIntoView({ behavior: 'auto', block: 'center' });
+            scrollViewerTargetBelowHeader(footnote, 'auto');
             const originalBg = footnote.style.backgroundColor;
             footnote.style.backgroundColor = 'var(--highlight-color)';
             setTimeout(() => {
@@ -9903,7 +9919,7 @@ function convertFootnotesToLinks() {
         e.preventDefault();
         const footnote = document.getElementById(`fn${fnId}`);
         if (footnote) {
-          footnote.scrollIntoView({ behavior: 'auto', block: 'start' });
+          scrollViewerTargetBelowHeader(footnote, 'auto');
           const originalBg = footnote.style.backgroundColor;
           footnote.style.backgroundColor = 'var(--highlight-color)';
           setTimeout(() => {
@@ -9922,7 +9938,7 @@ function convertFootnotesToLinks() {
       const targetId = backlink.getAttribute('href').substring(1);
       const target = document.getElementById(targetId);
       if (target) {
-        target.scrollIntoView({ behavior: 'auto', block: 'center' });
+        scrollViewerTargetBelowHeader(target, 'auto');
       }
     });
   });
@@ -9943,7 +9959,7 @@ function activateFootnoteLinks() {
       if (targetId) {
         const footnote = document.getElementById(targetId);
         if (footnote) {
-          footnote.scrollIntoView({ behavior: 'auto', block: 'start' });
+          scrollViewerTargetBelowHeader(footnote, 'auto');
           const originalBg = footnote.style.backgroundColor;
           footnote.style.backgroundColor = 'var(--highlight-color)';
           setTimeout(() => {
@@ -9968,7 +9984,7 @@ function activateFootnoteLinks() {
       backlinkEl.style.marginLeft = '0.5rem';
       backlinkEl.addEventListener('click', (e) => {
         e.preventDefault();
-        backlink.scrollIntoView({ behavior: 'auto', block: 'start' });
+        scrollViewerTargetBelowHeader(backlink, 'auto');
       });
       fn.appendChild(backlinkEl);
     }
@@ -43417,11 +43433,8 @@ window.cancelTextEditMode = function() {};
   }
 
   function _showTranslateBtn() {
-    const viewer = _getTranslateViewerEl();
     const wrapper = document.getElementById('translateBtnWrapper');
-    if (!wrapper) return;
-    const hasContent = viewer && viewer.textContent.trim().length > 100;
-    wrapper.style.display = hasContent ? 'inline-block' : 'none';
+    if (wrapper) wrapper.style.display = 'none';
   }
 
   function _resetTranslateState() {
