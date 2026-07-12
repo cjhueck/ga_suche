@@ -7861,6 +7861,24 @@ body.local-mode #texte-select-all-label { display: inline-flex !important; }
     color: #b07b00;
     font-weight: 600;
   }
+
+  /* Recherche läuft im Hintergrund: Spinner-Badge am Abfrage-Tab */
+  @keyframes tab-spin {
+    to { transform: rotate(360deg); }
+  }
+  .tab-button[data-searching="true"]::after {
+    content: '';
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    margin-left: 5px;
+    border: 2px solid currentColor;
+    border-top-color: transparent;
+    border-radius: 50%;
+    animation: tab-spin 0.7s linear infinite;
+    vertical-align: middle;
+    opacity: 0.8;
+  }
 </style>
 </div>
 <div id="rechercheControls" style="display: none; gap: 8px; margin-top: 6px; align-items: center; flex-wrap: wrap;">
@@ -10836,7 +10854,7 @@ PDF
 <link rel="stylesheet" href="thematic-chat-ui.css?v=20260712n">
 <script src="thematic-chat-ui.js?v=20260712n"></script>
 
-<script src="app.js?v=20260712r"></script>
+<script src="app.js?v=20260712v"></script>
 </body>
 </html>
 

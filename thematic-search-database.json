@@ -6214,5 +6214,1794 @@
       "themeArea": ""
     },
     "timestamp": "2026-07-12T11:46:02.092Z"
+  },
+  "goetheanismus|recherche:v3:alle:alle|300|": {
+    "query": "Goetheanismus",
+    "content": "",
+    "sources": [
+      {
+        "ID": "GA258/8",
+        "index": "^lx9fjp",
+        "title": "ACHTER VORTRAG",
+        "fileName": "GA258/8 - ACHTER VORTRAG, 17. Juni 1923",
+        "score": 151,
+        "matchedTerms": [
+          "goetheanismus"
+        ]
+      },
+      {
+        "ID": "GA180/4",
+        "index": "^a3jf64",
+        "title": "VIERTER VORTRAG",
+        "fileName": "GA180/4 - VIERTER VORTRAG, Dornach, 26. Dezember 1917",
+        "score": 149,
+        "matchedTerms": [
+          "goetheanismus"
+        ]
+      },
+      {
+        "ID": "GA177/12",
+        "index": "^ib86lj",
+        "title": "ZWÖLFTER VORTRAG",
+        "fileName": "GA177/12 - ZWÖLFTER VORTRAG, Dornach, 26. Oktober 1917",
+        "score": 146,
+        "matchedTerms": [
+          "goetheanismus"
+        ]
+      },
+      {
+        "ID": "GA238/10",
+        "index": "^ihgsws",
+        "title": "ZEHNTER VORTRAG",
+        "fileName": "GA238/10 - ZEHNTER VORTRAG, Dornach, 23. September 1924",
+        "score": 146,
+        "matchedTerms": [
+          "goetheanismus"
+        ]
+      },
+      {
+        "ID": "GA185/7",
+        "index": "^ugqsg8",
+        "title": "SIEBENTER VORTRAG",
+        "fileName": "GA185/7 - SIEBENTER VORTRAG, Dornach, 1. November 1918",
+        "score": 140,
+        "matchedTerms": [
+          "goetheanismus"
+        ]
+      },
+      {
+        "ID": "GA185/7",
+        "index": "^klbli6",
+        "title": "SIEBENTER VORTRAG",
+        "fileName": "GA185/7 - SIEBENTER VORTRAG, Dornach, 1. November 1918",
+        "score": 140,
+        "matchedTerms": [
+          "goetheanismus"
+        ]
+      },
+      {
+        "ID": "GA300a/1",
+        "index": "^7qbjga",
+        "title": "VORWORT",
+        "fileName": "GA300a/1 - VORWORT",
+        "score": 137,
+        "matchedTerms": [
+          "goetheanismus"
+        ]
+      },
+      {
+        "ID": "GA185/7",
+        "index": "^wzqgdm",
+        "title": "SIEBENTER VORTRAG",
+        "fileName": "GA185/7 - SIEBENTER VORTRAG, Dornach, 1. November 1918",
+        "score": 137,
+        "matchedTerms": [
+          "goetheanismus"
+        ]
+      },
+      {
+        "ID": "GA252/13",
+        "index": "^utgojo",
+        "title": "ANSPRACHE ZUR 7. GENERALVERSAMMLUNG DES VEREINS DES GOETHEANUM",
+        "fileName": "GA252/13 - ANSPRACHE ZUR 7. GENERALVERSAMMLUNG DES VEREINS DES GOETHEANUM, DER FREIEN HOCHSCHULE FÜR GEISTESWISSENSCHAFT, Dornach, 25. April 1920",
+        "score": 136,
+        "matchedTerms": [
+          "goetheanismus"
+        ]
+      },
+      {
+        "ID": "GA073a/6",
+        "index": "^4mmwor",
+        "title": "FRGAENBEANTWORTUNG",
+        "fileName": "GA073a/6 - FRGAENBEANTWORTUNG, Dornach, 1. April 1920",
+        "score": 136,
+        "matchedTerms": [
+          "goetheanismus"
+        ]
+      }
+    ],
+    "searchMethod": "hybrid-thematic-unified",
+    "totalMatches": 581,
+    "llmUsed": true,
+    "recherche": {
+      "subThemes": [
+        {
+          "title": "Begriff und Benennung: Goetheanismus als Steiner-Bezeichnung für Geisteswissenschaft",
+          "rows": [
+            {
+              "aussage": "Geisteswissenschaft am liebsten 'Goetheanismus' nennen – Dornacher Bau 'Goetheanum'",
+              "zitat": "Man beruft sich heute gerne auf Goethe. Ich habe in dem letzten Vortrage hier gesagt, dass, wenn es auf mich ankommt, ich die Geisteswissenschaft, die ich vertrete, am liebsten «Goetheanismus» nennen würde und den Bau in Dornach, der ihr gewidmet ist, «Goetheanum».",
+              "id": "GA072/3",
+              "index": "ss8pt7",
+              "ref": "GA072/3:ss8pt7",
+              "fileName": "GA072/3 - GEISTESWISSENSCHAFTLICHE (ANTHROPOSOPHISCHE) FORSCHUNGSERGEBNISSE ÜBER DAS EWIGE IN DER MENSCHENSEELE UND ÜBER DAS WESEN DER FREIHEIT, Basel, 23. November 1917",
+              "title": "GEISTESWISSENSCHAFTLICHE (ANTHROPOSOPHISCHE) FORSCHUNGSERGEBNISSE ÜBER DAS EWIGE IN DER MENSCHENSEELE UND ÜBER DAS WESEN DER FREIHEIT",
+              "relevance": "hoch",
+              "date": "1917-11-23",
+              "year": "1917"
+            },
+            {
+              "aussage": "Geistesforschung = Goetheanismus auf gesunden Grundlagen der Wirklichkeitsauffassung",
+              "zitat": "Goetheanismus möchte ich am liebsten dasjenige nennen, was ich mit der Geistesforschung meine, weil es auf den gesunden Grundlagen einer Wirklichkeitsauffassung beruht, wie sie Goethe gewollt hat.",
+              "id": "GA178/1",
+              "index": "bv0xjd",
+              "ref": "GA178/1:bv0xjd",
+              "fileName": "GA178/1 - DIE ERKENNTNIS DES ÜBERSINNLICHEN UND DIE MENSCHLICHEN SEELENRÄTSEL, Öffentlicher Vortrag, St. Gallen, 15. November 1917",
+              "title": "DIE ERKENNTNIS DES ÜBERSINNLICHEN UND DIE MENSCHLICHEN SEELENRÄTSEL",
+              "relevance": "hoch",
+              "date": "1917-11-15",
+              "year": "1917"
+            },
+            {
+              "aussage": "Anthroposophie = Goetheanismus: Bau als Huldigungsstätte, nicht Renommisterei",
+              "zitat": "Damit soll ja durchaus nicht der alberne Anspruch gemacht werden, etwa dasjenige, was Goetheanismus ist, mit irgendeiner Vollkommenheit zu vertreten, sondern ich möchte sagen, eher wollte dieses Goetheanum eine Art Huldigungsstätte sein für das, was Goethe der Welt gegeben hat.",
+              "id": "GA080b/11",
+              "index": "wzohmh",
+              "ref": "GA080b/11:wzohmh",
+              "fileName": "GA080b/11 - WAS WOLLTE DAS GOETHEANUM UND WAS SOLL DIE ANTHROPOSOPHIE, Bern, 5. April 1923",
+              "title": "WAS WOLLTE DAS GOETHEANUM UND WAS SOLL DIE ANTHROPOSOPHIE",
+              "relevance": "hoch",
+              "date": "1923-04-05",
+              "year": "1923"
+            },
+            {
+              "aussage": "Anthroposophie widerspruchslos aus Goetheanismus hervorgehend – daher Name 'Goetheanum'",
+              "zitat": "Und in diesem Sinne einer lebendigen Logik fühle ich, wie Anthroposophie aus dem Goetheanismus widerspruchslos hervorgeht, sowenig man das heute zugibt. Und weil so Anthroposophie im Grunde genommen ihre Entstehung Goethe verdankt, war es ein selbstverständliches Gefühlsbedürfnis, diejenige Stätte, in der Anthroposophie, sozusagen der Abkömmling der Goethe'schen Weltanschauung, gepflegt wurde, Goetheanum zu nennen.",
+              "id": "GA080b/11",
+              "index": "l6kjr9",
+              "ref": "GA080b/11:l6kjr9",
+              "fileName": "GA080b/11 - WAS WOLLTE DAS GOETHEANUM UND WAS SOLL DIE ANTHROPOSOPHIE, Bern, 5. April 1923",
+              "title": "WAS WOLLTE DAS GOETHEANUM UND WAS SOLL DIE ANTHROPOSOPHIE",
+              "relevance": "hoch",
+              "date": "1923-04-05",
+              "year": "1923"
+            },
+            {
+              "aussage": "Geisteswissenschaft = Goetheanismus + deutscher Idealismus in die Gegenwart übertragen",
+              "zitat": "Wahrhaftig, in alledem, was ich seit Jahren hindurch hier in diesen Vorträgen habe sprechen können, war immer das Bewusstsein: Es ist nichts anderes, was jetzt als Geisteswissenschaft gegeben wird - wenn das auch ganz paradox klingen wird-, als der Goetheanismus, der deutsche Idealismus.",
+              "id": "GA065/2",
+              "index": "4acupm",
+              "ref": "GA065/2:4acupm",
+              "fileName": "GA065/2 - DIE EWIGEN KRÄFTE DER MENSCHENSEELE, Berlin, 3. Dezember 1915",
+              "title": "DIE EWIGEN KRÄFTE DER MENSCHENSEELE",
+              "relevance": "hoch",
+              "date": "1915-12-03",
+              "year": "1915"
+            },
+            {
+              "aussage": "Goetheanismus als Anthroposophie: Einleitungen zu Goethes Naturwissenschaftlichen Schriften als Anfang",
+              "zitat": "Das ist von mir zuerst ausgeführt worden, indem ich es angewendet habe auf eine Interpretation des Goetheanismus. Ich habe dazumal meine «Einleitungen zu Goethes Naturwissenschaftlichen Schriften», durchtränkt von diesem anthroposophischen Geiste, geschrieben.",
+              "id": "GA255b/11",
+              "index": "l5gm15",
+              "ref": "GA255b/11:l5gm15",
+              "fileName": "GA255b/11 - ÖFFENTLICHER VORTRAG, Basel, 2. Dezember 1920",
+              "title": "ÖFFENTLICHER VORTRAG",
+              "relevance": "hoch",
+              "date": "1920-12-02",
+              "year": "1920"
+            }
+          ]
+        },
+        {
+          "title": "Goetheanismus als lebendige Fortbildung – kein historischer Goethekult",
+          "rows": [
+            {
+              "aussage": "Goetheanismus vom Jahr 1919/1920, nicht von 1832 – fortgebildeter, lebendiger Geist",
+              "zitat": "wir brauchen durchaus, wenn wir auch nicht Physikergläubige sind, auch nicht wieder Goethegläubige zu werden, denn Goethe ist 1832 gestorben, und wir bekennen uns nicht zu einem Goetheanismus vom Jahre 1832, sondern zu einem vom Jahre 1919, also zu einem fortgebildeten Goetheanismus.",
+              "id": "GA291a/1",
+              "index": "m3ra5a",
+              "ref": "GA291a/1:m3ra5a",
+              "fileName": "GA291a/1 - Chronologische Übersicht der Äußerungen Rudolf Steiners",
+              "title": "Chronologische Übersicht der Äußerungen Rudolf Steiners",
+              "relevance": "hoch",
+              "date": "",
+              "year": ""
+            },
+            {
+              "aussage": "Goetheanismus = umgestaltete Fortsetzung, kein Goethekult",
+              "zitat": "Daher ist heute Goetheanismus nicht ein Goethekult, nicht eine Verehrung desjenigen, was Goethe unmittelbar geschaffen hat, sondern Goetheanismus ist die umgestaltete, die umgewandelte Fortsetzung desjenigen, was man, an Goethe sich schulend, sich innerlich durchdringend, heranentwickeln kann.",
+              "id": "GA192/11",
+              "index": "7j2l3u",
+              "ref": "GA192/11:7j2l3u",
+              "fileName": "GA192/11 - ELFTER VORTRAG, Stuttgart, 29. Juni 1919",
+              "title": "ELFTER VORTRAG",
+              "relevance": "hoch",
+              "date": "1919-06-29",
+              "year": "1919"
+            },
+            {
+              "aussage": "Goetheanismus nicht historisch konservieren, sondern lebendig weiterbilden",
+              "zitat": "Derjenige, der ihn konservieren will, der das einfach aufnehmen will, was Lessing, Herder, Goethe, Schiller gedacht haben [...] wer gewissermaßen im gewöhnlichen Sinne Schüler sein will dieser Zeit, der versündigt sich am Fortschritt der Menschheit.",
+              "id": "GA192/11",
+              "index": "7j2l3u",
+              "ref": "GA192/11:7j2l3u",
+              "fileName": "GA192/11 - ELFTER VORTRAG, Stuttgart, 29. Juni 1919",
+              "title": "ELFTER VORTRAG",
+              "relevance": "hoch",
+              "date": "1919-06-29",
+              "year": "1919"
+            },
+            {
+              "aussage": "Goetheanismus in Anthroposophie hinüberführen – Stauung beheben",
+              "zitat": "Aber, wie gesagt, was konnte man anderes tun, als die Stauung, die da eingetreten war, beheben und den Goetheanismus wirklich in die Anthroposophie hinüberführen!",
+              "id": "GA238/10",
+              "index": "ihgsws",
+              "ref": "GA238/10:ihgsws",
+              "fileName": "GA238/10 - ZEHNTER VORTRAG, Dornach, 23. September 1924",
+              "title": "ZEHNTER VORTRAG",
+              "relevance": "hoch",
+              "date": "1924-09-23",
+              "year": "1924"
+            },
+            {
+              "aussage": "Goetheanismus weiter ausbilden durch Geisteswissenschaft – z. B. Farbenlehre",
+              "zitat": "Im Goetheanismus sehen wir die geistigen Elemente, die seelischen Elemente. Dieser Goetheanismus muss weiter ausgebildet werden. Er hat zum Beispiel noch nicht die Unterscheidung der Farben als Bilder und als Glanze. Wir müssen den Goetheanismus lebendig denken, um immer weiter und weiter zu kommen. Das können wir nur durch Geisteswissenschaft.",
+              "id": "GA291/3",
+              "index": "rtthju",
+              "ref": "GA291/3:rtthju",
+              "fileName": "GA291/3 - Dritter Vortrag, Dornach, 8. Mai 1921, Farbe und Materie - Malen aus der Farbe",
+              "title": "Dritter Vortrag",
+              "relevance": "hoch",
+              "date": "1921-05-08",
+              "year": "1921"
+            },
+            {
+              "aussage": "Goetheanismus in Einzelheiten → zwingend zur Anthroposophie führend",
+              "zitat": "Bis in die Einzelheiten hinein ist es so, dass Goetheanismus in richtiger Fortsetzung unbedingt zur Anthroposophie führt.",
+              "id": "GA211/5",
+              "index": "zvy1lu",
+              "ref": "GA211/5:zvy1lu",
+              "fileName": "GA211/5 - DAS WESEN DES MENSCHEN UND SEIN AUSDRUCK IN DER GRIECHISCHEN KUNST, Dornach, 31. März 1922",
+              "title": "DAS WESEN DES MENSCHEN UND SEIN AUSDRUCK IN DER GRIECHISCHEN KUNST",
+              "relevance": "hoch",
+              "date": "1922-03-31",
+              "year": "1922"
+            },
+            {
+              "aussage": "Anthroposophie führt Goetheanismus (lebendiges Denken, Metamorphose) weiter aus",
+              "zitat": "Mit diesem lebendigen Denken verbindet sich etwas im inneren Seelenleben, was die Wirklichkeit gar sehr verbürgt [...] ein Vorgang, den schon Goethe angestrebt hat, und er ist auch schon in einem gewissen Grade weit gekommen, Anthroposophie führt den Goetheanismus weiter aus.",
+              "id": "GA080a/12",
+              "index": "qghhfa",
+              "ref": "GA080a/12:qghhfa",
+              "fileName": "GA080a/12 - ANTHROPOSOPHIE UND GEISTESERKENNTNIS, Köln, 18. Mai 1922",
+              "title": "ANTHROPOSOPHIE UND GEISTESERKENNTNIS",
+              "relevance": "hoch",
+              "date": "1922-05-18",
+              "year": "1922"
+            }
+          ]
+        },
+        {
+          "title": "Goetheanismus und Erkenntnistheorie: Phänomenologie, lebendige Begriffe, Metamorphose",
+          "rows": [
+            {
+              "aussage": "Goetheanismus: Phänomenologie statt mechanistischer Weltanschauung – Vordringen zum Wesen der Dinge",
+              "zitat": "Und insofern ist es notwendig, den radikalen Unterschied einer solchen Phänomenologie, wie sie Goethe meint und wie sie im Goetheanismus gepflegt werden kann, hervorzuheben gegenüber dem, was eben prinzipiell verzichten will, auf das Wesen der Dinge einzugehen.",
+              "id": "GA073a/5",
+              "index": "blkdnw",
+              "ref": "GA073a/5:blkdnw",
+              "fileName": "GA073a/5 - FRAGEBEANTWORTUNG, Dornach, 31. März 1920",
+              "title": "FRAGEBEANTWORTUNG",
+              "relevance": "hoch",
+              "date": "1920-03-31",
+              "year": "1920"
+            },
+            {
+              "aussage": "Goetheanismus: erkenntnistheoretischer Fortschritt gegenüber kantischer Trägheit",
+              "zitat": "Es würde sich wirklich darum handeln, dass der kantisch träge gemachte Verstand der Philosophie nun endlich einmal loskäme von der Trägheit des Häufens von den «Gegensätzen an sich» und dem «Ding an sich» [...] um nun wirklich hinschauen zu können auf den ungeheuren Fortschritt, der auch in der erkenntnistheoretischen Beziehung hat gemacht werden können durch den Goetheanismus.",
+              "id": "GA073a/6",
+              "index": "4mmwor",
+              "ref": "GA073a/6:4mmwor",
+              "fileName": "GA073a/6 - FRGAENBEANTWORTUNG, Dornach, 1. April 1920",
+              "title": "FRGAENBEANTWORTUNG",
+              "relevance": "hoch",
+              "date": "1920-04-01",
+              "year": "1920"
+            },
+            {
+              "aussage": "Goetheanismus: Anerkennung der anschauenden Urteilskraft – Eindringen in den Weltgeist",
+              "zitat": "Das sind doch die Worte, die uns auf den wahren Goetheanismus hinweisen, der da besteht in der Anerkenntnis der Möglichkeit, mit dem menschlichen Geiste in den Geist des Weltenalls einzudringen und das Unsterbliche und Freiheitliche der Menschennatur zu erkennen.",
+              "id": "GA072/3",
+              "index": "ii4u6x",
+              "ref": "GA072/3:ii4u6x",
+              "fileName": "GA072/3 - GEISTESWISSENSCHAFTLICHE (ANTHROPOSOPHISCHE) FORSCHUNGSERGEBNISSE ÜBER DAS EWIGE IN DER MENSCHENSEELE UND ÜBER DAS WESEN DER FREIHEIT, Basel, 23. November 1917",
+              "title": "GEISTESWISSENSCHAFTLICHE (ANTHROPOSOPHISCHE) FORSCHUNGSERGEBNISSE ÜBER DAS EWIGE IN DER MENSCHENSEELE UND ÜBER DAS WESEN DER FREIHEIT",
+              "relevance": "hoch",
+              "date": "1917-11-23",
+              "year": "1917"
+            },
+            {
+              "aussage": "Goetheanismus: Grundton für fünften nachatlantischen Zeitraum – vom Toten zum Lebendigen",
+              "zitat": "Es ist also im Goetheanismus der Grundton angegeben für dasjenige, was gesucht werden soll durch diesen fünften nachatlantischen Zeitraum. Es wird gewissermaßen die Wissenschaft im Goetheschen Sinne aufwachen müssen, vom Toten zum Lebendigen herüberzugehen.",
+              "id": "GA296/6",
+              "index": "uqofjf",
+              "ref": "GA296/6:uqofjf",
+              "fileName": "GA296/6 - SECHSTER VORTRAG, Dornach, 17. August 1919",
+              "title": "SECHSTER VORTRAG",
+              "relevance": "hoch",
+              "date": "1919-08-17",
+              "year": "1919"
+            },
+            {
+              "aussage": "Goetheanismus: Metamorphosenbegriffe allein fähig, fluktuierende Erscheinungen zu fassen",
+              "zitat": "Die Metamorphosenbegriffe des Goetheanismus sind allein imstande, die fluktuierenden Erscheinungen zu fassen, welche sich dem Anschauen der Wirklichkeit darbieten.",
+              "id": "GA183/6",
+              "index": "z1xnwr",
+              "ref": "GA183/6:z1xnwr",
+              "fileName": "GA183/6 - SECHSTER VORTRAG, Dornach, 26. August 1918",
+              "title": "SECHSTER VORTRAG",
+              "relevance": "hoch",
+              "date": "1918-08-26",
+              "year": "1918"
+            },
+            {
+              "aussage": "Goetheanismus: Morphologie/Naturgestaltung statt abstrakter Naturgesetze",
+              "zitat": "Und das ist das Bemerkenswerte an Goethe und an dem Goetheanismus, das, was so wenig verstanden wird: Goethe suchte über die Naturgesetze hinauszudringen zu der Naturgestaltung, zu den Formen. Daher begründete er gerade eine Morphologie im höheren Sinne, eine spirituelle Morphologie.",
+              "id": "GA187/4",
+              "index": "l91t4p",
+              "ref": "GA187/4:l91t4p",
+              "fileName": "GA187/4 - VIERTER VORTRAG, Dornach, 27. Dezember 1918",
+              "title": "VIERTER VORTRAG",
+              "relevance": "hoch",
+              "date": "1918-12-27",
+              "year": "1918"
+            },
+            {
+              "aussage": "Goetheanismus: Naturwissenschaft als Phänomenologie treiben",
+              "zitat": "Also es ist in dieser Formulierung zum Ausdrucke gebracht, dass man Goetheanismus treiben will in der Naturwissenschaft.",
+              "id": "GA251/17",
+              "index": "gqufdi",
+              "ref": "GA251/17:gqufdi",
+              "fileName": "GA251/17 - DIE BEZIEHUNG VON LEBENS- UND WISSENSCHAFTSZWEIGEN IN DER GEGENWART ZUR ANTHROPOSOPHISCHEN WELTANSCHAUUNG, Bericht über den Verlauf des Berliner Hochschulkurses, Dornach, 18. März 1922",
+              "title": "DIE BEZIEHUNG VON LEBENS- UND WISSENSCHAFTSZWEIGEN IN DER GEGENWART ZUR ANTHROPOSOPHISCHEN WELTANSCHAUUNG",
+              "relevance": "hoch",
+              "date": "1922-03-18",
+              "year": "1922"
+            },
+            {
+              "aussage": "Goetheanismus: Materiepol der Erkenntnis – Bewusstseinspol durch Philosophie der Freiheit ergänzt",
+              "zitat": "So stehen am Materienpole diejenigen Ergebnisse, die aus dem Goetheanismus stammen, am Bewusstseinspole diejenigen Ergebnisse, die gefunden werden können auf dem methodischen Wege, auf dem ich versuchte, in bescheidener Weise meine «Philosophie der Freiheit» aufzubauen.",
+              "id": "GA322/3",
+              "index": "5qwa13",
+              "ref": "GA322/3:5qwa13",
+              "fileName": "GA322/3 - DRITTER VORTRAG, Dornach, 29. September 1920",
+              "title": "DRITTER VORTRAG",
+              "relevance": "hoch",
+              "date": "1920-09-29",
+              "year": "1920"
+            },
+            {
+              "aussage": "Goetheanismus: Bewusstseinspol schwerer erreichbar – Goethe schreckte vor Denken über das Denken zurück",
+              "zitat": "Der Bewusstseinspol war nicht so leicht einfach aus dem Goetheanismus heraus zu erreichen, aus dem einfachen Grunde, weil Goethe kein Trivialling war [...] und so hat denn Goethe, der mehr auf die äußere Natur hin organisiert war, gerade vor dem ein gewisses Zurückschrecken gefühlt, was hinunterleiten soll in die Tiefen des Bewusstseins selber.",
+              "id": "GA322/4",
+              "index": "vxbtcf",
+              "ref": "GA322/4:vxbtcf",
+              "fileName": "GA322/4 - VIERTER VORTRAG, Dornach, 30. September 1920",
+              "title": "VIERTER VORTRAG",
+              "relevance": "hoch",
+              "date": "1920-09-30",
+              "year": "1920"
+            },
+            {
+              "aussage": "Goetheanismus: Goethe noch kein Geistesforscher – aber elementare Ausgangspunkte für Geistesforschung",
+              "zitat": "Goethe war noch nicht selbst Geistesforscher; die Zeit zur Geistesforschung war dazumal noch nicht gekommen. Wer aber, so wie ich es in meinen ersten Schriften getan habe, sich vertieft in Goethes Weltanschauung, der findet in dieser Goetheschen Weltanschauung die elementaren Ausgangspunkte, auf denen aufgebaut werden kann.",
+              "id": "GA072/5",
+              "index": "icu8af",
+              "ref": "GA072/5:icu8af",
+              "fileName": "GA072/5 - DAS WIRKEN DER SEELENKRÄFTE IM MENSCHEN UND IHR ZUSAMMENHANG MIT DESSEN EWIGER WESENHEIT, Bern, 28. November 1917",
+              "title": "DAS WIRKEN DER SEELENKRÄFTE IM MENSCHEN UND IHR ZUSAMMENHANG MIT DESSEN EWIGER WESENHEIT",
+              "relevance": "hoch",
+              "date": "1917-11-28",
+              "year": "1917"
+            }
+          ]
+        },
+        {
+          "title": "Goetheanismus und Anthroposophie: Verhältnis, Grenzen, Ergänzungen",
+          "rows": [
+            {
+              "aussage": "Goetheanismus fortgesetzt = anthroposophisch orientierte Geisteswissenschaft",
+              "zitat": "Denn dieser Goetheanismus, fortgesetzt, bedeutet eben ein Hineinkommen in anthroposophisch orientierte Geisteswissenschaft. Und ohne anthroposophisch orientierte Geisteswissenschaft kommt die Welt aus der heutigen katastrophalen Lage nicht heraus.",
+              "id": "GA185/7",
+              "index": "qtxpmh",
+              "ref": "GA185/7:qtxpmh",
+              "fileName": "GA185/7 - SIEBENTER VORTRAG, Dornach, 1. November 1918",
+              "title": "SIEBENTER VORTRAG",
+              "relevance": "hoch",
+              "date": "1918-11-01",
+              "year": "1918"
+            },
+            {
+              "aussage": "Goetheanismus: zwei Ausgangspunkte konvergieren, kommen nicht zusammen – Lücke durch Philosophie der Freiheit",
+              "zitat": "Goethe setzte, ich möchte sagen, zwei Ausgangspunkte hin, die sich zwar konvergierend gegeneinander bewegten, aber nicht zusammenkamen. Dasjenige, was notwendig ist, notwendig war, das ist die Philosophie der Freiheit.",
+              "id": "GA258/8",
+              "index": "lx9fjp",
+              "ref": "GA258/8:lx9fjp",
+              "fileName": "GA258/8 - ACHTER VORTRAG, 17. Juni 1923",
+              "title": "ACHTER VORTRAG",
+              "relevance": "hoch",
+              "date": "1923-06-17",
+              "year": "1923"
+            },
+            {
+              "aussage": "Goetheanismus: Goethe-Geist als fortwirkend, nicht auf 1832 beschränkt",
+              "zitat": "Nein, wir treiben einen Goetheanismus, der nicht zurückgeht auf 1832, sondern der ein Goetheanismus ist durch den fortwirkenden Goethe-Geist heute vom Jahre 1920.",
+              "id": "GA334/2",
+              "index": "vushsb",
+              "ref": "GA334/2:vushsb",
+              "fileName": "GA334/2 - DIE GEISTESWISSENSCHAFTLICHEN GRUNDLAGEN DER LEIBLICHEN UND SEELISCHEN GESUNDHEIT, Zweiter Vortrag, Basel, 6. Januar 1920",
+              "title": "DIE GEISTESWISSENSCHAFTLICHEN GRUNDLAGEN DER LEIBLICHEN UND SEELISCHEN GESUNDHEIT",
+              "relevance": "hoch",
+              "date": "1920-01-06",
+              "year": "1920"
+            },
+            {
+              "aussage": "Goetheanismus: Ahnung bei Goethe – durch Geisteswissenschaft erleuchtet oder umgestaltet",
+              "zitat": "Aber auch diese Dinge werden erst als wirkliche Erkenntnisschätze gehoben werden, wenn man einmal den Goetheanismus auf der andern Seite so ernst nehmen wird, dass man manches, was bei Goethe Ahnung ist, durch Geisteswissenschaft erleuchtet.",
+              "id": "GA220/3",
+              "index": "ctun9n",
+              "ref": "GA220/3:ctun9n",
+              "fileName": "GA220/3 - DRITTER VORTRAG, Dornach, 7. Januar 1923",
+              "title": "DRITTER VORTRAG",
+              "relevance": "hoch",
+              "date": "1923-01-07",
+              "year": "1923"
+            },
+            {
+              "aussage": "Goetheanismus: Schiller und Goethe als Ausgangspunkt, aber nicht stehenbleiben – Geisteswissenschaft nötig",
+              "zitat": "Man darf heute Schiller, man darf Goethe im Sinne des Goetheanismus verstehen, aber nicht so, dass man bei Schiller und Goethe stehenbleibt, sondern dass man das Fruchtbare in ihnen gerade mit Hilfe dessen erkennt, was die Geisteswissenschaft heute bietet.",
+              "id": "GA188/7",
+              "index": "afmby2",
+              "ref": "GA188/7:afmby2",
+              "fileName": "GA188/7 - SIEBENTER VORTRAG, Dornach, 24. Januar 1919",
+              "title": "SIEBENTER VORTRAG",
+              "relevance": "hoch",
+              "date": "1919-01-24",
+              "year": "1919"
+            },
+            {
+              "aussage": "Goetheanismus: fortentwickelt bis in wissenschaftliche Gegenwart – Einklang mit Anthroposophie",
+              "zitat": "Mit dem, was ich heute über die Abstammung des Menschen und über die Beziehung der Seele des Menschen zum Leibe sagte, weiß ich mich im Einklang mit dem Goetheanismus, wenn auch mit einem bis in unsere Zeiten herein und in wissenschaftlicher Gestalt fortentwickelten Goetheanismus.",
+              "id": "GA073/3",
+              "index": "ma16fu",
+              "ref": "GA073/3:ma16fu",
+              "fileName": "GA073/3 - ANTHROPOSOPHIE UND NATURWISSENSCHAFT, Zürich, 12. November 1917",
+              "title": "ANTHROPOSOPHIE UND NATURWISSENSCHAFT",
+              "relevance": "hoch",
+              "date": "1917-11-12",
+              "year": "1917"
+            }
+          ]
+        },
+        {
+          "title": "Goetheanismus und Kunst, Eurythmie, Architektur",
+          "rows": [
+            {
+              "aussage": "Goetheanismus: Einklang von Wissenschaft, Kunst und Religion – Grundlage des Goetheanum-Baus",
+              "zitat": "Dann, wenn also Erkenntnis, wenn also Kunst hervorgeht aus der menschlichen Geistigkeit, die die Weltgeistigkeit in sich erlebt, dann wird dieses Erlebnis auch ein tiefst religiöses sein, ein solches, das im Menschen sich einstellen wird, ganz im Sinne des Goetheanismus, jenes Goetheanismus, der in Goethe selber suchte den Einklang der drei idealsten Lebensfrüchte: Wissenschaft, Kunst und Religion.",
+              "id": "GA289/8",
+              "index": "1pxz5p",
+              "ref": "GA289/8:1pxz5p",
+              "fileName": "GA289/8 - DER BAUGEDANKE VON DORNACH, Stuttgart, 7. September 1921",
+              "title": "DER BAUGEDANKE VON DORNACH",
+              "relevance": "hoch",
+              "date": "1921-09-07",
+              "year": "1921"
+            },
+            {
+              "aussage": "Goetheanismus: Natur enthüllt Geheimnis – Kunst als würdigste Auslegerin; Grundlage der Eurythmie",
+              "zitat": "Wem die Natur, so sagte er, ihr offenbares Geheimnis zu enthüllen anfängt, der empfindet eine unwiderstehliche Sehnsucht nach ihrer würdigsten Auslegerin, der Kunst. - Solch eine Weltanschauung, solcher Goetheanismus hegt dem zugrunde, was wir hier eurythmisch darstellen wollen.",
+              "id": "GA277/28",
+              "index": "gltzjs",
+              "ref": "GA277/28:gltzjs",
+              "fileName": "GA277/28 - DAS SINNLICH-ÜBERSINNLICHE IN DER KUNST, Dornach, Ostersonntag, 4. April 1920",
+              "title": "DAS SINNLICH-ÜBERSINNLICHE IN DER KUNST",
+              "relevance": "hoch",
+              "date": "1920-04-04",
+              "year": "1920"
+            },
+            {
+              "aussage": "Goetheanismus: Einleben in Atmosphäre als Vorbereitung für okkulte Betrachtung des Faust",
+              "zitat": "Beim Ernsthaft-Nehmen von okkulten Betrachtungen ist das schon notwendig, dass man sich in die ganze Atmosphäre, in die der Gegenstand hineingestellt ist, hineinlebt. Und so war ich denn bestrebt, ein wenig mich wiederum einmal einzuleben in Goetheanismus.",
+              "id": "GA272/8",
+              "index": "s2fyza",
+              "ref": "GA272/8:s2fyza",
+              "fileName": "GA272/8 - Fausts Himmelfahrt, Vortrag in Dornach am 14. August 1915",
+              "title": "Fausts Himmelfahrt",
+              "relevance": "mittel",
+              "date": "1915-08-14",
+              "year": "1915"
+            }
+          ]
+        },
+        {
+          "title": "Goetheanismus und Kulturgeschichte: Isolierung, Versäumnis, Unverstanden-Bleiben",
+          "rows": [
+            {
+              "aussage": "Goetheanismus: merkwürdige Isolierung in der Welt – bezeichnend für neuere Menschheitsentwicklung",
+              "zitat": "Dieser Goetheanismus – und ich rechne dazu alles dasjenige, was sich dazumal an die Namen Schiller, Lessing, Herder und so weiter noch knüpft [...] alles das steht ja in einer merkwürdigen Isolierung in der Welt überhaupt da. Diese Isolierung, in der es in der Welt dasteht, die ist außerordentlich bezeichnend für die ganze Entwickelung der neueren Menschheit.",
+              "id": "GA185/7",
+              "index": "wzqgdm",
+              "ref": "GA185/7:wzqgdm",
+              "fileName": "GA185/7 - SIEBENTER VORTRAG, Dornach, 1. November 1918",
+              "title": "SIEBENTER VORTRAG",
+              "relevance": "hoch",
+              "date": "1918-11-01",
+              "year": "1918"
+            },
+            {
+              "aussage": "Goetheanismus: gewaltige geistige Welle – vollständig unverstanden geblieben",
+              "zitat": "Und so konnte eben die bemerkenswerte Tatsache auftreten, dass eine ganz gewaltige geistige Welle, die mit dem Goetheanismus aufgeworfen war, eigentlich vollständig unverstanden geblieben ist.",
+              "id": "GA185/7",
+              "index": "nm7oap",
+              "ref": "GA185/7:nm7oap",
+              "fileName": "GA185/7 - SIEBENTER VORTRAG, Dornach, 1. November 1918",
+              "title": "SIEBENTER VORTRAG",
+              "relevance": "hoch",
+              "date": "1918-11-01",
+              "year": "1918"
+            },
+            {
+              "aussage": "Welt hat versäumt, Beziehung zum Goetheanismus zu gewinnen – kein Vorwurf, sondern Aufforderung",
+              "zitat": "Wenn man heute darauf aufmerksam macht, dass die Welt versäumt hat, sich mit Goethe zu befassen – das hat sie –, dass die Welt versäumt hat, irgendwie eine Beziehung zum Goetheanismus zu gewinnen, ja, dann geschieht das wahrhaftig nicht, um diese Welt auszuzanken [...] sondern nur, um dazu aufzufordern, ein solches Verhältnis zum Goetheanismus zu gewinnen.",
+              "id": "GA185/7",
+              "index": "klbli6",
+              "ref": "GA185/7:klbli6",
+              "fileName": "GA185/7 - SIEBENTER VORTRAG, Dornach, 1. November 1918",
+              "title": "SIEBENTER VORTRAG",
+              "relevance": "hoch",
+              "date": "1918-11-01",
+              "year": "1918"
+            },
+            {
+              "aussage": "Goethe-Gesellschaft: Finanzminister als Vorsitzender – Symbol für Hohlheit des offiziellen Goetheanismus",
+              "zitat": "Da wurde dann ein ehemaliger Finanzminister zum ersten Vorsitzenden der Goethe-Gesellschaft in Weimar gewählt, dessen geistige Wege niemals zu Goethe führten. Was einen etwas hinweisen konnte auf die Hohlheit des Ganzen, war, dass der Vorname des Betreffenden war: Kreuzwendedich.",
+              "id": "GA192/1",
+              "index": "uce0md",
+              "ref": "GA192/1:uce0md",
+              "fileName": "GA192/1 - ERSTER VORTRAG, Stuttgart, 21. April 1919",
+              "title": "ERSTER VORTRAG",
+              "relevance": "hoch",
+              "date": "1919-04-21",
+              "year": "1919"
+            },
+            {
+              "aussage": "Goetheanismus: kein Mut, ihn festzuhalten – freies Geistesleben nicht weitergeführt",
+              "zitat": "Dieses Geistesleben war im Anfang da. Um die Wende des 18. und 19. Jahrhunderts hat man angefangen, ein freies Geistesleben zu schaffen, was wir «Goetheanismus» nennen. Aber es war nicht der Mut da, es festzuhalten - das auf der einen Seite.",
+              "id": "GA338/2",
+              "index": "utsh2o",
+              "ref": "GA338/2:utsh2o",
+              "fileName": "GA338/2 - ZWEITER VORTRAG, Stuttgart, 13. Februar 1921 (nachmittags)",
+              "title": "ZWEITER VORTRAG",
+              "relevance": "hoch",
+              "date": "1921-02-13",
+              "year": "1921"
+            },
+            {
+              "aussage": "Goetheanismus: mit Hamerlings 'Homunkulus' gebrochen – Materialismus statt Geistesimpuls",
+              "zitat": "Das alles hat er gedacht am Ende der achtziger Jahre, als schon gebrochen war mit allem Goetheanismus, als schon die Menschen nichts mehr wissen wollten von allem Goetheanismus.",
+              "id": "GA273/12",
+              "index": "8r2xly",
+              "ref": "GA273/12:8r2xly",
+              "fileName": "GA273/12 - Statt Homunkulismus und Mephistophelismus -Goetheanismus, Vortrag in Dornach, 19. Januar 1919",
+              "title": "Statt Homunkulismus und Mephistophelismus -Goetheanismus",
+              "relevance": "hoch",
+              "date": "1919-01-19",
+              "year": "1919"
+            },
+            {
+              "aussage": "Goetheanismus: Steiner in den 80er Jahren nicht historisch, sondern weiterbildend betrieben",
+              "zitat": "Deshalb habe ich in den achtziger Jahren den Goetheanismus nicht so getrieben wie die anderen, dass ich über Goethe geschrieben habe [...] sondern ich habe versucht, den Goetheanismus lediglich aufzunehmen und ihn weiterzubilden.",
+              "id": "GA192/11",
+              "index": "7j2l3u",
+              "ref": "GA192/11:7j2l3u",
+              "fileName": "GA192/11 - ELFTER VORTRAG, Stuttgart, 29. Juni 1919",
+              "title": "ELFTER VORTRAG",
+              "relevance": "hoch",
+              "date": "1919-06-29",
+              "year": "1919"
+            }
+          ]
+        },
+        {
+          "title": "Goetheanismus und Geistesleben Mitteleuropas, Nationalität, Weltbedeutung",
+          "rows": [
+            {
+              "aussage": "Goetheanismus: nicht national, nicht deutsch – gespeist von Spinoza, Shakespeare, Linné",
+              "zitat": "Dieses Zeitalter war natürlich nicht dazu da, um irgendwie in das Innere des Goetheanismus hineinzuführen. Denn der Goetheanismus ist nichts Nationales, der Goetheanismus ist nichts Deutsches. Gespeist ist, wie ich Ihnen gezeigt habe, dieser Goetheanismus von Spinoza [...] von Shakespeare [...] von Linné.",
+              "id": "GA185/7",
+              "index": "7enai4",
+              "ref": "GA185/7:7enai4",
+              "fileName": "GA185/7 - SIEBENTER VORTRAG, Dornach, 1. November 1918",
+              "title": "SIEBENTER VORTRAG",
+              "relevance": "hoch",
+              "date": "1918-11-01",
+              "year": "1918"
+            },
+            {
+              "aussage": "Goetheanismus: Hinneigung zum Geistigen als deutsches Wesensmerkmal – auf höherer Stufe ausgeprägt",
+              "zitat": "Der deutsche Mensch hat, wenn er seiner ureigenen Natur folgt, nicht Furcht vor dem Geistigen, sondern jene Hinneigung zum Geistigen, die wir zum Beispiel im Goetheanismus typisch, wenn auch auf höherer Stufe, ausgeprägt finden.",
+              "id": "GA181/20",
+              "index": "wxt5sg",
+              "ref": "GA181/20:wxt5sg",
+              "fileName": "GA181/20 - ZWANZIGSTER VORTRAG, Berlin, 30. Juli 1918",
+              "title": "ZWANZIGSTER VORTRAG",
+              "relevance": "hoch",
+              "date": "1918-07-30",
+              "year": "1918"
+            },
+            {
+              "aussage": "Goetheanismus: Mitteleuropa hat Aufgabe, Einseitigkeiten zu vermeiden – Brücke zwischen Erde und Geist",
+              "zitat": "Mir scheint, meine sehr verehrten Anwesenden, dass das deutsche Mitteleuropa aus den besonderen Vorbedingungen, die für sein Denken, Fühlen und Wollen vorhanden sind [...] die Aufgabe hat, durch eine Fortleitung in der Richtung dieser Bestrebungen beide Einseitigkeiten zu vermeiden.",
+              "id": "GA080b/5",
+              "index": "qt914s",
+              "ref": "GA080b/5:qt914s",
+              "fileName": "GA080b/5 - NATÜRLICHER TOD UND GEISTIGES LEBEN, Stuttgart, 12. Januar 1922",
+              "title": "NATÜRLICHER TOD UND GEISTIGES LEBEN",
+              "relevance": "hoch",
+              "date": "1922-01-12",
+              "year": "1922"
+            },
+            {
+              "aussage": "Goetheanismus: Fortsetzung des Griechentums – Goethe als Rhythmus des Griechentums in Mitteleuropa",
+              "zitat": "Und wir sehen bis herein in die Fortsetzung des Griechentums, im Goetheanismus, in demjenigen, was als ein neuerer Aufschwung geistigen Lebens in Mitteleuropa stattgefunden hat, wir sehen insbesondere in der Gestalt Goethes dieses Spiel des rhythmischen Systems.",
+              "id": "GA334/11",
+              "index": "izj67o",
+              "ref": "GA334/11:izj67o",
+              "fileName": "GA334/11 - DIE GEISTIGEN UND SITTLICHEN KRÄFTE DER GEGENWÄRTIGEN VÖLKER IM LICHTE DER GEISTESWISSENSCHAFT (ANTHROPOSOPHIE), Dritter Vortrag, Basel, 6. Mai 1920",
+              "title": "DIE GEISTIGEN UND SITTLICHEN KRÄFTE DER GEGENWÄRTIGEN VÖLKER IM LICHTE DER GEISTESWISSENSCHAFT (ANTHROPOSOPHIE)",
+              "relevance": "hoch",
+              "date": "1920-05-06",
+              "year": "1920"
+            },
+            {
+              "aussage": "Goetheanismus = Platonismus des fünften nachatlantischen Zeitraums",
+              "zitat": "Das, was Platonismus im Griechentum ist, das ist Goetheanismus für den fünften nachatlantischen Zeitraum.",
+              "id": "GA188/5",
+              "index": "fjila8",
+              "ref": "GA188/5:fjila8",
+              "fileName": "GA188/5 - FÜNFTER VORTRAG, Dornach, 11. Januar 1919",
+              "title": "FÜNFTER VORTRAG",
+              "relevance": "hoch",
+              "date": "1919-01-11",
+              "year": "1919"
+            },
+            {
+              "aussage": "Goetheanismus: Herder, Schiller, Lessing dazugehörig – alle isoliert vom Luthertum",
+              "zitat": "So hat man in alledem, was zum Goetheanismus gehört – ich rechne da alles dies dazu –, auch in dieser Beziehung ein völlig Isoliertes.",
+              "id": "GA185/7",
+              "index": "ugqsg8",
+              "ref": "GA185/7:ugqsg8",
+              "fileName": "GA185/7 - SIEBENTER VORTRAG, Dornach, 1. November 1918",
+              "title": "SIEBENTER VORTRAG",
+              "relevance": "hoch",
+              "date": "1918-11-01",
+              "year": "1918"
+            },
+            {
+              "aussage": "Goetheanismus: kein Zusammenhang mit Luthertum – Konfession gleichgültig für Goethe",
+              "zitat": "Wenn man aber die Frage aufwirft: Welcher Zusammenhang besteht zwischen dem Goetheanismus und zwischen dem Luthertum? – dann bekommt man die merkwürdige Antwort, dass da eigentlich gar kein Zusammenhang besteht.",
+              "id": "GA185/7",
+              "index": "dkh17p",
+              "ref": "GA185/7:dkh17p",
+              "fileName": "GA185/7 - SIEBENTER VORTRAG, Dornach, 1. November 1918",
+              "title": "SIEBENTER VORTRAG",
+              "relevance": "hoch",
+              "date": "1918-11-01",
+              "year": "1918"
+            }
+          ]
+        },
+        {
+          "title": "Goetheanismus und Zukunft der Menschheit: Katastrophe, soziale Impulse, Metamorphosenlehre",
+          "rows": [
+            {
+              "aussage": "Goetheanismus: Jugendkraft der Metamorphosenlehre – durch Zukunftskatastrophe zu tragen",
+              "zitat": "Die Menschen werden sich holen müssen [...] die Jugendkraft der Metamorphosenlehre, der geistigen, der spirituellen Evolutionslehre, die im Goetheanismus liegt. Die muss durch die Zukunftskatastrophe durchgetragen werden, so wie die verjüngte Seele durch die Pforte des Todes beim individuellen Menschen getragen wird.",
+              "id": "GA177/12",
+              "index": "ib86lj",
+              "ref": "GA177/12:ib86lj",
+              "fileName": "GA177/12 - ZWÖLFTER VORTRAG, Dornach, 26. Oktober 1917",
+              "title": "ZWÖLFTER VORTRAG",
+              "relevance": "hoch",
+              "date": "1917-10-26",
+              "year": "1917"
+            },
+            {
+              "aussage": "Goetheanismus dem Wilsonismus gegenüberstellen – nicht aus Nationalem, sondern aus Weltimpuls",
+              "zitat": "Nicht um zum Pessimismus, sondern um zu denjenigen Impulsen anzuregen, die den Goetheanismus dem Wilsonismus gegenüberstellen, sind diese Worte gesprochen. Auch nicht aus irgend etwas Nationalem heraus, denn Goethe ist selber wahrhaftig kein nationaler Geist, sondern ein recht sehr internationaler.",
+              "id": "GA185/7",
+              "index": "3dkmm4",
+              "ref": "GA185/7:3dkmm4",
+              "fileName": "GA185/7 - SIEBENTER VORTRAG, Dornach, 1. November 1918",
+              "title": "SIEBENTER VORTRAG",
+              "relevance": "hoch",
+              "date": "1918-11-01",
+              "year": "1918"
+            },
+            {
+              "aussage": "Goetheanismus: Weg über Hindernisse und Desillusionierungen – Metamorphose des Menschen",
+              "zitat": "Es muss die Menschheit schon einmal gerade aus dem Goetheanismus heraus begreifen, dass wahrhaftig nicht bloße Beseligung des Strebens [...] erlebt werden kann, sondern dass dasjenige, was den Menschen zu seinem Ziele führt, über Hindernisse, über Enttäuschungen, über Desillusionierungen führt.",
+              "id": "GA273/12",
+              "index": "w7416p",
+              "ref": "GA273/12:w7416p",
+              "fileName": "GA273/12 - Statt Homunkulismus und Mephistophelismus -Goetheanismus, Vortrag in Dornach, 19. Januar 1919",
+              "title": "Statt Homunkulismus und Mephistophelismus -Goetheanismus",
+              "relevance": "hoch",
+              "date": "1919-01-19",
+              "year": "1919"
+            },
+            {
+              "aussage": "Goetheanismus: Impulse für Gegenwart und Zukunft – wachend, nicht schlafend eintreten",
+              "zitat": "Das ist etwas, was ich Ihnen andeuten wollte über ein Finden Goethes und des Goetheanismus [...] über ein Finden, das den Goethe–Geist eben findet im ganzen Gang der Menschheitsentwickelung zum Verständnisse der unmittelbaren Gegenwart, zum Erkraften jener Impulse, die wir brauchen, wenn wir uns so recht hineinstellen wollen in die Gegenwart und in die nächste Zukunft.",
+              "id": "GA188/5",
+              "index": "2eb6fi",
+              "ref": "GA188/5:2eb6fi",
+              "fileName": "GA188/5 - FÜNFTER VORTRAG, Dornach, 11. Januar 1919",
+              "title": "FÜNFTER VORTRAG",
+              "relevance": "hoch",
+              "date": "1919-01-11",
+              "year": "1919"
+            },
+            {
+              "aussage": "Goetheanismus: Forderung für Zukunft – Vertiefung in Goethesche Vorstellungen, ob man es so nennt oder nicht",
+              "zitat": "Ich tadle nicht das, was geschehen ist, ich stelle nur dasjenige hin, was die Forderung für die Zukunft hin ist. Und Forderung für die Zukunft ist es, dass die Menschheit sich vertieft, ob sie es nun Goetheanismus nennt oder nicht, in solche Vorstellungen, die im Goetheschen Denken schon veranlagt waren.",
+              "id": "GA273/9",
+              "index": "hzeh0y",
+              "ref": "GA273/9:hzeh0y",
+              "fileName": "GA273/9 - Das Seelenleben Goethes vom geisteswissenschaftlichen Standpunkte, Vortrag in Dornach, 29. September 1918",
+              "title": "Das Seelenleben Goethes vom geisteswissenschaftlichen Standpunkte",
+              "relevance": "hoch",
+              "date": "1918-09-29",
+              "year": "1918"
+            },
+            {
+              "aussage": "Goetheanismus: Naturansicht mit Raum für Geist – Heranbildung des Passendsten statt Zuchtwahl",
+              "zitat": "Der Goetheanismus hat eine Naturansicht, die Raum lässt für das Eingreifen der friedevollen Harmonisierung des Geistes in den Natur-Kampf des Daseins; Heranbildung des Passendsten statt die Auslese des zufällig Passenden; des das Nützliche überragenden Ethisch-Wertvollen.",
+              "id": "GA046/86",
+              "index": "hzwz4q",
+              "ref": "GA046/86:hzwz4q",
+              "fileName": "GA046/86 - Anthroposophie als Geisteswissenschaft (um 1917)",
+              "title": "Anthroposophie als Geisteswissenschaft (um 1917)",
+              "relevance": "hoch",
+              "date": "",
+              "year": ""
+            },
+            {
+              "aussage": "Goetheanismus: Homunkulismus und Mephistophelismus überwinden – sozialer Weg ins Übersinnliche",
+              "zitat": "Und er ahnte schon, dass ein Weg gebahnt werden muss, der ebenso sehr die Klippe phantastisch-abstrakter Mystik vermeidet, wie die andere Klippe wirklichkeitsfremder gespensterhafter Naturanschauung, der aber hinführt ins übersinnliche Erkennen und aus dem übersinnlichen Erkennen heraus auch wiederum soziale Impulse findet.",
+              "id": "GA273/12",
+              "index": "8r2xly",
+              "ref": "GA273/12:8r2xly",
+              "fileName": "GA273/12 - Statt Homunkulismus und Mephistophelismus -Goetheanismus, Vortrag in Dornach, 19. Januar 1919",
+              "title": "Statt Homunkulismus und Mephistophelismus -Goetheanismus",
+              "relevance": "hoch",
+              "date": "1919-01-19",
+              "year": "1919"
+            },
+            {
+              "aussage": "Goetheanismus: Dreigliederung widerspricht dem Gewohnten – wie einst Goethes Naturwissenschaft",
+              "zitat": "Warum? Sie widerspricht dem Gewohnten, wie einst der Goetheanismus, so dass sie dieser Dreigliederung eben auch widersprechen.",
+              "id": "GA196/9",
+              "index": "axmxef",
+              "ref": "GA196/9:axmxef",
+              "fileName": "GA196/9 - ZEHNTER VORTRAG, Dornach, 6. Februar 1920",
+              "title": "ZEHNTER VORTRAG",
+              "relevance": "mittel",
+              "date": "1920-02-06",
+              "year": "1920"
+            },
+            {
+              "aussage": "Goetheanismus: Umlernen möglich – Faust II zeigt Geldschwindel und menschliche Entwicklung",
+              "zitat": "In vielen Dingen muss eben heute durchaus umgelernt werden. Und der Goetheanismus ist schon etwas, an dem sich umlernen lässt.",
+              "id": "GA332a/2",
+              "index": "y9sc4k",
+              "ref": "GA332a/2:y9sc4k",
+              "fileName": "GA332a/2 - ZWEITER VORTRAG, Das Wirtschaften auf assoziativer Grundlage Die Umwandlung des Marktes Preisgestaltung - Geld- und Steuerwesen - Kredit, Zürich, 25. Oktober 1919",
+              "title": "ZWEITER VORTRAG",
+              "relevance": "mittel",
+              "date": "1919-10-25",
+              "year": "1919"
+            }
+          ]
+        },
+        {
+          "title": "Goetheanismus und Jesuitismus, Reformation, Geistesgeschichte",
+          "rows": [
+            {
+              "aussage": "Goetheanismus verbindet sich mit Jesuitismus – beide an Zeitpunkt ab 15. Jahrhundert angeschlossen",
+              "zitat": "Und so schließt sich in diesem einen Punkt schon etwas, was in die Zukunft hineinspielen soll, der Goetheanismus, mit etwas zusammen, was sich auch unmittelbar an den Zeitpunkt angeschlossen hat, der mit dem 15. Jahrhundert beginnt, der mit der Reformation zum Jesuitismus heraufführt.",
+              "id": "GA185/8",
+              "index": "crvb1m",
+              "ref": "GA185/8:crvb1m",
+              "fileName": "GA185/8 - ACHTER VORTRAG, Dornach, 2. November 1918",
+              "title": "ACHTER VORTRAG",
+              "relevance": "mittel",
+              "date": "1918-11-02",
+              "year": "1918"
+            },
+            {
+              "aussage": "Anti-Goetheanismus: Delle Grazies Haus als Stätte des Pessimismus",
+              "zitat": "Delle Grazies Haus war eine Stätte, in der der Pessimismus mit unmittelbarer Lebenskraft sich offenbarte, eine Stätte des Anti-Goetheanismus. Man hörte immer an, wenn ich über Goethe sprach.",
+              "id": "GA028/2",
+              "index": "x2hg6c",
+              "ref": "GA028/2:x2hg6c",
+              "fileName": "GA028/2 - 1879-1890 Wien",
+              "title": "1879-1890 Wien",
+              "relevance": "mittel",
+              "date": "",
+              "year": ""
+            },
+            {
+              "aussage": "Goetheanismus: tiefe Bedeutung – Impulse des 19. Jahrhunderts nach anderer Seite",
+              "zitat": "Damit sehen Sie, welch tiefer Ernst, welche tiefe Bedeutung in dem eigentlich steckt, was Goetheanismus genannt werden kann. Ich wollte Ihnen damit nur eben andeuten, wie – unberücksichtigt von der allgemeinen sogenannten Bildung – auch die Impulse nach der andern Seite im 19. Jahrhundert schon da waren.",
+              "id": "GA180/4",
+              "index": "a3jf64",
+              "ref": "GA180/4:a3jf64",
+              "fileName": "GA180/4 - VIERTER VORTRAG, Dornach, 26. Dezember 1917",
+              "title": "VIERTER VORTRAG",
+              "relevance": "hoch",
+              "date": "1917-12-26",
+              "year": "1917"
+            }
+          ]
+        },
+        {
+          "title": "Verein des Goetheanismus und institutionelle Tätigkeit",
+          "rows": [
+            {
+              "aussage": "Verein des Goetheanismus: Assoziation einzelner Tätigkeiten – aus Sachen selbst heraus arbeiten",
+              "zitat": "Es war ja naturgemäß, dass im Beginn unserer Tätigkeit in Dornach diese eine ausstrahlte; doch im Laufe der Zeit wird sich immer mehr die Notwendigkeit einstellen, dass einzelne Tätigkeiten, ich möchte sagen, sich assoziieren [...] Und im Zusammenhang mit dem Bericht des Vorstandes möchte ich deshalb erwähnen, wie dieser «Verein des Goetheanismus» gedacht ist.",
+              "id": "GA252/13",
+              "index": "utgojo",
+              "ref": "GA252/13:utgojo",
+              "fileName": "GA252/13 - ANSPRACHE ZUR 7. GENERALVERSAMMLUNG DES VEREINS DES GOETHEANUM, DER FREIEN HOCHSCHULE FÜR GEISTESWISSENSCHAFT, Dornach, 25. April 1920",
+              "title": "ANSPRACHE ZUR 7. GENERALVERSAMMLUNG DES VEREINS DES GOETHEANUM",
+              "relevance": "hoch",
+              "date": "1920-04-25",
+              "year": "1920"
+            },
+            {
+              "aussage": "Verein des Goetheanismus: erste Tat = Herbstkursus – energisches Bekanntmachen nötig",
+              "zitat": "Es werden in der nächsten Zeit Vorbereitungen getroffen werden müssen für den Herbstkursus, der hier arrangiert werden soll als erste Tat des «Vereins des Goetheanismus».",
+              "id": "GA252/13",
+              "index": "y5jlq8",
+              "ref": "GA252/13:y5jlq8",
+              "fileName": "GA252/13 - ANSPRACHE ZUR 7. GENERALVERSAMMLUNG DES VEREINS DES GOETHEANUM, DER FREIEN HOCHSCHULE FÜR GEISTESWISSENSCHAFT, Dornach, 25. April 1920",
+              "title": "ANSPRACHE ZUR 7. GENERALVERSAMMLUNG DES VEREINS DES GOETHEANUM",
+              "relevance": "hoch",
+              "date": "1920-04-25",
+              "year": "1920"
+            },
+            {
+              "aussage": "Verein Goetheanismus: Beschlussunterlagen handschriftlich von Steiner konzipiert",
+              "zitat": "Auch andere Beschlussunterlagen des «Vereins Goetheanismus» sind von ihm handschriftlich konzipiert.",
+              "id": "GA263a/7",
+              "index": "5moxm3",
+              "ref": "GA263a/7:5moxm3",
+              "fileName": "GA263a/7 - ZUM LEBENSGANG EDITH MARYONS",
+              "title": "ZUM LEBENSGANG EDITH MARYONS",
+              "relevance": "mittel",
+              "date": "",
+              "year": ""
+            },
+            {
+              "aussage": "Verein Goetheanismus: für Erstellung und Verwaltung des Goetheanum-Baus geschaffen",
+              "zitat": "Erwähnt werden in den Konferenzen die Säulenarchitrave [...] auch der Verein «Goetheanismus», der für die Erstellung und Verwaltung des Baues geschaffen worden war.",
+              "id": "GA300a/1",
+              "index": "7qbjga",
+              "ref": "GA300a/1:7qbjga",
+              "fileName": "GA300a/1 - VORWORT",
+              "title": "VORWORT",
+              "relevance": "mittel",
+              "date": "",
+              "year": ""
+            }
+          ]
+        },
+        {
+          "title": "Wesen und Definition des Goetheanismus",
+          "rows": [
+            {
+              "aussage": "Goetheanismus: kein historisches Faktum, sondern lebendiger, fortzubildender Keim",
+              "zitat": "Nicht soll gewissermaßen an dasjenige angeknüpft werden, was durch den Goethe schon zum Vorschein gekommen ist, der 1832 gestorben ist, sondern der Goetheanismus wird hier betrachtet wie ein Keim, der in die Evolution der Menschheit hineingeworfen worden ist und der die mannigfaltigsten Blüten und Früchte treiben kann. Wir reden hier niemals von dem Goethe von 1832, wir reden hier von dem Goethe von 1919, von einem fortgebildeten Goetheanismus.",
+              "id": "GA277a/12",
+              "index": "ysrbeb",
+              "ref": "GA277a/12:ysrbeb",
+              "fileName": "GA277a/12 - Einleitende Worte zur Eurythmie-Aufführung (In Anwesenheit englischer Freunde), Dornach, 14. Dezember 1919",
+              "title": "Einleitende Worte zur Eurythmie-Aufführung (In Anwesenheit englischer Freunde)",
+              "relevance": "hoch",
+              "date": "1919-12-14",
+              "year": "1919"
+            },
+            {
+              "aussage": "Goetheanismus vom Jahr 1919, nicht 1832: fortgebildete Weltanschauung",
+              "zitat": "Wir brauchen durchaus, wenn wir auch nicht Physikergläubige sind, auch nicht wiederum Goethegläubige zu werden, denn Goethe ist 1832 gestorben, und wir bekennen uns nicht zu einem Goetheanismus vom Jahre 1832, sondern zu einem vom Jahre 1919, also zu einem fortgebildeten Goetheanismus.",
+              "id": "GA320/6",
+              "index": "x8wm6j",
+              "ref": "GA320/6:x8wm6j",
+              "fileName": "GA320/6 - FÜNFTER VORTRAG, Stuttgart, 27. Dezember 1919",
+              "title": "FÜNFTER VORTRAG",
+              "relevance": "hoch",
+              "date": "1919-12-27",
+              "year": "1919"
+            },
+            {
+              "aussage": "Bekenner des Goetheanismus: lebendige Fortführung, nicht historische Betrachtung",
+              "zitat": "Nicht dann ist man im rechten Sinne ein Bekenner des Goetheanismus, Bekenner derjenigen Weltanschauung, die durch Goethe geworden ist, die Goethe erkraftet hat, wenn man historisch oder äußerlich biographisch das betrachtet, was Goethe selbst hingeschrieben hat; sondern dann ist man im rechten Sinne ein Bekenner der Goetheschen Weltanschauung, wenn man lebendig sich in diese Weltanschauung hineinzuversetzen und weiter und weiter sie fortzusetzen vermag.",
+              "id": "GA072/2",
+              "index": "6b5d23",
+              "ref": "GA072/2:6b5d23",
+              "fileName": "GA072/2 - ANTHROPOSOPHIE STÖRT NIEMANDES RELIGIÖSES BEKENNTNIS, Basel, 19. Oktober 1917",
+              "title": "ANTHROPOSOPHIE STÖRT NIEMANDES RELIGIÖSES BEKENNTNIS",
+              "relevance": "hoch",
+              "date": "1917-10-19",
+              "year": "1917"
+            },
+            {
+              "aussage": "Goetheanismus: Gegenteil abstrakter Begriffskleisterei",
+              "zitat": "Goetheanismus ist auch empfindungsgemäß das gerade Gegenteil dieses modernen Unfuges, alles mit ein paar Begriffen überkleistern zu wollen.",
+              "id": "GA273/10",
+              "index": "3mfz1x",
+              "ref": "GA273/10:3mfz1x",
+              "fileName": "GA273/10 - Die samothrakischen Kabiren-Mysterien. Das Menschen-Werde-Geheimnis, Vortrag in Dornach, 17. Januar 1919",
+              "title": "Die samothrakischen Kabiren-Mysterien. Das Menschen-Werde-Geheimnis",
+              "relevance": "hoch",
+              "date": "1919-01-17",
+              "year": "1919"
+            },
+            {
+              "aussage": "Goetheaner sein: nicht Goethe nachbeten, sondern alles anders machen im Goetheschen Sinn",
+              "zitat": "Sehen Sie, das ist unsere schwierige Stellung innerhalb der Welt, dass wir am wenigsten zum Beispiel Goetheaner sind, wenn wir Goethe nachbeten, dass wir am meisten Goetheaner sind, wenn wir uns dazu aufschwingen können, zu sagen: Wir müssen alles anders machen, als Goethe es gemacht hat, wenn wir gerade in Goethes Sinn wirken wollen.",
+              "id": "GA192/11",
+              "index": "ibuqmj",
+              "ref": "GA192/11:ibuqmj",
+              "fileName": "GA192/11 - ELFTER VORTRAG, Stuttgart, 29. Juni 1919",
+              "title": "ELFTER VORTRAG",
+              "relevance": "hoch",
+              "date": "1919-06-29",
+              "year": "1919"
+            },
+            {
+              "aussage": "Goetheanismus: Streben nach Geist-Erkenntnis als Grundlage für Willens- und Tatenleben",
+              "zitat": "Nach welcher Erkenntnis strebt anthroposophisch orientierte Geisteswissenschaft, indem sie einen umfassenden Goetheanismus entwickeln will? Sie strebt nach einer Geist-Erkenntnis, welche die Grundlage für ein kräftiges Willens- und Tatenleben sein kann.",
+              "id": "GA333/6",
+              "index": "k8pv15",
+              "ref": "GA333/6:k8pv15",
+              "fileName": "GA333/6 - GEIST-ERKENNTNIS ALS TATENGRUNDLAGE, Stuttgart, 30. Dezember 1919",
+              "title": "GEIST-ERKENNTNIS ALS TATENGRUNDLAGE",
+              "relevance": "hoch",
+              "date": "1919-12-30",
+              "year": "1919"
+            }
+          ]
+        },
+        {
+          "title": "Goetheanismus und Anthroposophie / Geisteswissenschaft",
+          "rows": [
+            {
+              "aussage": "Anthroposophie: direkte Fortsetzung des Goetheanismus",
+              "zitat": "So, wie ich mir klar bin darüber, dass auf denjenigen Grundlagen, die in die Menschenkultur gelegt worden sind durch den Goetheanismus, in der Zukunft dasjenige wird aufgebaut werden müssen, was die Menschheit zu ihrem Heile zu erstreben hat, so weiß ich, dass auch diejenige Strömung, die ich als anthroposophisch orientierte Geisteswissenschaft bezeichne, die direkte Fortsetzung der Goetheschen Metamorphosenlehre, überhaupt des Goetheanismus ist.",
+              "id": "GA072/5",
+              "index": "pyzfvk",
+              "ref": "GA072/5:pyzfvk",
+              "fileName": "GA072/5 - DAS WIRKEN DER SEELENKRÄFTE IM MENSCHEN UND IHR ZUSAMMENHANG MIT DESSEN EWIGER WESENHEIT, Bern, 28. November 1917",
+              "title": "DAS WIRKEN DER SEELENKRÄFTE IM MENSCHEN UND IHR ZUSAMMENHANG MIT DESSEN EWIGER WESENHEIT",
+              "relevance": "hoch",
+              "date": "1917-11-28",
+              "year": "1917"
+            },
+            {
+              "aussage": "Gerader Weg vom Goetheanismus in die moderne Geisteswissenschaft",
+              "zitat": "Es strebt aus dem Goetheanismus heraus, aus demjenigen, was angestrebt worden ist um die Wende des 18. zum 19. Jahrhundert, es strebt also heraus aus demjenigen, was da gesucht worden ist. Und man kann einen geraden Weg finden, indem man immer weiter und weiter geht, vom Goetheanismus in die moderne Geisteswissenschaft hinein.",
+              "id": "GA203/11",
+              "index": "7nxyks",
+              "ref": "GA203/11:7nxyks",
+              "fileName": "GA203/11 - ELFTER VORTRAG, Dornach, 6. Februar 1921",
+              "title": "ELFTER VORTRAG",
+              "relevance": "hoch",
+              "date": "1921-02-06",
+              "year": "1921"
+            },
+            {
+              "aussage": "Geisteswissenschaft: fortgeschrittener Goetheanismus",
+              "zitat": "Aber man versteht auch, wenn jemand so die Phänomenologie erfasst wie Goethe - und die Geisteswissenschaft ist nur fortgeschrittener Goetheanismus -, dass Goethe angesichts der Worte Hallers sagt:",
+              "id": "GA073a/14",
+              "index": "gdvcsp",
+              "ref": "GA073a/14:gdvcsp",
+              "fileName": "GA073a/14 - GEISTESWISSENSCHAFT, NATURWISSENSCHAFT, TECHNIK, Stuttgart, 17. Juni 1920",
+              "title": "GEISTESWISSENSCHAFT",
+              "relevance": "hoch",
+              "date": "1920-06-17",
+              "year": "1920"
+            },
+            {
+              "aussage": "Schröer: Goetheanismus vor dem Tore des Spiritualismus – Weiterführung in Anthroposophie",
+              "zitat": "So sehen wir, wie in dem eigentlich ganz vergessenen Schröer der Goetheanismus vor dem Tore des in Spiritualismus verwandelten Intellektualismus stehengeblieben ist. Was konnte man denn eigentlich anderes tun, wenn man, ich möchte sagen, von Schröer angeregt ist, als weiter fortzuführen den Goetheanismus in die Anthroposophie hinein!",
+              "id": "GA238/10",
+              "index": "2mxzio",
+              "ref": "GA238/10:2mxzio",
+              "fileName": "GA238/10 - ZEHNTER VORTRAG, Dornach, 23. September 1924",
+              "title": "ZEHNTER VORTRAG",
+              "relevance": "hoch",
+              "date": "1924-09-23",
+              "year": "1924"
+            },
+            {
+              "aussage": "Goetheanismus: Keim für alles Geisteswissenschaftliche, Reinkarnationslehre eingeschlossen",
+              "zitat": "Für gewisse Punkte, sagte ich, habe ich schon gezeigt, wie in dem Goetheanismus geradezu der Impuls für alles Geisteswissenschaftliche liegt. Aus Goethe heraus kann alles Geisteswissenschaftliche entwickelt werden.",
+              "id": "GA171/6",
+              "index": "up6hlw",
+              "ref": "GA171/6:up6hlw",
+              "fileName": "GA171/6 - SECHSTER VORTRAG, Dornach, 25. September 1916",
+              "title": "SECHSTER VORTRAG",
+              "relevance": "hoch",
+              "date": "1916-09-25",
+              "year": "1916"
+            },
+            {
+              "aussage": "Anthroposophie: Anknüpfung an Goetheanismus, Weiterführung im Goetheschen Stil",
+              "zitat": "Hier ist es, wo wir mit anthroposophischer Geisteswissenschaft auf der einen Seite anknüpfen an den Goetheanismus, an dasjenige, was Goethe schon wusste, wo wir aber ganz im Goetheschen Stile natürlich weitergehen.",
+              "id": "GA218/16",
+              "index": "txtfi4",
+              "ref": "GA218/16:txtfi4",
+              "fileName": "GA218/16 - DER MENSCH UND DIE ÜBERSINNLICHEN WELTEN HÖREN, SPRECHEN, SINGEN, GEHEN, DENKEN, Stuttgart, 9. Dezember 1922",
+              "title": "DER MENSCH UND DIE ÜBERSINNLICHEN WELTEN HÖREN",
+              "relevance": "hoch",
+              "date": "1922-12-09",
+              "year": "1922"
+            },
+            {
+              "aussage": "Goetheanismus: lebendiger Bau, nicht Archiv – Goetheanum als Repräsentant",
+              "zitat": "Dieser Bau appelliert an ein tätig Lebendiges. Will der Mensch ohne dieses tätig Lebendige, ohne dass man das will, diese europäische Zivilisation retten, ohne diesen Impuls für die Rettung, ohne diesen Willen, ohne diese Freiheitstat der Rettung, wird diese Kultur nicht gerettet, wird sie demselben Schicksal verfallen wie in Mitteleuropa der Goetheanismus.",
+              "id": "GA288/8",
+              "index": "idqz5z",
+              "ref": "GA288/8:idqz5z",
+              "fileName": "GA288/8 - ZWEITER VORTRAG Dornach, 5. April 1920",
+              "title": "ZWEITER VORTRAG Dornach",
+              "relevance": "hoch",
+              "date": "1920-04-05",
+              "year": "1920"
+            },
+            {
+              "aussage": "Goetheanum: Wahrzeichen des Goetheanismus vor der ganzen Welt",
+              "zitat": "Deshalb durfte auch der Bau, der als eine Hochschule für diese Geisteswissenschaft gedacht ist, der Bau in Dornach, er durfte gerade in dieser Zeit, in der man von überallher deutsches Wesen so wenig schätzt, sich «Goetheanum» nennen. «Goetheanum» als ein Wahrzeichen dafür, dass vom Gesichtspunkte des Geistes deutsches Wesen als Goetheanismus vor die ganze Welt kühnlich sich hinstellen will.",
+              "id": "GA330/12",
+              "index": "l7joei",
+              "ref": "GA330/12:l7joei",
+              "fileName": "GA330/12 - DER WEG ZU ÜBERSINNLICHEN ERFAHRUNGEN UND ERKENNTNISSEN ALS GRUNDLAGE WIRKLICHEN MENSCHENVERSTÄNDNISSES, Öffentlicher Vortrag, Stuttgart, 9. Juli 1919",
+              "title": "DER WEG ZU ÜBERSINNLICHEN ERFAHRUNGEN UND ERKENNTNISSEN ALS GRUNDLAGE WIRKLICHEN MENSCHENVERSTÄNDNISSES",
+              "relevance": "hoch",
+              "date": "1919-07-09",
+              "year": "1919"
+            },
+            {
+              "aussage": "Goetheanismus-Schule: Hinweis auf Zukunft, Staatslosigkeit",
+              "zitat": "Dr. Steiner: Es wäre ganz gut, wenn diese Frage gestellt würde. Dann würde der Betreffende damit verbunden werden. Goetheanismus-Schule, vielleicht Schule des Kommenden Tages. Es müsste so irgend etwas sein, was hinweist auf die Zukunft.",
+              "id": "GA300a/18",
+              "index": "j1rid9",
+              "ref": "GA300a/18:j1rid9",
+              "fileName": "GA300a/18 - Konferenz vom 29. Juli 1920, 10.30-13.30 Uhr",
+              "title": "Konferenz vom 29. Juli 1920",
+              "relevance": "mittel",
+              "date": "",
+              "year": ""
+            }
+          ]
+        },
+        {
+          "title": "Goetheanismus und Naturwissenschaft / Metamorphosenlehre",
+          "rows": [
+            {
+              "aussage": "Goetheanismus vs. Darwinismus: aufsteigende Linie des Lebens gegen physikalische Betrachtung",
+              "zitat": "Warum? Weil im Goetheanismus die aufsteigende Linie lebt, das Herausheben der organischen Entwickelung aus dem bloß physikalischen, physischen Dasein.",
+              "id": "GA177/12",
+              "index": "xac60k",
+              "ref": "GA177/12:xac60k",
+              "fileName": "GA177/12 - ZWÖLFTER VORTRAG, Dornach, 26. Oktober 1917",
+              "title": "ZWÖLFTER VORTRAG",
+              "relevance": "hoch",
+              "date": "1917-10-26",
+              "year": "1917"
+            },
+            {
+              "aussage": "Goetheanismus und Darwinismus: beide notwendig, Fehler im Entweder-oder",
+              "zitat": "Goetheanismus kann eine große Zukunft haben, denn die ganze Anthroposophie liegt in seiner Linie. Darwinismus betrachtet die physische Entwickelung von der physischen Seite her [...] Der Fehler besteht nicht darin, dass es einen Darwinismus gibt, oder dass es einen Goetheanismus gibt, sondern darin, dass die Menschen dem einen oder dem andern, und nicht dem einen und dem andern anhängen wollen.",
+              "id": "GA177/12",
+              "index": "asw3tw",
+              "ref": "GA177/12:asw3tw",
+              "fileName": "GA177/12 - ZWÖLFTER VORTRAG, Dornach, 26. Oktober 1917",
+              "title": "ZWÖLFTER VORTRAG",
+              "relevance": "hoch",
+              "date": "1917-10-26",
+              "year": "1917"
+            },
+            {
+              "aussage": "Wahrer Goetheanismus: Natur als Imagination, Aufstieg von illusorischer Kausalordnung",
+              "zitat": "Da kommt man dann zur wahren Metamorphosenlehre, da kommt man zum wirklichen Goetheanismus. [...] Das wird die Ausbildung der Metamorphosenlehre sein, das ist wirklicher Goetheanismus: das Aufsteigen von der bloßen illusorischen Kausalordnung zu der Auffassung der Natur durch Imagination.",
+              "id": "GA184/4",
+              "index": "3quz7b",
+              "ref": "GA184/4:3quz7b",
+              "fileName": "GA184/4 - VIERTER VORTRAG, Dornach, 13. September 1918",
+              "title": "VIERTER VORTRAG",
+              "relevance": "hoch",
+              "date": "1918-09-13",
+              "year": "1918"
+            },
+            {
+              "aussage": "Goetheanismus: Phänomenalismus als Naturwissenschaft, Grenze zur Geisteswissenschaft",
+              "zitat": "Man kann dasjenige lernen, dass zwar die ganze Klarheit der Begriffe, die ganze Durchsichtigkeit des Vorstellungslebens an dem Verkehr mit der äußeren sinnlich-natürlichen Welt für den Menschen gewonnen werden kann, dass aber in dem Augenblicke diese Klarheit der Begriffe unbrauchbar wird, wenn wir mehr erhalten wollen in der Naturwissenschaft als einen bloßen Phänomenalismus, nämlich jenen Phänomenalismus, den Goethe als Naturforscher pflegen wollte, wenn wir mehr wollen als Naturwissenschaft, nämlich den Goetheanismus.",
+              "id": "GA322/2",
+              "index": "en54f3",
+              "ref": "GA322/2:en54f3",
+              "fileName": "GA322/2 - ZWEITER VORTRAG, Dornach, 28. September 1920",
+              "title": "ZWEITER VORTRAG",
+              "relevance": "hoch",
+              "date": "1920-09-28",
+              "year": "1920"
+            },
+            {
+              "aussage": "Goetheanismus: Naturbetrachtung nicht ohne Zusammenhang mit dem Menschen",
+              "zitat": "Das ist auch das, wogegen Goethe sich Zeit seines Lebens, soweit er Naturwissenschaft getrieben hat, immer wenden musste, gegen das auch jeder wahre Goetheanismus sich eben wenden muss. Schon Goethe hat ja darauf aufmerksam gemacht, dass man eigentlich die außermenschliche Natur nicht ohne Zusammenhang mit dem Menschen erfassen soll.",
+              "id": "GA201/5",
+              "index": "x4w3it",
+              "ref": "GA201/5:x4w3it",
+              "fileName": "GA201/5 - FÜNFTER VORTRAG, Dornach, 17. April 1920",
+              "title": "FÜNFTER VORTRAG",
+              "relevance": "hoch",
+              "date": "1920-04-17",
+              "year": "1920"
+            },
+            {
+              "aussage": "Goetheanismus: Weg vom Materialismus zur spirituellen Weltanschauung durch Naturwissenschaft",
+              "zitat": "In der neueren Zeit ist es ein sicherer Weg, den Materialismus zu überwinden, die Art des Forschens in der Naturwissenschaft zu durchschauen. [...] Sie gehen nicht über zum Goetheanismus, zu der Betrachtung der Art des Forschens; denn wer die naturwissenschaftliche Art, die Welt anzuschauen, zu operieren mit den Dingen, um zu Erkenntnissen zu kommen, auf sich wirken lässt, der wird zum mindesten Idealist, aber wahrscheinlich Spiritualist.",
+              "id": "GA191/7",
+              "index": "xe7su9",
+              "ref": "GA191/7:xe7su9",
+              "fileName": "GA191/7 - SIEBENTER VORTRAG, Dornach, 17. Oktober 1919",
+              "title": "SIEBENTER VORTRAG",
+              "relevance": "hoch",
+              "date": "1919-10-17",
+              "year": "1919"
+            },
+            {
+              "aussage": "Fortgebildeter Goetheanismus: Metamorphose auch im Krankheitsprozess (Karzinom)",
+              "zitat": "Man wird nicht dasjenige, was wir in der Welt zu beobachten haben, durchdringen können, wenn man nicht in dieser Weise die Metamorphose ernst nimmt, selbst da, wo das Metamorphosierte gar nicht mehr ähnlich ist dem Ursprünglichen, wenn man nicht auch da sozusagen einen fortgebildeten Goetheanismus als ein Ideal für echte Wissenschaftlichkeit ansieht.",
+              "id": "GA073a/11",
+              "index": "j9ap4x",
+              "ref": "GA073a/11:j9ap4x",
+              "fileName": "GA073a/11 - DRITTER VORTRAG, Stuttgart, 14. Januar 1921",
+              "title": "DRITTER VORTRAG",
+              "relevance": "mittel",
+              "date": "1921-01-14",
+              "year": "1921"
+            },
+            {
+              "aussage": "Goetheanismus: Zusammenschluss moralischer und physischer Weltanschauung (Farbenlehre)",
+              "zitat": "Dann werden Sie einen Aspekt von dem bekommen, wie durch echten Goetheanismus der Zusammenschluss zwischen der moralischen Weltanschauung und der physischen Weltanschauung gefunden werden kann.",
+              "id": "GA201/16",
+              "index": "61n1qj",
+              "ref": "GA201/16:61n1qj",
+              "fileName": "GA201/16 - SECHZEHNTER VORTRAG, Dornach, 16. Mai 1920",
+              "title": "SECHZEHNTER VORTRAG",
+              "relevance": "mittel",
+              "date": "1920-05-16",
+              "year": "1920"
+            }
+          ]
+        },
+        {
+          "title": "Goetheanismus und Hegelianismus / Deutscher Idealismus",
+          "rows": [
+            {
+              "aussage": "Hegelianismus aus Goetheanismus entwickelt: menschliche Vernunft auf höchsten Thron",
+              "zitat": "Hegel erklärt aus dem Goetheanismus heraus die menschliche Vernunft, die da waltet in den Erscheinungen, als das eigentlich Göttlich-Geistige. Die menschliche Vernunft setzt Hegel auf den höchsten Thron; die in der Wirklichkeit waltende Vernunft setzt Hegel auf den höchsten Thron.",
+              "id": "GA192/11",
+              "index": "e7vwus",
+              "ref": "GA192/11:e7vwus",
+              "fileName": "GA192/11 - ELFTER VORTRAG, Stuttgart, 29. Juni 1919",
+              "title": "ELFTER VORTRAG",
+              "relevance": "hoch",
+              "date": "1919-06-29",
+              "year": "1919"
+            },
+            {
+              "aussage": "Goetheanismus und Hegelianismus: Geist waltet, weiß aber nichts vom Geist",
+              "zitat": "Nun ist das Eigentümliche - wenn man sich wirklich als Mensch vertieft in Goethe und Hegel, so merkt man das -, nun ist das Eigentümliche, dass Geist waltet in Lessing, in Herder, in Schiller und Goethe, in Hegel, aber dass dieser in ihnen waltende Geist nichts vom Geiste weiß.",
+              "id": "GA192/11",
+              "index": "e7vwus",
+              "ref": "GA192/11:e7vwus",
+              "fileName": "GA192/11 - ELFTER VORTRAG, Stuttgart, 29. Juni 1919",
+              "title": "ELFTER VORTRAG",
+              "relevance": "hoch",
+              "date": "1919-06-29",
+              "year": "1919"
+            },
+            {
+              "aussage": "Goetheanismus: Lebendigkeit abstrakter Begriffe, einzigartiger Höhepunkt der Menschheitsentwicklung",
+              "zitat": "Es gibt keine solche Erhebung des Menschen zu abstrakten Begriffen, aber zugleich so, dass, wenn man in diesen abstrakten Begriffen lebt, man nicht im Toten lebt, sondern im Lebendigen, wie es zum Beispiel erreicht worden ist vom Goetheanismus oder von den idealistischen deutschen Philosophen.",
+              "id": "GA197/2",
+              "index": "el43tj",
+              "ref": "GA197/2:el43tj",
+              "fileName": "GA197/2 - ZWEITER VORTRAG, Stuttgart, 7. März 1920",
+              "title": "ZWEITER VORTRAG",
+              "relevance": "hoch",
+              "date": "1920-03-07",
+              "year": "1920"
+            },
+            {
+              "aussage": "Goetheanismus und Hegeltum: Mitteleuropas geistige Eigenart",
+              "zitat": "Nun haben wir hier zunächst ein Interesse daran, diese Durchsetzung gerade für Mitteleuropa zu betrachten. Und da bitte ich Sie, sich daran zu erinnern, wie ich das letztemal hier, am letzten Sonntag, entwickelt habe, dass wir innerhalb der mitteleuropäischen Geisteskultur einen Goetheanismus haben, dass wir auch dasjenige haben, was ich Ihnen charakterisiert habe letzthin, in einer für die heutige Zeit etwas paradoxen Art, als das Hegeltum.",
+              "id": "GA192/13",
+              "index": "t6lsuj",
+              "ref": "GA192/13:t6lsuj",
+              "fileName": "GA192/13 - DREIZEHNTER VORTRAG, Stuttgart, 13. Juli 1919",
+              "title": "DREIZEHNTER VORTRAG",
+              "relevance": "hoch",
+              "date": "1919-07-13",
+              "year": "1919"
+            },
+            {
+              "aussage": "Goetheanismus: Substantialität des deutschen Wesens (Herder, Lessing, Goethe)",
+              "zitat": "Da ist die deutsche Entwickelung doch am charakteristischsten zum Ausdruck kommend in dem, was als Substantialität im Goetheanismus, im Herderianismus, im Lessingianismus sich zeigt, etwas, was eine Stufe höher abgemacht wird, als das Physisch–Sinnliche.",
+              "id": "GA181/20",
+              "index": "35mxqy",
+              "ref": "GA181/20:35mxqy",
+              "fileName": "GA181/20 - ZWANZIGSTER VORTRAG, Berlin, 30. Juli 1918",
+              "title": "ZWANZIGSTER VORTRAG",
+              "relevance": "hoch",
+              "date": "1918-07-30",
+              "year": "1918"
+            },
+            {
+              "aussage": "Goetheanismus: Darwinismus-Ergebnisse mit deutschem Idealismus in Einklang bringen",
+              "zitat": "Das Streben der deutschen Gelehrten, die Resultate der modernen Weltanschauung mit dem Goetheanismus in Einklang zu bringen, ist die Reaktion des deutschen Gewissens auf die wissenschaftliche Moderichtung, der Wille des Deutschen, dass nur Ideales im Leben Eingang finden darf.",
+              "id": "GA030/11",
+              "index": "83onno",
+              "ref": "GA030/11:83onno",
+              "fileName": "GA030/11 - EIN FREIER BLICK IN DIE GEGENWART (1884)",
+              "title": "EIN FREIER BLICK IN DIE GEGENWART (1884)",
+              "relevance": "mittel",
+              "date": "",
+              "year": ""
+            }
+          ]
+        },
+        {
+          "title": "Goetheanismus als kulturhistorische und mitteleuropäische Kraft",
+          "rows": [
+            {
+              "aussage": "Goetheanismus: Blüte mitteleuropäischen Geisteslebens, dann jäher Absturz",
+              "zitat": "Nun wollen wir ein wenig näher ins Auge fassen, warum eigentlich diese im Grunde doch großartige Geistesbewegung, die da geht von Walther von der Vogelweide bis herauf zum Goetheanismus, während sie nach dem Goetheanismus einen jähen Absturz erfährt, warum denn diese Geistesbewegung so gar nicht dahin gekommen ist, das soziale Leben irgendwie zu bewältigen.",
+              "id": "GA190/11",
+              "index": "k9xupr",
+              "ref": "GA190/11:k9xupr",
+              "fileName": "GA190/11 - ELFTER VORTRAG , Dornach, 13. April 1919",
+              "title": "ELFTER VORTRAG",
+              "relevance": "hoch",
+              "date": "1919-04-13",
+              "year": "1919"
+            },
+            {
+              "aussage": "Goetheanismus: im 19. Jahrhundert im Grabe ruhen gelassen",
+              "zitat": "Aber gerade das 19. Jahrhundert hat viel dazu getan, um den Goetheanismus im Grabe ruhen zu lassen. Auf allen Gebieten hat das 19. Jahrhundert alles getan, um den Goetheanismus im Grabe ruhen zu lassen.",
+              "id": "GA188/6",
+              "index": "87ellb",
+              "ref": "GA188/6:87ellb",
+              "fileName": "GA188/6 - SECHSTER VORTRAG, Dornach, 12. Januar 1919",
+              "title": "SECHSTER VORTRAG",
+              "relevance": "hoch",
+              "date": "1919-01-12",
+              "year": "1919"
+            },
+            {
+              "aussage": "Goetheanismus: isolierte Erscheinung, unfähig populär zu werden",
+              "zitat": "So hebt sich der Goetheanismus als isolierte Erscheinung heraus. Und das ist, was macht, dass wiederum dieser Goetheanismus wirklich dem ausgesetzt war, was man als Unmöglichkeit bezeichnen kann, populär zu werden.",
+              "id": "GA185/7",
+              "index": "luhcof",
+              "ref": "GA185/7:luhcof",
+              "fileName": "GA185/7 - SIEBENTER VORTRAG, Dornach, 1. November 1918",
+              "title": "SIEBENTER VORTRAG",
+              "relevance": "hoch",
+              "date": "1918-11-01",
+              "year": "1918"
+            },
+            {
+              "aussage": "Goetheanismus: Gegenpol zum Amerikanismus, zwei Pole der Gegenwart",
+              "zitat": "Würden wir nicht selbst so viel Philistertum, so viel Amerikanismus in uns haben, so würden wir es einsehen, dass dies zwei Gegenpole sind: deutscher Goetheanismus und Amerikanismus, und wir würden dann wissen, dass wir uns zu den Strömungen der Gegenwart nur dann in der richtigen Weise verhalten können, wenn wir eben in diese Strömungen ganz vorurteilsfrei hineinschauen.",
+              "id": "GA181/20",
+              "index": "hb549l",
+              "ref": "GA181/20:hb549l",
+              "fileName": "GA181/20 - ZWANZIGSTER VORTRAG, Berlin, 30. Juli 1918",
+              "title": "ZWANZIGSTER VORTRAG",
+              "relevance": "hoch",
+              "date": "1918-07-30",
+              "year": "1918"
+            },
+            {
+              "aussage": "Goetheanismus mit Füßen getreten: Amerikanismus statt Goetheanismus in Mitteleuropa",
+              "zitat": "Das ist das Urphänomen dessen, was sich zugetragen hat, das Urphänomen, das darin besteht, dass man zum Beispiel den Goetheanismus mit Füßen getreten hat und zum Beispiel aus einem Instinkt heraus gelesen hat Ralph Waldo Trine.",
+              "id": "GA199/7",
+              "index": "s385wx",
+              "ref": "GA199/7:s385wx",
+              "fileName": "GA199/7 - SIEBENTER VORTRAG, Dornach, 21. August 1920",
+              "title": "SIEBENTER VORTRAG",
+              "relevance": "hoch",
+              "date": "1920-08-21",
+              "year": "1920"
+            },
+            {
+              "aussage": "Goetheanismus: spirituelle Wissenschaft möglich, aber nicht erfasst worden",
+              "zitat": "Sie wissen aus meinen andern Ausführungen, eine wie geistige, wie spirituelle Wissenschaft aus dem Goetheanismus hätte werden können. Aber der Goetheanismus blieb auch eine jenseitige Strömung. Ist er eigentlich erfasst worden? Bis jetzt nicht.",
+              "id": "GA181/20",
+              "index": "16nwe2",
+              "ref": "GA181/20:16nwe2",
+              "fileName": "GA181/20 - ZWANZIGSTER VORTRAG, Berlin, 30. Juli 1918",
+              "title": "ZWANZIGSTER VORTRAG",
+              "relevance": "hoch",
+              "date": "1918-07-30",
+              "year": "1918"
+            },
+            {
+              "aussage": "Goetheanismus: Schicksal als Mausoleum – Warnung für europäische Zivilisation",
+              "zitat": "In Österreich, das aber schon den Zerstörungskeim in sich trug, da fanden sich noch einige isolierte Fortentwickler des Goetheanismus [...] Dann: fertig, zugedeckt dasjenige, was einmal da war! Es liegt an der Menschheit selbst, ob dasselbe Schicksal, was da mit dem Goetheanismus passiert ist, mit der gesamten europäischen Kultur und ihrem amerikanischen Nachwuchs geschehen soll.",
+              "id": "GA288/8",
+              "index": "7bqu8h",
+              "ref": "GA288/8:7bqu8h",
+              "fileName": "GA288/8 - ZWEITER VORTRAG Dornach, 5. April 1920",
+              "title": "ZWEITER VORTRAG Dornach",
+              "relevance": "hoch",
+              "date": "1920-04-05",
+              "year": "1920"
+            },
+            {
+              "aussage": "Goetheanismus: Abschluss der Geistesbewegung von Walther von der Vogelweide bis Goethe",
+              "zitat": "Die Typen, welche sich in Mitteleuropa in diesen Jahren gezeigt haben aus diesen beiderlei Kreisen heraus, das waren die Menschen, die in unendlichem Hochmut aus einer eingebildeten Praxis heraus durch Jahre hindurch alles niedergetreten haben, was irgendwie hat hinwirken wollen auf ein Wiederbemerken dessen, was mit Walther von der Vogelweide zu singen begonnen hat, und was mit dem Goetheanismus seinen Abschluss gefunden hat.",
+              "id": "GA190/10",
+              "index": "lnv7jh",
+              "ref": "GA190/10:lnv7jh",
+              "fileName": "GA190/10 - ZEHNTER VORTRAG, Dornach, 12. April 1919",
+              "title": "ZEHNTER VORTRAG",
+              "relevance": "hoch",
+              "date": "1919-04-12",
+              "year": "1919"
+            },
+            {
+              "aussage": "Goetheanismus: Mitteleuropa berufen, Dreigliedrigkeit zu begreifen",
+              "zitat": "Gerade Mitteleuropa wird dazu berufen sein, diese Dreigliedrigkeit zu begreifen. [...] Und auch in dieses äußere Leben wird einziehen müssen dasjenige, was der Goetheanismus ist. Ob man es so nennt oder nicht, das ist ganz gleichgültig.",
+              "id": "GA188/6",
+              "index": "yx8rbc",
+              "ref": "GA188/6:yx8rbc",
+              "fileName": "GA188/6 - SECHSTER VORTRAG, Dornach, 12. Januar 1919",
+              "title": "SECHSTER VORTRAG",
+              "relevance": "hoch",
+              "date": "1919-01-12",
+              "year": "1919"
+            },
+            {
+              "aussage": "Goetheanismus: Mitteleuropa wiederanknüpfen an Geist von Herder, Goethe, Schiller",
+              "zitat": "Europa kann nur in die Höhe gebracht werden, wenn die Erfassung der geistigen Welten gesucht wird in einer weiteren Fortbildung desjenigen, was ein Herder, ein Goethe und andere erstrebt haben.",
+              "id": "GA197/2",
+              "index": "el43tj",
+              "ref": "GA197/2:el43tj",
+              "fileName": "GA197/2 - ZWEITER VORTRAG, Stuttgart, 7. März 1920",
+              "title": "ZWEITER VORTRAG",
+              "relevance": "hoch",
+              "date": "1920-03-07",
+              "year": "1920"
+            },
+            {
+              "aussage": "Goetheanismus: Zarathustra-Kulturerbe, Licht-Finsternis-Dualismus in germanisch-deutscher Kultur",
+              "zitat": "Das ist ja das Wesen unserer germanisch-deutschen Kultur, dass wir immer erleben jenen Gegensatz zwischen dem Licht und der Finsternis, was sich schon in der alten Zarathustra-Kultur zum Ausdruck bringt [...] In dieser Gestalt sollte das zum Ausdruck kommen, was diesen Dualismus empfindet.",
+              "id": "GA288/9",
+              "index": "nksnl9",
+              "ref": "GA288/9:nksnl9",
+              "fileName": "GA288/9 - DAS GOETHEANUM IN DORNACH, Öffentlicher Vortrag im Stuttgarter Kunstgebäude Stuttgart, 12. Juni 1920",
+              "title": "DAS GOETHEANUM IN DORNACH",
+              "relevance": "mittel",
+              "date": "1920-06-12",
+              "year": "1920"
+            }
+          ]
+        },
+        {
+          "title": "Goetheanismus und soziales Leben / Dreigliederung",
+          "rows": [
+            {
+              "aussage": "Goetheanismus als Heilmittel gegen Wilsonismus",
+              "zitat": "Nun, es mag manchem sonderbar erscheinen, wenn heute einer kommt und sagt: Die einzige Hilfe gegen den Wilsonismus ist der Goetheanismus.",
+              "id": "GA185/7",
+              "index": "8ddduk",
+              "ref": "GA185/7:8ddduk",
+              "fileName": "GA185/7 - SIEBENTER VORTRAG, Dornach, 1. November 1918",
+              "title": "SIEBENTER VORTRAG",
+              "relevance": "hoch",
+              "date": "1918-11-01",
+              "year": "1918"
+            },
+            {
+              "aussage": "Kernpunkte der sozialen Frage: Goetheanismus im 20. Jahrhundert",
+              "zitat": "Die «Kernpunkte der sozialen Frage» sind schon Goetheanismus, richtig verstanden, aber eben Goetheanismus im 20. Jahrhundert.",
+              "id": "GA197/11",
+              "index": "q8rh13",
+              "ref": "GA197/11:q8rh13",
+              "fileName": "GA197/11 - ELFTER VORTRAG, Stuttgart, 22. November 1920",
+              "title": "ELFTER VORTRAG",
+              "relevance": "hoch",
+              "date": "1920-11-22",
+              "year": "1920"
+            },
+            {
+              "aussage": "Goetheanismus: aus ihm hätte Ordnung in Österreich geschaffen werden können",
+              "zitat": "Unter anderen Ägiden, namentlich unter der Ägide des Goetheanismus, würde es möglich gewesen sein, in Österreich sehr gut Ordnung zu schaffen.",
+              "id": "GA185/9",
+              "index": "iirarj",
+              "ref": "GA185/9:iirarj",
+              "fileName": "GA185/9 - NEUNTER VORTRAG, Dornach, 3. November 1918",
+              "title": "NEUNTER VORTRAG",
+              "relevance": "mittel",
+              "date": "1918-11-03",
+              "year": "1918"
+            },
+            {
+              "aussage": "Goetheanismus: Dreigliederungsimpuls schon in Goethes Märchen angelegt",
+              "zitat": "Es war zu Goethes Zeiten eben noch nicht das Zeitalter da, wo man überleiten konnte dasjenige, was in feinen Märchenbildern noch zu halten war, in die realen Gestalten [...] man musste zeigen, wie das moderne soziale Leben, das unter dem Einheitsstaate alles umfassen will, zerschellen muss, wie gegliedert werden muss in ein reinliches Glied des geistigen Lebens - goldener König -, in ein reinliches Staatsglied - silberner König -, in ein reinliches Wirtschaftsglied - eherner König.",
+              "id": "GA197/11",
+              "index": "q8rh13",
+              "ref": "GA197/11:q8rh13",
+              "fileName": "GA197/11 - ELFTER VORTRAG, Stuttgart, 22. November 1920",
+              "title": "ELFTER VORTRAG",
+              "relevance": "mittel",
+              "date": "1920-11-22",
+              "year": "1920"
+            },
+            {
+              "aussage": "Goetheanismus: Grundlage für Menschenverbrüderung im Goetheanum",
+              "zitat": "Und derjenige, der diesen Sinn des Goetheanismus versteht, möchte gern erhoffen, aus dem, was hier angestrebt und empfunden wird, dass man mit dem Gedanken von hier fortgeht, in diesem Goetheanum etwas gesehen zu haben, etwas erlebt zu haben, was einem gibt die Empfindung von einer Verwandtschaftlichkeit der Kräfte, die in allen Menschen leben, von einer Verwandtschaftlichkeit derjenigen Kräfte in der Menschennatur, welche die Menschen von dem ganzen Erdenkreis in Bruderschaft zusammenführen können.",
+              "id": "GA077b/10",
+              "index": "l1fqge",
+              "ref": "GA077b/10:l1fqge",
+              "fileName": "GA077b/10 - SCHLUSSWORTE, Dornach, 27. August 1921",
+              "title": "SCHLUSSWORTE",
+              "relevance": "mittel",
+              "date": "1921-08-27",
+              "year": "1921"
+            }
+          ]
+        },
+        {
+          "title": "Goetheanismus und Kunst / Eurythmie",
+          "rows": [
+            {
+              "aussage": "Eurythmie: aus Goetheanismus herausgeholt, neuer Kunstquell",
+              "zitat": "Herausgeholt ist diese Eurythmie, die des Menschen selber sich bedient als eines neuen künstlerischen Instrumentes, und die einen besonderen neuen Kunstquell eröffnen will.",
+              "id": "GA277/26",
+              "index": "gejv5i",
+              "ref": "GA277/26:gejv5i",
+              "fileName": "GA277/26 - DIE SUCHE NACH DEM NEUEN QUELL DES KÜNSTLERISCHEN, Dornach 14. Februar 1920",
+              "title": "DIE SUCHE NACH DEM NEUEN QUELL DES KÜNSTLERISCHEN",
+              "relevance": "hoch",
+              "date": "1920-02-14",
+              "year": "1920"
+            },
+            {
+              "aussage": "Eurythmische Kunst: Ausdruck Goethescher künstlerischer Gesinnung",
+              "zitat": "Alles, was versucht wird und was wohl künftig vervollkommnet werden wird in bezug auf diese eurythmische Kunst, fußt auf der Goetheschen Welt- und Lebensauffassung. [...] So könnte auch versucht werden auf dem Boden des Goetheanismus, auf dem wir mit unserer ganzen anthroposophisch orientierten Geisteswissenschaft stehen, es könnte versucht werden auf einem ganz speziellen Gebiete, auf dem Gebiete der Bewegungskunst des Menschen selbst etwas zu schaffen, das ganz ein Ausdruck Goethescher künstlerischer Gesinnung sein wird.",
+              "id": "GA277/14",
+              "index": "in58c3",
+              "ref": "GA277/14:in58c3",
+              "fileName": "GA277/14 - ÜBER DAS WESEN DER EURYTHMIE, Berlin, 14. September 1919",
+              "title": "ÜBER DAS WESEN DER EURYTHMIE",
+              "relevance": "hoch",
+              "date": "1919-09-14",
+              "year": "1919"
+            },
+            {
+              "aussage": "Goetheanismus: Brücke zwischen künstlerischer Gesinnung und allgemeiner Weltanschauung",
+              "zitat": "Gerade das ist das Eigentümliche bei Goethe, dass er verstand für seine eigene Anschauung die Brücke, die, ich möchte sagen, ganz selbstverständliche Brücke zu schlagen zwischen künstlerischer Gesinnung, künstlerischer Kraft und allgemeiner Weltanschauung.",
+              "id": "GA277/14",
+              "index": "in58c3",
+              "ref": "GA277/14:in58c3",
+              "fileName": "GA277/14 - ÜBER DAS WESEN DER EURYTHMIE, Berlin, 14. September 1919",
+              "title": "ÜBER DAS WESEN DER EURYTHMIE",
+              "relevance": "hoch",
+              "date": "1919-09-14",
+              "year": "1919"
+            },
+            {
+              "aussage": "Goetheanismus: Goethes unvollendete Fragmente beweisen Lebendigkeit über seinen Tod hinaus",
+              "zitat": "Goethe hat einfach so große Kunst-Intentionen in sich getragen, dass er als sterblicher Mensch selbst nicht mehr fähig war, diese Dinge zu etwas anderem als zu Fragmenten zu bringen [...] Daher hat man immer das Gefühl, aus dem Goetheanismus kann viel, viel herausgeholt werden.",
+              "id": "GA277/26",
+              "index": "gejv5i",
+              "ref": "GA277/26:gejv5i",
+              "fileName": "GA277/26 - DIE SUCHE NACH DEM NEUEN QUELL DES KÜNSTLERISCHEN, Dornach 14. Februar 1920",
+              "title": "DIE SUCHE NACH DEM NEUEN QUELL DES KÜNSTLERISCHEN",
+              "relevance": "hoch",
+              "date": "1920-02-14",
+              "year": "1920"
+            },
+            {
+              "aussage": "Goetheanismus: Gedankenkünstler (Novalis, Schelling) – Deutschen als unpolitisches Volk",
+              "zitat": "Es gibt schließlich nichts Schöneres als dasjenige, was ausgestaltet ist durch den Goetheanismus, durch Novalis, durch Schelling, durch alle diese Geister, die eigentlich Künstler sind in Gedanken. Das macht die Deutschen zu einem unpolitischen Volk.",
+              "id": "GA186/6",
+              "index": "4i2geg",
+              "ref": "GA186/6:4i2geg",
+              "fileName": "GA186/6 - SECHSTER VORTRAG, Dornach, 8. Dezember 1918",
+              "title": "SECHSTER VORTRAG",
+              "relevance": "mittel",
+              "date": "1918-12-08",
+              "year": "1918"
+            },
+            {
+              "aussage": "Goetheanismus: Ludwig Tieck als Spiegel für erste Hälfte des 19. Jahrhunderts",
+              "zitat": "Sehen Sie, gerade an dieser Erscheinung, die einem oft vorkommt wie dasjenige, was der Goetheanismus für die erste Hälfte des neunzehnten Jahrhunderts in einer aufnahmefähigen Persönlichkeit spiegelt, gerade an dieser Erscheinung des Ludwig Tieck [...] sieht man, wie in die neuere Zeit etwas wie die Erinnerung an die großen alten Zeiten hereinspielte.",
+              "id": "GA276/4",
+              "index": "vb79xd",
+              "ref": "GA276/4:vb79xd",
+              "fileName": "GA276/4 - VIERTER VORTRAG, Dornach, 3. Juni 1923",
+              "title": "VIERTER VORTRAG",
+              "relevance": "mittel",
+              "date": "1923-06-03",
+              "year": "1923"
+            }
+          ]
+        },
+        {
+          "title": "Goetheanismus und Religion / Christus-Impuls",
+          "rows": [
+            {
+              "aussage": "Goetheanismus: Platonismus der fünften nachatlantischen Zeit, Erwartung neuer Christus-Auffassung",
+              "zitat": "Mit Goetheanismus selber war für die fünfte nachatlantische Zeit der Platonismus des Griechentums, der für die vierte nachatlantische Zeit da war, wiedergekommen. Doch noch war man nicht so weit im Goetheanismus, dass man etwa schon der ganzen neuen Gestaltung der Auffassung des Mysteriums von Golgatha gegenüberstand, sondern, wie ich gestern sagte, in der Erwartung davon.",
+              "id": "GA188/6",
+              "index": "hv9rn5",
+              "ref": "GA188/6:hv9rn5",
+              "fileName": "GA188/6 - SECHSTER VORTRAG, Dornach, 12. Januar 1919",
+              "title": "SECHSTER VORTRAG",
+              "relevance": "hoch",
+              "date": "1919-01-12",
+              "year": "1919"
+            },
+            {
+              "aussage": "Goethe: spirituelles Verhältnis zwischen Menschenseele und Christus-Impuls",
+              "zitat": "Goethe tendiert darauf hin, ein spirituelles Verhältnis zwischen der einzelnen Menschenseele und dem Christus–Impuls zu suchen. Das ist von einer großen Bedeutung für das Verständnis nicht nur Goethes, sondern auch des Goetheanismus.",
+              "id": "GA185/9",
+              "index": "93k8gy",
+              "ref": "GA185/9:93k8gy",
+              "fileName": "GA185/9 - NEUNTER VORTRAG, Dornach, 3. November 1918",
+              "title": "NEUNTER VORTRAG",
+              "relevance": "hoch",
+              "date": "1918-11-03",
+              "year": "1918"
+            },
+            {
+              "aussage": "Goetheanismus: aus Christus-Impuls in Volksseelen Mitteleuropas hervorgegangen",
+              "zitat": "Und aus dem, was da in Mitteleuropa im Inneren webte, sind hervorgegangen solche Leistungen wie die Goethes und des ganzen Goetheanismus.",
+              "id": "GA188/6",
+              "index": "87ellb",
+              "ref": "GA188/6:87ellb",
+              "fileName": "GA188/6 - SECHSTER VORTRAG, Dornach, 12. Januar 1919",
+              "title": "SECHSTER VORTRAG",
+              "relevance": "hoch",
+              "date": "1919-01-12",
+              "year": "1919"
+            }
+          ]
+        },
+        {
+          "title": "Goetheanismus und seine Verkennung / Kritik",
+          "rows": [
+            {
+              "aussage": "Goetheanismus: von Deutschen selbst am meisten gehasst",
+              "zitat": "Da schreibt ein Urdeutscher, ein sehr gebildeter Deutscher: Man hat immer bei uns behauptet, man hasse die Deutschen. Ich möchte wissen, sagte er, wer in aller Welt den deutschen Geist wirklich gehasst hat? [...] in den letzten Jahren haben den deutschen Geist die Deutschen am allermeisten gehasst! Und vor allen Dingen, ein wirklicher innerer Hass ist schon vorhanden in bezug auf den Goetheanismus.",
+              "id": "GA185/9",
+              "index": "nm8ijp",
+              "ref": "GA185/9:nm8ijp",
+              "fileName": "GA185/9 - NEUNTER VORTRAG, Dornach, 3. November 1918",
+              "title": "NEUNTER VORTRAG",
+              "relevance": "hoch",
+              "date": "1918-11-03",
+              "year": "1918"
+            },
+            {
+              "aussage": "Goethe-Gesellschaft: ehemaliger Finanzminister als Verwalter der Goetheschen Spiritualität",
+              "zitat": "Man hat einen Mann an die Spitze der Goethe-Gesellschaft gestellt, der ein früherer Finanzminister war. Den sieht die Welt draußen als den Verwalter der Goetheschen Spiritualität.",
+              "id": "GA182/4",
+              "index": "0c9tpz",
+              "ref": "GA182/4:0c9tpz",
+              "fileName": "GA182/4 - ZEICHEN DER ZEIT OSTEN, WESTEN, MITTELEUROPA, Ulm, 30. April 1918",
+              "title": "ZEICHEN DER ZEIT OSTEN",
+              "relevance": "hoch",
+              "date": "1918-04-30",
+              "year": "1918"
+            },
+            {
+              "aussage": "Goetheanismus: gelobt, aber nicht wirklich vertreten – Ideen anerkennen vs. für sie eintreten",
+              "zitat": "Dass Goethes Ideen einigermaßen getroffen waren, das haben manche zugegeben. [...] Aber selbst für eine Idee mit der ganzen Kraft der Persönlichkeit einzutreten und ihr zum Siege zu verhelfen, das ist nicht dasjenige, was in der Denkgewohnheit, namentlich nicht dasjenige, was in den Geistesgewohnheiten der Gegenwart lebt.",
+              "id": "GA080b/1",
+              "index": "uz3q1d",
+              "ref": "GA080b/1:uz3q1d",
+              "fileName": "GA080b/1 - DIE ERGEBNISSE DER GEISTES-WISSENSCHAFT UND IHRE BEZIEHUNGEN ZUR KUNST UND RELIGION, Bern, 13. Dezember 1920",
+              "title": "DIE ERGEBNISSE DER GEISTES-WISSENSCHAFT UND IHRE BEZIEHUNGEN ZUR KUNST UND RELIGION",
+              "relevance": "hoch",
+              "date": "1920-12-13",
+              "year": "1920"
+            },
+            {
+              "aussage": "Ernst Michel: Anthroposophie wäre von Goethe abgelehnt worden – Steiner widerspricht",
+              "zitat": "Er sagt auf Seite 38: «Die höchste Erkenntnis, die nach Goethe dem Menschen vergönnt ist, ist das intuitive Vordringen zu den Urphänomenen [...] Die Theosophie, auch in ihrer Form als Anthroposophie, wäre rückhaltlos von ihm (Goethe) abgelehnt worden.»",
+              "id": "GA192/11",
+              "index": "mjzyj1",
+              "ref": "GA192/11:mjzyj1",
+              "fileName": "GA192/11 - ELFTER VORTRAG, Stuttgart, 29. Juni 1919",
+              "title": "ELFTER VORTRAG",
+              "relevance": "hoch",
+              "date": "1919-06-29",
+              "year": "1919"
+            },
+            {
+              "aussage": "Falscher Goetheanismus hemmt Menschheitsfortschritt",
+              "zitat": "Das verkennen diejenigen, die heute am falschen Goetheanismus und Hegelianismus die richtigen messen. Und solche Leute sind heute wahrlich nicht in geringer Anzahl vorhanden. Und man muss sich bewusst werden, wie diese Menschen den wirklichen Menschheitsfortschritt hemmen.",
+              "id": "GA192/11",
+              "index": "ibuqmj",
+              "ref": "GA192/11:ibuqmj",
+              "fileName": "GA192/11 - ELFTER VORTRAG, Stuttgart, 29. Juni 1919",
+              "title": "ELFTER VORTRAG",
+              "relevance": "hoch",
+              "date": "1919-06-29",
+              "year": "1919"
+            },
+            {
+              "aussage": "Goetheanismus: Universitätsgelehrsamkeit antediluvianisch daneben",
+              "zitat": "Nun wird das aber zur Anomalie, zur historischen Anomalie, auf einem Gebiete, wo es einen Goetheanismus daneben gibt. [...] Das große Moderne ist, von dem aber die Menschheit nichts wissen will, dem gegenüber in seiner Verfassung, in seiner Gesinnung, wie es dasteht, das Antediluvianische die moderne Universitätsbildung ist.",
+              "id": "GA185/7",
+              "index": "flhdom",
+              "ref": "GA185/7:flhdom",
+              "fileName": "GA185/7 - SIEBENTER VORTRAG, Dornach, 1. November 1918",
+              "title": "SIEBENTER VORTRAG",
+              "relevance": "hoch",
+              "date": "1918-11-01",
+              "year": "1918"
+            }
+          ]
+        },
+        {
+          "title": "Goetheanismus: persönliche Beziehung Steiners und biographische Zeugnisse",
+          "rows": [
+            {
+              "aussage": "Steiner: sieben Jahre im Goethe-Schiller-Archiv, Goetheanismus aus eigener Arbeit",
+              "zitat": "Ich glaube, ich darf das sagen, denn ich habe sieben Jahre in Weimar am Goethe- und Schiller-Archiv selbst gearbeitet, an alledem teilgenommen, was da mehr oder weniger wie das Beste der Gegenwart einem größeren Publikum unbekannt geblieben ist.",
+              "id": "GA277/26",
+              "index": "gejv5i",
+              "ref": "GA277/26:gejv5i",
+              "fileName": "GA277/26 - DIE SUCHE NACH DEM NEUEN QUELL DES KÜNSTLERISCHEN, Dornach 14. Februar 1920",
+              "title": "DIE SUCHE NACH DEM NEUEN QUELL DES KÜNSTLERISCHEN",
+              "relevance": "hoch",
+              "date": "1920-02-14",
+              "year": "1920"
+            },
+            {
+              "aussage": "Steiner: Weimarer Goethestudium, Vortrag über Phantasie als Kulturschöpferin",
+              "zitat": "Es war mir daher eine tiefe Befriedigung, dass ich mich während meiner Weimarer Mitarbeiterschaft am Goethe-Schiller-Archiv aus meinem Goethestudium heraus, wenn ich so sagen darf, dem Goetheanismus durch Jahre hindurch widmen durfte. Man fühlte sich da so recht im Mittelpunkt des deutschen Geisteslebens.",
+              "id": "GA077a/6",
+              "index": "587zn0",
+              "ref": "GA077a/6:587zn0",
+              "fileName": "GA077a/6 - SCHLUSSREDE, Darmstadt, 30. Juli 1921",
+              "title": "SCHLUSSREDE",
+              "relevance": "hoch",
+              "date": "1921-07-30",
+              "year": "1921"
+            },
+            {
+              "aussage": "Steiner: Flucht in Goetheanismus aus modernem Wissenschaftsleben",
+              "zitat": "Ich musste mich oftmals in den Goetheanismus flüchten, aus dem heraus, was in dem modernen Wissenschafts- und technischen Leben nach Neugestaltung drängt.",
+              "id": "GA077a/6",
+              "index": "6rbi7j",
+              "ref": "GA077a/6:6rbi7j",
+              "fileName": "GA077a/6 - SCHLUSSREDE, Darmstadt, 30. Juli 1921",
+              "title": "SCHLUSSREDE",
+              "relevance": "hoch",
+              "date": "1921-07-30",
+              "year": "1921"
+            },
+            {
+              "aussage": "Karl Julius Schröer: Österreichischer Träger des Goethe-Impulses, niemandes Ohr gefunden",
+              "zitat": "Ich selber – ich habe es öfter erwähnt – lernte einen solchen Österreicher kennen in Karl Julius Schröer, der in Österreich wirkte; aber ich möchte sagen, so wie er wirkte, auf jedem Gebiete, auf dem er wirkte, war es der Goethe–Impuls, von dem aus er wirkte.",
+              "id": "GA185/7",
+              "index": "yy9afd",
+              "ref": "GA185/7:yy9afd",
+              "fileName": "GA185/7 - SIEBENTER VORTRAG, Dornach, 1. November 1918",
+              "title": "SIEBENTER VORTRAG",
+              "relevance": "hoch",
+              "date": "1918-11-01",
+              "year": "1918"
+            },
+            {
+              "aussage": "Herman Grimm: Goetheanismus elementar-persönlich aufgenommen, nicht nur studiert",
+              "zitat": "Nicht wie einer, der Goethe und den Goetheanismus «studiert» hat, stand Herman Grimm da, sondern wie einer, der das Goethe-Wesen, der Goethes ganze lebendige Zauberkraft und Goethes ganzes lebendiges Menschheitswesen unmittelbar, elementar, persönlich in sich aufgenommen hatte.",
+              "id": "GA062/8",
+              "index": "63bdlm",
+              "ref": "GA062/8:63bdlm",
+              "fileName": "GA062/8 - DIE WELTANSCHAUUNG EINES KULTURFORSCHERS DER GEGENWART, HERMAN GRIMM, UND DIE GEISTESFORSCHUNG, Berlin, 16. Januar 1913",
+              "title": "DIE WELTANSCHAUUNG EINES KULTURFORSCHERS DER GEGENWART",
+              "relevance": "mittel",
+              "date": "1913-01-16",
+              "year": "1913"
+            },
+            {
+              "aussage": "Goetheanismus: Goethes Weltanschauung als Buch Steiners, zweite Auflage",
+              "zitat": "Und wenn ich mit einer persönlichen Bemerkung abschließen darf zu dieser Interpretation meines Goethe–Buches, «Goethes Weltanschauung», das jetzt auch in einer zweiten Auflage erschienen ist.",
+              "id": "GA185/7",
+              "index": "8ddduk",
+              "ref": "GA185/7:8ddduk",
+              "fileName": "GA185/7 - SIEBENTER VORTRAG, Dornach, 1. November 1918",
+              "title": "SIEBENTER VORTRAG",
+              "relevance": "mittel",
+              "date": "1918-11-01",
+              "year": "1918"
+            }
+          ]
+        },
+        {
+          "title": "Goetheanismus: Drei Weltanschauungsströmungen (Goethe, Comte, Bentham)",
+          "rows": [
+            {
+              "aussage": "Goetheanismus, Comteanismus, Benthamismus: drei Beziehungen zum Spiritualismus",
+              "zitat": "Sie können drei Dinge zusammenstellen: Goetheanismus, Comteanismus und Benthamismus. Diese drei Dinge stehen in dreifach verschiedener Weise in einer gewissen Beziehung zu dem spirituellen Streben der Menschen nach der Zukunft. Der deutsche Goetheanismus ist als solcher so geartet, dass sich aus ihm entwickeln kann der Spiritualismus.",
+              "id": "GA184/2",
+              "index": "rzcy8h",
+              "ref": "GA184/2:rzcy8h",
+              "fileName": "GA184/2 - ZWEITER VORTRAG, Dornach, 7. September 1918",
+              "title": "ZWEITER VORTRAG",
+              "relevance": "hoch",
+              "date": "1918-09-07",
+              "year": "1918"
+            }
+          ]
+        },
+        {
+          "title": "Goetheanismus und Verein / Organisation",
+          "rows": [
+            {
+              "aussage": "Verein für Goetheanismus: aus Wirklichkeit heraus, nicht aus Programmen",
+              "zitat": "Aus diesen Dingen wird dasjenige erstehen, was sich ergeben muss aus diesem «Verein für Goetheanismus» [...] Man wird später im «Verein für Goetheanismus» alle die Leute drinnen haben, die jetzt schon irgendeine bestimmte Tätigkeit leiten [...] Das muss überhaupt unser Prinzip werden. Dann wird es möglich sein, gerade diese unsere Bestrebung, die Art unserer Bestrebung vor einer größeren Öffentlichkeit zu vertreten.",
+              "id": "GA252/13",
+              "index": "9ujrgw",
+              "ref": "GA252/13:9ujrgw",
+              "fileName": "GA252/13 - ANSPRACHE ZUR 7. GENERALVERSAMMLUNG DES VEREINS DES GOETHEANUM, DER FREIEN HOCHSCHULE FÜR GEISTESWISSENSCHAFT, Dornach, 25. April 1920",
+              "title": "ANSPRACHE ZUR 7. GENERALVERSAMMLUNG DES VEREINS DES GOETHEANUM",
+              "relevance": "hoch",
+              "date": "1920-04-25",
+              "year": "1920"
+            }
+          ]
+        }
+      ],
+      "curated": true
+    },
+    "rechercheScope": {
+      "sourceType": "alle",
+      "themeArea": ""
+    },
+    "timestamp": "2026-07-12T12:23:55.998Z"
   }
 }

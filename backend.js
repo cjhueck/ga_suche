@@ -5598,7 +5598,7 @@ async function generateAnalysis(query, results, depth = 'allgemein', preferredPr
     'quote': 6000,   // Zitatsuche: ein bis wenige Zitate mit kurzer Begründung
     'essay': 16000,  // Essay-Modus: Synthese + Belege, braucht Raum
     'recherche': (provider && (provider.name || '').toLowerCase() === 'gemini')
-      ? (Number(process.env.RECHERCHE_MAX_TOKENS_GEMINI) || 32000)
+      ? (Number(process.env.RECHERCHE_MAX_TOKENS_GEMINI) || 65536)
       : (Number(process.env.RECHERCHE_MAX_TOKENS) || 16000),
     'chat': 3000     // Chat-Modus: dialogische Kurzantwort
   };
@@ -6268,11 +6268,6 @@ ${noWebSection}`;
       temperature: effectiveTemperature
     };
     if (modelForMode) baseCallOptions.model = modelForMode;
-    // Gemini Recherche: Thinking deaktivieren – Aufgabe ist strukturierte JSON-Extraktion,
-    // kein tiefes Reasoning nötig. Alle Output-Tokens gehen in den eigentlichen JSON-Text.
-    if (providerNameLower === 'gemini' && thematicMode === 'recherche') {
-      baseCallOptions.thinkingBudget = 0;
-    }
 
     console.log(`[ANALYSIS] Provider=${provider.name}, Modell=${modelForMode || '(provider-default)'}, Modus=${thematicMode}${isChatContext ? ', Chat' : ''}`);
 
@@ -6694,11 +6689,10 @@ function rechercheUsesLlm() {
 }
 
 // Bestimmt den Provider für Recherche-Aufrufe.
-// Priorität: RECHERCHE_PROVIDER env > auto Gemini (wenn GEMINI_API_KEY gesetzt) > preferredProvider
+// Standard: user-gewählter Provider (Claude). Gemini nur via RECHERCHE_PROVIDER=gemini in .env.
 function resolveRechercheProvider(preferredProvider) {
   const explicit = (process.env.RECHERCHE_PROVIDER || '').toLowerCase().trim();
   if (explicit) return explicit;
-  if (process.env.GEMINI_API_KEY) return 'gemini';
   return preferredProvider;
 }
 
@@ -6751,11 +6745,15 @@ async function generateRechercheAnalysis(query, topResults, effectiveDepth, pref
   const isGemini = rechercheProvider.toLowerCase() === 'gemini';
 
   if (isGemini) {
-    // Gemini 2.5 Flash: 1M-Token-Kontext → alle Quellen in einem Aufruf, kein Batching
-    console.log(`[RECHERCHE] Gemini 2.5 Flash: 1 Aufruf mit ${topResults.length} Quellen`);
-    const result = await runSingleRechercheCall(query, topResults, effectiveDepth, rechercheProvider, effectiveConversationHistory, useFormalAddress, effectiveChatMode, webContext);
+    // Gemini 2.5 Flash: parallele Batches à 100 Quellen.
+    // 100 Quellen × ~700 Chars/Row ≈ 18k Output-Tokens → sicher unter dem 32k-Limit.
+    // Gemini: kleinere Batches (50 Quellen) damit Thinking + Output in 65k-Budget passt
+    const result = await generateRechercheAnalysisWithBatches(
+      query, topResults, effectiveDepth, rechercheProvider,
+      effectiveConversationHistory, useFormalAddress, effectiveChatMode, webContext,
+      { batchSize: Number(process.env.RECHERCHE_GEMINI_BATCH_SIZE) || 50 }
+    );
     if (!result) {
-      // Fallback auf Claude bei Gemini-Fehler
       console.warn('[RECHERCHE] Gemini fehlgeschlagen – Fallback auf Claude (Parallel-Batches)');
       return generateRechercheAnalysisWithBatches(query, topResults, effectiveDepth, preferredProvider, effectiveConversationHistory, useFormalAddress, effectiveChatMode, webContext);
     }
@@ -6765,9 +6763,9 @@ async function generateRechercheAnalysis(query, topResults, effectiveDepth, pref
   return generateRechercheAnalysisWithBatches(query, topResults, effectiveDepth, preferredProvider, effectiveConversationHistory, useFormalAddress, effectiveChatMode, webContext);
 }
 
-// Interne Hilfsfunktion: Claude-Parallel-Batches
-async function generateRechercheAnalysisWithBatches(query, topResults, effectiveDepth, preferredProvider, effectiveConversationHistory, useFormalAddress, effectiveChatMode, webContext) {
-  const BATCH_SIZE = Number(process.env.RECHERCHE_BATCH_SIZE) || 65;
+// Interne Hilfsfunktion: Parallel-Batches (Claude und Gemini)
+async function generateRechercheAnalysisWithBatches(query, topResults, effectiveDepth, preferredProvider, effectiveConversationHistory, useFormalAddress, effectiveChatMode, webContext, opts = {}) {
+  const BATCH_SIZE = opts.batchSize || Number(process.env.RECHERCHE_BATCH_SIZE) || 65;
 
   // Wenige Quellen: direkter Einzelaufruf
   if (topResults.length <= BATCH_SIZE) {
