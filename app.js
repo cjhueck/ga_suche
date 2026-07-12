@@ -15925,7 +15925,7 @@ function scrollToChronologicalYear(year) {
       const totalResults = results.length;
       const totalLecturesCount = sortedLectures.length;
       
-      let resultText = ` | <strong>${totalResults}</strong> Treffer in ${totalLecturesCount} Vorträgen`;
+      let resultText = ` | <strong>${totalResults}</strong> Treffer in ${totalLecturesCount} Texten`;
       document.getElementById('resultInfo').innerHTML = resultText;
       
       // Setze currentGANumber basierend auf dem ersten Ergebnis für Info-Button
