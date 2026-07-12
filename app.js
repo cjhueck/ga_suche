@@ -43301,7 +43301,7 @@ window.cancelTextEditMode = function() {};
     const dd = document.getElementById('translateDropdown');
     if (dd) dd.style.display = 'none';
 
-    const viewer = document.getElementById('viewer-content') || document.getElementById('viewer');
+    const viewer = _getTranslateViewerEl();
     if (!viewer || !viewer.innerHTML.trim()) return;
 
     if (!_translateOriginalHtml) {
@@ -43365,7 +43365,7 @@ window.cancelTextEditMode = function() {};
     if (dd) dd.style.display = 'none';
 
     if (!_translateOriginalHtml) return;
-    const viewer = document.getElementById('viewer-content') || document.getElementById('viewer');
+    const viewer = _getTranslateViewerEl();
     if (viewer) viewer.innerHTML = _translateOriginalHtml;
     _translateCurrentLang = null;
     _updateTranslateUI(null);
@@ -43407,8 +43407,17 @@ window.cancelTextEditMode = function() {};
     return chunks;
   }
 
+  function _getTranslateViewerEl() {
+    const viewerRoot = document.getElementById('viewer');
+    if (viewerRoot) {
+      const nested = viewerRoot.querySelector('#viewer-content');
+      if (nested) return nested;
+    }
+    return document.getElementById('viewer-content') || document.getElementById('viewer');
+  }
+
   function _showTranslateBtn() {
-    const viewer = document.getElementById('viewer-content') || document.getElementById('viewer');
+    const viewer = _getTranslateViewerEl();
     const wrapper = document.getElementById('translateBtnWrapper');
     if (!wrapper) return;
     const hasContent = viewer && viewer.textContent.trim().length > 100;

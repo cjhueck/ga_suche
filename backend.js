@@ -31314,6 +31314,12 @@ app.get('/api/theme-assignments-status', async (req, res) => {
         if (!deeplRes.ok) {
           const errText = await deeplRes.text();
           console.error(`[DEEPL] API-Fehler ${deeplRes.status}:`, errText);
+          if (deeplRes.status === 456) {
+            return res.status(456).json({
+              error: 'DeepL-Kontingent aufgebraucht (Free: 500.000 Zeichen/Monat). Bitte warten bis zur monatlichen Zurücksetzung oder auf DeepL Pro wechseln.',
+              code: 'quota_exceeded'
+            });
+          }
           return res.status(deeplRes.status).json({ error: `DeepL API-Fehler: ${deeplRes.status}` });
         }
         const data = await deeplRes.json();
