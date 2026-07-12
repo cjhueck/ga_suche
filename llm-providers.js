@@ -200,6 +200,68 @@ class ClaudeProvider extends LLMProvider {
     const result = await response.json();
     return result.content[0].text;
   }
+
+  /**
+   * Streaming-Variante für Chat-Modus.
+   * onChunk(text) wird für jedes Textfragment aufgerufen.
+   * Gibt einen Promise zurück, der nach Abschluss des Streams resolvet.
+   */
+  async generateCompletionStream(prompt, options = {}, onChunk) {
+    if (!this.isAvailable()) {
+      throw new Error('Claude API Key nicht gesetzt');
+    }
+
+    const model = options.model || 'claude-sonnet-4-6';
+    const adaptiveOnly = /-opus-4-(?:[7-9]|\d{2,})\b/.test(model);
+
+    const requestBody = {
+      model,
+      max_tokens: options.maxTokens || 3000,
+      stream: true,
+      messages: [{ role: 'user', content: prompt }]
+    };
+    if (!adaptiveOnly) {
+      requestBody.temperature = options.temperature !== undefined ? options.temperature : 0.7;
+    }
+
+    const response = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-api-key': this.apiKey,
+        'anthropic-version': '2023-06-01'
+      },
+      body: JSON.stringify(requestBody)
+    });
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      throw new Error(`[Claude-Stream] API Fehler ${response.status}: ${errorText}`);
+    }
+
+    const reader = response.body.getReader();
+    const decoder = new TextDecoder();
+    let buffer = '';
+
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) break;
+      buffer += decoder.decode(value, { stream: true });
+      const lines = buffer.split('\n');
+      buffer = lines.pop(); // unvollständige letzte Zeile aufheben
+      for (const line of lines) {
+        if (!line.startsWith('data: ')) continue;
+        const raw = line.slice(6).trim();
+        if (!raw || raw === '[DONE]') continue;
+        try {
+          const evt = JSON.parse(raw);
+          if (evt.type === 'content_block_delta' && evt.delta?.type === 'text_delta') {
+            onChunk(evt.delta.text);
+          }
+        } catch (_) { /* Parse-Fehler ignorieren */ }
+      }
+    }
+  }
 }
 
 // ============================================================================

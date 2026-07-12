@@ -3078,8 +3078,46 @@ function extractKeyTerms(query) {
   return uniqueTerms;
 }
 
-function performThematicKeywordSearch(query, paragraphsFromLectures, gaFilter = '') {
-  const terms = extractKeyTerms(query);
+// Schneller Chat-Pfad: wenige, markante Begriffe statt vieler 2-/3-Gramme.
+function extractFastChatTerms(query) {
+  const stopWords = new Set([
+    'wie', 'ist', 'das', 'verhältnis', 'von', 'und', 'der', 'die', 'des',
+    'den', 'dem', 'ein', 'eine', 'einem', 'einen', 'was', 'welche', 'welcher',
+    'zwischen', 'bei', 'nach', 'für', 'mit', 'aus', 'über', 'sich', 'zur',
+    'hat', 'haben', 'wird', 'werden', 'sein', 'ihre', 'seiner', 'ihren',
+    'gibt', 'gib', 'gibtes', 'einen', 'zusammenhang', 'rudolf', 'steiner'
+  ]);
+  const words = String(query || '')
+    .toLowerCase()
+    .replace(/[.,;:!?()"']/g, ' ')
+    .split(/\s+/)
+    .filter(Boolean);
+
+  const significant = [...new Set(
+    words.filter(w => w.length > 3 && !stopWords.has(w))
+  )];
+
+  const singles = significant
+    .slice()
+    .sort((a, b) => b.length - a.length)
+    .slice(0, 6);
+
+  const pairs = [];
+  for (let i = 0; i < words.length - 1; i++) {
+    const w1 = words[i];
+    const w2 = words[i + 1];
+    if (w1.length > 3 && w2.length > 3 && !stopWords.has(w1) && !stopWords.has(w2)) {
+      pairs.push(`${w1} ${w2}`);
+    }
+  }
+
+  return [...new Set([...pairs.slice(0, 4), ...singles])].slice(0, 8);
+}
+
+function performThematicKeywordSearch(query, paragraphsFromLectures, gaFilter = '', options = {}) {
+  const terms = options.mode === 'chat'
+    ? extractFastChatTerms(query)
+    : extractKeyTerms(query);
 
   // GA-Filter anwenden, wenn angegeben. Akzeptiert:
   //   - leeren String  → kein Filter
@@ -3097,6 +3135,46 @@ function performThematicKeywordSearch(query, paragraphsFromLectures, gaFilter = 
     filteredParagraphs = paragraphsFromLectures.filter(paragraph =>
       paragraph.ID && gaFilters.some(filter => paragraph.ID.startsWith(filter))
     );
+  }
+
+  if (options.mode === 'chat') {
+    const fastTerms = terms.slice(0, 6);
+    const results = [];
+    for (const paragraph of filteredParagraphs) {
+      const content = (paragraph.content || '').toLowerCase();
+      const title = (paragraph.title || '').toLowerCase();
+      const paragraphId = (paragraph.ID || '').toLowerCase();
+      let score = 0;
+      const matchedTerms = [];
+
+      for (const term of fastTerms) {
+        if (!term) continue;
+        let matched = false;
+        if (content.includes(term)) {
+          score += term.includes(' ') ? 12 : 4;
+          matched = true;
+        }
+        if (title.includes(term)) {
+          score += term.includes(' ') ? 18 : 6;
+          matched = true;
+        }
+        if (paragraphId.includes(term)) {
+          score += 5;
+          matched = true;
+        }
+        if (matched) matchedTerms.push(term);
+      }
+
+      if (score > 0) {
+        results.push({
+          ...paragraph,
+          keywordScore: score,
+          matchedTerms,
+          similarity: score / 10
+        });
+      }
+    }
+    return results.sort((a, b) => b.keywordScore - a.keywordScore);
   }
   
   if (terms.length === 0) {
@@ -5451,7 +5529,7 @@ Aufgabe:
   return { text, sources, error: null };
 }
 
-async function generateAnalysis(query, results, depth = 'allgemein', preferredProvider = null, thematicMode = 'deep', conversationHistory = [], useFormalAddress = false, chatMode = false, webContext = null) {
+async function generateAnalysis(query, results, depth = 'allgemein', preferredProvider = null, thematicMode = 'deep', conversationHistory = [], useFormalAddress = false, chatMode = false, webContext = null, streamCallback = null) {
   
   // Hole passenden LLM-Provider
   let provider;
@@ -5600,7 +5678,7 @@ async function generateAnalysis(query, results, depth = 'allgemein', preferredPr
     'recherche': (provider && (provider.name || '').toLowerCase() === 'gemini')
       ? (Number(process.env.RECHERCHE_MAX_TOKENS_GEMINI) || 65536)
       : (Number(process.env.RECHERCHE_MAX_TOKENS) || 16000),
-    'chat': 3000     // Chat-Modus: dialogische Kurzantwort
+    'chat': 4500     // Chat-Modus: kompakte, aber quellendichte Antwort
   };
   
   // Wähle Prompt basierend auf thematicMode
@@ -6007,10 +6085,28 @@ MODUS: CHAT (Konversation)
 - Länge: ${isFollowUp ? 'kurz bis mittel (typisch 120–350 Wörter)' : 'mittel (typisch 200–500 Wörter)'}, es sei denn, die Frage verlangt ausdrücklich mehr.
 - Nutzen Sie die unten stehenden Textpassagen als Beleggrundlage; erfinden Sie keine Inhalte.
 - Zitate oder Kernaussagen Steiners: kurz in „…", Quelle direkt danach als (GA###/lectureNum:index).
+
+VIELFALT DER PERSPEKTIVEN (wichtig):
+- Wenn das Thema bei Steiner aus verschiedenen Blickwinkeln behandelt wird (z.B. kosmologisch, erkenntnistheoretisch, entwicklungsgeschichtlich, methodisch), nennen Sie die wichtigsten — auch wenn die Quellen sie nicht alle gleich stark abdecken.
+- Wenn frühe Schriften (GA 1–45) und spätere Vorträge das Thema verschieden angehen, heben Sie den Unterschied kurz hervor.
+- Wenn es eine prägnante Steiner-Formel oder einen zentralen Begriff für den Sachverhalt gibt, nennen Sie ihn.
+- Wenn das Thema eine überraschende oder weniger bekannte Konsequenz hat (z.B. für Freiheit, Erkenntnis, Einweihungsweg), erwähnen Sie diese in einem Satz.
+
+SAMMELMODUS FUER BEGRIFFS-/MOTIVFRAGEN (sehr wichtig):
+- Wenn die Nutzerfrage nach einem Motiv, Begriff, Bild oder einer Metapher fragt (z.B. „Was sagt Steiner noch zu ...?", „Wo erscheint ...?", „Wie verwendet Steiner ...?"), antworten Sie NICHT nur mit 1-2 Hauptgedanken.
+- Geben Sie stattdessen eine KOMPAKTE MATERIALSAMMLUNG mit 4-7 kurzen Aspekten oder Fundstellenfamilien.
+- Jeder Aspekt soll 1-3 Saetze umfassen und mindestens EINE konkrete Quelle nennen.
+- Nutzen Sie, wenn verfuegbar, mindestens 5 verschiedene Referenzen und moeglichst mehrere verschiedene GAs.
+- Wenn die Quellenlage breit ist, ziehen Sie NICHT nur die ersten 2-3 starken Treffer heran, sondern streuen Sie ueber verschiedene Textgruppen.
+- Bei solchen Sammelfragen ist Quellenbreite wichtiger als elegante Prosa.
+
+FORM:
+- Bevorzugt kurze Listen oder kurze Abschnitte; keine langen Fluessigtext-Bloecke.
+- Bei Sammelfragen sind 4-7 knappe Aufzaehlungspunkte ausdruecklich erwuenscht.
 - Keine große Abschnitts-Gliederung mit vielen ##-Überschriften; maximal 1–2 Zwischenüberschriften, wenn wirklich nötig.
 - KEIN Abschnitt „## Fazit" und KEIN „## Weitere relevante Quellen".
 - Keine Meta-Kommentare über die Suchqualität oder fehlende Texte.
-- Bleiben Sie sachlich-nüchtern; keine überflüssigen Einleitungen.
+- Sachlich und präzise, aber nicht trocken — Steiner darf leuchten.
 
 Verfügbare Referenzen: ${availableRefs}
 
@@ -6273,21 +6369,36 @@ ${noWebSection}`;
 
     let analysisText;
     let analysisViaFallback = false;
-    try {
-      if (preferredProvider && providerNameLower === 'claude' && isProviderRateLimited('claude')) {
-        throw new Error('[Claude] vorübergehend nicht verfügbar (Rate-Limit/Guthaben)');
+
+    // Chat-Streaming: Wenn ein streamCallback übergeben wurde und Claude verfügbar ist,
+    // wird die Antwort Chunk für Chunk ausgeliefert (SSE). Kein Fallback-Provider im Streaming.
+    const canStream = !!(streamCallback && providerNameLower === 'claude' &&
+                         typeof provider.generateCompletionStream === 'function' &&
+                         (thematicMode === 'chat' || (thematicMode === 'internet' && chatMode)));
+    if (canStream) {
+      const chunks = [];
+      await provider.generateCompletionStream(prompt, baseCallOptions, (chunk) => {
+        chunks.push(chunk);
+        streamCallback(chunk);
+      });
+      analysisText = chunks.join('');
+    } else {
+      try {
+        if (preferredProvider && providerNameLower === 'claude' && isProviderRateLimited('claude')) {
+          throw new Error('[Claude] vorübergehend nicht verfügbar (Rate-Limit/Guthaben)');
+        }
+        analysisText = await provider.generateCompletion(prompt, baseCallOptions);
+      } catch (primaryErr) {
+        const errMsg = primaryErr?.message || '';
+        const canFallback = /credit balance|too low|rate limit|429|quota|overloaded|529|503|insufficient|nicht verfügbar|maximum context|context length|too many tokens|prompt is too long|model_not_found|does not exist/i.test(errMsg);
+        if (!canFallback) throw primaryErr;
+        console.warn(`[ANALYSIS] ${provider.name} fehlgeschlagen (${errMsg.slice(0, 120)}…), versuche Fallback-Provider…`);
+        const { model: _claudeModel, ...fallbackOptions } = baseCallOptions;
+        const fallbackResult = await generateCompletionWithFallback(prompt, fallbackOptions, 'analysis');
+        analysisText = fallbackResult.text;
+        analysisViaFallback = true;
+        console.log(`[ANALYSIS] Fallback erfolgreich mit ${fallbackResult.provider}`);
       }
-      analysisText = await provider.generateCompletion(prompt, baseCallOptions);
-    } catch (primaryErr) {
-      const errMsg = primaryErr?.message || '';
-      const canFallback = /credit balance|too low|rate limit|429|quota|overloaded|529|503|insufficient|nicht verfügbar|maximum context|context length|too many tokens|prompt is too long|model_not_found|does not exist/i.test(errMsg);
-      if (!canFallback) throw primaryErr;
-      console.warn(`[ANALYSIS] ${provider.name} fehlgeschlagen (${errMsg.slice(0, 120)}…), versuche Fallback-Provider…`);
-      const { model: _claudeModel, ...fallbackOptions } = baseCallOptions;
-      const fallbackResult = await generateCompletionWithFallback(prompt, fallbackOptions, 'analysis');
-      analysisText = fallbackResult.text;
-      analysisViaFallback = true;
-      console.log(`[ANALYSIS] Fallback erfolgreich mit ${fallbackResult.provider}`);
     }
 
     // Im Quote-Modus: Halluzinations-Filter. Jedes ausgegebene Zitat muss wörtlich
@@ -12347,7 +12458,18 @@ app.post('/api/hybrid-search', async (req, res) => {
 
 app.post('/api/thematic-hybrid-search', async (req, res) => {
   try {
-    const { query, limit = 100, gaFilter = '', skipCache = false, preferredProvider = null, thematicMode = 'deep', sourceType = 'alle', themeArea = '', conversationHistory = [], chatMode = false } = req.body;
+    const { query, limit = 100, gaFilter = '', skipCache = false, preferredProvider = null, thematicMode = 'deep', sourceType = 'alle', themeArea = '', conversationHistory = [], chatMode = false, stream = false } = req.body;
+
+    // SSE-Streaming für Chat-Modus: Header sofort setzen, damit der Browser
+    // Text-Fragmente anzeigen kann, während Claude noch antwortet.
+    const useStreaming = !!(stream && (thematicMode === 'chat' || (thematicMode === 'internet' && chatMode)));
+    if (useStreaming) {
+      res.setHeader('Content-Type', 'text/event-stream');
+      res.setHeader('Cache-Control', 'no-cache');
+      res.setHeader('Connection', 'keep-alive');
+      res.setHeader('X-Accel-Buffering', 'no');
+      res.flushHeaders?.();
+    }
     const rawLimit = Number(limit) || 100;
     const effectiveLimit = thematicMode === 'recherche'
       ? Math.min(rawLimit, Number(process.env.RECHERCHE_MAX_POOL) || 300)
@@ -12418,8 +12540,15 @@ app.post('/api/thematic-hybrid-search', async (req, res) => {
 
     // Kein Cache-Hit: Neue Suche
     const tStart = Date.now();
-    let keywordResults = performThematicKeywordSearch(query, paragraphsFromLectures, effectiveGaFilter);
-    const tKeyword = Date.now() - tStart;
+    let keywordResults = effectiveChatMode
+      ? []
+      : performThematicKeywordSearch(
+          query,
+          paragraphsFromLectures,
+          effectiveGaFilter,
+          { mode: 'default' }
+        );
+    let tKeyword = Date.now() - tStart;
 
     // Im Quote-Modus suchen wir gezielter, weil die Anfrage oft nur den Sinn,
     // nicht aber Steiners Originalwortlaut enthält.
@@ -12447,7 +12576,9 @@ app.post('/api/thematic-hybrid-search', async (req, res) => {
                    : isQuoteMode ? 30
                    : 25;
     const [expandedTerms, phrases, lectureSimilarities, paragraphSimilarities, webContext] = await Promise.all([
-      expandQueryWithLLM(query).catch(err => {
+      effectiveChatMode
+        ? Promise.resolve([])
+        : expandQueryWithLLM(query).catch(err => {
         console.warn('[THEMATIC] Query-Expansion fehlgeschlagen:', err.message);
         return isRechercheMode ? extractKeyTerms(query) : [];
       }),
@@ -12477,6 +12608,29 @@ app.post('/api/thematic-hybrid-search', async (req, res) => {
         : Promise.resolve(null)
     ]);
     const tParallel = Date.now() - tParallelStart;
+
+    // Chat-Schnellpfad: erst semantisch vorsortieren, dann Keyword-Suche nur
+    // innerhalb des Kandidatenpools aus ähnlichen Vorträgen/Absätzen.
+    if (effectiveChatMode) {
+      const candidateLectureIds = new Set();
+      Object.keys(lectureSimilarities || {}).slice(0, 20).forEach(id => candidateLectureIds.add(id));
+      Object.keys(paragraphSimilarities || {}).slice(0, 20).forEach(key => {
+        const lastColon = key.lastIndexOf(':');
+        if (lastColon > 0) candidateLectureIds.add(key.substring(0, lastColon));
+      });
+      const candidateParagraphs = candidateLectureIds.size > 0
+        ? paragraphsFromLectures.filter(p => candidateLectureIds.has(p.ID))
+        : paragraphsFromLectures;
+      const tKeywordStart = Date.now();
+      keywordResults = performThematicKeywordSearch(
+        query,
+        candidateParagraphs,
+        effectiveGaFilter,
+        { mode: 'chat' }
+      );
+      tKeyword = Date.now() - tKeywordStart;
+      console.log(`[THEMATIC-CHAT] Fokus-Suche: ${candidateParagraphs.length} Absätze aus ${candidateLectureIds.size || 'allen'} Vorträgen`);
+    }
 
     // Themenbereich-Keywords als zusaetzliche Expansionsbegriffe
     // beigeben (weiche thematische Fokussierung, keine harte Exklusion).
@@ -12786,6 +12940,31 @@ app.post('/api/thematic-hybrid-search', async (req, res) => {
     const finalSemCount = topResults.filter(r => topSemanticKeys.has(`${r.ID}-${r.index}`)).length;
     console.log(`[THEMATIC] Ergebnis-Selektion: ${exactPhraseHits.length} exakte Phrasen, ${topSemanticHits.length} semantische Top-Treffer, ${directResults.length} direkte, ${indirectResults.length} indirekte → Top ${topResults.length} (davon ${topResults.filter(r => r.quoteExactMatch).length} exakte Phrasen-Treffer, ${finalSemCount} sem. Top-Treffer, Quote-Modus=${isQuoteMode})`);
 
+    // Chat-Modus: GA-Diversität erzwingen. Verhindert, dass alle 30 Treffer aus 2-3 GAs
+    // stammen. Jede GA bekommt maximal 4 Plätze; übrige Slots werden mit den
+    // nächstbesten Treffern aus anderen GAs aufgefüllt.
+    if (effectiveChatMode && topResults.length > 4) {
+      const MAX_PER_GA = 4;
+      const gaCount = {};
+      const diversified = [];
+      const overflow = [];
+      for (const r of topResults) {
+        // GA-Nummer extrahieren: "GA013/5:abc" → "GA013"
+        const gaKey = (r.ID || '').split('/')[0].split(':')[0].toUpperCase();
+        const cnt = gaCount[gaKey] || 0;
+        if (cnt < MAX_PER_GA) {
+          gaCount[gaKey] = cnt + 1;
+          diversified.push(r);
+        } else {
+          overflow.push(r);
+        }
+      }
+      // Übrige Slots mit overflow-Treffern füllen (bereits nach Score sortiert)
+      topResults = [...diversified, ...overflow].slice(0, effectiveLimit);
+      const gaList = Object.keys(gaCount).sort().join(', ');
+      console.log(`[CHAT-DIVERSITY] ${topResults.length} Quellen aus ${Object.keys(gaCount).length} GAs: ${gaList}`);
+    }
+
     // Harter Scope-Filter bei Quellenart (Schriften/Vortraege), damit die semantische
     // Vortrags-Anreicherung keine Baende ausserhalb der gewaehlten Quellenart einschleust.
     if (thematicMode !== 'chat' && sourceType !== 'alle' && Array.isArray(effectiveGaFilter) && effectiveGaFilter.length > 0) {
@@ -12847,7 +13026,10 @@ app.post('/api/thematic-hybrid-search', async (req, res) => {
       }
     } else {
       const tAnalysisStart = Date.now();
-      let analysisResult = await generateAnalysis(query, topResults, effectiveDepth, preferredProvider, thematicMode, effectiveConversationHistory, useFormalAddress, effectiveChatMode, webContext);
+      const streamCb = useStreaming
+        ? (chunk) => { res.write(`data: ${JSON.stringify({ chunk })}\n\n`); }
+        : null;
+      let analysisResult = await generateAnalysis(query, topResults, effectiveDepth, preferredProvider, thematicMode, effectiveConversationHistory, useFormalAddress, effectiveChatMode, webContext, streamCb);
       analysis = (analysisResult && typeof analysisResult === 'object' && 'text' in analysisResult)
         ? analysisResult.text
         : analysisResult;
@@ -12908,6 +13090,12 @@ app.post('/api/thematic-hybrid-search', async (req, res) => {
 
     // cacheKey mitliefern, damit das Frontend die Anfrage gezielt loeschen kann
     // (wichtig fuer Recherche, deren Cache-Tiefe/Scope sich vom Standard unterscheidet).
+    // cacheKey mitliefern
+    if (useStreaming) {
+      const metaPayload = { ...searchResult, content: undefined, cacheKey };
+      res.write(`data: ${JSON.stringify({ done: true, meta: metaPayload })}\n\n`);
+      return res.end();
+    }
     return res.json({ ...searchResult, cacheKey });
   } catch (error) {
     console.error('Hybrid-thematic-Search Fehler:', error);
@@ -12925,10 +13113,13 @@ app.post('/api/thematic-hybrid-search', async (req, res) => {
       : /prompt is too long|maximum context|context length|too many tokens/i.test(error.message || '')
       ? 'Zu viele Treffer für die KI-Analyse. Bitte die Anfrage präziser formulieren oder GA-Filter setzen.'
       : 'Suche fehlgeschlagen - bitte Anfrage anders formulieren, relevante Suchworte in Anführungszeichen setzen und in Kürze noch einmal versuchen';
-    res.status(500).json({ 
-      error: userError,
-      details: error.message
-    });
+    if (useStreaming && !res.writableEnded) {
+      try { res.write(`data: ${JSON.stringify({ error: userError })}\n\n`); res.end(); } catch (_) {}
+      return;
+    }
+    if (!res.headersSent) {
+      res.status(500).json({ error: userError, details: error.message });
+    }
   }
 });
 
