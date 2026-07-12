@@ -8003,5 +8003,1306 @@
       "themeArea": ""
     },
     "timestamp": "2026-07-12T12:23:55.998Z"
+  },
+  "erinnerungstableau / erinnerungsgemälde|recherche:v3:alle:alle|300|": {
+    "query": "Erinnerungstableau / Erinnerungsgemälde",
+    "content": "",
+    "sources": [
+      {
+        "ID": "GA119/1",
+        "index": "^h34szw",
+        "title": "DER KREISLAUF DES MENSCHEN DURCH DIE SINNEN-",
+        "fileName": "GA119/1 - DER KREISLAUF DES MENSCHEN DURCH DIE SINNEN-, SEELEN- UND GEISTESWELT, Öffentlicher Vortrag, Wien, 19. März 1910",
+        "score": 78,
+        "matchedTerms": [
+          "erinnerungstableau",
+          "erinnerungsgemälde"
+        ]
+      },
+      {
+        "ID": "GA018/2",
+        "index": "^s537fg",
+        "title": "ERSTER BAND",
+        "fileName": "GA018/2 - ERSTER BAND",
+        "score": 53,
+        "matchedTerms": [
+          "ich",
+          "[phrase:\"rückwärts gerichtete schau\"]",
+          "[exp:rückwärts gerichtete schau]"
+        ]
+      },
+      {
+        "ID": "GA108/3",
+        "index": "^rfqapu",
+        "title": "DAS LEBEN ZWISCHEN ZWEI WIEDERVERKÖRPERUNGEN Breslau",
+        "fileName": "GA108/3 - DAS LEBEN ZWISCHEN ZWEI WIEDERVERKÖRPERUNGEN Breslau, 2. Dezember 1908",
+        "score": 49,
+        "matchedTerms": [
+          "erinnerungstableau"
+        ]
+      },
+      {
+        "ID": "GA007",
+        "index": "^puw1j2",
+        "title": "Die Mystik im Aufgange des neuzeitlichen Geisteslebens und ihr Verhältnis zur modernen Weltanschauung (1901)",
+        "fileName": "GA007-Die Mystik im Aufgange des neuzeitlichen Geisteslebens und ihr Verhältnis zur modernen Weltanschauung (1901)",
+        "score": 49,
+        "matchedTerms": [
+          "ich",
+          "[phrase:\"rückwärts gerichtete schau\"]",
+          "[exp:rückwärts gerichtete schau]"
+        ]
+      },
+      {
+        "ID": "GA234/9",
+        "index": "^lahgzc",
+        "title": "NEUNTER VORTRAG",
+        "fileName": "GA234/9 - NEUNTER VORTRAG, Dornach, 10. Februar 1924",
+        "score": 48,
+        "matchedTerms": [
+          "erinnerungstableau"
+        ]
+      },
+      {
+        "ID": "GA236/13",
+        "index": "^8gztvn",
+        "title": "DREIZEHNTER VORTRAG",
+        "fileName": "GA236/13 - DREIZEHNTER VORTRAG, Dornach, 30. Mai 1924",
+        "score": 48,
+        "matchedTerms": [
+          "erinnerungstableau"
+        ]
+      },
+      {
+        "ID": "GA236/12",
+        "index": "^sz9oor",
+        "title": "ZWÖLFTER VORTRAG",
+        "fileName": "GA236/12 - ZWÖLFTER VORTRAG, Dornach, 29. Mai 1924",
+        "score": 45,
+        "matchedTerms": [
+          "erinnerungstableau"
+        ]
+      },
+      {
+        "ID": "GA236/12",
+        "index": "^yaba75",
+        "title": "ZWÖLFTER VORTRAG",
+        "fileName": "GA236/12 - ZWÖLFTER VORTRAG, Dornach, 29. Mai 1924",
+        "score": 44,
+        "matchedTerms": [
+          "erinnerungstableau"
+        ]
+      },
+      {
+        "ID": "GA056/14",
+        "index": "^addj7d",
+        "title": "DIE HÖLLE",
+        "fileName": "GA056/14 - DIE HÖLLE, Berlin, 16. April 1908",
+        "score": 43,
+        "matchedTerms": [
+          "erinnerungsgemälde"
+        ]
+      },
+      {
+        "ID": "GA236/12",
+        "index": "^7uwdsf",
+        "title": "ZWÖLFTER VORTRAG",
+        "fileName": "GA236/12 - ZWÖLFTER VORTRAG, Dornach, 29. Mai 1924",
+        "score": 43,
+        "matchedTerms": [
+          "erinnerungstableau"
+        ]
+      }
+    ],
+    "searchMethod": "hybrid-thematic-unified",
+    "totalMatches": 467,
+    "llmUsed": true,
+    "recherche": {
+      "subThemes": [
+        {
+          "title": "Entstehung des Erinnerungstableaus: Ätherleib als Träger",
+          "rows": [
+            {
+              "aussage": "Ätherleib als Gedächtnisträger: Freiwerden beim Tod erzeugt Erinnerungstableau",
+              "zitat": "Wenn sich im Tode die Trennung des Physischen vollzieht, tritt durch das Freiwerden des Ätherleibes vom Physischen ein Erinnerungstableau vor die Menschenseele, denn der Ätherleib ist Träger des Gedächtnisses, und diese Kraft wirkt nun intensiv ohne Beeinflussung der großen physischen Substanz.",
+              "id": "GA068b/10",
+              "index": "ttep14",
+              "ref": "GA068b/10:ttep14",
+              "fileName": "GA068b/10 - DAS GEHEIMNIS DES TODES ALS SCHLÜSSEL ZUM RÄTSEL DES LEBENS, Breslau, 17. Dezember 1909",
+              "title": "DAS GEHEIMNIS DES TODES ALS SCHLÜSSEL ZUM RÄTSEL DES LEBENS",
+              "relevance": "hoch",
+              "date": "1909-12-17",
+              "year": "1909"
+            },
+            {
+              "aussage": "Physischer Leib als Hemmnis: Ätherleib im Alltag durch ihn gebunden",
+              "zitat": "Im gewöhnlichen Leben, wenn dieser Äther- oder Lebensleib eingeschaltet ist dem physischen Leib, dann ist der physische Leib wie eine Art Hemmnis, wie eine Art Hindernis für das Herausheben aller einzelnen Erinnerungen, aller einzelnen Gedächtnisvorstellungen.",
+              "id": "GA119/1",
+              "index": "h34szw",
+              "ref": "GA119/1:h34szw",
+              "fileName": "GA119/1 - DER KREISLAUF DES MENSCHEN DURCH DIE SINNEN-, SEELEN- UND GEISTESWELT, Öffentlicher Vortrag, Wien, 19. März 1910",
+              "title": "DER KREISLAUF DES MENSCHEN DURCH DIE SINNEN-",
+              "relevance": "hoch",
+              "date": "1910-03-19",
+              "year": "1910"
+            },
+            {
+              "aussage": "Imaginative Erkenntnis: Unabhängigkeit vom physischen Leib erzeugt Erinnerungstableau",
+              "zitat": "Der Mensch wird also durch die imaginative Erkenntnis unabhängig von seinen Sinneseindrücken, unabhängig von seiner Verstandeserkenntnis. Er lebt im Erkennen nur im ätherischen Leibe. Dadurch hat er dieses Erinnerungstableau.",
+              "id": "GA236/13",
+              "index": "8gztvn",
+              "ref": "GA236/13:8gztvn",
+              "fileName": "GA236/13 - DREIZEHNTER VORTRAG, Dornach, 30. Mai 1924",
+              "title": "DREIZEHNTER VORTRAG",
+              "relevance": "hoch",
+              "date": "1924-05-30",
+              "year": "1924"
+            }
+          ]
+        },
+        {
+          "title": "Erinnerungstableau beim Tode: Erscheinung und Dauer",
+          "rows": [
+            {
+              "aussage": "Todesmoment: gewaltiges Erinnerungsgemälde mit Gefühl der Erweiterung",
+              "zitat": "Jetzt, in diesem Todesmomente, tritt vor dem Menschen auf ein umfassendes Erinnerungsgemälde an das bisherige Leben zwischen Geburt und Tod. Es ist, wie wenn ein gewaltiges Panorama dieses Lebens, das wir durchlebt haben, vor unserer Seele stünde. Begleitet wird diese Anschauung, dieses Erinnerungsbild von einem Gefühl der Erweiterung, des Größerwerdens der menschlichen Wesenheit.",
+              "id": "GA056/14",
+              "index": "addj7d",
+              "ref": "GA056/14:addj7d",
+              "fileName": "GA056/14 - DIE HÖLLE, Berlin, 16. April 1908",
+              "title": "DIE HÖLLE",
+              "relevance": "hoch",
+              "date": "1908-04-16",
+              "year": "1908"
+            },
+            {
+              "aussage": "Dauer des Erinnerungstableaus nach dem Tod: drei bis vier Tage",
+              "zitat": "Im Tode tritt dieses Erinnerungstableau sofort mit voller Stärke ein, weil der ganze physische Körper verlassen wird. Man weiß auch die Dauer dieses Erinnerungstableaus nach dem Tode. Sie beträgt drei bis vier Tage.",
+              "id": "GA108/3",
+              "index": "rfqapu",
+              "ref": "GA108/3:rfqapu",
+              "fileName": "GA108/3 - DAS LEBEN ZWISCHEN ZWEI WIEDERVERKÖRPERUNGEN Breslau, 2. Dezember 1908",
+              "title": "DAS LEBEN ZWISCHEN ZWEI WIEDERVERKÖRPERUNGEN Breslau",
+              "relevance": "hoch",
+              "date": "1908-12-02",
+              "year": "1908"
+            },
+            {
+              "aussage": "Dauer individuell: entspricht Fähigkeit, wach zu bleiben ohne Schlaf",
+              "zitat": "Diese Zeitdauer ist bei jedem Menschen verschieden und entspricht ungefähr der Fähigkeit des betreffenden Menschen, wie lange er es im Leben hätte aushalten können, wach zu bleiben, ohne einzuschlafen.",
+              "id": "GA108/3",
+              "index": "rfqapu",
+              "ref": "GA108/3:rfqapu",
+              "fileName": "GA108/3 - DAS LEBEN ZWISCHEN ZWEI WIEDERVERKÖRPERUNGEN Breslau, 2. Dezember 1908",
+              "title": "DAS LEBEN ZWISCHEN ZWEI WIEDERVERKÖRPERUNGEN Breslau",
+              "relevance": "hoch",
+              "date": "1908-12-02",
+              "year": "1908"
+            },
+            {
+              "aussage": "Erinnerungstableau nach dem Tod: neutrales Panorama ohne Gefühlsbeteiligung",
+              "zitat": "Während wir in dieser nach Tagen zählenden Zeit ein neutrales Erinnerungstableau haben, dem gegenüber all unser Interesse und unsere Teilnahme verstummen, haben wir gerade in der Läuterungszeit alles dasjenige in unserer Seele, was uns durch Sehnsucht nach Genuss, durch Sehnsucht nach Begierde hingezogen hat zu unseren Erlebnissen.",
+              "id": "GA119/1",
+              "index": "fq40m2",
+              "ref": "GA119/1:fq40m2",
+              "fileName": "GA119/1 - DER KREISLAUF DES MENSCHEN DURCH DIE SINNEN-, SEELEN- UND GEISTESWELT, Öffentlicher Vortrag, Wien, 19. März 1910",
+              "title": "DER KREISLAUF DES MENSCHEN DURCH DIE SINNEN-",
+              "relevance": "hoch",
+              "date": "1910-03-19",
+              "year": "1910"
+            },
+            {
+              "aussage": "Erinnerungstableau nach dem Tod: Beginn des Kamalokalebens",
+              "zitat": "Ein großes Erinnerungstableau tritt vor die Seele dessen, der eben den physischen Leib verlassen hat. Dann beginnt das Kamalokaleben.",
+              "id": "GA098/2",
+              "index": "gvjf5h",
+              "ref": "GA098/2:gvjf5h",
+              "fileName": "GA098/2 - ESOTERISCHE ENTWICKELUNG UND ÜBERSINNLICHE ERKENNTNIS, Wien, 7. November 1907",
+              "title": "ESOTERISCHE ENTWICKELUNG UND ÜBERSINNLICHE ERKENNTNIS",
+              "relevance": "hoch",
+              "date": "1907-11-07",
+              "year": "1907"
+            }
+          ]
+        },
+        {
+          "title": "Erinnerungstableau bei Lebensgefahr und Schock",
+          "rows": [
+            {
+              "aussage": "Ertrinken: Ätherleib herausgehoben, Erinnerungstableau als Analogon zum Tod",
+              "zitat": "Wenn aber der Äther- oder Lebensleib durch einen solchen Schock für eine kurze Weile aus dem physischen Leib herausgehoben ist, dann tritt das Leben in einem Erinnerungsgemälde vor die Seele, und wir haben dann bei einem solchen Menschen in dem Momente des Ertrinkens durchaus eine Art von Analogon zu demjenigen, was unmittelbar nach dem Tode da ist.",
+              "id": "GA119/1",
+              "index": "h34szw",
+              "ref": "GA119/1:h34szw",
+              "fileName": "GA119/1 - DER KREISLAUF DES MENSCHEN DURCH DIE SINNEN-, SEELEN- UND GEISTESWELT, Öffentlicher Vortrag, Wien, 19. März 1910",
+              "title": "DER KREISLAUF DES MENSCHEN DURCH DIE SINNEN-",
+              "relevance": "hoch",
+              "date": "1910-03-19",
+              "year": "1910"
+            },
+            {
+              "aussage": "Lebensschock: Ätherleib aus physischem Leib herausgehoben, Erinnerungstableau tritt auf",
+              "zitat": "Wenn der Mensch einen so gewaltigen Lebensschock erleidet wie beim Ertrinken, dann wird sein ganzer Ätherleib aus dem physischen Leibe herausgehoben. Das bewirkt dann, dass ein solches Erinnerungstableau auftritt.",
+              "id": "GA096/12",
+              "index": "ada8kj",
+              "ref": "GA096/12:ada8kj",
+              "fileName": "GA096/12 - DIE TECHNIK DES KARMA, Berlin, 22. Oktober 1906, abends",
+              "title": "DIE TECHNIK DES KARMA",
+              "relevance": "hoch",
+              "date": "1906-10-22",
+              "year": "1906"
+            },
+            {
+              "aussage": "Bewusstlosigkeit beim Ertrinken: kein Erinnerungstableau, da Astralleib ebenfalls heraus",
+              "zitat": "Nun sagte mir vor Kurzem jemand, er sei dem Ertrinken nahe gewesen, habe aber das Erinnerungstableau nicht gehabt, da er bewusstlos gewesen sei. Das ist grade der Beweis dafür, denn wenn der Mensch bewusstlos ist, also der Astralleib auch heraus ist, der der Träger des Bewusstseins ist, kann natürlich diese Erinnerung nicht auftreten.",
+              "id": "GA068d/10",
+              "index": "qyjpk9",
+              "ref": "GA068d/10:qyjpk9",
+              "fileName": "GA068d/10 - DAS WESEN DES MENSCHEN, Eisenach, 2. Juli 1907",
+              "title": "DAS WESEN DES MENSCHEN",
+              "relevance": "hoch",
+              "date": "1907-07-02",
+              "year": "1907"
+            }
+          ]
+        },
+        {
+          "title": "Erinnerungstableau als Erkenntnisstufe: Imagination und Inspiration",
+          "rows": [
+            {
+              "aussage": "Imaginative Erkenntnis: Erinnerungstableau als erstes Ergebnis der Übungen",
+              "zitat": "Wenn man in dieser Weise eine Zeit lang sein Denken erkraftet hat, sodass es intensiver und lebendiger geworden ist und jetzt nicht mehr den Körper braucht, um eine Unterstützung zu haben, dann erlebt man ja jetzt nicht mehr in seinen Gedanken ein bloßes Erinnerungstableau, sondern eine Überschau über das Walten von Kräften in uns.",
+              "id": "GA080b/6",
+              "index": "gactis",
+              "ref": "GA080b/6:gactis",
+              "fileName": "GA080b/6 - DIE HARMONISIERUNG VON KUNST, WISSENSCHAFT UND RELIGION DURCH ANTHROPOSOPHIE, Berlin, 5. März 1922",
+              "title": "DIE HARMONISIERUNG VON KUNST",
+              "relevance": "hoch",
+              "date": "1922-03-05",
+              "year": "1922"
+            },
+            {
+              "aussage": "Erinnerungstableau als Tableau des Erdenlebens: Grundlage für inspirierte Erkenntnis",
+              "zitat": "Nun aber, wenn die inspirierte Erkenntnis eintritt, dann kann man hinschauen auf diese reale Erinnerung an das Erdenleben, die ein Erinnerungstableau ist, und man erblickt dann, weil man ja in der inspirierten Erkenntnis das Imaginative unterdrückt hat, weil sozusagen die Ereignisse des Erdenlebens, auch insofern sie durch den Ätherleib wahrnehmbar sind, nicht mehr da sind, man überblickt dann ein Scheinen eines Höheren.",
+              "id": "GA236/12",
+              "index": "sz9oor",
+              "ref": "GA236/12:sz9oor",
+              "fileName": "GA236/12 - ZWÖLFTER VORTRAG, Dornach, 29. Mai 1924",
+              "title": "ZWÖLFTER VORTRAG",
+              "relevance": "hoch",
+              "date": "1924-05-29",
+              "year": "1924"
+            },
+            {
+              "aussage": "Erinnerungstableau auslöschen: Weg zur inspirierten Erkenntnis",
+              "zitat": "Gelangt man jetzt dazu, dieses Erinnerungstableau selbst auszulöschen, dann tritt das ein, was ich wirklich «leeres» Bewusstsein nennen möchte. Man hat vorher gelebt in dem Erinnerungstableau oder in dem, was man selbst vor die Seele gestellt hat; jetzt tritt etwas ganz anderes auf.",
+              "id": "GA084/9",
+              "index": "qxdgnm",
+              "ref": "GA084/9:qxdgnm",
+              "fileName": "GA084/9 - DIE ÜBERSINNLICHE ERKENNTNIS ANTHROPOSOPHIE-ALS ZEITFORDERUNG, Wien, 26. September 1923",
+              "title": "DIE ÜBERSINNLICHE ERKENNTNIS ANTHROPOSOPHIE-ALS ZEITFORDERUNG",
+              "relevance": "hoch",
+              "date": "1923-09-26",
+              "year": "1923"
+            },
+            {
+              "aussage": "Erinnerungstableau auslöschen: Zugang zu Mondenwesen-Wirkungen nach dem Tod",
+              "zitat": "Was ich Ihnen zum Beispiel erzählt habe vom Erleben des Lebens nach dem Tode bei jener Persönlichkeit, die das Modell für den Strader in meinen Mysteriendramen ist, so wird das dadurch erlebt, dass man zuerst auf das Erinnerungstableau hinschaut, dann in der inspirierten Erkenntnis das Erinnerungstableau auslöscht.",
+              "id": "GA236/12",
+              "index": "7uwdsf",
+              "ref": "GA236/12:7uwdsf",
+              "fileName": "GA236/12 - ZWÖLFTER VORTRAG, Dornach, 29. Mai 1924",
+              "title": "ZWÖLFTER VORTRAG",
+              "relevance": "hoch",
+              "date": "1924-05-29",
+              "year": "1924"
+            },
+            {
+              "aussage": "Auslöschung des Erinnerungstableaus 0–7 Jahre: Mondenwesen erscheinen",
+              "zitat": "Man blickt hin auf ein Tableau, das den menschlichen Erdenlauf enthält. In diesem Tableau ist gewissermaßen ein Teil; wenn man auf den hinblickt, so zeigt er sich nach der inspirierten Initiation so, dass das Erinnerungstableau zwischen der Geburt, also zwischen dem Nulljahre und dem siebenten Jahre, ausgelöscht ist, und an der Stelle, wo das Erinnerungstableau ausgelöscht ist, erscheinen dann alle die Taten, die dadurch entstehen, dass die Mondenwesen mit dem Menschen nach seinem Tode zu tun haben.",
+              "id": "GA236/12",
+              "index": "yaba75",
+              "ref": "GA236/12:yaba75",
+              "fileName": "GA236/12 - ZWÖLFTER VORTRAG, Dornach, 29. Mai 1924",
+              "title": "ZWÖLFTER VORTRAG",
+              "relevance": "hoch",
+              "date": "1924-05-29",
+              "year": "1924"
+            },
+            {
+              "aussage": "Erinnerungstableau auslöschen: leeres Bewusstsein, kein Einschlafen",
+              "zitat": "Man kann nicht nur erreichen, dass man einen Gedanken, auf den man sich konzentriert hat, mit aller Kraft der Seele ausschaltet, sondern dass man auch das ganze Erinnerungstableau - und damit sein eigenes Leben - ausschaltet und die Aufmerksamkeit davon abzieht. Dann tritt etwas ein, von dem man deutlich merkt: man steigt jetzt tiefer in die Seele hinunter.",
+              "id": "GA319/8",
+              "index": "kroa92",
+              "ref": "GA319/8:kroa92",
+              "fileName": "GA319/8 - SIEBENTER VORTRAG, Arnheim, 17. Juli 1924",
+              "title": "SIEBENTER VORTRAG",
+              "relevance": "hoch",
+              "date": "1924-07-17",
+              "year": "1924"
+            }
+          ]
+        },
+        {
+          "title": "Lebenstableau vs. Erinnerungstableau: Unterschied",
+          "rows": [
+            {
+              "aussage": "Lebenstableau: simultane Gegenwart, nicht sukzessive Erinnerung",
+              "zitat": "Man kann also sagen, dass in diesem Lebenstableau etwas wie ein Erlebnis ist in unmittelbarer Gegenwart, bei dem nicht eines nach dem andern sich stellt, wie in der Erinnerung, sondern eines neben das andere im zweidimensionalen Raume. Man kann dieses Lebenstableau sehr wohl vom bloßen Erinnerungstableau unterscheiden.",
+              "id": "GA227/3",
+              "index": "0mzz4y",
+              "ref": "GA227/3:0mzz4y",
+              "fileName": "GA227/3 - ERSTER VORTRAG, Penmaenmawr, 19. August 1923",
+              "title": "ERSTER VORTRAG",
+              "relevance": "hoch",
+              "date": "1923-08-19",
+              "year": "1923"
+            },
+            {
+              "aussage": "Erinnerungstableau in Überschau: Zeit wird zum Raum, Ich außerhalb des physischen Leibes",
+              "zitat": "Aber dasjenige, was da der Mensch erlebt, ist eben nicht eine Summe von mit Mühe heraufgeholten Erinnerungsbildern, sondern es ist etwas, was auf einmal wie ein gewaltiges Lebenstableau vor die Seele hintritt, dass man überschaut - wie etwas Gegenwärtiges, wie wenn die Zeit zum Raume geworden wäre - sein bisheriges Erdenleben.",
+              "id": "GA080b/11",
+              "index": "xi2ym6",
+              "ref": "GA080b/11:xi2ym6",
+              "fileName": "GA080b/11 - WAS WOLLTE DAS GOETHEANUM UND WAS SOLL DIE ANTHROPOSOPHIE, Bern, 5. April 1923",
+              "title": "WAS WOLLTE DAS GOETHEANUM UND WAS SOLL DIE ANTHROPOSOPHIE",
+              "relevance": "hoch",
+              "date": "1923-04-05",
+              "year": "1923"
+            }
+          ]
+        },
+        {
+          "title": "Erinnerungstableau im Jenseits: Ausweitung und Verblassen",
+          "rows": [
+            {
+              "aussage": "Erinnerungstableau nach dem Tod: wird größer, schattenhafter, löst sich ins Weltall auf",
+              "zitat": "Wir fühlen, wie wenn die Bilder unserer Erinnerung von der Welt aufgenommen werden. Das, was nach dem Tode gewissermaßen erst ein eng Umgrenztes umschließt in diesem Erinnerungstableau, es wird immer größer, aber damit auch immer schattenhafter, bis wir es wie zu einem Weltall erweitert finden, aber schwach geworden, so dass wir kaum noch ahnen können, was wir erst deutlich gesehen haben.",
+              "id": "GA234/9",
+              "index": "lahgzc",
+              "ref": "GA234/9:lahgzc",
+              "fileName": "GA234/9 - NEUNTER VORTRAG, Dornach, 10. Februar 1924",
+              "title": "NEUNTER VORTRAG",
+              "relevance": "hoch",
+              "date": "1924-02-10",
+              "year": "1924"
+            },
+            {
+              "aussage": "Erinnerungstableau nach dem Tod: objektiviert, selbständig, lebendig",
+              "zitat": "Diese Welt wird auch oftmals geschildert wie eine Art von Erinnerungstableau an das letzte Leben. In der Tat ist sie wie ein Erinnerungstableau, aber wie eines, das sich selbständig gemacht hat, und von dem wir wissen: Das hast du dir erworben, aber das steht da in der Außenwelt drinnen, objektiviert; das lebt!",
+              "id": "GA063/10",
+              "index": "5fbsh8",
+              "ref": "GA063/10:5fbsh8",
+              "fileName": "GA063/10 - ZWISCHEN TOD - UND WIEDERGEBURT DES MENSCHEN, Berlin, 19. März 1914",
+              "title": "ZWISCHEN TOD - UND WIEDERGEBURT DES MENSCHEN",
+              "relevance": "hoch",
+              "date": "1914-03-19",
+              "year": "1914"
+            }
+          ]
+        },
+        {
+          "title": "Rückschau-Übung als Vorbereitung des Erinnerungstableaus",
+          "rows": [
+            {
+              "aussage": "Abendliche Rückschau rückwärts: Erinnerungstableau ordnet sich von selbst",
+              "zitat": "Es ist anfangs durchaus möglich, dass wir nur eine Episode aus dem Tage nehmen, später ordnet sich das Erinnerungstableau von selbst an. Worauf es ankommt, das ist dies: Wir sind gewohnt, unser Denken ganz passiv hinzugeben an die äußere Folge der Ereignisse; wir denken immer das Spätere im Anschluss an das Frühere.",
+              "id": "GA211/9",
+              "index": "7lgzs4",
+              "ref": "GA211/9:7lgzs4",
+              "fileName": "GA211/9 - ERKENNTNIS UND INITIATION, London, 14. April 1922",
+              "title": "ERKENNTNIS UND INITIATION",
+              "relevance": "hoch",
+              "date": "1922-04-14",
+              "year": "1922"
+            }
+          ]
+        },
+        {
+          "title": "Entstehung und Wesen des Erinnerungstableaus nach dem Tod",
+          "rows": [
+            {
+              "aussage": "Erinnerungstableau: unmittelbar nach dem Tod, ganzes Leben gleichzeitig sichtbar",
+              "zitat": "In dem Zeitpunkte unmittelbar nach dem Tode fühlen Sie kein Hier und Da, sondern ein Überall; es ist, als wenn Sie selbst hineinschlüpften in alle Dinge. Dann tritt eine Gesamterinnerung an Ihr ganzes vergangenes Leben ein, welches mit allen Einzelheiten wie ein großes Tableau vor Ihnen steht.",
+              "id": "GA108/3",
+              "index": "vsfwzg",
+              "ref": "GA108/3:vsfwzg",
+              "fileName": "GA108/3 - DAS LEBEN ZWISCHEN ZWEI WIEDERVERKÖRPERUNGEN Breslau, 2. Dezember 1908",
+              "title": "DAS LEBEN ZWISCHEN ZWEI WIEDERVERKÖRPERUNGEN Breslau",
+              "relevance": "hoch",
+              "date": "1908-12-02",
+              "year": "1908"
+            },
+            {
+              "aussage": "Ätherleib als Träger des Gedächtnisses: Befreiung vom physischen Leib ermöglicht Tableau",
+              "zitat": "Diese Tatsache, dass der Mensch nach seinem Tode sein ganzes früheres Leben in einem Tableau vor sich sieht, und das ähnliche Erlebnis bei einem gewaltigen Schock haben wir so zu erklären: Der Ätherleib ist unter anderem auch der Träger des Gedächtnisses. Im gewöhnlichen Leben ist er mit dem physischen Gehirn verbunden. In dem Augenblicke, wo der Träger des Gedächtnisses befreit ist von dem physischen Gehirn, solange aber der Astralleib noch darinnen steckt im Ätherleib, da tritt das ganze Leben als großes Erinnerungstableau vor der Seele des Menschen auf.",
+              "id": "GA068b/8",
+              "index": "irgx5j",
+              "ref": "GA068b/8:irgx5j",
+              "fileName": "GA068b/8 - DAS GEHEIMNIS DES TODES UND DAS RÄTSEL DES LEBENS, Wiesbaden, 1. Februar 1908",
+              "title": "DAS GEHEIMNIS DES TODES UND DAS RÄTSEL DES LEBENS",
+              "relevance": "hoch",
+              "date": "1908-02-01",
+              "year": "1908"
+            },
+            {
+              "aussage": "Ätherleib frei vom Physischen: Erinnerungen treten ungebunden und plötzlich auf",
+              "zitat": "Im Tode aber, wie vorhin erläutert wurde, wird der ätherische Leib, der Träger des Gedächtnisses, frei. Er braucht nicht mehr durch das Physische zu wirken, und daher treten die Erinnerungen in ungebundener Weise plötzlich auf.",
+              "id": "GA108/3",
+              "index": "vsfwzg",
+              "ref": "GA108/3:vsfwzg",
+              "fileName": "GA108/3 - DAS LEBEN ZWISCHEN ZWEI WIEDERVERKÖRPERUNGEN Breslau, 2. Dezember 1908",
+              "title": "DAS LEBEN ZWISCHEN ZWEI WIEDERVERKÖRPERUNGEN Breslau",
+              "relevance": "hoch",
+              "date": "1908-12-02",
+              "year": "1908"
+            },
+            {
+              "aussage": "Tableau: erstes Erlebnis nach dem Tod, Panorama des vergangenen Lebens",
+              "zitat": "Der erste Eindruck, den unser astralischer Leib und unser Ich haben, nachdem der Tod des Menschen eingetreten ist, ist dieser, dass der Mensch zurückblicken kann auf sein eben verflossenes Leben, das zwischen der Geburt und dem Tode abgelaufen ist, zurückblicken kann in einem umfassenden Erinnerungstableau. Die einzelnen Ereignisse des letzten Lebens, die längst dem geistigen Blick entschwunden sind, treten sozusagen mit allen Einzelheiten an diesem wichtigen Wendepunkte des Lebens vor die Seele hin.",
+              "id": "GA119/1",
+              "index": "jc4mqe",
+              "ref": "GA119/1:jc4mqe",
+              "fileName": "GA119/1 - DER KREISLAUF DES MENSCHEN DURCH DIE SINNEN-, SEELEN- UND GEISTESWELT, Öffentlicher Vortrag, Wien, 19. März 1910",
+              "title": "DER KREISLAUF DES MENSCHEN DURCH DIE SINNEN-",
+              "relevance": "hoch",
+              "date": "1910-03-19",
+              "year": "1910"
+            },
+            {
+              "aussage": "Tableau: Ätherleib löst sich vom physischen Leib, aber noch mit Astralleib verbunden",
+              "zitat": "Der physische Leib löst sich nach dem Tode durch die Verwesung oder Verbrennung auf, und seine Teile werden an die physische Welt zurückgegeben. Dann bleiben noch eine Zeitlang der Astralleib und Ätherleib miteinander verbunden. Das ist ein wichtiger Augenblick im Leben nach dem Tode: In dem Moment, wo der Ätherleib sich vom physischen Leibe loslöst, aber noch mit dem Astralleibe verbunden ist, tritt das ganze Leben wie ein Erinnerungstableau vor die Seele des Menschen.",
+              "id": "GA096/12",
+              "index": "05akqx",
+              "ref": "GA096/12:05akqx",
+              "fileName": "GA096/12 - DIE TECHNIK DES KARMA, Berlin, 22. Oktober 1906, abends",
+              "title": "DIE TECHNIK DES KARMA",
+              "relevance": "hoch",
+              "date": "1906-10-22",
+              "year": "1906"
+            },
+            {
+              "aussage": "Tableau: zweites Erlebnis nach dem Tod (nach dem Ausdehnungsgefühl)",
+              "zitat": "Das zweite Erlebnis besteht darin, dass der Mensch ein Erinnerungstableau seines verflossenen Lebens hat, dass alle Ereignisse des Lebens in umfassender Erinnerung auftreten.",
+              "id": "GA109/1",
+              "index": "btqpa7",
+              "ref": "GA109/1:btqpa7",
+              "fileName": "GA109/1 - DAS PRINZIP DER SPIRITUELLEN ÖKONOMIE IM ZUSAMMENHANG MIT WIEDERVERKÖRPERUNGSFRAGEN EIN ASPEKT DER GEISTIGEN FÜHRUNG DER MENSCHHEIT, Heidelberg, 21. Januar 1909",
+              "title": "DAS PRINZIP DER SPIRITUELLEN ÖKONOMIE IM ZUSAMMENHANG MIT WIEDERVERKÖRPERUNGSFRAGEN EIN ASPEKT DER GEISTIGEN FÜHRUNG DER MENSCHHEIT",
+              "relevance": "hoch",
+              "date": "1909-01-21",
+              "year": "1909"
+            },
+            {
+              "aussage": "Tableau: alle Einzelheiten des Lebens in erstaunlich kurzer Zeit sichtbar",
+              "zitat": "Es breitet sich aus, und man sieht in Zeiträumen, die erstaunlich sind, weil sie so kurz sind, alle Einzelheiten, die sich im Leben zugetragen haben.",
+              "id": "GA099/3",
+              "index": "d8y8cp",
+              "ref": "GA099/3:d8y8cp",
+              "fileName": "GA099/3 - DRITTER VORTRAG, München, 26. Mai 1907",
+              "title": "DRITTER VORTRAG",
+              "relevance": "hoch",
+              "date": "1907-05-26",
+              "year": "1907"
+            }
+          ]
+        },
+        {
+          "title": "Dauer des Erinnerungstableaus und individuelle Unterschiede",
+          "rows": [
+            {
+              "aussage": "Dauer des Tableaus: abhängig von individueller Wachfähigkeit (Tage)",
+              "zitat": "Solange der Mensch im allgemeinen im normalen Zustand des Lebens durchschnittlich sich hat wach erhalten können, ohne dass er vom Schlafe niedergezwungen wurde, so lange ungefähr datiert auch durchschnittlich dieses Erinnerungstableau. Also es ist nach Tagen zu berechnen und ist für die verschiedenen Menschen verschieden.",
+              "id": "GA119/1",
+              "index": "zswdbq",
+              "ref": "GA119/1:zswdbq",
+              "fileName": "GA119/1 - DER KREISLAUF DES MENSCHEN DURCH DIE SINNEN-, SEELEN- UND GEISTESWELT, Öffentlicher Vortrag, Wien, 19. März 1910",
+              "title": "DER KREISLAUF DES MENSCHEN DURCH DIE SINNEN-",
+              "relevance": "hoch",
+              "date": "1910-03-19",
+              "year": "1910"
+            },
+            {
+              "aussage": "Dauer: je länger Mensch ohne Schlaf auskam, desto länger das Tableau",
+              "zitat": "Solange man im Leben ungefähr fähig ist, die Tage ohne zu schlafen zuzubringen, solange dauert dieses Erinnerungstableau. Das kann man durch die geisteswissenschaftliche Forschung herausfinden. Wer daher früher ermüdet ... bei dem entfernt sich das Erinnerungstableau früher als bei einem, der sich anstrengen kann, um seine Kräfte länger ohne Schlaf aufrechtzuerhalten.",
+              "id": "GA063/10",
+              "index": "lvj8jk",
+              "ref": "GA063/10:lvj8jk",
+              "fileName": "GA063/10 - ZWISCHEN TOD - UND WIEDERGEBURT DES MENSCHEN, Berlin, 19. März 1914",
+              "title": "ZWISCHEN TOD - UND WIEDERGEBURT DES MENSCHEN",
+              "relevance": "hoch",
+              "date": "1914-03-19",
+              "year": "1914"
+            },
+            {
+              "aussage": "Dauer: Beispiel 48 Stunden maximale Wachzeit = 48 Stunden Tableau",
+              "zitat": "Im allgemeinen kann man die Dauer dieses Zustandes daran bestimmen, wie lange der Mensch in seinem verflossenen Leben sich wach erhalten konnte, ohne vom Schlaf bezwungen zu werden. Angenommen, er habe als äußerste Grenze für die Dauer des Wachbleibens die Zeit von achtundvierzig Stunden gehabt, dann dauert auch nach seinem Tode das Erinnerungstableau achtundvierzig Stunden.",
+              "id": "GA109/1",
+              "index": "btqpa7",
+              "ref": "GA109/1:btqpa7",
+              "fileName": "GA109/1 - DAS PRINZIP DER SPIRITUELLEN ÖKONOMIE IM ZUSAMMENHANG MIT WIEDERVERKÖRPERUNGSFRAGEN EIN ASPEKT DER GEISTIGEN FÜHRUNG DER MENSCHHEIT, Heidelberg, 21. Januar 1909",
+              "title": "DAS PRINZIP DER SPIRITUELLEN ÖKONOMIE IM ZUSAMMENHANG MIT WIEDERVERKÖRPERUNGSFRAGEN EIN ASPEKT DER GEISTIGEN FÜHRUNG DER MENSCHHEIT",
+              "relevance": "hoch",
+              "date": "1909-01-21",
+              "year": "1909"
+            },
+            {
+              "aussage": "Tableau: zwei bis drei Tage, individuell verschieden",
+              "zitat": "Da erinnern wir uns einmal daran, dass wir gesagt haben, wenn der Mensch stirbt, so hat er nach dem Tode zunächst das um sich herum, was wir genannt haben das lange Erinnerungstableau an das eben verflossene Leben. Das bleibt zwei bis drei Tage; für die einzelnen Menschen ist das etwas verschieden.",
+              "id": "GA102/8",
+              "index": "unptk9",
+              "ref": "GA102/8:unptk9",
+              "fileName": "GA102/8 - ACHTER VORTRAG, Berlin, 20. April 1908",
+              "title": "ACHTER VORTRAG",
+              "relevance": "hoch",
+              "date": "1908-04-20",
+              "year": "1908"
+            },
+            {
+              "aussage": "Tableau: erste Erinnerung dauert nur wenige Tage",
+              "zitat": "Die erste Erinnerung dauert nur wenige Tage, sie erscheint als Erinnerungstableau, das uns ja bekannt ist. Dann beginnt sie so zu werden, dass das, was hier ihr Innerstes ist, sich anknüpft in innerlicher Weise.",
+              "id": "GA150/3",
+              "index": "v14zcl",
+              "ref": "GA150/3:v14zcl",
+              "fileName": "GA150/3 - SINNESERLEBEN UND ERLEBEN DER WELT DER VERSTORBENEN, Weimar, 13. April 1913, vormittags",
+              "title": "SINNESERLEBEN UND ERLEBEN DER WELT DER VERSTORBENEN",
+              "relevance": "hoch",
+              "date": "1913-04-13",
+              "year": "1913"
+            },
+            {
+              "aussage": "Tableau: verblasst allmählich, zeigt Nach-und-nach-Dunkelwerden",
+              "zitat": "Dann, wenn dieses Erinnerungstableau zu Ende gegangen ist, wenn es allmählich verblasst ist - denn es zeigt ein Nach-und-nach-Dunkelwerden -, da fühlt der Mensch so etwas, wie wenn sich in ihm zurückzögen gewisse Kräfte und etwas, was bisher in seiner Natur war, ausgestoßen würde.",
+              "id": "GA119/1",
+              "index": "brn1ye",
+              "ref": "GA119/1:brn1ye",
+              "fileName": "GA119/1 - DER KREISLAUF DES MENSCHEN DURCH DIE SINNEN-, SEELEN- UND GEISTESWELT, Öffentlicher Vortrag, Wien, 19. März 1910",
+              "title": "DER KREISLAUF DES MENSCHEN DURCH DIE SINNEN-",
+              "relevance": "hoch",
+              "date": "1910-03-19",
+              "year": "1910"
+            }
+          ]
+        },
+        {
+          "title": "Objektiver Charakter des Tableaus: ohne Gefühle und Schmerz",
+          "rows": [
+            {
+              "aussage": "Tableau: objektiv wie Gemälde, ohne subjektive Gefühle von Lust und Schmerz",
+              "zitat": "Es ist nämlich so, dass die Ereignisse wie gleichzeitig vor der Seele stehen und wie eine Art Panorama einen Überblick gestatten. Das Wesentliche davon ist aber, dass man es wirklich wie ein Bild empfindet. Im wirklichen physischen Leben sind die Ereignisse mit Freude und Schmerz verbunden; diese Empfindungsinhalte sind in den wenigen Tagen nach dem Tode fort. Es ist dieses Erinnerungsbild ein objektives Gemälde.",
+              "id": "GA109/15",
+              "index": "bhyuf8",
+              "ref": "GA109/15:bhyuf8",
+              "fileName": "GA109/15 - Der Mensch zwischen Tod und neuer Geburt, Vierter Vortrag, Budapest, 6. Juni 1909",
+              "title": "Der Mensch zwischen Tod und neuer Geburt",
+              "relevance": "hoch",
+              "date": "1909-06-06",
+              "year": "1909"
+            },
+            {
+              "aussage": "Tableau: Stimmungen fehlen, Lebensbild steht wie etwas Fremdes vor der Seele",
+              "zitat": "Jetzt aber treten alle diese Erlebnisse wie eine Summe äußerer, objektiver Erfahrungen vor die Seele. Alles Leid und alle Freude, die einst damit verbunden waren, schweigen nun. Wie etwas Fremdes steht dieses Lebensbild vor der Seele. Die Stimmungen fehlen.",
+              "id": "GA094/24",
+              "index": "q7blbo",
+              "ref": "GA094/24:q7blbo",
+              "fileName": "GA094/24 - POPULÄRER OKKULTISMUS, Sechster Vortrag, Leipzig, 3. Juli 1906",
+              "title": "POPULÄRER OKKULTISMUS",
+              "relevance": "hoch",
+              "date": "1906-07-03",
+              "year": "1906"
+            },
+            {
+              "aussage": "Tableau: Freuden und Schmerzen des Lebens nicht vorhanden, objektive Betrachtung wie Gemälde",
+              "zitat": "Alle die Freuden und Schmerzen, die sich an die Bilder des Lebens heften, sind bei dieser Rückerinnerung nicht vorhanden. Man steht diesem Erinnerungstableau ebenso objektiv gegenüber wie einem Gemälde.",
+              "id": "GA099/3",
+              "index": "d8y8cp",
+              "ref": "GA099/3:d8y8cp",
+              "fileName": "GA099/3 - DRITTER VORTRAG, München, 26. Mai 1907",
+              "title": "DRITTER VORTRAG",
+              "relevance": "hoch",
+              "date": "1907-05-26",
+              "year": "1907"
+            }
+          ]
+        },
+        {
+          "title": "Analogie: Erinnerungstableau in Lebensgefahr und Schreckmomenten",
+          "rows": [
+            {
+              "aussage": "Analogie: Tableau in Lebensgefahr (Ertrinken, Absturz) – Geisteswissenschaft bestätigt Berichte",
+              "zitat": "Wenn wir uns fragen: Wie ist so etwas möglich? - dann können wir dasjenige, was sich dem hellsichtigen Auge darbietet, uns wenigstens dadurch begreiflich machen, dass wir hinweisen auf jene allbekannten Augenblicke des Lebens, von denen diejenigen erzählen, die einmal in Lebensgefahr waren, etwa einem Absturz in den Bergen oder dem Ertrinken nahe waren. Sie erzählen, dass ihnen in einem solchen Augenblicke das ganze verflossene Leben wie in einem großen Gemälde vor Augen stand. Was so erzählt wird, kann von der Geisteswissenschaft durchaus bestätigt werden.",
+              "id": "GA119/1",
+              "index": "jc4mqe",
+              "ref": "GA119/1:jc4mqe",
+              "fileName": "GA119/1 - DER KREISLAUF DES MENSCHEN DURCH DIE SINNEN-, SEELEN- UND GEISTESWELT, Öffentlicher Vortrag, Wien, 19. März 1910",
+              "title": "DER KREISLAUF DES MENSCHEN DURCH DIE SINNEN-",
+              "relevance": "hoch",
+              "date": "1910-03-19",
+              "year": "1910"
+            },
+            {
+              "aussage": "Tableau bei starkem Schreck: Lockerung des Ätherleibs aus physischem Leib als Ursache",
+              "zitat": "Es kann sein, dass er bei einem starken Schreck, wenn er nahe daran ist, zu ertrinken oder abzustürzen, eine Lockerung des Ätherleibes aus dem physischen Leibe in dem Grade erlebt, dass dann die Erinnerung seines ganzen vergangenen Lebens vor ihn hintritt. Das ist aber nur der Fall, wenn das Ich und der Astralleib das Bewusstsein nicht verlieren. Der Astralleib muss im Ätherleib darinnen bleiben.",
+              "id": "GA068b/8",
+              "index": "rxk1ax",
+              "ref": "GA068b/8:rxk1ax",
+              "fileName": "GA068b/8 - DAS GEHEIMNIS DES TODES UND DAS RÄTSEL DES LEBENS, Wiesbaden, 1. Februar 1908",
+              "title": "DAS GEHEIMNIS DES TODES UND DAS RÄTSEL DES LEBENS",
+              "relevance": "hoch",
+              "date": "1908-02-01",
+              "year": "1908"
+            }
+          ]
+        },
+        {
+          "title": "Essenz und Frucht des Tableaus: was nach dem Ablegen des Ätherleibs bleibt",
+          "rows": [
+            {
+              "aussage": "Aus Tableau: Essenz/Extrakt des Erdenlebens bleibt dem Astralleib einverleibt",
+              "zitat": "Nach und nach schwindet es hinunter in das Dunkel, und ein zweiter Leichnam bleibt vom Menschen zurück. Von dem Äther- oder Lebensleib bleibt ihm wie eine Essenz, wie ein Extrakt des großen Erinnerungsbildes, etwas, wie wenn man den Inhalt eines großen Buches zusammengefasst hätte in eine Seite. So bleibt uns aus diesem Erinnerungstableau nach dem Tode die Essenz des Erdenlebens; die wird einverleibt dem astralischen Leibe auf seiner Wanderung nach dem Tode.",
+              "id": "GA068b/8",
+              "index": "irgx5j",
+              "ref": "GA068b/8:irgx5j",
+              "fileName": "GA068b/8 - DAS GEHEIMNIS DES TODES UND DAS RÄTSEL DES LEBENS, Wiesbaden, 1. Februar 1908",
+              "title": "DAS GEHEIMNIS DES TODES UND DAS RÄTSEL DES LEBENS",
+              "relevance": "hoch",
+              "date": "1908-02-01",
+              "year": "1908"
+            },
+            {
+              "aussage": "Tableau endet: zweiter Leichnam (Ätherleib) wird ausgestoßen, Essenz bleibt",
+              "zitat": "Nun bleibt aber aus diesem ausgepressten Äther- oder Lebensleib etwas zurück, was man bezeichnen kann wie eine Essenz, wie einen Extrakt alles dessen, was erlebt worden ist. Gleichsam die in einen Keim zusammengedrängten Erlebnisse des letzten Daseins zwischen Geburt und Tod, die bleiben nunmehr mit demjenigen, was der Mensch ist, vereint.",
+              "id": "GA119/1",
+              "index": "brn1ye",
+              "ref": "GA119/1:brn1ye",
+              "fileName": "GA119/1 - DER KREISLAUF DES MENSCHEN DURCH DIE SINNEN-, SEELEN- UND GEISTESWELT, Öffentlicher Vortrag, Wien, 19. März 1910",
+              "title": "DER KREISLAUF DES MENSCHEN DURCH DIE SINNEN-",
+              "relevance": "hoch",
+              "date": "1910-03-19",
+              "year": "1910"
+            },
+            {
+              "aussage": "Tableau endet: Ätherleib löst sich auf, Extrakt als Lebensessenz für nächste Inkarnation",
+              "zitat": "Dann löst sich der Ätherleib auf und es bleibt nur ein Extrakt davon zurück, die Lebensfrucht des vergangenen Lebens. Die wird mitgenommen für die ganzen folgenden Zeiten und wird seiner Wesenheit einverleibt, und bildet das, wonach sich der Mensch in der nächsten Inkarnation seinen physischen Leib aufbauen kann.",
+              "id": "GA102/8",
+              "index": "unptk9",
+              "ref": "GA102/8:unptk9",
+              "fileName": "GA102/8 - ACHTER VORTRAG, Berlin, 20. April 1908",
+              "title": "ACHTER VORTRAG",
+              "relevance": "hoch",
+              "date": "1908-04-20",
+              "year": "1908"
+            },
+            {
+              "aussage": "Tableau: Bilder werden zu Kausalleib verarbeitet (kurzer Schlafzustand danach)",
+              "zitat": "Zunächst tritt also nach dem Tode das Bildertableau des Ätherleibes auf, dann folgt eine Art kurzer Schlafzustand. In diesem Schlafzustand werden die Bilder des Erinnerungstableaus verarbeitet zu dem Kausalleibe.",
+              "id": "GA094/25",
+              "index": "o9cmr0",
+              "ref": "GA094/25:o9cmr0",
+              "fileName": "GA094/25 - POPULÄRER OKKULTISMUS, Siebenter Vortrag, Leipzig, 4. Juli 1906",
+              "title": "POPULÄRER OKKULTISMUS",
+              "relevance": "hoch",
+              "date": "1906-07-04",
+              "year": "1906"
+            },
+            {
+              "aussage": "Tableau endet: Ätherleib löst sich auf, Fähigkeiten-Summe bleibt dem Astralleib",
+              "zitat": "Dies Erinnerungstableau des ganzen Lebens dauert kurze Zeit, dann verlässt der Ätherleib den Astralkörper, und nur eine Summe der erworbenen Fähigkeiten des vergangenen Lebens gliedert sich dem Astralleib an und bleibt für die Ewigkeit.",
+              "id": "GA068b/10",
+              "index": "td1twp",
+              "ref": "GA068b/10:td1twp",
+              "fileName": "GA068b/10 - DAS GEHEIMNIS DES TODES ALS SCHLÜSSEL ZUM RÄTSEL DES LEBENS, Breslau, 17. Dezember 1909",
+              "title": "DAS GEHEIMNIS DES TODES ALS SCHLÜSSEL ZUM RÄTSEL DES LEBENS",
+              "relevance": "hoch",
+              "date": "1909-12-17",
+              "year": "1909"
+            }
+          ]
+        },
+        {
+          "title": "Erinnerungstableau und Kamaloka: Übergang zur Läuterungszeit",
+          "rows": [
+            {
+              "aussage": "Nach Tableau: Kamaloka beginnt, Seele erlebt unerfüllte Begierden des letzten Lebens",
+              "zitat": "Nachdem sich das Erinnerungstableau abgedämmert hat, entfaltet sich, erkraftet sich in der Seele dieses fühlende Wollen, wollende Fühlen; aber dieses drückt nur Dinge aus, die mit dem letzten Erdenleben noch zusammenhängen.",
+              "id": "GA153/2",
+              "index": "07pdcq",
+              "ref": "GA153/2:07pdcq",
+              "fileName": "GA153/2 - ÖFFENTLICHER VORTRAG, Wien, 8. April 1914",
+              "title": "ÖFFENTLICHER VORTRAG",
+              "relevance": "hoch",
+              "date": "1914-04-08",
+              "year": "1914"
+            },
+            {
+              "aussage": "Tableau im Kontext des Lebens zwischen Tod und Geburt: Kamaloka folgt",
+              "zitat": "Wir schildern da, ausgehend von dem Moment des Todes, wie der Mensch, nachdem sich vor seiner Seele jenes große Erinnerungstableau entwickelt hat, eintritt in die Zeit, wo seine im astralischen Leib befindlichen Triebe, Begierden, Leidenschaften, kurz, wo alles, was ihn noch an die physische Welt bindet, noch in ihm ist, wo sich das abspielt, was man gewohnt worden ist Kamaloka zu nennen.",
+              "id": "GA107/3",
+              "index": "0cgs24",
+              "ref": "GA107/3:0cgs24",
+              "fileName": "GA107/3 - DRITTER VORTRAG, Berlin, 23. Oktober 1908",
+              "title": "DRITTER VORTRAG",
+              "relevance": "hoch",
+              "date": "1908-10-23",
+              "year": "1908"
+            },
+            {
+              "aussage": "Tableau: Erinnerungen an Ätherleib gebunden; nach Ablegen des Ätherleibs: Astralleib mit Taten verbunden",
+              "zitat": "Wenn wir, wie wir gesehen haben, nach dem Tode in unserem Ätherleibe noch leben, dann bildet sich das Erinnerungstableau; das heißt, an unseren Ätherleib bleiben die Erinnerungen an unser eben vergangenes Leben gebunden.",
+              "id": "GA133/8",
+              "index": "fd0fhs",
+              "ref": "GA133/8:fd0fhs",
+              "fileName": "GA133/8 - ACHTER VORTRAG, Berlin, 18. Juni 1912",
+              "title": "ACHTER VORTRAG",
+              "relevance": "hoch",
+              "date": "1912-06-18",
+              "year": "1912"
+            }
+          ]
+        },
+        {
+          "title": "Erinnerungsgemälde beim Wiedereintritt ins Erdenleben (Karma-Zusammenhang)",
+          "rows": [
+            {
+              "aussage": "Beim Wiedereintritt ins Leben: Vorblick-Gemälde zeigt Hindernisse der Entwicklung",
+              "zitat": "Wie mit dem Eintritte des Todes eine Art Erinnerungsgemälde vor dem menschlichen Ich gestanden hat, so jetzt ein Vorblick auf das kommende Leben. Wieder sieht der Mensch ein solches Gemälde, das jetzt all die Hindernisse zeigt, welche der Mensch hinwegzuräumen hat, wenn seine Entwickelung weitergehen soll.",
+              "id": "GA013",
+              "index": "ul6uhi",
+              "ref": "GA013:ul6uhi",
+              "fileName": "GA013 - Die Geheimwissenschaft im Umriss (1910)",
+              "title": "Die Geheimwissenschaft im Umriss (1910)",
+              "relevance": "hoch",
+              "date": "1910",
+              "year": "1910"
+            },
+            {
+              "aussage": "Vorblick-Gemälde: Bild des zugefügten Schmerzes wird zur Kraft für Wiedergutmachung",
+              "zitat": "Das Bild des Schmerzes, den er dem andern zugefügt hat, wird zur Kraft, die das Ich, wenn es nun wieder ins Leben eintritt, antreibt, diesen Schmerz wieder gutzumachen. So wirkt also das vorgängige Leben bestimmend auf das neue.",
+              "id": "GA013",
+              "index": "ul6uhi",
+              "ref": "GA013:ul6uhi",
+              "fileName": "GA013 - Die Geheimwissenschaft im Umriss (1910)",
+              "title": "Die Geheimwissenschaft im Umriss (1910)",
+              "relevance": "hoch",
+              "date": "1910",
+              "year": "1910"
+            }
+          ]
+        },
+        {
+          "title": "Erinnerungstableau als Ergebnis spiritueller Übung (Meditation/Imagination)",
+          "rows": [
+            {
+              "aussage": "Erkraftetes Gedankenleben durch Meditation: Erinnerungstableau des Erdenlebens als erste übersinnliche Erfahrung",
+              "zitat": "Durch dieses bis zur Bildhaftigkeit erkraftete innere Gedankenleben bekommt der Mensch vor sich jetzt nicht das Erinnerungstableau über das eben verflossene, bis zu diesem Erlebnispunkte reichende Erdenleben, sondern er überschaut, was alles an diesem physischen Erdenorganismus der Bildekräfteleib organisiert hat. Er schaut in einem mächtigen Tableau als erste übersinnliche Erfahrung auf sein eigenes, eben bis zu diesem Lebenspunkte vorgedrungenes Erdenleben bis zur Kindheit zurück.",
+              "id": "GA079/4",
+              "index": "ek84hr",
+              "ref": "GA079/4:ek84hr",
+              "fileName": "GA079/4 - DER MENSCH IM LICHTE DER ANTHROPOSOPHIE, Kristiania, 29. November 1921",
+              "title": "DER MENSCH IM LICHTE DER ANTHROPOSOPHIE",
+              "relevance": "hoch",
+              "date": "1921-11-29",
+              "year": "1921"
+            },
+            {
+              "aussage": "Erkraftetes Vorstellungsleben: ganzes Erdenleben als gewaltiges Tableau vor Augen",
+              "zitat": "Wenn zuerst das Gedankenleben erkraftet ist in der geschilderten Weise, so stark erkraftet ist, dass man gewissermaßen innerlich erfasst im unmittelbaren Erleben dieses Erinnerungstableau, von dem ich gesprochen habe, wenn einem da das ganze bisherige Erdenleben wie ein gewaltiges Tableau vor Augen steht, wenn man so weit das Vorstellungsleben erkraftet hat, dann bringt man es auch dazu, bei völligem Wachsein die einzelne Vorstellung ... wiederum abzudämpfen.",
+              "id": "GA080a/6",
+              "index": "t46c8t",
+              "ref": "GA080a/6:t46c8t",
+              "fileName": "GA080a/6 - DAS WESEN DER ANTHROPOSOPHIE, Köln, 23. Januar 1922",
+              "title": "DAS WESEN DER ANTHROPOSOPHIE",
+              "relevance": "hoch",
+              "date": "1922-01-23",
+              "year": "1922"
+            },
+            {
+              "aussage": "Meditation: Tableau als Herausgehoben-Sein aus dem eigenen Lebensstrom",
+              "zitat": "In einem gewissen Momente unseres Bewusstseins kommt es als Ergebnis des Meditierens zustande, dass wir wie ein Erinnerungstableau unser Leben in einer gewissen Weise doch wenigstens bis nahezu zur Geburt zurück wie ein einheitliches Ganzes, wie eine Totalität, wie ein Panorama vor uns haben.",
+              "id": "GA080b/1",
+              "index": "b6ufam",
+              "ref": "GA080b/1:b6ufam",
+              "fileName": "GA080b/1 - DIE ERGEBNISSE DER GEISTES-WISSENSCHAFT UND IHRE BEZIEHUNGEN ZUR KUNST UND RELIGION, Bern, 13. Dezember 1920",
+              "title": "DIE ERGEBNISSE DER GEISTES-WISSENSCHAFT UND IHRE BEZIEHUNGEN ZUR KUNST UND RELIGION",
+              "relevance": "hoch",
+              "date": "1920-12-13",
+              "year": "1920"
+            }
+          ]
+        },
+        {
+          "title": "Zwei Arten des Erinnerungstableaus: äußere Welt vs. eigenes Inneres",
+          "rows": [
+            {
+              "aussage": "Gewöhnliches Erinnerungsbild: wie Außenwelt an einen herangetreten ist",
+              "zitat": "Man kann sehr wohl dieses Bild des menschlichen Inneren von dem unterscheiden, was bloß Erinnerungsbild ist. Das bloße Erinnerungsbild zeigt, wie Menschen, Naturereignisse oder Kunstwerke von außen an den Menschen herankommen; man hat mehr die Art, wie die Welt an einen herankommt, in diesem Erinnerungsbilde vor sich.",
+              "id": "GA084/9",
+              "index": "h3utbb",
+              "ref": "GA084/9:h3utbb",
+              "fileName": "GA084/9 - DIE ÜBERSINNLICHE ERKENNTNIS ANTHROPOSOPHIE-ALS ZEITFORDERUNG, Wien, 26. September 1923",
+              "title": "DIE ÜBERSINNLICHE ERKENNTNIS ANTHROPOSOPHIE-ALS ZEITFORDERUNG",
+              "relevance": "hoch",
+              "date": "1923-09-26",
+              "year": "1923"
+            },
+            {
+              "aussage": "Übersinnliches Erinnerungstableau: zeigt, was vom Menschen selbst ausgegangen ist",
+              "zitat": "In demjenigen aber, was da als ein übersinnliches Erinnerungstableau vor den Menschen hintritt, tritt ihm mehr dasjenige entgegen, was von ihm selbst ausgegangen ist. Hat man zum Beispiel in einem bestimmten Zeitpunkte seines Lebens die Freundschaft mit einer geliebten Persönlichkeit begonnen, so tritt einem im Bilde entgegen, wie diese Persönlichkeit in einem gewissen Zeitpunkte auf einen zugekommen ist ... In diesem Lebenstableau tritt einem entgegen, wie man sich zu diesem Menschen hingesehnt hat.",
+              "id": "GA084/9",
+              "index": "h3utbb",
+              "ref": "GA084/9:h3utbb",
+              "fileName": "GA084/9 - DIE ÜBERSINNLICHE ERKENNTNIS ANTHROPOSOPHIE-ALS ZEITFORDERUNG, Wien, 26. September 1923",
+              "title": "DIE ÜBERSINNLICHE ERKENNTNIS ANTHROPOSOPHIE-ALS ZEITFORDERUNG",
+              "relevance": "hoch",
+              "date": "1923-09-26",
+              "year": "1923"
+            },
+            {
+              "aussage": "Zwei Erinnerungstableaus: eines zeigt Außenwelt an einem, anderes zeigt eigene geistige Natur",
+              "zitat": "Man erlebt sich in diesem Erinnerungsbilde so, wie die Außenwelt an einen herangetreten ist. In diesem anderen Erinnerungstableau dagegen, das aber jetzt in wirklichen Bildern dasteht, von denen man weiß, dass sie die eigene geistige Natur des Menschen wiedergeben, so wie sonst die gewöhnlichen Erinnerungsbilder die äußere Natur wiedergeben, in diesem anderen Erinnerungstableau blickt uns entgegen, wie wir uns der Außenwelt genähert haben.",
+              "id": "GA231/1",
+              "index": "ab0zc4",
+              "ref": "GA231/1:ab0zc4",
+              "fileName": "GA231/1 - ANTHROPOSOPHIE ALS ZEITFORDERUNG. Öffentlicher Vortrag, Den Haag, 15. November 19",
+              "title": "ANTHROPOSOPHIE ALS ZEITFORDERUNG. Öffentlicher Vortrag",
+              "relevance": "hoch",
+              "date": "",
+              "year": ""
+            },
+            {
+              "aussage": "Zweites Tableau: zeigt eigenes Wesen als Erdenmensch, wie man selbst war",
+              "zitat": "Da steht drinnen, wie man selber war, als man sich zum Beispiel einer anderen Persönlichkeit genähert hat, wie sich in unserem Gemüte Kräfte entfaltet haben, die gerade durch diese Persönlichkeit ihre Befriedigung, ihr Genüge, ihr Entzücken, ihre Froheit gefunden haben. Man schaut wirklich auf sich hin, wie man als Erdenmensch war.",
+              "id": "GA231/1",
+              "index": "ab0zc4",
+              "ref": "GA231/1:ab0zc4",
+              "fileName": "GA231/1 - ANTHROPOSOPHIE ALS ZEITFORDERUNG. Öffentlicher Vortrag, Den Haag, 15. November 19",
+              "title": "ANTHROPOSOPHIE ALS ZEITFORDERUNG. Öffentlicher Vortrag",
+              "relevance": "hoch",
+              "date": "",
+              "year": ""
+            }
+          ]
+        },
+        {
+          "title": "Erinnerungstableau und inspirierte Erkenntnis: Engel und Hierarchien",
+          "rows": [
+            {
+              "aussage": "Inspirierte Erkenntnis: Auslöschen des Tableaus für Geburt bis 7. Jahr zeigt Engelwesenheit im physischen Leib",
+              "zitat": "Wenn man zurückblickt und das Erinnerungstableau hat, und dieses Erinnerungstableau dann durch die inspirierte Erkenntnis auslöscht, wenn man also in der inspirierten Erkenntnis ist, dann nimmt man eben in der inspirierten Erkenntnis wahr, was da drinnen ist im physischen Leibe. Man nimmt nämlich wahr, wenn man auslöscht das Erinnerungstableau für die Zeit von der Geburt bis zum siebenten Jahre, bis zum Zahnwechsel: In diesem physischen Leibe war eine Engelwesenheit drinnen.",
+              "id": "GA236/13",
+              "index": "g1b6f8",
+              "ref": "GA236/13:g1b6f8",
+              "fileName": "GA236/13 - DREIZEHNTER VORTRAG, Dornach, 30. Mai 1924",
+              "title": "DREIZEHNTER VORTRAG",
+              "relevance": "hoch",
+              "date": "1924-05-30",
+              "year": "1924"
+            },
+            {
+              "aussage": "Tableau auslöschen für 7. Jahr bis Geschlechtsreife: Beziehung zu Menschen in Merkurregion",
+              "zitat": "Aber will man eine Beziehung erkennen, herstellen zu Menschen, die in dieser Merkurregion sich befinden, dann muss man in dem Erinnerungstableau zum Auslöschen bringen den Zeitraum zwischen dem siebenten Lebensjahre, dem Zahnwechsel, und der Geschlechtsreife.",
+              "id": "GA236/12",
+              "index": "g7ct5o",
+              "ref": "GA236/12:g7ct5o",
+              "fileName": "GA236/12 - ZWÖLFTER VORTRAG, Dornach, 29. Mai 1924",
+              "title": "ZWÖLFTER VORTRAG",
+              "relevance": "hoch",
+              "date": "1924-05-29",
+              "year": "1924"
+            },
+            {
+              "aussage": "Tableau und Engelschutz der Kinder: Initiation zeigt Angeloi in Kindheitszeit",
+              "zitat": "Der ganzen Vorstellung, dass insbesondere Kinder von ihrem Engel geschützt werden, der liegt zugrunde, dass man bei der Initiation, wenn man auf diese Zeit von der Geburt bis zum siebenten Jahre zurückblickt, das erlebt, was ich gestern dadurch charakterisiert habe, dass ich sagte: Wenn man im Erinnerungstableau diese Zeit auslöscht, so scheint die Hierarchie der Angeloi durch.",
+              "id": "GA236/13",
+              "index": "b9ukdy",
+              "ref": "GA236/13:b9ukdy",
+              "fileName": "GA236/13 - DREIZEHNTER VORTRAG, Dornach, 30. Mai 1924",
+              "title": "DREIZEHNTER VORTRAG",
+              "relevance": "hoch",
+              "date": "1924-05-30",
+              "year": "1924"
+            }
+          ]
+        },
+        {
+          "title": "Erinnerungstableau und Erinnerung im esoterischen Kontext",
+          "rows": [
+            {
+              "aussage": "Erinnerungen als Bodensatz: immer vorhanden, können heraufgeholt werden",
+              "zitat": "Es ist oft die Rede davon gewesen, dass nach dem Tode zuerst das große Erinnerungstableau auftritt. Beim Verlassen des physischen Leibes gelangt man zuerst an diese Grenze, wo all die Erinnerungen aufbewahrt liegen; die sehen wir dann als großes Tableau vor uns. Die Erinnerung von irgendeinem Erlebnis kann ein Leben lang vergessen gewesen sein, bis sie plötzlich wieder ins Bewusstsein heraufgeholt wird. Da war sie immer.",
+              "id": "GA266c/39",
+              "index": "mstk3o",
+              "ref": "GA266c/39:mstk3o",
+              "fileName": "GA266c/39 - Esoterische Stunde, Kassel, 9. Mai 1914",
+              "title": "Esoterische Stunde",
+              "relevance": "hoch",
+              "date": "1914-05-09",
+              "year": "1914"
+            },
+            {
+              "aussage": "Erinnerungstableau: Übergang zu egoistischem Zustand nach dem Tod, Gewöhnung an übersinnliche Welt nötig",
+              "zitat": "Das dürfen wir uns nicht verhehlen, dass das, was wir mit heraustragen aus dem Leben, der egoistischere Teil ist. Zunächst behalten wir also den egoistischeren Teil und daraus wird verständlich, dass der Mensch unmittelbar nach dem Tode übergeht in einen recht egoistischen Zustand.",
+              "id": "GA150/3",
+              "index": "v14zcl",
+              "ref": "GA150/3:v14zcl",
+              "fileName": "GA150/3 - SINNESERLEBEN UND ERLEBEN DER WELT DER VERSTORBENEN, Weimar, 13. April 1913, vormittags",
+              "title": "SINNESERLEBEN UND ERLEBEN DER WELT DER VERSTORBENEN",
+              "relevance": "mittel",
+              "date": "1913-04-13",
+              "year": "1913"
+            }
+          ]
+        },
+        {
+          "title": "Bewusstsein und Erinnerung im Übergang zwischen Schlaf und Wachen",
+          "rows": [
+            {
+              "aussage": "Aufwachen als Vergleich: Seele tritt aus erinnerungslosem Zustand ins Tagesbewusstsein",
+              "zitat": "Der wirkliche Vorgang, an dem dies erkannt wird, lässt sich mit dem Vorgange des Aufwachens vergleichen. Aufgewacht fühlt sich die Seele aus einem Zustand, in den keine Erinnerung zurückreicht, in einen solchen versetzt, in dem das bewusste Tagesleben mit seinem Vorstellen, Fühlen und Wollen verläuft.",
+              "id": "GA035/11",
+              "index": "fubuzr",
+              "ref": "GA035/11:fubuzr",
+              "fileName": "GA035/11 - DIE ERKENNTNIS VOM ZUSTAND ZWISCHEN DEM TODE UND EINER NEUEN GEBURT",
+              "title": "DIE ERKENNTNIS VOM ZUSTAND ZWISCHEN DEM TODE UND EINER NEUEN GEBURT",
+              "relevance": "mittel",
+              "date": "",
+              "year": ""
+            },
+            {
+              "aussage": "Übersinnliche Erlebnisse: vom gewöhnlichen Bewusstsein aus anderem Bewusstsein herübergenommen",
+              "zitat": "Das heißt, man hat es mit übersinnlichen Erlebnissen zu tun gehabt, welche durch das gewöhnliche Bewusstsein nicht entwickelt werden können, sondern welche von demselben aus einem andern Bewusstsein herübergenommen werden müssen.",
+              "id": "GA035/11",
+              "index": "fubuzr",
+              "ref": "GA035/11:fubuzr",
+              "fileName": "GA035/11 - DIE ERKENNTNIS VOM ZUSTAND ZWISCHEN DEM TODE UND EINER NEUEN GEBURT",
+              "title": "DIE ERKENNTNIS VOM ZUSTAND ZWISCHEN DEM TODE UND EINER NEUEN GEBURT",
+              "relevance": "mittel",
+              "date": "",
+              "year": ""
+            }
+          ]
+        },
+        {
+          "title": "Seelisches Erleben nach dem Tod: Hinschauen auf den verlassenen Leib",
+          "rows": [
+            {
+              "aussage": "Fichte-Vergleich: Seele nach dem Tod schaut bewusst auf abgetrennten Leib wie auf sinnlichen Gegenstand",
+              "zitat": "Fichte spricht von der Menschenseele als von einem dem Leibe gegenüber so selbstständigen Wesen, dass sich dieses Wesen im Tode von dem Leiblichen lostrennt und bewusst hinzuschauen vermag auf den abgetrennten Leib wie der Mensch in der Sinnenwelt auf einen Gegenstand oder Vorgang mit seinen Augen hinschaut.",
+              "id": "GA019/1",
+              "index": "ku2ilt",
+              "ref": "GA019/1:ku2ilt",
+              "fileName": "GA019/1 - GEDANKEN WÄHREND DER ZEIT DES KRIEGES. Für Deutsche und diejenigen, die nicht glauben sie hassen zu müssen (1915)",
+              "title": "GEDANKEN WÄHREND DER ZEIT DES KRIEGES. Für Deutsche und diejenigen",
+              "relevance": "hoch",
+              "date": "",
+              "year": ""
+            },
+            {
+              "aussage": "Neue Umgebung der Seele nach Lostrennung vom Leib: Geisteswissenschaft bestätigt Fichte-Bild",
+              "zitat": "Es wird außer auf dieses Hinschauen auf den verlassenen Leib auch noch auf die neue Umgebung gedeutet, in welche die Seele eintritt, wenn sie sich vom Leibe getrennt hat. Diejenige neuere Form der Geisteswissenschaft, welche über diese Dinge aufgrund gewisser Seelenerlebnisse redet, darf etwas Bedeutsames in diesem Fichte'schen Vergleich finden.",
+              "id": "GA019/1",
+              "index": "ku2ilt",
+              "ref": "GA019/1:ku2ilt",
+              "fileName": "GA019/1 - GEDANKEN WÄHREND DER ZEIT DES KRIEGES. Für Deutsche und diejenigen, die nicht glauben sie hassen zu müssen (1915)",
+              "title": "GEDANKEN WÄHREND DER ZEIT DES KRIEGES. Für Deutsche und diejenigen",
+              "relevance": "hoch",
+              "date": "",
+              "year": ""
+            },
+            {
+              "aussage": "Dasselbe Bild bei Fichte (GA024): Seele trennt sich vom Leib, schaut ihn wie sinnlichen Vorgang",
+              "zitat": "Fichte spricht von der Menschenseele als von einem dem Leibe gegenüber so selbständigen Wesen, dass sich dieses Wesen im Tode von dein Leiblichen lostrennt und bewusst hinzuschauen vermag auf den abgetrennten Leib wie der Mensch in der Sinnenwelt auf einen Gegenstand oder Vorgang mit seinen Augen hinschaut.",
+              "id": "GA024/45",
+              "index": "8l5o4s",
+              "ref": "GA024/45:8l5o4s",
+              "fileName": "GA024/45 - GEDANKEN WÄHREND DER ZEIT DES KRIEGES. Für Deutsche und solche, die nicht glauben, sie hassen zu müssen 1915-2",
+              "title": "GEDANKEN WÄHREND DER ZEIT DES KRIEGES. Für Deutsche und solche",
+              "relevance": "hoch",
+              "date": "",
+              "year": ""
+            }
+          ]
+        },
+        {
+          "title": "Imaginative Erkenntnis und Bildekräfteleib als Grundlage geistiger Wahrnehmung",
+          "rows": [
+            {
+              "aussage": "Imaginative Erkenntnis: geistige Bildekräfte als Inhalt, noch nicht das eigentlich Seelische",
+              "zitat": "Nun offenbart dasjenige, das hier als Inhalt der imaginativen Erkenntnis geschildert worden ist, am Menschen nur ein solches Übersinnliches, das als geistige Bilde-Kräfte dem Leibesleben zugrunde liegt. Wer die imaginative Erkenntnis in sich entwickelt, der erwirbt damit zugleich ein Bewusstsein davon, dass das eigentlich Seelische in dem Inhalt dieser Erkenntnis noch nicht enthalten ist.",
+              "id": "GA035/11",
+              "index": "fubuzr",
+              "ref": "GA035/11:fubuzr",
+              "fileName": "GA035/11 - DIE ERKENNTNIS VOM ZUSTAND ZWISCHEN DEM TODE UND EINER NEUEN GEBURT",
+              "title": "DIE ERKENNTNIS VOM ZUSTAND ZWISCHEN DEM TODE UND EINER NEUEN GEBURT",
+              "relevance": "mittel",
+              "date": "",
+              "year": ""
+            },
+            {
+              "aussage": "Bildekräfteleib als Wahrnehmungsorgan: Alchimist nutzt ihn zur Anschauung übersinnlicher Naturkräfte",
+              "zitat": "Er hat in seinem Innern Erlebnisse herbeigeführt, die durch ihre Wirkung die Seele befähigen, den Bildekräfteleib als Wahrnehmungsorgan zu gebrauchen. Durch dieses Wahrnehmungsorgan gelangt er zur Anschauung der übersinnlichen Naturkräfte.",
+              "id": "GA035/13",
+              "index": "l7py6i",
+              "ref": "GA035/13:l7py6i",
+              "fileName": "GA035/13 - DIE CHYMISCHE HOCHZEIT DES CHRISTIAN ROSENKREUTZ",
+              "title": "DIE CHYMISCHE HOCHZEIT DES CHRISTIAN ROSENKREUTZ",
+              "relevance": "mittel",
+              "date": "",
+              "year": ""
+            },
+            {
+              "aussage": "Imaginationen des Mystikers: zu Imaginationen verdichtete Vorstellungen als Offenbarung der Bildekräfte",
+              "zitat": "Die Vorstellungen, die dann entstehen, sind zu Imaginationen verdichtet. Diese Imaginationen sind Offenbarungen der Kräfte, mit denen der Bildekräfteleib an dem physischen Leib wirkt. Sie bleiben dem gewöhnlichen Bewusstsein verborgen.",
+              "id": "GA035/13",
+              "index": "l7py6i",
+              "ref": "GA035/13:l7py6i",
+              "fileName": "GA035/13 - DIE CHYMISCHE HOCHZEIT DES CHRISTIAN ROSENKREUTZ",
+              "title": "DIE CHYMISCHE HOCHZEIT DES CHRISTIAN ROSENKREUTZ",
+              "relevance": "mittel",
+              "date": "",
+              "year": ""
+            }
+          ]
+        },
+        {
+          "title": "Geistiges Bild und Wiedergeburt der Dinge im Erkenntnisvorgang",
+          "rows": [
+            {
+              "aussage": "Geistige Wiedergeburt der Dinge: Wissen auf höherer Stufe, nicht bloße Wiederholung",
+              "zitat": "Aber es handelt sich nur so lange um eine bloße Wiederholung, als ich nicht mit meinem eigenen Selbst den in mich aufgenommenen geistigen Inhalt der Dinge zu einem höheren Dasein erwecke. Geschieht dies, dann habe ich das Wesen der Dinge in mir nicht wiederholt, sondern ich habe es auf einer höheren Stufe wiedergeboren.",
+              "id": "GA007",
+              "index": "iyj24c",
+              "ref": "GA007:iyj24c",
+              "fileName": "GA007-Die Mystik im Aufgange des neuzeitlichen Geisteslebens und ihr Verhältnis zur modernen Weltanschauung (1901)",
+              "title": "Die Mystik im Aufgange des neuzeitlichen Geisteslebens und ihr Verhältnis zur modernen Weltanschauung (1901)",
+              "relevance": "mittel",
+              "date": "1901",
+              "year": "1901"
+            },
+            {
+              "aussage": "Vorgang vollzieht sich zweimal: einmal draußen, einmal geistig im Innern",
+              "zitat": "In der Tat aber bleibt es nicht dabei. Der ganze Vorgang vollzieht sich zweimal. Einmal draußen; und da sieht ihn mein Auge; dann lässt mein Geist den ganzen Vorgang noch einmal entstehen, auf geistige Weise.",
+              "id": "GA007",
+              "index": "iyj24c",
+              "ref": "GA007:iyj24c",
+              "fileName": "GA007-Die Mystik im Aufgange des neuzeitlichen Geisteslebens und ihr Verhältnis zur modernen Weltanschauung (1901)",
+              "title": "Die Mystik im Aufgange des neuzeitlichen Geisteslebens und ihr Verhältnis zur modernen Weltanschauung (1901)",
+              "relevance": "mittel",
+              "date": "1901",
+              "year": "1901"
+            },
+            {
+              "aussage": "Innerer Sinn: sieht nur Geist, lässt äußeres Sinnendasein als geistige Wesenheit erstehen",
+              "zitat": "Der innere Sinn lässt in sich das äußere Sinnendasein als geistige Wesenheit auf einer höheren Stufe erstehen. Ein äußeres Ding ist ganz erkannt, wenn kein Teil an ihm ist, der nicht in dieser Art eine geistige Wiedergeburt erlebt hat.",
+              "id": "GA007",
+              "index": "iyj24c",
+              "ref": "GA007:iyj24c",
+              "fileName": "GA007-Die Mystik im Aufgange des neuzeitlichen Geisteslebens und ihr Verhältnis zur modernen Weltanschauung (1901)",
+              "title": "Die Mystik im Aufgange des neuzeitlichen Geisteslebens und ihr Verhältnis zur modernen Weltanschauung (1901)",
+              "relevance": "mittel",
+              "date": "1901",
+              "year": "1901"
+            }
+          ]
+        },
+        {
+          "title": "Übersinnliches Bild-Erleben: Troxlers übergeistiger Sinn und geistige Bilder",
+          "rows": [
+            {
+              "aussage": "Troxler: übersinnliches Erlebnis ergießt sich in Bild – geistig-anschauliche Versinnlichung",
+              "zitat": "Im geistigen Erkenntnisvorgange liegt das übersinnliche Erlebnis vor; dieses könnte als solches nicht angeschaut werden, wenn es sich nicht durch eine dem Geist naturgemäße Kraft in das Bild ergösse, das sie zur geistiganschaulichen Versinnlichung bringt.",
+              "id": "GA020",
+              "index": "czs7j9",
+              "ref": "GA020:czs7j9",
+              "fileName": "GA020 - Vom Menschenrätsel (1916)",
+              "title": "Vom Menschenrätsel (1916)",
+              "relevance": "mittel",
+              "date": "1916",
+              "year": "1916"
+            },
+            {
+              "aussage": "Bilder des übergeistigen Sinnes: nicht von Sinnen empfangen, aber lebensvoll wie Sinnesbilder",
+              "zitat": "Diese Bilder sind nicht von den Sinnen empfangen; aber sie sind lebensvoll wie die Sinnesbilder; sie sind nicht Ergebnisse einer Träumerei, sondern die von der Seele bildhaft festgehaltenen Erlebnisse in der übersinnlichen Welt.",
+              "id": "GA020",
+              "index": "czs7j9",
+              "ref": "GA020:czs7j9",
+              "fileName": "GA020 - Vom Menschenrätsel (1916)",
+              "title": "Vom Menschenrätsel (1916)",
+              "relevance": "mittel",
+              "date": "1916",
+              "year": "1916"
+            }
+          ]
+        },
+        {
+          "title": "Seele nach dem Tod: Fortbestand und leibfreies Bewusstsein",
+          "rows": [
+            {
+              "aussage": "Leibfreies Bewusstsein: durch Seelenübungen gefunden, hält sich durch aufeinanderfolgende Leben hindurch",
+              "zitat": "Es ist also das geschilderte andere Bewusstsein dasjenige, das sich hindurcherhält durch die aufeinanderfolgenden Leben der Seele und durch die rein geistigen Leben zwischen Tod und Geburt.",
+              "id": "GA018/4",
+              "index": "8qgz4d",
+              "ref": "GA018/4:8qgz4d",
+              "fileName": "GA018/4 - SKIZZENHAFT DARGESTELLTER AUSBLICK AUF EINE ANTHROPOSOPHIE",
+              "title": "SKIZZENHAFT DARGESTELLTER AUSBLICK AUF EINE ANTHROPOSOPHIE",
+              "relevance": "mittel",
+              "date": "",
+              "year": ""
+            },
+            {
+              "aussage": "Physischer Leib verdunkelt das andere Bewusstsein: nach Auflösung des Leibes kein Auslöschen mehr",
+              "zitat": "Mit der Einverleibung in den physischen Körper wirkt dieser so stark auf die Seele, dass sie das charakterisierte andere Bewusstsein im gewöhnlichen Leben nicht zur Entfaltung bringen kann ... Dieses Auslöschen kann nach der Auflösung des Leibes nicht mehr stattfinden.",
+              "id": "GA018/4",
+              "index": "8qgz4d",
+              "ref": "GA018/4:8qgz4d",
+              "fileName": "GA018/4 - SKIZZENHAFT DARGESTELLTER AUSBLICK AUF EINE ANTHROPOSOPHIE",
+              "title": "SKIZZENHAFT DARGESTELLTER AUSBLICK AUF EINE ANTHROPOSOPHIE",
+              "relevance": "mittel",
+              "date": "",
+              "year": ""
+            }
+          ]
+        },
+        {
+          "title": "Vergessen und Erinnern als seelische Kräfte im Krankheitsprozess",
+          "rows": [
+            {
+              "aussage": "Chronische Krankheit: Unfähigkeit, den Zustand gründlich zu vergessen, als Hemmnis der Heilung",
+              "zitat": "Er wird durch das, was man nennen kann das fortwährende Denken an den andern Teil der Organisation, veranlasst, gleichsam seinen gesunden Teil wieder in irgendeinen Zusammenhang zu bringen mit dem früher kranken Teil und diesen so neuerdings zu irritieren.",
+              "id": "GA120/5",
+              "index": "6yhl07",
+              "ref": "GA120/5:6yhl07",
+              "fileName": "GA120/5 - FÜNFTER VORTRAG, Hamburg, 20. Mai 1910",
+              "title": "FÜNFTER VORTRAG",
+              "relevance": "niedrig",
+              "date": "1910-05-20",
+              "year": "1910"
+            },
+            {
+              "aussage": "Positives Vergessen: Seelenkräfte auf geistigen Inhalt lenken befreit von Krankheitsgefühlen",
+              "zitat": "Könnte er seinen Zustand vergessen, ganz von ihm absehen, mit starkem Willen sagen: Ich will mich jetzt nicht kümmern um meinen Zustand! - und würde er sodann die Seelenkräfte, welche er dadurch frei bekommt, auf etwas von geistigem Inhalt verwenden, was ihn erhebt, was ihn innerlich sättigt in seiner Seele, würde er diese Kräfte ... frei bekommen, so würde ihm das eine große Befriedigung gewähren.",
+              "id": "GA120/5",
+              "index": "6yhl07",
+              "ref": "GA120/5:6yhl07",
+              "fileName": "GA120/5 - FÜNFTER VORTRAG, Hamburg, 20. Mai 1910",
+              "title": "FÜNFTER VORTRAG",
+              "relevance": "niedrig",
+              "date": "1910-05-20",
+              "year": "1910"
+            }
+          ]
+        },
+        {
+          "title": "Erinnerung und Gedächtnis in der experimentellen Psychologie",
+          "rows": [
+            {
+              "aussage": "Experimentalpsychologie: Abnahme der Erinnerungsstärke mit der Zeit messbar",
+              "zitat": "Man erforscht durch ähnlich geistreiche Vorkehrungen die Abnahme der Stärke einer Erinnerung mit der Zeit, die verflossen ist, seit ein Eindruck dem Gedächtnisse einverleibt worden ist; man kann erkennen, wie rasch sich eine neue Vorstellung an eine alte angliedert.",
+              "id": "GA030/39",
+              "index": "je7atd",
+              "ref": "GA030/39:je7atd",
+              "fileName": "GA030/39 - MODERNE SEELENFORSCHUNG (1901)",
+              "title": "MODERNE SEELENFORSCHUNG (1901)",
+              "relevance": "niedrig",
+              "date": "",
+              "year": ""
+            },
+            {
+              "aussage": "Ebbinghaus: wertvolle Leistungen auf dem Feld der Gedächtniserscheinungen",
+              "zitat": "Hermann Ebbinghaus auf dem der Gedächtniserscheinungen Wertvolles geleistet.",
+              "id": "GA030/39",
+              "index": "je7atd",
+              "ref": "GA030/39:je7atd",
+              "fileName": "GA030/39 - MODERNE SEELENFORSCHUNG (1901)",
+              "title": "MODERNE SEELENFORSCHUNG (1901)",
+              "relevance": "niedrig",
+              "date": "",
+              "year": ""
+            }
+          ]
+        },
+        {
+          "title": "Dämon und Wiederverkörperung: Erinnerung früherer Leben im Geist",
+          "rows": [
+            {
+              "aussage": "Heraklit: Dämon als Schicksal – Seele blickt auf zahlreiche vergangene und künftige Leben",
+              "zitat": "Wie auf zahlreiche Gestern rückwärts und auf zahlreiche Morgen vorwärts der irdische Mensch, so blickt die Seele des Weisen auf zahlreiche Leben in der Vergangenheit und zahlreiche Leben in der Zukunft.",
+              "id": "GA008",
+              "index": "e803ic",
+              "ref": "GA008:e803ic",
+              "fileName": "GA008 - Das Christentum als mystische Tatsache und die Mysterien des Altertums (1902)",
+              "title": "Das Christentum als mystische Tatsache und die Mysterien des Altertums (1902)",
+              "relevance": "niedrig",
+              "date": "1902",
+              "year": "1902"
+            },
+            {
+              "aussage": "Geistiger Erwerb früherer Leben: was man 'kann', wurde in früherem Leben erworben",
+              "zitat": "Aber einen 'genialen Blick' soll der eine oder der andere haben auf bloß wunderbare Weise. Nein, auch dieser 'geniale Blick' muss erworben sein: er muss gelernt sein. Und tritt er in einer Persönlichkeit auf, so nennen wir ihn ein Geistiges. Aber dieses Geistige hat eben auch erst gelernt; es hat sich in einem früheren Leben erworben, was es in einem späteren 'kann'.",
+              "id": "GA008",
+              "index": "e803ic",
+              "ref": "GA008:e803ic",
+              "fileName": "GA008 - Das Christentum als mystische Tatsache und die Mysterien des Altertums (1902)",
+              "title": "Das Christentum als mystische Tatsache und die Mysterien des Altertums (1902)",
+              "relevance": "niedrig",
+              "date": "1902",
+              "year": "1902"
+            }
+          ]
+        },
+        {
+          "title": "Reines Denken als erste Stufe übersinnlicher Erkenntnis und schauendes Bewusstsein",
+          "rows": [
+            {
+              "aussage": "Schauendes Bewusstsein: reines Denken als erste, schattenhafte Offenbarung geistiger Erkenntnisstufen",
+              "zitat": "Ich sehe in diesem reinen Denken die erste, noch schattenhafte Offenbarung der geistigen Erkenntnisstufen. Man kann aus meinen späteren Schriften überall ersehen, dass ich als höhere geistige Erkenntniskräfte nur diejenigen anzusehen vermag, die der Mensch in einer ebensolchen Art entwickelt wie das reine Denken.",
+              "id": "GA035/12",
+              "index": "dngfp7",
+              "ref": "GA035/12:dngfp7",
+              "fileName": "GA035/12 - DIE GEISTESWISSENSCHAFT ALS ANTHROPOSOPHIE UND DIE ZEITGENÖSSISCHE ERKENNTNISTHEORIE PERSÖNLICH-UNPERSÖNLICHES",
+              "title": "DIE GEISTESWISSENSCHAFT ALS ANTHROPOSOPHIE UND DIE ZEITGENÖSSISCHE ERKENNTNISTHEORIE PERSÖNLICH-UNPERSÖNLICHES",
+              "relevance": "niedrig",
+              "date": "",
+              "year": ""
+            }
+          ]
+        },
+        {
+          "title": "Weigel: Erkenntnis fließt aus dem Innern – Bild und Gegenwurf",
+          "rows": [
+            {
+              "aussage": "Weigel: Erkenntnis fließt nicht vom Objekt ins Auge, sondern vom Innern in den Gegenwurf",
+              "zitat": "Was dieses sinnliche Ding draußen ist, das fließet nicht von außen herein in den Menschen, sondern von innen heraus.",
+              "id": "GA007",
+              "index": "z725rr",
+              "ref": "GA007:z725rr",
+              "fileName": "GA007-Die Mystik im Aufgange des neuzeitlichen Geisteslebens und ihr Verhältnis zur modernen Weltanschauung (1901)",
+              "title": "Die Mystik im Aufgange des neuzeitlichen Geisteslebens und ihr Verhältnis zur modernen Weltanschauung (1901)",
+              "relevance": "niedrig",
+              "date": "1901",
+              "year": "1901"
+            },
+            {
+              "aussage": "Höhere Erkenntnis als Wiedergeburt des Wissens auf der Stufe des Schauens",
+              "zitat": "Dieses 'Licht der Gnaden' ist in Wirklichkeit nichts anderes als die Selbsterkenntnis des Geistes im Menschen, oder die Wiedergeburt des Wissens auf der höheren Stufe des Schauens.",
+              "id": "GA007",
+              "index": "z725rr",
+              "ref": "GA007:z725rr",
+              "fileName": "GA007-Die Mystik im Aufgange des neuzeitlichen Geisteslebens und ihr Verhältnis zur modernen Weltanschauung (1901)",
+              "title": "Die Mystik im Aufgange des neuzeitlichen Geisteslebens und ihr Verhältnis zur modernen Weltanschauung (1901)",
+              "relevance": "niedrig",
+              "date": "1901",
+              "year": "1901"
+            }
+          ]
+        }
+      ],
+      "curated": true
+    },
+    "rechercheScope": {
+      "sourceType": "alle",
+      "themeArea": ""
+    },
+    "timestamp": "2026-07-12T13:11:29.523Z"
   }
 }
