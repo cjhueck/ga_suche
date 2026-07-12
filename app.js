@@ -16287,7 +16287,7 @@ function scrollToChronologicalYear(year) {
         case 'broad': return 300;
         case 'quote': return 250;
         case 'essay': return 150;
-        case 'recherche': return 1200;
+        case 'recherche': return 300;
         case 'internet': return 100;
         case 'chat': return 40;
         default: return 100;
@@ -16550,7 +16550,9 @@ function scrollToChronologicalYear(year) {
         const viewer = document.getElementById('viewer');
         if (viewer) {
           const chatActive = window.ThematicChatUI?.isChatOutputModeActive?.();
-          const waitMsg = thematicMode === 'internet'
+          const waitMsg = thematicMode === 'recherche'
+            ? 'Recherche wird zusammengestellt (Unterthemen und Aussagen, kann 1–3 Minuten dauern)…'
+            : thematicMode === 'internet'
             ? (chatActive
               ? 'Chat mit Internet-Recherche wird erstellt, bitte warten (kann etwas länger dauern).'
               : 'GA-Analyse und Internet-Recherche werden durchgeführt, bitte warten (kann etwas länger dauern).')
@@ -16584,8 +16586,7 @@ function scrollToChronologicalYear(year) {
           limit = 150;
           preferredProvider = 'claude';
         } else if (thematicMode === 'recherche') {
-          // Breiter Kandidaten-Pool; Backend kürzt vor dem LLM-Aufruf nach Token-Budget.
-          limit = 1200;
+          limit = 300;
           preferredProvider = 'claude';
         } else if (thematicMode === 'internet') {
           const chatActive = window.ThematicChatUI?.isChatOutputModeActive?.();
@@ -16611,6 +16612,11 @@ function scrollToChronologicalYear(year) {
           rechercheThemeArea = (taEl && taEl.value && taEl.value !== 'alle') ? taEl.value : '';
         }
         
+        const isChatLikeMode = thematicMode === 'chat' || thematicMode === 'internet';
+        const conversationHistory = isChatLikeMode
+          ? (window.ThematicChatUI?.getConversationHistory?.() || [])
+          : [];
+
         const response = await fetch(`${API_BASE}/api/thematic-hybrid-search`, {
           method: 'POST',
           keepalive: true,
@@ -16624,9 +16630,9 @@ function scrollToChronologicalYear(year) {
             thematicMode: thematicMode,
             sourceType: rechercheSourceType,
             themeArea: rechercheThemeArea,
-            conversationHistory: window.ThematicChatUI?.getConversationHistory?.() || [],
-            skipCache: !!(window.ThematicChatUI?.getConversationHistory?.()?.length) || thematicMode === 'internet' || thematicMode === 'chat',
-            chatMode: !!(window.ThematicChatUI?.isChatOutputModeActive?.())
+            conversationHistory,
+            skipCache: conversationHistory.length > 0 || thematicMode === 'internet' || thematicMode === 'chat',
+            chatMode: isChatLikeMode && !!(window.ThematicChatUI?.isChatOutputModeActive?.())
           })
         });
         
@@ -16654,8 +16660,9 @@ function scrollToChronologicalYear(year) {
         
         // GA-Filter wird jetzt bereits im Backend angewendet
         currentSources = sources;
-        if (thematicMode === 'recherche' && answer.recherche) {
-          renderRechercheResults(query, answer.recherche, (gaFilter || ''), {
+        ensureThematicMainViewerVisible();
+        if (thematicMode === 'recherche') {
+          renderRechercheResults(query, answer.recherche || { intro: '', subThemes: [] }, (gaFilter || ''), {
             sourceType: rechercheSourceType,
             themeArea: rechercheThemeArea
           });
@@ -21492,6 +21499,7 @@ function formatAsteriskParagraphs() {
     window.bindThematicGaLinksInViewer = bindThematicGaLinksInViewer;
     
     function renderRechercheResults(query, recherche, appliedGA = '', scope = {}) {
+      ensureThematicMainViewerVisible();
       const container = document.getElementById('viewer');
       if (!container) return;
 
@@ -21521,6 +21529,13 @@ function formatAsteriskParagraphs() {
 
       const subThemes = (recherche && Array.isArray(recherche.subThemes)) ? recherche.subThemes : [];
       const totalRows = subThemes.reduce((n, st) => n + ((st.rows && st.rows.length) || 0), 0);
+      const isFallback = !!(recherche && recherche.fallback);
+      const introNote = recherche && recherche.intro
+        ? `<p style="color: var(--secondary-text); margin: 0 0 0.75rem 0;">${esc(recherche.intro)}</p>`
+        : '';
+      const fallbackNote = isFallback
+        ? `<p style="color: var(--secondary-text); margin: 0 0 0.75rem 0; padding: 0.5rem 0.75rem; border-left: 3px solid var(--accent-color); background: var(--bg-secondary, rgba(0,0,0,0.03));">Hinweis: Die KI-Tabelle war leer oder unvollständig. Es werden die besten Suchtreffer aus dem Korpus angezeigt (${totalRows} Stellen).</p>`
+        : '';
 
       // currentLectureData zuruecksetzen (kein Einzeltext geladen)
       currentThematicQuery = query;
@@ -21553,6 +21568,8 @@ function formatAsteriskParagraphs() {
             <div style="display: flex; flex-direction: column; align-items: flex-end; gap: 8px;">${deleteButtonHTML}</div>
           </div>
           <p style="color: var(--secondary-text); margin: 0 0 0.75rem 0;"><span style="font-style: italic;">(Aus technischen Gründen liefert die Recherche keine vollständige Auflistung sämtlicher Textstellen Steiners zum gesuchten Thema. Für eine vollständige Suche verwenden Sie bitte die <a href="#" onclick="switchTab('keyword'); return false;" style="color: var(--link-color); text-decoration: underline; cursor: pointer;">Suchfunktion</a>.)</span></p>
+          ${introNote}
+          ${fallbackNote}
           <div id="rechercheControlsBar" style="display: flex; flex-wrap: wrap; align-items: center; gap: 14px; margin: 0.25rem 0 1rem 0; padding-bottom: 0.6rem; border-bottom: 1px solid var(--border-color); font-size: 0.85em;">
             <div style="display: flex; align-items: center; gap: 6px;">
               <span style="color: var(--secondary-text);">Ansicht:</span>
@@ -21634,7 +21651,9 @@ function formatAsteriskParagraphs() {
         }
 
         if (shown === 0) {
-          html = `<p style="color: var(--secondary-text); font-style: italic;">Keine Aussagen für die gewählte Relevanzstufe.</p>`;
+          html = totalRows === 0
+            ? `<p style="color: var(--secondary-text); font-style: italic;">Für „${esc(query)}“ wurden im Textkorpus keine passenden Stellen gefunden. Bitte Schreibweise prüfen oder die <a href="#" onclick="switchTab('keyword'); return false;" style="color: var(--link-color);">Stichwortsuche</a> verwenden.</p>`
+            : `<p style="color: var(--secondary-text); font-style: italic;">Keine Aussagen für die gewählte Relevanzstufe (${totalRows} insgesamt).</p>`;
         }
         tablesEl.innerHTML = html;
         if (countInfoEl) countInfoEl.textContent = `${shown} von ${totalRows} Aussagen`;
@@ -21700,6 +21719,7 @@ function formatAsteriskParagraphs() {
     }
 
     function renderThematicResults(query, content, sources, appliedGA = '') {
+      ensureThematicMainViewerVisible();
       // Zeige Ergebnisse im Main Viewer (wie bei Index-Tab), nicht im linken Panel
       let container = document.getElementById('viewer');
       if (!container) {

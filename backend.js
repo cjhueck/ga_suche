@@ -5499,6 +5499,20 @@ async function generateAnalysis(query, results, depth = 'allgemein', preferredPr
     topResults = prioritized.slice(0, 45);
     console.log(`[ANALYSIS] Zitatsuche: Quellen ${results.length} → ${topResults.length} für LLM gekürzt`);
   }
+
+  // Recherche: breiter Retrieval-Pool. Keine feste Stückzahl – Kürzung nur
+  // nach Prompt-Budget (MAX_PROMPT_CHARS) weiter unten in generateAnalysis.
+  if (thematicMode === 'recherche' && topResults.length > 0) {
+    const hardCap = Number(process.env.RECHERCHE_MAX_SOURCES) || 0;
+    if (hardCap > 0 && topResults.length > hardCap) {
+      topResults = [...topResults]
+        .sort((a, b) => (b.finalScore || 0) - (a.finalScore || 0))
+        .slice(0, hardCap);
+      console.log(`[RECHERCHE] Quellen ${results.length} → ${topResults.length} für LLM gekürzt (RECHERCHE_MAX_SOURCES)`);
+    } else {
+      console.log(`[RECHERCHE] ${topResults.length} Quellen ans LLM (dynamische Kürzung nach Prompt-Budget)`);
+    }
+  }
   
   // Provider-spezifische Limits (Zeichen, ca. 4 Zeichen pro Token)
   const providerName = provider.name?.toLowerCase() || 'claude';
@@ -5511,7 +5525,7 @@ async function generateAnalysis(query, results, depth = 'allgemein', preferredPr
   } else {
     // Claude: ~100k Tokens Kontext (von 200k Eingabe-Limit). Im Recherche-Modus
     // moderates Kontext-Budget für schnellere Antworten bei weiterhin breitem Pool.
-    MAX_PROMPT_CHARS = thematicMode === 'recherche' ? 450000 : 400000;
+    MAX_PROMPT_CHARS = thematicMode === 'recherche' ? 200000 : 400000;
   }
   
   // Erstelle Test-Prompt um Länge zu schätzen
@@ -5583,7 +5597,7 @@ async function generateAnalysis(query, results, depth = 'allgemein', preferredPr
     'broad': 32000,  // Breite Sammlung: Gemini 2.5 Flash unterstützt bis 65k
     'quote': 6000,   // Zitatsuche: ein bis wenige Zitate mit kurzer Begründung
     'essay': 16000,  // Essay-Modus: Synthese + Belege, braucht Raum
-    'recherche': Number(process.env.RECHERCHE_MAX_TOKENS) || 20000, // Recherche: strukturiertes JSON (kleineres Budget = schnellere Antwort)
+    'recherche': Number(process.env.RECHERCHE_MAX_TOKENS) || 16000,
     'chat': 3000     // Chat-Modus: dialogische Kurzantwort
   };
   
@@ -5970,6 +5984,8 @@ ${directRefIds}
 
 Anzahl Textpassagen: ${topResults.length}
 
+WICHTIG: Wenn zu den Textpassagen inhaltlich passendes Material vorliegt, darf "subThemes" NICHT leer sein. Extrahiere so viele verschiedene Aussagen wie das Material hergibt (typisch 25–70 Zeilen bei breitem Material).
+
 TEXTPASSAGEN:
 ${contextText}
 
@@ -6330,7 +6346,7 @@ ${noWebSection}`;
     // Datums-Anreicherung erfolgen im Endpoint (buildRechercheData). Die
     // Markdown-/Link-Transformationen wuerden das JSON zerstoeren.
     if (thematicMode === 'recherche') {
-      return analysisText;
+      return { text: analysisText, llmSources: topResults };
     }
 
     analysisText = addClickableReferences(analysisText, topResults);
@@ -6563,7 +6579,7 @@ async function resolveRechercheScope(sourceType, themeArea, gaFilter) {
 function buildThematicCacheDepth(thematicMode, sourceType, themeArea, fallbackDepth) {
   const themeSeg = (themeArea || 'alle').toLowerCase();
   if (thematicMode === 'recherche') {
-    return `recherche:${sourceType}:${themeSeg}`;
+    return `recherche:v3:${sourceType}:${themeSeg}`;
   }
   if (thematicMode !== 'chat' && (sourceType !== 'alle' || (themeArea && themeArea !== 'alle'))) {
     return `${thematicMode}:${sourceType}:${themeSeg}`;
@@ -6571,9 +6587,144 @@ function buildThematicCacheDepth(thematicMode, sourceType, themeArea, fallbackDe
   return fallbackDepth;
 }
 
+function isRechercheCacheUsable(rechercheData) {
+  if (!rechercheData || countRechercheRows(rechercheData) === 0) return false;
+  if (rechercheData.fallback) return false;
+  if (rechercheData.curated === true) return true;
+  // Alte Cache-Einträge ohne Flag: Schnellmodus-Sektionen erkennen und verwerfen
+  const fallbackTitles = new Set(['Direkte Texttreffer', 'Weitere thematische Treffer', 'Suchtreffer']);
+  const titles = (rechercheData.subThemes || []).map((st) => String(st.title || '').trim());
+  if (titles.length > 0 && titles.every((t) => fallbackTitles.has(t))) return false;
+  return titles.length > 0;
+}
+
+function countRechercheRows(rechercheData) {
+  if (!rechercheData || !Array.isArray(rechercheData.subThemes)) return 0;
+  return rechercheData.subThemes.reduce((n, st) => n + ((st.rows && st.rows.length) || 0), 0);
+}
+
+function lookupRechercheDate(id) {
+  const lec = fullLectures[id];
+  if (lec && lec.date) {
+    const m = String(lec.date).match(/\d{4}/);
+    return { date: lec.date, year: m ? m[0] : '' };
+  }
+  const book = fullBooks[id];
+  if (book && (book.yearRange || book.date)) {
+    const raw = book.yearRange || book.date;
+    const m = String(raw).match(/\d{4}/);
+    return { date: raw, year: m ? m[0] : '' };
+  }
+  return { date: '', year: '' };
+}
+
+function buildRechercheFallbackFromResults(query, results, maxRows = 80, options = {}) {
+  const prioritized = [...results]
+    .sort((a, b) => {
+      const rank = (r) => {
+        let score = r.finalScore || r.keywordScore || 0;
+        if (r.quoteExactMatch) score += 10000;
+        else if (!r.expandedMatch && !r.semanticMatch) score += 1000;
+        return score;
+      };
+      return rank(b) - rank(a);
+    })
+    .slice(0, maxRows);
+
+  const exactRows = [];
+  const otherRows = [];
+  prioritized.forEach((r) => {
+    if (!r.ID || r.index == null) return;
+    const cleanIndex = String(r.index).replace(/^\^/, '');
+    const content = String(r.content || '').replace(/\s+/g, ' ').trim();
+    if (!content) return;
+    const zitat = content.length > 420 ? `${content.slice(0, 417)}…` : content;
+    const termHint = (r.matchedTerms || [])
+      .map((t) => String(t).replace(/^\[[^\]]+\]$/, '').replace(/^"|"$/g, ''))
+      .filter((t) => t && !t.startsWith('['))
+      .slice(0, 2)
+      .join(' · ');
+    const aussage = termHint || query;
+    const { date, year } = lookupRechercheDate(r.ID);
+    const row = {
+      aussage,
+      zitat,
+      id: r.ID,
+      index: cleanIndex,
+      ref: `${r.ID}:${cleanIndex}`,
+      fileName: r.fileName || '',
+      title: r.title || '',
+      relevance: r.quoteExactMatch ? 'hoch' : ((r.expandedMatch || r.semanticMatch) ? 'mittel' : 'hoch'),
+      date,
+      year
+    };
+    if (r.quoteExactMatch) exactRows.push(row);
+    else otherRows.push(row);
+  });
+
+  const subThemes = [];
+  if (exactRows.length > 0) {
+    subThemes.push({ title: 'Direkte Texttreffer', rows: exactRows });
+  }
+  if (otherRows.length > 0) {
+    subThemes.push({ title: 'Weitere thematische Treffer', rows: otherRows });
+  }
+
+  return {
+    intro: options.fastMode
+      ? 'Tabellarische Sammlung der besten Suchtreffer (Schnellmodus, ohne KI-Synthese).'
+      : 'Die KI-Auswertung lieferte keine verwertbare Tabelle. Es werden deshalb die besten Suchtreffer aus dem Textkorpus angezeigt.',
+    subThemes,
+    fallback: !options.fastMode
+  };
+}
+
+function rechercheUsesLlm() {
+  // Standard: KI-Tabelle (Unterthemen + telegrammartige Aussagen). Nur mit RECHERCHE_FAST=true überspringen.
+  return process.env.RECHERCHE_FAST !== 'true';
+}
+
+async function generateRechercheAnalysis(query, topResults, effectiveDepth, preferredProvider, effectiveConversationHistory, useFormalAddress, effectiveChatMode, webContext) {
+  if (!rechercheUsesLlm()) return null;
+  const timeoutMs = Number(process.env.RECHERCHE_LLM_TIMEOUT_MS) || 0;
+  try {
+    const call = generateAnalysis(query, topResults, effectiveDepth, preferredProvider, 'recherche', effectiveConversationHistory, useFormalAddress, effectiveChatMode, webContext);
+    if (timeoutMs > 0) {
+      return await Promise.race([
+        call,
+        new Promise((_, reject) => setTimeout(() => reject(new Error('RECHERCHE_LLM_TIMEOUT')), timeoutMs))
+      ]);
+    }
+    return await call;
+  } catch (err) {
+    console.warn(`[RECHERCHE] LLM fehlgeschlagen (${err.message})`);
+    return null;
+  }
+}
+
+function tryRepairTruncatedRechercheJson(text) {
+  const start = String(text || '').indexOf('{');
+  if (start === -1) return null;
+  let fragment = String(text).slice(start).trim();
+  fragment = fragment.replace(/,\s*$/, '');
+  const openBraces = (fragment.match(/\{/g) || []).length;
+  const closeBraces = (fragment.match(/\}/g) || []).length;
+  const openBrackets = (fragment.match(/\[/g) || []).length;
+  const closeBrackets = (fragment.match(/\]/g) || []).length;
+  for (let i = 0; i < openBrackets - closeBrackets; i++) fragment += ']';
+  for (let i = 0; i < openBraces - closeBraces; i++) fragment += '}';
+  try {
+    const parsed = JSON.parse(fragment);
+    return Array.isArray(parsed.subThemes) ? parsed : null;
+  } catch (_) {
+    return null;
+  }
+}
+
 // Parst die JSON-Ausgabe des Recherche-Prompts, validiert die Referenzen gegen
 // den Quellenpool und reichert Datum/Jahr aus den Vortrags-/Buch-Metadaten an.
-function buildRechercheData(jsonText, results) {
+function buildRechercheData(jsonText, results, llmSources = null) {
+  const refPool = Array.isArray(llmSources) && llmSources.length > 0 ? llmSources : results;
   // Ref -> Metadaten-Mapping (analog addClickableReferences)
   const refToDataMapping = {};
   results.forEach(result => {
@@ -6585,25 +6736,78 @@ function buildRechercheData(jsonText, results) {
         title: result.title,
         fileName: result.fileName
       };
-      refToDataMapping[`${result.ID}:${result.index}`.toLowerCase()] = mapping;
-      refToDataMapping[`${result.ID}:${cleanIndex}`.toLowerCase()] = mapping;
+      const keys = new Set([
+        `${result.ID}:${result.index}`,
+        `${result.ID}:${cleanIndex}`,
+        `${result.ID}:^${cleanIndex}`
+      ]);
+      const gaBase = String(result.ID).match(/^(GA\d{1,3}[a-z]?)/i);
+      if (gaBase) {
+        keys.add(`${gaBase[1]}:${cleanIndex}`);
+        keys.add(`${gaBase[1]}:^${cleanIndex}`);
+      }
+      keys.forEach((k) => {
+        refToDataMapping[k.toLowerCase()] = mapping;
+      });
     }
   });
 
-  // Datum/Jahr aus Metadaten
-  const lookupDate = (id) => {
-    const lec = fullLectures[id];
-    if (lec && lec.date) {
-      const m = String(lec.date).match(/\d{4}/);
-      return { date: lec.date, year: m ? m[0] : '' };
+  const resolveRechercheRef = (ref) => {
+    const cleaned = String(ref || '').trim().replace(/^\(|\)$/g, '');
+    if (!cleaned) return null;
+
+    const lastColon = cleaned.lastIndexOf(':');
+    if (lastColon === -1) {
+      const idOnly = cleaned.toLowerCase();
+      const byLecture = results.find((r) => r.ID && String(r.ID).toLowerCase() === idOnly);
+      if (byLecture) {
+        return {
+          id: byLecture.ID,
+          index: String(byLecture.index).replace(/^\^/, ''),
+          title: byLecture.title,
+          fileName: byLecture.fileName
+        };
+      }
+      return null;
     }
-    const book = fullBooks[id];
-    if (book && (book.yearRange || book.date)) {
-      const raw = book.yearRange || book.date;
-      const m = String(raw).match(/\d{4}/);
-      return { date: raw, year: m ? m[0] : '' };
+
+    const idPart = cleaned.substring(0, lastColon);
+    const idxPart = cleaned.substring(lastColon + 1).replace(/^\^/, '');
+    const direct = refToDataMapping[`${idPart}:${idxPart}`.toLowerCase()]
+                || refToDataMapping[`${idPart}:^${idxPart}`.toLowerCase()];
+    if (direct) return direct;
+
+    const normIdx = idxPart.toLowerCase();
+    const idLower = idPart.toLowerCase();
+    const fuzzy = results.find((r) => {
+      if (!r.ID || r.index == null) return false;
+      const rIdx = String(r.index).replace(/^\^/, '').toLowerCase();
+      if (rIdx !== normIdx) return false;
+      const rId = String(r.ID).toLowerCase();
+      return rId === idLower
+        || rId.startsWith(idLower + '/')
+        || idLower === rId.split('/')[0];
+    });
+    if (fuzzy) {
+      return {
+        id: fuzzy.ID,
+        index: String(fuzzy.index).replace(/^\^/, ''),
+        title: fuzzy.title,
+        fileName: fuzzy.fileName
+      };
     }
-    return { date: '', year: '' };
+
+    // Nur Vortrags-ID ohne Index: besten Treffer aus dem Pool nehmen
+    const lectureMatch = results.find((r) => r.ID && String(r.ID).toLowerCase() === idLower);
+    if (lectureMatch) {
+      return {
+        id: lectureMatch.ID,
+        index: String(lectureMatch.index).replace(/^\^/, ''),
+        title: lectureMatch.title,
+        fileName: lectureMatch.fileName
+      };
+    }
+    return null;
   };
 
   // JSON robust extrahieren (evtl. Codefences oder Begleittext entfernen)
@@ -6619,12 +6823,30 @@ function buildRechercheData(jsonText, results) {
       if (start !== -1 && end !== -1 && end > start) {
         try { parsed = JSON.parse(cleaned.substring(start, end + 1)); } catch (_) {}
       }
+      if (!parsed) {
+        parsed = tryRepairTruncatedRechercheJson(cleaned);
+        if (parsed) {
+          console.warn('[RECHERCHE] Abgeschnittenes JSON repariert und geparst');
+        }
+      }
     }
   }
 
-  if (!parsed || !Array.isArray(parsed.subThemes)) {
+  if (!parsed) {
+    const preview = String(jsonText || '').replace(/\s+/g, ' ').slice(0, 240);
+    console.warn(`[RECHERCHE] JSON-Parse fehlgeschlagen (Rohtext ${String(jsonText || '').length} Zeichen, Vorschau: ${preview})`);
     return { intro: '', subThemes: [] };
   }
+
+  if (!Array.isArray(parsed.subThemes)) {
+    parsed.subThemes = Array.isArray(parsed.subthemes) ? parsed.subthemes
+      : Array.isArray(parsed.themes) ? parsed.themes
+      : [];
+  }
+
+  let rejectedRefs = 0;
+  let rawRows = 0;
+  const rejectedSamples = [];
 
   const normRelevance = (r) => {
     const v = String(r || '').toLowerCase().trim();
@@ -6635,22 +6857,27 @@ function buildRechercheData(jsonText, results) {
 
   const subThemes = [];
   parsed.subThemes.forEach(st => {
-    if (!st || !Array.isArray(st.rows)) return;
+    if (!st) return;
+    const rawThemeRows = Array.isArray(st.rows) ? st.rows
+      : Array.isArray(st.statements) ? st.statements
+      : Array.isArray(st.items) ? st.items
+      : [];
     const rows = [];
-    st.rows.forEach(row => {
-      if (!row || !row.ref) return;
-      const ref = String(row.ref).trim();
-      const lastColon = ref.lastIndexOf(':');
-      if (lastColon === -1) return;
-      const idPart = ref.substring(0, lastColon).replace(/^\(|\)$/g, '');
-      const idxPart = ref.substring(lastColon + 1).replace(/^\^/, '');
-      const mapping = refToDataMapping[`${idPart}:${idxPart}`.toLowerCase()]
-                    || refToDataMapping[`${idPart}:^${idxPart}`.toLowerCase()];
-      if (!mapping) return; // halluzinierte/ungueltige Referenz verwerfen
-      const { date, year } = lookupDate(mapping.id);
+    rawThemeRows.forEach(row => {
+      if (!row) return;
+      const ref = row.ref || row.source || row.quelle || row.id || row.gaRef;
+      if (!ref) return;
+      rawRows++;
+      const mapping = resolveRechercheRef(ref);
+      if (!mapping) {
+        rejectedRefs++;
+        if (rejectedSamples.length < 5) rejectedSamples.push(String(ref));
+        return;
+      }
+      const { date, year } = lookupRechercheDate(mapping.id);
       rows.push({
-        aussage: String(row.aussage || '').trim(),
-        zitat: String(row.zitat || '').trim(),
+        aussage: String(row.aussage || row.statement || row.summary || '').trim(),
+        zitat: String(row.zitat || row.quote || row.zitatText || '').trim(),
         id: mapping.id,
         index: mapping.index,
         ref: `${mapping.id}:${mapping.index}`,
@@ -6665,6 +6892,13 @@ function buildRechercheData(jsonText, results) {
       subThemes.push({ title: String(st.title || '').trim() || 'Weitere Aussagen', rows });
     }
   });
+
+  if (rawRows > 0 && subThemes.length === 0) {
+    console.warn(`[RECHERCHE] ${rawRows} LLM-Zeilen, ${rejectedRefs} Referenzen verworfen – keine gültige Zuordnung (Beispiele: ${rejectedSamples.join(', ')})`);
+  } else if (subThemes.length === 0) {
+    const preview = String(jsonText || '').replace(/\s+/g, ' ').slice(0, 240);
+    console.warn(`[RECHERCHE] Leeres LLM-Ergebnis (rawRows=${rawRows}, subThemes=${parsed.subThemes.length}, Vorschau: ${preview})`);
+  }
 
   return {
     intro: typeof parsed.intro === 'string' ? parsed.intro.trim() : '',
@@ -12008,21 +12242,30 @@ app.post('/api/hybrid-search', async (req, res) => {
 app.post('/api/thematic-hybrid-search', async (req, res) => {
   try {
     const { query, limit = 100, gaFilter = '', skipCache = false, preferredProvider = null, thematicMode = 'deep', sourceType = 'alle', themeArea = '', conversationHistory = [], chatMode = false } = req.body;
+    const rawLimit = Number(limit) || 100;
+    const effectiveLimit = thematicMode === 'recherche'
+      ? Math.min(rawLimit, Number(process.env.RECHERCHE_MAX_POOL) || 300)
+      : rawLimit;
     const effectiveDepth = 'ausführlich';
-    const hasConversation = Array.isArray(conversationHistory) && conversationHistory.length > 0;
+    const effectiveChatMode = thematicMode === 'chat' || (thematicMode === 'internet' && chatMode);
+    const effectiveConversationHistory = effectiveChatMode && Array.isArray(conversationHistory)
+      ? conversationHistory
+      : [];
+    const hasConversation = effectiveConversationHistory.length > 0;
     const effectiveSkipCache = skipCache || hasConversation || thematicMode === 'internet' || thematicMode === 'chat';
-    const useFormalAddress = !!chatMode || hasConversation;
+    const useFormalAddress = effectiveChatMode || hasConversation;
     
     // Log Analyse-Modus
     const modeLabel = thematicMode === 'deep' ? 'Tiefe Analyse (Claude)'
                     : thematicMode === 'quote' ? 'Zitatsuche (Claude)'
                     : thematicMode === 'essay' ? 'Essay – Synthese & Belege (Claude Opus)'
-                    : thematicMode === 'recherche' ? 'Recherche – tabellarische Sammlung (Claude Sonnet)'
+                    : thematicMode === 'recherche'
+                      ? (rechercheUsesLlm() ? 'Recherche – KI-Tabelle (Claude Sonnet)' : 'Recherche – Schnellmodus (Suchtreffer)')
                     : thematicMode === 'internet' && chatMode ? 'Chat + Internet (Claude Sonnet + Web-Suche)'
                     : thematicMode === 'internet' ? 'Tiefe Analyse + Internet (Claude + Web-Suche)'
                     : thematicMode === 'chat' ? 'Chat (dialogisch, Claude Sonnet)'
                     : 'Breite Sammlung (Gemini)';
-    console.log(`[THEMATIC] Modus: ${modeLabel}, Provider: ${preferredProvider || 'auto'}, Limit: ${limit}`);
+    console.log(`[THEMATIC] Modus: ${modeLabel}, Provider: ${preferredProvider || 'auto'}, Limit: ${effectiveLimit}`);
     
     // Themensuchen cachen (auch online), damit Wiederholungsabfragen schnell sind.
     const shouldCache = !effectiveSkipCache;
@@ -12043,25 +12286,28 @@ app.post('/api/thematic-hybrid-search', async (req, res) => {
     const cacheDepth = buildThematicCacheDepth(thematicMode, sourceType, themeArea, effectiveDepth);
     
     // Konsolidierte Hybrid-Cache-Logik
-    const cacheKey = generateThematicCacheKey(query, cacheDepth, limit, effectiveGaFilter);
+    const cacheKey = generateThematicCacheKey(query, cacheDepth, effectiveLimit, effectiveGaFilter);
     const thematicDB = await loadThematicSearchDatabase();
     // Hybrid-Cache-Logik zuerst prüfen
-    const hybridHit = findHybridCacheHit(query, cacheDepth, limit, effectiveGaFilter, thematicDB);
+    const hybridHit = findHybridCacheHit(query, cacheDepth, effectiveLimit, effectiveGaFilter, thematicDB);
     if (hybridHit && hybridHit.key && thematicDB[hybridHit.key]) {
       const cachedResult = thematicDB[hybridHit.key];
-      
-      // Analytics-Tracking auch für Cache-Hits (es ist immer noch eine Suchanfrage)
-      trackSearch(query).catch(err => {
-        console.error('[ANALYTICS] Fehler beim Tracking der Themen-Suche (Cache):', err.message);
-      });
-      
-      return res.json({
-        ...cachedResult,
-        fromCache: true,
-        cacheScore: hybridHit.score,
-        cacheKey: hybridHit.key,
-        cacheTimestamp: cachedResult.timestamp
-      });
+      const rechercheCacheOk = thematicMode !== 'recherche' || isRechercheCacheUsable(cachedResult.recherche);
+      if (rechercheCacheOk) {
+        // Analytics-Tracking auch für Cache-Hits (es ist immer noch eine Suchanfrage)
+        trackSearch(query).catch(err => {
+          console.error('[ANALYTICS] Fehler beim Tracking der Themen-Suche (Cache):', err.message);
+        });
+
+        return res.json({
+          ...cachedResult,
+          fromCache: true,
+          cacheScore: hybridHit.score,
+          cacheKey: hybridHit.key,
+          cacheTimestamp: cachedResult.timestamp
+        });
+      }
+      console.warn(`[RECHERCHE-CACHE] Veralteter/ungeeigneter Cache ignoriert (${hybridHit.key}) – neue Suche`);
     }
 
     // Kein Cache-Hit: Neue Suche
@@ -12095,12 +12341,10 @@ app.post('/api/thematic-hybrid-search', async (req, res) => {
                    : isQuoteMode ? 30
                    : 25;
     const [expandedTerms, phrases, lectureSimilarities, paragraphSimilarities, webContext] = await Promise.all([
-      isRechercheMode
-        ? Promise.resolve([])
-        : expandQueryWithLLM(query).catch(err => {
-            console.warn('[THEMATIC] Query-Expansion fehlgeschlagen:', err.message);
-            return [];
-          }),
+      expandQueryWithLLM(query).catch(err => {
+        console.warn('[THEMATIC] Query-Expansion fehlgeschlagen:', err.message);
+        return isRechercheMode ? extractKeyTerms(query) : [];
+      }),
       isQuoteMode
         ? expandQueryToQuotePhrases(query).catch(err => {
             console.warn('[THEMATIC-QUOTE] Phrasen-Expansion fehlgeschlagen:', err.message);
@@ -12113,10 +12357,12 @@ app.post('/api/thematic-hybrid-search', async (req, res) => {
             console.warn('[THEMATIC] Semantische Anreicherung fehlgeschlagen:', err.message);
             return {};
           }),
-      findSemanticallySimilarParagraphs(query, effectiveGaFilter, paraThreshold, paraTopN).catch(err => {
-        console.warn('[THEMATIC] Absatz-Embedding-Anreicherung fehlgeschlagen:', err.message);
-        return {};
-      }),
+      isRechercheMode
+        ? Promise.resolve({})
+        : findSemanticallySimilarParagraphs(query, effectiveGaFilter, paraThreshold, paraTopN).catch(err => {
+            console.warn('[THEMATIC] Absatz-Embedding-Anreicherung fehlgeschlagen:', err.message);
+            return {};
+          }),
       thematicMode === 'internet'
         ? fetchThematicWebContext(query).catch(err => {
             console.warn('[INTERNET] Web-Suche fehlgeschlagen:', err.message);
@@ -12142,7 +12388,7 @@ app.post('/api/thematic-hybrid-search', async (req, res) => {
     if (expandedTerms.length > 0) {
       const existingKeys = new Set(keywordResults.map(r => `${r.ID}-${r.index}`));
       let addedCount = 0;
-      const maxExpanded = 500;
+      const maxExpanded = isRechercheMode ? 300 : 500;
 
       for (const term of expandedTerms) {
         if (addedCount >= maxExpanded) break;
@@ -12395,7 +12641,7 @@ app.post('/api/thematic-hybrid-search', async (req, res) => {
     const indirectResults = remainingForQuotaSplit.filter(r => r.expandedMatch || r.semanticMatch);
     
     const directQuotaShare = isQuoteMode ? 0.4 : 0.7;
-    const remainingSlots = Math.max(0, limit - exactPhraseHits.length - topSemanticHits.length);
+    const remainingSlots = Math.max(0, effectiveLimit - exactPhraseHits.length - topSemanticHits.length);
     const directQuota = Math.ceil(remainingSlots * directQuotaShare);
     const indirectQuota = remainingSlots - Math.min(directResults.length, directQuota);
     
@@ -12426,9 +12672,9 @@ app.post('/api/thematic-hybrid-search', async (req, res) => {
       const rest = pool
         .filter(r => !topSemanticKeys.has(`${r.ID}-${r.index}`))
         .sort((a, b) => b.finalScore - a.finalScore);
-      topResults = [...semHits, ...rest].slice(0, limit);
+      topResults = [...semHits, ...rest].slice(0, effectiveLimit);
     } else {
-      topResults = pool.sort((a, b) => b.finalScore - a.finalScore).slice(0, limit);
+      topResults = pool.sort((a, b) => b.finalScore - a.finalScore).slice(0, effectiveLimit);
     }
 
     const finalSemCount = topResults.filter(r => topSemanticKeys.has(`${r.ID}-${r.index}`)).length;
@@ -12453,20 +12699,49 @@ app.post('/api/thematic-hybrid-search', async (req, res) => {
       console.error('[ANALYTICS] Fehler beim Tracking der Themen-Suche:', err.message);
     });
 
-    const tAnalysisStart = Date.now();
-    let analysis = await generateAnalysis(query, topResults, effectiveDepth, preferredProvider, thematicMode, conversationHistory, useFormalAddress, chatMode, webContext);
-    const tAnalysis = Date.now() - tAnalysisStart;
-    if (thematicMode === 'recherche') {
-      console.log(`[RECHERCHE] LLM-Analyse: ${tAnalysis}ms, ${topResults.length} Quellen im Pool`);
-    }
-
-    // Recherche-Modus: Roh-JSON in strukturierte, validierte Tabellendaten umwandeln.
+    let analysis = '';
     let rechercheData = null;
+
     if (thematicMode === 'recherche') {
-      rechercheData = buildRechercheData(analysis, topResults);
-      const rowCount = (rechercheData.subThemes || []).reduce((n, st) => n + (st.rows ? st.rows.length : 0), 0);
-      console.log(`[RECHERCHE] ${rechercheData.subThemes.length} Unterthemen, ${rowCount} valide Aussagen`);
-      analysis = ''; // content wird im Recherche-Modus nicht genutzt
+      const fallbackMax = Number(process.env.RECHERCHE_FALLBACK_MAX) || 100;
+      if (!rechercheUsesLlm()) {
+        console.log('[RECHERCHE] Schnellmodus: KI-Synthese übersprungen');
+        rechercheData = buildRechercheFallbackFromResults(query, topResults, fallbackMax, { fastMode: true });
+        const rowCount = countRechercheRows(rechercheData);
+        console.log(`[RECHERCHE] Schnellmodus: ${rechercheData.subThemes.length} Unterthemen, ${rowCount} Aussagen`);
+      } else {
+        const tAnalysisStart = Date.now();
+        const analysisResult = await generateRechercheAnalysis(
+          query, topResults, effectiveDepth, preferredProvider,
+          effectiveConversationHistory, useFormalAddress, effectiveChatMode, webContext
+        );
+        const tAnalysis = Date.now() - tAnalysisStart;
+        if (analysisResult) {
+          const llmSources = analysisResult.llmSources || topResults;
+          console.log(`[RECHERCHE] LLM-Analyse: ${tAnalysis}ms, ${llmSources.length} Quellen im LLM-Prompt`);
+          rechercheData = buildRechercheData(analysisResult.text || '', topResults, llmSources);
+          if (countRechercheRows(rechercheData) > 0) {
+            rechercheData.curated = true;
+          }
+          const rowCount = countRechercheRows(rechercheData);
+          console.log(`[RECHERCHE] ${rechercheData.subThemes.length} Unterthemen, ${rowCount} valide Aussagen`);
+        }
+        if (countRechercheRows(rechercheData) === 0 && topResults.length > 0) {
+          console.warn(`[RECHERCHE] Fallback auf ${topResults.length} Suchtreffer`);
+          rechercheData = buildRechercheFallbackFromResults(query, topResults, fallbackMax);
+          console.log(`[RECHERCHE] Fallback: ${rechercheData.subThemes.length} Unterthemen, ${countRechercheRows(rechercheData)} Aussagen`);
+        }
+      }
+    } else {
+      const tAnalysisStart = Date.now();
+      let analysisResult = await generateAnalysis(query, topResults, effectiveDepth, preferredProvider, thematicMode, effectiveConversationHistory, useFormalAddress, effectiveChatMode, webContext);
+      analysis = (analysisResult && typeof analysisResult === 'object' && 'text' in analysisResult)
+        ? analysisResult.text
+        : analysisResult;
+      const tAnalysis = Date.now() - tAnalysisStart;
+      if (thematicMode === 'broad') {
+        console.log(`[ANALYSIS] Breite Sammlung abgeschlossen: ${tAnalysis}ms`);
+      }
     }
 
     let searchResult = {
@@ -12500,16 +12775,21 @@ app.post('/api/thematic-hybrid-search', async (req, res) => {
     }
 
     if (shouldCache) {
-      thematicDB[cacheKey] = {
-        ...searchResult,
-        timestamp: new Date().toISOString()
-      };
+      const cacheable = thematicMode !== 'recherche' || isRechercheCacheUsable(rechercheData);
+      if (cacheable) {
+        thematicDB[cacheKey] = {
+          ...searchResult,
+          timestamp: new Date().toISOString()
+        };
 
-      // Speichere Cache-DB (non-blocking)
-      saveThematicSearchDatabase(thematicDB).then(() => {
-      }).catch(err => {
-        console.warn('[THEMATIC-CACHE] Fehler beim Cachen:', err.message);
-      });
+        // Speichere Cache-DB (non-blocking)
+        saveThematicSearchDatabase(thematicDB).then(() => {
+        }).catch(err => {
+          console.warn('[THEMATIC-CACHE] Fehler beim Cachen:', err.message);
+        });
+      } else if (thematicMode === 'recherche') {
+        console.warn('[RECHERCHE-CACHE] Ergebnis wird nicht gecacht (keine kuratierte KI-Tabelle)');
+      }
     } else {
     }
 

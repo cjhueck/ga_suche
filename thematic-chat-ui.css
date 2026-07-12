@@ -666,28 +666,51 @@ body.dark-mode .thematic-examples-cat-pick:hover {
   background: rgba(255, 255, 255, 0.08);
 }
 
+/* Gespeicherte Abfragen: Header/Chat ausblenden, damit „Zurück zum Chat“ nicht überlappt */
+#thematic-chat-panel.saved-overlay-open .thematic-chat-header,
+#thematic-chat-panel.saved-overlay-open #thematic-chat-messages,
+#thematic-chat-panel.saved-overlay-open .thematic-chat-input-row {
+  display: none !important;
+}
+
 .thematic-chat-saved-overlay {
   position: absolute;
   inset: 0;
   background: var(--background-color, #fff);
-  z-index: 20;
+  z-index: 40;
   overflow-y: auto;
-  padding: 0.5rem 0.35rem;
+  padding: 0.35rem 0.35rem 0.5rem;
   display: none;
+  flex-direction: column;
 }
 
 .thematic-chat-saved-overlay.open {
-  display: block;
+  display: flex;
 }
 
 .thematic-chat-saved-overlay .saved-back {
+  flex: 0 0 auto;
+  display: block;
+  width: 100%;
   font-size: 0.82rem;
   color: var(--link-color);
   cursor: pointer;
-  margin-bottom: 0.5rem;
+  margin: 0 0 0.5rem 0;
+  padding: 0.2rem 0 0.55rem;
   border: none;
-  background: none;
-  padding: 0;
+  border-bottom: 1px solid var(--border-color, #e5e5e5);
+  background: var(--background-color, #fff);
+  text-align: left;
+  line-height: 1.35;
+}
+
+.thematic-chat-saved-overlay .saved-back:hover {
+  text-decoration: underline;
+}
+
+#thematic-chat-saved-list {
+  flex: 1 1 auto;
+  min-height: 0;
 }
 
 .thematic-saved-list {
