@@ -16307,6 +16307,14 @@ function scrollToChronologicalYear(year) {
       if (docTitle) docTitle.style.display = 'block';
     }
 
+    function clearThematicDocumentTitle() {
+      const docTitle = document.getElementById('document-title');
+      if (!docTitle) return;
+      docTitle.textContent = '';
+      docTitle.innerHTML = '';
+      docTitle.style.display = 'none';
+    }
+
     function injectThematicViewerBackBar() {
       const viewer = document.getElementById('viewer');
       if (!viewer || thematicViewerStack.length === 0) return;
@@ -16383,6 +16391,102 @@ function scrollToChronologicalYear(year) {
       }
     };
 
+    window.openThematicExample = function(example) {
+      if (!example) return;
+      try {
+        const mode = example.mode || example.category || 'deep';
+        const query = example.query || '';
+        const gaFilter = example.gaFilter || '';
+        const sources = example.sources || [];
+
+        currentThematicQuery = query;
+        currentSources = sources;
+        currentThematicMode = mode;
+        currentThematicLimit = example.limit || thematicLimitForMode(mode);
+        if (gaFilter) currentThematicGAFilter = String(gaFilter);
+
+        const input = document.getElementById('thematicQuery');
+        if (input) input.value = query;
+
+        if (gaFilter && thematicGAFilterDropdown) {
+          const gaList = String(gaFilter).split(',').map(s => s.trim()).filter(Boolean);
+          thematicGAFilterDropdown.setSelectedValues(gaList);
+        }
+
+        const turn = {
+          query,
+          content: example.content,
+          sources,
+          gaFilter,
+          mode,
+          rechercheData: example.rechercheData || null,
+          rechercheScope: example.rechercheScope || null
+        };
+
+        if (window.ThematicChatUI?.syncModeForTurn) {
+          window.ThematicChatUI.syncModeForTurn(turn);
+        }
+
+        ensureThematicMainViewerVisible();
+        ensureThematicViewer();
+
+        const isRechercheData = example.contentType === 'recherche-data'
+          || (mode === 'recherche' && example.rechercheData);
+        const isRechercheHtml = example.contentType === 'recherche-html'
+          || String(example.content || '').includes('recherche-answer');
+        const isThematicHtml = example.contentType === 'thematic-html'
+          || String(example.content || '').includes('semantic-answer');
+
+        if (isRechercheData && example.rechercheData) {
+          renderRechercheResults(query, example.rechercheData, gaFilter, example.rechercheScope || {});
+        } else if (isRechercheHtml) {
+          if (example.rechercheData) {
+            renderRechercheResults(query, example.rechercheData, gaFilter, example.rechercheScope || {});
+          } else {
+            const viewer = document.getElementById('viewer');
+            if (viewer) viewer.innerHTML = `<div class="saved-thematic-result">${example.content}</div>`;
+          }
+        } else if (isThematicHtml) {
+          const viewer = document.getElementById('viewer');
+          if (viewer) {
+            viewer.innerHTML = `
+              <div class="saved-thematic-result">
+                <div class="semantic-answer">
+                  <div class="answer-content" id="answerContentViewer">${example.content}</div>
+                </div>
+              </div>`;
+          }
+        } else {
+          renderThematicResults(query, example.content || '', sources, gaFilter);
+        }
+
+        injectThematicViewerBackBar();
+
+        if (typeof window.syncThematicSavePayload === 'function') {
+          window.syncThematicSavePayload({
+            query,
+            mode,
+            gaFilter,
+            limit: example.limit,
+            sources,
+            rechercheData: example.rechercheData || null,
+            rechercheScope: example.rechercheScope || null,
+            content: example.content,
+            contentType: example.contentType || ''
+          });
+        }
+
+        const docTitle = document.getElementById('document-title');
+        if (docTitle) docTitle.textContent = query || 'Beispiel';
+
+        const mainContainer = document.getElementById('main');
+        if (mainContainer) mainContainer.scrollTop = 0;
+      } catch (err) {
+        console.error('[THEMATIC-EXAMPLES] Anzeige fehlgeschlagen:', err);
+        alert('Beispiel konnte nicht angezeigt werden.');
+      }
+    };
+
     async function performThematicSearch(skipHistory = false, queryOverride = null) {
       const query = String(
         queryOverride
@@ -16395,6 +16499,8 @@ function scrollToChronologicalYear(year) {
       if (window.ThematicChatUI?.onSearchStart) {
         window.ThematicChatUI.onSearchStart(query);
       }
+
+      clearThematicDocumentTitle();
       
       // Analytics wird bereits im Backend getrackt (trackSearch) - kein Frontend-Tracking nötig
       

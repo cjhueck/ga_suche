@@ -18028,6 +18028,8 @@ app.post('/api/concepts-delete', async (req, res) => {
 const SUMMARY_DB_FILE = path.join(__dirname, 'summary-database.json');
 const SUMMARY_KEYWORDS_DB_FILE = path.join(__dirname, 'summary-keywords-database.json');
 const THEMATIC_SEARCH_DB_FILE = path.join(__dirname, 'thematic-search-database.json');
+const THEMATIC_EXAMPLES_FILE = path.join(__dirname, 'thematic-examples.json');
+const THEMATIC_EXAMPLE_CATEGORIES = ['chat', 'deep', 'broad', 'quote', 'essay', 'recherche'];
 const TIMELINE_SEARCH_CACHE_FILE = path.join(__dirname, 'timeline-search-cache.json');
 const KEYWORDS_DB_FILE = path.join(__dirname, 'keywords-database.json');
 const THEMES_DB_FILE = path.join(__dirname, 'themes', 'themes-database.json');
@@ -24952,6 +24954,31 @@ async function loadThematicSearchDatabase() {
   }
 }
 
+// Lade kuratierte Themensuchen-Beispiele (für Online-Anzeige)
+async function loadThematicExamples() {
+  try {
+    const data = await fs.readFile(THEMATIC_EXAMPLES_FILE, 'utf8');
+    const parsed = JSON.parse(data);
+    const out = {};
+    for (const cat of THEMATIC_EXAMPLE_CATEGORIES) {
+      out[cat] = Array.isArray(parsed[cat]) ? parsed[cat] : [];
+    }
+    return out;
+  } catch (error) {
+    return Object.fromEntries(THEMATIC_EXAMPLE_CATEGORIES.map(c => [c, []]));
+  }
+}
+
+async function saveThematicExamples(examples) {
+  try {
+    await fs.writeFile(THEMATIC_EXAMPLES_FILE, JSON.stringify(examples, null, 2), 'utf8');
+    return true;
+  } catch (error) {
+    console.error('[THEMATIC-EXAMPLES] Fehler beim Speichern:', error);
+    return false;
+  }
+}
+
 // Speichere Themensuchen-Cache-Datenbank
 async function saveThematicSearchDatabase(thematicDB) {
   try {
@@ -25539,6 +25566,106 @@ app.post('/api/quotes/delete', async (req, res) => {
   }
 });
 
+
+// Kuratierte Themensuchen-Beispiele (öffentlich lesbar)
+app.get('/thematic-examples.json', async (req, res) => {
+  try {
+    const examples = await loadThematicExamples();
+    res.json(examples);
+  } catch (error) {
+    console.error('[THEMATIC-EXAMPLES] Fehler beim Laden:', error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// Beispiel speichern (nur lokal)
+app.post('/api/thematic-examples/save', async (req, res) => {
+  try {
+    if (!isLocalRequest(req)) {
+      return res.status(403).json({ success: false, error: 'Nur in der lokalen Version verfügbar' });
+    }
+
+    const {
+      category,
+      query,
+      mode,
+      gaFilter = '',
+      limit = 100,
+      content = '',
+      contentType = '',
+      sources = [],
+      rechercheData = null,
+      rechercheScope = null,
+      label = ''
+    } = req.body || {};
+
+    if (!category || !THEMATIC_EXAMPLE_CATEGORIES.includes(category)) {
+      return res.status(400).json({ success: false, error: 'Ungültige Kategorie' });
+    }
+    if (!query || !String(query).trim()) {
+      return res.status(400).json({ success: false, error: 'Abfrage erforderlich' });
+    }
+    if (!content || !String(content).trim()) {
+      return res.status(400).json({ success: false, error: 'Kein Ergebnisinhalt vorhanden' });
+    }
+
+    const examples = await loadThematicExamples();
+    const entry = {
+      id: `ex-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
+      query: String(query).trim(),
+      label: String(label || query).trim().slice(0, 120),
+      mode: mode || category,
+      category,
+      gaFilter: String(gaFilter || ''),
+      limit: Number(limit) || 100,
+      content: String(content),
+      contentType: contentType || '',
+      sources: Array.isArray(sources) ? sources : [],
+      rechercheData: rechercheData || null,
+      rechercheScope: rechercheScope || null,
+      savedAt: new Date().toISOString()
+    };
+
+    examples[category].unshift(entry);
+    await saveThematicExamples(examples);
+
+    res.json({ success: true, example: entry });
+  } catch (error) {
+    console.error('[THEMATIC-EXAMPLES] Fehler beim Speichern:', error);
+    res.status(500).json({ success: false, error: error.message });
+  }
+});
+
+// Beispiel löschen (nur lokal)
+app.post('/api/thematic-examples/delete', async (req, res) => {
+  try {
+    if (!isLocalRequest(req)) {
+      return res.status(403).json({ success: false, error: 'Nur in der lokalen Version verfügbar' });
+    }
+
+    const { category, id } = req.body || {};
+    if (!category || !THEMATIC_EXAMPLE_CATEGORIES.includes(category)) {
+      return res.status(400).json({ success: false, error: 'Ungültige Kategorie' });
+    }
+    if (!id) {
+      return res.status(400).json({ success: false, error: 'Beispiel-ID erforderlich' });
+    }
+
+    const examples = await loadThematicExamples();
+    const before = examples[category].length;
+    examples[category] = examples[category].filter(ex => ex.id !== id);
+
+    if (examples[category].length === before) {
+      return res.status(404).json({ success: false, error: 'Beispiel nicht gefunden' });
+    }
+
+    await saveThematicExamples(examples);
+    res.json({ success: true, deletedId: id, category });
+  } catch (error) {
+    console.error('[THEMATIC-EXAMPLES] Fehler beim Löschen:', error);
+    res.status(500).json({ success: false, error: error.message });
+  }
+});
 // API: Thematische Suchanfrage löschen
 app.post('/api/thematic-search/delete', async (req, res) => {
   try {

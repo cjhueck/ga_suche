@@ -511,6 +511,285 @@
     if (menu) menu.classList.remove('open');
   }
 
+  const EXAMPLE_CATEGORIES = ['chat', 'deep', 'broad', 'quote', 'essay', 'recherche'];
+  const EXAMPLE_CATEGORY_LABELS = {
+    chat: 'Chat',
+    deep: 'Tiefe',
+    broad: 'Breite',
+    quote: 'Zitat',
+    essay: 'Essay',
+    recherche: 'Recherche'
+  };
+
+  const examplesState = {
+    data: null,
+    loaded: false,
+    loading: false,
+    pickerOpen: false
+  };
+
+  function isLocalEnv() {
+    return window.location.hostname === 'localhost'
+      || window.location.hostname === '127.0.0.1'
+      || document.body.classList.contains('is-local');
+  }
+
+  function getApiBase() {
+    return (window.API_BASE || '').replace(/\/$/, '')
+      || ((window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
+        ? 'http://localhost:3003'
+        : 'https://ga-suche.onrender.com');
+  }
+
+  function closeExamplesMenu() {
+    const menu = $('thematic-examples-menu');
+    if (menu) {
+      menu.hidden = true;
+      menu.classList.remove('open');
+    }
+    examplesState.pickerOpen = false;
+  }
+
+  async function loadExamplesData(force = false) {
+    if (examplesState.loading) return examplesState.data;
+    if (examplesState.loaded && !force) return examplesState.data;
+    examplesState.loading = true;
+    try {
+      const resp = await fetch(`${getApiBase()}/thematic-examples.json`, { cache: 'no-store' });
+      if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+      examplesState.data = await resp.json();
+      examplesState.loaded = true;
+    } catch (err) {
+      console.warn('[THEMATIC-EXAMPLES] Laden fehlgeschlagen:', err.message);
+      examplesState.data = Object.fromEntries(EXAMPLE_CATEGORIES.map(c => [c, []]));
+      examplesState.loaded = true;
+    } finally {
+      examplesState.loading = false;
+    }
+    return examplesState.data;
+  }
+
+  function renderExamplesMenu() {
+    const menu = $('thematic-examples-menu');
+    if (!menu) return;
+
+    const data = examplesState.data || {};
+    let html = '';
+
+    for (const cat of EXAMPLE_CATEGORIES) {
+      const items = Array.isArray(data[cat]) ? data[cat] : [];
+      html += `<div class="thematic-examples-cat">${escapeHtml(EXAMPLE_CATEGORY_LABELS[cat])}</div>`;
+      if (!items.length) {
+        html += `<div class="thematic-examples-empty">— keine Beispiele —</div>`;
+        continue;
+      }
+      for (const ex of items) {
+        const label = ex.label || ex.query || 'Beispiel';
+        const short = label.length > 70 ? label.substring(0, 70) + '…' : label;
+        html += `<div class="thematic-examples-item">
+          <button type="button" class="thematic-examples-item-btn" data-example-id="${escapeHtml(ex.id)}" data-example-cat="${cat}" title="${escapeHtml(ex.query || label)}">${escapeHtml(short)}</button>
+          ${isLocalEnv() ? `<button type="button" class="thematic-examples-delete-btn" data-delete-id="${escapeHtml(ex.id)}" data-delete-cat="${cat}" title="Beispiel löschen">×</button>` : ''}
+        </div>`;
+      }
+    }
+
+    if (isLocalEnv()) {
+      if (examplesState.pickerOpen) {
+        html += `<div class="thematic-examples-save-block">`;
+        for (const cat of EXAMPLE_CATEGORIES) {
+          html += `<button type="button" class="thematic-examples-cat-pick" data-save-cat="${cat}">Als ${escapeHtml(EXAMPLE_CATEGORY_LABELS[cat])}-Beispiel speichern</button>`;
+        }
+        html += `<button type="button" class="thematic-examples-cat-pick" data-save-cancel="1">Abbrechen</button>`;
+        html += `</div>`;
+      } else {
+        html += `<div class="thematic-examples-save-block">
+          <button type="button" class="thematic-examples-save-btn" data-save-start="1">Als Beispiel speichern…</button>
+        </div>`;
+      }
+    }
+
+    menu.innerHTML = html;
+  }
+
+  async function toggleExamplesMenu() {
+    closeMenu();
+    const menu = $('thematic-examples-menu');
+    if (!menu) return;
+    const willOpen = menu.hidden || !menu.classList.contains('open');
+    if (willOpen) {
+      await loadExamplesData();
+      renderExamplesMenu();
+      menu.hidden = false;
+      menu.classList.add('open');
+    } else {
+      closeExamplesMenu();
+    }
+  }
+
+  async function collectExamplePayload() {
+    syncSavePayloadFromActiveTurn();
+    if (typeof window.refreshThematicSaveContentFromDom === 'function') {
+      window.refreshThematicSaveContentFromDom();
+    }
+    const payload = window.currentThematicSavePayload || {};
+    const vd = getSaveableViewerData();
+    const query = (payload.query || vd?.query || '').trim();
+    let content = payload.content || '';
+    const mode = payload.mode || vd?.mode || 'deep';
+
+    if (!content && mode === 'recherche') {
+      const recherche = payload.rechercheData || vd?.rechercheData || window.currentRechercheData;
+      if (recherche) {
+        payload.rechercheData = recherche;
+        content = '(recherche-data)';
+        payload.contentType = 'recherche-data';
+      }
+    }
+
+    if (!content && vd?.content && vd.content !== '(Recherche-Tabelle)') {
+      content = vd.content;
+    }
+
+    if (!query || !String(content).trim()) {
+      return null;
+    }
+
+    return {
+      query,
+      mode,
+      gaFilter: payload.gaFilter || vd?.gaFilter || '',
+      limit: payload.limit || 100,
+      content: String(content),
+      contentType: payload.contentType || '',
+      sources: payload.sources || vd?.sources || [],
+      rechercheData: payload.rechercheData || vd?.rechercheData || null,
+      rechercheScope: payload.rechercheScope || vd?.rechercheScope || null
+    };
+  }
+
+  async function handleSaveExample(category) {
+    if (!isLocalEnv()) {
+      alert('Beispiele können nur in der lokalen Version gespeichert werden.');
+      return;
+    }
+    const payload = await collectExamplePayload();
+    if (!payload) {
+      alert('Kein Ergebnis zum Speichern vorhanden. Bitte zuerst eine Abfrage durchführen und im Hauptfenster anzeigen.');
+      return;
+    }
+
+    try {
+      const resp = await fetch(`${getApiBase()}/api/thematic-examples/save`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ...payload, category })
+      });
+      const result = await resp.json();
+      if (!resp.ok || !result.success) {
+        throw new Error(result.error || `HTTP ${resp.status}`);
+      }
+      examplesState.pickerOpen = false;
+      await loadExamplesData(true);
+      renderExamplesMenu();
+      const menu = $('thematic-examples-menu');
+      if (menu) menu.hidden = false;
+      alert(`Beispiel unter „${EXAMPLE_CATEGORY_LABELS[category]}\" gespeichert.`);
+    } catch (err) {
+      console.error('[THEMATIC-EXAMPLES] Speichern fehlgeschlagen:', err);
+      alert('Fehler beim Speichern: ' + err.message);
+    }
+  }
+
+  async function handleDeleteExample(category, id) {
+    if (!isLocalEnv()) return;
+    const data = examplesState.data || {};
+    const item = (data[category] || []).find(ex => ex.id === id);
+    const label = item?.label || item?.query || 'dieses Beispiel';
+    if (!confirm(`Beispiel „${label}\" dauerhaft löschen?`)) return;
+
+    try {
+      const resp = await fetch(`${getApiBase()}/api/thematic-examples/delete`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ category, id })
+      });
+      const result = await resp.json();
+      if (!resp.ok || !result.success) {
+        throw new Error(result.error || `HTTP ${resp.status}`);
+      }
+      await loadExamplesData(true);
+      renderExamplesMenu();
+      const menu = $('thematic-examples-menu');
+      if (menu) menu.hidden = false;
+    } catch (err) {
+      console.error('[THEMATIC-EXAMPLES] Löschen fehlgeschlagen:', err);
+      alert('Fehler beim Löschen: ' + err.message);
+    }
+  }
+
+  function openExampleById(category, id) {
+    const data = examplesState.data || {};
+    const item = (data[category] || []).find(ex => ex.id === id);
+    if (!item) {
+      alert('Beispiel nicht gefunden.');
+      return;
+    }
+    closeExamplesMenu();
+    if (typeof window.openThematicExample === 'function') {
+      window.openThematicExample(item);
+    }
+  }
+
+  let examplesEventsBound = false;
+
+  function bindExamplesEvents() {
+    if (document.body.dataset.thematicExamplesBound === '1') return;
+    document.body.dataset.thematicExamplesBound = '1';
+
+    document.addEventListener('click', (e) => {
+      if (!THEMATIC_CHAT_UI_ENABLED || !window.ThematicChatUI?.enabled) return;
+
+      if (e.target.closest('#thematic-examples-btn')) {
+        e.preventDefault();
+        e.stopPropagation();
+        toggleExamplesMenu();
+        return;
+      }
+
+      const menuRoot = e.target.closest('#thematic-examples-menu');
+      if (!menuRoot) return;
+
+      e.stopPropagation();
+
+      const del = e.target.closest('.thematic-examples-delete-btn');
+      if (del) {
+        handleDeleteExample(del.getAttribute('data-delete-cat'), del.getAttribute('data-delete-id'));
+        return;
+      }
+      const openBtn = e.target.closest('.thematic-examples-item-btn');
+      if (openBtn) {
+        openExampleById(openBtn.getAttribute('data-example-cat'), openBtn.getAttribute('data-example-id'));
+        return;
+      }
+      const saveStart = e.target.closest('[data-save-start]');
+      if (saveStart) {
+        examplesState.pickerOpen = true;
+        renderExamplesMenu();
+        return;
+      }
+      const saveCancel = e.target.closest('[data-save-cancel]');
+      if (saveCancel) {
+        examplesState.pickerOpen = false;
+        renderExamplesMenu();
+        return;
+      }
+      const saveCat = e.target.closest('[data-save-cat]');
+      if (saveCat) {
+        handleSaveExample(saveCat.getAttribute('data-save-cat'));
+      }
+    });
+  }
+
   function displaySavedSearches(searches) {
     const overlay = $('thematic-chat-saved-overlay');
     const list = $('thematic-chat-saved-list');
@@ -750,6 +1029,7 @@
     mountChatToSidebar();
     eventsBound = false;
     bindElementEvents();
+    bindExamplesEvents();
     bindMessageClicks();
     if (typeof updateRechercheControlsVisibility === 'function') {
       updateRechercheControlsVisibility();
@@ -765,12 +1045,22 @@
     unmountChatFromSidebar();
     document.body.classList.remove('thematic-chat-enabled');
     closeMenu();
-    closeSavedOverlay();
+    closeExamplesMenu();
   }
 
   function init() {
-    document.addEventListener('click', () => closeMenu());
+    document.addEventListener('click', (e) => {
+      if (e.target.closest('#thematic-examples-btn')
+        || e.target.closest('#thematic-examples-menu')
+        || e.target.closest('#thematic-chat-menu-btn')
+        || e.target.closest('#thematic-chat-menu')) {
+        return;
+      }
+      closeMenu();
+      closeExamplesMenu();
+    });
     bindMessageClicks();
+    bindExamplesEvents();
 
     const thematicTab = $('thematic-tab');
     if (thematicTab && thematicTab.classList.contains('active')) {
@@ -807,6 +1097,8 @@
     getSaveableChatTurns,
     restoreChatTurns,
     closeSavedOverlay,
+    closeExamplesMenu,
+    refreshExamplesMenu: () => loadExamplesData(true).then(renderExamplesMenu),
     clearChat
   };
 

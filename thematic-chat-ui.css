@@ -148,6 +148,9 @@ body.thematic-chat-enabled.tab-thematic-active .thematic-chat-internet-option sp
   flex-shrink: 0;
   min-height: 0;
   line-height: 1.2;
+  overflow: visible;
+  position: relative;
+  z-index: 30;
 }
 
 .thematic-chat-mode-radios {
@@ -227,6 +230,8 @@ body.thematic-chat-enabled.tab-thematic-active #thematic-header-internet-option 
   display: flex;
   align-items: center;
   gap: 0.25rem;
+  overflow: visible;
+  position: relative;
 }
 
 .thematic-chat-icon-btn {
@@ -528,6 +533,136 @@ body.dark-mode .thematic-chat-menu-hint {
 }
 
 body.dark-mode #thematic-chat-menu button:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.thematic-examples-wrap {
+  position: relative;
+}
+
+.thematic-chat-text-btn {
+  border: 1px solid var(--border-color, #ddd);
+  background: transparent;
+  color: var(--text-color);
+  font-size: 0.78rem;
+  font-weight: 500;
+  padding: 0.15rem 0.45rem;
+  border-radius: 4px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.thematic-chat-text-btn:hover {
+  background: rgba(0, 0, 0, 0.04);
+}
+
+.thematic-examples-menu {
+  position: absolute;
+  right: 0;
+  top: calc(100% + 2px);
+  min-width: 220px;
+  max-width: 300px;
+  max-height: 360px;
+  overflow-y: auto;
+  background: var(--background-color, #fff);
+  border: 1px solid var(--border-color, #ddd);
+  border-radius: 6px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+  z-index: 10002;
+  padding: 0.35rem 0;
+}
+
+.thematic-examples-menu.open {
+  display: block;
+}
+
+.thematic-examples-menu[hidden] {
+  display: none !important;
+}
+
+.thematic-examples-cat {
+  padding: 0.35rem 0.65rem 0.15rem;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--secondary-text, #888);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.thematic-examples-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.25rem;
+  padding: 0.2rem 0.45rem 0.2rem 0.65rem;
+}
+
+.thematic-examples-item-btn {
+  flex: 1;
+  min-width: 0;
+  border: none;
+  background: transparent;
+  text-align: left;
+  font-size: 0.8rem;
+  color: var(--link-color, #467886);
+  cursor: pointer;
+  padding: 0.15rem 0;
+  line-height: 1.3;
+}
+
+.thematic-examples-item-btn:hover {
+  text-decoration: underline;
+}
+
+.thematic-examples-delete-btn {
+  flex-shrink: 0;
+  border: none;
+  background: transparent;
+  color: #c0392b;
+  font-size: 0.85rem;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0.2rem 0.25rem;
+  opacity: 0.75;
+}
+
+.thematic-examples-delete-btn:hover {
+  opacity: 1;
+}
+
+.thematic-examples-empty {
+  padding: 0.15rem 0.65rem 0.35rem;
+  font-size: 0.76rem;
+  color: var(--secondary-text, #888);
+  font-style: italic;
+}
+
+.thematic-examples-save-block {
+  border-top: 1px solid var(--border-color, #ddd);
+  margin-top: 0.25rem;
+  padding-top: 0.25rem;
+}
+
+.thematic-examples-save-btn,
+.thematic-examples-cat-pick {
+  display: block;
+  width: 100%;
+  text-align: left;
+  border: none;
+  background: transparent;
+  padding: 0.45rem 0.75rem;
+  font-size: 0.82rem;
+  color: var(--text-color);
+  cursor: pointer;
+}
+
+.thematic-examples-save-btn:hover,
+.thematic-examples-cat-pick:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+body.dark-mode .thematic-chat-text-btn:hover,
+body.dark-mode .thematic-examples-save-btn:hover,
+body.dark-mode .thematic-examples-cat-pick:hover {
   background: rgba(255, 255, 255, 0.08);
 }
 

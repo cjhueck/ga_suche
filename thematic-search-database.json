@@ -3272,5 +3272,1372 @@
     "totalMatches": 24658,
     "llmUsed": true,
     "timestamp": "2026-07-08T16:53:20.478Z"
+  },
+  "erinnerungstableau / erinnerungsgemälde|recherche:alle:alle|1200|": {
+    "query": "Erinnerungstableau / Erinnerungsgemälde",
+    "content": "",
+    "sources": [
+      {
+        "ID": "GA119/1",
+        "index": "^h34szw",
+        "title": "DER KREISLAUF DES MENSCHEN DURCH DIE SINNEN-",
+        "fileName": "GA119/1 - DER KREISLAUF DES MENSCHEN DURCH DIE SINNEN-, SEELEN- UND GEISTESWELT, Öffentlicher Vortrag, Wien, 19. März 1910",
+        "score": 86,
+        "matchedTerms": [
+          "erinnerungstableau",
+          "erinnerungsgemälde"
+        ]
+      },
+      {
+        "ID": "GA234/9",
+        "index": "^lahgzc",
+        "title": "NEUNTER VORTRAG",
+        "fileName": "GA234/9 - NEUNTER VORTRAG, Dornach, 10. Februar 1924",
+        "score": 65,
+        "matchedTerms": [
+          "erinnerungstableau"
+        ]
+      },
+      {
+        "ID": "GA018/2",
+        "index": "^s537fg",
+        "title": "ERSTER BAND",
+        "fileName": "GA018/2 - ERSTER BAND",
+        "score": 53,
+        "matchedTerms": [
+          "ich",
+          "[phrase:\"ätherleib löst sich\"]",
+          "[exp:ätherleib löst sich]"
+        ]
+      },
+      {
+        "ID": "GA119/1",
+        "index": "^fq40m2",
+        "title": "DER KREISLAUF DES MENSCHEN DURCH DIE SINNEN-",
+        "fileName": "GA119/1 - DER KREISLAUF DES MENSCHEN DURCH DIE SINNEN-, SEELEN- UND GEISTESWELT, Öffentlicher Vortrag, Wien, 19. März 1910",
+        "score": 51,
+        "matchedTerms": [
+          "erinnerungstableau"
+        ]
+      },
+      {
+        "ID": "GA108/3",
+        "index": "^rfqapu",
+        "title": "DAS LEBEN ZWISCHEN ZWEI WIEDERVERKÖRPERUNGEN Breslau",
+        "fileName": "GA108/3 - DAS LEBEN ZWISCHEN ZWEI WIEDERVERKÖRPERUNGEN Breslau, 2. Dezember 1908",
+        "score": 49,
+        "matchedTerms": [
+          "erinnerungstableau"
+        ]
+      },
+      {
+        "ID": "GA007",
+        "index": "^puw1j2",
+        "title": "Die Mystik im Aufgange des neuzeitlichen Geisteslebens und ihr Verhältnis zur modernen Weltanschauung (1901)",
+        "fileName": "GA007-Die Mystik im Aufgange des neuzeitlichen Geisteslebens und ihr Verhältnis zur modernen Weltanschauung (1901)",
+        "score": 49,
+        "matchedTerms": [
+          "ich",
+          "[phrase:\"ätherleib löst sich\"]",
+          "[exp:ätherleib löst sich]"
+        ]
+      },
+      {
+        "ID": "GA236/13",
+        "index": "^8gztvn",
+        "title": "DREIZEHNTER VORTRAG",
+        "fileName": "GA236/13 - DREIZEHNTER VORTRAG, Dornach, 30. Mai 1924",
+        "score": 48,
+        "matchedTerms": [
+          "erinnerungstableau"
+        ]
+      },
+      {
+        "ID": "GA236/12",
+        "index": "^sz9oor",
+        "title": "ZWÖLFTER VORTRAG",
+        "fileName": "GA236/12 - ZWÖLFTER VORTRAG, Dornach, 29. Mai 1924",
+        "score": 45,
+        "matchedTerms": [
+          "erinnerungstableau"
+        ]
+      },
+      {
+        "ID": "GA236/12",
+        "index": "^yaba75",
+        "title": "ZWÖLFTER VORTRAG",
+        "fileName": "GA236/12 - ZWÖLFTER VORTRAG, Dornach, 29. Mai 1924",
+        "score": 44,
+        "matchedTerms": [
+          "erinnerungstableau"
+        ]
+      },
+      {
+        "ID": "GA056/14",
+        "index": "^addj7d",
+        "title": "DIE HÖLLE",
+        "fileName": "GA056/14 - DIE HÖLLE, Berlin, 16. April 1908",
+        "score": 43,
+        "matchedTerms": [
+          "erinnerungsgemälde"
+        ]
+      }
+    ],
+    "searchMethod": "hybrid-thematic-unified",
+    "totalMatches": 700,
+    "llmUsed": true,
+    "recherche": {
+      "intro": "Rudolf Steiner behandelt das Erinnerungstableau (auch Erinnerungsgemälde oder Lebenstableau) sowohl als Erlebnis unmittelbar nach dem Tode wie auch als Stufe der übersinnlichen Schulung.",
+      "subThemes": [
+        {
+          "title": "Grundphänomen unmittelbar nach dem Tode",
+          "rows": [
+            {
+              "aussage": "Erster Eindruck nach dem Tode: umfassender Rückblick aufs Leben",
+              "zitat": "Der erste Eindruck, den unser astralischer Leib und unser Ich haben, nachdem der Tod des Menschen eingetreten ist, ist dieser, dass der Mensch zurückblicken kann auf sein eben verflossenes Leben, das zwischen der Geburt und dem Tode abgelaufen ist, zurückblicken kann in einem umfassenden Erinnerungstableau.",
+              "id": "GA119/1",
+              "index": "jc4mqe",
+              "ref": "GA119/1:jc4mqe",
+              "fileName": "GA119/1 - DER KREISLAUF DES MENSCHEN DURCH DIE SINNEN-, SEELEN- UND GEISTESWELT, Öffentlicher Vortrag, Wien, 19. März 1910",
+              "title": "DER KREISLAUF DES MENSCHEN DURCH DIE SINNEN-",
+              "relevance": "hoch",
+              "date": "1910-03-19",
+              "year": "1910"
+            },
+            {
+              "aussage": "Todesmoment: Erinnerungsgemälde wie gewaltiges Panorama, Gefühl der Erweiterung",
+              "zitat": "Jetzt, in diesem Todesmomente, tritt vor dem Menschen auf ein umfassendes Erinnerungsgemälde an das bisherige Leben zwischen Geburt und Tod. Es ist, wie wenn ein gewaltiges Panorama dieses Lebens, das wir durchlebt haben, vor unserer Seele stünde. Begleitet wird diese Anschauung, dieses Erinnerungsbild von einem Gefühl der Erweiterung, des Größerwerdens der menschlichen Wesenheit.",
+              "id": "GA056/14",
+              "index": "addj7d",
+              "ref": "GA056/14:addj7d",
+              "fileName": "GA056/14 - DIE HÖLLE, Berlin, 16. April 1908",
+              "title": "DIE HÖLLE",
+              "relevance": "hoch",
+              "date": "1908-04-16",
+              "year": "1908"
+            },
+            {
+              "aussage": "Gesamterinnerung mit einem Male in ganzer Größe da",
+              "zitat": "Dann tritt eine Gesamterinnerung an Ihr ganzes vergangenes Leben ein, welches mit allen Einzelheiten wie ein großes Tableau vor Ihnen steht. Dieses Erinnern lässt sich nicht vergleichen mit einem noch so guten Erinnern des früheren Lebens, wie Sie das Erinnern im Erdenleben kennen, sondern dieses Erinnerungstableau steht mit einem Male in ganzer Größe da.",
+              "id": "GA108/3",
+              "index": "vsfwzg",
+              "ref": "GA108/3:vsfwzg",
+              "fileName": "GA108/3 - DAS LEBEN ZWISCHEN ZWEI WIEDERVERKÖRPERUNGEN Breslau, 2. Dezember 1908",
+              "title": "DAS LEBEN ZWISCHEN ZWEI WIEDERVERKÖRPERUNGEN Breslau",
+              "relevance": "hoch",
+              "date": "1908-12-02",
+              "year": "1908"
+            },
+            {
+              "aussage": "Tote Erlebnisse mit Einzelheiten in erstaunlich kurzer Zeit überschaut",
+              "zitat": "Ein wichtiger Augenblick für den Menschen, der gestorben ist, ist der Moment unmittelbar nach dem Tode. Er dauert ja längere Zeit, Stunden, selbst Tage. In diesem Zustande zieht vor der Seele des toten Menschen vorbei das ganze Leben der letzten Inkarnation wie in einem großen Erinnerungs-Tableau.",
+              "id": "GA099/3",
+              "index": "d8y8cp",
+              "ref": "GA099/3:d8y8cp",
+              "fileName": "GA099/3 - DRITTER VORTRAG, München, 26. Mai 1907",
+              "title": "DRITTER VORTRAG",
+              "relevance": "hoch",
+              "date": "1907-05-26",
+              "year": "1907"
+            }
+          ]
+        },
+        {
+          "title": "Der Ätherleib als Träger des Gedächtnisses",
+          "rows": [
+            {
+              "aussage": "Freiwerden des Ätherleibs vom physischen Leib lässt Tableau erscheinen",
+              "zitat": "Wenn sich im Tode die Trennung des Physischen vollzieht, tritt durch das Freiwerden des Ätherleibes vom Physischen ein Erinnerungstableau vor die Menschenseele, denn der Ätherleib ist Träger des Gedächtnisses, und diese Kraft wirkt nun intensiv ohne Beeinflussung der großen physischen Substanz.",
+              "id": "GA068b/10",
+              "index": "ttep14",
+              "ref": "GA068b/10:ttep14",
+              "fileName": "GA068b/10 - DAS GEHEIMNIS DES TODES ALS SCHLÜSSEL ZUM RÄTSEL DES LEBENS, Breslau, 17. Dezember 1909",
+              "title": "DAS GEHEIMNIS DES TODES ALS SCHLÜSSEL ZUM RÄTSEL DES LEBENS",
+              "relevance": "hoch",
+              "date": "1909-12-17",
+              "year": "1909"
+            },
+            {
+              "aussage": "Physischer Leib als Hemmnis für Herausheben der Erinnerungen",
+              "zitat": "Nun ist aber dieser Äther- oder Lebensleib beim Menschen [...] der Träger auch der Erinnerung, des Gedächtnisses, und im gewöhnlichen Leben, wenn dieser Äther- oder Lebensleib eingeschaltet ist dem physischen Leib, dann ist der physische Leib wie eine Art Hemmnis, wie eine Art Hindernis für das Herausheben aller einzelnen Erinnerungen.",
+              "id": "GA119/1",
+              "index": "h34szw",
+              "ref": "GA119/1:h34szw",
+              "fileName": "GA119/1 - DER KREISLAUF DES MENSCHEN DURCH DIE SINNEN-, SEELEN- UND GEISTESWELT, Öffentlicher Vortrag, Wien, 19. März 1910",
+              "title": "DER KREISLAUF DES MENSCHEN DURCH DIE SINNEN-",
+              "relevance": "hoch",
+              "date": "1910-03-19",
+              "year": "1910"
+            },
+            {
+              "aussage": "Im Tod frei gewordener Ätherleib bringt Erinnerungen plötzlich und ungebunden",
+              "zitat": "Im Tode aber, wie vorhin erläutert wurde, wird der ätherische Leib, der Träger des Gedächtnisses, frei. Er braucht nicht mehr durch das Physische zu wirken, und daher treten die Erinnerungen in ungebundener Weise plötzlich auf.",
+              "id": "GA108/3",
+              "index": "vsfwzg",
+              "ref": "GA108/3:vsfwzg",
+              "fileName": "GA108/3 - DAS LEBEN ZWISCHEN ZWEI WIEDERVERKÖRPERUNGEN Breslau, 2. Dezember 1908",
+              "title": "DAS LEBEN ZWISCHEN ZWEI WIEDERVERKÖRPERUNGEN Breslau",
+              "relevance": "hoch",
+              "date": "1908-12-02",
+              "year": "1908"
+            },
+            {
+              "aussage": "Gedächtnisträger befreit vom Gehirn, Astralleib noch im Ätherleib",
+              "zitat": "In dem Augenblicke, wo der Träger des Gedächtnisses befreit ist von dem physischen Gehirn, solange aber der Astralleib noch darinnen steckt im Ätherleib, da tritt das ganze Leben als großes Erinnerungstableau vor der Seele des Menschen auf.",
+              "id": "GA068b/8",
+              "index": "irgx5j",
+              "ref": "GA068b/8:irgx5j",
+              "fileName": "GA068b/8 - DAS GEHEIMNIS DES TODES UND DAS RÄTSEL DES LEBENS, Wiesbaden, 1. Februar 1908",
+              "title": "DAS GEHEIMNIS DES TODES UND DAS RÄTSEL DES LEBENS",
+              "relevance": "hoch",
+              "date": "1908-02-01",
+              "year": "1908"
+            }
+          ]
+        },
+        {
+          "title": "Dauer des Tableaus und Zusammenhang mit dem Wachbleiben",
+          "rows": [
+            {
+              "aussage": "Dauer drei bis vier Tage, entsprechend dem Wachbleibenkönnen",
+              "zitat": "Im Tode tritt dieses Erinnerungstableau sofort mit voller Stärke ein, weil der ganze physische Körper verlassen wird. Man weiß auch die Dauer dieses Erinnerungstableaus nach dem Tode. Sie beträgt drei bis vier Tage. [...] Diese Zeitdauer ist bei jedem Menschen verschieden und entspricht ungefähr der Fähigkeit des betreffenden Menschen, wie lange er es im Leben hätte aushalten können, wach zu bleiben, ohne einzuschlafen.",
+              "id": "GA108/3",
+              "index": "rfqapu",
+              "ref": "GA108/3:rfqapu",
+              "fileName": "GA108/3 - DAS LEBEN ZWISCHEN ZWEI WIEDERVERKÖRPERUNGEN Breslau, 2. Dezember 1908",
+              "title": "DAS LEBEN ZWISCHEN ZWEI WIEDERVERKÖRPERUNGEN Breslau",
+              "relevance": "hoch",
+              "date": "1908-12-02",
+              "year": "1908"
+            },
+            {
+              "aussage": "Dauer nach Tagen, individuell nach Wachbleibefähigkeit verschieden",
+              "zitat": "Solange der Mensch im allgemeinen im normalen Zustand des Lebens durchschnittlich sich hat wach erhalten können, ohne dass er vom Schlafe niedergezwungen wurde, so lange ungefähr datiert auch durchschnittlich dieses Erinnerungstableau. Also es ist nach Tagen zu berechnen und ist für die verschiedenen Menschen verschieden.",
+              "id": "GA119/1",
+              "index": "zswdbq",
+              "ref": "GA119/1:zswdbq",
+              "fileName": "GA119/1 - DER KREISLAUF DES MENSCHEN DURCH DIE SINNEN-, SEELEN- UND GEISTESWELT, Öffentlicher Vortrag, Wien, 19. März 1910",
+              "title": "DER KREISLAUF DES MENSCHEN DURCH DIE SINNEN-",
+              "relevance": "hoch",
+              "date": "1910-03-19",
+              "year": "1910"
+            },
+            {
+              "aussage": "Zusammenhang von Wachkräften und Dauer der Rückerinnerung",
+              "zitat": "Wenn man diese Rückerinnerung vergleicht mit der Länge der Zeit, welche dieser oder jener Mensch im gewöhnlichen Leben durchleben kann, und in der er sich wach erhalten kann, in der er also nicht einschläft, dann hat man ungefähr den Zeitraum, der ja nur nach Tagen dauert, innerhalb welchem diese Rückerinnerung an das verflossene Erdenleben spielt.",
+              "id": "GA063/5",
+              "index": "z3c54a",
+              "ref": "GA063/5:z3c54a",
+              "fileName": "GA063/5 - DER SINN DER UNSTERBLICHKEIT DER MENSCHENSEELE, Berlin, 4. Dezember 1913",
+              "title": "DER SINN DER UNSTERBLICHKEIT DER MENSCHENSEELE",
+              "relevance": "hoch",
+              "date": "1913-12-04",
+              "year": "1913"
+            },
+            {
+              "aussage": "Länger bei denen, die ohne Kräfteverlust wach bleiben können",
+              "zitat": "Solange man im Leben ungefähr fähig ist, die Tage ohne zu schlafen zuzubringen, solange dauert dieses Erinnerungstableau. Das kann man durch die geisteswissenschaftliche Forschung herausfinden.",
+              "id": "GA063/10",
+              "index": "lvj8jk",
+              "ref": "GA063/10:lvj8jk",
+              "fileName": "GA063/10 - ZWISCHEN TOD - UND WIEDERGEBURT DES MENSCHEN, Berlin, 19. März 1914",
+              "title": "ZWISCHEN TOD - UND WIEDERGEBURT DES MENSCHEN",
+              "relevance": "hoch",
+              "date": "1914-03-19",
+              "year": "1914"
+            }
+          ]
+        },
+        {
+          "title": "Objektiver, neutraler Charakter des Tableaus",
+          "rows": [
+            {
+              "aussage": "Neutrales Tableau: Interesse und Teilnahme verstummen",
+              "zitat": "Während wir in dieser nach Tagen zählenden Zeit ein neutrales Erinnerungstableau haben, dem gegenüber all unser Interesse und unsere Teilnahme verstummen, haben wir gerade in der Läuterungszeit alles dasjenige in unserer Seele, was uns durch Sehnsucht nach Genuss [...] hingezogen hat zu unseren Erlebnissen.",
+              "id": "GA119/1",
+              "index": "fq40m2",
+              "ref": "GA119/1:fq40m2",
+              "fileName": "GA119/1 - DER KREISLAUF DES MENSCHEN DURCH DIE SINNEN-, SEELEN- UND GEISTESWELT, Öffentlicher Vortrag, Wien, 19. März 1910",
+              "title": "DER KREISLAUF DES MENSCHEN DURCH DIE SINNEN-",
+              "relevance": "hoch",
+              "date": "1910-03-19",
+              "year": "1910"
+            },
+            {
+              "aussage": "Objektive Bilder ohne Schmerz und Leid, wie ein Gemälde betrachtet",
+              "zitat": "Nach dem Tode sind aber Schmerz und Leid ausgelöscht. Es sind objektive Bilder, die uns nicht wehe tun, Bilder, die keine persönlichen Empfindungen in uns hervorrufen.",
+              "id": "GA096/12",
+              "index": "mo8gfm",
+              "ref": "GA096/12:mo8gfm",
+              "fileName": "GA096/12 - DIE TECHNIK DES KARMA, Berlin, 22. Oktober 1906, abends",
+              "title": "DIE TECHNIK DES KARMA",
+              "relevance": "hoch",
+              "date": "1906-10-22",
+              "year": "1906"
+            },
+            {
+              "aussage": "Man steht dem Tableau objektiv gegenüber wie einem Gemälde",
+              "zitat": "Alle die Freuden und Schmerzen, die sich an die Bilder des Lebens heften, sind bei dieser Rückerinnerung nicht vorhanden. Man steht diesem Erinnerungstableau ebenso objektiv gegenüber wie einem Gemälde.",
+              "id": "GA099/3",
+              "index": "d8y8cp",
+              "ref": "GA099/3:d8y8cp",
+              "fileName": "GA099/3 - DRITTER VORTRAG, München, 26. Mai 1907",
+              "title": "DRITTER VORTRAG",
+              "relevance": "hoch",
+              "date": "1907-05-26",
+              "year": "1907"
+            },
+            {
+              "aussage": "Objektives Gemälde: Schmerz nur angeschaut, nicht empfunden",
+              "zitat": "Im wirklichen physischen Leben sind die Ereignisse mit Freude und Schmerz verbunden; diese Empfindungsinhalte sind in den wenigen Tagen nach dem Tode fort. Es ist dieses Erinnerungsbild ein objektives Gemälde.",
+              "id": "GA109/15",
+              "index": "bhyuf8",
+              "ref": "GA109/15:bhyuf8",
+              "fileName": "GA109/15 - Der Mensch zwischen Tod und neuer Geburt, Vierter Vortrag, Budapest, 6. Juni 1909",
+              "title": "Der Mensch zwischen Tod und neuer Geburt",
+              "relevance": "hoch",
+              "date": "1909-06-06",
+              "year": "1909"
+            }
+          ]
+        },
+        {
+          "title": "Vergleich mit dem Schock in Lebensgefahr",
+          "rows": [
+            {
+              "aussage": "Ertrinken/Absturz: ganzes Leben wie in großem Gemälde vor Augen",
+              "zitat": "Sie erzählen, dass ihnen in einem solchen Augenblicke das ganze verflossene Leben wie in einem großen Gemälde vor Augen stand. Was so erzählt wird, kann von der Geisteswissenschaft durchaus bestätigt werden.",
+              "id": "GA119/1",
+              "index": "jc4mqe",
+              "ref": "GA119/1:jc4mqe",
+              "fileName": "GA119/1 - DER KREISLAUF DES MENSCHEN DURCH DIE SINNEN-, SEELEN- UND GEISTESWELT, Öffentlicher Vortrag, Wien, 19. März 1910",
+              "title": "DER KREISLAUF DES MENSCHEN DURCH DIE SINNEN-",
+              "relevance": "hoch",
+              "date": "1910-03-19",
+              "year": "1910"
+            },
+            {
+              "aussage": "Lebensschock beim Ertrinken hebt Ätherleib heraus, ruft Tableau hervor",
+              "zitat": "Wenn der Mensch einen so gewaltigen Lebensschock erleidet wie beim Ertrinken, dann wird sein ganzer Ätherleib aus dem physischen Leibe herausgehoben. Das bewirkt dann, dass ein solches Erinnerungstableau auftritt.",
+              "id": "GA096/12",
+              "index": "ada8kj",
+              "ref": "GA096/12:ada8kj",
+              "fileName": "GA096/12 - DIE TECHNIK DES KARMA, Berlin, 22. Oktober 1906, abends",
+              "title": "DIE TECHNIK DES KARMA",
+              "relevance": "hoch",
+              "date": "1906-10-22",
+              "year": "1906"
+            },
+            {
+              "aussage": "Analogon zum Tod: Schock lockert Ätherleib kurzzeitig heraus",
+              "zitat": "Wenn aber der Äther- oder Lebensleib durch einen solchen Schock für eine kurze Weile aus dem physischen Leib herausgehoben ist, dann tritt das Leben in einem Erinnerungsgemälde vor die Seele, und wir haben dann bei einem solchen Menschen in dem Momente des Ertrinkens durchaus eine Art von Analogon zu demjenigen, was unmittelbar nach dem Tode da ist.",
+              "id": "GA119/1",
+              "index": "h34szw",
+              "ref": "GA119/1:h34szw",
+              "fileName": "GA119/1 - DER KREISLAUF DES MENSCHEN DURCH DIE SINNEN-, SEELEN- UND GEISTESWELT, Öffentlicher Vortrag, Wien, 19. März 1910",
+              "title": "DER KREISLAUF DES MENSCHEN DURCH DIE SINNEN-",
+              "relevance": "hoch",
+              "date": "1910-03-19",
+              "year": "1910"
+            },
+            {
+              "aussage": "Bewusstlosigkeit verhindert Tableau: Astralleib muss im Ätherleib bleiben",
+              "zitat": "Nun sagte mir vor Kurzem jemand, er sei dem Ertrinken nahe gewesen, habe aber das Erinnerungstableau nicht gehabt, da er bewusstlos gewesen sei. Das ist grade der Beweis dafür, denn wenn der Mensch bewusstlos ist, also der Astralleib auch heraus ist, der der Träger des Bewusstseins ist, kann natürlich diese Erinnerung nicht auftreten.",
+              "id": "GA068d/10",
+              "index": "qyjpk9",
+              "ref": "GA068d/10:qyjpk9",
+              "fileName": "GA068d/10 - DAS WESEN DES MENSCHEN, Eisenach, 2. Juli 1907",
+              "title": "DAS WESEN DES MENSCHEN",
+              "relevance": "hoch",
+              "date": "1907-07-02",
+              "year": "1907"
+            }
+          ]
+        },
+        {
+          "title": "Nach dem Tableau: Ausstoßen des zweiten Leichnams und Extrakt",
+          "rows": [
+            {
+              "aussage": "Verblassen des Tableaus, Ausstoßen des Äther-Leichnams, Zurückbleiben einer Essenz",
+              "zitat": "Dann, wenn dieses Erinnerungstableau zu Ende gegangen ist, wenn es allmählich verblasst ist [...] wird jetzt ausgepresst der Äther- oder Lebensleib [...] Nun bleibt aber aus diesem ausgepressten Äther- oder Lebensleib etwas zurück, was man bezeichnen kann wie eine Essenz, wie einen Extrakt alles dessen, was erlebt worden ist.",
+              "id": "GA119/1",
+              "index": "brn1ye",
+              "ref": "GA119/1:brn1ye",
+              "fileName": "GA119/1 - DER KREISLAUF DES MENSCHEN DURCH DIE SINNEN-, SEELEN- UND GEISTESWELT, Öffentlicher Vortrag, Wien, 19. März 1910",
+              "title": "DER KREISLAUF DES MENSCHEN DURCH DIE SINNEN-",
+              "relevance": "hoch",
+              "date": "1910-03-19",
+              "year": "1910"
+            },
+            {
+              "aussage": "Extrakt des Ätherleibs als Frucht bleibt für alle Zeiten mit dem Menschen",
+              "zitat": "Von dem Äther- oder Lebensleib bleibt ihm wie eine Essenz, wie ein Extrakt des großen Erinnerungsbildes, etwas, wie wenn man den Inhalt eines großen Buches zusammengefasst hätte in eine Seite. So bleibt uns aus diesem Erinnerungstableau nach dem Tode die Essenz des Erdenlebens.",
+              "id": "GA068b/8",
+              "index": "irgx5j",
+              "ref": "GA068b/8:irgx5j",
+              "fileName": "GA068b/8 - DAS GEHEIMNIS DES TODES UND DAS RÄTSEL DES LEBENS, Wiesbaden, 1. Februar 1908",
+              "title": "DAS GEHEIMNIS DES TODES UND DAS RÄTSEL DES LEBENS",
+              "relevance": "hoch",
+              "date": "1908-02-01",
+              "year": "1908"
+            },
+            {
+              "aussage": "Nach Verblassen: Extrakt als Gerippe des Ätherleibs bleibt, Kamaloka beginnt",
+              "zitat": "Dann steht jenes Ihnen oft geschilderte große Erinnerungstableau vor der Seele. Das hört nach zwei, drei, spätestens vier Tagen vollständig auf. Dann bleibt eine Art Extrakt des Ätherleibes. Während der eigentliche umfängliche Teil des Ätherleibes sich herauszieht und sich auflöst im allgemeinen Weltenäther, bleibt eine Art von Essenz.",
+              "id": "GA107/7",
+              "index": "qdqxuu",
+              "ref": "GA107/7:qdqxuu",
+              "fileName": "GA107/7 - SIEBENTER VORTRAG, Berlin, 2. November 1908",
+              "title": "SIEBENTER VORTRAG",
+              "relevance": "hoch",
+              "date": "1908-11-02",
+              "year": "1908"
+            },
+            {
+              "aussage": "Lebensessenz dient dem Aufbau des nächsten Leibes",
+              "zitat": "Dann löst sich der Ätherleib auf und es bleibt nur ein Extrakt davon zurück, die Lebensfrucht des vergangenen Lebens. Die wird mitgenommen für die ganzen folgenden Zeiten und wird seiner Wesenheit einverleibt, und bildet das, wonach sich der Mensch in der nächsten Inkarnation seinen physischen Leib aufbauen kann.",
+              "id": "GA102/8",
+              "index": "unptk9",
+              "ref": "GA102/8:unptk9",
+              "fileName": "GA102/8 - ACHTER VORTRAG, Berlin, 20. April 1908",
+              "title": "ACHTER VORTRAG",
+              "relevance": "hoch",
+              "date": "1908-04-20",
+              "year": "1908"
+            }
+          ]
+        },
+        {
+          "title": "Weiten des Tableaus und Verschwinden ins Weltall",
+          "rows": [
+            {
+              "aussage": "Tableau erweitert sich zum Weltall, wird schattenhaft und verschwindet",
+              "zitat": "Das, was nach dem Tode gewissermaßen erst ein eng Umgrenztes umschließt in diesem Erinnerungstableau, es wird immer größer, aber damit auch immer schattenhafter, bis wir es wie zu einem Weltall erweitert finden, aber schwach geworden [...] Und dann verschwindet es in den Weiten; es ist nicht mehr da.",
+              "id": "GA234/9",
+              "index": "lahgzc",
+              "ref": "GA234/9:lahgzc",
+              "fileName": "GA234/9 - NEUNTER VORTRAG, Dornach, 10. Februar 1924",
+              "title": "NEUNTER VORTRAG",
+              "relevance": "hoch",
+              "date": "1924-02-10",
+              "year": "1924"
+            },
+            {
+              "aussage": "Ausbreiten und Untertauchen in die Dinge, Verschmelzen mit der Umgebung",
+              "zitat": "Der Eindruck unmittelbar nach dem Tode ist der, als ob unser Wesen sich ergießen würde über alles das, was außerhalb unser ist. Wir tauchen gleichsam in die Dinge unter, wir fühlen uns eins mit ihnen. Das Gefühl des Ausbreitens und -dehnens und -weitens der Seele tritt auf.",
+              "id": "GA119/1",
+              "index": "zswdbq",
+              "ref": "GA119/1:zswdbq",
+              "fileName": "GA119/1 - DER KREISLAUF DES MENSCHEN DURCH DIE SINNEN-, SEELEN- UND GEISTESWELT, Öffentlicher Vortrag, Wien, 19. März 1910",
+              "title": "DER KREISLAUF DES MENSCHEN DURCH DIE SINNEN-",
+              "relevance": "hoch",
+              "date": "1910-03-19",
+              "year": "1910"
+            },
+            {
+              "aussage": "Perspektivisches Wegrücken der Gedankenwelt in die geistige Ferne",
+              "zitat": "Nach Tagen erlebt dann der Mensch, der durch die Pforte des Todes geschritten ist, wie diese ganze Welt, die gleichsam seine Welt geworden ist, sich entfernt, sich wie in einer geistigen Perspektive von ihm entfernt, wie wenn sie weit, weit in der geistigen Sphäre von ihm wegginge.",
+              "id": "GA063/10",
+              "index": "lvj8jk",
+              "ref": "GA063/10:lvj8jk",
+              "fileName": "GA063/10 - ZWISCHEN TOD - UND WIEDERGEBURT DES MENSCHEN, Berlin, 19. März 1914",
+              "title": "ZWISCHEN TOD - UND WIEDERGEBURT DES MENSCHEN",
+              "relevance": "hoch",
+              "date": "1914-03-19",
+              "year": "1914"
+            }
+          ]
+        },
+        {
+          "title": "Selbstständig gewordene, objektivierte Gedankenwelt",
+          "rows": [
+            {
+              "aussage": "Gedanken werden selbstständig, treten wie Außenwelt hervor",
+              "zitat": "Das Erste, was der Mensch nach dem Tode erlebt, ist, dass er sich erlebt in seinen Gedanken so, dass diese Gedanken anfangen, ein selbstständiges Leben zu führen. [...] Statt dass wir uns mit den Gedanken [im Leibe] eins fühlen, treten sie wie in die Umgebung hinaus, werden zu einer Außenwelt.",
+              "id": "GA069d/19",
+              "index": "ml0j8v",
+              "ref": "GA069d/19:ml0j8v",
+              "fileName": "GA069d/19 - VOM TODE, München, 31. März 1914",
+              "title": "VOM TODE",
+              "relevance": "hoch",
+              "date": "1914-03-31",
+              "year": "1914"
+            },
+            {
+              "aussage": "Erinnerungstableau selbstständig geworden, objektiviert in der Außenwelt lebend",
+              "zitat": "Diese Welt wird auch oftmals geschildert wie eine Art von Erinnerungstableau an das letzte Leben. In der Tat ist sie wie ein Erinnerungstableau, aber wie eines, das sich selbständig gemacht hat, und von dem wir wissen: Das hast du dir erworben, aber das steht da in der Außenwelt drinnen, objektiviert; das lebt!",
+              "id": "GA063/10",
+              "index": "5fbsh8",
+              "ref": "GA063/10:5fbsh8",
+              "fileName": "GA063/10 - ZWISCHEN TOD - UND WIEDERGEBURT DES MENSCHEN, Berlin, 19. März 1914",
+              "title": "ZWISCHEN TOD - UND WIEDERGEBURT DES MENSCHEN",
+              "relevance": "hoch",
+              "date": "1914-03-19",
+              "year": "1914"
+            },
+            {
+              "aussage": "Hinter Schattenbild-Gedanken erwacht lebendige Elementarwesenwelt",
+              "zitat": "Wir werden gewahr, dass das, was wir innerhalb des physischen Leibes als unser Gedankentableau haben, eben nur ein Schattenbild ist, dass es in Wahrheit eine Summe, eine Ausbreitung von Elementarwesen ist. Wir sehen gleichsam unsere Erinnerungen abglimmen und sehen dafür aus dem allgemeinen Weisheitskosmos heraus eine ganze Anzahl von Elementarwesen erwachen.",
+              "id": "GA153/7",
+              "index": "sobtdd",
+              "ref": "GA153/7:sobtdd",
+              "fileName": "GA153/7 - FÜNFTER VORTRAG, Wien, 13. April 1914",
+              "title": "FÜNFTER VORTRAG",
+              "relevance": "mittel",
+              "date": "1914-04-13",
+              "year": "1914"
+            }
+          ]
+        },
+        {
+          "title": "Kamaloka: Unterschied von Tableau und Zurückerleben",
+          "rows": [
+            {
+              "aussage": "Tableau als Vorstufe des Kamaloka, dann beginnt Läuterung",
+              "zitat": "Nehmen wir, in seinem wirklichen Sinne, das Kamalokaleben, das Leben nach dem Tode [...] Ein großes Erinnerungstableau tritt vor die Seele dessen, der eben den physischen Leib verlassen hat. Dann beginnt das Kamalokaleben.",
+              "id": "GA098/2",
+              "index": "gvjf5h",
+              "ref": "GA098/2:gvjf5h",
+              "fileName": "GA098/2 - ESOTERISCHE ENTWICKELUNG UND ÜBERSINNLICHE ERKENNTNIS, Wien, 7. November 1907",
+              "title": "ESOTERISCHE ENTWICKELUNG UND ÜBERSINNLICHE ERKENNTNIS",
+              "relevance": "mittel",
+              "date": "1907-11-07",
+              "year": "1907"
+            },
+            {
+              "aussage": "Kamaloka gibt, was Tableau nicht gibt: Zurückerleben von Schmerz und Freude",
+              "zitat": "Wir sehen also, das objektive Tableau ist etwas ganz anderes als das Rückerleben in Kamaloka. In Kamaloka erlebt man sehr genau das, was der andere empfunden hat bei unserem Verhalten, man erlebt die andere Seite der eigenen Taten. [...] Gerade dazu ist Kamaloka da, um der Seele das zu geben, was das Erinnerungstableau nicht gibt.",
+              "id": "GA109/15",
+              "index": "x8txgb",
+              "ref": "GA109/15:x8txgb",
+              "fileName": "GA109/15 - Der Mensch zwischen Tod und neuer Geburt, Vierter Vortrag, Budapest, 6. Juni 1909",
+              "title": "Der Mensch zwischen Tod und neuer Geburt",
+              "relevance": "hoch",
+              "date": "1909-06-06",
+              "year": "1909"
+            },
+            {
+              "aussage": "Kamaloka: Vergessen dessen, was an die physische Welt kettet",
+              "zitat": "Dann steht jenes Ihnen oft geschilderte große Erinnerungstableau vor der Seele. Das hört nach zwei, drei, spätestens vier Tagen vollständig auf. [...] Und das Abgewöhnen ist ja im Grunde nichts anderes als ein allmähliches Vergessen dessen, was den Menschen an die physische Welt kettet.",
+              "id": "GA107/7",
+              "index": "qdqxuu",
+              "ref": "GA107/7:qdqxuu",
+              "fileName": "GA107/7 - SIEBENTER VORTRAG, Berlin, 2. November 1908",
+              "title": "SIEBENTER VORTRAG",
+              "relevance": "mittel",
+              "date": "1908-11-02",
+              "year": "1908"
+            }
+          ]
+        },
+        {
+          "title": "Als erste Stufe übersinnlicher Schulung (imaginative Erkenntnis)",
+          "rows": [
+            {
+              "aussage": "Erkraftetes Denken bringt Tableau als erste übersinnliche Wahrnehmung",
+              "zitat": "Und man lernt jetzt erkennen als erste Anschauung dasjenige, was ich nennen möchte das Erinnerungstableau, aber das entwickelte Erinnerungstableau an dieses Leben bis zur Geburt hin. Das ist gewissermaßen die erste übersinnliche Wahrnehmung.",
+              "id": "GA080c/2",
+              "index": "tok9dp",
+              "ref": "GA080c/2:tok9dp",
+              "fileName": "GA080c/2 - DIE ANTHROPOSOPHISCHE GEISTESWISSENSCHAFT UND DIE GROSSEN ZIVILISATIONSFRAGEN DER GEGENWART, Hilversum, 20. Februar 1921",
+              "title": "DIE ANTHROPOSOPHISCHE GEISTESWISSENSCHAFT UND DIE GROSSEN ZIVILISATIONSFRAGEN DER GEGENWART",
+              "relevance": "hoch",
+              "date": "1921-02-20",
+              "year": "1921"
+            },
+            {
+              "aussage": "Tableau als Zeitleib/Bildekräfteleib, in einem Bild überschaut",
+              "zitat": "Wir lernen erkennen, dass außer unserem physischen Leibe, der im Raume bereits ist, ein Zeitleib, ein Bildekräfteleib in uns ist, der unseren physischen Leib durchdringt und der in immerwährender Bewegung ist. Wir durchschauen in einem einzigen Tableau diesen Bildekräfteleib.",
+              "id": "GA080b/6",
+              "index": "gactis",
+              "ref": "GA080b/6:gactis",
+              "fileName": "GA080b/6 - DIE HARMONISIERUNG VON KUNST, WISSENSCHAFT UND RELIGION DURCH ANTHROPOSOPHIE, Berlin, 5. März 1922",
+              "title": "DIE HARMONISIERUNG VON KUNST",
+              "relevance": "hoch",
+              "date": "1922-03-05",
+              "year": "1922"
+            },
+            {
+              "aussage": "Imaginatives Erkennen zeigt schaffende Bildungskräfte am eigenen Menschen",
+              "zitat": "Es führt nämlich zuletzt dahin, dass man wie in einem großen Tableau, zeitlich aber auf einmal, alles überschaut, was im wesentlichen gesetzmäßig das ganze Leben seit der Geburt hier auf Erden aufgebaut hat. Innerlich sieht man die schaffenden Bildungskräfte am Menschen, zunächst an seinem eigenen Menschen.",
+              "id": "GA079/2",
+              "index": "jmg8wi",
+              "ref": "GA079/2:jmg8wi",
+              "fileName": "GA079/2 - WEGE ZUR ERKENNTNIS HÖHERER WELTEN, Kristiania, 26. November 1921",
+              "title": "WEGE ZUR ERKENNTNIS HÖHERER WELTEN",
+              "relevance": "hoch",
+              "date": "1921-11-26",
+              "year": "1921"
+            },
+            {
+              "aussage": "Im Lebenstableau eines neben dem anderen, unterscheidbar vom bloßen Erinnerungstableau",
+              "zitat": "Man kann also sagen, dass in diesem Lebenstableau etwas wie ein Erlebnis ist in unmittelbarer Gegenwart, bei dem nicht eines nach dem andern sich stellt, wie in der Erinnerung, sondern eines neben das andere im zweidimensionalen Raume. Man kann dieses Lebenstableau sehr wohl vom bloßen Erinnerungstableau unterscheiden.",
+              "id": "GA227/3",
+              "index": "0mzz4y",
+              "ref": "GA227/3:0mzz4y",
+              "fileName": "GA227/3 - ERSTER VORTRAG, Penmaenmawr, 19. August 1923",
+              "title": "ERSTER VORTRAG",
+              "relevance": "hoch",
+              "date": "1923-08-19",
+              "year": "1923"
+            },
+            {
+              "aussage": "Durch Zeit schreiten: Erlebnisse lebendig gegenwärtig statt blass",
+              "zitat": "Man schreitet durch die Zeit, man fühlt nicht bloß eine blasse Erinnerung an das, was man vor fünfzehn Jahren durchgemacht hat, sondern man fühlt sich in aller Lebendigkeit drinnen wie in einem gegenwärtigen Erlebnis. Man schreitet durch die Zeit, der Raum verliert seine Bedeutung, die Zeit liefert einem ein mächtiges Erinnerungstableau.",
+              "id": "GA084/9",
+              "index": "xzatpc",
+              "ref": "GA084/9:xzatpc",
+              "fileName": "GA084/9 - DIE ÜBERSINNLICHE ERKENNTNIS ANTHROPOSOPHIE-ALS ZEITFORDERUNG, Wien, 26. September 1923",
+              "title": "DIE ÜBERSINNLICHE ERKENNTNIS ANTHROPOSOPHIE-ALS ZEITFORDERUNG",
+              "relevance": "hoch",
+              "date": "1923-09-26",
+              "year": "1923"
+            }
+          ]
+        },
+        {
+          "title": "Tableau zeigt eigene Tätigkeit als Selbsterkenntnis",
+          "rows": [
+            {
+              "aussage": "Negativbild zum gewöhnlichen Erinnern: eigene Sehnsüchte statt Aussenwelt",
+              "zitat": "Dieses Erinnerungstableau [...] unterscheidet sich von einem gewöhnlichen, durch das Gedächtnis zustande gebrachten Erinnerungstableau so, wie der Eindruck im Petschaft vom Eindruck im Siegellack. Es ist wie das Negativbild zu dem Positivbild desjenigen, was wir durch das gewöhnliche Erinnerungsbild zusammenstellen können.",
+              "id": "GA084/7",
+              "index": "vp4785",
+              "ref": "GA084/7:vp4785",
+              "fileName": "GA084/7 - DIE SEELENEWIGKEIT IM LICHTE DER ANTHROPOSOPHIE, Prag, 27. April 1923",
+              "title": "DIE SEELENEWIGKEIT IM LICHTE DER ANTHROPOSOPHIE",
+              "relevance": "hoch",
+              "date": "1923-04-27",
+              "year": "1923"
+            },
+            {
+              "aussage": "Man sieht das eigene Sich-Verhalten, nicht was andere zugefügt haben",
+              "zitat": "Wenn man dieses höher-geistige, umgewandelte Erinnerungstableau vor sich hat, dann sieht man eigentlich nicht das, was ein anderer Mensch einem zugefügt hat, sondern man sieht vielmehr, wie man sich selber verhalten hat gegenüber dem anderen Menschen [...] Man ist vorgerückt zu einer wirklichen Selbsterkenntnis.",
+              "id": "GA080b/11",
+              "index": "8evqga",
+              "ref": "GA080b/11:8evqga",
+              "fileName": "GA080b/11 - WAS WOLLTE DAS GOETHEANUM UND WAS SOLL DIE ANTHROPOSOPHIE, Bern, 5. April 1923",
+              "title": "WAS WOLLTE DAS GOETHEANUM UND WAS SOLL DIE ANTHROPOSOPHIE",
+              "relevance": "hoch",
+              "date": "1923-04-05",
+              "year": "1923"
+            },
+            {
+              "aussage": "Tableau zeigt eigene Sehnsucht, Charakter und Temperament",
+              "zitat": "Das ist: Man schaut sich selber, wie man durch seine eigenen Temperamentseigenschaften, durch seinen Charakter, durch das, was in einem selbst als Sehnsucht, als Liebe gelebt hat, sich einem andern Menschen genähert hat. [...] gibt einem dieses Erinnerungstableau mehr das, was man selbst beigetragen hat zu dem Erlebnis.",
+              "id": "GA084/1",
+              "index": "u17hj5",
+              "ref": "GA084/1:u17hj5",
+              "fileName": "GA084/1 - WAS WOLLTE DAS GOETHEANUM UND WAS SOLL DIE ANTHROPOSOPHIE , Basel, 9. April 1923",
+              "title": "WAS WOLLTE DAS GOETHEANUM UND WAS SOLL DIE ANTHROPOSOPHIE",
+              "relevance": "hoch",
+              "date": "1923-04-09",
+              "year": "1923"
+            },
+            {
+              "aussage": "Im Tableau sieht man, wie man sich der Aussenwelt genähert hat",
+              "zitat": "In diesem anderen Erinnerungstableau dagegen, das aber jetzt in wirklichen Bildern dasteht, von denen man weiß, dass sie die eigene geistige Natur des Menschen wiedergeben [...] blickt uns entgegen, wie wir uns der Außenwelt genähert haben.",
+              "id": "GA231/1",
+              "index": "ab0zc4",
+              "ref": "GA231/1:ab0zc4",
+              "fileName": "GA231/1 - ANTHROPOSOPHIE ALS ZEITFORDERUNG. Öffentlicher Vortrag, Den Haag, 15. November 19",
+              "title": "ANTHROPOSOPHIE ALS ZEITFORDERUNG. Öffentlicher Vortrag",
+              "relevance": "hoch",
+              "date": "",
+              "year": ""
+            },
+            {
+              "aussage": "Tableau als Anfang wahrer Selbstbeobachtung",
+              "zitat": "Man schreitet durch die Zeit, der Raum verliert seine Bedeutung, die Zeit liefert einem ein mächtiges Erinnerungstableau. [...] Jetzt erst erkennt man sich selber, jetzt erst hat man wirkliche Selbstbeobachtung.",
+              "id": "GA084/9",
+              "index": "xzatpc",
+              "ref": "GA084/9:xzatpc",
+              "fileName": "GA084/9 - DIE ÜBERSINNLICHE ERKENNTNIS ANTHROPOSOPHIE-ALS ZEITFORDERUNG, Wien, 26. September 1923",
+              "title": "DIE ÜBERSINNLICHE ERKENNTNIS ANTHROPOSOPHIE-ALS ZEITFORDERUNG",
+              "relevance": "hoch",
+              "date": "1923-09-26",
+              "year": "1923"
+            }
+          ]
+        },
+        {
+          "title": "Auslöschen des Tableaus als Weg zu Inspiration und Präexistenz",
+          "rows": [
+            {
+              "aussage": "Unterdrücken des Tableaus enthüllt Geistig-Seelisches vor der Geburt",
+              "zitat": "Wenn man jetzt durch die Steigerung derjenigen Kraft [...] es dahin bringt, nun auch dieses Erinnerungstableau zu unterdrücken [...] dann kommt man zu der Stufe der Erkenntnis, die einem das Geistig-Seelische enthüllt, das man vor der Geburt, oder sagen wir vor der Konzeption, durchgemacht hat.",
+              "id": "GA303/5",
+              "index": "up68mx",
+              "ref": "GA303/5:up68mx",
+              "fileName": "GA303/5 - FÜNFTER VORTRAG, Dornach, 27. Dezember 1921",
+              "title": "FÜNFTER VORTRAG",
+              "relevance": "hoch",
+              "date": "1921-12-27",
+              "year": "1921"
+            },
+            {
+              "aussage": "Auslöschen des Erinnerungstableaus als leeres Bewusstsein bei vollem Wachsein",
+              "zitat": "Gelangt man jetzt dazu, dieses Erinnerungstableau selbst auszulöschen, dann tritt das ein, was ich wirklich leeres Bewusstsein nennen möchte. [...] Was in einem selbst lebte, hat man unterdrückt, und man setzt sich nun mit leerem Bewusstsein der Welt aus.",
+              "id": "GA084/9",
+              "index": "qxdgnm",
+              "ref": "GA084/9:qxdgnm",
+              "fileName": "GA084/9 - DIE ÜBERSINNLICHE ERKENNTNIS ANTHROPOSOPHIE-ALS ZEITFORDERUNG, Wien, 26. September 1923",
+              "title": "DIE ÜBERSINNLICHE ERKENNTNIS ANTHROPOSOPHIE-ALS ZEITFORDERUNG",
+              "relevance": "hoch",
+              "date": "1923-09-26",
+              "year": "1923"
+            },
+            {
+              "aussage": "Inspirierte Erkenntnis blickt auf reale Erinnerung und erblickt Höheres scheinen",
+              "zitat": "Nun aber, wenn die inspirierte Erkenntnis eintritt, dann kann man hinschauen auf diese reale Erinnerung an das Erdenleben, die ein Erinnerungstableau ist, und man erblickt dann [...] man überblickt dann ein Scheinen eines Höheren.",
+              "id": "GA236/12",
+              "index": "sz9oor",
+              "ref": "GA236/12:sz9oor",
+              "fileName": "GA236/12 - ZWÖLFTER VORTRAG, Dornach, 29. Mai 1924",
+              "title": "ZWÖLFTER VORTRAG",
+              "relevance": "hoch",
+              "date": "1924-05-29",
+              "year": "1924"
+            },
+            {
+              "aussage": "Bildekräfteleib abdämpfen führt zur inspirierten Erkenntnis",
+              "zitat": "Dann kann man auch dasjenige, was sich als ein solches Erinnerungstableau vor die Seele gestellt hat [...] auch aus dem Bewusstsein herausschaffen. [...] Dann kann der Moment eintreten, wo die imaginative Erkenntnis [...] in das zweite Stadium der übersinnlichen Erkenntnis eintritt, [...] die inspirierte Erkenntnis.",
+              "id": "GA080a/6",
+              "index": "gctpf0",
+              "ref": "GA080a/6:gctpf0",
+              "fileName": "GA080a/6 - DAS WESEN DER ANTHROPOSOPHIE, Köln, 23. Januar 1922",
+              "title": "DAS WESEN DER ANTHROPOSOPHIE",
+              "relevance": "hoch",
+              "date": "1922-01-23",
+              "year": "1922"
+            }
+          ]
+        },
+        {
+          "title": "Ausgelöschte Lebensabschnitte enthüllen geistige Wesenheiten",
+          "rows": [
+            {
+              "aussage": "Ausgelöschter Abschnitt Geburt bis siebentes Jahr zeigt Mondenwesen-Taten",
+              "zitat": "In diesem Tableau ist gewissermaßen ein Teil; wenn man auf den hinblickt, so zeigt er sich nach der inspirierten Initiation so, dass das Erinnerungstableau zwischen der Geburt, also zwischen dem Nulljahre und dem siebenten Jahre, ausgelöscht ist, und an der Stelle [...] erscheinen dann alle die Taten, die dadurch entstehen, dass die Mondenwesen [...] mit dem Menschen nach seinem Tode zu tun haben.",
+              "id": "GA236/12",
+              "index": "yaba75",
+              "ref": "GA236/12:yaba75",
+              "fileName": "GA236/12 - ZWÖLFTER VORTRAG, Dornach, 29. Mai 1924",
+              "title": "ZWÖLFTER VORTRAG",
+              "relevance": "hoch",
+              "date": "1924-05-29",
+              "year": "1924"
+            },
+            {
+              "aussage": "Ausgelöschter Kindheitsabschnitt lässt Engelwesenheit erscheinen",
+              "zitat": "Man nimmt nämlich wahr, wenn man auslöscht das Erinnerungstableau für die Zeit von der Geburt bis zum siebenten Jahre, bis zum Zahnwechsel: In diesem physischen Leibe war eine Engelwesenheit drinnen. Man nimmt eine dritte Hierarchie in einem Wesen wirklich wahr.",
+              "id": "GA236/13",
+              "index": "g1b6f8",
+              "ref": "GA236/13:g1b6f8",
+              "fileName": "GA236/13 - DREIZEHNTER VORTRAG, Dornach, 30. Mai 1924",
+              "title": "DREIZEHNTER VORTRAG",
+              "relevance": "hoch",
+              "date": "1924-05-30",
+              "year": "1924"
+            },
+            {
+              "aussage": "Auslöschen von siebentem Jahr bis Geschlechtsreife zeigt Merkurregion-Beziehung",
+              "zitat": "Aber will man eine Beziehung erkennen, herstellen zu Menschen, die in dieser Merkurregion sich befinden, dann muss man in dem Erinnerungstableau zum Auslöschen bringen den Zeitraum zwischen dem siebenten Lebensjahre, dem Zahnwechsel, und der Geschlechtsreife.",
+              "id": "GA236/12",
+              "index": "g7ct5o",
+              "ref": "GA236/12:g7ct5o",
+              "fileName": "GA236/12 - ZWÖLFTER VORTRAG, Dornach, 29. Mai 1924",
+              "title": "ZWÖLFTER VORTRAG",
+              "relevance": "hoch",
+              "date": "1924-05-29",
+              "year": "1924"
+            },
+            {
+              "aussage": "Im Ätherleib drin: Tableau durch imaginative Erkenntnis",
+              "zitat": "Der Mensch wird also durch die imaginative Erkenntnis unabhängig von seinen Sinneseindrücken, unabhängig von seiner Verstandeserkenntnis. Er lebt im Erkennen nur im ätherischen Leibe. Dadurch hat er dieses Erinnerungstableau.",
+              "id": "GA236/13",
+              "index": "8gztvn",
+              "ref": "GA236/13:8gztvn",
+              "fileName": "GA236/13 - DREIZEHNTER VORTRAG, Dornach, 30. Mai 1924",
+              "title": "DREIZEHNTER VORTRAG",
+              "relevance": "hoch",
+              "date": "1924-05-30",
+              "year": "1924"
+            }
+          ]
+        },
+        {
+          "title": "Anknüpfung an Präexistenz und geistige Welt vor der Geburt",
+          "rows": [
+            {
+              "aussage": "Tableau angegliedert an das Sein als geistiger Mensch vor der Geburt",
+              "zitat": "Und man wird jetzt dasjenige, was man auf die geschilderte Weise wie ein großes aber konkretes Erinnerungstableau seines bisherigen Erdenlebens erblickt, nun angliedern können an das, was man war als seelisch-geistiger Mensch in einer rein geistigen Welt, bevor man durch die Geburt oder Konzeption in diese physische Welt heruntergestiegen ist.",
+              "id": "GA231/1",
+              "index": "02x2ch",
+              "ref": "GA231/1:02x2ch",
+              "fileName": "GA231/1 - ANTHROPOSOPHIE ALS ZEITFORDERUNG. Öffentlicher Vortrag, Den Haag, 15. November 19",
+              "title": "ANTHROPOSOPHIE ALS ZEITFORDERUNG. Öffentlicher Vortrag",
+              "relevance": "hoch",
+              "date": "",
+              "year": ""
+            },
+            {
+              "aussage": "Losgelöst vom Leib: nicht mehr im physischen Leibe, mit Ich verbunden mit Erlebnissen",
+              "zitat": "Ist man dazu in der Lage, dann fühlt man sich aber auch mit seinem Ich in einer ganz anderen Art [...] eigentlich nun nicht mehr im physischen Leibe. Man fühlt sich mit seinem Ich verbunden mit all denjenigen Erlebnissen, die man durchgemacht hat und die jetzt in diesem gewaltigen Erinnerungstableau eben für das Bewusstsein heraufkommen.",
+              "id": "GA080b/11",
+              "index": "xi2ym6",
+              "ref": "GA080b/11:xi2ym6",
+              "fileName": "GA080b/11 - WAS WOLLTE DAS GOETHEANUM UND WAS SOLL DIE ANTHROPOSOPHIE, Bern, 5. April 1923",
+              "title": "WAS WOLLTE DAS GOETHEANUM UND WAS SOLL DIE ANTHROPOSOPHIE",
+              "relevance": "hoch",
+              "date": "1923-04-05",
+              "year": "1923"
+            },
+            {
+              "aussage": "Herausgehoben aus dem eigenen Lebensstrom, in mathematischer Klarheit",
+              "zitat": "In einem gewissen Momente unseres Bewusstseins kommt es als Ergebnis des Meditierens zustande, dass wir wie ein Erinnerungstableau unser Leben in einer gewissen Weise doch wenigstens bis nahezu zur Geburt zurück wie ein einheitliches Ganzes, wie eine Totalität, wie ein Panorama vor uns haben.",
+              "id": "GA080b/1",
+              "index": "b6ufam",
+              "ref": "GA080b/1:b6ufam",
+              "fileName": "GA080b/1 - DIE ERGEBNISSE DER GEISTES-WISSENSCHAFT UND IHRE BEZIEHUNGEN ZUR KUNST UND RELIGION, Bern, 13. Dezember 1920",
+              "title": "DIE ERGEBNISSE DER GEISTES-WISSENSCHAFT UND IHRE BEZIEHUNGEN ZUR KUNST UND RELIGION",
+              "relevance": "hoch",
+              "date": "1920-12-13",
+              "year": "1920"
+            }
+          ]
+        },
+        {
+          "title": "Willensstern und erstrahlende Weisheit (imaginative Innensicht)",
+          "rows": [
+            {
+              "aussage": "Willensstern als Hintergrund, aus dem das Erinnerungstableau erstrahlt",
+              "zitat": "Und dieser Wille erglüht in Wärme und strahlt dir in den Weltenweiten [...] dein eigenes Leben zwischen der Geburt und dem Tode wie ein großes Tableau zurück. [...] das ist das Geistige deines physischen Leibes, dieser Willensstern ist der Geist, der deinen physischen Leib durchtränkt und durchkraftet.",
+              "id": "GA153/7",
+              "index": "krijhk",
+              "ref": "GA153/7:krijhk",
+              "fileName": "GA153/7 - FÜNFTER VORTRAG, Wien, 13. April 1914",
+              "title": "FÜNFTER VORTRAG",
+              "relevance": "hoch",
+              "date": "1914-04-13",
+              "year": "1914"
+            },
+            {
+              "aussage": "Frucht des letzten Lebens im Tableau entfernt sich in Zukunft",
+              "zitat": "Dieses, was wir wie eine Frucht des letzten Lebens bezeichnen können, das fühlen wir so, als wenn es nicht bleiben würde, wie es war während des Erinnerungstableaus, sondern wie wenn es sich fernte, wie wenn es fortginge, wie wenn es in der Zeiten Zukunft hineinginge.",
+              "id": "GA153/7",
+              "index": "n8aliq",
+              "ref": "GA153/7:n8aliq",
+              "fileName": "GA153/7 - FÜNFTER VORTRAG, Wien, 13. April 1914",
+              "title": "FÜNFTER VORTRAG",
+              "relevance": "mittel",
+              "date": "1914-04-13",
+              "year": "1914"
+            }
+          ]
+        },
+        {
+          "title": "Zusammenhang mit Karma und späterer Verkörperung",
+          "rows": [
+            {
+              "aussage": "Vorblick auf kommendes Leben als Gegenstück zum Erinnerungsgemälde",
+              "zitat": "Wie mit dem Eintritte des Todes eine Art Erinnerungsgemälde vor dem menschlichen Ich gestanden hat, so jetzt ein Vorblick auf das kommende Leben. Wieder sieht der Mensch ein solches Gemälde, das jetzt all die Hindernisse zeigt, welche der Mensch hinwegzuräumen hat, wenn seine Entwickelung weitergehen soll.",
+              "id": "GA013",
+              "index": "ul6uhi",
+              "ref": "GA013:ul6uhi",
+              "fileName": "GA013 - Die Geheimwissenschaft im Umriss (1910)",
+              "title": "Die Geheimwissenschaft im Umriss (1910)",
+              "relevance": "mittel",
+              "date": "1910",
+              "year": "1910"
+            },
+            {
+              "aussage": "Erinnerungsgemälde als geistiges Erträgnis, Extrakt aller Erfahrungen",
+              "zitat": "In einem Erinnerungsgemälde zusammengefasst erscheint in der ersten Zeit nach dem Tode die erlebte Vergangenheit. [...] Wie wenn man aus allen Erlebnissen und Erfahrungen, die zwischen Geburt und Tod an den Menschen herangetreten sind, einen Extrakt, einen Auszug machen würde, so nimmt sich das aus, was da zurückbleibt.",
+              "id": "GA013",
+              "index": "o136qf",
+              "ref": "GA013:o136qf",
+              "fileName": "GA013 - Die Geheimwissenschaft im Umriss (1910)",
+              "title": "Die Geheimwissenschaft im Umriss (1910)",
+              "relevance": "hoch",
+              "date": "1910",
+              "year": "1910"
+            },
+            {
+              "aussage": "Ins Erinnerungstableau imprägniert sich die Lebensfrucht, sprießt im Geistesland auf",
+              "zitat": "Fassen Sie das, was der Mensch aus dem letzten Leben als Frucht seines Denkens, Fühlens und Wollens mitbringt [...] auf wie einen Pflanzenkeim, der in den Boden gesenkt wird und aufsprießt. So sprießt die Lebensfrucht des letzten Lebens in dem geistigen Boden auf.",
+              "id": "GA056/15",
+              "index": "wzqncx",
+              "ref": "GA056/15:wzqncx",
+              "fileName": "GA056/15 - DER HIMMEL, Berlin, 14. Mai 1908",
+              "title": "DER HIMMEL",
+              "relevance": "mittel",
+              "date": "1908-05-14",
+              "year": "1908"
+            },
+            {
+              "aussage": "Taten schreiben sich in Lebensextrakt ein, der von Inkarnation zu Inkarnation zieht",
+              "zitat": "Während aber der Mensch in Kamaloka ist, schreibt sich in diesen Lebensextrakt alles ein, was der Mensch an Taten erlebt hat, alles, was in bezug auf das menschliche Karma wirkt, wofür er einen Ausgleich zu schaffen hat. Das alles verbindet sich in einer gewissen Weise mit diesem Extrakt aus dem Ätherleibe.",
+              "id": "GA114/3",
+              "index": "qpgbk7",
+              "ref": "GA114/3:qpgbk7",
+              "fileName": "GA114/3 - DRITTER VORTRAG, Basel, 17. September 1909",
+              "title": "DRITTER VORTRAG",
+              "relevance": "mittel",
+              "date": "1909-09-17",
+              "year": "1909"
+            }
+          ]
+        }
+      ]
+    },
+    "rechercheScope": {
+      "sourceType": "alle",
+      "themeArea": ""
+    },
+    "timestamp": "2026-07-12T07:58:05.273Z"
+  },
+  "wo bezeichnet steiner fichte als den pfadfinder zum geistigen?|ausführlich|250|": {
+    "query": "Wo bezeichnet Steiner Fichte als den Pfadfinder zum Geistigen?",
+    "content": "## Möglicher Treffer\n\n> „Für die Ausdrucksmittel der damaligen deutschen Philosophie war in der Tat Fichte der Pfadfinder und Entdecker dieses höheren Sinnes.„\n\nQuelle: (<a href=\"#\" class=\"ga-reference\" data-id=\"GA250/11\" data-index=\"q9crnn\" data-file-name=\"GA250/11 - THEOSOPHIE IN DEUTSCHLAND VOR HUNDERT JAHREN, Autoreferat zum Vortrag beim Kongress der Föderation europäischer Sektionen der Theosophischen Gesellschaft, Paris, 4. Juni 1906\" data-quote-text=\"Es könnte nun scheinen, als ob nicht leicht eine Brücke zu schlagen sei von Schillers Ästhetizismus zu einer anderen Persönlichkeit derselben Zeit, die aber nicht minder aus einer okkulten Unterströmung heraus zu verstehen ist, zu Johann Gottlieb Fichte. Diesen wird man bei oberflächlicher Betrachtung ganz und gar als einen bloßen spekulativen Kopf ansehen, als intellektuellen Gedankenmenschen. Nun ist es richtig, dass seine Domäne diejenige des Gedankens ist, und dass derjenige, welcher solche \">GA250/11</a>)## Weitere mögliche Treffer\n\n> „Für die Ausdrucksmittel der damaligen deutschen Philosophie war in der Tat Fichte der Pfadfinder und Entdecker dieses höheren Sinnes.\"\n\nQuelle: (<a href=\"#\" class=\"ga-reference\" data-id=\"GA035/3\" data-index=\"cj8qfz\" data-file-name=\"GA035/3 - THEOSOPHIE IN DEUTSCHLAND VOR HUNDERT JAHREN\" data-quote-text=\"Es könnte nun scheinen, als ob nicht leicht eine Brücke zu schlagen sei von Schillers Ästhetizismus zu einer anderen Persönlichkeit derselben Zeit, die aber nicht minder aus einer okkulten Unterströmung heraus zu verstehen ist, zu Johann Gottlieb Fichte. Diesen wird man bei oberflächlicher Betrachtung ganz und gar als einen bloßen spekulativen Kopf ansehen, als intellektuellen Gedankenmenschen. Nun ist es richtig, dass seine Domäne diejenige des Gedankens ist, und dass derjenige, welcher solche \">GA035/3</a>)",
+    "sources": [
+      {
+        "ID": "GA250/11",
+        "index": "^q9crnn",
+        "title": "THEOSOPHIE IN DEUTSCHLAND VOR HUNDERT JAHREN",
+        "fileName": "GA250/11 - THEOSOPHIE IN DEUTSCHLAND VOR HUNDERT JAHREN, Autoreferat zum Vortrag beim Kongress der Föderation europäischer Sektionen der Theosophischen Gesellschaft, Paris, 4. Juni 1906",
+        "score": 2382,
+        "matchedTerms": [
+          "ich",
+          "als den",
+          "bezeichnet",
+          "fichte",
+          "pfadfinder",
+          "geistigen",
+          "[exact:\"Pfadfinder zum Geistigen\"]",
+          "[exact:\"Pfadfinder ins Geistige\"]"
+        ]
+      },
+      {
+        "ID": "GA035/3",
+        "index": "^cj8qfz",
+        "title": "THEOSOPHIE IN DEUTSCHLAND VOR HUNDERT JAHREN",
+        "fileName": "GA035/3 - THEOSOPHIE IN DEUTSCHLAND VOR HUNDERT JAHREN",
+        "score": 2136,
+        "matchedTerms": [
+          "ich",
+          "als den",
+          "fichte",
+          "pfadfinder",
+          "geistigen",
+          "[exact:\"Pfadfinder zum Geistigen\"]",
+          "[exact:\"Pfadfinder ins Geistige\"]"
+        ]
+      },
+      {
+        "ID": "GA060/15",
+        "index": "^iw0tnj",
+        "title": "WAS HAT DIE ASTRONOMIE ÜBER WELTENTSTEHUNG ZU SAGEN",
+        "fileName": "GA060/15 - WAS HAT DIE ASTRONOMIE ÜBER WELTENTSTEHUNG ZU SAGEN , Berlin, 16. März 1911",
+        "score": 1719,
+        "matchedTerms": [
+          "ich",
+          "pfadfinder",
+          "geistigen",
+          "[exact:\"Pfadfinder zum Geistigen\"]",
+          "[exact:\"Pfadfinder ins Geistige\"]"
+        ]
+      },
+      {
+        "ID": "GA266a/4",
+        "index": "^fjsc9e",
+        "title": "VIERTER VORTRAG",
+        "fileName": "GA266a/4 - VIERTER VORTRAG, Berlin, 14. März 1904",
+        "score": 1702,
+        "matchedTerms": [
+          "ich",
+          "pfadfinder",
+          "geistigen",
+          "[exact:\"Pfadfinder zum Geistigen\"]",
+          "[exact:\"Pfadfinder ins Geistige\"]"
+        ]
+      },
+      {
+        "ID": "GA032/63",
+        "index": "^eafcjd",
+        "title": "EIN GOTTSCHED-DENKMAL",
+        "fileName": "GA032/63 - EIN GOTTSCHED-DENKMAL",
+        "score": 1669,
+        "matchedTerms": [
+          "ich",
+          "pfadfinder",
+          "geistigen",
+          "[exact:\"Pfadfinder zum Geistigen\"]",
+          "[exact:\"Pfadfinder ins Geistige\"]"
+        ]
+      },
+      {
+        "ID": "GA060/10",
+        "index": "^njuewm",
+        "title": "GALILEI",
+        "fileName": "GA060/10 - GALILEI, GIORDANO BRUNO UND GOETHE, Berlin, 26. Januar 1911",
+        "score": 1650,
+        "matchedTerms": [
+          "ich",
+          "pfadfinder",
+          "geistigen",
+          "[exact:\"Pfadfinder zum Geistigen\"]",
+          "[exact:\"Pfadfinder ins Geistige\"]"
+        ]
+      },
+      {
+        "ID": "GA031/83",
+        "index": "^p1zh2k",
+        "title": "ADOLF BARTELS",
+        "fileName": "GA031/83 - ADOLF BARTELS, DER LITERARHISTORIKER",
+        "score": 1633,
+        "matchedTerms": [
+          "ich",
+          "pfadfinder",
+          "geistigen",
+          "[exact:\"Pfadfinder zum Geistigen\"]",
+          "[exact:\"Pfadfinder ins Geistige\"]"
+        ]
+      },
+      {
+        "ID": "GA243/7",
+        "index": "^tlos08",
+        "title": "SIEBENTER VORTRAG",
+        "fileName": "GA243/7 - SIEBENTER VORTRAG, Torquay, 18. August 1924",
+        "score": 1466,
+        "matchedTerms": [
+          "ich",
+          "geistigen",
+          "[exact:\"den Weg zum Geistigen gebahnt\"]"
+        ]
+      },
+      {
+        "ID": "GA226/7",
+        "index": "^kyq4aq",
+        "title": "SIEBENTER VORTRAG",
+        "fileName": "GA226/7 - SIEBENTER VORTRAG, Kristiania (Oslo), 17. Mai 1923",
+        "score": 1352,
+        "matchedTerms": [
+          "ich",
+          "geistigen",
+          "[exact:\"den Weg zum Geistigen gebahnt\"]"
+        ]
+      },
+      {
+        "ID": "GA267/1",
+        "index": "^mrs9ub",
+        "title": "ZUR EINFÜHRUNG - ZU DEN DARSTELLUNGEN DES ANTHROPOSOPHISCHEN SCHULUNGSWEGES IN RUDOLF STEINERS GESAMTWERK (Hella Wiesberger)",
+        "fileName": "GA267/1 - ZUR EINFÜHRUNG - ZU DEN DARSTELLUNGEN DES ANTHROPOSOPHISCHEN SCHULUNGSWEGES IN RUDOLF STEINERS GESAMTWERK (Hella Wiesberger)",
+        "score": 1119,
+        "matchedTerms": [
+          "ich",
+          "steiner",
+          "geistigen",
+          "[exact:\"den Weg zum Geistigen gebahnt\"]"
+        ]
+      }
+    ],
+    "searchMethod": "hybrid-thematic-unified",
+    "totalMatches": 204356,
+    "llmUsed": true,
+    "rechercheScope": {
+      "sourceType": "alle",
+      "themeArea": ""
+    },
+    "timestamp": "2026-07-12T08:14:23.385Z"
+  },
+  "wie überwindet goethes anschauende urteilskraft kants erkenntnisgrenze?|ausführlich|100|": {
+    "query": "Wie überwindet Goethes anschauende Urteilskraft Kants Erkenntnisgrenze?",
+    "content": "## Kants Erkenntnisgrenze: Die Natur im menschlichen Geist\n\nDer Grundzug der Kantischen Philosophie liegt in der Auffassung, „dass die Vorstellungswelt von den Gesetzen des menschlichen Geistes beherrscht werde und deshalb alles, was ihr von außen entgegengebracht wird, in ihr nur als subjektiver Abglanz vorhanden sein könne\" (<a href=\"#\" class=\"ga-reference\" data-id=\"GA001\" data-index=\"8hwyjc\" data-file-name=\"GA001 - Einleitungen zu Goethes Naturwissenschaftlichen Schriften (1884-1897)\" data-quote-text=\"[^138]: Goethes Anschauungen stehen in dem denkbar schärfsten Gegensatz zur Kantischen Philosophie. Diese geht von der Auffassung aus, dass die Vorstellungswelt von den Gesetzen des menschlichen Geistes beherrscht werde und deshalb alles, was ihr von außen entgegengebracht wird, in ihr nur als subjektiver Abglanz vorhanden sein könne. Der Mensch nehme nicht das «An sich» der Dinge wahr, sondern die Erscheinung, die dadurch entsteht, dass die Dinge ihn affizieren und er diese Affektionen nach den\">GA001</a>). Der Mensch nehme „nicht das «An sich» der Dinge wahr, sondern die Erscheinung, die dadurch entsteht, dass die Dinge ihn affizieren\" (<a href=\"#\" class=\"ga-reference\" data-id=\"GA001\" data-index=\"8hwyjc\" data-file-name=\"GA001 - Einleitungen zu Goethes Naturwissenschaftlichen Schriften (1884-1897)\" data-quote-text=\"[^138]: Goethes Anschauungen stehen in dem denkbar schärfsten Gegensatz zur Kantischen Philosophie. Diese geht von der Auffassung aus, dass die Vorstellungswelt von den Gesetzen des menschlichen Geistes beherrscht werde und deshalb alles, was ihr von außen entgegengebracht wird, in ihr nur als subjektiver Abglanz vorhanden sein könne. Der Mensch nehme nicht das «An sich» der Dinge wahr, sondern die Erscheinung, die dadurch entsteht, dass die Dinge ihn affizieren und er diese Affektionen nach den\">GA001</a>).\n\n„Der Verstand schöpft seine Gesetze ... nicht aus der Natur, sondern schreibt sie dieser vor\" (<a href=\"#\" class=\"ga-reference\" data-id=\"GA018/2\" data-index=\"oswg7e\" data-file-name=\"GA018/2 - ERSTER BAND\" data-quote-text=\"Diese Folgerung Humes konnte Kant unmöglich zu der seinigen machen. Denn für ihn stand die Gewissheit der naturwissenschaftlichen und mathematischen Erkenntnisse, wie wir gesehen haben, unbedingt fest. Er wollte sich diese Gewissheit nicht antasten lassen, konnte sich aber dennoch der Einsicht nicht entziehen, dass Hume recht hatte, wenn er sagte: Alle Erkenntnisse über die wirklichen Dinge gewinnen wir nur, indem wir diese beobachten und auf Grund der Beobachtung uns Gedanken über ihren Zusamme\">GA018/2</a>). Kant hat „um die Gewissheit der mathematischen und naturwissenschaftlichen Wahrheiten zu retten, die ganze Beobachtungswelt in den menschlichen Geist hineingenommen. Damit hat er aber auch allerdings dem Erkenntnisvermögen unübersteigliche Grenzen gesetzt\" (<a href=\"#\" class=\"ga-reference\" data-id=\"GA018/2\" data-index=\"oswg7e\" data-file-name=\"GA018/2 - ERSTER BAND\" data-quote-text=\"Diese Folgerung Humes konnte Kant unmöglich zu der seinigen machen. Denn für ihn stand die Gewissheit der naturwissenschaftlichen und mathematischen Erkenntnisse, wie wir gesehen haben, unbedingt fest. Er wollte sich diese Gewissheit nicht antasten lassen, konnte sich aber dennoch der Einsicht nicht entziehen, dass Hume recht hatte, wenn er sagte: Alle Erkenntnisse über die wirklichen Dinge gewinnen wir nur, indem wir diese beobachten und auf Grund der Beobachtung uns Gedanken über ihren Zusamme\">GA018/2</a>).\n\nDas Ergebnis: „dass dieses Innere, dieses «Ansich der Objekte» niemals in den Bereich unserer Erkenntnis treten, nie ein Gegenstand unseres Wissens werden kann\" (<a href=\"#\" class=\"ga-reference\" data-id=\"GA030/3\" data-index=\"lka7bg\" data-file-name=\"GA030/3 - EINHEITLICHE NATURANSCHAUUNG UND ERKENNTNISGRENZEN (1892-93)\" data-quote-text=\"Auf diese Weise hat Kant ein Gebiet gerettet, auf dem es Begriffe von notwendiger Geltung gibt; aber er hat zugleich die Möglichkeit abgeschnitten, mit Hilfe dieser Begriffe über die eigentliche, absolute Wesenheit der Dinge etwas auszumachen. Kant hat, um die Notwendigkeit unserer Begriffe zu retten, deren absolute Anwendbarkeit geopfert. Um der letzteren willen wurde aber die erstere in der Vor-Kantschen Philosophie geschätzt. Kants Vorgänger wollten aus der Gesamtheit unseres Wissens einen ze\">GA030/3</a>). „Kant hat, um die Notwendigkeit unserer Begriffe zu retten, deren absolute Anwendbarkeit geopfert\" (<a href=\"#\" class=\"ga-reference\" data-id=\"GA030/3\" data-index=\"lka7bg\" data-file-name=\"GA030/3 - EINHEITLICHE NATURANSCHAUUNG UND ERKENNTNISGRENZEN (1892-93)\" data-quote-text=\"Auf diese Weise hat Kant ein Gebiet gerettet, auf dem es Begriffe von notwendiger Geltung gibt; aber er hat zugleich die Möglichkeit abgeschnitten, mit Hilfe dieser Begriffe über die eigentliche, absolute Wesenheit der Dinge etwas auszumachen. Kant hat, um die Notwendigkeit unserer Begriffe zu retten, deren absolute Anwendbarkeit geopfert. Um der letzteren willen wurde aber die erstere in der Vor-Kantschen Philosophie geschätzt. Kants Vorgänger wollten aus der Gesamtheit unseres Wissens einen ze\">GA030/3</a>).\n\n## Der entgegengesetzte Pol: Goethes Stellung des Menschen in die Natur\n\n„Kant nahm die ganze Natur in den menschlichen Geist herein, Goethe sah alles Menschliche als ein Glied dieser Natur an; er fügte den menschlichen Geist der natürlichen Weltordnung ein\" (<a href=\"#\" class=\"ga-reference\" data-id=\"GA018/2\" data-index=\"zkl076\" data-file-name=\"GA018/2 - ERSTER BAND\" data-quote-text=\"Den Gegensatz zur Kantschen Auffassung der Welt bildete in allen wesentlichen Dingen die Goethesche. Ungefähr um dieselbe Zeit, als Kant seine «Kritik der reinen Vernunft» erscheinen ließ, legte Goethe sein Glaubensbekenntnis in dem Hymnus in Prosa «Die Natur» nieder, in dem er den Menschen ganz in die Natur hineinstellte und sie, die unabhängig von ihm waltende, zu ihrer eigenen und seiner Gesetzgeberin zugleich machte. Kant nahm die ganze Natur in den menschlichen Geist herein, Goethe sah alle\">GA018/2</a>). „Bei Kant ist die Natur ganz im menschlichen Geiste; bei Goethe ist der menschliche Geist ganz in der Natur, weil die Natur selbst Geist ist\" (<a href=\"#\" class=\"ga-reference\" data-id=\"GA018/2\" data-index=\"zkl076\" data-file-name=\"GA018/2 - ERSTER BAND\" data-quote-text=\"Den Gegensatz zur Kantschen Auffassung der Welt bildete in allen wesentlichen Dingen die Goethesche. Ungefähr um dieselbe Zeit, als Kant seine «Kritik der reinen Vernunft» erscheinen ließ, legte Goethe sein Glaubensbekenntnis in dem Hymnus in Prosa «Die Natur» nieder, in dem er den Menschen ganz in die Natur hineinstellte und sie, die unabhängig von ihm waltende, zu ihrer eigenen und seiner Gesetzgeberin zugleich machte. Kant nahm die ganze Natur in den menschlichen Geist herein, Goethe sah alle\">GA018/2</a>).\n\nDer entscheidende Punkt: „in dem subjektiven menschlichen Erkenntnisvermögen nicht bloß der Geist als solcher sich ausspricht, sondern dass die geistige Natur es selbst ist, die sich in dem Menschen ein Organ geschaffen hat, durch das sie ihre Geheimnisse offenbar werden lässt. Es spricht gar nicht der Mensch über die Natur; sondern die Natur spricht im Menschen über sich selbst\" (<a href=\"#\" class=\"ga-reference\" data-id=\"GA018/2\" data-index=\"zkl076\" data-file-name=\"GA018/2 - ERSTER BAND\" data-quote-text=\"Den Gegensatz zur Kantschen Auffassung der Welt bildete in allen wesentlichen Dingen die Goethesche. Ungefähr um dieselbe Zeit, als Kant seine «Kritik der reinen Vernunft» erscheinen ließ, legte Goethe sein Glaubensbekenntnis in dem Hymnus in Prosa «Die Natur» nieder, in dem er den Menschen ganz in die Natur hineinstellte und sie, die unabhängig von ihm waltende, zu ihrer eigenen und seiner Gesetzgeberin zugleich machte. Kant nahm die ganze Natur in den menschlichen Geist herein, Goethe sah alle\">GA018/2</a>).\n\nGoethes methodische Wendung: der Forscher „soll den Maßstab zur Erkenntnis, die Data zur Beurteilung nicht aus sich, sondern aus dem Kreise der Dinge nehmen, die er beobachtet\" (<a href=\"#\" class=\"ga-reference\" data-id=\"GA001\" data-index=\"wt7tfa\" data-file-name=\"GA001 - Einleitungen zu Goethes Naturwissenschaftlichen Schriften (1884-1897)\" data-quote-text=\"Es ist ein Fehler, der sich durch Kants ganzes Lehrgebäude durchzieht, dass er die sinnenfällige Mannigfaltigkeit als etwas Festes ansieht, und dass er glaubt, Wissenschaft bestehe darinnen, diese Mannigfaltigkeit in ein System zu bringen. Er vermutet gar nicht, dass das Mannigfaltige kein Letztes ist, das man _überwinden_ muss, wenn man es begreifen will; und deshalb wird ihm alle Theorie bloß eine Zutat, die Verstand und Vernunft zur Erfahrung hinzubringen. Die Idee ist ihm nicht das, was der \">GA001</a>). „Während bei Kant alles Urteilen über die Dinge nur ein Produkt aus Subjekt _und_ Objekt ist ..., geht das Subjekt bei Goethe selbstlos in dem Objekte auf und entnimmt die Data zur Beurteilung aus dem Kreise der Dinge\" (<a href=\"#\" class=\"ga-reference\" data-id=\"GA001\" data-index=\"wt7tfa\" data-file-name=\"GA001 - Einleitungen zu Goethes Naturwissenschaftlichen Schriften (1884-1897)\" data-quote-text=\"Es ist ein Fehler, der sich durch Kants ganzes Lehrgebäude durchzieht, dass er die sinnenfällige Mannigfaltigkeit als etwas Festes ansieht, und dass er glaubt, Wissenschaft bestehe darinnen, diese Mannigfaltigkeit in ein System zu bringen. Er vermutet gar nicht, dass das Mannigfaltige kein Letztes ist, das man _überwinden_ muss, wenn man es begreifen will; und deshalb wird ihm alle Theorie bloß eine Zutat, die Verstand und Vernunft zur Erfahrung hinzubringen. Die Idee ist ihm nicht das, was der \">GA001</a>).\n\n## Goethes Kritik am Grundirrtum Kants\n\nDer von Goethe formulierte Grundirrtum: Kant habe „das subjektive Erkenntnisvermögen ... selbst als Objekt betrachtet und den Punkt, wo subjektiv und objektiv zusammentreffen, zwar scharf, aber nicht ganz richtig sondert\" (<a href=\"#\" class=\"ga-reference\" data-id=\"GA018/2\" data-index=\"zkl076\" data-file-name=\"GA018/2 - ERSTER BAND\" data-quote-text=\"Den Gegensatz zur Kantschen Auffassung der Welt bildete in allen wesentlichen Dingen die Goethesche. Ungefähr um dieselbe Zeit, als Kant seine «Kritik der reinen Vernunft» erscheinen ließ, legte Goethe sein Glaubensbekenntnis in dem Hymnus in Prosa «Die Natur» nieder, in dem er den Menschen ganz in die Natur hineinstellte und sie, die unabhängig von ihm waltende, zu ihrer eigenen und seiner Gesetzgeberin zugleich machte. Kant nahm die ganze Natur in den menschlichen Geist herein, Goethe sah alle\">GA018/2</a>), (<a href=\"#\" class=\"ga-reference\" data-id=\"GA006\" data-index=\"c2mp6p\" data-file-name=\"GA006 - Goethes Weltanschauung (1897)\" data-quote-text=\"Goethe fand nirgends Aufklärung. Er musste sich selbst aufklären. Er suchte den Grund dafür und glaubte ihn darin zu finden, dass er für Philosophie im eigentlichen Sinne kein Organ hätte. Er ist aber darin zu suchen, dass die einseitig erfasste platonische Denkweise, die alle ihm zugänglichen Philosophien beherrschte, seiner gesunden Naturanlage |53| widersprach. In seiner Jugend hatte er sich wiederholt an Spinoza gewandt. Er gesteht sogar, dass dieser Philosoph auf ihn immer eine «friedliche \">GA006</a>).\n\nDie Überwindung des Gegensatzes: „Subjektiv und objektiv treffen zusammen, wenn die objektive Ideenwelt im Subjekte auflebt, und in dem Geiste des Menschen dasjenige lebt, was in der Natur selbst tätig ist. Wenn das der Fall ist, dann hört aller Gegensatz von subjektiv und objektiv auf\" (<a href=\"#\" class=\"ga-reference\" data-id=\"GA006\" data-index=\"c2mp6p\" data-file-name=\"GA006 - Goethes Weltanschauung (1897)\" data-quote-text=\"Goethe fand nirgends Aufklärung. Er musste sich selbst aufklären. Er suchte den Grund dafür und glaubte ihn darin zu finden, dass er für Philosophie im eigentlichen Sinne kein Organ hätte. Er ist aber darin zu suchen, dass die einseitig erfasste platonische Denkweise, die alle ihm zugänglichen Philosophien beherrschte, seiner gesunden Naturanlage |53| widersprach. In seiner Jugend hatte er sich wiederholt an Spinoza gewandt. Er gesteht sogar, dass dieser Philosoph auf ihn immer eine «friedliche \">GA006</a>). „Das Subjektive ist objektiv geworden; das objektive von dem Geiste ganz durchdrungen\" (<a href=\"#\" class=\"ga-reference\" data-id=\"GA006\" data-index=\"c2mp6p\" data-file-name=\"GA006 - Goethes Weltanschauung (1897)\" data-quote-text=\"Goethe fand nirgends Aufklärung. Er musste sich selbst aufklären. Er suchte den Grund dafür und glaubte ihn darin zu finden, dass er für Philosophie im eigentlichen Sinne kein Organ hätte. Er ist aber darin zu suchen, dass die einseitig erfasste platonische Denkweise, die alle ihm zugänglichen Philosophien beherrschte, seiner gesunden Naturanlage |53| widersprach. In seiner Jugend hatte er sich wiederholt an Spinoza gewandt. Er gesteht sogar, dass dieser Philosoph auf ihn immer eine «friedliche \">GA006</a>).\n\nKants entscheidendes Versäumnis: „Kant und die Kantianer hatten keine Ahnung davon, dass in den Ideen der Vernunft das Wesen, das Ansich der Dinge unmittelbar erlebt wird. Für sie ist alles Ideelle ein bloß Subjektives\" (<a href=\"#\" class=\"ga-reference\" data-id=\"GA006\" data-index=\"c2mp6p\" data-file-name=\"GA006 - Goethes Weltanschauung (1897)\" data-quote-text=\"Goethe fand nirgends Aufklärung. Er musste sich selbst aufklären. Er suchte den Grund dafür und glaubte ihn darin zu finden, dass er für Philosophie im eigentlichen Sinne kein Organ hätte. Er ist aber darin zu suchen, dass die einseitig erfasste platonische Denkweise, die alle ihm zugänglichen Philosophien beherrschte, seiner gesunden Naturanlage |53| widersprach. In seiner Jugend hatte er sich wiederholt an Spinoza gewandt. Er gesteht sogar, dass dieser Philosoph auf ihn immer eine «friedliche \">GA006</a>).\n\nDer erkenntnistheoretische Kernfehler: „die Auseinanderhaltung von Subjekt und Objekt nur ein Durchgangspunkt unseres Erkennens ist, dass beiden eine tiefere, der Vernunft erfassbare Einheit zugrunde liegt\" (<a href=\"#\" class=\"ga-reference\" data-id=\"GA001\" data-index=\"miszbi\" data-file-name=\"GA001 - Einleitungen zu Goethes Naturwissenschaftlichen Schriften (1884-1897)\" data-quote-text=\"Wenn wir nun auf Goethes Beziehung zu den gleichzeitigen Philosophen übergehen, so haben wir vor allem von Kant zu sprechen. Kant wird allgemein als der Begründer der heutigen Philosophie angesehen. Zu seiner Zeit rief er eine so mächtige Bewegung hervor, dass es für jeden Gebildeten Bedürfnis war, sich mit ihm auseinander zu setzen. Auch für Goethe wurde diese Auseinandersetzung eine Notwendigkeit. Sie konnte aber für ihn nicht fruchtbar sein. Denn es besteht ein tiefer Gegensatz zwischen dem, \">GA001</a>). „Das Ding ist eine Vernunfteinheit und die Trennung in ein «Ding an sich» und «Ding für uns» ist Verstandesprodukt\" (<a href=\"#\" class=\"ga-reference\" data-id=\"GA001\" data-index=\"miszbi\" data-file-name=\"GA001 - Einleitungen zu Goethes Naturwissenschaftlichen Schriften (1884-1897)\" data-quote-text=\"Wenn wir nun auf Goethes Beziehung zu den gleichzeitigen Philosophen übergehen, so haben wir vor allem von Kant zu sprechen. Kant wird allgemein als der Begründer der heutigen Philosophie angesehen. Zu seiner Zeit rief er eine so mächtige Bewegung hervor, dass es für jeden Gebildeten Bedürfnis war, sich mit ihm auseinander zu setzen. Auch für Goethe wurde diese Auseinandersetzung eine Notwendigkeit. Sie konnte aber für ihn nicht fruchtbar sein. Denn es besteht ein tiefer Gegensatz zwischen dem, \">GA001</a>).\n\n## Die anschauende Urteilskraft als Überwindung\n\nGoethes Aufsatz „Über anschauende Urteilskraft\" als „eine der größten Taten der neueren Philosophie ... weil in dem, was in diesem kleinen Aufsatz lebt, der Ausgangspunkt gegeben ist für eine gewaltige Entwicklung des menschlichen Geisteslebens\" (<a href=\"#\" class=\"ga-reference\" data-id=\"GA066/7\" data-index=\"su201c\" data-file-name=\"GA066/7 - DAS JENSEITS DER SINNE UND DAS JENSEITS DER SEELE, Berlin, 31. März 1917\" data-quote-text=\"Es glauben gerade die, ich möchte sagen, erleuchtetsten Geister der Gegenwart, dass man geradezu eine Sünde wider die Erkenntnis begehe, wenn man von einem Aufsteigen des Menschen zu einem solchen schauenden Bewusstsein spricht. Und für manche insbesondere der philosophischen Geister der Gegenwart ist einfach dieses schauende Bewusstsein damit verurteilt, dass ein solcher Mensch sagt: Ja, das ist ja so wie die Hellseherei! - Nun liegt die Sache so, dass - um an etwas anzuknüpfen - man es viellei\">GA066/7</a>).\n\nDer zentrale Einwand Goethes gegen Kant: „Ja, Kant schließt den Menschen aus von dem Ding an sich und lässt nur gelten, dass hereinragt in die Seele der kategorische Imperativ ... Aber wenn man sich im Sittlichen ... erheben soll zu Gedanken über Freiheit, Unsterblichkeit, warum sollte es dem Menschen verschlossen sein, sich unmittelbar auch in der Erkenntnis hineinzuheben in jene Welt, in welcher Unsterblichkeit und Freiheit selbst wurzeln?\" (<a href=\"#\" class=\"ga-reference\" data-id=\"GA066/7\" data-index=\"su201c\" data-file-name=\"GA066/7 - DAS JENSEITS DER SINNE UND DAS JENSEITS DER SEELE, Berlin, 31. März 1917\" data-quote-text=\"Es glauben gerade die, ich möchte sagen, erleuchtetsten Geister der Gegenwart, dass man geradezu eine Sünde wider die Erkenntnis begehe, wenn man von einem Aufsteigen des Menschen zu einem solchen schauenden Bewusstsein spricht. Und für manche insbesondere der philosophischen Geister der Gegenwart ist einfach dieses schauende Bewusstsein damit verurteilt, dass ein solcher Mensch sagt: Ja, das ist ja so wie die Hellseherei! - Nun liegt die Sache so, dass - um an etwas anzuknüpfen - man es viellei\">GA066/7</a>).\n\n„Solch eine Urteilskraft, die sich in eine solche Welt versetzt, nennt Goethe die anschauende Urteilskraft\" (<a href=\"#\" class=\"ga-reference\" data-id=\"GA066/7\" data-index=\"su201c\" data-file-name=\"GA066/7 - DAS JENSEITS DER SINNE UND DAS JENSEITS DER SEELE, Berlin, 31. März 1917\" data-quote-text=\"Es glauben gerade die, ich möchte sagen, erleuchtetsten Geister der Gegenwart, dass man geradezu eine Sünde wider die Erkenntnis begehe, wenn man von einem Aufsteigen des Menschen zu einem solchen schauenden Bewusstsein spricht. Und für manche insbesondere der philosophischen Geister der Gegenwart ist einfach dieses schauende Bewusstsein damit verurteilt, dass ein solcher Mensch sagt: Ja, das ist ja so wie die Hellseherei! - Nun liegt die Sache so, dass - um an etwas anzuknüpfen - man es viellei\">GA066/7</a>). Kant nannte deren Gebrauch „das Abenteuer der Vernunft\"; Goethe stellte dem entgegen: „warum sollte man nicht dieses Abenteuer der Vernunft mutig bestehen?\" (<a href=\"#\" class=\"ga-reference\" data-id=\"GA066/7\" data-index=\"su201c\" data-file-name=\"GA066/7 - DAS JENSEITS DER SINNE UND DAS JENSEITS DER SEELE, Berlin, 31. März 1917\" data-quote-text=\"Es glauben gerade die, ich möchte sagen, erleuchtetsten Geister der Gegenwart, dass man geradezu eine Sünde wider die Erkenntnis begehe, wenn man von einem Aufsteigen des Menschen zu einem solchen schauenden Bewusstsein spricht. Und für manche insbesondere der philosophischen Geister der Gegenwart ist einfach dieses schauende Bewusstsein damit verurteilt, dass ein solcher Mensch sagt: Ja, das ist ja so wie die Hellseherei! - Nun liegt die Sache so, dass - um an etwas anzuknüpfen - man es viellei\">GA066/7</a>).\n\nDer Charakter dieser Erkenntnis: „eine Erkenntnis, die im Innern der Seele zwar erklungen, die aber unmittelbar Offenbarung ist desjenigen, was in der Welt sich aus ihr entwickeln soll\" (<a href=\"#\" class=\"ga-reference\" data-id=\"GA070b/12\" data-index=\"dryepv\" data-file-name=\"GA070b/12 - ZUR DEUTSCHEN GEDANKENENTWICKLUNG. EIN VERGESSENES STREBEN NACH GEISTESWISSENSCHAFT INNERHALB DERSELBEN, Hannover, 29. Februar 1916\" data-quote-text=\"Und Goethe spricht - im Gegensatz zu Kant - in einem kleinen, schönen Aufsatze über die «Anschauende Urteilskraft» es aus, wie er strebt nach einer Erkenntnis, die im Innern der Seele zwar erklungen, die aber unmittelbar Offenbarung ist desjenigen, was in der Welt sich aus ihr entwickeln soll. Die Seele beschränkt sich nicht darauf, bloß die äußere Sinnenwelt anzuschauen und |568| über sie zu urteilen; sondern wenn die Seele sich in sich selber zurückzieht, dann soll in dieser Seele etwas aufwac\">GA070b/12</a>). „Wenn die Seele sich in sich selber zurückzieht, dann soll in dieser Seele etwas aufwachen, sodass die urteilende Kraft selber zu einer Anschauung wird, sodass man geistig schauen lernt\" (<a href=\"#\" class=\"ga-reference\" data-id=\"GA070b/12\" data-index=\"dryepv\" data-file-name=\"GA070b/12 - ZUR DEUTSCHEN GEDANKENENTWICKLUNG. EIN VERGESSENES STREBEN NACH GEISTESWISSENSCHAFT INNERHALB DERSELBEN, Hannover, 29. Februar 1916\" data-quote-text=\"Und Goethe spricht - im Gegensatz zu Kant - in einem kleinen, schönen Aufsatze über die «Anschauende Urteilskraft» es aus, wie er strebt nach einer Erkenntnis, die im Innern der Seele zwar erklungen, die aber unmittelbar Offenbarung ist desjenigen, was in der Welt sich aus ihr entwickeln soll. Die Seele beschränkt sich nicht darauf, bloß die äußere Sinnenwelt anzuschauen und |568| über sie zu urteilen; sondern wenn die Seele sich in sich selber zurückzieht, dann soll in dieser Seele etwas aufwac\">GA070b/12</a>).\n\nErkenntnistheoretische Stellung: „Vertritt der Typus in der organischen Natur das Naturgesetz (Urphänomen) der unorganischen, so vertritt die Intuition (anschauende Urteilskraft) die beweisende (reflektierende) Urteilskraft\" (<a href=\"#\" class=\"ga-reference\" data-id=\"GA002\" data-index=\"27z6xe\" data-file-name=\"GA002 - Grundlinien einer Erkenntnistheorie der Goetheschen Weltanschauung (1886)\" data-quote-text=\"Vertritt der Typus in der organischen Natur das Naturgesetz (Urphänomen) der unorganischen, so vertritt die Intuition (anschauende Urteilskraft) die beweisende (reflektierende) Urteilskraft. Wie man geglaubt hat, dieselben |111| Gesetze auf die organische Natur anwenden zu können, die für eine niedere Erkenntnisstufe maßgebend sind, so vermeinte man auch, dieselbe Methode gelte hier wie dort. Beides ist ein Irrtum.\">GA002</a>).\n\n## Die Wechselwirkung von Idee und Erfahrung\n\nGoethes Verfahren: „Er musste den Geist in die Erfahrung versenken, um zu den Ideen zu kommen. Die Wechselwirkung von Idee und Wahrnehmung war ihm ein geistiges Atemholen\" (<a href=\"#\" class=\"ga-reference\" data-id=\"GA006\" data-index=\"c2mp6p\" data-file-name=\"GA006 - Goethes Weltanschauung (1897)\" data-quote-text=\"Goethe fand nirgends Aufklärung. Er musste sich selbst aufklären. Er suchte den Grund dafür und glaubte ihn darin zu finden, dass er für Philosophie im eigentlichen Sinne kein Organ hätte. Er ist aber darin zu suchen, dass die einseitig erfasste platonische Denkweise, die alle ihm zugänglichen Philosophien beherrschte, seiner gesunden Naturanlage |53| widersprach. In seiner Jugend hatte er sich wiederholt an Spinoza gewandt. Er gesteht sogar, dass dieser Philosoph auf ihn immer eine «friedliche \">GA006</a>). „Durch die Wechselbewegung von Idee und Erfahrung [wird] die sittliche und wissenschaftliche Welt regiert\" (<a href=\"#\" class=\"ga-reference\" data-id=\"GA006\" data-index=\"c2mp6p\" data-file-name=\"GA006 - Goethes Weltanschauung (1897)\" data-quote-text=\"Goethe fand nirgends Aufklärung. Er musste sich selbst aufklären. Er suchte den Grund dafür und glaubte ihn darin zu finden, dass er für Philosophie im eigentlichen Sinne kein Organ hätte. Er ist aber darin zu suchen, dass die einseitig erfasste platonische Denkweise, die alle ihm zugänglichen Philosophien beherrschte, seiner gesunden Naturanlage |53| widersprach. In seiner Jugend hatte er sich wiederholt an Spinoza gewandt. Er gesteht sogar, dass dieser Philosoph auf ihn immer eine «friedliche \">GA006</a>).\n\n„sobald er aber fühlt, wie die Idee in seinem Innern lebt und tätig ist, betrachtet er sich und die Natur als ein Ganzes, und was als Subjektives in seinem Innern erscheint, das gilt ihm zugleich als objektiv\" (<a href=\"#\" class=\"ga-reference\" data-id=\"GA006\" data-index=\"c2mp6p\" data-file-name=\"GA006 - Goethes Weltanschauung (1897)\" data-quote-text=\"Goethe fand nirgends Aufklärung. Er musste sich selbst aufklären. Er suchte den Grund dafür und glaubte ihn darin zu finden, dass er für Philosophie im eigentlichen Sinne kein Organ hätte. Er ist aber darin zu suchen, dass die einseitig erfasste platonische Denkweise, die alle ihm zugänglichen Philosophien beherrschte, seiner gesunden Naturanlage |53| widersprach. In seiner Jugend hatte er sich wiederholt an Spinoza gewandt. Er gesteht sogar, dass dieser Philosoph auf ihn immer eine «friedliche \">GA006</a>).\n\nDer Fehler in Kants Auffassung des Mannigfaltigen: Kant „vermutet gar nicht, dass das Mannigfaltige kein Letztes ist, das man _überwinden_ muss, wenn man es begreifen will; und deshalb wird ihm alle Theorie bloß eine Zutat\" (<a href=\"#\" class=\"ga-reference\" data-id=\"GA001\" data-index=\"wt7tfa\" data-file-name=\"GA001 - Einleitungen zu Goethes Naturwissenschaftlichen Schriften (1884-1897)\" data-quote-text=\"Es ist ein Fehler, der sich durch Kants ganzes Lehrgebäude durchzieht, dass er die sinnenfällige Mannigfaltigkeit als etwas Festes ansieht, und dass er glaubt, Wissenschaft bestehe darinnen, diese Mannigfaltigkeit in ein System zu bringen. Er vermutet gar nicht, dass das Mannigfaltige kein Letztes ist, das man _überwinden_ muss, wenn man es begreifen will; und deshalb wird ihm alle Theorie bloß eine Zutat, die Verstand und Vernunft zur Erfahrung hinzubringen. Die Idee ist ihm nicht das, was der \">GA001</a>). „Die Idee ist ihm nicht das, was der Vernunft als der tiefere Grund der gegebenen Welt erscheint ..., sondern nur ein methodisches Prinzip\" (<a href=\"#\" class=\"ga-reference\" data-id=\"GA001\" data-index=\"wt7tfa\" data-file-name=\"GA001 - Einleitungen zu Goethes Naturwissenschaftlichen Schriften (1884-1897)\" data-quote-text=\"Es ist ein Fehler, der sich durch Kants ganzes Lehrgebäude durchzieht, dass er die sinnenfällige Mannigfaltigkeit als etwas Festes ansieht, und dass er glaubt, Wissenschaft bestehe darinnen, diese Mannigfaltigkeit in ein System zu bringen. Er vermutet gar nicht, dass das Mannigfaltige kein Letztes ist, das man _überwinden_ muss, wenn man es begreifen will; und deshalb wird ihm alle Theorie bloß eine Zutat, die Verstand und Vernunft zur Erfahrung hinzubringen. Die Idee ist ihm nicht das, was der \">GA001</a>).\n\n## Erkenntnistheorie als positive Wissenschaft\n\nDie im Sinne Goethes gehaltene Erkenntnistheorie „will nicht bloß einen formalen Zusammenhang zwischen Denken und Sein feststellen ..., sie will zu einem positivem Resultat kommen. Sie zeigt, _was_ der Inhalt unseres Denkens ist; und sie findet, _dass_ dieses _Was_ zugleich der objektive Weltinhalt ist\" (<a href=\"#\" class=\"ga-reference\" data-id=\"GA001\" data-index=\"57llau\" data-file-name=\"GA001 - Einleitungen zu Goethes Naturwissenschaftlichen Schriften (1884-1897)\" data-quote-text=\"Der vollständigen von allem Gedankeninhalt entblößten Sinnenwelt stehen wir wohl niemals gegenüber. Höchstens im ersten Kindesalter, wo vom Denken noch keine Spur da ist, kommen wir der reinen Sinnesauffassung nahe. Im gewöhnlichen Leben haben wir es mit einer Erfahrung zu tun, die halb und halb von dem Denken durchtränkt ist, die schon mehr oder weniger aus dem Dunkel des Anschauens zur lichten Klarheit des geistigen Erfassens gehoben erscheint. Die Wissenschaften arbeiten darauf hinaus, diese \">GA001</a>).\n\n„Das Sinnenfällige, richtig erkannt, zeigt überall, dass es Offenbarung des Geistigen ist\" (<a href=\"#\" class=\"ga-reference\" data-id=\"GA002\" data-index=\"utazyu\" data-file-name=\"GA002 - Grundlinien einer Erkenntnistheorie der Goetheschen Weltanschauung (1886)\" data-quote-text=\"Aber das Sinnenfällige, richtig erkannt, zeigt überall, dass es Offenbarung des Geistigen ist. Dieser richtigen Erkenntnis des Sinnenfälligen gegenüber war mir klar, dass «Grenzen der Erkenntnis», wie sie damals festgestellt wurden, nur der zugeben kann, der auf dieses Sinnenfällige stößt und es so behandelt, wie jemand eine vollgedruckte Seite dann behandeln würde, wenn er die Anschauung nur auf die Buchstabenformen richtete und ohne Ahnung vom Lesen sagte, man könne nicht wissen, was hinter di\">GA002</a>). „«Grenzen der Erkenntnis» ... kann nur der zugeben, der ... eine vollgedruckte Seite dann behandeln würde, wenn er die Anschauung nur auf die Buchstabenformen richtete und ohne Ahnung vom Lesen sagte, man könne nicht wissen, was hinter diesen Formen stecke\" (<a href=\"#\" class=\"ga-reference\" data-id=\"GA002\" data-index=\"utazyu\" data-file-name=\"GA002 - Grundlinien einer Erkenntnistheorie der Goetheschen Weltanschauung (1886)\" data-quote-text=\"Aber das Sinnenfällige, richtig erkannt, zeigt überall, dass es Offenbarung des Geistigen ist. Dieser richtigen Erkenntnis des Sinnenfälligen gegenüber war mir klar, dass «Grenzen der Erkenntnis», wie sie damals festgestellt wurden, nur der zugeben kann, der auf dieses Sinnenfällige stößt und es so behandelt, wie jemand eine vollgedruckte Seite dann behandeln würde, wenn er die Anschauung nur auf die Buchstabenformen richtete und ohne Ahnung vom Lesen sagte, man könne nicht wissen, was hinter di\">GA002</a>).\n\nAus dem Erkenntnisbegriff der „Philosophie der Freiheit\" folgt, „dass aus dem Begriff des Erkennens, wie wir ihn bestimmt haben, von Erkenntnisgrenzen nicht gesprochen werden kann\" (<a href=\"#\" class=\"ga-reference\" data-id=\"GA080c/6\" data-index=\"jwylbn\" data-file-name=\"GA080c/6 - PHILOSOPHIE UND ANTHROPOSOPHIE, Amsterdam, 1. März 1921\" data-quote-text=\"Es versteht sich, dass es viel zu weit führen würde, wenn man dies nun mit besonderen Gründen weiter ausführen wollte. Ich hätte dann hier einen ganzen Abend nötig, genauso gut wie der Herr Vorredner diesen und noch mehr gebraucht hätte, um seine Ansicht über Erkenntnistheorie zu sagen. Aber es gibt doch manche Worte, die ich bloß kurz berühren will, weil sie von dem alleräußersten und größten prinzipiellen Interesse sind. In dem Buche «Philosophie der Freiheit» zum Beispiel wird das Erkenntnisp\">GA080c/6</a>).\n\n## Der verborgene Materialismus in Kants Ding-an-sich\n\nDas Bild vom Petschaft: Wenn Siegellack „erkennend im Kantschen Sinne wäre, so würde es sagen: «Ich bin ganz Lack, nichts kommt vom Messing in mich herein, also gibt es keine Beziehung»\" – dabei vergessend, „dass das, worauf es ankommt, nämlich der Name Müller, ganz objektiv als Abdruck im Siegellack drinnen ist, ohne dass vom Messing etwas hinübergegangen ist\" (<a href=\"#\" class=\"ga-reference\" data-id=\"GA035/4\" data-index=\"cu2v53\" data-file-name=\"GA035/4 - PHILOSOPHIE UND ANTHROPOSOPHIE\" data-quote-text=\"Aber man war eingezwängt in Kantsche Begriffe und deshalb konnte man den größten Philosophen der Welt weder philosophisch noch sachlich begreifen. Sie wissen, es ist derjenige, der im Hause vis-à-vis, wie aus der Gedenktafel hervorgeht, die Sie sehen können, wenn Sie hier die Straße betreten, seine Jugendzeit verbracht hat: Hegel. Erst allmählich wird man dazu heranreifen, das zu verstehen, was er der Welt gegeben hat; erst dann wird man ihn begreifen können, wenn man wieder herauskommt aus dem \">GA035/4</a>).\n\n„was herüberkommt vom Wirklichen zu uns, ist als Geistiges zu bezeichnen; das hat nicht nötig, dass materielle Atome herüberfließen\" (<a href=\"#\" class=\"ga-reference\" data-id=\"GA035/4\" data-index=\"cu2v53\" data-file-name=\"GA035/4 - PHILOSOPHIE UND ANTHROPOSOPHIE\" data-quote-text=\"Aber man war eingezwängt in Kantsche Begriffe und deshalb konnte man den größten Philosophen der Welt weder philosophisch noch sachlich begreifen. Sie wissen, es ist derjenige, der im Hause vis-à-vis, wie aus der Gedenktafel hervorgeht, die Sie sehen können, wenn Sie hier die Straße betreten, seine Jugendzeit verbracht hat: Hegel. Erst allmählich wird man dazu heranreifen, das zu verstehen, was er der Welt gegeben hat; erst dann wird man ihn begreifen können, wenn man wieder herauskommt aus dem \">GA035/4</a>). „Kant war zu seinen Vorstellungen durch seinen versteckten Materialismus verführt\" (<a href=\"#\" class=\"ga-reference\" data-id=\"GA035/4\" data-index=\"cu2v53\" data-file-name=\"GA035/4 - PHILOSOPHIE UND ANTHROPOSOPHIE\" data-quote-text=\"Aber man war eingezwängt in Kantsche Begriffe und deshalb konnte man den größten Philosophen der Welt weder philosophisch noch sachlich begreifen. Sie wissen, es ist derjenige, der im Hause vis-à-vis, wie aus der Gedenktafel hervorgeht, die Sie sehen können, wenn Sie hier die Straße betreten, seine Jugendzeit verbracht hat: Hegel. Erst allmählich wird man dazu heranreifen, das zu verstehen, was er der Welt gegeben hat; erst dann wird man ihn begreifen können, wenn man wieder herauskommt aus dem \">GA035/4</a>). Präzisierend: „dass die kantische Definition des «Ding an sich» nicht ausschließt ein materielles Vorstellen\" (<a href=\"#\" class=\"ga-reference\" data-id=\"GA080c/6\" data-index=\"hvxq9m\" data-file-name=\"GA080c/6 - PHILOSOPHIE UND ANTHROPOSOPHIE, Amsterdam, 1. März 1921\" data-quote-text=\"Rudolf Steiner: Sie haben da die Übersetzung. Dann ist der Satz falsch übersetzt. Er besagt nicht, dass ich Kant vindiziere, er könnte sich das «Ding an sich» nur materiell vorstellen, sondern dass ich finde, dass das «Ding an sich», wenn man es unbefangen vorstellen will, materiell vorgestellt werden könnte. Das ist nicht ein Einwand, den ich mache, sondern den viele schon gemacht haben, dass die kantische Definition des «Ding an sich» nicht ausschließt ein materielles Vorstellen.\">GA080c/6</a>).\n\n## Kants Kompromiss zwischen Leibniz-Wolff und Hume\n\n„Richtig angesehen, stellt sich der Kantsche Kritizismus als ein Kompromiss zwischen Leibniz-Wolff einerseits und Hume andererseits heraus\" (<a href=\"#\" class=\"ga-reference\" data-id=\"GA030/3\" data-index=\"vf1f12\" data-file-name=\"GA030/3 - EINHEITLICHE NATURANSCHAUUNG UND ERKENNTNISGRENZEN (1892-93)\" data-quote-text=\"Kant wurde durch die Bekanntschaft mit Humes Anschauung in seiner bisherigen Überzeugung erschüttert. Dass wirklich alle unsere Erkenntnisse mit Hilfe der Erfahrung gewonnen werden, daran zweifelte er bald nicht mehr. Aber gewisse wissenschaftliche Lehrsätze schienen ihm doch einen solchen Charakter von Notwendigkeit zu haben, dass er an ein bloß gewohnheitsmäßiges Festhalten an denselben nicht glauben wollte. Kant konnte sich weder entschlie-Ben, den Radikalismus Humes mitzumachen, noch vermoch\">GA030/3</a>), (<a href=\"#\" class=\"ga-reference\" data-id=\"GA030/34\" data-index=\"1532p6\" data-file-name=\"GA030/34 - MODERNE WELTANSCHAUUNG UND REAKTIONÄRER KURS (1900)\" data-quote-text=\"&lt;h2>I&lt;/h2> |405| Kant wurde durch die Bekanntschaft mit Humes Anschauung in der Überzeugung erschüttert, die er in früheren Jahren hatte. Dass wirklich alle unsere Erkenntnisse mit Hilfe der Erfahrung gewonnen werden, daran zweifelte er bald nicht mehr. Aber gewisse wissenschaftliche Lehrsätze schienen ihm doch einen solchen Charakter von Notwendigkeit zu haben, dass er an ein bloß gewohnheitsmäßiges Festhalten an denselben nicht glauben wollte. Kant konnte sich weder entschließen, den Radikalis„>GA030/34</a>). Die Grundfrage: \"Wie können wir zu Urteilen kommen, die im Sinne von Leibniz und Wolff notwendig gültig sind, wenn wir zugleich zugeben, dass wir nur durch die Erfahrung zu einem wirklichen Inhalte unseres Wissens gelangen?„ (<a href=\"#\" class=\"ga-reference\" data-id=\"GA030/3\" data-index=\"vf1f12\" data-file-name=\"GA030/3 - EINHEITLICHE NATURANSCHAUUNG UND ERKENNTNISGRENZEN (1892-93)\" data-quote-text=\"Kant wurde durch die Bekanntschaft mit Humes Anschauung in seiner bisherigen Überzeugung erschüttert. Dass wirklich alle unsere Erkenntnisse mit Hilfe der Erfahrung gewonnen werden, daran zweifelte er bald nicht mehr. Aber gewisse wissenschaftliche Lehrsätze schienen ihm doch einen solchen Charakter von Notwendigkeit zu haben, dass er an ein bloß gewohnheitsmäßiges Festhalten an denselben nicht glauben wollte. Kant konnte sich weder entschlie-Ben, den Radikalismus Humes mitzumachen, noch vermoch\">GA030/3</a>).\n\nDies erreichte Kant, indem er \"unseren Wahrnehmungs- und Verstandesorganismus zu einer Macht erhob, der die Erfahrung miterzeugt„ (<a href=\"#\" class=\"ga-reference\" data-id=\"GA030/3\" data-index=\"vf1f12\" data-file-name=\"GA030/3 - EINHEITLICHE NATURANSCHAUUNG UND ERKENNTNISGRENZEN (1892-93)\" data-quote-text=\"Kant wurde durch die Bekanntschaft mit Humes Anschauung in seiner bisherigen Überzeugung erschüttert. Dass wirklich alle unsere Erkenntnisse mit Hilfe der Erfahrung gewonnen werden, daran zweifelte er bald nicht mehr. Aber gewisse wissenschaftliche Lehrsätze schienen ihm doch einen solchen Charakter von Notwendigkeit zu haben, dass er an ein bloß gewohnheitsmäßiges Festhalten an denselben nicht glauben wollte. Kant konnte sich weder entschlie-Ben, den Radikalismus Humes mitzumachen, noch vermoch\">GA030/3</a>). \"So schreiben unsere Sinnlichkeit und unser Verstand der Erfahrungswelt die Gesetze vor„ (<a href=\"#\" class=\"ga-reference\" data-id=\"GA030/3\" data-index=\"vf1f12\" data-file-name=\"GA030/3 - EINHEITLICHE NATURANSCHAUUNG UND ERKENNTNISGRENZEN (1892-93)\" data-quote-text=\"Kant wurde durch die Bekanntschaft mit Humes Anschauung in seiner bisherigen Überzeugung erschüttert. Dass wirklich alle unsere Erkenntnisse mit Hilfe der Erfahrung gewonnen werden, daran zweifelte er bald nicht mehr. Aber gewisse wissenschaftliche Lehrsätze schienen ihm doch einen solchen Charakter von Notwendigkeit zu haben, dass er an ein bloß gewohnheitsmäßiges Festhalten an denselben nicht glauben wollte. Kant konnte sich weder entschlie-Ben, den Radikalismus Humes mitzumachen, noch vermoch\">GA030/3</a>).\n\n## Fazit\n\nKants Erkenntnisgrenze entsteht dadurch, dass er die gesamte Beobachtungswelt in den menschlichen Geist hineinnimmt und so das «Ding an sich» der Erkenntnis unzugänglich macht. Er trennt Subjekt und Objekt und lässt im Erkenntnisvermögen nur den subjektiven Geist sprechen. Goethes anschauende Urteilskraft überwindet diese Grenze, indem sie den Punkt, \"wo subjektiv und objektiv zusammentreffen„, anders bestimmt: Nicht der Mensch spricht über die Natur, sondern die Natur spricht im Menschen über sich selbst. Wenn die objektive Ideenwelt im Subjekt auflebt, hört der Gegensatz von subjektiv und objektiv auf – die Idee wird zum unmittelbar erlebten Wesen der Dinge. Die anschauende Urteilskraft ist jene Erkenntniskraft, die sich in die Welt versetzt, in der Freiheit und Unsterblichkeit wurzeln, wodurch die urteilende Kraft selbst zur Anschauung, zum geistigen Schauen wird. Damit fällt der Grund für Erkenntnisgrenzen weg, denn das richtig erkannte Sinnenfällige zeigt sich als Offenbarung des Geistigen.\n\n## Weitere relevante Quellen <a href=\"#\" class=\"ga-reference\" data-id=\"GA018/2\" data-index=\"m15u7h\" data-file-name=\"GA018/2 - ERSTER BAND\" data-quote-text=\"Auch andere haben das Unbefriedigende der Kantschen Gedankenkreise eingesehen. Lichtenberg, einer der geistvollsten und zugleich unabhängigsten Köpfe aus der zweiten Hälfte des achtzehnten Jahrhunderts, der Kant schätzte, konnte sich doch nicht versagen, gewichtige Einwände gegen dessen Weltanschauung zu machen. Er sagt einerseits: «Was heißt mit Kantischem Geist denken? Ich glaube, es heißt die Verhältnisse unseres Wesens, es sei nun was es wolle, gegen die Dinge, die wir außer uns nennen, ausf\">GA018/2</a>, <a href=\"#\" class=\"ga-reference\" data-id=\"GA018/2\" data-index=\"rixf3z\" data-file-name=\"GA018/2 - ERSTER BAND\" data-quote-text=\"&lt;h2>DAS ZEITALTER KANTS UND GOETHES&lt;/h2> |137| Zu zwei geistigen Instanzen blickt am Ende des achtzehnten Jahrhunderts derjenige auf, der nach Klarheit über die großen Fragen der Welt- und Lebensanschauung rang, zu Kant. und Goethe. Einer, der am gewaltigsten nach solcher Klarheit rang, ist Johann Gottlieb Fichte. Als er Kants «Kritik der praktischen Vernunft» kennengelernt hatte, schrieb er: «Ich lebe in einer neuen Welt ... Dinge, von denen ich glaubte, sie könnten mir nie bewiesen werden, zum\">GA018/2</a>, <a href=\"#\" class=\"ga-reference\" data-id=\"GA046/11\" data-index=\"awv921\" data-file-name=\"GA046/11 - Goethes Denkweise im Verhältnis zu Kant, Fichte, Schelling und Hegel (um 1886)\" data-quote-text=\"An diesen Zeilen wird der tiefgehende Gegensatz der Goethe'schen Denkweise und der Kantischen Philosophie anschaulich. Mit Urteilen wie: Goethe war für die Philosophie nicht empfänglich u. d[er]gl[eichen] ist es da durchaus nicht abgetan. Das Richtige ist, dass der Goethe'schen Denkweise eine wesentlich andere Philosophie als die Kantische immanent war. So kam es, dass Goethe die Kant'schen Feststellungen stets missverstand und wenn er von Kant'scher Philosophie zu sprechen glaubte, etwas ganz a\">GA046/11</a>, <a href=\"#\" class=\"ga-reference\" data-id=\"GA046/11\" data-index=\"e22st4\" data-file-name=\"GA046/11 - Goethes Denkweise im Verhältnis zu Kant, Fichte, Schelling und Hegel (um 1886)\" data-quote-text=\"Auch an der Kritik der Urteilskraft sind es ja nicht die Feststellungen Kants selbst, die den Dichter anziehen, sondern Dinge, die für Goethes Denken wesentlich waren, im Sinne der Kantischen Philosophie aber entweder unbeträchtliche Äußerlichkeiten oder gezwungene Annahmen Kants sind. Von der letzteren Art ist die Nebeneinanderstellung der ästhetischen und der teleologischen Urteilskraft in der Kritik der Urteilskraft. Was bei Goethe Prinzip alles Forschens, ja überhaupt Prinzip aller geistigen\">GA046/11</a>, <a href=\"#\" class=\"ga-reference\" data-id=\"GA034/26\" data-index=\"rcoaoe\" data-file-name=\"GA034/26 - FRAGEN UND ANTWORTEN\" data-quote-text=\"Alles, was Kant in den fünf Paragraphen, die der Formulierung seiner Grundfrage vorangehen, vorbringt, ist der Versuch eines Beweises, dass die mathematischen Urteile synthetisch seien. (Ein Versuch, der übrigens durch die Einwendungen Robert Zimmermanns - «Über Kants mathematisches Vorurteil und dessen Folgen» - wenn auch nicht gänzlich widerlegt, so doch sehr in Frage gestellt ist.) Aber gerade die von uns angeführten zwei Voraussetzungen bleiben als wissenschaftliche Vorurteile stehen. In Ein\">GA034/26</a>",
+    "sources": [
+      {
+        "ID": "GA001",
+        "index": "^8hwyjc",
+        "title": "Einleitungen zu Goethes Naturwissenschaftlichen Schriften (1884-1897)",
+        "fileName": "GA001 - Einleitungen zu Goethes Naturwissenschaftlichen Schriften (1884-1897)",
+        "score": 286,
+        "matchedTerms": [
+          "kant",
+          "kants",
+          "kantisch",
+          "kantische",
+          "kantischen",
+          "erkenntnis",
+          "goethes"
+        ]
+      },
+      {
+        "ID": "GA001",
+        "index": "^miszbi",
+        "title": "Einleitungen zu Goethes Naturwissenschaftlichen Schriften (1884-1897)",
+        "fileName": "GA001 - Einleitungen zu Goethes Naturwissenschaftlichen Schriften (1884-1897)",
+        "score": 211,
+        "matchedTerms": [
+          "kant",
+          "kants",
+          "kantisch",
+          "kantische",
+          "kantischen",
+          "ding an sich",
+          "erkenntnis",
+          "goethes"
+        ]
+      },
+      {
+        "ID": "GA018/2",
+        "index": "^zkl076",
+        "title": "ERSTER BAND",
+        "fileName": "GA018/2 - ERSTER BAND",
+        "score": 196,
+        "matchedTerms": [
+          "kant",
+          "kants",
+          "erkenntnis",
+          "goethes"
+        ]
+      },
+      {
+        "ID": "GA080c/6",
+        "index": "^jwylbn",
+        "title": "PHILOSOPHIE UND ANTHROPOSOPHIE",
+        "fileName": "GA080c/6 - PHILOSOPHIE UND ANTHROPOSOPHIE, Amsterdam, 1. März 1921",
+        "score": 178,
+        "matchedTerms": [
+          "kant",
+          "kantisch",
+          "kantische",
+          "kantischen",
+          "ding an sich",
+          "erkenntnistheorie",
+          "erkenntnis",
+          "erkenntnisgrenze"
+        ]
+      },
+      {
+        "ID": "GA030/7",
+        "index": "^lpfmkc",
+        "title": "HAECKEL UND SEINE GEGNER (1899)",
+        "fileName": "GA030/7 - HAECKEL UND SEINE GEGNER (1899)",
+        "score": 174,
+        "matchedTerms": [
+          "kant",
+          "kants",
+          "kantisch",
+          "kantische",
+          "goethes",
+          "urteilskraft"
+        ]
+      },
+      {
+        "ID": "GA058/1",
+        "index": "^qjf5m7",
+        "title": "DIE MISSION DER GEISTESWISSENSCHAFT EINST UND JETZT",
+        "fileName": "GA058/1 - DIE MISSION DER GEISTESWISSENSCHAFT EINST UND JETZT, Berlin, 14. Oktober 1909",
+        "score": 155,
+        "matchedTerms": [
+          "kant",
+          "kants",
+          "kantisch",
+          "kantische",
+          "kantischen",
+          "kategorischer imperativ"
+        ]
+      },
+      {
+        "ID": "GA006",
+        "index": "^c2mp6p",
+        "title": "Goethes Weltanschauung (1897)",
+        "fileName": "GA006 - Goethes Weltanschauung (1897)",
+        "score": 152,
+        "matchedTerms": [
+          "kant",
+          "kants",
+          "erkenntnis",
+          "goethes"
+        ]
+      },
+      {
+        "ID": "GA200/1",
+        "index": "^pq5ise",
+        "title": "ERSTER VORTRAG",
+        "fileName": "GA200/1 - ERSTER VORTRAG, Dornach, 17. Oktober 1920",
+        "score": 143,
+        "matchedTerms": [
+          "kant",
+          "kants"
+        ]
+      },
+      {
+        "ID": "GA046/4",
+        "index": "^u11ane",
+        "title": "Kants philosophische Entwicklung (1879-1883)",
+        "fileName": "GA046/4 - Kants philosophische Entwicklung (1879-1883)",
+        "score": 142,
+        "matchedTerms": [
+          "kant",
+          "kants",
+          "kantisch",
+          "kantische",
+          "kantischen"
+        ]
+      },
+      {
+        "ID": "GA046/11",
+        "index": "^awv921",
+        "title": "Goethes Denkweise im Verhältnis zu Kant",
+        "fileName": "GA046/11 - Goethes Denkweise im Verhältnis zu Kant, Fichte, Schelling und Hegel (um 1886)",
+        "score": 136,
+        "matchedTerms": [
+          "kant",
+          "kantisch",
+          "kantische",
+          "kantischen",
+          "goethes"
+        ]
+      }
+    ],
+    "searchMethod": "hybrid-thematic-unified",
+    "totalMatches": 31159,
+    "llmUsed": true,
+    "rechercheScope": {
+      "sourceType": "alle",
+      "themeArea": ""
+    },
+    "timestamp": "2026-07-12T08:31:06.608Z"
+  },
+  "der \"rubikon\" in der entwicklung des kindes|ausführlich|300|": {
+    "query": "Der \"Rubikon\" in der Entwicklung des Kindes",
+    "content": "## Der Rubikon des 9. Lebensjahres: Das Erwachen des Ich\n\nUm das neunte Jahr überschreitet das Kind einen „Rubikon\", an dem es sich zum ersten Mal wirklich von seiner Umgebung zu unterscheiden lernt (<a href=\"#\" class=\"ga-reference\" data-id=\"GA304/2\" data-index=\"e7egxd\" data-file-name=\"GA304/2 - ERZIEHUNGS-, UNTERRICHTS- UND PRAKTISCHE LEBENSFRAGEN VOM GESICHTSPUNKTE ANTHROPOSOPHISCHER GEISTESWISSENSCHAFT, Den Haag, 27. Februar 1921\" data-quote-text=\"Ungefähr um das neunte Jahr herum - es kann bis zum zehnten, ja bis zum elften Jahr dauern - ist für das Kind ein außerordentlich wichtiger Abschnitt seiner Entwickelung. Wenn wir das Kind in der Schule haben, machen wir mit ihm, es lenkend und leitend als Lehrer und Erzieher, diesen Zeitpunkt mit. In den ersten Kindesjahren lernt das Kind die Sprache; es lernt allmählich zu sich «ich» sagen. Aber diese Unterscheidung des eigenen Ich von der Umgebung ist noch etwas Unbestimmtes bis zum neunten J\">GA304/2</a>). Vor diesem Zeitpunkt ist die Unterscheidung des eigenen Ich von der Umgebung noch unbestimmt (<a href=\"#\" class=\"ga-reference\" data-id=\"GA304/2\" data-index=\"e7egxd\" data-file-name=\"GA304/2 - ERZIEHUNGS-, UNTERRICHTS- UND PRAKTISCHE LEBENSFRAGEN VOM GESICHTSPUNKTE ANTHROPOSOPHISCHER GEISTESWISSENSCHAFT, Den Haag, 27. Februar 1921\" data-quote-text=\"Ungefähr um das neunte Jahr herum - es kann bis zum zehnten, ja bis zum elften Jahr dauern - ist für das Kind ein außerordentlich wichtiger Abschnitt seiner Entwickelung. Wenn wir das Kind in der Schule haben, machen wir mit ihm, es lenkend und leitend als Lehrer und Erzieher, diesen Zeitpunkt mit. In den ersten Kindesjahren lernt das Kind die Sprache; es lernt allmählich zu sich «ich» sagen. Aber diese Unterscheidung des eigenen Ich von der Umgebung ist noch etwas Unbestimmtes bis zum neunten J\">GA304/2</a>).\n\nDas Selbstbewusstsein des Kindes verstärkt und vertieft sich mit dem Erreichen des neunten Lebensjahres (<a href=\"#\" class=\"ga-reference\" data-id=\"GA294/7\" data-index=\"6f6plg\" data-file-name=\"GA294/7 - SIEBENTER VORTRAG, Stuttgart, 28. August 1919\" data-quote-text=\"Wenn das Kind anfängt, etwas bewusster seine Glieder zu bewegen, zu gehen, ja selbst oftmals ungeschickt zu gehen, wenn es anfängt, zweckentsprechend |106| seine Arme und Hände zu bewegen, so liegt da ungefähr der Zeitpunkt, wo das Kind anfängt, sich seines Ich etwas bewusst zu werden, um später sich bis zu diesem Zeitpunkte zurückzuerinnern, nicht an das, was vorher geschehen ist. Wenn Sie bemerken, wie normalerweise - es ändert sich bei einzelnen Kinderexemplaren - der Mensch in diesem Zeitalt\">GA294/7</a>). Nach diesem „Rubikon\" unterscheidet sich das Kind viel mehr von der Umwelt als davor (<a href=\"#\" class=\"ga-reference\" data-id=\"GA294/7\" data-index=\"6f6plg\" data-file-name=\"GA294/7 - SIEBENTER VORTRAG, Stuttgart, 28. August 1919\" data-quote-text=\"Wenn das Kind anfängt, etwas bewusster seine Glieder zu bewegen, zu gehen, ja selbst oftmals ungeschickt zu gehen, wenn es anfängt, zweckentsprechend |106| seine Arme und Hände zu bewegen, so liegt da ungefähr der Zeitpunkt, wo das Kind anfängt, sich seines Ich etwas bewusst zu werden, um später sich bis zu diesem Zeitpunkte zurückzuerinnern, nicht an das, was vorher geschehen ist. Wenn Sie bemerken, wie normalerweise - es ändert sich bei einzelnen Kinderexemplaren - der Mensch in diesem Zeitalt\">GA294/7</a>).\n\nMit dem Erwachen des Ich-Bewusstseins um das neunte Jahr trennt sich der Mensch von der Naturumgebung und wird reif für eine objektive Betrachtung der Naturerscheinungen (<a href=\"#\" class=\"ga-reference\" data-id=\"GA297/6\" data-index=\"wvxx9p\" data-file-name=\"GA297/6 - GEISTESWISSENSCHAFT UND PÄDAGOGIK, Basel, 27. November 1919\" data-quote-text=\"Bei dem einen deutlich, bei dem anderen weniger deutlich, tritt um das neunte Lebensjahr herum ein solcher Umschwung ein. Dieser Zeitpunkt ist für das Erziehen und Unterrichten ein außerordentlich wichtiger. Gelingt es uns, bis zu diesem Zeitpunkt in dem heranwachsenden Kinde jene Gefühle zu erregen, |173| jene Willensrichtungen zu pflegen, welche man religiös oder moralisch nennt und die man herausholen kann aus allem übrigen Unterrichten, dann braucht man nur ein guter Kindes-Beobachter zu sei\">GA297/6</a>). Das Ich-Bewusstsein wird von einem seelischen zu einem geistigen (<a href=\"#\" class=\"ga-reference\" data-id=\"GA297/6\" data-index=\"wvxx9p\" data-file-name=\"GA297/6 - GEISTESWISSENSCHAFT UND PÄDAGOGIK, Basel, 27. November 1919\" data-quote-text=\"Bei dem einen deutlich, bei dem anderen weniger deutlich, tritt um das neunte Lebensjahr herum ein solcher Umschwung ein. Dieser Zeitpunkt ist für das Erziehen und Unterrichten ein außerordentlich wichtiger. Gelingt es uns, bis zu diesem Zeitpunkt in dem heranwachsenden Kinde jene Gefühle zu erregen, |173| jene Willensrichtungen zu pflegen, welche man religiös oder moralisch nennt und die man herausholen kann aus allem übrigen Unterrichten, dann braucht man nur ein guter Kindes-Beobachter zu sei\">GA297/6</a>).\n\nDie bewusste Grammatik sollte um das neunte Jahr herum aus dem unbewussten Üben der Sprache heraufgehoben werden, damit das Kind diesen „Rubikon der Entwickelung\" in einer normalen Weise erreicht (<a href=\"#\" class=\"ga-reference\" data-id=\"GA301/6\" data-index=\"zcxnnv\" data-file-name=\"GA301/6 - SECHSTER VORTRAG, 28. April 1920, Eurythmischer, musikalischer, Zeichen- und Sprachunterricht\" data-quote-text=\"Ja, man kann diese Voraussetzung machen, dass eigentlich die ganze Grammatik schon im menschlichen Organismus drinnen steckt. Macht man ernst mit dieser Voraussetzung, dann kommt man dazu, sich zu sagen: Indem du zur rechten Zeit in lebendiger Art herausholst die be|102|wusste Grammatik aus dem unbewussten Üben der Grammatik, arbeitest du einfach an der Herstellung des Ichbewusstseins des Kindes. Und mit dieser Erkenntnis im Leibe, möchte ich sagen, muss man gegen das 9. Jahr hin, wo das Ichbewu\">GA301/6</a>). Dies dient direkt der Herstellung des Ichbewusstseins (<a href=\"#\" class=\"ga-reference\" data-id=\"GA301/6\" data-index=\"zcxnnv\" data-file-name=\"GA301/6 - SECHSTER VORTRAG, 28. April 1920, Eurythmischer, musikalischer, Zeichen- und Sprachunterricht\" data-quote-text=\"Ja, man kann diese Voraussetzung machen, dass eigentlich die ganze Grammatik schon im menschlichen Organismus drinnen steckt. Macht man ernst mit dieser Voraussetzung, dann kommt man dazu, sich zu sagen: Indem du zur rechten Zeit in lebendiger Art herausholst die be|102|wusste Grammatik aus dem unbewussten Üben der Grammatik, arbeitest du einfach an der Herstellung des Ichbewusstseins des Kindes. Und mit dieser Erkenntnis im Leibe, möchte ich sagen, muss man gegen das 9. Jahr hin, wo das Ichbewu\">GA301/6</a>).\n\nDas Kind löst sich um das neunte Jahr, einem „Rubikon\", im inneren Bewusstsein von seiner Umgebung und seiner Autorität los, gibt sich ihr aber in Liebe hin (<a href=\"#\" class=\"ga-reference\" data-id=\"GA297/7\" data-index=\"zec6eo\" data-file-name=\"GA297/7 - ERZIEHUNG UND SOZIALE GEMEINSCHAFT VOM GESICHTSPUNKT DER GEISTESWISSENSCHAFT, Aarau, 21. Mai 1920\" data-quote-text=\"Das neunte Jahr wird wieder zum Rubikon. Das Kind löst sich im inneren Bewusstsein von seiner Umgebung los, unterscheidet |194| sich von derselben. Es unterscheidet sich von seiner Autorität, gibt sich ihr aber in Liebe hin.\">GA297/7</a>).\n\nDie unermessliche Wichtigkeit dieses „Lebensrubikon\" um das neunte Jahr herum kann aus der heutigen Naturwissenschaft nicht erkannt werden, sondern muss aus der ganzen Menschennatur hervorgeholt werden (<a href=\"#\" class=\"ga-reference\" data-id=\"GA297/2\" data-index=\"ppzyes\" data-file-name=\"GA297/2 - AUS WELCHEM GEISTE KANN SICH EINE ERZIEHUNGSKUNST DER GEGENWART ENTWICKELN , Stuttgart, 31. August 1919 (nachmittags)\" data-quote-text=\"Sie sehen, aus der Menschenerkenntnis der Lebensalter heraus entwickelt sich der wahre Lehrplan. Das Kind selbst sagt uns, wenn wir es wirklich beobachten können, was es in einem Lebensalter lernen will. Das sind aber Gesichtspunkte, die sich aus der heutigen Naturwissenschaft nicht ergeben. Sie kommen einfach, wenn Sie nur die natürlichen Tatsachen nehmen, nicht an diese Gesichtspunkte heran, die Ihnen die unermessliche Wichtigkeit jenes Lebensrubikon, der um das neunte Jahr herum liegt, und de\">GA297/2</a>).\n\nDas Überschreiten dieses „Rubikon\" zwischen dem neunten und zehnten Lebensjahr ohne ein Gefühl der Ehrfurcht vor der Autorität des Lehrers hinterlässt ein Manko für das ganze Leben (<a href=\"#\" class=\"ga-reference\" data-id=\"GA297/11\" data-index=\"opka5m\" data-file-name=\"GA297/11 - ANTHROPOSOPHIE UND PÄDAGOGISCHE KUNST, Olten, 29. Dezember 1920\" data-quote-text=\"Überschreitet das Kind diesen Rubikon zwischen dem neunten und zehnten Lebensjahre ohne dieses Gefühl, so hat es ein Manko in seinem ganzen Leben und kann später höchstens mit aller Mühe aus dem Leben selber wiederum das sich erobern, was auf eine naturgemäße Weise in diesem Lebenspunkte dem Kinde übermittelt werden sollte. Daher sollten wir unsere Erziehung und unseren Unterricht so einrichten, dass wir gerade in der Klasse, wo das Kind den Rubikon zwischen dem neunten und zehnten Jahre übersch\">GA297/11</a>).\n\nWie der Lehrer das Kind über diesen „Rubikon\" zwischen dem neunten und zehnten Jahr führt, ist entscheidend für die Lebensfrische oder Seelenöde im ganzen späteren Dasein (<a href=\"#\" class=\"ga-reference\" data-id=\"GA297a/2\" data-index=\"146ht5\" data-file-name=\"GA297a/2 - ERZIEHUNGS-, UNTERRICHTS- UND PRAKTISCHE LEBENSFRAGEN VOM GESICHTSPUNKTE ANTHROPOSOPHISCHER GEISTESWISSENSCHAFT, Amsterdam, 28. Februar 1921\" data-quote-text=\"Von einer ungeheuren Bedeutung ist es, dass der Erzieher diesen Lebenspunkt, der für das eine Kind etwas später, für das andere etwas früher liegt, in der richtigen Weise beurteilen kann. Denn wie der Lehrer und Erzieher sich zwischen dem neunten und zehnten jahr in der richtigen Weise verhält - väterlich, freundlich, liebevoll das Kind über diesen Rubikon führend -, das bedeutet einen Einschlag in das menschliche Leben, der für das ganze folgende Dasein bis zum physischen Tode hin bleibend ist.\">GA297a/2</a>).\n\n## Pädagogische Konsequenzen des Rubikon\n\nVor dem „Rubikon\" des neunten Lebensjahres ist das Kind noch mit der Umwelt verschmolzen; danach kann man beginnen, zum Kind vom Seelischen zu sprechen (<a href=\"#\" class=\"ga-reference\" data-id=\"GA294/7\" data-index=\"6f6plg\" data-file-name=\"GA294/7 - SIEBENTER VORTRAG, Stuttgart, 28. August 1919\" data-quote-text=\"Wenn das Kind anfängt, etwas bewusster seine Glieder zu bewegen, zu gehen, ja selbst oftmals ungeschickt zu gehen, wenn es anfängt, zweckentsprechend |106| seine Arme und Hände zu bewegen, so liegt da ungefähr der Zeitpunkt, wo das Kind anfängt, sich seines Ich etwas bewusst zu werden, um später sich bis zu diesem Zeitpunkte zurückzuerinnern, nicht an das, was vorher geschehen ist. Wenn Sie bemerken, wie normalerweise - es ändert sich bei einzelnen Kinderexemplaren - der Mensch in diesem Zeitalt\">GA294/7</a>).\n\nMit dem eigentlichen naturgeschichtlichen Unterricht sollte man nicht beginnen, bevor der „Rubikon\" des 9. Lebensjahres überschritten ist (<a href=\"#\" class=\"ga-reference\" data-id=\"GA294/7\" data-index=\"jz0qze\" data-file-name=\"GA294/7 - SIEBENTER VORTRAG, Stuttgart, 28. August 1919\" data-quote-text=\"Wir werden, wenn wir an diese Lebenszeit herankommen, die Notwendigkeit empfinden müssen, namentlich auch Naturgeschichtliches in den Unterricht aufzunehmen. Vorher wird das Naturgeschichtliche in erzählender Art an die Kinder herangebracht, so wie ich gestern im Seminar von den Beziehungen der Tierwelt und der Pflanzenwelt zum Menschen gesprochen habe. Man wird vorher mehr in erzählender, in beschreibender Form das Naturgeschichtliche an das Kind heranbringen. Mit dem eigentlichen naturgeschich\">GA294/7</a>). Zuvor wird Naturgeschichtliches in erzählender und beschreibender Form herangebracht (<a href=\"#\" class=\"ga-reference\" data-id=\"GA294/7\" data-index=\"jz0qze\" data-file-name=\"GA294/7 - SIEBENTER VORTRAG, Stuttgart, 28. August 1919\" data-quote-text=\"Wir werden, wenn wir an diese Lebenszeit herankommen, die Notwendigkeit empfinden müssen, namentlich auch Naturgeschichtliches in den Unterricht aufzunehmen. Vorher wird das Naturgeschichtliche in erzählender Art an die Kinder herangebracht, so wie ich gestern im Seminar von den Beziehungen der Tierwelt und der Pflanzenwelt zum Menschen gesprochen habe. Man wird vorher mehr in erzählender, in beschreibender Form das Naturgeschichtliche an das Kind heranbringen. Mit dem eigentlichen naturgeschich\">GA294/7</a>).\n\nDie richtige Methodik für den Pflanzenunterricht ist eine „Crux\", und es ist von besonderer Wichtigkeit, dass die Lehrer „über diesen Rubikon kommen\" und die Pflanze in ihrer Beziehung zur Umwelt schildern, nicht nur abstrakt den Befruchtungsvorgang (<a href=\"#\" class=\"ga-reference\" data-id=\"GA295/9\" data-index=\"k1avg5\" data-file-name=\"GA295/9 - NEUNTE SEMINARBESPRECHUNG, Stuttgart, 30. August 1919\" data-quote-text=\"Das hängt damit zusammen, dass der Befruchtungsvorgang bei der Pflanze gar nicht einmal etwas so furchtbar Hervorragendes ist, als es von der heutigen, abstrakten naturwissenschaftlichen Zeit angenommen wird. Lesen Sie nur einmal die schönen Aufsätze Goethes aus den zwanziger Jahren des 19. Jahrhunderts, wo er über die «Verstäubung» und so weiter geschrieben hat, wo er die Metamorphose verteidigt gegen den eigentlichen Befruchtungsvorgang, und wo er weidlich schimpft darüber, dass die Menschen e\">GA295/9</a>).\n\nErst nach dem Überschreiten des „Rubikon\" nach dem 12. Lebensjahr kann das Kind physikalische Vorgänge im Menschen selbst, wie die Funktion des Auges, wirklich verstehen (<a href=\"#\" class=\"ga-reference\" data-id=\"GA294/8\" data-index=\"u9g6vx\" data-file-name=\"GA294/8 - ACHTER VORTRAG, Stuttgart, 29. August 1919\" data-quote-text=\"Nun beginnt aber damit noch etwas anderes dem Menschen verständlich zu werden, wenn er diesen Rubikon nach dem Erreichen des 12. Lebensjahres überschritten hat. Sie können die Einrichtung des menschlichen Auges mit dem Kinde vorher so klar als möglich besprechen - das Kind wird sich die Einrichtung des menschlichen Auges vor dem Erreichen dieses Zeitpunktes nicht in der richtigen Weise verständnisvoll aneignen können. Denn was heißt es eigentlich, die Einrichtung des menschlichen Auges dem Kinde\">GA294/8</a>). Vorher kann es nur physikalische Tatsachen außerhalb des Menschen begreifen (<a href=\"#\" class=\"ga-reference\" data-id=\"GA294/8\" data-index=\"u9g6vx\" data-file-name=\"GA294/8 - ACHTER VORTRAG, Stuttgart, 29. August 1919\" data-quote-text=\"Nun beginnt aber damit noch etwas anderes dem Menschen verständlich zu werden, wenn er diesen Rubikon nach dem Erreichen des 12. Lebensjahres überschritten hat. Sie können die Einrichtung des menschlichen Auges mit dem Kinde vorher so klar als möglich besprechen - das Kind wird sich die Einrichtung des menschlichen Auges vor dem Erreichen dieses Zeitpunktes nicht in der richtigen Weise verständnisvoll aneignen können. Denn was heißt es eigentlich, die Einrichtung des menschlichen Auges dem Kinde\">GA294/8</a>).\n\n## Weitere Verwendungen des Begriffs „Rubikon\"\n\nDie moderne Zivilisation muss den „Rubikon\" überschreiten und den Zusammenhang zwischen dem Seelischen (Sprache) und dem Organischen (Zahnwechsel) einsehen, um eine Erkenntnis des unsterblichen Wesens der Menschenseele zu erlangen (<a href=\"#\" class=\"ga-reference\" data-id=\"GA076/6\" data-index=\"glivka\" data-file-name=\"GA076/6 - SOZIALWISSENSCHAFT UND SOZIALE PRAXIS, Fünfter Vortrag, Dornach, 8. April 1921\" data-quote-text=\"Das ist ein Zusammenhang, der eingesehen werden muss, das ist ein Rubikon, der überschritten werden muss von der modernen Zivilisation. Denn was aus diesem Überschreiten folgt, das wird nicht nur etwas sein, was theoretisch wirkt, sondern das wird in einer ganz anderen Weise noch wirken. Wir können sagen: Lernen wir sachgemäß aufsteigen von so etwas, wie es das Verständnis des Zahn wechseis, das Verständnis der Sprache ist, zu dem, wozu wir dann kommen, so eignen wir uns dadurch eine Erkenntnis \">GA076/6</a>).\n\nMax Müller hat sich nicht entschließen können, den „Rubikon des Geistes\" zu überschreiten, der vom Menschen zur übrigen Natur führt, und blieb daher der Naturwissenschaft fern (<a href=\"#\" class=\"ga-reference\" data-id=\"GA031/81\" data-index=\"211y5v\" data-file-name=\"GA031/81 - MAX MÜLLER\" data-quote-text=\"In der Verbreitung einer solchen Gesinnung liegen die Schattenseiten eines Wirkens wie dasjenige Max Müllers ist. Und hiermit sind wir an den Punkt gelangt, wo dieser bedeutende Schriftsteller die Vorwärtsstrebenden unter unseren Zeitgenossen unbefriedigt lässt. Inwieweit er von der Sprachwissenschaft und Religionsforschung der Gegenwart überholt ist, das können wir ruhig den Fachleuten zur Entscheidung anheimgeben. Dass seine philosophischen Anlagen keine|377| sehr bedeutenden waren, das ist es\">GA031/81</a>).\n\nDie Menschheit hat in der Griechenzeit den „Rubikon\" überschritten, wo sie noch eine ganz gesunde Kultur hatte; seither wird die Kultur ungesunder, und Erziehung muss ein Heilungsprozess werden (<a href=\"#\" class=\"ga-reference\" data-id=\"GA294/10\" data-index=\"iq3ijm\" data-file-name=\"GA294/10 - ZEHNTER VORTRAG, Stuttgart, 1. September 1919\" data-quote-text=\"Es ist wichtig, dass Sie die Gründe für diesen Gang einsehen, dass Sie nicht zuerst mit dem Lesen beginnen und dann das Schreiben daranknüpfen, sondern dass Sie vom Schreiben zum Lesen übergehen. Das Schreiben ist gewissermaßen noch etwas Lebendigeres als das Lesen. Das Lesen vereinsamt den Menschen schon sehr und zieht ihn von der Welt ab. Im Schreiben ahmen wir noch Weltenformen nach, wenn wir aus dem Zeichnen heraus das Schreiben betreiben. Die gedruckten Buchstaben sind auch schon außerorden\">GA294/10</a>).\n\nDer Mensch als ganze Menschheit tritt beim Übergang vom fünften in den sechsten nachatlantischen Zeitraum in eine Entwicklungsphase ein, die hinaufgeht in die höhere Geistigkeit und überschreitet dabei eine Art „Rubikon\" (<a href=\"#\" class=\"ga-reference\" data-id=\"GA190/9\" data-index=\"tcj957\" data-file-name=\"GA190/9 - NEUNTER VORTRAG, Dornach, 11. April 1919\" data-quote-text=\"Wir gliedern ja die Gesamtentwickelung der Menschheit, ob wir nun längere oder kürzere Zeiträume ins Auge fassen, immer in siebengliedrige Phasen. Wir stehen also jetzt im fünften Zeitraum und wissen, dass im sechsten Zeitraum das Geistselbst in einer gewissen Art von der Menschheit Besitz ergreifen soll, dass unser Zeitraum, wenn er auch im wesentlichen zum Ausdruck bringt die Bewusstseinsseele, der Entwickelung des Ich angehört. Damit sehen Sie schon, dass beim Übergange von dem fünften in den\">GA190/9</a>).\n\nDer Übergang von der alten, von Göttern geführten Entwicklung zur Zeit, in der der Mensch sich selbst regen muss, ist schroff; ohne das Bekenntnis dazu kommt man „über den Rubikon der heutigen Kulturmisere nicht hinweg\" (<a href=\"#\" class=\"ga-reference\" data-id=\"GA192/16\" data-index=\"muoyov\" data-file-name=\"GA192/16 - SECHZEHNTER VORTRAG, Stuttgart, 8. September 1919\" data-quote-text=\"|365| Lagen nicht der anthroposophisch orientierten Geisteswissenschaft, wie ich sie vertrete, diese Prinzipien zugrunde? Jedem anderen Prinzip gegenüber wäre es vielleicht besser gewesen, das Wirken für diese anthroposophisch orientierte Geisteswissenschaft zu unterlassen. Zu unterlassen aus dem einfachen Grunde, weil es ganz selbstverständlich ist, dass aus dem, was in den Menschen der Gegenwart lebt, der Einzelne, der Geisteswissenschaft zu vertreten hat, mit allem möglichen Unrat beworfen wi\">GA192/16</a>).\n\nEmpedokles musste den „Rubikon\" vom alten Hellsehen zum abstrakten Begreifen des Ich überschreiten (<a href=\"#\" class=\"ga-reference\" data-id=\"GA139/7\" data-index=\"lvwb8q\" data-file-name=\"GA139/7 - SIEBENTER VORTRAG, Basel, 21. September 1912\" data-quote-text=\"Denken wir uns eine solche Seele, die noch ganz drinnensteht in dem Lebendigen der früheren Zeit, aber nicht hineinschauen kann in die geistige Welt, die nur erfassen kann das äußere Abbild, bei der zugedeckt ist - wegen ihrer besonderen Mission - dasjenige, was vorher die Menschen beglückt hat; auf der anderen Seite hat sie aber von der neuen |146| Ich-Welt nichts anderes als ein paar Begriffe, an denen sie sich festhalten muss, dann haben wir die Seele des Ermpedokles. Denn so steht die Seele \">GA139/7</a>).\n\nUm das innere Leben der Volksgeister zu verstehen, muss man den „Rubikon\" überschreiten und von geläufigen Begriffen des menschlichen Bewusstseins zu anderen Vorstellungen kommen (<a href=\"#\" class=\"ga-reference\" data-id=\"GA121/4\" data-index=\"44odcg\" data-file-name=\"GA121/4 - DRITTER VORTRAG, Kristiania, 9. Juni 1910\" data-quote-text=\"So wie beim Menschen das Innere, das, worin das Ich arbeitet und sich ausprägt, sich in diesen drei Modifikationen des Astralleibes darstellt, so stellt bei denjenigen geistigen Wesenheiten, die wir als Volksgeister bezeichnen, das eigentliche Innere oder das, was wir mit dem menschlichen Inneren vergleichen können, dar drei Glieder, drei Modifikationen im Ätherleibe. So wie wir beim Menschen unterscheiden Empfindungsseele, Verstandesseele, Bewusstseinsseele, so müssen wir bei den Erzengelwesenh\">GA121/4</a>).\n\nZur Erkenntnis des Seelisch-Geistigen muss man den „Rubikon\" überschreiten und die Seele über den Standpunkt der reinen Naturwissenschaft hinaus entwickeln (<a href=\"#\" class=\"ga-reference\" data-id=\"GA067/2\" data-index=\"i1tdmq\" data-file-name=\"GA067/2 - DER MENSCH ALS GEIST- UND SEELENWESEN, Berlin, 7. Februar 1918\" data-quote-text=\"Damit aber stößt man wiederum auf ein ungeheuer verbreitetes Vorurteil. Dass die menschliche Seele, wenn sie es methodisch darauf anlegt, fähig ist, zu ganz anderen Erkenntnismöglichkeiten und Erkenntniskräften zu kommen, als diejenigen sind, die in der reinen Naturwissenschaft angewendet werden, das wird in weitesten Kreisen heute noch zurückgewiesen. Deswegen steht man nur vor einer zweifachen Möglichkeit, entweder das Seelische und Geistige unbegriffen zu lassen oder diesen Rubikon zu übersch\">GA067/2</a>).\n\nInnerhalb der Physik muss eine Art „Rubikon\" zu einer höheren Weltanschauung überschritten werden, indem man erkennt, dass man bei Wärmeerscheinungen aus den gewöhnlichen Raumverhältnissen herauskommen muss (<a href=\"#\" class=\"ga-reference\" data-id=\"GA321/4\" data-index=\"54uy60\" data-file-name=\"GA321/4 - VIERTER VORTRAG, Stuttgart, 4. März 1920\" data-quote-text=\"Sehen Sie, hier liegt ein sehr wichtiger Punkt, wo gewissermaßen schon innerhalb der unorganischen Naturerscheinungen, der physikalischen Erscheinungen, eine Art Rubikon zu einer höheren Weltanschauung überschritten werden muss. Und man muss schon sagen: Weil so wenig der Versuch gemacht wird, hier an diesen Punkten zu einer Klarheit zu kommen, deshalb herrscht auch diese Klarheit so wenig auf dem Gebiete unserer höheren Weltanschauung. Denken Sie sich nur einmal, wenn die Physiker ihren Student\">GA321/4</a>).\n\nDer „Blut-Rubikon\" bezeichnet den Zeitpunkt der menschlichen Evolution, als der Mensch noch eine Gruppenseele auf dem Astralplan hatte, bevor er auf den physischen Plan herabstieg (<a href=\"#\" class=\"ga-reference\" data-id=\"GA094/39\" data-index=\"z52bcl\" data-file-name=\"GA094/39 - DIE THEOSOPHIE ANHAND DES JOHANNES-EVANGELIUMS, Vierter Vortrag, München, 2. November 1906\" data-quote-text=\"|260| Auch in dieser physischen Welt gibt es höhere Wesenheiten als den Menschen. Der Mensch hatte früher, ehe er auf den physischen Plan herabstieg, zur Zeit als der «Blut-Rubikon» noch nicht überschritten war, eine Gruppenseele auf dem Astralplan. Der ganze Stamm lebte da in dieser Gruppenseele. Ebenso werden die Tiergruppenseelen später herabsteigen und sich individualisieren. Hier berühren wir ein hohes Mysterium, welches zu den sieben Geheimnissen gehört, die man die unaussprechlichen nennt\">GA094/39</a>).\n\nDer Imaginierende muss den Willensentschluss fassen, die von ihm geschaffene imaginative Welt wieder auszulöschen; dies ist der „Rubikon\", der überschritten werden muss (<a href=\"#\" class=\"ga-reference\" data-id=\"GA069d/11\" data-index=\"yf2j3t\" data-file-name=\"GA069d/11 - DIE ÜBERSINNLICHEN WELTEN UND DAS WESEN DER MENSCHENSEELE, Wien, 19. Januar 1913\" data-quote-text=\"Es tritt einem eine herrliche neue Welt entgegen, doch man muss wissen, was sie bedeutet, dass sie aufgekommen ist aus der inneren Art der Seelenstimmung. [Es gehört ein starker Wille dazu, sich zu sagen: Das alles ist nur ein Spiegelbild deines eigenen Wesens; ein abstraktes Wissen nützt da nichts.] Der Willensentschluss muss so stark sein, [dass er imstande ist], auszulöschen diese ganze [imaginative] Ich-Welt, dass sie nicht mehr da ist. Das ist der Rubikon, der überschritten werden muss. Man\">GA069d/11</a>).\n\nMan kann jederzeit einen von Cäsar beim Übergang über den Rubikon gesprochenen Ton wiederhören, wenn man die innere Arithmetik des Tones in der Akasha-Chronik wahrnehmen kann (<a href=\"#\" class=\"ga-reference\" data-id=\"GA093a/5\" data-index=\"bpi2fb\" data-file-name=\"GA093a/5 - Berlin, 30. September 1905\" data-quote-text=\"Wir haben nun gehört, dass die Wärme ihr eigenes Leben auf dem Buddhi- oder Shushuptiplan hat. So bestehen bestimmte Beziehungen zwischen allen Dingen. Auffällig ist die Beziehung zwischen dem Ohr und dem Sprechen. Das Ohr war in der Evolution viel früher vorhanden als das Sprechen. Das Ohr ist das Aufnahmeorgan, die Sprache ist das Hervorbringungsorgan für den Ton. Diese zwei Dinge, Ohr und Sprache, gehören im wesentlichen zusammen. Der Ton, wie er erscheint, ist die Wiedergabe von Schwingungen\">GA093a/5</a>).\n\n## Vorstufen und weitere Entwicklungsschritte (Kontext zum Rubikon)\n\nUm das siebente Lebensjahr, mit dem Zahnwechsel, tritt ein bedeutsamer Einschnitt ein, der die ganze Seelenverfassung des Kindes verändert (<a href=\"#\" class=\"ga-reference\" data-id=\"GA226/5\" data-index=\"hrinrc\" data-file-name=\"GA226/5 - FÜNFTER VORTRAG, Kristiania (Oslo), 20. Mai 1923\" data-quote-text=\"Bedenken Sie nur einmal das erste Kindesalter bis zum Zahnwechsel hin und die große Veränderung, die jedem unbefangenen Beobachtenden auffallen muss, die ich auch hier öfters charakterisiert habe, die mit dem Menschen vorgeht, wenn er den Zahnwechsel durchmacht. Der Leib macht den Zahnwechsel durch, die ganze Seelenverfassung des Kindes wird eine andere.\">GA226/5</a>), (<a href=\"#\" class=\"ga-reference\" data-id=\"GA297/3\" data-index=\"5tatfg\" data-file-name=\"GA297/3 - VORTRAG FÜR DIE ELTERN DER WALDORFSCHULKINDER, Stuttgart, 31. August 1919 (abends)\" data-quote-text=\"Wie oberflächlich ist ein solcher Zeitraum im menschlichen Werden bisher von der sogenannten Erziehungswissenschaft beobachtet worden! Es gibt einen wichtigen Einschnitt im Leben des |72| Kindes. Er liegt gegen das siebente Jahr hin, gerade gegen das Jahr, in dem das Kind in die Volksschule eintreten soll und der Lehrer von den Eltern das Kind für einen Teil des weiteren Unterrichts und der weiteren Erziehung übernimmt. Äußerlich ausgedrückt ist dieser wichtige Lebensabschnitt durch den Zahnwech\">GA297/3</a>).\n\nVor dem Zahnwechsel ist das Kind ein nachahmendes Wesen, das sich ganz seiner Umgebung hingibt (<a href=\"#\" class=\"ga-reference\" data-id=\"GA297/6\" data-index=\"0ruuj6\" data-file-name=\"GA297/6 - GEISTESWISSENSCHAFT UND PÄDAGOGIK, Basel, 27. November 1919\" data-quote-text=\"Und ein bedeutsamer Einschnitt ist um das sechste, siebente Lebensjahr dasjenige, was da so durchgreifend eintritt in die menschliche Organisation, wovon sich die heutige Physiologie noch nicht eine rechte Vorstellung macht. Es geht etwas vor [im Physischen], aber auch im Seelisch-Geistigen des Menschen. Bis zu diesem Zeitabschnitte ist der Mensch im wesentlichen ein nachahmendes Wesen. Seine Seelen- und Leibesverfassung ist eine solche, dass er sich ganz und gar hingibt an die Umgebung, dass er\">GA297/6</a>). Nach dem Zahnwechsel will es der selbstverständlichen Autorität des Erziehers folgen (<a href=\"#\" class=\"ga-reference\" data-id=\"GA297a/6\" data-index=\"9lnv1q\" data-file-name=\"GA297a/6 - DIE RELIGIÖSE UND SITTLICHE ERZIEHUNG IM LICHTE DER ANTHROPOSOPHIE, Den Haag, 4. November 1922\" data-quote-text=\"Anders stellt sich das Seelenleben des Kindes nach dem Zahnwechsel vor uns hin. Da sehen wir, wie das Kind beginnt, sich nicht bloß den sinnlichen Eindrücken hinzugeben, sich gewissermaßen ganz in diese sinnlichen Eindrücke hineinzuleben und sich innerlich dem ähnlich zu machen, was es außen sieht. Das Kind beginnt nun auf dasjenige hinzuhorchen, was ihm in Worten vorstellungsgemäß entgegentritt. Aber es braucht das, was ihm in seiner Umgebung entgegentritt, so, dass es getragen wird von der men\">GA297a/6</a>).\n\nDas Gedächtnis des Kindes ist vor dem Zahnwechsel wie eine innere Gewohnheit oder Geschicklichkeit; danach wird es zu einem bewussten Zurückschauen auf Erlebnisse (<a href=\"#\" class=\"ga-reference\" data-id=\"GA304a/8\" data-index=\"n25gs2\" data-file-name=\"GA304a/8 - DIE KUNST DER MORALISCHEN UND PHYSISCHEN ERZIEHUNG, Den Haag, 19. November 1923\" data-quote-text=\"Sieht man aber in unbefangener Weise auf das Kind und seine Entwickelung hin, und hat man ein Auge dafür, was alles in dem Kinde geschieht, wenn es so um das siebente Jahr herum das erste bedeutsame metamorphosierende Lebensereignis durchmacht, den Zahnwechsel, sieht man auf das alles hin, dann fällt einem auf, wie das ganze Seelenleben des Kindes mit diesem Zahnwechsel anders wird, als es vorher war. Wir sehen vorher bei dem Kinde in einer Art elementar-traumhaften |126| Weise die Vorstellungen\">GA304a/8</a>).\n\nDas, was vor dem Zahnwechsel als leiblich-religiöse Hingabe an die Umgebung wirkt, tritt in das Innere zurück und erscheint erst nach der Geschlechtsreife als religiöses Denken wieder hervor (<a href=\"#\" class=\"ga-reference\" data-id=\"GA306/3\" data-index=\"pni3ol\" data-file-name=\"GA306/3 - DRITTER VORTRAG, Dornach, 17. April 1923\" data-quote-text=\"Mit dem Zahnwechsel tritt eine große Veränderung im ganzen Leben des Kindes ein. Diese Veränderung, wir können sie zunächst an einem bestimmten Element beobachten. Sehen Sie, was ist denn eigentlich beim Kinde dasjenige, was das Ausschlaggebende ist? Es ist wirklich das, was ich eben charakterisiert habe, diese leiblich-religiöse Hingabe an die Umgebung. Das ist wirklich das Ausschlaggebende. Nun geht das Kind durch den Zahnwechsel durch, bekommt dann eine gewisse seelisch-geistige Konstitution \">GA306/3</a>).\n\nDie Kräfte, die bis zum Zahnwechsel am physischen Leib arbeiten und in den zweiten Zähnen ihren Abschluss finden, werden danach frei und erscheinen als seelische Kräfte wie das Denken in konturierten Begriffen (<a href=\"#\" class=\"ga-reference\" data-id=\"GA206/6\" data-index=\"r0ywva\" data-file-name=\"GA206/6 - NEUNZEHNTER VORTRAG, Dornach, 7. August 1921\" data-quote-text=\"Ich habe ja öfter hingewiesen auf die große Bedeutung desjenigen Zeitabschnittes in der individuellen menschlichen Entwickelung, die zusammenfällt mit dem Zahnwechsel etwa um das siebente Lebensjahr herum. Dieser Zahnwechsel bedeutet ja, dass gewisse Kräfte, die im menschlichen Organismus bis zu diesem Zeitpunkt vorhanden waren und an diesem Organismus tätig waren, in einer gewissen Weise frei werden, nicht mehr jene Tätigkeit ausüben, die sie bis zu diesem Zahnwechsel ausübten. Der Mensch ist t\">GA206/6</a>), (<a href=\"#\" class=\"ga-reference\" data-id=\"GA297a/1\" data-index=\"gem7qp\" data-file-name=\"GA297a/1 - ERZIEHUNGS-, UNTERRICHTS- UND PRAKTISCHE LEBENSFRAGEN VOM GESICHTSPUNKTE ANTHROPOSOPHISCHER GEISTESWISSENSCHAFT, Utrecht, 24. Februar 1921\" data-quote-text=\"Nun, wir können, wenn wir wirklich die nötige Unbefangenheit zur Beobachtung haben, sehen, wie das Kind, wenn es über das siebente jahr hinauskommt, eigentlich erst anfängt, umrissene, konturierte Vorstellungen zu bekommen, während es vorher keine solchen Vorstellungen hatte. Wir können sehen, wie eigentlich erst mit dieser Zeit die Möglichkeit beginnt, in eigentlichen Gedanken - wenn sie auch noch so kindlich sind - zu denken. Wir sehen, wie da aus der kindlichen Seele etwas heraustritt, was vo\">GA297a/1</a>).\n\nDas Kind sondert sich bis zum siebenten Jahr noch nicht von der Welt, es empfindet den anderen Menschen noch nicht als getrennt, sondern als etwas, mit dem es verbunden ist (<a href=\"#\" class=\"ga-reference\" data-id=\"GA303/9\" data-index=\"mjfrw0\" data-file-name=\"GA303/9 - NEUNTER VORTRAG, Dornach, 31. Dezember 1921\" data-quote-text=\"Das sind so Beispiele, wie man aus der Entwickelung des Kindes ablesen kann, was man in einem bestimmten Lebensalter eigentlich machen soll. Das Atmungs-, das Zirkulationssystem, also das ganze rhythmische System des Menschen, der mittlere Mensch, der ist ebenso der leiblich-physische Repräsentant für das Fühlen, wie der Kopf der Repräsentant ist für das Vorstellen, für das Denken. Dieses Fühlen, das gefühlsmäßige Element, wird insbesondere mit dem Zahnwechsel in dem Kinde frei. Daher nimmt auch\">GA303/9</a>).\n\nZwischen dem Zahnwechsel und der Geschlechtsreife ist das Kind darauf veranlagt, alles Bildhafte aufzunehmen; das Denken ist noch kein logisches, sondern ein bildhaftes (<a href=\"#\" class=\"ga-reference\" data-id=\"GA306/3\" data-index=\"kgoief\" data-file-name=\"GA306/3 - DRITTER VORTRAG, Dornach, 17. April 1923\" data-quote-text=\"Glauben Sie ja nicht, dass ich jetzt in diesem Augenblicke eintreten will für eine ästhetisierende Erziehung, für ein Ersetzen der ersten Unterrichtselemente durch allerlei Erkünsteltes und Künstlerisches, vielleicht auch berechtigt Künstlerisches. Das will ich durchaus nicht. Ich will durchaus nicht das Philisterelement, das in unserer gegenwärtigen Zivilisation ja ausschlaggebend ist, durch das Boheme-Element ersetzen. - Für unsere tschechischen Freunde möchte ich bemerken, dass mit Boheme-Ele\">GA306/3</a>).\n\n## Fazit\n\nDer „Rubikon\" bezeichnet einen entscheidenden Entwicklungssprung im Leben des Kindes um das neunte Lebensjahr. Er markiert den Moment, in dem das Kind beginnt, sein Ich bewusst von der umgebenden Welt zu unterscheiden, was eine tiefgreifende Veränderung seiner Seelenverfassung darstellt. Dieser Übergang hat fundamentale pädagogische Konsequenzen, da er den Zeitpunkt bestimmt, ab dem ein mehr objektiver, naturkundlicher Unterricht an das Kind herangetragen werden kann, während zuvor eine bildhafte, erzählende Herangehensweise erforderlich ist.\n\n## Weitere relevante Quellen <a href=\"#\" class=\"ga-reference\" data-id=\"GA297/11\" data-index=\"opka5m\" data-file-name=\"GA297/11 - ANTHROPOSOPHIE UND PÄDAGOGISCHE KUNST, Olten, 29. Dezember 1920\" data-quote-text=\"Überschreitet das Kind diesen Rubikon zwischen dem neunten und zehnten Lebensjahre ohne dieses Gefühl, so hat es ein Manko in seinem ganzen Leben und kann später höchstens mit aller Mühe aus dem Leben selber wiederum das sich erobern, was auf eine naturgemäße Weise in diesem Lebenspunkte dem Kinde übermittelt werden sollte. Daher sollten wir unsere Erziehung und unseren Unterricht so einrichten, dass wir gerade in der Klasse, wo das Kind den Rubikon zwischen dem neunten und zehnten Jahre übersch\">GA297/11</a>, <a href=\"#\" class=\"ga-reference\" data-id=\"GA294/8\" data-index=\"u9g6vx\" data-file-name=\"GA294/8 - ACHTER VORTRAG, Stuttgart, 29. August 1919\" data-quote-text=\"Nun beginnt aber damit noch etwas anderes dem Menschen verständlich zu werden, wenn er diesen Rubikon nach dem Erreichen des 12. Lebensjahres überschritten hat. Sie können die Einrichtung des menschlichen Auges mit dem Kinde vorher so klar als möglich besprechen - das Kind wird sich die Einrichtung des menschlichen Auges vor dem Erreichen dieses Zeitpunktes nicht in der richtigen Weise verständnisvoll aneignen können. Denn was heißt es eigentlich, die Einrichtung des menschlichen Auges dem Kinde\">GA294/8</a>, <a href=\"#\" class=\"ga-reference\" data-id=\"GA297/7\" data-index=\"zec6eo\" data-file-name=\"GA297/7 - ERZIEHUNG UND SOZIALE GEMEINSCHAFT VOM GESICHTSPUNKT DER GEISTESWISSENSCHAFT, Aarau, 21. Mai 1920\" data-quote-text=\"Das neunte Jahr wird wieder zum Rubikon. Das Kind löst sich im inneren Bewusstsein von seiner Umgebung los, unterscheidet |194| sich von derselben. Es unterscheidet sich von seiner Autorität, gibt sich ihr aber in Liebe hin.\">GA297/7</a>, <a href=\"#\" class=\"ga-reference\" data-id=\"GA295/9\" data-index=\"k1avg5\" data-file-name=\"GA295/9 - NEUNTE SEMINARBESPRECHUNG, Stuttgart, 30. August 1919\" data-quote-text=\"Das hängt damit zusammen, dass der Befruchtungsvorgang bei der Pflanze gar nicht einmal etwas so furchtbar Hervorragendes ist, als es von der heutigen, abstrakten naturwissenschaftlichen Zeit angenommen wird. Lesen Sie nur einmal die schönen Aufsätze Goethes aus den zwanziger Jahren des 19. Jahrhunderts, wo er über die «Verstäubung» und so weiter geschrieben hat, wo er die Metamorphose verteidigt gegen den eigentlichen Befruchtungsvorgang, und wo er weidlich schimpft darüber, dass die Menschen e\">GA295/9</a>, <a href=\"#\" class=\"ga-reference\" data-id=\"GA190/9\" data-index=\"tcj957\" data-file-name=\"GA190/9 - NEUNTER VORTRAG, Dornach, 11. April 1919\" data-quote-text=\"Wir gliedern ja die Gesamtentwickelung der Menschheit, ob wir nun längere oder kürzere Zeiträume ins Auge fassen, immer in siebengliedrige Phasen. Wir stehen also jetzt im fünften Zeitraum und wissen, dass im sechsten Zeitraum das Geistselbst in einer gewissen Art von der Menschheit Besitz ergreifen soll, dass unser Zeitraum, wenn er auch im wesentlichen zum Ausdruck bringt die Bewusstseinsseele, der Entwickelung des Ich angehört. Damit sehen Sie schon, dass beim Übergange von dem fünften in den\">GA190/9</a>",
+    "sources": [
+      {
+        "ID": "GA304a/6",
+        "index": "^1r2zib",
+        "title": "DIE WALDORFSCHUL-PÄDAGOGIK",
+        "fileName": "GA304a/6 - DIE WALDORFSCHUL-PÄDAGOGIK, Ilkley, 10. August 1923",
+        "score": 109,
+        "matchedTerms": [
+          "zahnwechsel",
+          "[phrase:\"zahnwechsel\"]",
+          "[exp:zahnwechsel]"
+        ]
+      },
+      {
+        "ID": "GA056/7",
+        "index": "^6zgmx7",
+        "title": "MANN",
+        "fileName": "GA056/7 - MANN, WEIB UND KIND, Berlin, 9. Januar 1908",
+        "score": 75,
+        "matchedTerms": [
+          "zahnwechsel",
+          "[phrase:\"zahnwechsel\"]",
+          "[exp:zahnwechsel]"
+        ]
+      },
+      {
+        "ID": "GA068d/24",
+        "index": "^3r4rtl",
+        "title": "DER LEBENSLAUF DES MENSCHEN VOM STANDPUNKT DER GEISTESWISSENSCHAFT",
+        "fileName": "GA068d/24 - DER LEBENSLAUF DES MENSCHEN VOM STANDPUNKT DER GEISTESWISSENSCHAFT, Hannover, 5. November 1908",
+        "score": 71,
+        "matchedTerms": [
+          "[semantisch]"
+        ]
+      },
+      {
+        "ID": "GA297/6",
+        "index": "^808ufv",
+        "title": "GEISTESWISSENSCHAFT UND PÄDAGOGIK",
+        "fileName": "GA297/6 - GEISTESWISSENSCHAFT UND PÄDAGOGIK, Basel, 27. November 1919",
+        "score": 66,
+        "matchedTerms": [
+          "[semantisch]"
+        ]
+      },
+      {
+        "ID": "GA226/5",
+        "index": "^hrinrc",
+        "title": "FÜNFTER VORTRAG",
+        "fileName": "GA226/5 - FÜNFTER VORTRAG, Kristiania (Oslo), 20. Mai 1923",
+        "score": 65,
+        "matchedTerms": [
+          "zahnwechsel",
+          "[phrase:\"zahnwechsel\"]",
+          "[exp:zahnwechsel]"
+        ]
+      },
+      {
+        "ID": "GA061/14",
+        "index": "^8169x7",
+        "title": "DIE SELBSTERZIEHUNG DES MENSCHEN IM LICHTE DER GEISTESWISSENSCHAFT",
+        "fileName": "GA061/14 - DIE SELBSTERZIEHUNG DES MENSCHEN IM LICHTE DER GEISTESWISSENSCHAFT, Berlin, 14. März 1912",
+        "score": 65,
+        "matchedTerms": [
+          "zahnwechsel",
+          "[phrase:\"zahnwechsel\"]",
+          "[exp:zahnwechsel]"
+        ]
+      },
+      {
+        "ID": "GA297/2",
+        "index": "^8xuura",
+        "title": "AUS WELCHEM GEISTE KANN SICH EINE ERZIEHUNGSKUNST DER GEGENWART ENTWICKELN",
+        "fileName": "GA297/2 - AUS WELCHEM GEISTE KANN SICH EINE ERZIEHUNGSKUNST DER GEGENWART ENTWICKELN , Stuttgart, 31. August 1919 (nachmittags)",
+        "score": 64,
+        "matchedTerms": [
+          "zahnwechsel",
+          "[phrase:\"zahnwechsel\"]",
+          "[exp:zahnwechsel]"
+        ]
+      },
+      {
+        "ID": "GA024/44",
+        "index": "^o9a586",
+        "title": "DIE PÄDAGOGISCHE ZIELSETZUNG DER WALDORFSCHULE IN STUTTGART-2",
+        "fileName": "GA024/44 - DIE PÄDAGOGISCHE ZIELSETZUNG DER WALDORFSCHULE IN STUTTGART-2",
+        "score": 64,
+        "matchedTerms": [
+          "zahnwechsel",
+          "[phrase:\"zahnwechsel\"]",
+          "[exp:zahnwechsel]"
+        ]
+      },
+      {
+        "ID": "GA300c/1",
+        "index": "^4hef3d",
+        "title": "DIE PÄDAGOGISCHE ZIELSETZUNG DER WALDORFSCHULE IN STUTTGART",
+        "fileName": "GA300c/1 - DIE PÄDAGOGISCHE ZIELSETZUNG DER WALDORFSCHULE IN STUTTGART",
+        "score": 64,
+        "matchedTerms": [
+          "zahnwechsel",
+          "[phrase:\"zahnwechsel\"]",
+          "[exp:zahnwechsel]"
+        ]
+      },
+      {
+        "ID": "GA306/3",
+        "index": "^z9vo0t",
+        "title": "DRITTER VORTRAG",
+        "fileName": "GA306/3 - DRITTER VORTRAG, Dornach, 17. April 1923",
+        "score": 64,
+        "matchedTerms": [
+          "zahnwechsel",
+          "[phrase:\"zahnwechsel\"]",
+          "[exp:zahnwechsel]"
+        ]
+      }
+    ],
+    "searchMethod": "hybrid-thematic-unified",
+    "totalMatches": 560,
+    "llmUsed": true,
+    "rechercheScope": {
+      "sourceType": "alle",
+      "themeArea": ""
+    },
+    "timestamp": "2026-07-12T08:46:21.280Z"
   }
 }
