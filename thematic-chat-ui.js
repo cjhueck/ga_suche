@@ -166,7 +166,6 @@
         html += `<div class="thematic-chat-bubble assistant${active}" data-turn-id="${turn.id}" role="button" tabindex="0" title="Im Hauptfenster anzeigen">
           <div class="thematic-chat-bubble-meta">${escapeHtml(turn.modeLabel || '')}</div>
           <div class="thematic-chat-bubble-preview">${escapeHtml(turn.preview)}</div>
-          <div class="thematic-chat-bubble-hint">→ Im Hauptfenster anzeigen</div>
         </div>`;
       } else if (turn.role === 'error') {
         html += `<div class="thematic-chat-bubble error" data-turn-id="${turn.id}">
@@ -379,6 +378,53 @@
       }
     }
     return null;
+  }
+
+  function getSaveableChatTurns() {
+    return state.turns.map((turn) => {
+      if (turn.role === 'user') {
+        return {
+          role: 'user',
+          content: turn.content,
+          mode: turn.mode,
+          gaFilter: turn.gaFilter || ''
+        };
+      }
+      if (turn.role === 'assistant' && turn.viewerData) {
+        return {
+          role: 'assistant',
+          preview: turn.preview,
+          modeLabel: turn.modeLabel || '',
+          viewerData: turn.viewerData
+        };
+      }
+      if (turn.role === 'error') {
+        return { role: 'error', content: turn.content };
+      }
+      return null;
+    }).filter(Boolean);
+  }
+
+  function restoreChatTurns(savedTurns, options = {}) {
+    if (!Array.isArray(savedTurns) || !savedTurns.length) return false;
+
+    const ts = Date.now();
+    state.turns = savedTurns.map((turn, index) => ({
+      ...turn,
+      id: turn.id || `restored-${index}-${ts}`
+    }));
+    state.pendingLoadingId = null;
+
+    const lastAssistant = [...state.turns].reverse().find(
+      (turn) => turn.role === 'assistant' && turn.viewerData
+    );
+    state.activeTurnId = lastAssistant?.id || null;
+    renderMessages();
+
+    if (options.replayActive !== false && lastAssistant) {
+      replayTurn(lastAssistant.id);
+    }
+    return true;
   }
 
   function syncSavePayloadFromActiveTurn() {
@@ -758,6 +804,8 @@
     updateMemberSaveHint,
     updateMenuMemberAccess,
     syncSavePayloadFromActiveTurn,
+    getSaveableChatTurns,
+    restoreChatTurns,
     closeSavedOverlay,
     clearChat
   };
