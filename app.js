@@ -16547,11 +16547,18 @@ function scrollToChronologicalYear(year) {
           ? window.ThematicChatUI.getEffectiveSearchMode()
           : (thematicModeRadio ? thematicModeRadio.value : 'deep');
 
+        // Spinner-Badge am Abfrage-Tab-Button (sichtbar auch wenn User Tab wechselt)
+        const _rechercheTabBtn = document.querySelector('[data-help="tab-themen"]');
+        if (_rechercheTabBtn && thematicMode === 'recherche') {
+          _rechercheTabBtn.dataset.searching = 'true';
+          _rechercheTabBtn.title = `Recherche „${query}" läuft…`;
+        }
+
         const viewer = document.getElementById('viewer');
         if (viewer) {
           const chatActive = window.ThematicChatUI?.isChatOutputModeActive?.();
           const waitMsg = thematicMode === 'recherche'
-            ? 'Recherche wird zusammengestellt (Unterthemen und Aussagen, kann 1–3 Minuten dauern)…'
+            ? 'Recherche wird zusammengestellt (Unterthemen und Aussagen, kann 5 oder mehr Minuten dauern – bitte Geduld) – Sie können inzwischen weiterarbeiten.'
             : thematicMode === 'internet'
             ? (chatActive
               ? 'Chat mit Internet-Recherche wird erstellt, bitte warten (kann etwas länger dauern).'
@@ -16666,6 +16673,16 @@ function scrollToChronologicalYear(year) {
             sourceType: rechercheSourceType,
             themeArea: rechercheThemeArea
           });
+          // Toast wenn Nutzer auf anderem Tab ist
+          if (!document.body.classList.contains('tab-thematic-active')) {
+            const rowCount = (answer.recherche?.subThemes || [])
+              .reduce((n, st) => n + (st.rows?.length || 0), 0);
+            const curated = answer.recherche?.curated;
+            const label = curated ? `${rowCount} Aussagen` : `${rowCount} Treffer (Fallback)`;
+            if (typeof showThematicNotification === 'function') {
+              showThematicNotification(`✓ Recherche „${query}" fertig – ${label}`, 'success');
+            }
+          }
         } else {
           renderThematicResults(query, answer.content, sources, (gaFilter || ''));
         }
@@ -16753,6 +16770,12 @@ function scrollToChronologicalYear(year) {
           button.disabled = false;
           button.classList.remove('processing');
           button.textContent = 'Suchen';
+        }
+        // Spinner-Badge am Tab entfernen
+        const _rechercheTabBtnDone = document.querySelector('[data-help="tab-themen"]');
+        if (_rechercheTabBtnDone) {
+          delete _rechercheTabBtnDone.dataset.searching;
+          _rechercheTabBtnDone.title = '';
         }
       }
     }

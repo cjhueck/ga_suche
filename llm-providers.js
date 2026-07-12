@@ -240,11 +240,7 @@ class GeminiProvider extends LLMProvider {
         generationConfig: {
           temperature: options.temperature || 0.7,
           maxOutputTokens: options.maxTokens || 16384,
-          topP: options.topP || 0.95,
-          // thinkingBudget: 0 deaktiviert internes Reasoning (schneller, alle Tokens gehen in den Output)
-          ...(options.thinkingBudget !== undefined && {
-            thinkingConfig: { thinkingBudget: options.thinkingBudget }
-          })
+          topP: options.topP || 0.95
         }
       })
     });
