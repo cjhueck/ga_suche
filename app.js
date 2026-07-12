@@ -16462,6 +16462,10 @@ function scrollToChronologicalYear(year) {
 
         injectThematicViewerBackBar();
 
+        if (typeof window.bindThematicGaLinksInViewer === 'function') {
+          window.bindThematicGaLinksInViewer();
+        }
+
         if (typeof window.syncThematicSavePayload === 'function') {
           window.syncThematicSavePayload({
             query,
@@ -21415,6 +21419,77 @@ function formatAsteriskParagraphs() {
     }
     // Global verfügbar machen für andere Script-Blöcke
     window.extractKeywordsFromQuery = extractKeywordsFromQuery;
+
+    function bindThematicGaLinksInViewer(rootEl) {
+      const viewer = document.getElementById('viewer');
+      const answerDiv = rootEl
+        || document.getElementById('answerContent')
+        || document.getElementById('answerContentViewer')
+        || viewer?.querySelector('.recherche-answer')
+        || viewer?.querySelector('.semantic-answer')
+        || viewer;
+      if (!answerDiv) return;
+
+      if (typeof convertGAReferencesToLinksInKeywordResults === 'function') {
+        convertGAReferencesToLinksInKeywordResults(answerDiv);
+      }
+
+      const attachHandlers = () => {
+        answerDiv.querySelectorAll('.ga-reference').forEach(link => {
+          if (link.__thematicBound) return;
+          link.__thematicBound = true;
+          const lectureId = link.getAttribute('data-id');
+          const targetIndex = link.getAttribute('data-index');
+          const isEssayBeleg = link.getAttribute('data-essay') === 'true' ||
+                               !!(link.closest && link.closest('.essay-beleg'));
+          const quoteText = link.getAttribute('data-quote-text') || link.getAttribute('data-quote') || '';
+
+          if (lectureId && targetIndex) {
+            link.addEventListener('click', async (e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              link.removeAttribute('onclick');
+              await openThematicGaReference(lectureId, targetIndex, {
+                linkEl: link,
+                quoteText,
+                isEssayBeleg
+              });
+            });
+          }
+        });
+
+        answerDiv.querySelectorAll('.ga-keyword-link').forEach(link => {
+          if (link.__thematicBound) return;
+          link.__thematicBound = true;
+          const savedOnclick = link.getAttribute('onclick')
+            || link.getAttribute('data-thematic-onclick')
+            || '';
+          if (savedOnclick) {
+            link.setAttribute('data-thematic-onclick', savedOnclick);
+            link.removeAttribute('onclick');
+          }
+
+          link.addEventListener('click', async (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            const m = savedOnclick.match(/showLectureFromAdvancedSearch\('([^']+)',\s*'([^']*)',\s*'?([^')]*)'?\)/);
+            if (m) {
+              await openThematicGaReference(m[1], m[3] || null, { linkEl: link });
+              return;
+            }
+            const lectureId = link.getAttribute('data-id');
+            const targetIndex = link.getAttribute('data-index');
+            if (lectureId && targetIndex) {
+              await openThematicGaReference(lectureId, targetIndex, { linkEl: link });
+            }
+          });
+        });
+      };
+
+      attachHandlers();
+      setTimeout(attachHandlers, 100);
+    }
+    window.bindThematicGaLinksInViewer = bindThematicGaLinksInViewer;
     
     function renderRechercheResults(query, recherche, appliedGA = '', scope = {}) {
       const container = document.getElementById('viewer');
@@ -21791,57 +21866,7 @@ function formatAsteriskParagraphs() {
       }
       
       setTimeout(() => {
-        const gaLinks = answerDiv.querySelectorAll('.ga-reference');
-        
-        gaLinks.forEach(link => {
-          if (link.__thematicBound) return;
-          link.__thematicBound = true;
-          const lectureId = link.getAttribute('data-id');
-          const targetIndex = link.getAttribute('data-index');
-          const isEssayBeleg = link.getAttribute('data-essay') === 'true' ||
-                               !!(link.closest && link.closest('.essay-beleg'));
-          const quoteText = link.getAttribute('data-quote-text') || link.getAttribute('data-quote') || '';
-
-          if (lectureId && targetIndex) {
-            link.addEventListener('click', async (e) => {
-              e.preventDefault();
-              e.stopPropagation();
-              link.removeAttribute('onclick');
-              await openThematicGaReference(lectureId, targetIndex, {
-                linkEl: link,
-                quoteText,
-                isEssayBeleg
-              });
-            });
-          }
-        });
-
-        // Click-Handler auch für nachträglich erzeugte ga-keyword-link Elemente.
-        const kwLinks = answerDiv.querySelectorAll('.ga-keyword-link');
-        kwLinks.forEach(link => {
-          if (link.__thematicBound) return;
-          link.__thematicBound = true;
-          const savedOnclick = link.getAttribute('onclick') || '';
-          if (savedOnclick) {
-            link.setAttribute('data-thematic-onclick', savedOnclick);
-            link.removeAttribute('onclick');
-          }
-
-          link.addEventListener('click', async (e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            const m = savedOnclick.match(/showLectureFromAdvancedSearch\('([^']+)',\s*'([^']*)',\s*'?([^')]*)'?\)/);
-            if (m) {
-              await openThematicGaReference(m[1], m[3] || null, { linkEl: link });
-              return;
-            }
-            const lectureId = link.getAttribute('data-id');
-            const targetIndex = link.getAttribute('data-index');
-            if (lectureId && targetIndex) {
-              await openThematicGaReference(lectureId, targetIndex, { linkEl: link });
-            }
-          });
-        });
+        bindThematicGaLinksInViewer(answerDiv);
       }, 100);
 
       window.renderThematicResults = renderThematicResults;
@@ -39335,64 +39360,9 @@ window.cancelTextEditMode = function() {};
         `;
       }
       
-      // Nicht vom Backend verlinkte GA-Referenzen im DOM nachträglich klickbar machen
-      const savedAnswerDiv = document.getElementById('answerContentViewer')
-        || viewer.querySelector('.recherche-answer')
-        || viewer.querySelector('.semantic-answer');
-      if (savedAnswerDiv) {
-        convertGAReferencesToLinksInKeywordResults(savedAnswerDiv);
+      if (typeof window.bindThematicGaLinksInViewer === 'function') {
+        window.bindThematicGaLinksInViewer();
       }
-      
-      // GA-Links: Öffnen Vortrag im rechten Summary Panel (wie bei normaler Themensuche)
-      setTimeout(() => {
-        const answerDiv = document.getElementById('answerContentViewer')
-          || viewer.querySelector('.recherche-answer')
-          || viewer.querySelector('.semantic-answer');
-        if (answerDiv) {
-          const gaLinks = answerDiv.querySelectorAll('.ga-reference');
-          
-          gaLinks.forEach(link => {
-            if (link.__thematicBound) return;
-            link.__thematicBound = true;
-            const lectureId = link.getAttribute('data-id');
-            const targetIndex = link.getAttribute('data-index');
-            const isEssayBeleg = link.getAttribute('data-essay') === 'true' ||
-                                 !!(link.closest && link.closest('.essay-beleg'));
-            const quoteText = link.getAttribute('data-quote-text') || link.getAttribute('data-quote') || '';
-            
-            if (lectureId && targetIndex) {
-              link.addEventListener('click', async (e) => {
-                e.preventDefault();
-                e.stopPropagation();
-                await openThematicGaReference(lectureId, targetIndex, {
-                  linkEl: link,
-                  quoteText,
-                  isEssayBeleg
-                });
-              });
-            }
-          });
-
-          const kwLinks = answerDiv.querySelectorAll('.ga-keyword-link');
-          kwLinks.forEach(link => {
-            if (link.__thematicBound) return;
-            link.__thematicBound = true;
-            const savedOnclick = link.getAttribute('onclick') || '';
-            if (savedOnclick) {
-              link.setAttribute('data-thematic-onclick', savedOnclick);
-              link.removeAttribute('onclick');
-            }
-            link.addEventListener('click', async (e) => {
-              e.preventDefault();
-              e.stopPropagation();
-              const m = savedOnclick.match(/showLectureFromAdvancedSearch\('([^']+)',\s*'([^']*)',\s*'?([^')]*)'?\)/);
-              if (m) {
-                await openThematicGaReference(m[1], m[3] || null, { linkEl: link });
-              }
-            });
-          });
-        }
-      }, 100);
       
       document.getElementById('status').textContent = 'Gespeicherte Abfrage';
       
