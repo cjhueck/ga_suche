@@ -21656,7 +21656,9 @@ function formatAsteriskParagraphs() {
             : `<p style="color: var(--secondary-text); font-style: italic;">Keine Aussagen für die gewählte Relevanzstufe (${totalRows} insgesamt).</p>`;
         }
         tablesEl.innerHTML = html;
-        if (countInfoEl) countInfoEl.textContent = `${shown} von ${totalRows} Aussagen`;
+        if (countInfoEl) countInfoEl.textContent = shown === totalRows
+          ? `${shown} Aussagen`
+          : `${shown} von ${totalRows} Aussagen`;
         bindGaLinks();
       }
 

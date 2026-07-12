@@ -5597,7 +5597,9 @@ async function generateAnalysis(query, results, depth = 'allgemein', preferredPr
     'broad': 32000,  // Breite Sammlung: Gemini 2.5 Flash unterstützt bis 65k
     'quote': 6000,   // Zitatsuche: ein bis wenige Zitate mit kurzer Begründung
     'essay': 16000,  // Essay-Modus: Synthese + Belege, braucht Raum
-    'recherche': Number(process.env.RECHERCHE_MAX_TOKENS) || 16000,
+    'recherche': (provider && (provider.name || '').toLowerCase() === 'gemini')
+      ? (Number(process.env.RECHERCHE_MAX_TOKENS_GEMINI) || 32000)
+      : (Number(process.env.RECHERCHE_MAX_TOKENS) || 16000),
     'chat': 3000     // Chat-Modus: dialogische Kurzantwort
   };
   
@@ -6247,6 +6249,8 @@ ${noWebSection}`;
   } else if (providerNameLower === 'gemini') {
     if (thematicMode === 'broad') {
       modelForMode = process.env.GEMINI_MODEL_BROAD || 'gemini-2.5-pro';
+    } else if (thematicMode === 'recherche') {
+      modelForMode = process.env.GEMINI_MODEL_RECHERCHE || 'gemini-2.5-flash';
     }
   }
 
@@ -6264,6 +6268,11 @@ ${noWebSection}`;
       temperature: effectiveTemperature
     };
     if (modelForMode) baseCallOptions.model = modelForMode;
+    // Gemini Recherche: Thinking deaktivieren – Aufgabe ist strukturierte JSON-Extraktion,
+    // kein tiefes Reasoning nötig. Alle Output-Tokens gehen in den eigentlichen JSON-Text.
+    if (providerNameLower === 'gemini' && thematicMode === 'recherche') {
+      baseCallOptions.thinkingBudget = 0;
+    }
 
     console.log(`[ANALYSIS] Provider=${provider.name}, Modell=${modelForMode || '(provider-default)'}, Modus=${thematicMode}${isChatContext ? ', Chat' : ''}`);
 
@@ -6684,11 +6693,20 @@ function rechercheUsesLlm() {
   return process.env.RECHERCHE_FAST !== 'true';
 }
 
-async function generateRechercheAnalysis(query, topResults, effectiveDepth, preferredProvider, effectiveConversationHistory, useFormalAddress, effectiveChatMode, webContext) {
-  if (!rechercheUsesLlm()) return null;
+// Bestimmt den Provider für Recherche-Aufrufe.
+// Priorität: RECHERCHE_PROVIDER env > auto Gemini (wenn GEMINI_API_KEY gesetzt) > preferredProvider
+function resolveRechercheProvider(preferredProvider) {
+  const explicit = (process.env.RECHERCHE_PROVIDER || '').toLowerCase().trim();
+  if (explicit) return explicit;
+  if (process.env.GEMINI_API_KEY) return 'gemini';
+  return preferredProvider;
+}
+
+// Einzelner LLM-Aufruf für einen Quellen-Batch
+async function runSingleRechercheCall(query, sources, effectiveDepth, preferredProvider, effectiveConversationHistory, useFormalAddress, effectiveChatMode, webContext) {
   const timeoutMs = Number(process.env.RECHERCHE_LLM_TIMEOUT_MS) || 0;
   try {
-    const call = generateAnalysis(query, topResults, effectiveDepth, preferredProvider, 'recherche', effectiveConversationHistory, useFormalAddress, effectiveChatMode, webContext);
+    const call = generateAnalysis(query, sources, effectiveDepth, preferredProvider, 'recherche', effectiveConversationHistory, useFormalAddress, effectiveChatMode, webContext);
     if (timeoutMs > 0) {
       return await Promise.race([
         call,
@@ -6697,9 +6715,99 @@ async function generateRechercheAnalysis(query, topResults, effectiveDepth, pref
     }
     return await call;
   } catch (err) {
-    console.warn(`[RECHERCHE] LLM fehlgeschlagen (${err.message})`);
+    console.warn(`[RECHERCHE] Batch-Aufruf fehlgeschlagen (${err.message})`);
     return null;
   }
+}
+
+// Mehrere rechercheData-Objekte zu einem zusammenführen (Subthemen vereinen)
+function mergeRechercheDataObjects(dataArray) {
+  const merged = { subThemes: [] };
+  for (const data of dataArray) {
+    if (!data || !Array.isArray(data.subThemes)) continue;
+    for (const st of data.subThemes) {
+      const titleLower = (st.title || '').toLowerCase().trim();
+      const existing = merged.subThemes.find(e =>
+        (e.title || '').toLowerCase().trim() === titleLower
+      );
+      if (existing) {
+        const existingRefs = new Set(existing.rows.map(r => r.ref || r.quote));
+        const newRows = (st.rows || []).filter(r => !existingRefs.has(r.ref || r.quote));
+        existing.rows = [...existing.rows, ...newRows];
+      } else {
+        merged.subThemes.push({ ...st, rows: [...(st.rows || [])] });
+      }
+    }
+  }
+  return merged;
+}
+
+// Recherche-Analyse: Gemini → Einzel-Aufruf mit allen Quellen (großes Kontext-Fenster),
+// Claude → automatisch in parallele Batches aufteilen.
+async function generateRechercheAnalysis(query, topResults, effectiveDepth, preferredProvider, effectiveConversationHistory, useFormalAddress, effectiveChatMode, webContext) {
+  if (!rechercheUsesLlm()) return null;
+
+  const rechercheProvider = resolveRechercheProvider(preferredProvider);
+  const isGemini = rechercheProvider.toLowerCase() === 'gemini';
+
+  if (isGemini) {
+    // Gemini 2.5 Flash: 1M-Token-Kontext → alle Quellen in einem Aufruf, kein Batching
+    console.log(`[RECHERCHE] Gemini 2.5 Flash: 1 Aufruf mit ${topResults.length} Quellen`);
+    const result = await runSingleRechercheCall(query, topResults, effectiveDepth, rechercheProvider, effectiveConversationHistory, useFormalAddress, effectiveChatMode, webContext);
+    if (!result) {
+      // Fallback auf Claude bei Gemini-Fehler
+      console.warn('[RECHERCHE] Gemini fehlgeschlagen – Fallback auf Claude (Parallel-Batches)');
+      return generateRechercheAnalysisWithBatches(query, topResults, effectiveDepth, preferredProvider, effectiveConversationHistory, useFormalAddress, effectiveChatMode, webContext);
+    }
+    return result;
+  }
+
+  return generateRechercheAnalysisWithBatches(query, topResults, effectiveDepth, preferredProvider, effectiveConversationHistory, useFormalAddress, effectiveChatMode, webContext);
+}
+
+// Interne Hilfsfunktion: Claude-Parallel-Batches
+async function generateRechercheAnalysisWithBatches(query, topResults, effectiveDepth, preferredProvider, effectiveConversationHistory, useFormalAddress, effectiveChatMode, webContext) {
+  const BATCH_SIZE = Number(process.env.RECHERCHE_BATCH_SIZE) || 65;
+
+  // Wenige Quellen: direkter Einzelaufruf
+  if (topResults.length <= BATCH_SIZE) {
+    return runSingleRechercheCall(query, topResults, effectiveDepth, preferredProvider, effectiveConversationHistory, useFormalAddress, effectiveChatMode, webContext);
+  }
+
+  // Quellen in Batches aufteilen (max. 3 parallele Aufrufe)
+  const batches = [];
+  for (let i = 0; i < topResults.length; i += BATCH_SIZE) {
+    batches.push(topResults.slice(i, i + BATCH_SIZE));
+  }
+  const activeBatches = batches.slice(0, 3);
+
+  console.log(`[RECHERCHE] Claude Parallel-Batches: ${activeBatches.length}× max. ${BATCH_SIZE} Quellen`);
+
+  const batchResults = await Promise.allSettled(
+    activeBatches.map((batch, i) => {
+      console.log(`[RECHERCHE] Starte Batch ${i + 1}/${activeBatches.length}: ${batch.length} Quellen`);
+      return runSingleRechercheCall(query, batch, effectiveDepth, preferredProvider, effectiveConversationHistory, useFormalAddress, effectiveChatMode, webContext);
+    })
+  );
+
+  const valid = batchResults
+    .filter(r => r.status === 'fulfilled' && r.value !== null)
+    .map((r, i) => ({ result: r.value, batch: activeBatches[i] }));
+
+  console.log(`[RECHERCHE] ${valid.length}/${activeBatches.length} Batches erfolgreich`);
+
+  if (valid.length === 0) return null;
+  if (valid.length === 1) return valid[0].result;
+
+  // rechercheData pro Batch aufbauen und zusammenführen
+  const batchDataObjects = valid.map(({ result, batch }) => {
+    const llmSources = result.llmSources || batch;
+    return buildRechercheData(result.text || '', topResults, llmSources);
+  });
+
+  const mergedData = mergeRechercheDataObjects(batchDataObjects);
+  const allLlmSources = valid.flatMap(({ result, batch }) => result.llmSources || batch);
+  return { rechercheData: mergedData, llmSources: allLlmSources };
 }
 
 function tryRepairTruncatedRechercheJson(text) {
@@ -12717,9 +12825,16 @@ app.post('/api/thematic-hybrid-search', async (req, res) => {
         );
         const tAnalysis = Date.now() - tAnalysisStart;
         if (analysisResult) {
-          const llmSources = analysisResult.llmSources || topResults;
-          console.log(`[RECHERCHE] LLM-Analyse: ${tAnalysis}ms, ${llmSources.length} Quellen im LLM-Prompt`);
-          rechercheData = buildRechercheData(analysisResult.text || '', topResults, llmSources);
+          if (analysisResult.rechercheData) {
+            // Parallel-Batches: rechercheData wurde bereits in generateRechercheAnalysis gebaut
+            rechercheData = analysisResult.rechercheData;
+            const rowCount = countRechercheRows(rechercheData);
+            console.log(`[RECHERCHE] Batch-Merge: ${tAnalysis}ms, ${rechercheData.subThemes.length} Unterthemen, ${rowCount} Aussagen`);
+          } else {
+            const llmSources = analysisResult.llmSources || topResults;
+            console.log(`[RECHERCHE] LLM-Analyse: ${tAnalysis}ms, ${llmSources.length} Quellen im LLM-Prompt`);
+            rechercheData = buildRechercheData(analysisResult.text || '', topResults, llmSources);
+          }
           if (countRechercheRows(rechercheData) > 0) {
             rechercheData.curated = true;
           }
