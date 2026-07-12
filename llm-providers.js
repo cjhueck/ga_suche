@@ -8,6 +8,20 @@
 // Node.js 18+ hat fetch built-in, für ältere Versionen:
 const fetch = globalThis.fetch || require('node-fetch');
 
+// Node.js 18+ nutzt undici intern. Der Default-headersTimeout (~30s) reicht
+// nicht für große LLM-Antworten (Recherche mit 100+ Quellen). Wir setzen
+// einen globalen Dispatcher mit deutlich längeren Timeouts.
+try {
+  const { Agent, setGlobalDispatcher } = require('undici');
+  setGlobalDispatcher(new Agent({
+    headersTimeout: 10 * 60 * 1000,  // 10 Minuten
+    bodyTimeout:    10 * 60 * 1000,
+    connectTimeout: 30_000
+  }));
+} catch (_) {
+  // undici nicht separat importierbar (ältere Node-Version) – kein Problem
+}
+
 function resolveClaudeApiKey() {
   const preferredAccount = (process.env.CLAUDE_API_KEY_ACTIVE || 'primary').toLowerCase();
   const prioritizedKeys = preferredAccount === 'secondary'
@@ -225,8 +239,12 @@ class GeminiProvider extends LLMProvider {
         }],
         generationConfig: {
           temperature: options.temperature || 0.7,
-          maxOutputTokens: options.maxTokens || 16384, // Erhöht von 8192 auf 16384
-          topP: options.topP || 0.95
+          maxOutputTokens: options.maxTokens || 16384,
+          topP: options.topP || 0.95,
+          // thinkingBudget: 0 deaktiviert internes Reasoning (schneller, alle Tokens gehen in den Output)
+          ...(options.thinkingBudget !== undefined && {
+            thinkingConfig: { thinkingBudget: options.thinkingBudget }
+          })
         }
       })
     });
