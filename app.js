@@ -1337,6 +1337,21 @@ function preprocessObsichanLineBreaks(markdown) {
   return markdown.replace(/'\/br'/g, '\n');
 }
 
+/** Schützt [^n]-Referenzen und [^n]:-Definitionen vor marked GFM (sonst verschwinden kurze wie „ibid.“). */
+function protectFootnoteMarkersBeforeMarked(content) {
+  if (!content || typeof content !== 'string') return content;
+  content = content.replace(/\[\^(\d+)\]:\s*/g, (_, n) => `@@FNDEF_${n}@@`);
+  content = content.replace(/\[\^(\d+)\]/g, (_, n) => `@@FNREF_${n}@@`);
+  return content;
+}
+
+function restoreFootnoteMarkersAfterMarked(content) {
+  if (!content || typeof content !== 'string') return content;
+  content = content.replace(/@@FNREF_(\d+)@@/g, '[^$1]');
+  content = content.replace(/@@FNDEF_(\d+)@@/g, '[^$1]: ');
+  return content;
+}
+
 // Hilfsfunktion: Konvertiere _text_ direkt zu <em>text</em> für zuverlässige Kursiv-Darstellung
 // marked.js mit GFM erkennt _text_ nicht immer zuverlässig als kursiv
 // Diese Funktion sollte NACH marked.parse() aufgerufen werden (damit HTML-Entities nicht escaped werden)
@@ -8582,6 +8597,8 @@ async function _displayBookImpl(book, highlightHeadingId = null, keywords = [], 
         return placeholder;
       });
       
+      content = protectFootnoteMarkersBeforeMarked(content);
+      
       // Konvertiere Markdown zu HTML (wichtig für Bilder!) - VOR dem Highlighting!
       if (typeof marked !== 'undefined') {
         if (marked.parse) {
@@ -8636,6 +8653,8 @@ async function _displayBookImpl(book, highlightHeadingId = null, keywords = [], 
         rpPageMarkerPlaceholders.forEach(({ placeholder, original }) => {
           content = content.replace(new RegExp(placeholder.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'g'), original);
         });
+        
+        content = restoreFootnoteMarkersAfterMarked(content);
         
         // Konvertiere _text_ zu <em>text</em> NACH marked.parse()
         content = convertUnderscoreItalics(content);
@@ -8888,6 +8907,8 @@ async function _displayBookImpl(book, highlightHeadingId = null, keywords = [], 
       return placeholder;
     });
     
+    content = protectFootnoteMarkersBeforeMarked(content);
+    
     // Konfiguriere marked für Fußnoten und Überschriften-IDs
     if (typeof marked !== 'undefined') {
       if (marked.setOptions) {
@@ -8931,6 +8952,8 @@ async function _displayBookImpl(book, highlightHeadingId = null, keywords = [], 
       bookPageMarkerPlaceholders.forEach(({ placeholder, original }) => {
         content = content.replace(new RegExp(placeholder.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'g'), original);
       });
+      
+      content = restoreFootnoteMarkersAfterMarked(content);
       
       // Konvertiere _text_ zu <em>text</em> NACH marked.parse()
       content = convertUnderscoreItalics(content);
@@ -9703,7 +9726,7 @@ function convertFootnotesToLinks() {
   }
   
   // Schritt 2: Ersetze Fußnoten-Definitionen durch formatierte HTML-Elemente
-  if (footnoteDefinitions.size > 0) {
+  if (footnoteDefinitions.size > 0 && !viewer.querySelector('ol .footnote-backlink')) {
     let newHtml = htmlContent;
     
     // Entferne alte Definitionen (auch in HTML-Paragraphen)
@@ -12973,6 +12996,8 @@ function scrollToChronologicalYear(year) {
               return placeholder;
             });
             
+            content = protectFootnoteMarkersBeforeMarked(content);
+            
             // Konvertiere Markdown zu HTML (wichtig für Bilder!) - VOR dem Highlighting!
             if (typeof marked !== 'undefined' && marked.parse) {
               content = marked.parse(content, { breaks: true, gfm: true });
@@ -12997,6 +13022,8 @@ function scrollToChronologicalYear(year) {
             searchPageMarkerPlaceholders.forEach(({ placeholder, original }) => {
               content = content.replace(new RegExp(placeholder.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'g'), original);
             });
+            
+            content = restoreFootnoteMarkersAfterMarked(content);
             
             // Konvertiere _text_ zu <em>text</em> NACH marked.parse()
             content = convertUnderscoreItalics(content);
@@ -14182,6 +14209,8 @@ function scrollToChronologicalYear(year) {
             return placeholder;
           });
           
+          fullContent = protectFootnoteMarkersBeforeMarked(fullContent);
+          
           // Konvertiere Markdown zu HTML (wie im Tab "Texte")
           if (typeof marked !== 'undefined') {
             if (marked.setOptions) {
@@ -14208,6 +14237,8 @@ function scrollToChronologicalYear(year) {
           fullContentPageMarkerPlaceholders.forEach(({ placeholder, original }) => {
             fullContent = fullContent.replace(new RegExp(placeholder.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'g'), original);
           });
+          
+          fullContent = restoreFootnoteMarkersAfterMarked(fullContent);
           
           // Konvertiere Seitenmarker |47| zu hochgestellten Zahlen
           fullContent = convertPageMarkers(fullContent);
@@ -20381,6 +20412,8 @@ function showSummaryView() {
       return placeholder;
     });
     
+    content = protectFootnoteMarkersBeforeMarked(content);
+    
     // Schütze Text in <> vor HTML-Interpretation
     content = protectAngleBrackets(content);
     
@@ -20535,6 +20568,8 @@ function showSummaryView() {
     pageMarkerPlaceholders.forEach(({ placeholder, original }) => {
       content = content.replace(new RegExp(placeholder.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'g'), original);
     });
+    
+    content = restoreFootnoteMarkersAfterMarked(content);
     
     // Konvertiere _text_ zu <em>text</em> NACH marked.parse()
     content = convertUnderscoreItalics(content);
@@ -43433,9 +43468,16 @@ window.cancelTextEditMode = function() {};
   }
 
   function _showTranslateBtn() {
-    const viewer = _getTranslateViewerEl();
     const wrapper = document.getElementById('translateBtnWrapper');
     if (!wrapper) return;
+    const isLocalEnv = window.location.hostname === 'localhost' ||
+      window.location.hostname === '127.0.0.1' ||
+      window.location.protocol === 'file:';
+    if (!isLocalEnv) {
+      wrapper.style.display = 'none';
+      return;
+    }
+    const viewer = _getTranslateViewerEl();
     const hasContent = viewer && viewer.textContent.trim().length > 100;
     wrapper.style.display = hasContent ? 'inline-block' : 'none';
   }
