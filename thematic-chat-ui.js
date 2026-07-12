@@ -914,19 +914,46 @@
     setRunning(true);
   }
 
+  // Streaming-Akkumulator für Chat-Modus
+  let _streamBuffer = '';
+
+  function onStreamStart() {
+    _streamBuffer = '';
+    startLoading();
+  }
+
+  function onStreamChunk(chunk) {
+    _streamBuffer += chunk;
+    // Live-Update der Lade-Bubble — zeigt akkumulierten Text sofort an
+    const el = state.pendingLoadingId ? document.getElementById(state.pendingLoadingId) : null;
+    if (el) {
+      el.classList.remove('loading');
+      // Kurze Vorschau des bisher empfangenen Texts (max. 300 Zeichen)
+      const preview = _streamBuffer.length > 300
+        ? _streamBuffer.slice(0, 297) + '…'
+        : _streamBuffer;
+      el.textContent = preview;
+      scrollMessagesToBottom();
+    }
+  }
+
   function onSearchComplete(payload) {
     setRunning(false);
+
+    // Bei Streaming: Vorrangig den akkumulierten Buffer verwenden
+    const content = payload.content || _streamBuffer || '';
+    _streamBuffer = '';
 
     const mode = payload.mode || getSelectedMode();
     let modeLabel = getDisplayModeLabel(mode);
     if (payload.gaFilter) modeLabel += ' · ' + payload.gaFilter;
 
     addAssistantTurn({
-      content: payload.content,
+      content,
       modeLabel,
       viewerData: {
         query: payload.query,
-        content: payload.content,
+        content,
         sources: payload.sources || [],
         gaFilter: payload.gaFilter || '',
         mode,
@@ -1084,6 +1111,8 @@
     getConversationHistory,
     shouldSkipRecentQueries: () => true,
     onSearchStart,
+    onStreamStart,
+    onStreamChunk,
     onSearchComplete,
     onSearchError,
     onSearchCancelled,

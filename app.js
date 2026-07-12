@@ -16598,10 +16598,10 @@ function scrollToChronologicalYear(year) {
           preferredProvider = 'claude';
         } else if (thematicMode === 'internet') {
           const chatActive = window.ThematicChatUI?.isChatOutputModeActive?.();
-          limit = chatActive ? 40 : 100;
+          limit = chatActive ? 30 : 100;
           preferredProvider = 'claude';
         } else if (thematicMode === 'chat') {
-          limit = 40;
+          limit = 30;
           preferredProvider = 'claude';
         } else {
           limit = 100;
@@ -16625,23 +16625,29 @@ function scrollToChronologicalYear(year) {
           ? (window.ThematicChatUI?.getConversationHistory?.() || [])
           : [];
 
+        const isChatStream = (thematicMode === 'chat' || (thematicMode === 'internet' && isChatLikeMode))
+          && typeof window.ThematicChatUI?.onStreamChunk === 'function';
+
+        const requestBody = {
+          query: query,
+          limit: parseInt(limit),
+          gaFilter: gaFilter,
+          preferredProvider: preferredProvider,
+          thematicMode: thematicMode,
+          sourceType: rechercheSourceType,
+          themeArea: rechercheThemeArea,
+          conversationHistory,
+          skipCache: conversationHistory.length > 0 || thematicMode === 'internet' || thematicMode === 'chat',
+          chatMode: isChatLikeMode && !!(window.ThematicChatUI?.isChatOutputModeActive?.()),
+          stream: isChatStream
+        };
+
         const response = await fetch(`${API_BASE}/api/thematic-hybrid-search`, {
           method: 'POST',
           keepalive: true,
           signal: thematicSearchAbortController.signal,
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            query: query,
-            limit: parseInt(limit),
-            gaFilter: gaFilter,
-            preferredProvider: preferredProvider,
-            thematicMode: thematicMode,
-            sourceType: rechercheSourceType,
-            themeArea: rechercheThemeArea,
-            conversationHistory,
-            skipCache: conversationHistory.length > 0 || thematicMode === 'internet' || thematicMode === 'chat',
-            chatMode: isChatLikeMode && !!(window.ThematicChatUI?.isChatOutputModeActive?.())
-          })
+          body: JSON.stringify(requestBody)
         });
         
         if (!response.ok) {
@@ -16660,7 +16666,102 @@ function scrollToChronologicalYear(year) {
           }
           throw new Error(errorMessage);
         }
-        
+
+        // --- Streaming-Pfad für Chat-Modus ---
+        if (isChatStream) {
+          if (window.ThematicChatUI?.onStreamStart) window.ThematicChatUI.onStreamStart();
+
+          // Viewer sofort mit einer Streaming-Shell befüllen — der Text wächst darin live.
+          ensureThematicMainViewerVisible();
+          const viewerEl = document.getElementById('viewer');
+          const safeStreamHeading = (autocorrectQuery ? (autocorrectQuery(query) || query) : query)
+            .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+          if (viewerEl) {
+            viewerEl.innerHTML = `<div class="semantic-answer">
+              <h1 style="margin-bottom:1rem;">${safeStreamHeading} [Chat]</h1>
+              <div id="chat-stream-output" style="white-space:pre-wrap;font-size:0.95rem;line-height:1.65;color:inherit;"></div>
+            </div>`;
+          }
+          const streamOutputEl = document.getElementById('chat-stream-output');
+
+          const reader = response.body.getReader();
+          const decoder = new TextDecoder();
+          let sseBuffer = '';
+          let finalMeta = null;
+          let streamedContent = '';
+
+          while (true) {
+            const { done, value } = await reader.read();
+            if (done) break;
+            sseBuffer += decoder.decode(value, { stream: true });
+            const lines = sseBuffer.split('\n');
+            sseBuffer = lines.pop();
+            for (const line of lines) {
+              if (!line.startsWith('data: ')) continue;
+              const raw = line.slice(6).trim();
+              if (!raw) continue;
+              try {
+                const evt = JSON.parse(raw);
+                if (evt.chunk !== undefined) {
+                  streamedContent += evt.chunk;
+                  window.ThematicChatUI.onStreamChunk(evt.chunk);
+                  // Viewer live befüllen (pre-wrap, kein Markdown-Rendering während des Streams)
+                  if (streamOutputEl) streamOutputEl.textContent = streamedContent;
+                } else if (evt.done && evt.meta) {
+                  finalMeta = evt.meta;
+                } else if (evt.error) {
+                  throw new Error(evt.error);
+                }
+              } catch (parseErr) {
+                if (parseErr.message && !parseErr.message.includes('JSON')) throw parseErr;
+              }
+            }
+          }
+
+          // Baue answer-Objekt aus finalMeta und akkumuliertem Content
+          const answer = {
+            ...(finalMeta || {}),
+            content: streamedContent
+          };
+          const sources = answer.sources || [];
+          currentThematicCacheKey = answer.cacheKey || '';
+          currentSources = sources;
+          ensureThematicMainViewerVisible();
+          renderThematicResults(query, streamedContent, sources, (gaFilter || ''));
+
+          if (window.ThematicChatUI?.onSearchComplete) {
+            window.ThematicChatUI.onSearchComplete({
+              query,
+              content: streamedContent,
+              sources,
+              gaFilter: gaFilterSorted.length ? gaFilterSorted.join(', ') : '',
+              mode: thematicMode,
+              rechercheData: null,
+              rechercheScope: null
+            });
+          }
+
+          if (typeof window.syncThematicSavePayload === 'function') {
+            window.syncThematicSavePayload({
+              query, mode: thematicMode,
+              gaFilter: gaFilterSorted.length ? gaFilterSorted.join(',') : '',
+              limit, sources: currentSources || [],
+              rechercheScope: null, rechercheData: null
+            });
+            setTimeout(() => {
+              if (typeof window.refreshThematicSaveContentFromDom === 'function') {
+                window.refreshThematicSaveContentFromDom();
+              }
+            }, 300);
+          }
+
+          if (isLocal) {
+            try { loadRecentThematicQueries(); } catch(_){}
+          }
+          return; // Streaming-Pfad vollständig abgeschlossen
+        }
+        // --- Ende Streaming-Pfad ---
+
         const answer = await response.json();
         let sources = answer.sources || [];
         // Cache-Key der aktuellen Abfrage merken (fuer gezieltes Loeschen, alle Modi)
