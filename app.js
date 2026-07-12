@@ -16287,7 +16287,7 @@ function scrollToChronologicalYear(year) {
         case 'broad': return 300;
         case 'quote': return 250;
         case 'essay': return 150;
-        case 'recherche': return 2000;
+        case 'recherche': return 1200;
         case 'internet': return 100;
         case 'chat': return 40;
         default: return 100;
@@ -16474,10 +16474,8 @@ function scrollToChronologicalYear(year) {
           limit = 150;
           preferredProvider = 'claude';
         } else if (thematicMode === 'recherche') {
-          // Moeglichst vollstaendig sammeln: grosser Kandidaten-Pool (Sicherheits-
-          // Obergrenze). Wie viele davon das Modell real verarbeitet, begrenzt das
-          // Eingabe-Token-Budget im Backend (MAX_PROMPT_CHARS fuer Recherche).
-          limit = 2000;
+          // Breiter Kandidaten-Pool; Backend kürzt vor dem LLM-Aufruf nach Token-Budget.
+          limit = 1200;
           preferredProvider = 'claude';
         } else if (thematicMode === 'internet') {
           const chatActive = window.ThematicChatUI?.isChatOutputModeActive?.();
