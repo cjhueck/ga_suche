@@ -43408,13 +43408,18 @@ window.cancelTextEditMode = function() {};
   }
 
   function _showTranslateBtn() {
-    return;
+    const viewer = document.getElementById('viewer-content') || document.getElementById('viewer');
+    const wrapper = document.getElementById('translateBtnWrapper');
+    if (!wrapper) return;
+    const hasContent = viewer && viewer.textContent.trim().length > 100;
+    wrapper.style.display = hasContent ? 'inline-block' : 'none';
   }
 
   function _resetTranslateState() {
     _translateOriginalHtml = null;
     _translateCurrentLang = null;
     _updateTranslateUI(null);
+    _showTranslateBtn();
   }
 
   const origShowLecture = window.showLecture;
@@ -43428,16 +43433,13 @@ window.cancelTextEditMode = function() {};
   }
 
   const observer = new MutationObserver(() => {
-    const viewer = document.getElementById('viewer-content') || document.getElementById('viewer');
-    const wrapper = document.getElementById('translateBtnWrapper');
-    if (false && viewer && wrapper && viewer.textContent.trim().length > 100) {
-      wrapper.style.display = 'inline-block';
-    }
+    _showTranslateBtn();
   });
   const viewerEl = document.getElementById('viewer');
   if (viewerEl) {
-    observer.observe(viewerEl, { childList: true, subtree: true });
+    observer.observe(viewerEl, { childList: true, subtree: true, characterData: true });
   }
+  _showTranslateBtn();
 
   console.log('[TRANSLATE] DeepL-Übersetzungsmodul geladen');
 })();
