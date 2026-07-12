@@ -43433,8 +43433,11 @@ window.cancelTextEditMode = function() {};
   }
 
   function _showTranslateBtn() {
+    const viewer = _getTranslateViewerEl();
     const wrapper = document.getElementById('translateBtnWrapper');
-    if (wrapper) wrapper.style.display = 'none';
+    if (!wrapper) return;
+    const hasContent = viewer && viewer.textContent.trim().length > 100;
+    wrapper.style.display = hasContent ? 'inline-block' : 'none';
   }
 
   function _resetTranslateState() {
