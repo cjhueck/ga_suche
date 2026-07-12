@@ -16509,6 +16509,7 @@ function scrollToChronologicalYear(year) {
       // Analytics wird bereits im Backend getrackt (trackSearch) - kein Frontend-Tracking nötig
       
       currentThematicQuery = query;
+      window._currentSavedThematicSearchId = null; // frische Suche, kein Saved-Eintrag
       
       window._showingSavedThematicSearches = false;
       
@@ -18232,7 +18233,10 @@ function scrollToChronologicalYear(year) {
         return;
       }
       
-      const confirmMsg = `Möchten Sie die Suchanfrage "${currentThematicQuery}" dauerhaft löschen?\n\nDies entfernt die Anfrage aus der "Zuletzt gesucht"-Liste.`;
+      const isSaved = !!window._currentSavedThematicSearchId;
+      const confirmMsg = `Möchten Sie die Suchanfrage „${currentThematicQuery}" dauerhaft löschen?`
+        + (isSaved ? '\n\nDie Abfrage ist in „Meine Abfragen" gespeichert und wird auch dort gelöscht.' : '')
+        + '\n\nDer Cache-Eintrag wird ebenfalls entfernt.';
       if (!confirm(confirmMsg)) {
         return;
       }
@@ -18264,38 +18268,53 @@ function scrollToChronologicalYear(year) {
         const result = await response.json();
         
         if (result.success) {
-          // Leere die Ergebnisanzeige
-          const container = document.getElementById('results');
-          if (container) {
-            container.innerHTML = '<p style="color: #666; font-style: italic;">Thema wurde dauerhaft gelöscht.</p>';
+          // Auch aus "Meine Abfragen" löschen wenn gespeichert
+          const savedId = window._currentSavedThematicSearchId;
+          if (savedId && typeof window.deleteSavedThematicSearchAPI === 'function') {
+            try {
+              await window.deleteSavedThematicSearchAPI(savedId);
+              console.log('[THEMATIC-DELETE] Auch aus Meine Abfragen gelöscht:', savedId);
+            } catch (e) {
+              console.warn('[THEMATIC-DELETE] Fehler beim Löschen aus Meine Abfragen:', e);
+            }
+          }
+
+          // Viewer leeren
+          const viewer = document.getElementById('viewer');
+          if (viewer) {
+            viewer.innerHTML = '<div id="viewer-content"><p style="color: var(--secondary-text); font-style: italic; padding: 1rem;">Suchanfrage wurde gelöscht.</p></div>';
           }
           
-          // Setze das Eingabefeld zurück
+          // Eingabefeld zurücksetzen
           const input = document.getElementById('thematicQuery');
-          if (input) {
-            input.value = '';
-          }
+          if (input) input.value = '';
           
-          // Zurücksetzen der globalen Variablen
+          // Globale Variablen zurücksetzen
           currentThematicQuery = '';
           currentThematicGAFilter = '';
           currentThematicCacheKey = '';
           currentSources = [];
+          window._currentSavedThematicSearchId = null;
           
-          // Aktualisiere die "Zuletzt gesucht"-Liste
+          // Listen aktualisieren
           try {
             await loadRecentThematicQueries();
           } catch (e) {
-            console.warn('[THEMATIC-DELETE] Fehler beim Aktualisieren der Liste:', e);
+            console.warn('[THEMATIC-DELETE] Fehler beim Aktualisieren der Zuletzt-Liste:', e);
           }
-          
-          alert('Suchanfrage wurde erfolgreich gelöscht.');
+          if (typeof showThematicNotification === 'function') {
+            showThematicNotification('Suchanfrage gelöscht', 'success');
+          }
         } else {
           throw new Error(result.error || 'Unbekannter Fehler');
         }
       } catch (error) {
         console.error('[THEMATIC-DELETE] Fehler beim Löschen:', error);
-        alert('Fehler beim Löschen:\n\n' + error.message + '\n\nHINWEIS: Das Backend benötigt einen Endpunkt "/api/thematic-search/delete", der den Eintrag aus "thematic-search-database.json" entfernt.');
+        if (typeof showThematicNotification === 'function') {
+          showThematicNotification('Fehler beim Löschen: ' + error.message, 'error');
+        } else {
+          alert('Fehler beim Löschen:\n\n' + error.message);
+        }
       }
     }
 
@@ -39323,6 +39342,7 @@ window.cancelTextEditMode = function() {};
 
         currentSources = data.sources || [];
         currentThematicQuery = data.query;
+        window._currentSavedThematicSearchId = searchId;
         window._showingSavedThematicSearches = false;
         window.ThematicChatUI.restoreChatTurns(saveMeta.chatTurns, { replayActive: true });
         window.ThematicChatUI.syncSavePayloadFromActiveTurn?.();
@@ -39350,6 +39370,7 @@ window.cancelTextEditMode = function() {};
       // Speichere für spätere Verwendung
       currentSources = data.sources || [];
       currentThematicQuery = data.query;
+      window._currentSavedThematicSearchId = searchId; // für deleteCurrentThema
       
       // Titel im Main Viewer setzen
       const titleElement = document.getElementById('document-title');
