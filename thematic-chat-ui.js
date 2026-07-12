@@ -790,6 +790,13 @@
     });
   }
 
+  function setSavedOverlayOpen(open) {
+    const panel = $('thematic-chat-panel');
+    const overlay = $('thematic-chat-saved-overlay');
+    if (panel) panel.classList.toggle('saved-overlay-open', !!open);
+    if (overlay) overlay.classList.toggle('open', !!open);
+  }
+
   function displaySavedSearches(searches) {
     const overlay = $('thematic-chat-saved-overlay');
     const list = $('thematic-chat-saved-list');
@@ -798,7 +805,7 @@
     }
 
     closeMenu();
-    overlay.classList.add('open');
+    setSavedOverlayOpen(true);
 
     if (!searches.length) {
       list.innerHTML = '<p style="color: var(--secondary-text); font-size: 0.84rem;">Keine gespeicherten Abfragen.</p>';
@@ -858,8 +865,7 @@
   }
 
   function closeSavedOverlay() {
-    const overlay = $('thematic-chat-saved-overlay');
-    if (overlay) overlay.classList.remove('open');
+    setSavedOverlayOpen(false);
   }
 
   function handleActionClick() {
@@ -1046,6 +1052,7 @@
     document.body.classList.remove('thematic-chat-enabled');
     closeMenu();
     closeExamplesMenu();
+    closeSavedOverlay();
   }
 
   function init() {
