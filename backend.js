@@ -5510,11 +5510,8 @@ async function generateAnalysis(query, results, depth = 'allgemein', preferredPr
     MAX_PROMPT_CHARS = 300000; // OpenAI: ~75k Tokens für Kontext (von 128k verfügbar)
   } else {
     // Claude: ~100k Tokens Kontext (von 200k Eingabe-Limit). Im Recherche-Modus
-    // deutlich mehr Kontext zulassen, damit moeglichst viele Fundstellen in EINEM
-    // Aufruf verarbeitet werden. ~650k Zeichen ≈ 160k Tokens Eingabe; zusammen mit
-    // Prompt-Geruest bleibt das mit Puffer unter dem 200k-Token-Eingabelimit
-    // (die Ausgabe zaehlt separat).
-    MAX_PROMPT_CHARS = thematicMode === 'recherche' ? 650000 : 400000;
+    // moderates Kontext-Budget für schnellere Antworten bei weiterhin breitem Pool.
+    MAX_PROMPT_CHARS = thematicMode === 'recherche' ? 450000 : 400000;
   }
   
   // Erstelle Test-Prompt um Länge zu schätzen
@@ -5586,7 +5583,7 @@ async function generateAnalysis(query, results, depth = 'allgemein', preferredPr
     'broad': 32000,  // Breite Sammlung: Gemini 2.5 Flash unterstützt bis 65k
     'quote': 6000,   // Zitatsuche: ein bis wenige Zitate mit kurzer Begründung
     'essay': 16000,  // Essay-Modus: Synthese + Belege, braucht Raum
-    'recherche': 32000, // Recherche-Modus: tabellarische JSON-Sammlung vieler Aussagen (Opus-Output-Maximum, damit die Trefferzahl nicht durch das Token-Budget gedeckelt wird)
+    'recherche': Number(process.env.RECHERCHE_MAX_TOKENS) || 20000, // Recherche: strukturiertes JSON (kleineres Budget = schnellere Antwort)
     'chat': 3000     // Chat-Modus: dialogische Kurzantwort
   };
   
@@ -6212,12 +6209,15 @@ ${noWebSection}`;
   const hasConversation = Array.isArray(conversationHistory) && conversationHistory.length > 0;
   const isChatContext = !!chatMode || hasConversation;
   const synthesisModel = process.env.CLAUDE_MODEL_SYNTHESIS || 'claude-opus-4-8';
+  const rechercheModel = process.env.CLAUDE_MODEL_RECHERCHE || 'claude-sonnet-4-6';
   const chatModel = process.env.CLAUDE_MODEL_CHAT || 'claude-sonnet-4-6';
   const deepModel = process.env.CLAUDE_MODEL_DEEP || 'claude-sonnet-4-6';
   const quoteModel = process.env.CLAUDE_MODEL_QUOTE || 'claude-sonnet-4-6';
   let modelForMode = null;
   if (providerNameLower === 'claude') {
-    if (thematicMode === 'essay' || thematicMode === 'recherche') {
+    if (thematicMode === 'recherche') {
+      modelForMode = rechercheModel;
+    } else if (thematicMode === 'essay') {
       modelForMode = synthesisModel;
     } else if (thematicMode === 'quote') {
       modelForMode = quoteModel;
@@ -6240,7 +6240,9 @@ ${noWebSection}`;
     // weniger zu Kreativität/Paraphrasierung neigt.
     // Hinweis: Opus 4.7+ ignoriert temperature ohnehin – das wird im
     // ClaudeProvider transparent gehandhabt.
-    const effectiveTemperature = thematicMode === 'quote' ? 0.1 : 0.7;
+    const effectiveTemperature = thematicMode === 'quote' ? 0.1
+                               : thematicMode === 'recherche' ? 0.2
+                               : 0.7;
     const baseCallOptions = {
       maxTokens: effectiveMaxTokens,
       temperature: effectiveTemperature
@@ -12015,21 +12017,15 @@ app.post('/api/thematic-hybrid-search', async (req, res) => {
     const modeLabel = thematicMode === 'deep' ? 'Tiefe Analyse (Claude)'
                     : thematicMode === 'quote' ? 'Zitatsuche (Claude)'
                     : thematicMode === 'essay' ? 'Essay – Synthese & Belege (Claude Opus)'
-                    : thematicMode === 'recherche' ? 'Recherche – tabellarische Sammlung (Claude Opus)'
+                    : thematicMode === 'recherche' ? 'Recherche – tabellarische Sammlung (Claude Sonnet)'
                     : thematicMode === 'internet' && chatMode ? 'Chat + Internet (Claude Sonnet + Web-Suche)'
                     : thematicMode === 'internet' ? 'Tiefe Analyse + Internet (Claude + Web-Suche)'
                     : thematicMode === 'chat' ? 'Chat (dialogisch, Claude Sonnet)'
                     : 'Breite Sammlung (Gemini)';
     console.log(`[THEMATIC] Modus: ${modeLabel}, Provider: ${preferredProvider || 'auto'}, Limit: ${limit}`);
     
-    // Prüfe ob Request von localhost kommt
-    const isLocalRequest = req.hostname === 'localhost' || 
-                           req.hostname === '127.0.0.1' || 
-                           req.ip === '::1' ||
-                           req.ip === '127.0.0.1';
-    
-    // Themensuchen werden nur bei lokalem Server gespeichert
-    const shouldCache = isLocalRequest && !effectiveSkipCache;
+    // Themensuchen cachen (auch online), damit Wiederholungsabfragen schnell sind.
+    const shouldCache = !effectiveSkipCache;
 
     // Quellenart (Schriften/Vortraege) -> effektiver GA-Filter,
     // Themenbereich -> Keywords zur weichen Retrieval-Anreicherung (alle oberen Modi).
@@ -12083,33 +12079,40 @@ app.post('/api/thematic-hybrid-search', async (req, res) => {
     // ausführen, damit die Gesamtzeit dieses Blocks dem längsten Einzelcall entspricht
     // statt der Summe aller drei.
     const tParallelStart = Date.now();
+    const isRechercheMode = thematicMode === 'recherche';
     const semThreshold = isQuoteMode ? 0.28 : 0.35;
     const semTopN = isQuoteMode ? 50 : 30;
     // Absatz-Embeddings: höhere Schwelle (Absätze sind spezifischer als Summaries),
     // im Essay-Modus mehr Treffer (großzügigerer Pool für Belege).
     const paraThreshold = retrievalMode === 'essay' ? 0.50
+                        : retrievalMode === 'recherche' ? 0.50
                         : retrievalMode === 'chat' ? 0.52
                         : isQuoteMode ? 0.55
                         : 0.55;
     const paraTopN = retrievalMode === 'essay' ? 40
+                   : retrievalMode === 'recherche' ? 45
                    : retrievalMode === 'chat' ? 18
                    : isQuoteMode ? 30
                    : 25;
     const [expandedTerms, phrases, lectureSimilarities, paragraphSimilarities, webContext] = await Promise.all([
-      expandQueryWithLLM(query).catch(err => {
-        console.warn('[THEMATIC] Query-Expansion fehlgeschlagen:', err.message);
-        return [];
-      }),
+      isRechercheMode
+        ? Promise.resolve([])
+        : expandQueryWithLLM(query).catch(err => {
+            console.warn('[THEMATIC] Query-Expansion fehlgeschlagen:', err.message);
+            return [];
+          }),
       isQuoteMode
         ? expandQueryToQuotePhrases(query).catch(err => {
             console.warn('[THEMATIC-QUOTE] Phrasen-Expansion fehlgeschlagen:', err.message);
             return [];
           })
         : Promise.resolve([]),
-      findSemanticallySimilarLectures(query, semThreshold, semTopN).catch(err => {
-        console.warn('[THEMATIC] Semantische Anreicherung fehlgeschlagen:', err.message);
-        return {};
-      }),
+      isRechercheMode
+        ? Promise.resolve({})
+        : findSemanticallySimilarLectures(query, semThreshold, semTopN).catch(err => {
+            console.warn('[THEMATIC] Semantische Anreicherung fehlgeschlagen:', err.message);
+            return {};
+          }),
       findSemanticallySimilarParagraphs(query, effectiveGaFilter, paraThreshold, paraTopN).catch(err => {
         console.warn('[THEMATIC] Absatz-Embedding-Anreicherung fehlgeschlagen:', err.message);
         return {};
@@ -12450,7 +12453,12 @@ app.post('/api/thematic-hybrid-search', async (req, res) => {
       console.error('[ANALYTICS] Fehler beim Tracking der Themen-Suche:', err.message);
     });
 
+    const tAnalysisStart = Date.now();
     let analysis = await generateAnalysis(query, topResults, effectiveDepth, preferredProvider, thematicMode, conversationHistory, useFormalAddress, chatMode, webContext);
+    const tAnalysis = Date.now() - tAnalysisStart;
+    if (thematicMode === 'recherche') {
+      console.log(`[RECHERCHE] LLM-Analyse: ${tAnalysis}ms, ${topResults.length} Quellen im Pool`);
+    }
 
     // Recherche-Modus: Roh-JSON in strukturierte, validierte Tabellendaten umwandeln.
     let rechercheData = null;
@@ -12491,7 +12499,6 @@ app.post('/api/thematic-hybrid-search', async (req, res) => {
       searchResult.internetUsed = !!(webContext?.text);
     }
 
-    // Speichere Ergebnis nur bei localhost
     if (shouldCache) {
       thematicDB[cacheKey] = {
         ...searchResult,
