@@ -28932,7 +28932,8 @@ function detectAndFormatPoems(container) {
         // WICHTIG: Prüfe ob zwischen diesem und dem nächsten Paragraph ein Absatzabstand ist
         // Wenn zwischen den Paragraphen andere Elemente sind (z.B. Überschriften), ist es kein Gedicht
         let hasGap = false;
-        let currentElement = div.nextElementSibling;
+        const lastPoemDiv = poemParagraphs[poemParagraphs.length - 1];
+        let currentElement = lastPoemDiv ? lastPoemDiv.nextElementSibling : null;
         while (currentElement && currentElement !== nextDiv) {
           // Wenn zwischen den Paragraphen ein Element ist, das nicht versteckt ist, gibt es einen Abstand
           const computedStyle = window.getComputedStyle(currentElement);
@@ -29116,7 +29117,8 @@ function detectAndFormatPoems(container) {
         // WICHTIG: Prüfe ob zwischen diesem und dem nächsten Paragraph ein Absatzabstand ist
         // Wenn zwischen den Paragraphen andere Elemente sind (z.B. Überschriften), ist es kein Gedicht
         let hasGap = false;
-        let currentElement = p.nextElementSibling;
+        const prevPoemP = paragraphs[nextIndex - 1];
+        let currentElement = prevPoemP ? prevPoemP.nextElementSibling : null;
         while (currentElement && currentElement !== nextP) {
           // Wenn zwischen den Paragraphen ein Element ist, das nicht versteckt ist, gibt es einen Abstand
           const computedStyle = window.getComputedStyle(currentElement);
@@ -29239,6 +29241,9 @@ function detectAndFormatPoems(container) {
         
         // Verschiebe alle Elemente aus den einzelnen Paragraphen in den Container
         // WICHTIG: Behalte nicht nur <p> Tags, sondern auch Überschriften (<h2>, <h3>, <h4>) und <hr> Tags
+        let poemHasVisibleContent = false;
+        let lastAppendedWasBreak = false;
+
         poemBlock.forEach((poemDiv, idx) => {
           // Sammle alle direkten Kind-Elemente (nicht nur <p> Tags)
           const allChildren = Array.from(poemDiv.childNodes);
@@ -29252,10 +29257,25 @@ function detectAndFormatPoems(container) {
             // Für Element-Knoten
             if (child.nodeType === Node.ELEMENT_NODE) {
               const tagName = child.tagName.toLowerCase();
+
+              // <br> im Original nicht blind duplizieren:
+              // wir lassen maximal EINEN Zeilenumbruch zwischen tatsächlichen Gedichtzeilen zu.
+              if (tagName === 'br') {
+                if (poemHasVisibleContent && !lastAppendedWasBreak) {
+                  poemContainer.appendChild(document.createElement('br'));
+                  lastAppendedWasBreak = true;
+                }
+                return;
+              }
               
               // Überschriften und horizontale Linien BEIBEHALTEN
               if (tagName === 'h2' || tagName === 'h3' || tagName === 'h4' || tagName === 'hr') {
+                if (poemHasVisibleContent && !lastAppendedWasBreak) {
+                  poemContainer.appendChild(document.createElement('br'));
+                }
                 poemContainer.appendChild(child.cloneNode(true));
+                poemHasVisibleContent = true;
+                lastAppendedWasBreak = false;
                 return;
               }
               
@@ -29269,20 +29289,30 @@ function detectAndFormatPoems(container) {
                 clonedP.style.padding = '0';
                 clonedP.style.lineHeight = '1.5';
                 
-                // Füge <br> zwischen Zeilen hinzu (außer bei der ersten)
-                if (idx > 0 || childIdx > 0) {
+                // Füge genau einen Zeilenumbruch zwischen wirklichen Gedichtzeilen hinzu,
+                // aber nicht zusätzlich vor der ersten sichtbaren Zeile.
+                if (poemHasVisibleContent && !lastAppendedWasBreak) {
                   poemContainer.appendChild(document.createElement('br'));
                 }
                 
                 poemContainer.appendChild(clonedP);
+                poemHasVisibleContent = true;
+                lastAppendedWasBreak = false;
                 return;
               }
               
               // Andere Elemente auch beibehalten (z.B. <img>, <span>, etc.)
               poemContainer.appendChild(child.cloneNode(true));
+              poemHasVisibleContent = true;
+              lastAppendedWasBreak = false;
             } else if (child.nodeType === Node.TEXT_NODE && child.textContent.trim()) {
               // Text-Knoten mit Inhalt beibehalten
+              if (poemHasVisibleContent && !lastAppendedWasBreak && childIdx > 0) {
+                poemContainer.appendChild(document.createElement('br'));
+              }
               poemContainer.appendChild(child.cloneNode(true));
+              poemHasVisibleContent = true;
+              lastAppendedWasBreak = false;
             }
           });
           
@@ -32316,9 +32346,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Clipboard modifizieren
     e.preventDefault();
-    const plainText = linkUrl 
-      ? selectedText + '\n' + citation + '\n' + linkUrl
-      : selectedText + '\n' + citation;
+    const plainText = selectedText + '\n' + citation;
     
     // HTML-Version: Formatierung beibehalten, Seitenmarker aus kopiertem Inhalt entfernen
     let htmlContent = '';

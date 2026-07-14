@@ -2010,6 +2010,23 @@ body:not(.is-local) #translateBtnWrapper {
       text-align: left !important;
       line-height: 1.5 !important;
     }
+
+    /* Gedicht-Blöcke im Side-Panel:
+       detectAndFormatPoems() fasst mehrere Zeilen zu .poem-block zusammen und fügt <br> zwischen
+       die inneren <p> ein. Damit dabei kein Absatzabstand entsteht, müssen die <p> inline laufen. */
+    #summary-content .paragraph.poem-block {
+      margin: var(--paragraph-margin) 0 0 0 !important;
+      padding: 0 !important;
+      line-height: 1.5 !important;
+      text-align: left !important;
+    }
+
+    #summary-content .paragraph.poem-block p {
+      margin: 0 !important;
+      padding: 0 !important;
+      line-height: 1.5 !important;
+      display: inline !important;
+    }
     
     /* Bilder im Summary-Panel - gleiche Styles wie im Viewer */
     #summary-content img {
@@ -3032,6 +3049,8 @@ body:not(.is-local) #translateBtnWrapper {
       line-height: 1.4;
       font-size: 0.95em;
       display: none;
+      position: relative;
+      z-index: 0;
       scrollbar-width: thin; /* Firefox - dünne Scrollbar */
       -ms-overflow-style: auto; /* Internet Explorer 10+ */
     }
@@ -3092,7 +3111,8 @@ body:not(.is-local) #translateBtnWrapper {
     #sidePanelLectureHeader {
       position: sticky;
       top: 0;
-      z-index: 20;
+      z-index: 50;
+      isolation: isolate;
       flex-shrink: 0;
       background: var(--background-color);
       /* Links/rechts bündig mit dem Body-Text (= #summary-content-Padding + Body-Wrapper),
@@ -3114,6 +3134,11 @@ body:not(.is-local) #translateBtnWrapper {
     body.dark-mode #sidePanelLectureHeader {
       background: var(--dark-background-color);
       border-bottom-color: var(--dark-border-color);
+    }
+
+    /* Seitenzahlen im scrollenden Side-Panel sollen nie über dem fixierten Header liegen */
+    #summary-content .page-break-num {
+      z-index: 1;
     }
     
     /* Reduziertes vertikales Padding im erweiterten Such-Tab */
