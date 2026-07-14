@@ -1352,6 +1352,24 @@ function restoreFootnoteMarkersAfterMarked(content) {
   return content;
 }
 
+function extractFootnoteDefinitionFromParagraph(content) {
+  if (!content || typeof content !== 'string') return null;
+  const match = content.match(/^\[\^(\d+)\]:\s*([\s\S]*)$/);
+  if (!match) return null;
+  const fnId = match[1];
+  let fnText = match[2] || '';
+  // Entferne ggf. am Ende verbliebene Block-IDs aus dem Export.
+  fnText = fnText.replace(/\s*\^[a-zA-Z0-9]+\s*$/g, '').replace(/\s+/g, ' ').trim();
+  return { id: fnId, text: fnText };
+}
+
+function renderInlineFootnoteRefs(content) {
+  if (!content || typeof content !== 'string') return content;
+  return content.replace(/\[\^(\d+)\]/g, (_, fnId) =>
+    `<sup><a href="#fn${fnId}" id="fnref${fnId}" class="footnote-ref" style="text-decoration: none; color: var(--accent-color); font-weight: bold;">${fnId}</a></sup>`
+  );
+}
+
 // Hilfsfunktion: Konvertiere _text_ direkt zu <em>text</em> für zuverlässige Kursiv-Darstellung
 // marked.js mit GFM erkennt _text_ nicht immer zuverlässig als kursiv
 // Diese Funktion sollte NACH marked.parse() aufgerufen werden (damit HTML-Entities nicht escaped werden)
@@ -9999,7 +10017,7 @@ function activateFootnoteLinks() {
     const fnId = fn.getAttribute('id');
     const backlinkId = fnId.replace('fn', 'fnref');
     const backlink = document.getElementById(backlinkId);
-    if (backlink) {
+    if (backlink && !fn.querySelector('.footnote-backlink')) {
       const backlinkEl = document.createElement('a');
       backlinkEl.href = `#${backlinkId}`;
       backlinkEl.textContent = ' ?';
@@ -20494,6 +20512,7 @@ function showSummaryView() {
   }
   
   const paragraphs = lecture.paragraphs || [];
+  const lectureFootnotes = new Map();
   
   // Bereichs-Markierung: Berechne Array-Indizes für Start und Ende
   let highlightStartArrayIdx = -1;
@@ -20573,6 +20592,13 @@ function showSummaryView() {
     });
     
     let content = para.content || para.text || '';
+    const footnoteDefinition = extractFootnoteDefinitionFromParagraph(content);
+    if (footnoteDefinition) {
+      if (footnoteDefinition.text && !lectureFootnotes.has(footnoteDefinition.id)) {
+        lectureFootnotes.set(footnoteDefinition.id, footnoteDefinition.text);
+      }
+      return;
+    }
     
     // NUR FÜR GA026: Extrahiere H2/H3-Tags aus dem Content und rendere sie als separate Überschriften
     // BEVOR sie durch removeManualHeadingsFromContent() entfernt werden
@@ -20828,6 +20854,7 @@ function showSummaryView() {
     });
     
     content = restoreFootnoteMarkersAfterMarked(content);
+    content = renderInlineFootnoteRefs(content);
     
     // Konvertiere _text_ zu <em>text</em> NACH marked.parse()
     content = convertUnderscoreItalics(content);
@@ -20969,6 +20996,27 @@ function showSummaryView() {
 
 html += `<div class="paragraph ${highlightClass} ${hasTextEdit}" id="para-${paraIndex}" data-index="${paraIndexWithCaret}" data-paragraph-index="${paraIndex}" data-array-index="${idx}" ${clickHandler} ${contextMenuHandler} style="${cursorStyle}">${content}</div>`;
   });
+
+  if (lectureFootnotes.size > 0) {
+    const escapeHtml = (text) => String(text)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#039;');
+
+    html += '<hr style="margin-top: 3rem; border: 1px solid var(--border-color);">';
+    html += '<h3 style="margin-top: 2rem;">Fußnoten</h3>';
+    html += '<ol style="list-style: decimal; padding-left: 2rem; font-size: var(--text-size);">';
+
+    Array.from(lectureFootnotes.entries())
+      .sort((a, b) => parseInt(a[0], 10) - parseInt(b[0], 10))
+      .forEach(([fnId, fnText]) => {
+        html += `<li id="fn${fnId}" value="${fnId}" style="margin-bottom: 0.5rem; font-size: var(--text-size);">${escapeHtml(fnText)} <a href="#fnref${fnId}" class="footnote-backlink" style="text-decoration: none; color: var(--accent-color);">↩</a></li>`;
+      });
+
+    html += '</ol>';
+  }
   
   // V4: Seitenmarker sind bereits im Text eingebettet (|123|)
   // Konvertiere die |page|-Marker zu sichtbarem HTML
@@ -21077,6 +21125,9 @@ html += `<div class="paragraph ${highlightClass} ${hasTextEdit}" id="para-${para
           // Konvertiere Fußnoten zu klickbaren Links (wie bei Büchern)
           setTimeout(() => {
             convertFootnotesToLinks();
+            if (typeof activateFootnoteLinks === 'function') {
+              activateFootnoteLinks();
+            }
           }, 200);
           
           if (typeof markParagraphsWithBookmarksAndQuotes === 'function') {
@@ -21188,6 +21239,9 @@ html += `<div class="paragraph ${highlightClass} ${hasTextEdit}" id="para-${para
     // Konvertiere Fußnoten zu klickbaren Links (wie bei Büchern)
     setTimeout(() => {
       convertFootnotesToLinks();
+      if (typeof activateFootnoteLinks === 'function') {
+        activateFootnoteLinks();
+      }
     }, 200);
     
     if (typeof markParagraphsWithBookmarksAndQuotes === 'function') {
@@ -23542,9 +23596,9 @@ async function startBatchAllSummaries() {
 // ============================================================================
 
 /**
- * Exportiert den aktuell ausgewählten GA-Band oder einzelnen Vortrag neu.
- * Wenn ein Vortrag im Side Panel angeklickt ist, wird nur dieser exportiert.
- * Erkennt automatisch den Typ (Bücher, Vorträge, Briefe) und ruft das passende Export-Skript auf.
+ * Exportiert den aktuell ausgewählten GA-Band neu.
+ * Wenn ein einzelner Text geöffnet ist, wird dieser über den Neu-Export des
+ * gesamten Bands aktualisiert. Der aktuelle Exporter arbeitet bandweise.
  */
 async function exportCurrentGA() {
   // Prüfe ob wir lokal sind
@@ -23560,20 +23614,20 @@ async function exportCurrentGA() {
     return;
   }
   
-  // Prüfe ob ein einzelner Vortrag angeklickt ist
+  // Geöffneter Einzeltext als Zusatzinfo für den Hinweisdialog.
+  // Der Export selbst läuft derzeit immer bandweise.
   const lectureId = window.currentOpenLectureId;
-  const isLectureExport = lectureId && lectureId.startsWith('GA');
+  const openedLectureId = typeof lectureId === 'string' && /^GA\d{3}[a-z]?\/\d+/i.test(lectureId)
+    ? lectureId
+    : null;
   
   // Zeige Bestätigungsdialog
   let confirmMsg;
-  let exportTarget;
   
-  if (isLectureExport) {
-    confirmMsg = `Einzelnen Vortrag "${lectureId}" exportieren?\n\nDies wird:\n |  Die Markdown-Quelle für diesen Vortrag lesen\n |  Die JSON-Daten für diesen Vortrag aktualisieren\n\nDer Export kann einige Sekunden dauern.`;
-    exportTarget = lectureId;
+  if (openedLectureId) {
+    confirmMsg = `GA-Band ${gaNumber} neu exportieren?\n\nAktuell geöffneter Text: "${openedLectureId}"\n\nHinweis: Der Export läuft derzeit bandweise. Der geöffnete Text wird also über den Neu-Export des gesamten GA-Bands aktualisiert.\n\nDies wird:\n |  Die Markdown-Quellen aus Steiner_GA/ lesen\n |  Die JSON-Dateien neu generieren\n |  Bestehende Pagebreaks für diesen Band löschen\n\nDer Export kann einige Sekunden dauern.`;
   } else {
     confirmMsg = `GA-Band ${gaNumber} neu exportieren?\n\nDies wird:\n |  Die Markdown-Quellen aus Steiner_GA/ lesen\n |  Die JSON-Dateien neu generieren\n |  Bestehende Pagebreaks für diesen Band löschen\n\nDer Export kann einige Sekunden dauern.`;
-    exportTarget = gaNumber;
   }
   
   if (!confirm(confirmMsg)) {
@@ -23582,7 +23636,9 @@ async function exportCurrentGA() {
   
   // Zeige Fortschrittsanzeige im Viewer
   const viewer = document.getElementById('viewer');
-  const exportLabel = isLectureExport ? `Vortrag: ${lectureId}` : `GA-Band: ${gaNumber}`;
+  const exportLabel = openedLectureId
+    ? `GA-Band: ${gaNumber} (geöffneter Text: ${openedLectureId})`
+    : `GA-Band: ${gaNumber}`;
   viewer.innerHTML = `
     <div style="padding: 2rem; text-align: center;">
       <h3 style="margin-bottom: 1rem;">📤 Export: ${exportLabel}</h3>
@@ -23601,9 +23657,7 @@ async function exportCurrentGA() {
   
   try {
     // Rufe Backend-API für Export auf
-    const requestBody = isLectureExport 
-      ? { gaNumber, lectureId } 
-      : { gaNumber };
+    const requestBody = { gaNumber };
     
     const resp = await fetch(`${API_BASE}/api/export/ga`, {
       method: 'POST',
@@ -23616,8 +23670,8 @@ async function exportCurrentGA() {
     
     if (resp.ok && result.success) {
       // Erfolg
-      const lectureInfo = result.lectureId 
-        ? `<p><strong>Vortrag:</strong> ${result.lectureId}</p>` 
+      const lectureInfo = openedLectureId
+        ? `<p><strong>Geöffneter Text:</strong> ${openedLectureId}</p><p style="margin-top: 0.5rem; color: #666;">Export wurde bandweise ausgeführt.</p>`
         : '';
       progressDiv.innerHTML = `
         <p style="color: #5cb85c; font-size: 1.2em;">\u2713 Export erfolgreich!</p>
@@ -24976,6 +25030,7 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
       if (lecture.headings || lecture.paragraphs) {
         const headings = lecture.headings || [];
         const paragraphs = lecture.paragraphs || [];
+        const lectureFootnotes = new Map();
         
         // Hilfsfunktion: Prüft ob ein Text eine Listenzeile ist
         function isListItem(text) {
@@ -25161,6 +25216,13 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
           }
           
           let content = para.content || para.text || '';
+          const footnoteDefinition = extractFootnoteDefinitionFromParagraph(content);
+          if (footnoteDefinition) {
+            if (footnoteDefinition.text && !lectureFootnotes.has(footnoteDefinition.id)) {
+              lectureFootnotes.set(footnoteDefinition.id, footnoteDefinition.text);
+            }
+            return;
+          }
           
           // NUR FÜR GA026: Extrahiere H2/H3-Tags aus dem Content und rendere sie als separate Überschriften
           // (für GA026 Leitsätze: <h2>Leitsätze Nr. 1 bis 3 (17. Februar 1924)</h2>)
@@ -25223,6 +25285,8 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
             thematicPageMarkerPlaceholders.push({ placeholder, original: match });
             return placeholder;
           });
+
+          content = protectFootnoteMarkersBeforeMarked(content);
           
           // Schütze Text in <> vor HTML-Interpretation
           content = protectAngleBrackets(content);
@@ -25309,6 +25373,9 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
           thematicPageMarkerPlaceholders.forEach(({ placeholder, original }) => {
             content = content.replace(new RegExp(placeholder.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'g'), original);
           });
+
+          content = restoreFootnoteMarkersAfterMarked(content);
+          content = renderInlineFootnoteRefs(content);
           
           // Konvertiere _text_ zu <em>text</em> NACH marked.parse()
           content = convertUnderscoreItalics(content);
@@ -25412,6 +25479,27 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
             </div>
           `;
         });
+
+        if (lectureFootnotes.size > 0) {
+          const escapeHtml = (text) => String(text)
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;')
+            .replace(/'/g, '&#039;');
+
+          html += '<hr style="margin-top: 3rem; border: 1px solid var(--border-color);">';
+          html += '<h3 style="margin-top: 2rem;">Fußnoten</h3>';
+          html += '<ol style="list-style: decimal; padding-left: 2rem; font-size: var(--text-size);">';
+
+          Array.from(lectureFootnotes.entries())
+            .sort((a, b) => parseInt(a[0], 10) - parseInt(b[0], 10))
+            .forEach(([fnId, fnText]) => {
+              html += `<li id="fn${fnId}" value="${fnId}" style="margin-bottom: 0.5rem; font-size: var(--text-size);">${escapeHtml(fnText)} <a href="#fnref${fnId}" class="footnote-backlink" style="text-decoration: none; color: var(--accent-color);">↩</a></li>`;
+            });
+
+          html += '</ol>';
+        }
       }
       html += `</div>`;
       // WICHTIG: Wrape HTML in viewer-content für korrektes padding-left: 2em
@@ -25507,6 +25595,9 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
             // Konvertiere Fußnoten zu klickbaren Links (wie bei Büchern)
             // WICHTIG: Nach Bild-Ersetzen, Gedicht-Formatierung und anderen Manipulationen
             convertFootnotesToLinks();
+            if (typeof activateFootnoteLinks === 'function') {
+              activateFootnoteLinks();
+            }
             
             // Wandtafelzeichnungen hinzufügen (falls vorhanden)
             // Prüfe zuerst ob Vortrag von WZ geöffnet wurde
@@ -25570,6 +25661,9 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
             // Konvertiere Fußnoten zu klickbaren Links (wie bei Büchern)
             // WICHTIG: Auch im Fehlerfall aufrufen!
             convertFootnotesToLinks();
+            if (typeof activateFootnoteLinks === 'function') {
+              activateFootnoteLinks();
+            }
             
             // Wandtafelzeichnungen auch im Fehlerfall hinzufügen
             // Prüfe zuerst ob Vortrag von WZ geöffnet wurde
@@ -25611,6 +25705,9 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
           // Konvertiere Fußnoten zu klickbaren Links (wie bei Büchern)
           // WICHTIG: Nach Gedicht-Formatierung und anderen Manipulationen
           convertFootnotesToLinks();
+          if (typeof activateFootnoteLinks === 'function') {
+            activateFootnoteLinks();
+          }
           
           // Wandtafelzeichnungen hinzufügen (falls vorhanden)
           // Prüfe zuerst ob Vortrag von WZ geöffnet wurde

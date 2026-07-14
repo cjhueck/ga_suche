@@ -197,10 +197,21 @@ class SteinerLecturesExporter {
   }
 
   // Extract metadata from filename
-  extractMetadataFromFilename(filename) {
-    const match = filename.match(/^GA\s*(\d{2,3}[a-z]?)\s*\((\d+)\.\)\s+(.+)\.md$/i);
-    if (!match) return null;
-    const [, ga, lectureNumber, rest] = match;
+  extractMetadataFromFilename(filename, fallbackGa = null) {
+    let ga = null;
+    let lectureNumber = null;
+    let rest = null;
+
+    const standardMatch = filename.match(/^GA\s*(\d{2,3}[a-z]?)\s*\((\d+)\.\)\s+(.+)\.md$/i);
+    if (standardMatch) {
+      [, ga, lectureNumber, rest] = standardMatch;
+    } else {
+      const splitMatch = filename.match(/^\((\d+)\.\)\s+(.+)\.md$/i);
+      if (!splitMatch || !fallbackGa) return null;
+      ga = fallbackGa.replace(/^GA/i, '');
+      lectureNumber = splitMatch[1];
+      rest = splitMatch[2];
+    }
 
     const parts = rest.split(',').map(p => p.trim());
     let titlePart = parts[0] || "";
@@ -811,12 +822,20 @@ class SteinerLecturesExporter {
     let processed = 0;
     for (const filePath of allFiles) {
       const filename = path.basename(filePath);
+      const parentDirName = path.basename(path.dirname(filePath));
+      const parentGAMatch = parentDirName.match(/^(GA\d{2,3}[a-z]?)/i);
+      const fallbackGa = parentGAMatch ? parentGAMatch[1] : null;
       
-      // Check if it's a lecture file
-      const gaMatch = filename.match(/^GA\s*\d{2,3}[a-z]?\s*\(\d+\.\)/);
-      if (!gaMatch) continue;
+      // Standard-Dateien: "GA041b (1.) ..."
+      // Neue Split-Dateien: "(1.) ..." innerhalb eines "GA041b-..." Ordners
+      const isStandardLectureFile = /^GA\s*\d{2,3}[a-z]?\s*\(\d+\.\)/i.test(filename);
+      const isSplitLectureFile = /^\((\d+)\.\)\s+.+\.md$/i.test(filename) && !!fallbackGa;
+      if (!isStandardLectureFile && !isSplitLectureFile) continue;
 
-      const gaNumber = filename.match(/^GA\s*(\d{2,3}[a-z]?)/i)?.[1]?.toUpperCase();
+      const gaNumber = (
+        filename.match(/^GA\s*(\d{2,3}[a-z]?)/i)?.[1] ||
+        fallbackGa?.replace(/^GA/i, '')
+      )?.toUpperCase();
       
       // GA001-GA050 sind Bücher, nicht Vorträge - ausschließen
       // Ausnahmen: GA040 wird wie Vortragsband behandelt
@@ -861,7 +880,7 @@ class SteinerLecturesExporter {
       const selectedGAsUpper = selectedGAs.map(g => g.toUpperCase());
       if (selectedGAs.length > 0 && (!gaNumber || !selectedGAsUpper.includes(`GA${gaNumber.toUpperCase()}`))) continue;
 
-      const meta = this.extractMetadataFromFilename(filename);
+      const meta = this.extractMetadataFromFilename(filename, fallbackGa);
       if (!meta) continue;
 
       const content = fs.readFileSync(filePath, 'utf8');
@@ -1149,6 +1168,9 @@ class SteinerLecturesExporter {
     }
 
     if (lectures.length === 0) {
+      if (selectedGAs.length > 0) {
+        throw new Error(`Keine exportierbaren Vortrags-/Aufsatzdateien für ${selectedGAs.join(', ')} gefunden`);
+      }
       return;
     }
 

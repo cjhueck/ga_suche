@@ -13901,6 +13901,8 @@ function rebuildParagraphsFromLectures() {
 app.post('/api/reload-lectures', async (req, res) => {
   try {
     fullLectures = {}; // Leere den Cache
+    gaOverviewCache = {}; // Leere auch den GA-Overview-Cache im RAM
+    await saveGAOverviewCache();
     invalidateTimelineSearchCache();
     const reloaded = await loadFullLectures();
 
@@ -16773,7 +16775,7 @@ app.post('/api/pages/remove-bulk', async (req, res) => {
   }
 });
 
-// POST /api/export/ga - Exportiert einen GA-Band oder einzelnen Vortrag neu (ruft das passende Export-Skript auf)
+// POST /api/export/ga - Exportiert einen GA-Band neu (ruft das passende Export-Skript auf)
 app.post('/api/export/ga', async (req, res) => {
   try {
     const { gaNumber, lectureId } = req.body;
@@ -16794,11 +16796,12 @@ app.post('/api/export/ga', async (req, res) => {
     const gaNumOnly = gaNum.replace(/[a-z]$/i, '');
     const normalizedGA = `GA${gaNumOnly.padStart(3, '0')}${gaSuffix}`.toUpperCase();
     
-    // Prüfe ob einzelner Vortrag exportiert werden soll
-    const isSingleLecture = lectureId && lectureId.match(/^GA\d{3}[a-z]?\s*\(\d+\.\)/i);
+    const requestedLectureId = typeof lectureId === 'string' ? lectureId.trim() : '';
+    const hasRequestedLecture = /^GA\d{3}[a-z]?\/\d+[a-z]?$/i.test(requestedLectureId) ||
+      /^GA\d{3}[a-z]?\s*\(\d+\.\)/i.test(requestedLectureId);
     
-    if (isSingleLecture) {
-      console.log(`[EXPORT] Starte Export für einzelnen Vortrag: ${lectureId}...`);
+    if (hasRequestedLecture) {
+      console.log(`[EXPORT] Starte Bandexport für ${normalizedGA} (angeforderter Einzeltext: ${requestedLectureId})...`);
     } else {
       console.log(`[EXPORT] Starte Export für ${normalizedGA}...`);
     }
@@ -16928,16 +16931,17 @@ app.post('/api/export/ga', async (req, res) => {
           imageCacheKeys.forEach(key => delete steinerImages[key]);
           console.log(`[EXPORT] ✓ Bilder-Cache geleert für ${normalizedGA} (${imageCacheKeys.length} Einträge)`);
         }
+
+        await invalidateGAOverviewCache(`${normalizedGA}/1`);
         
-        // Bei Einzelvortrag: angepasste Meldung
-        const exportMessage = isSingleLecture
-          ? `Vortrag "${lectureId}" erfolgreich exportiert (GA-Band ${normalizedGA} aktualisiert)`
+        const exportMessage = hasRequestedLecture
+          ? `Export für ${normalizedGA} erfolgreich abgeschlossen (angeforderter Text ${requestedLectureId} wurde über den Bandexport aktualisiert)`
           : `Export für ${normalizedGA} erfolgreich abgeschlossen`;
         
         res.json({
           success: true,
           gaNumber: normalizedGA,
-          lectureId: isSingleLecture ? lectureId : undefined,
+          lectureId: hasRequestedLecture ? requestedLectureId : undefined,
           type: exportType,
           files: files,
           lectureCount: lectureCount > 0 ? lectureCount : undefined,
