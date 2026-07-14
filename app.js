@@ -31837,6 +31837,104 @@ document.addEventListener('DOMContentLoaded', function() {
   
   // Relevante Container-IDs, in denen Text mit Quellenangabe kopiert werden soll
   const containerIds = ['viewer', 'results', 'summary-panel'];
+
+  function getSelectionElement(node) {
+    if (!node) return null;
+    return node.nodeType === 1 ? node : node.parentElement;
+  }
+
+  function extractLectureIdFromOnclick(onclickText) {
+    if (!onclickText) return null;
+    const match = String(onclickText).match(
+      /(?:navigateToLectureInTexteTab|openLectureFromThemeSummary|showLecture(?:FromAdvancedSearch)?)\('([^']+)'/
+    );
+    return match ? match[1] : null;
+  }
+
+  function resolveLectureIdFromElement(element) {
+    if (!element) return null;
+
+    const candidates = [
+      element,
+      element.closest ? element.closest('[data-lecture-id]') : null,
+      element.parentElement,
+      element.previousElementSibling,
+      element.nextElementSibling
+    ].filter(Boolean);
+
+    for (const node of candidates) {
+      if (node.getAttribute) {
+        const lectureId = node.getAttribute('data-lecture-id');
+        if (lectureId) return lectureId;
+      }
+
+      const gaRef = (node.matches && node.matches('.ga-reference[data-id]'))
+        ? node
+        : (node.querySelector ? node.querySelector('.ga-reference[data-id]') : null);
+      if (gaRef && gaRef.getAttribute) {
+        const lectureId = gaRef.getAttribute('data-id');
+        if (lectureId) return lectureId;
+      }
+
+      const linkWithOnclick = (node.matches && node.matches('a[onclick]'))
+        ? node
+        : (node.querySelector ? node.querySelector('a[onclick]') : null);
+      if (linkWithOnclick && linkWithOnclick.getAttribute) {
+        const lectureId = extractLectureIdFromOnclick(linkWithOnclick.getAttribute('onclick'));
+        if (lectureId) return lectureId;
+      }
+    }
+
+    return null;
+  }
+
+  function resolveCitationSourceRoot(range) {
+    const candidates = [
+      getSelectionElement(range?.commonAncestorContainer),
+      getSelectionElement(range?.startContainer),
+      getSelectionElement(range?.endContainer)
+    ].filter(Boolean);
+
+    if (!candidates.length) return null;
+
+    const excludedSelector = [
+      '.semantic-answer',
+      '.answer-content',
+      '.saved-thematic-result',
+      '.concept-results-content',
+      '.ga-lecture-text',
+      '.ga-summary-text',
+      '.theme-summary-content',
+      '#answerContent',
+      '#answerContentViewer',
+      '#keywordAnswerContent'
+    ].join(', ');
+
+    for (const el of candidates) {
+      if (el.closest(excludedSelector)) {
+        return null;
+      }
+    }
+
+    const allowedSelector = [
+      '.book-content[data-ga-number]',
+      '.book-content[data-lecture-id]',
+      '#progressive-book-content',
+      '.paragraph[data-paragraph-index]',
+      '[data-heading-index]',
+      '.advanced-search-cell[data-lecture-id]',
+      '[data-lecture-id][data-paragraph-id]',
+      '[data-lecture-id][data-paragraph-index]',
+      '[data-lecture-id][data-chunk-index]'
+    ].join(', ');
+
+    for (const el of candidates) {
+      const match = el.closest(allowedSelector);
+      if (match) return match;
+    }
+
+    return null;
+  }
   
   document.addEventListener('copy', function(e) {
     try {
@@ -31846,7 +31944,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const selectedText = selection.toString().trim();
     if (!selectedText || selectedText.length < 3) return;
     
-    const commonAncestor = selection.getRangeAt(0).commonAncestorContainer;
+    const range = selection.getRangeAt(0);
+    const commonAncestor = range.commonAncestorContainer;
     
     // === ÜBERSCHRIFTEN ALS LINKS KOPIEREN ===
     // Prüfe ob die Selektion eine Überschrift ist (Dokumenttitel oder Abschnitts-Überschrift)
@@ -31935,6 +32034,12 @@ document.addEventListener('DOMContentLoaded', function() {
       console.log(`[COPY] Kurzer Text (${wordCount} Wörter) - keine Quellenangabe`);
       return;
     }
+
+    const sourceRoot = resolveCitationSourceRoot(range);
+    if (!sourceRoot) {
+      console.log('[COPY] Keine Steiner-Textansicht erkannt - keine Quellenangabe');
+      return;
+    }
     
     // Prüfe ob die Selektion in einem relevanten Container liegt
     let container = null;
@@ -31949,13 +32054,23 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // GA-Nummer ermitteln: primär currentGANumber, alternativ aus dem DOM extrahieren
     let gaNumber = null;
+    const sourceLectureId = resolveLectureIdFromElement(sourceRoot);
+    const sourceGaNumber = sourceRoot.getAttribute && sourceRoot.getAttribute('data-ga-number');
     
-    // 1. Verwende currentGANumber (wird beim Laden eines Vortrags/Buchs gesetzt)
-    if (typeof currentGANumber !== 'undefined' && currentGANumber) {
+    // 1. Verwende Daten direkt vom selektierten Quell-Element
+    if (sourceGaNumber) {
+      gaNumber = sourceGaNumber;
+    } else if (sourceLectureId) {
+      const sourceGaMatch = String(sourceLectureId).match(/^(GA\d{1,3}[a-z]?)/i);
+      if (sourceGaMatch) gaNumber = sourceGaMatch[1];
+    }
+    
+    // 2. Verwende currentGANumber (wird beim Laden eines Vortrags/Buchs gesetzt)
+    if (!gaNumber && typeof currentGANumber !== 'undefined' && currentGANumber) {
       gaNumber = currentGANumber;
     }
     
-    // 2. Fallback: GA-Nummer aus dem nächsten Ergebnis-Element extrahieren
+    // 3. Fallback: GA-Nummer aus dem nächsten Ergebnis-Element extrahieren
     //    (z.B. in Suchergebnissen oder Timeline, wo jedes Ergebnis eine eigene GA hat)
     if (!gaNumber) {
       const nearestLink = commonAncestor.nodeType === 1 
@@ -32020,7 +32135,6 @@ document.addEventListener('DOMContentLoaded', function() {
     let startPage = null;
     let endPage = null;
     
-    const range = selection.getRangeAt(0);
     startPage = findNearestPageBefore(range.startContainer);
     endPage = findNearestPageBefore(range.endContainer);
     
@@ -32048,9 +32162,12 @@ document.addEventListener('DOMContentLoaded', function() {
       place = gaInfo.place || '';
       year = gaInfo.year || '';
     } else {
+      if (container && container.id === 'summary-panel' && window.currentSidePanelLectureTitle) {
+        title = window.currentSidePanelLectureTitle;
+      }
       // Fallback: Titel aus dem Dokumenttitel extrahieren (wenn GA nicht in Bibliographie)
       const docTitleEl = document.getElementById('document-title');
-      if (docTitleEl) {
+      if (!title && docTitleEl) {
         const docTitleText = docTitleEl.textContent.trim();
         // Entferne GA-Nummer und Klammern am Anfang: "GA190 - Titel..." ? "Titel..."
         const titleMatch = docTitleText.match(/^(?:GA\s*\d+[a-z]?\s*[-–]\s*)?(.+?)(?:\s*\(\d{4}\)\s*)?$/i);
@@ -32060,7 +32177,13 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Lecture-ID ermitteln: primär currentOpenLectureId, alternativ aus DOM
     // (vor der Citation-Erstellung, damit das Vortragsdatum mit aufgenommen werden kann)
-    let lectureIdForLink = window.currentOpenLectureId || null;
+    let lectureIdForLink = sourceLectureId || null;
+    if (!lectureIdForLink && container && container.id === 'summary-panel' && window.currentSidePanelLectureId) {
+      lectureIdForLink = window.currentSidePanelLectureId;
+    }
+    if (!lectureIdForLink) {
+      lectureIdForLink = window.currentOpenLectureId || null;
+    }
     if (!lectureIdForLink) {
       // Fallback: Suche data-lecture-id im DOM (z.B. in Suchergebnissen)
       let linkEl = commonAncestor.nodeType === 1 ? commonAncestor : commonAncestor.parentElement;
