@@ -3672,6 +3672,124 @@ gap: 4px !important;
       overflow: visible;
       position: relative;
     }
+
+    .distance-filter-group {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      position: relative;
+      overflow: visible;
+    }
+
+    .distance-filter-trigger {
+      flex: 0 0 auto;
+      text-align: left;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      white-space: nowrap;
+    }
+
+    .distance-filter-button-text {
+      min-width: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .distance-filter-group.open .custom-dropdown-arrow {
+      transform: rotate(135deg);
+      margin-bottom: 0;
+      margin-top: 3px;
+    }
+
+    .distance-filter-panel {
+      position: absolute;
+      top: calc(100% + 4px);
+      left: 0;
+      min-width: 112px;
+      padding: 6px;
+      border: 1px solid #ccc;
+      background: var(--background-color);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.18);
+      z-index: 1000;
+      display: none;
+    }
+
+    .distance-filter-group.open .distance-filter-panel {
+      display: block;
+    }
+
+    .distance-filter-option {
+      width: 100%;
+      padding: 4px 8px;
+      border: 0;
+      background: transparent;
+      color: inherit;
+      text-align: left;
+      cursor: pointer;
+      font-size: 0.82em;
+    }
+
+    .distance-filter-option:hover {
+      background: color-mix(in srgb, var(--accent-color) 14%, transparent);
+    }
+
+    .distance-filter-option.selected {
+      background: color-mix(in srgb, var(--accent-color) 22%, transparent);
+    }
+
+    .distance-filter-panel label {
+      display: block;
+      font-size: 0.76em;
+      color: var(--secondary-text);
+      margin-bottom: 4px;
+    }
+
+    .distance-filter-panel .filter-dropdown {
+      width: 100%;
+      margin: 0;
+    }
+
+    .distance-filter-input-wrap {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      width: 100%;
+      margin-top: 4px;
+    }
+
+    .distance-filter-input-wrap .filter-dropdown {
+      flex: 1 1 auto;
+      min-width: 0;
+    }
+
+    .distance-filter-input-suffix {
+      flex: 0 0 auto;
+      font-size: 0.82em;
+      color: var(--secondary-text);
+      white-space: nowrap;
+      display: none;
+    }
+
+    .distance-filter-input-suffix.visible {
+      display: inline;
+    }
+
+    .distance-filter-input-suffix.committed {
+      color: var(--text-color);
+    }
+
+    .distance-filter-panel input[type="number"] {
+      appearance: textfield;
+      -moz-appearance: textfield;
+    }
+
+    .distance-filter-panel input[type="number"]::-webkit-outer-spin-button,
+    .distance-filter-panel input[type="number"]::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
     
     .filter-dropdown {
       flex: 1;
@@ -7521,12 +7639,23 @@ Wandtafeln
   <div class="custom-dropdown-list" id="gaFilterList"></div>
 </div>
 
-<select class="filter-dropdown" id="proximityFilter" style="flex: 0 0 auto; width: 90px;" data-help="distanceFilter">
-<option value="">Abstand</option>
-<option value="1">1 Absatz</option>
-<option value="2">2 Absätze</option>
-<option value="3">3 Absätze</option>
-</select>
+<div class="distance-filter-group" id="proximityFilterGroup" data-mode="" style="flex: 0 0 auto;">
+<input type="hidden" id="proximityFilter" value=""/>
+<button type="button" class="filter-dropdown distance-filter-trigger" id="proximityFilterButton" style="width: 90px;" data-help="distanceFilter" onclick="toggleDistanceFilterPanel('proximityFilter','proximityWordDistance')">
+<span class="distance-filter-button-text" id="proximityFilterButtonText">Abstand</span>
+<span class="custom-dropdown-arrow"></span>
+</button>
+<div class="distance-filter-panel" id="proximityWordDistancePanel" aria-hidden="true">
+<button type="button" class="distance-filter-option" data-distance-option="" onclick="selectDistanceFilterOption('proximityFilter','proximityWordDistance','')">Abstand</button>
+<button type="button" class="distance-filter-option" data-distance-option="p:1" onclick="selectDistanceFilterOption('proximityFilter','proximityWordDistance','p:1')">1 Absatz</button>
+<button type="button" class="distance-filter-option" data-distance-option="p:2" onclick="selectDistanceFilterOption('proximityFilter','proximityWordDistance','p:2')">2 Absätze</button>
+<button type="button" class="distance-filter-option" data-distance-option="p:3" onclick="selectDistanceFilterOption('proximityFilter','proximityWordDistance','p:3')">3 Absätze</button>
+<div class="distance-filter-input-wrap">
+<input class="filter-dropdown" id="proximityWordDistance" type="text" inputmode="numeric" placeholder="Wortabstand" data-help="distanceFilter" aria-label="Wortabstand in Wörtern" onclick="enableWordDistanceMode('proximityFilter','proximityWordDistance'); event.stopPropagation();" onfocus="enableWordDistanceMode('proximityFilter','proximityWordDistance')" oninput="updateWordDistanceValue('proximityFilter','proximityWordDistance')" onkeydown="handleWordDistanceKeydown('proximityFilter','proximityWordDistance', event)"/>
+<span class="distance-filter-input-suffix" id="proximityWordDistanceSuffix" aria-hidden="true">Wörter</span>
+</div>
+</div>
+</div>
 <select class="filter-dropdown" id="relevanceFilter" style="flex: 0 0 auto; width: 90px;" data-help="relevanceFilter">
 <option value="ohne">Relevanz</option>
 <option value="alle">alle</option>
@@ -7574,12 +7703,23 @@ Wandtafeln
   <div class="custom-dropdown-list" id="advancedGAFilterList"></div>
 </div>
 
-<select class="filter-dropdown" id="advancedProximityFilter" style="flex: 1;">
-<option value="">Abstand</option>
-<option value="1">1 Absatz</option>
-<option value="2">2 Absätze</option>
-<option value="3">3 Absätze</option>
-</select>
+<div class="distance-filter-group" id="advancedProximityFilterGroup" data-mode="" style="flex: 1;">
+<input type="hidden" id="advancedProximityFilter" value=""/>
+<button type="button" class="filter-dropdown distance-filter-trigger" id="advancedProximityFilterButton" style="width: 100%;" data-help="distanceFilter" onclick="toggleDistanceFilterPanel('advancedProximityFilter','advancedProximityWordDistance')">
+<span class="distance-filter-button-text" id="advancedProximityFilterButtonText">Abstand</span>
+<span class="custom-dropdown-arrow"></span>
+</button>
+<div class="distance-filter-panel" id="advancedProximityWordDistancePanel" aria-hidden="true">
+<button type="button" class="distance-filter-option" data-distance-option="" onclick="selectDistanceFilterOption('advancedProximityFilter','advancedProximityWordDistance','')">Abstand</button>
+<button type="button" class="distance-filter-option" data-distance-option="p:1" onclick="selectDistanceFilterOption('advancedProximityFilter','advancedProximityWordDistance','p:1')">1 Absatz</button>
+<button type="button" class="distance-filter-option" data-distance-option="p:2" onclick="selectDistanceFilterOption('advancedProximityFilter','advancedProximityWordDistance','p:2')">2 Absätze</button>
+<button type="button" class="distance-filter-option" data-distance-option="p:3" onclick="selectDistanceFilterOption('advancedProximityFilter','advancedProximityWordDistance','p:3')">3 Absätze</button>
+<div class="distance-filter-input-wrap">
+<input class="filter-dropdown" id="advancedProximityWordDistance" type="text" inputmode="numeric" placeholder="Wortabstand" data-help="distanceFilter" aria-label="Wortabstand in Wörtern" onclick="enableWordDistanceMode('advancedProximityFilter','advancedProximityWordDistance'); event.stopPropagation();" onfocus="enableWordDistanceMode('advancedProximityFilter','advancedProximityWordDistance')" oninput="updateWordDistanceValue('advancedProximityFilter','advancedProximityWordDistance')" onkeydown="handleWordDistanceKeydown('advancedProximityFilter','advancedProximityWordDistance', event)"/>
+<span class="distance-filter-input-suffix" id="advancedProximityWordDistanceSuffix" aria-hidden="true">Wörter</span>
+</div>
+</div>
+</div>
 </div>
 <!-- Unsichtbarer Platzhalter für gleiche Breite wie Suchwort-Zeilen -->
 <div class="word-operator-container" style="visibility: hidden; pointer-events: none;">
@@ -10879,7 +11019,7 @@ PDF
 <link rel="stylesheet" href="thematic-chat-ui.css?v=20260712n">
 <script src="thematic-chat-ui.js?v=20260712n"></script>
 
-<script src="app.js?v=20260712w"></script>
+<script src="app.js?v=20260722p"></script>
 </body>
 </html>
 
