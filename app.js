@@ -2417,7 +2417,7 @@ function normalizeGANumber(gaNumber) {
         updateServerInfo(); // Aktualisiere Statistik-Anzeige
       }
       
-      if (proximityFilter) proximityFilter.value = '';
+      if (proximityFilter) setDistanceFilterValue('proximityFilter', 'proximityWordDistance', '');
       if (relevanceFilter) relevanceFilter.value = 'ohne';
       
       // Setze UND/ODER zurück auf UND
@@ -2466,8 +2466,7 @@ function normalizeGANumber(gaNumber) {
       }
       
       // Setze Proximity-Filter zurück
-      const advancedProximityFilter = document.getElementById('advancedProximityFilter');
-      if (advancedProximityFilter) advancedProximityFilter.value = '';
+      setDistanceFilterValue('advancedProximityFilter', 'advancedProximityWordDistance', '');
       
       // Setze GA-Filter zurück (Custom Dropdown)
       if (typeof advancedGAFilterDropdown !== 'undefined' && advancedGAFilterDropdown) {
@@ -7873,20 +7872,10 @@ async function finishBookRendering(book, viewer, targetIndex, mainContainer, hig
         if (targetParaElement) {
           let paragraphElement = targetParaElement.closest('.paragraph');
           if (paragraphElement && mainContainer) {
-            const header = document.getElementById('viewer-header');
-            const headerHeight = header ? header.offsetHeight + 5 : 5;
-            const mainRect = mainContainer.getBoundingClientRect();
-            const paraRect = paragraphElement.getBoundingClientRect();
-            const relativeTop = paraRect.top - mainRect.top + mainContainer.scrollTop;
-            // Vertikal zentrieren: Absatz auf die Bildschirmmitte setzen,
-            // mit Header-Berücksichtigung. Bei sehr großen Absätzen (höher als
-            // verfügbarer Viewport) am oberen Rand verankern.
-            const visibleHeight = Math.max(0, mainContainer.clientHeight - headerHeight);
-            const centerOffset = Math.max(headerHeight, headerHeight + (visibleHeight - paraRect.height) / 2);
-            mainContainer.scrollTop = Math.max(0, relativeTop - centerOffset);
+            scrollMainViewerTargetIntoUpperThird(paragraphElement, targetParaElement);
             
             // ABER: Überspringe Highlighting wenn Navigation vom Inhaltsverzeichnis kommt
-            if (!window.skipParagraphHighlight) {
+            if (!window.skipParagraphHighlight && !shouldSuppressCurrentMainViewerParagraphHighlight(currentBookId)) {
               // Bereichs-Markierung: Mehrere Absätze markieren wenn lastHighlightedEndIndex gesetzt
               if (lastHighlightedEndIndex) {
                 const endParaElement = bookContentDiv.querySelector(`#para-${lastHighlightedEndIndex}`);
@@ -7952,7 +7941,7 @@ async function finishBookRendering(book, viewer, targetIndex, mainContainer, hig
     // Sicherheitsnetz: Prüfe nochmals nach 1500ms (nach replaceImageSrcWithBase64)
     setTimeout(() => {
       const highlighted = document.querySelectorAll('.highlighted-paragraph');
-      if (highlighted.length === 0 && targetIndex) {
+      if (highlighted.length === 0 && targetIndex && !shouldSuppressCurrentMainViewerParagraphHighlight(currentBookId)) {
         const targetParagraphIndex = String(targetIndex).replace(/^\^/, '');
         const bookContentDiv = viewer.querySelector('.book-content');
         if (bookContentDiv) {
@@ -8188,32 +8177,13 @@ async function _displayBookImpl(book, highlightHeadingId = null, keywords = [], 
       while (paragraphElement && paragraphElement !== bookContentDiv) {
         const tagName = paragraphElement.tagName.toLowerCase();
         if (['p', 'div', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'li', 'blockquote'].includes(tagName)) {
-          // Scrolle zum Absatz und zentriere ihn vertikal im Viewer.
-          const mainContainer = document.getElementById('main');
-          if (mainContainer) {
-            const header = document.getElementById('viewer-header');
-            const headerHeight = header ? header.offsetHeight + 5 : 5;
-
-            const mainRect = mainContainer.getBoundingClientRect();
-            const paraRect = paragraphElement.getBoundingClientRect();
-
-            // Berechne relative Position im Dokument
-            const relativeTop = paraRect.top - mainRect.top + mainContainer.scrollTop;
-
-            // Vertikal zentrieren: Absatz auf die Bildschirmmitte setzen
-            // (Header-Höhe abziehen). Bei sehr großen Absätzen oben verankern.
-            const visibleHeight = Math.max(0, mainContainer.clientHeight - headerHeight);
-            const centerOffset = Math.max(headerHeight, headerHeight + (visibleHeight - paraRect.height) / 2);
-            mainContainer.scrollTop = Math.max(0, relativeTop - centerOffset);
-
-            } else {
-            // Fallback: Standard scrollIntoView
+          if (!scrollMainViewerTargetIntoUpperThird(paragraphElement, targetParaElement)) {
             paragraphElement.scrollIntoView({ behavior: 'auto', block: 'start' });
           }
           
           // Markiere den Absatz mit automatischer Entfernung nach 5 Sekunden
           // ABER: Überspringe Highlighting wenn Navigation vom Inhaltsverzeichnis kommt
-          if (!window.skipParagraphHighlight) {
+          if (!window.skipParagraphHighlight && !shouldSuppressCurrentMainViewerParagraphHighlight(currentBookId)) {
             if (typeof addHighlightingWithAutoRemove === 'function') {
               addHighlightingWithAutoRemove(paragraphElement);
             } else {
@@ -8227,20 +8197,7 @@ async function _displayBookImpl(book, highlightHeadingId = null, keywords = [], 
       }
       
       // Fallback: Scrolle direkt zum versteckten Span (höher positioniert)
-      const mainContainer = document.getElementById('main');
-      if (mainContainer) {
-        const header = document.getElementById('viewer-header');
-        const headerHeight = header ? header.offsetHeight + 5 : 5;
-
-        const mainRect = mainContainer.getBoundingClientRect();
-        const paraRect = targetParaElement.getBoundingClientRect();
-        const relativeTop = paraRect.top - mainRect.top + mainContainer.scrollTop;
-        // Vertikal zentrieren (Header berücksichtigt).
-        const visibleHeight = Math.max(0, mainContainer.clientHeight - headerHeight);
-        const centerOffset = Math.max(headerHeight, headerHeight + (visibleHeight - paraRect.height) / 2);
-        mainContainer.scrollTop = Math.max(0, relativeTop - centerOffset);
-
-      } else {
+      if (!scrollMainViewerTargetIntoUpperThird(targetParaElement)) {
         targetParaElement.scrollIntoView({ behavior: 'auto', block: 'start' });
       }
     } else {
@@ -8492,6 +8449,9 @@ async function _displayBookImpl(book, highlightHeadingId = null, keywords = [], 
   if (isLargeDocument) {
     console.log(`[BOOK] Großes Dokument erkannt: ${paragraphs.length} Absätze - verwende progressives Rendering`);
   }
+
+  const restrictedKeywordHighlightContext = getRestrictedKeywordHighlightContext(currentBookId, keywords, targetIndex);
+  const suppressParagraphSearchHighlight = shouldSuppressParagraphHighlightInSearch(currentBookId, keywords);
   
   // Hilfsfunktion: Rendert einen einzelnen Absatz zu HTML
   function renderParagraphToHTML(para, idx, headings, keywords, isPhraseArray, targetIndex) {
@@ -8678,8 +8638,28 @@ async function _displayBookImpl(book, highlightHeadingId = null, keywords = [], 
         content = convertUnderscoreItalics(content);
       }
       
+      const shouldHighlightKeywordsInParagraph = keywords && keywords.length > 0 &&
+        paragraphMatchesRestrictedHighlight(restrictedKeywordHighlightContext, para, idx);
+
       // Highlighte Keywords wenn vorhanden (für Suche) - NACH Markdown-Rendering
-      if (keywords && keywords.length > 0) {
+      if (shouldHighlightKeywordsInParagraph) {
+        if (
+          restrictedKeywordHighlightContext &&
+          restrictedKeywordHighlightContext.proximitySpec &&
+          restrictedKeywordHighlightContext.proximitySpec.mode === 'word'
+        ) {
+          const tempDiv = document.createElement('div');
+          tempDiv.innerHTML = content;
+          const appliedRestrictedHighlight = applyWordDistanceRestrictedHighlights(
+            tempDiv,
+            keywords,
+            isPhraseArray,
+            restrictedKeywordHighlightContext.proximitySpec.value
+          );
+          if (appliedRestrictedHighlight) {
+            content = tempDiv.innerHTML;
+          }
+        } else {
         // Hilfsfunktion: Markiere Text, aber schütze HTML-Tags
         function highlightInHTML(htmlContent, searchWord, isPhrase) {
           const tempDiv = document.createElement('div');
@@ -8743,12 +8723,13 @@ async function _displayBookImpl(book, highlightHeadingId = null, keywords = [], 
             content = highlightInHTML(content, wordToHighlight, isPhrase);
           }
         });
+        }
       }
       
       // Verwende gleiche HTML-Struktur wie bei Vorträgen
       const clickHandler = isLocal ? `onclick="selectParagraphForKeyword('${paraIndexWithCaret}', this, event)"` : '';
       const cursorStyle = isLocal ? 'cursor: pointer;' : '';
-      const applyHighlight = isTargetPara && !window.membersNavigating && !window.skipParagraphHighlight;
+      const applyHighlight = isTargetPara && !window.membersNavigating && !window.skipParagraphHighlight && !suppressParagraphSearchHighlight;
       
       // Prüfe ob dieser Absatz bearbeitet wurde (Marker von der API)
       const hasTextEdit = para._edited ? 'has-text-edit' : '';
@@ -12273,6 +12254,889 @@ function scrollToChronologicalYear(year) {
       return { term: trimmed, isPhrase: false };
     }
 
+    function parseDistanceFilterValue(rawValue) {
+      if (rawValue === null || rawValue === undefined) return null;
+      const value = String(rawValue).trim();
+      if (!value) return null;
+
+      if (/^\d+$/.test(value)) {
+        const parsed = parseInt(value, 10);
+        return { mode: 'paragraph', value: parsed, serialized: `p:${parsed}` };
+      }
+
+      const paragraphMatch = value.match(/^p:(\d+)$/i);
+      if (paragraphMatch) {
+        const parsed = parseInt(paragraphMatch[1], 10);
+        return { mode: 'paragraph', value: parsed, serialized: `p:${parsed}` };
+      }
+
+      const wordMatch = value.match(/^w:(\d+)$/i);
+      if (wordMatch) {
+        const parsed = parseInt(wordMatch[1], 10);
+        return { mode: 'word', value: parsed, serialized: `w:${parsed}` };
+      }
+
+      return null;
+    }
+
+    function formatDistanceFilterText(rawValue) {
+      const spec = parseDistanceFilterValue(rawValue);
+      if (!spec) return ' (gesamter Text)';
+
+      if (spec.mode === 'word') {
+        return ` (innerhalb ${spec.value} ${spec.value === 1 ? 'Wort' : 'Wörtern'})`;
+      }
+
+      return ` (innerhalb ${spec.value} ${spec.value === 1 ? 'Absatz' : 'Absätze'})`;
+    }
+
+    function normalizeHighlightParagraphKey(rawValue) {
+      if (rawValue === null || rawValue === undefined) return '';
+      const trimmed = String(rawValue).trim();
+      if (!trimmed) return '';
+      return trimmed.replace(/^\^/, '');
+    }
+
+    function collectHighlightParagraphKeys(source, fallbackIndex = null) {
+      const keys = [];
+      const addKey = (value) => {
+        const normalized = normalizeHighlightParagraphKey(value);
+        if (normalized && !keys.includes(normalized)) {
+          keys.push(normalized);
+        }
+      };
+
+      if (source) {
+        if (source.nodeType === Node.ELEMENT_NODE) {
+          addKey(source.getAttribute('data-index'));
+          addKey(source.getAttribute('data-paragraph-index'));
+        } else {
+          addKey(source.index);
+          addKey(source.paragraphIndex);
+          if (Array.isArray(source.mergedListItems)) {
+            source.mergedListItems.forEach((item) => {
+              addKey(item?.index);
+              addKey(item?.paragraphIndex);
+            });
+          }
+        }
+      }
+
+      if (keys.length === 0) {
+        addKey(fallbackIndex);
+      }
+
+      return keys;
+    }
+
+    function getRestrictedKeywordHighlightContext(documentId, keywords = [], activeIndex = null) {
+      const activeKeywords = Array.isArray(keywords)
+        ? keywords.filter(word => word && String(word).trim())
+        : [];
+
+      if (!documentId || activeKeywords.length !== 2 || !Array.isArray(searchResults) || searchResults.length === 0) {
+        return null;
+      }
+
+      const wordOperatorElement = document.querySelector('input[name="wordOperator"]:checked');
+      const wordOperator = wordOperatorElement ? wordOperatorElement.value : 'and';
+      if (wordOperator !== 'and') {
+        return null;
+      }
+
+      const proximityState = getDistanceFilterValue('proximityFilter', 'proximityWordDistance');
+      if (!proximityState || proximityState.error || !proximityState.spec) {
+        return null;
+      }
+
+      const matchingResults = searchResults.filter(result => String(result.ID || '') === String(documentId));
+      if (matchingResults.length === 0) {
+        return null;
+      }
+
+      const normalizedActiveIndex = normalizeHighlightParagraphKey(activeIndex);
+      if (normalizedActiveIndex && activeKeywords.length === 2) {
+        const activeResults = matchingResults.filter(result =>
+          collectHighlightParagraphKeys(result).includes(normalizedActiveIndex)
+        );
+
+        if (activeResults.length > 0) {
+          if (proximityState.spec.mode === 'word') {
+            return {
+              proximitySpec: proximityState.spec,
+              paragraphKeys: new Set([normalizedActiveIndex])
+            };
+          }
+
+          if (proximityState.spec.mode === 'paragraph') {
+            const paragraphKeys = new Set();
+
+            activeResults.forEach((activeResult) => {
+              const activeOrder = Number.isFinite(activeResult.paragraphIndex)
+                ? activeResult.paragraphIndex
+                : parseInt(activeResult.paragraphIndex, 10);
+              const activeKeys = collectHighlightParagraphKeys(activeResult);
+              const activeHasWord1 = Boolean(activeResult.hasWord1);
+              const activeHasWord2 = Boolean(activeResult.hasWord2);
+
+              if (activeHasWord1 && activeHasWord2) {
+                activeKeys.forEach(key => paragraphKeys.add(key));
+                return;
+              }
+
+              matchingResults.forEach((candidate) => {
+                const candidateOrder = Number.isFinite(candidate.paragraphIndex)
+                  ? candidate.paragraphIndex
+                  : parseInt(candidate.paragraphIndex, 10);
+
+                if (!Number.isFinite(activeOrder) || !Number.isFinite(candidateOrder)) {
+                  return;
+                }
+
+                if (Math.abs(candidateOrder - activeOrder) > proximityState.spec.value) {
+                  return;
+                }
+
+                const candidateHasWord1 = Boolean(candidate.hasWord1);
+                const candidateHasWord2 = Boolean(candidate.hasWord2);
+                const formsValidPair =
+                  (activeHasWord1 && candidateHasWord2) ||
+                  (activeHasWord2 && candidateHasWord1);
+
+                if (!formsValidPair) {
+                  return;
+                }
+
+                activeKeys.forEach(key => paragraphKeys.add(key));
+                collectHighlightParagraphKeys(candidate).forEach(key => paragraphKeys.add(key));
+              });
+            });
+
+            if (paragraphKeys.size > 0) {
+              return {
+                proximitySpec: proximityState.spec,
+                paragraphKeys
+              };
+            }
+          }
+        }
+      }
+
+      const paragraphKeys = new Set();
+      matchingResults.forEach((result) => {
+        collectHighlightParagraphKeys(result).forEach(key => paragraphKeys.add(key));
+      });
+
+      if (paragraphKeys.size === 0) {
+        return null;
+      }
+
+      return {
+        proximitySpec: proximityState.spec,
+        paragraphKeys
+      };
+    }
+
+    function paragraphMatchesRestrictedHighlight(context, source, fallbackIndex = null) {
+      if (!context) return true;
+      const paragraphKeys = collectHighlightParagraphKeys(source, fallbackIndex);
+      return paragraphKeys.some(key => context.paragraphKeys.has(key));
+    }
+
+    function isKeywordSearchTabActive() {
+      const activeTabContent = document.querySelector('.tab-content.active');
+      return !!(activeTabContent && activeTabContent.id === 'keyword-tab');
+    }
+
+    function shouldSuppressParagraphHighlightInSearch(documentId, keywords = []) {
+      const activeKeywords = Array.isArray(keywords)
+        ? keywords.filter(word => word && String(word).trim())
+        : [];
+
+      if (!documentId || activeKeywords.length === 0 || !isKeywordSearchTabActive()) {
+        return false;
+      }
+
+      if (!Array.isArray(searchResults) || searchResults.length === 0) {
+        return false;
+      }
+
+      return searchResults.some(result => String(result.ID || '') === String(documentId));
+    }
+
+    function getActiveKeywordSearchTerms() {
+      const word1Input = document.getElementById('word1');
+      const word2Input = document.getElementById('word2');
+      const word1 = word1Input ? word1Input.value.trim() : '';
+      const word2 = word2Input ? word2Input.value.trim() : '';
+      return [word1, word2].filter(word => word && word.trim());
+    }
+
+    function shouldSuppressCurrentMainViewerParagraphHighlight(documentId = null) {
+      const resolvedDocumentId = documentId
+        || window.currentOpenLectureId
+        || currentLectureData?.ID
+        || currentLectureData?.id
+        || currentLectureData?.gaNumber
+        || null;
+
+      return shouldSuppressParagraphHighlightInSearch(resolvedDocumentId, getActiveKeywordSearchTerms());
+    }
+
+    function getFirstMarkedDescendant(targetElement) {
+      if (!targetElement || typeof targetElement.querySelector !== 'function') {
+        return null;
+      }
+      return targetElement.querySelector('mark');
+    }
+
+    function scrollMainViewerTargetIntoUpperThird(targetElement, fallbackElement = null) {
+      const mainContainer = document.getElementById('main');
+      const scrollTarget = getFirstMarkedDescendant(targetElement) || targetElement || fallbackElement;
+      const containerTarget = targetElement || fallbackElement || scrollTarget;
+
+      if (!scrollTarget || !containerTarget) {
+        return false;
+      }
+
+      if (!mainContainer) {
+        if (typeof scrollTarget.scrollIntoView === 'function') {
+          scrollTarget.scrollIntoView({ behavior: 'auto', block: 'start' });
+          return true;
+        }
+        return false;
+      }
+
+      const header = document.getElementById('viewer-header');
+      const headerHeight = header ? header.offsetHeight + 5 : 5;
+      const mainRect = mainContainer.getBoundingClientRect();
+      const targetRect = scrollTarget.getBoundingClientRect();
+      const relativeTop = targetRect.top - mainRect.top + mainContainer.scrollTop;
+      const visibleHeight = Math.max(0, mainContainer.clientHeight - headerHeight);
+      const upperThirdOffset = headerHeight + (visibleHeight / 3);
+
+      mainContainer.scrollTop = Math.max(0, relativeTop - upperThirdOffset);
+      return true;
+    }
+
+    function normalizeWordDistanceTokenForHighlight(token) {
+      return String(token || '')
+        .toLowerCase()
+        .replace(/ß/g, 'ss')
+        .replace(/[„“”"‚‘'`´]/g, '')
+        .replace(/[.,;:!?()[\]{}<>«»/\\|*_+=~\-—–]/g, '')
+        .trim();
+    }
+
+    function getWordDistanceTermTokensForHighlight(searchTerm, options = {}) {
+      const raw = String(searchTerm || '').trim();
+      if (!raw) return [];
+
+      let cleaned = raw;
+      if (options.exact && raw.startsWith('"') && raw.endsWith('"')) {
+        cleaned = raw.slice(1, -1);
+      }
+
+      return cleaned
+        .split(/\s+/)
+        .map(normalizeWordDistanceTokenForHighlight)
+        .filter(Boolean);
+    }
+
+    function tokenMatchesWordDistanceForHighlight(token, termToken, exact = false) {
+      if (!token || !termToken) return false;
+      return exact ? token === termToken : token.includes(termToken);
+    }
+
+    function findWordDistanceRangesForHighlight(tokenRecords, searchTerm, options = {}) {
+      const termTokens = getWordDistanceTermTokensForHighlight(searchTerm, options);
+      if (!termTokens.length) return [];
+
+      const exactSequence = Boolean(options.exact || options.phrase);
+      const ranges = [];
+
+      if (termTokens.length === 1 && !exactSequence) {
+        const expected = termTokens[0];
+        tokenRecords.forEach((record, index) => {
+          if (tokenMatchesWordDistanceForHighlight(record.token, expected, false)) {
+            ranges.push({ start: index, end: index });
+          }
+        });
+        return ranges;
+      }
+
+      for (let i = 0; i <= tokenRecords.length - termTokens.length; i++) {
+        let matches = true;
+        for (let j = 0; j < termTokens.length; j++) {
+          if (!tokenMatchesWordDistanceForHighlight(tokenRecords[i + j].token, termTokens[j], exactSequence)) {
+            matches = false;
+            break;
+          }
+        }
+        if (matches) {
+          ranges.push({ start: i, end: i + termTokens.length - 1 });
+        }
+      }
+
+      return ranges;
+    }
+
+    function areWordDistanceRangesWithinLimit(rangeA, rangeB, maxDistance) {
+      const gap = Math.max(
+        0,
+        rangeB.start - rangeA.end - 1,
+        rangeA.start - rangeB.end - 1
+      );
+      return gap <= maxDistance;
+    }
+
+    function getWordDistanceTokenHighlightOffsets(rawSegment, termToken) {
+      const raw = String(rawSegment || '');
+      if (!raw) return null;
+
+      if (termToken) {
+        const escaped = termToken.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        const match = raw.match(new RegExp(escaped, 'i'));
+        if (match && typeof match.index === 'number') {
+          return { start: match.index, end: match.index + match[0].length };
+        }
+      }
+
+      let start = 0;
+      let end = raw.length;
+      while (start < end && !/[0-9A-Za-zÄÖÜäöüß]/.test(raw[start])) start++;
+      while (end > start && !/[0-9A-Za-zÄÖÜäöüß]/.test(raw[end - 1])) end--;
+      return end > start ? { start, end } : null;
+    }
+
+    function mergeTextNodeHighlightRanges(ranges) {
+      if (!Array.isArray(ranges) || ranges.length === 0) return [];
+      const sorted = [...ranges]
+        .filter(range => Number.isFinite(range.start) && Number.isFinite(range.end) && range.end > range.start)
+        .sort((a, b) => a.start - b.start || a.end - b.end);
+
+      if (sorted.length === 0) return [];
+
+      const merged = [sorted[0]];
+      for (let i = 1; i < sorted.length; i++) {
+        const previous = merged[merged.length - 1];
+        const current = sorted[i];
+        if (current.start <= previous.end) {
+          previous.end = Math.max(previous.end, current.end);
+        } else {
+          merged.push({ start: current.start, end: current.end });
+        }
+      }
+      return merged;
+    }
+
+    function applyHighlightRangesToTextNode(node, ranges) {
+      if (!node || node.nodeType !== Node.TEXT_NODE || !Array.isArray(ranges) || ranges.length === 0) return;
+
+      let workingNode = node;
+      const sortedDescending = [...ranges].sort((a, b) => b.start - a.start || b.end - a.end);
+
+      sortedDescending.forEach((range) => {
+        if (!workingNode || workingNode.nodeType !== Node.TEXT_NODE || !workingNode.parentNode) return;
+
+        const text = workingNode.textContent || '';
+        const start = Math.max(0, Math.min(range.start, text.length));
+        const end = Math.max(start, Math.min(range.end, text.length));
+        if (end <= start) return;
+
+        const beforeText = text.slice(0, start);
+        const middleText = text.slice(start, end);
+        const afterText = text.slice(end);
+        if (!middleText) return;
+
+        const fragment = document.createDocumentFragment();
+        let beforeNode = null;
+
+        if (beforeText) {
+          beforeNode = document.createTextNode(beforeText);
+          fragment.appendChild(beforeNode);
+        }
+
+        const mark = document.createElement('mark');
+        mark.textContent = middleText;
+        fragment.appendChild(mark);
+
+        if (afterText) {
+          fragment.appendChild(document.createTextNode(afterText));
+        }
+
+        const parent = workingNode.parentNode;
+        parent.insertBefore(fragment, workingNode);
+        parent.removeChild(workingNode);
+        workingNode = beforeNode;
+      });
+    }
+
+    function applyWordDistanceRestrictedHighlights(rootElement, keywords = [], isPhraseArray = [], maxDistance = 0) {
+      if (!rootElement || !Array.isArray(keywords) || keywords.length !== 2 || !Number.isFinite(maxDistance) || maxDistance < 0) {
+        return false;
+      }
+
+      const termDefs = keywords.map((word, index) => ({
+        term: String(word || '').trim(),
+        phrase: Boolean(isPhraseArray[index]),
+        exact: Boolean(isPhraseArray[index])
+      }));
+
+      if (termDefs.some(termDef => !termDef.term)) {
+        return false;
+      }
+
+      const tokenRecords = [];
+      const walker = document.createTreeWalker(
+        rootElement,
+        NodeFilter.SHOW_TEXT,
+        {
+          acceptNode(node) {
+            if (!node.textContent || !node.textContent.trim()) {
+              return NodeFilter.FILTER_REJECT;
+            }
+
+            let parent = node.parentNode;
+            while (parent && parent !== rootElement) {
+              const tagName = parent.tagName ? parent.tagName.toLowerCase() : '';
+              if (tagName === 'mark' || tagName === 'script' || tagName === 'style') {
+                return NodeFilter.FILTER_REJECT;
+              }
+              parent = parent.parentNode;
+            }
+
+            return NodeFilter.FILTER_ACCEPT;
+          }
+        }
+      );
+
+      let textNode;
+      while ((textNode = walker.nextNode())) {
+        const rawText = textNode.textContent || '';
+        const tokenRegex = /\S+/g;
+        let match;
+        while ((match = tokenRegex.exec(rawText)) !== null) {
+          const rawSegment = match[0];
+          const normalized = normalizeWordDistanceTokenForHighlight(rawSegment);
+          if (!normalized) continue;
+          tokenRecords.push({
+            token: normalized,
+            rawSegment,
+            node: textNode,
+            startOffset: match.index,
+            endOffset: match.index + rawSegment.length
+          });
+        }
+      }
+
+      if (tokenRecords.length === 0) {
+        return false;
+      }
+
+      const termRanges = termDefs.map(termDef => findWordDistanceRangesForHighlight(tokenRecords, termDef.term, termDef));
+      if (termRanges.some(ranges => ranges.length === 0)) {
+        return false;
+      }
+
+      const matchedRanges = [];
+      termRanges[0].forEach((rangeA) => {
+        termRanges[1].forEach((rangeB) => {
+          if (areWordDistanceRangesWithinLimit(rangeA, rangeB, maxDistance)) {
+            matchedRanges.push({ termIndex: 0, range: rangeA });
+            matchedRanges.push({ termIndex: 1, range: rangeB });
+          }
+        });
+      });
+
+      if (matchedRanges.length === 0) {
+        return false;
+      }
+
+      const rangesByNode = new Map();
+      matchedRanges.forEach(({ termIndex, range }) => {
+        const termTokens = getWordDistanceTermTokensForHighlight(termDefs[termIndex].term, termDefs[termIndex]);
+        for (let offset = 0; offset <= range.end - range.start; offset++) {
+          const tokenRecord = tokenRecords[range.start + offset];
+          if (!tokenRecord) continue;
+
+          const termToken = termTokens[offset] || termTokens[termTokens.length - 1] || '';
+          const localOffsets = getWordDistanceTokenHighlightOffsets(tokenRecord.rawSegment, termToken);
+          if (!localOffsets) continue;
+
+          const nodeRanges = rangesByNode.get(tokenRecord.node) || [];
+          nodeRanges.push({
+            start: tokenRecord.startOffset + localOffsets.start,
+            end: tokenRecord.startOffset + localOffsets.end
+          });
+          rangesByNode.set(tokenRecord.node, nodeRanges);
+        }
+      });
+
+      if (rangesByNode.size === 0) {
+        return false;
+      }
+
+      rangesByNode.forEach((ranges, node) => {
+        const mergedRanges = mergeTextNodeHighlightRanges(ranges);
+        applyHighlightRangesToTextNode(node, mergedRanges);
+      });
+
+      return true;
+    }
+
+    function getDistanceFilterElements(selectId, inputId) {
+      const hiddenInput = document.getElementById(selectId);
+      const input = document.getElementById(inputId);
+      if (!hiddenInput || !input) return null;
+
+      return {
+        hiddenInput,
+        input,
+        group: document.getElementById(`${selectId}Group`) || hiddenInput.closest('.distance-filter-group'),
+        button: document.getElementById(`${selectId}Button`),
+        buttonText: document.getElementById(`${selectId}ButtonText`),
+        panel: document.getElementById(`${inputId}Panel`),
+        suffix: document.getElementById(`${inputId}Suffix`)
+      };
+    }
+
+    function getDistanceFilterButtonLabel(mode, serializedValue) {
+      const spec = parseDistanceFilterValue(serializedValue);
+      if (!spec) return 'Abstand';
+      if (mode === 'word' && spec.mode === 'word') {
+        return getWordDistanceDisplayValue(spec.value) || 'Abstand';
+      }
+      if (mode !== 'paragraph' || spec.mode !== 'paragraph') return 'Abstand';
+      return spec.value === 1 ? '1 Absatz' : `${spec.value} Absätze`;
+    }
+
+    function getWordDistanceNumericValue(rawValue) {
+      if (rawValue === null || rawValue === undefined) return '';
+      const digits = String(rawValue).replace(/[^\d]/g, '');
+      if (!digits) return '';
+      const parsed = parseInt(digits, 10);
+      return Number.isFinite(parsed) && parsed >= 1 ? String(parsed) : '';
+    }
+
+    function getWordDistanceDisplayValue(rawValue) {
+      const numericValue = getWordDistanceNumericValue(rawValue);
+      if (!numericValue) return '';
+      const parsed = parseInt(numericValue, 10);
+      return `${parsed} ${parsed === 1 ? 'Wort' : 'Wörter'}`;
+    }
+
+    function prepareWordDistanceInputForEditing(selectId, inputId) {
+      const elements = getDistanceFilterElements(selectId, inputId);
+      if (!elements) return;
+
+      if (elements.group) {
+        elements.group.dataset.wordEditing = 'true';
+      }
+
+      const spec = parseDistanceFilterValue(elements.hiddenInput.value);
+      if (spec && spec.mode === 'word') {
+        elements.input.value = String(spec.value);
+        return;
+      }
+
+      elements.input.value = getWordDistanceNumericValue(elements.input.value);
+    }
+
+    function prepareWordDistanceInputForPreview(selectId, inputId) {
+      const elements = getDistanceFilterElements(selectId, inputId);
+      if (!elements) return;
+
+      if (elements.group) {
+        elements.group.dataset.wordEditing = 'false';
+      }
+
+      const spec = parseDistanceFilterValue(elements.hiddenInput.value);
+      if (spec && spec.mode === 'word') {
+        elements.input.value = String(spec.value);
+        return;
+      }
+
+      elements.input.value = getWordDistanceNumericValue(elements.input.value);
+    }
+
+    function finalizeWordDistanceInput(selectId, inputId) {
+      const elements = getDistanceFilterElements(selectId, inputId);
+      if (!elements) return;
+
+      if (elements.group) {
+        elements.group.dataset.wordEditing = 'false';
+      }
+
+      const spec = parseDistanceFilterValue(elements.hiddenInput.value);
+      if (spec && spec.mode === 'word') {
+        elements.input.value = getWordDistanceDisplayValue(spec.value);
+        return;
+      }
+
+      elements.input.value = '';
+    }
+
+    function updateDistanceFilterUI(selectId, inputId) {
+      const elements = getDistanceFilterElements(selectId, inputId);
+      if (!elements) return;
+
+      const { hiddenInput, input, group, buttonText, panel, suffix } = elements;
+      const mode = group?.dataset.mode || '';
+      const isOpen = !!group?.classList.contains('open');
+      const isEditingWordDistance = isOpen && mode === 'word' && (group?.dataset.wordEditing || '') === 'true';
+      const liveWordDistance = getWordDistanceNumericValue(input.value);
+
+      if (buttonText) {
+        buttonText.textContent = getDistanceFilterButtonLabel(mode, hiddenInput.value);
+      }
+
+      input.disabled = false;
+      input.setAttribute('aria-hidden', isOpen ? 'false' : 'true');
+
+      if (panel) {
+        panel.style.display = isOpen ? 'block' : 'none';
+        panel.setAttribute('aria-hidden', isOpen ? 'false' : 'true');
+        panel.querySelectorAll('[data-distance-option]').forEach((option) => {
+          const optionValue = (option.getAttribute('data-distance-option') || '').trim();
+          const selected = mode === 'paragraph'
+            ? hiddenInput.value === optionValue
+            : (!mode && optionValue === '');
+          option.classList.toggle('selected', selected);
+        });
+      }
+
+      if (suffix) {
+        const suffixText = liveWordDistance === '1' ? 'Wort' : 'Wörter';
+        suffix.textContent = suffixText;
+        const showSuffix = !!liveWordDistance && isOpen && mode === 'word';
+        suffix.classList.toggle('visible', showSuffix);
+        suffix.classList.toggle('committed', showSuffix && !isEditingWordDistance);
+      }
+    }
+
+    function openDistanceFilterPanel(selectId, inputId, focusInput = false) {
+      const elements = getDistanceFilterElements(selectId, inputId);
+      if (!elements || !elements.group) return;
+
+      closeAllDistanceFilterPanels();
+      elements.group.classList.add('open');
+      if ((elements.group.dataset.mode || '') === 'word') {
+        if (focusInput) {
+          prepareWordDistanceInputForEditing(selectId, inputId);
+        } else {
+          prepareWordDistanceInputForPreview(selectId, inputId);
+        }
+      }
+      updateDistanceFilterUI(selectId, inputId);
+
+      if (focusInput) {
+        setTimeout(() => {
+          try { elements.input.focus(); } catch (e) {}
+        }, 0);
+      }
+    }
+
+    function closeDistanceFilterPanel(selectId, inputId, resetToDefault = false) {
+      const elements = getDistanceFilterElements(selectId, inputId);
+      if (!elements) return;
+
+      const { hiddenInput, input, group } = elements;
+      if (resetToDefault) {
+        hiddenInput.value = '';
+        input.value = '';
+        if (group) {
+          group.dataset.mode = '';
+        }
+      }
+
+      group?.classList.remove('open');
+      if (!resetToDefault) {
+        finalizeWordDistanceInput(selectId, inputId);
+      }
+      updateDistanceFilterUI(selectId, inputId);
+    }
+
+    function closeAllDistanceFilterPanels(resetToDefault = false) {
+      [
+        ['proximityFilter', 'proximityWordDistance'],
+        ['advancedProximityFilter', 'advancedProximityWordDistance']
+      ].forEach(([selectId, inputId]) => closeDistanceFilterPanel(selectId, inputId, resetToDefault));
+    }
+
+    function toggleDistanceFilterPanel(selectId, inputId) {
+      const elements = getDistanceFilterElements(selectId, inputId);
+      if (!elements || !elements.group) return;
+
+      if (elements.group.classList.contains('open')) {
+        closeDistanceFilterPanel(selectId, inputId);
+      } else {
+        openDistanceFilterPanel(selectId, inputId, false);
+      }
+    }
+
+    function selectDistanceFilterOption(selectId, inputId, rawValue) {
+      const elements = getDistanceFilterElements(selectId, inputId);
+      if (!elements || !elements.group) return;
+
+      const spec = parseDistanceFilterValue(rawValue);
+      if (!spec) {
+        elements.hiddenInput.value = '';
+        elements.group.dataset.mode = '';
+        closeDistanceFilterPanel(selectId, inputId);
+        return;
+      }
+
+      if (spec.mode === 'paragraph') {
+        elements.hiddenInput.value = spec.serialized;
+        elements.input.value = '';
+        elements.group.dataset.mode = 'paragraph';
+        closeDistanceFilterPanel(selectId, inputId);
+      }
+    }
+
+    function enableWordDistanceMode(selectId, inputId) {
+      const elements = getDistanceFilterElements(selectId, inputId);
+      if (!elements || !elements.group) return;
+
+      elements.group.dataset.mode = 'word';
+      prepareWordDistanceInputForEditing(selectId, inputId);
+      updateWordDistanceValue(selectId, inputId);
+      openDistanceFilterPanel(selectId, inputId, true);
+    }
+
+    function updateWordDistanceValue(selectId, inputId) {
+      const elements = getDistanceFilterElements(selectId, inputId);
+      if (!elements || !elements.group) return;
+
+      elements.group.dataset.wordEditing = 'true';
+      elements.input.value = elements.input.value.replace(/[^\d]/g, '');
+      elements.group.dataset.mode = 'word';
+
+      const rawWordDistance = elements.input.value ? elements.input.value.trim() : '';
+      if (!rawWordDistance) {
+        elements.hiddenInput.value = '';
+      } else {
+        const parsedWordDistance = parseInt(rawWordDistance, 10);
+        elements.hiddenInput.value = Number.isFinite(parsedWordDistance) && parsedWordDistance >= 1
+          ? `w:${parsedWordDistance}`
+          : '';
+      }
+
+      updateDistanceFilterUI(selectId, inputId);
+    }
+
+    function handleWordDistanceKeydown(selectId, inputId, event) {
+      if (!event) return;
+      event.stopPropagation();
+
+      if (event.key !== 'Enter') return;
+
+      event.preventDefault();
+      updateWordDistanceValue(selectId, inputId);
+      closeDistanceFilterPanel(selectId, inputId);
+    }
+
+    function setDistanceFilterValue(selectId, inputId, rawValue) {
+      const elements = getDistanceFilterElements(selectId, inputId);
+      if (!elements || !elements.group) return;
+
+      const spec = parseDistanceFilterValue(rawValue);
+      if (!spec) {
+        elements.hiddenInput.value = '';
+        elements.input.value = '';
+        elements.group.dataset.mode = '';
+        closeDistanceFilterPanel(selectId, inputId);
+        return;
+      }
+
+      if (spec.mode === 'word') {
+        elements.hiddenInput.value = spec.serialized;
+        elements.input.value = getWordDistanceDisplayValue(spec.value);
+        elements.group.dataset.mode = 'word';
+      } else {
+        elements.hiddenInput.value = spec.serialized;
+        elements.input.value = '';
+        elements.group.dataset.mode = 'paragraph';
+      }
+
+      closeDistanceFilterPanel(selectId, inputId);
+    }
+
+    function getDistanceFilterValue(selectId, inputId) {
+      const elements = getDistanceFilterElements(selectId, inputId);
+      if (!elements) {
+        return { value: null, spec: null, error: null, input: null };
+      }
+
+      const mode = elements.group?.dataset.mode || '';
+      if (!mode) {
+        return { value: null, spec: null, error: null, input: elements.input };
+      }
+
+      if (mode === 'word') {
+        const rawWordDistance = elements.input.value ? elements.input.value.trim() : '';
+        if (!rawWordDistance) {
+          return { value: null, spec: null, error: 'Bitte einen Wortabstand eingeben.', input: elements.input };
+        }
+
+        const parsedWordDistance = parseInt(rawWordDistance, 10);
+        if (!Number.isFinite(parsedWordDistance) || parsedWordDistance < 1) {
+          return { value: null, spec: null, error: 'Bitte einen gültigen Wortabstand ab 1 eingeben.', input: elements.input };
+        }
+
+        return {
+          value: `w:${parsedWordDistance}`,
+          spec: { mode: 'word', value: parsedWordDistance, serialized: `w:${parsedWordDistance}` },
+          error: null,
+          input: elements.input
+        };
+      }
+
+      const spec = parseDistanceFilterValue(elements.hiddenInput.value);
+      return { value: spec ? spec.serialized : null, spec, error: null, input: elements.input };
+    }
+
+    function initializeDistanceFilterControls() {
+      [
+        ['proximityFilter', 'proximityWordDistance'],
+        ['advancedProximityFilter', 'advancedProximityWordDistance']
+      ].forEach(([selectId, inputId]) => {
+        const elements = getDistanceFilterElements(selectId, inputId);
+        if (!elements || !elements.group) return;
+
+        if (!elements.group.dataset.mode) {
+          elements.group.dataset.mode = '';
+        }
+        if (!elements.group.dataset.wordEditing) {
+          elements.group.dataset.wordEditing = 'false';
+        }
+
+        elements.input.addEventListener('input', () => updateWordDistanceValue(selectId, inputId));
+        elements.input.addEventListener('blur', () => {
+          if (!elements.group.classList.contains('open')) return;
+          finalizeWordDistanceInput(selectId, inputId);
+          updateDistanceFilterUI(selectId, inputId);
+        });
+        finalizeWordDistanceInput(selectId, inputId);
+        updateDistanceFilterUI(selectId, inputId);
+      });
+
+      if (!document._distanceFilterOutsideClickBound) {
+        document._distanceFilterOutsideClickBound = true;
+        document.addEventListener('click', (event) => {
+          if (event.target.closest('.distance-filter-group')) return;
+          closeAllDistanceFilterPanels();
+        });
+      }
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initializeDistanceFilterControls);
+    } else {
+      initializeDistanceFilterControls();
+    }
+
     async function performKeywordSearch() {
       const word1Input = document.getElementById('word1').value.trim();
       const word2Input = document.getElementById('word2').value.trim();
@@ -12340,8 +13204,12 @@ function scrollToChronologicalYear(year) {
         const gaFilter = gaFilterValues.length > 0 ? gaFilterValues.join(',') : '';
         const yearFilter = yearFilterValues.length > 0 ? yearFilterValues.join(',') : '';
         
-        const proximityFilterElement = document.getElementById('proximityFilter');
-        const proximityFilter = proximityFilterElement ? proximityFilterElement.value : '';
+        const proximityFilterState = getDistanceFilterValue('proximityFilter', 'proximityWordDistance');
+        if (proximityFilterState.error) {
+          alert(proximityFilterState.error);
+          if (proximityFilterState.input) proximityFilterState.input.focus();
+          return;
+        }
         const relevanceFilterElement = document.getElementById('relevanceFilter');
         const relevanceFilter = relevanceFilterElement ? relevanceFilterElement.value : 'alle';
         
@@ -12350,7 +13218,7 @@ function scrollToChronologicalYear(year) {
         const wordOperator = wordOperatorElement ? wordOperatorElement.value : 'and';
         
         // Proximity: Leer = kein Limit, sonst der gewählte Wert (2 oder 3)
-        const proximity = proximityFilter || null;
+        const proximity = proximityFilterState.value || null;
         
         
         const response = await fetch(`${API_BASE}/api/fulltext-search`, {
@@ -12596,8 +13464,13 @@ function scrollToChronologicalYear(year) {
       }
       
       // Hole Proximity-Filter
-      const proximityElement = document.getElementById('advancedProximityFilter');
-      const proximity = proximityElement ? proximityElement.value : '';
+      const proximityState = getDistanceFilterValue('advancedProximityFilter', 'advancedProximityWordDistance');
+      if (proximityState.error) {
+        alert(proximityState.error);
+        if (proximityState.input) proximityState.input.focus();
+        return;
+      }
+      const proximity = proximityState.value || '';
       
       // Hole GA-Filter
       const gaFilterValues = getAdvancedGAFilterValue();
@@ -14822,10 +15695,15 @@ function scrollToChronologicalYear(year) {
       const gaFilter = gaFilterElement ? gaFilterElement.value : '';
       
       // Hole Proximity-Filter aus einfacher Suche
-      const proximityElement = document.getElementById('proximityFilter');
-      const proximity = proximityElement ? proximityElement.value : '';
+      const proximityState = getDistanceFilterValue('proximityFilter', 'proximityWordDistance');
+      if (proximityState.error) {
+        alert(proximityState.error);
+        if (proximityState.input) proximityState.input.focus();
+        return;
+      }
+      const proximity = proximityState.value || '';
       
-      const proximityText = proximity ? ` (innerhalb ${proximity} ${proximity === '1' ? 'Absatz' : 'Absätze'})` : ' (gesamter Text)';
+      const proximityText = formatDistanceFilterText(proximity);
       
       const button = document.getElementById('frequencyBtnSimple');
       const statusElement = document.getElementById('status');
@@ -14918,14 +15796,19 @@ function scrollToChronologicalYear(year) {
       }
       
       // Hole Proximity-Filter
-      const proximityElement = document.getElementById('advancedProximityFilter');
-      const proximity = proximityElement ? proximityElement.value : '';
+      const proximityState = getDistanceFilterValue('advancedProximityFilter', 'advancedProximityWordDistance');
+      if (proximityState.error) {
+        alert(proximityState.error);
+        if (proximityState.input) proximityState.input.focus();
+        return;
+      }
+      const proximity = proximityState.value || '';
       
       // Hole GA-Filter
       const gaFilterValues = getAdvancedGAFilterValue();
       const gaFilter = gaFilterValues.length > 0 ? gaFilterValues.join(',') : '';
       
-      const proximityText = proximity ? ` (innerhalb ${proximity} ${proximity === '1' ? 'Absatz' : 'Absätze'})` : ' (gesamter Text)';
+      const proximityText = formatDistanceFilterText(proximity);
       
       const button = event.target;
       const statusElement = document.getElementById('advancedSearchStatus');
@@ -14993,10 +15876,7 @@ function scrollToChronologicalYear(year) {
       }
       
       // Setze Proximity
-      const proximityElement = document.getElementById('advancedProximityFilter');
-      if (proximityElement) {
-        proximityElement.value = searchParams.proximity || '';
-      }
+      setDistanceFilterValue('advancedProximityFilter', 'advancedProximityWordDistance', searchParams.proximity || '');
       
       // Setze GA-Filter (vereinfacht - könnte erweitert werden)
       // Hinweis: GA-Filter Wiederherstellung könnte komplexer sein, abhängig von der Implementierung
@@ -15024,10 +15904,7 @@ function scrollToChronologicalYear(year) {
       }
       
       // Setze Proximity
-      const proximityElement = document.getElementById('advancedProximityFilter');
-      if (proximityElement) {
-        proximityElement.value = searchParams.proximity || '';
-      }
+      setDistanceFilterValue('advancedProximityFilter', 'advancedProximityWordDistance', searchParams.proximity || '');
       
       // Führe Häufigkeitsanalyse aus
       await performAdvancedFrequencyAnalysis();
@@ -15158,7 +16035,7 @@ function scrollToChronologicalYear(year) {
       if (proximity && words.length > 0) {
         const statusElement = document.getElementById('advancedSearchStatus');
         if (statusElement) {
-          statusElement.textContent = `Analysiere Abstände (innerhalb ${proximity} ${proximity === '1' ? 'Absatz' : 'Absätze'})...`;
+          statusElement.textContent = `Analysiere Abstände${formatDistanceFilterText(proximity)}...`;
         }
         
         // Für die Häufigkeitsanalyse verwenden wir AND-Operatoren,
@@ -19870,7 +20747,7 @@ setTimeout(() => {
     keywords = extractKeywordsFromQuery(currentThematicQuery);
     hasThematicKeywords = true;
   }
-  
+
   // Im Original-Modus kein Highlighting
   const shouldHighlight = false;
   displayLecture(currentLectureData, null, keywords, shouldHighlight);
@@ -20046,6 +20923,10 @@ function showSummaryView() {
       if (window.skipParagraphHighlight === true) {
         return;
       }
+
+      if (shouldSuppressCurrentMainViewerParagraphHighlight()) {
+        return;
+      }
       
       // Entferne vorherige Markierung und Timer (ohne Fade-Out)
       clearPreviousHighlighting();
@@ -20143,18 +21024,10 @@ function showSummaryView() {
       
       console.log('[HIGHLIGHT-DEBUG] scrollToIndexInViewer: paraElement gefunden:', !!paraElement, 'ID:', paraElement ? paraElement.id : 'null');
       if (paraElement) {
-        // Berechne Position für Positionierung am unteren Rand des Headers
-        const header = document.getElementById('viewer-header');
-        const headerHeight = header ? header.offsetHeight + 5 : 5; // Nur 5px minimaler Abstand
-        
-        const mainRect = mainContainer.getBoundingClientRect();
-        const paraRect = paraElement.getBoundingClientRect();
-        const relativeTop = paraRect.top - mainRect.top + mainContainer.scrollTop - headerHeight;
-        
-        mainContainer.scrollTop = Math.max(0, relativeTop);
+        scrollMainViewerTargetIntoUpperThird(paraElement);
         
         // Bereichs-Markierung: Alle Absätze zwischen Start und Ende hervorheben
-        if (lastHighlightedEndIndex) {
+        if (lastHighlightedEndIndex && !shouldSuppressCurrentMainViewerParagraphHighlight()) {
           const endElement = document.getElementById(`para-${lastHighlightedEndIndex}`);
           if (endElement) {
             // Finde alle .paragraph-Elemente im Viewer
@@ -20443,6 +21316,19 @@ function showSummaryView() {
       }
     }
   }
+
+  const suppressParagraphSearchHighlight = shouldSuppressParagraphHighlightInSearch(lectureId || lecture.ID, keywords);
+  const restrictedKeywordHighlightContext = getRestrictedKeywordHighlightContext(lectureId || lecture.ID, keywords, lastHighlightedIndex);
+  const parsedRestrictedKeywords = Array.isArray(keywords)
+    ? keywords.map(keyword => parseSearchTerm(keyword))
+    : [];
+  const restrictedWordDistanceKeywords = parsedRestrictedKeywords
+    .map(parsed => parsed.term)
+    .filter(term => term && term.trim())
+    .slice(0, 2);
+  const restrictedWordDistancePhraseFlags = parsedRestrictedKeywords
+    .map(parsed => Boolean(parsed.isPhrase))
+    .slice(0, 2);
   
   let html = '';
   
@@ -20885,10 +21771,28 @@ function showSummaryView() {
     
     // Prüfe ZUERST ob wir von thematischer Suche kommen
     const isFromThematicSearch = currentThematicQuery && keywords && keywords.length > 0;
+    const paragraphMatchesRestrictedContext = paragraphMatchesRestrictedHighlight(restrictedKeywordHighlightContext, para, idx);
     
     // Keyword-Highlighting NUR wenn NICHT von thematischer Suche
     // WICHTIG: Highlighting muss HTML-Tags schützen, um img-Tags nicht zu beschädigen!
-    if (keywords && keywords.length > 0 && !isFromThematicSearch) {
+    if (keywords && keywords.length > 0 && !isFromThematicSearch && paragraphMatchesRestrictedContext) {
+      if (
+        restrictedKeywordHighlightContext &&
+        restrictedKeywordHighlightContext.proximitySpec &&
+        restrictedKeywordHighlightContext.proximitySpec.mode === 'word'
+      ) {
+        const tempDiv = document.createElement('div');
+        tempDiv.innerHTML = content;
+        const appliedRestrictedHighlight = applyWordDistanceRestrictedHighlights(
+          tempDiv,
+          restrictedWordDistanceKeywords,
+          restrictedWordDistancePhraseFlags,
+          restrictedKeywordHighlightContext.proximitySpec.value
+        );
+        if (appliedRestrictedHighlight) {
+          content = tempDiv.innerHTML;
+        }
+      } else {
       // Hilfsfunktion: Markiere Text, aber schütze HTML-Tags
       function highlightInHTML(htmlContent, searchWord, isPhrase) {
         // Erstelle temporäres DOM-Element für sicheres Highlighting
@@ -20965,6 +21869,7 @@ function showSummaryView() {
           content = highlightInHTML(content, wordToHighlight, isPhrase);
         }
       });
+      }
     }
     
     // Bereichs-Markierung: Prüfe ob Absatz im markierten Bereich liegt
@@ -20980,7 +21885,7 @@ function showSummaryView() {
     }
     // WICHTIG: Bei Members-Navigation KEIN Absatz-Highlighting - nur der exakte Zitat-Text wird markiert
     // WICHTIG: Bei Navigation vom Inhaltsverzeichnis KEIN Absatz-Highlighting
-    const highlightClass = (isTargetPara && !window.membersNavigating && !window.skipParagraphHighlight) ? 'highlighted-paragraph' : '';
+    const highlightClass = (isTargetPara && !window.membersNavigating && !window.skipParagraphHighlight && !suppressParagraphSearchHighlight) ? 'highlighted-paragraph' : '';
     
     const clickHandler = isLocal ? `onclick="selectParagraphForKeyword('${paraIndexWithCaret}', this, event)"` : '';
     const contextMenuHandler = isLocal ? `oncontextmenu="handleParagraphRightClick('${paraIndexWithCaret}', this, event); return false;"` : '';
@@ -21047,18 +21952,36 @@ html += `<div class="paragraph ${highlightClass} ${hasTextEdit}" id="para-${para
           // (da replaceImageSrcWithBase64 viewer.innerHTML überschreibt und <mark> Tags verloren gehen können)
           const isFromThematicSearchAfterImage = currentThematicQuery && keywords && keywords.length > 0;
           if (keywords && keywords.length > 0 && !isFromThematicSearchAfterImage) {
-            keywords.forEach((word, wordIndex) => {
-              if (word && word.trim()) {
-                const isPhrase = isPhraseArray[wordIndex] || false;
-                const cleanWord = word.trim();
-                const wordToHighlight = cleanWord.startsWith('"') && cleanWord.endsWith('"') 
-                  ? cleanWord.slice(1, -1) 
-                  : cleanWord;
-                
-                // Markiere Keywords im bereits gerenderten HTML
-                const paragraphs = viewer.querySelectorAll('.paragraph');
-                paragraphs.forEach(para => {
-                  // Verwende TreeWalker um nur Textknoten zu markieren
+            const paragraphs = viewer.querySelectorAll('.paragraph');
+            const useRestrictedWordDistanceHighlight =
+              restrictedKeywordHighlightContext &&
+              restrictedKeywordHighlightContext.proximitySpec &&
+              restrictedKeywordHighlightContext.proximitySpec.mode === 'word';
+
+            paragraphs.forEach(para => {
+              if (!paragraphMatchesRestrictedHighlight(restrictedKeywordHighlightContext, para)) {
+                return;
+              }
+
+              if (useRestrictedWordDistanceHighlight) {
+                applyWordDistanceRestrictedHighlights(
+                  para,
+                  restrictedWordDistanceKeywords,
+                  restrictedWordDistancePhraseFlags,
+                  restrictedKeywordHighlightContext.proximitySpec.value
+                );
+                return;
+              }
+
+              keywords.forEach((word, wordIndex) => {
+                if (word && word.trim()) {
+                  const isPhrase = isPhraseArray[wordIndex] || false;
+                  const cleanWord = word.trim();
+                  const wordToHighlight = cleanWord.startsWith('"') && cleanWord.endsWith('"')
+                    ? cleanWord.slice(1, -1)
+                    : cleanWord;
+
+                  // Markiere Keywords im bereits gerenderten HTML
                   const walker = document.createTreeWalker(
                     para,
                     NodeFilter.SHOW_TEXT,
@@ -21081,11 +22004,11 @@ html += `<div class="paragraph ${highlightClass} ${hasTextEdit}" id="para-${para
                     },
                     false
                   );
-                  
+
                   const escapedWord = wordToHighlight.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-                  const flags = isPhrase ? "g" : "gi";
+                  const flags = isPhrase ? 'g' : 'gi';
                   const regex = new RegExp(`(${escapedWord})`, flags);
-                  
+
                   const textNodesToMark = [];
                   let textNode;
                   while (textNode = walker.nextNode()) {
@@ -21093,14 +22016,14 @@ html += `<div class="paragraph ${highlightClass} ${hasTextEdit}" id="para-${para
                       textNodesToMark.push(textNode);
                     }
                   }
-                  
+
                   // Markiere Suchwort in Textknoten
                   textNodesToMark.forEach(textNode => {
                     const text = textNode.textContent;
                     const highlightedText = text.replace(regex, '<mark>$1</mark>');
                     const tempSpan = document.createElement('span');
                     tempSpan.innerHTML = highlightedText;
-                    
+
                     const parent = textNode.parentNode;
                     if (parent && parent.nodeType === Node.ELEMENT_NODE) {
                       while (tempSpan.firstChild) {
@@ -21109,8 +22032,8 @@ html += `<div class="paragraph ${highlightClass} ${hasTextEdit}" id="para-${para
                       parent.removeChild(textNode);
                     }
                   });
-                });
-              }
+                }
+              });
             });
           }
           
@@ -22624,7 +23547,7 @@ function formatAsteriskParagraphs() {
               // (für den Fall, dass replaceImageSrcWithBase64 das DOM überschrieben hat)
               setTimeout(() => {
                 const highlighted = document.querySelectorAll('.highlighted-paragraph');
-                if (highlighted.length === 0 && lastHighlightedIndex) {
+                if (highlighted.length === 0 && lastHighlightedIndex && !shouldSuppressCurrentMainViewerParagraphHighlight(lectureId || currentLectureData?.ID)) {
                   console.log('[HIGHLIGHT-DEBUG] Sicherheitsnetz: Highlighting wurde entfernt, wende erneut an');
                   const targetEl = document.getElementById(`para-${lastHighlightedIndex}`);
                   if (targetEl) {
@@ -25021,6 +25944,19 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
         titleElement.textContent = displayTitle;
       }
       
+      const restrictedKeywordHighlightContext = getRestrictedKeywordHighlightContext(lectureId || lecture.ID, keywords, highlightIndex);
+      const suppressParagraphSearchHighlight = shouldSuppressParagraphHighlightInSearch(lectureId || lecture.ID, keywords);
+      const parsedRestrictedKeywords = Array.isArray(keywords)
+        ? keywords.map(keyword => parseSearchTerm(keyword))
+        : [];
+      const restrictedWordDistanceKeywords = parsedRestrictedKeywords
+        .map(parsed => parsed.term)
+        .filter(term => term && term.trim())
+        .slice(0, 2);
+      const restrictedWordDistancePhraseFlags = parsedRestrictedKeywords
+        .map(parsed => Boolean(parsed.isPhrase))
+        .slice(0, 2);
+
       let html = '<div>';
       
       // Note: In Original view, we don't show the "Inhalt" (table of contents)
@@ -25197,7 +26133,7 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
                 .replace(/'/g, '&#039;');
               
               html += `
-                <${headingTag} id="para-${headingIndex}" data-heading-index="${headingIndex}" class="${isTargetHeading ? 'highlighted-paragraph' : ''} ${hasTextEdit}">
+                <${headingTag} id="para-${headingIndex}" data-heading-index="${headingIndex}" class="${(isTargetHeading && !suppressParagraphSearchHighlight) ? 'highlighted-paragraph' : ''} ${hasTextEdit}">
                   ${escapedHeadingText}
                 </${headingTag}>
               `;
@@ -25386,9 +26322,28 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
           // Prüfe ZUERST ob wir von thematischer Suche kommen
           const isFromThematicSearch = currentThematicQuery && keywords.length > 0;
           
+          const paragraphMatchesRestrictedContext = paragraphMatchesRestrictedHighlight(restrictedKeywordHighlightContext, para, idx);
+
           // Keyword-Highlighting für alle Modi (wie bei anderen GA-Bänden auch)
           // WICHTIG: Highlighting muss HTML-Tags schützen, um img-Tags nicht zu beschädigen!
-          if (keywords && keywords.length > 0 && !isFromThematicSearch) {
+          if (keywords && keywords.length > 0 && !isFromThematicSearch && paragraphMatchesRestrictedContext) {
+            if (
+              restrictedKeywordHighlightContext &&
+              restrictedKeywordHighlightContext.proximitySpec &&
+              restrictedKeywordHighlightContext.proximitySpec.mode === 'word'
+            ) {
+              const tempDiv = document.createElement('div');
+              tempDiv.innerHTML = content;
+              const appliedRestrictedHighlight = applyWordDistanceRestrictedHighlights(
+                tempDiv,
+                restrictedWordDistanceKeywords,
+                restrictedWordDistancePhraseFlags,
+                restrictedKeywordHighlightContext.proximitySpec.value
+              );
+              if (appliedRestrictedHighlight) {
+                content = tempDiv.innerHTML;
+              }
+            } else {
             // Hilfsfunktion: Markiere Text, aber schütze HTML-Tags
             function highlightInHTML(htmlContent, searchWord) {
               // Erstelle temporäres DOM-Element für sicheres Highlighting
@@ -25451,6 +26406,7 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
                 content = highlightInHTML(content, word.trim());
               }
             });
+            }
           }
           
           const contentLower = content.toLowerCase();
@@ -25459,8 +26415,8 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
                                contentLower.includes(keywords[0].toLowerCase()) && 
                                contentLower.includes(keywords[1].toLowerCase());
           // WICHTIG: Bei Members-Navigation KEIN Absatz-Highlighting - nur der exakte Zitat-Text wird markiert
-          const applyHighlight = shouldHighlight && isTargetPara && !window.membersNavigating && 
-                                 (isFromThematicSearch || keywords.length === 1 || hasBothWords); // Highlighting aktiviert
+          const applyHighlight = shouldHighlight && isTargetPara && !window.membersNavigating && !suppressParagraphSearchHighlight &&
+                                 (isFromThematicSearch || keywords.length === 1 || hasBothWords || (restrictedKeywordHighlightContext && paragraphMatchesRestrictedContext)); // Highlighting aktiviert
           
           const clickHandler = isLocal ? `onclick="selectParagraphForKeyword('${paraIndexWithCaret}', this, event)"` : '';
           const cursorStyle = isLocal ? 'cursor: pointer;' : '';
@@ -25520,13 +26476,31 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
           // WICHTIG: Keyword-Highlighting NACH dem Bild-Ersetzen erneut durchführen
           // (da replaceImageSrcWithBase64 viewer.innerHTML überschreibt und <mark> Tags verloren gehen können)
           if (keywords && keywords.length > 0 && !isFromThematicSearch) {
-            keywords.forEach(word => {
-              if (word && word.trim()) {
-                const cleanWord = word.trim();
-                
-                // Markiere Keywords im bereits gerenderten HTML
-                const paragraphs = viewer.querySelectorAll('.paragraph');
-                paragraphs.forEach(para => {
+            const paragraphs = viewer.querySelectorAll('.paragraph');
+            const useRestrictedWordDistanceHighlight =
+              restrictedKeywordHighlightContext &&
+              restrictedKeywordHighlightContext.proximitySpec &&
+              restrictedKeywordHighlightContext.proximitySpec.mode === 'word';
+
+            paragraphs.forEach(para => {
+              if (!paragraphMatchesRestrictedHighlight(restrictedKeywordHighlightContext, para)) {
+                return;
+              }
+
+              if (useRestrictedWordDistanceHighlight) {
+                applyWordDistanceRestrictedHighlights(
+                  para,
+                  restrictedWordDistanceKeywords,
+                  restrictedWordDistancePhraseFlags,
+                  restrictedKeywordHighlightContext.proximitySpec.value
+                );
+                return;
+              }
+
+              keywords.forEach(word => {
+                if (word && word.trim()) {
+                  const cleanWord = word.trim();
+                  
                   // Verwende TreeWalker um nur Textknoten zu markieren
                   const walker = document.createTreeWalker(
                     para,
@@ -25577,8 +26551,8 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
                       parent.removeChild(textNode);
                     }
                   });
-                });
-              }
+                }
+              });
             });
           }
           
@@ -25755,26 +26729,19 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
       if (cleanIndex) {
         const targetElement = document.getElementById(`para-${cleanIndex}`);
         if (targetElement) {
-          // Berechne Position für Positionierung am unteren Rand des Headers
-          const header = document.getElementById('viewer-header');
-          const headerHeight = header ? header.offsetHeight + 5 : 5; // Nur 5px minimaler Abstand
-          
-          const mainRect = mainContainer.getBoundingClientRect();
-          const targetRect = targetElement.getBoundingClientRect();
-          const relativeTop = targetRect.top - mainRect.top + mainContainer.scrollTop - headerHeight;
-          mainContainer.scrollTop = Math.max(0, relativeTop);
+          scrollMainViewerTargetIntoUpperThird(targetElement);
           lastHighlightedIndex = cleanIndex;
           
           // Markiere den Absatz mit automatischer Entfernung nach 5 Sekunden
           // ABER: Nicht bei Navigation aus Members Panel
-          if (typeof addHighlightingWithAutoRemove === 'function' && window.membersNavigating !== true) {
+          if (typeof addHighlightingWithAutoRemove === 'function' && window.membersNavigating !== true && !shouldSuppressCurrentMainViewerParagraphHighlight(lecture.ID)) {
             addHighlightingWithAutoRemove(targetElement);
           }
           
           // Sicherheitsnetz: Prüfe nochmals nach 800ms ob Highlighting noch vorhanden
           setTimeout(() => {
             const highlighted = document.querySelectorAll('.highlighted-paragraph');
-            if (highlighted.length === 0 && cleanIndex) {
+            if (highlighted.length === 0 && cleanIndex && !shouldSuppressCurrentMainViewerParagraphHighlight(lecture.ID)) {
               console.log('[HIGHLIGHT-DEBUG] displayLecture Sicherheitsnetz: Highlighting entfernt, wende erneut an');
               const reTargetEl = document.getElementById(`para-${cleanIndex}`);
               if (reTargetEl) {
@@ -27663,10 +28630,7 @@ function switchTabExtended(mode) {
     }
     
     // Setze Proximity-Filter zurück
-    const proximityFilter = document.getElementById('advancedProximityFilter');
-    if (proximityFilter) {
-      proximityFilter.value = '';
-    }
+    setDistanceFilterValue('advancedProximityFilter', 'advancedProximityWordDistance', '');
     
     // Setze GA-Filter zurück (Custom Dropdown)
     if (typeof advancedGAFilterDropdown !== 'undefined' && advancedGAFilterDropdown) {
@@ -39139,7 +40103,7 @@ document.addEventListener('DOMContentLoaded', async function() {
     'yearFilterContainer': '<strong>Jahresfilter:</strong> Suchergebnisse nach Erscheinungsjahr oder Vortragsdatum filtern.',
     'gaFilterContainer': '<strong>GA-Band-Filter:</strong> Suche auf bestimmte Bände der Gesamtausgabe beschränken.',
     'advancedGAFilterContainer': '<strong>Erweiterter GA-Filter:</strong> Mehrfachauswahl von GA-Bänden für erweiterte Suche.',
-    'distanceFilter': '<strong>Abstand:</strong> Maximaler Absatz-Abstand zwischen zwei Suchwörtern (nur bei Suche mit zwei Begriffen).',
+    'distanceFilter': '<strong>Abstand:</strong> Wahlweise maximaler Absatz-Abstand oder frei eingegebener Wortabstand zwischen Suchwörtern.',
     'relevanceFilter': '<strong>Relevanz:</strong> Filterung nach Trefferhäufigkeit im Kontext (hoch = 3+ Treffer, mittel = 2, niedrig = 1).',
     // Spezielle Bereiche
     'word-operator-container': '<strong>Suchoperator:</strong> UND = beide Begriffe müssen vorkommen. ODER = mindestens einer der Begriffe.',

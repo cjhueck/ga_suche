@@ -4249,6 +4249,153 @@ async function performHybridSearch(query, limit = 20) {
 // VOLLTEXT-SUCHE
 // ============================================================================
 
+function parseProximitySpec(proximity) {
+  if (proximity === null || proximity === undefined || proximity === '') return null;
+
+  if (typeof proximity === 'number' && Number.isFinite(proximity)) {
+    return { mode: 'paragraph', value: proximity, serialized: `p:${proximity}` };
+  }
+
+  const value = String(proximity).trim();
+  if (!value) return null;
+
+  if (/^\d+$/.test(value)) {
+    const parsed = parseInt(value, 10);
+    return { mode: 'paragraph', value: parsed, serialized: `p:${parsed}` };
+  }
+
+  const paragraphMatch = value.match(/^p:(\d+)$/i);
+  if (paragraphMatch) {
+    const parsed = parseInt(paragraphMatch[1], 10);
+    return { mode: 'paragraph', value: parsed, serialized: `p:${parsed}` };
+  }
+
+  const wordMatch = value.match(/^w:(\d+)$/i);
+  if (wordMatch) {
+    const parsed = parseInt(wordMatch[1], 10);
+    return { mode: 'word', value: parsed, serialized: `w:${parsed}` };
+  }
+
+  return null;
+}
+
+function normalizeWordDistanceToken(token) {
+  return String(token || '')
+    .toLowerCase()
+    .replace(/ß/g, 'ss')
+    .replace(/[„“”"‚‘'`´]/g, '')
+    .replace(/[.,;:!?()[\]{}<>«»/\\|*_+=~\-—–]/g, '')
+    .trim();
+}
+
+function tokenizeWordDistanceText(text) {
+  return String(text || '')
+    .split(/\s+/)
+    .map(normalizeWordDistanceToken)
+    .filter(Boolean);
+}
+
+function getWordDistanceTermTokens(searchTerm, options = {}) {
+  const raw = String(searchTerm || '').trim();
+  if (!raw) return [];
+
+  let cleaned = raw;
+  if (options.exact && raw.startsWith('"') && raw.endsWith('"')) {
+    cleaned = raw.slice(1, -1);
+  }
+
+  return tokenizeWordDistanceText(cleaned);
+}
+
+function tokenMatchesWordDistance(token, termToken, exact = false) {
+  if (!token || !termToken) return false;
+  return exact ? token === termToken : token.includes(termToken);
+}
+
+function findWordDistanceRanges(tokens, searchTerm, options = {}) {
+  const termTokens = getWordDistanceTermTokens(searchTerm, options);
+  if (!termTokens.length) return [];
+
+  const exactSequence = Boolean(options.exact || options.phrase);
+  const ranges = [];
+
+  if (termTokens.length === 1 && !exactSequence) {
+    const expected = termTokens[0];
+    tokens.forEach((token, index) => {
+      if (tokenMatchesWordDistance(token, expected, false)) {
+        ranges.push({ start: index, end: index });
+      }
+    });
+    return ranges;
+  }
+
+  for (let i = 0; i <= tokens.length - termTokens.length; i++) {
+    let matches = true;
+    for (let j = 0; j < termTokens.length; j++) {
+      if (!tokenMatchesWordDistance(tokens[i + j], termTokens[j], exactSequence)) {
+        matches = false;
+        break;
+      }
+    }
+    if (matches) {
+      ranges.push({ start: i, end: i + termTokens.length - 1 });
+    }
+  }
+
+  return ranges;
+}
+
+function areRangesWithinWordDistance(rangeA, rangeB, maxDistance) {
+  const gap = Math.max(
+    0,
+    rangeB.start - rangeA.end - 1,
+    rangeA.start - rangeB.end - 1
+  );
+  return gap <= maxDistance;
+}
+
+function evaluateWordDistanceMatch(text, termDefs, maxDistance, operators = []) {
+  const tokens = tokenizeWordDistanceText(text);
+  if (!tokens.length) return { matches: false, matchedIndexes: [] };
+
+  const termRanges = termDefs.map(termDef => findWordDistanceRanges(tokens, termDef.term, termDef));
+  const present = termRanges.map(ranges => ranges.length > 0);
+
+  if (termDefs.length === 1) {
+    return { matches: present[0], matchedIndexes: present[0] ? [0] : [] };
+  }
+
+  const hasOr = operators.includes('or');
+  if (hasOr) {
+    const matchedIndexes = new Set();
+    for (let i = 0; i < termRanges.length; i++) {
+      for (let j = i + 1; j < termRanges.length; j++) {
+        const pairMatches = termRanges[i].some(rangeA =>
+          termRanges[j].some(rangeB => areRangesWithinWordDistance(rangeA, rangeB, maxDistance))
+        );
+        if (pairMatches) {
+          matchedIndexes.add(i);
+          matchedIndexes.add(j);
+        }
+      }
+    }
+    return { matches: matchedIndexes.size > 0, matchedIndexes: Array.from(matchedIndexes) };
+  }
+
+  for (let anchorIndex = 0; anchorIndex < termRanges.length; anchorIndex++) {
+    for (const anchorRange of termRanges[anchorIndex]) {
+      const allTermsMatch = termRanges.every(ranges =>
+        ranges.some(range => areRangesWithinWordDistance(anchorRange, range, maxDistance))
+      );
+      if (allTermsMatch) {
+        return { matches: true, matchedIndexes: termDefs.map((_, index) => index) };
+      }
+    }
+  }
+
+  return { matches: false, matchedIndexes: [] };
+}
+
 async function performFulltextSearch({
   word1,
   word2 = '',
@@ -4265,7 +4412,7 @@ async function performFulltextSearch({
     throw new Error('Mindestens ein Suchwort erforderlich');
   }
 
-  const effectiveProximity = proximity || null;
+  const effectiveProximity = parseProximitySpec(proximity);
 
   const searchInText = (text, searchTerm, isPhrase) => {
     if (!searchTerm) return false;
@@ -4318,6 +4465,17 @@ async function performFulltextSearch({
       const hasWord1 = word1 && searchInText(content, word1, word1IsPhrase);
       const hasWord2 = word2 && searchInText(content, word2, word2IsPhrase);
       const paragraphsToAdd = [];
+      const wordDistanceMatch = effectiveProximity && effectiveProximity.mode === 'word' && word2
+        ? evaluateWordDistanceMatch(
+            content,
+            [
+              { term: word1, phrase: word1IsPhrase, exact: word1IsPhrase },
+              { term: word2, phrase: word2IsPhrase, exact: word2IsPhrase }
+            ],
+            effectiveProximity.value,
+            [wordOperator]
+          )
+        : { matches: false };
 
       if (!word2) {
         if (hasWord1) paragraphsToAdd.push(paraIndex);
@@ -4325,8 +4483,10 @@ async function performFulltextSearch({
         if (hasWord1 || hasWord2) paragraphsToAdd.push(paraIndex);
       } else if (!effectiveProximity) {
         if (lectureHasWord1 && lectureHasWord2 && (hasWord1 || hasWord2)) paragraphsToAdd.push(paraIndex);
+      } else if (effectiveProximity.mode === 'word') {
+        if (wordDistanceMatch.matches) paragraphsToAdd.push(paraIndex);
       } else {
-        const maxDist = parseInt(effectiveProximity);
+        const maxDist = effectiveProximity.value;
         if (hasWord1 && hasWord2) {
           paragraphsToAdd.push(paraIndex);
         } else if (hasWord1) {
@@ -4395,13 +4555,53 @@ async function performFulltextSearch({
       const hasWord1 = searchInText(content, word1, word1IsPhrase);
       const hasWord2 = word2 && searchInText(content, word2, word2IsPhrase);
       const paragraphsToAdd = [];
+      const wordDistanceMatch = effectiveProximity && effectiveProximity.mode === 'word' && word2
+        ? evaluateWordDistanceMatch(
+            content,
+            [
+              { term: word1, phrase: word1IsPhrase, exact: word1IsPhrase },
+              { term: word2, phrase: word2IsPhrase, exact: word2IsPhrase }
+            ],
+            effectiveProximity.value,
+            [wordOperator]
+          )
+        : { matches: false };
 
       if (!word2) {
         if (hasWord1) paragraphsToAdd.push(paraIndex);
-      } else if (wordOperator === 'and') {
-        if (hasWord1 && hasWord2) paragraphsToAdd.push(paraIndex);
       } else if (wordOperator === 'or') {
         if (hasWord1 || hasWord2) paragraphsToAdd.push(paraIndex);
+      } else if (!effectiveProximity) {
+        if (hasWord1 && hasWord2) paragraphsToAdd.push(paraIndex);
+      } else if (effectiveProximity.mode === 'word') {
+        if (wordDistanceMatch.matches) paragraphsToAdd.push(paraIndex);
+      } else if (wordOperator === 'and') {
+        const maxDist = effectiveProximity.value;
+        if (hasWord1 && hasWord2) {
+          paragraphsToAdd.push(paraIndex);
+        } else if (hasWord1) {
+          for (let i = Math.max(0, paraIndex - maxDist); i <= Math.min(bookParagraphs.length - 1, paraIndex + maxDist); i++) {
+            if (i !== paraIndex) {
+              const neighborContent = (bookParagraphs[i].content || bookParagraphs[i].text || '');
+              if (searchInText(neighborContent, word2, word2IsPhrase)) {
+                paragraphsToAdd.push(paraIndex);
+                paragraphsToAdd.push(i);
+                break;
+              }
+            }
+          }
+        } else if (hasWord2) {
+          for (let i = Math.max(0, paraIndex - maxDist); i <= Math.min(bookParagraphs.length - 1, paraIndex + maxDist); i++) {
+            if (i !== paraIndex) {
+              const neighborContent = (bookParagraphs[i].content || bookParagraphs[i].text || '');
+              if (searchInText(neighborContent, word1, word1IsPhrase)) {
+                paragraphsToAdd.push(paraIndex);
+                paragraphsToAdd.push(i);
+                break;
+              }
+            }
+          }
+        }
       }
 
       paragraphsToAdd.forEach(idx => {
@@ -4450,7 +4650,7 @@ async function performFulltextSearch({
       word2,
       word1IsPhrase,
       word2IsPhrase,
-      proximity: effectiveProximity,
+      proximity: effectiveProximity ? effectiveProximity.serialized : null,
       originalProximity: proximity,
       relevanceFilter
     },
@@ -4659,6 +4859,17 @@ app.post('/api/advanced-search', async (req, res) => {
     if (!words || words.length === 0) {
       return res.status(400).json({ error: 'Mindestens ein Suchwort erforderlich' });
     }
+
+    const proximitySpec = parseProximitySpec(proximity);
+    const wordDistanceTermDefs = words.map(word => {
+      const trimmed = String(word || '').trim();
+      const isExactMatch = trimmed.startsWith('"') && trimmed.endsWith('"');
+      return {
+        term: word,
+        exact: isExactMatch,
+        phrase: isExactMatch || /\s/.test(trimmed.replace(/^"(.*)"$/, '$1'))
+      };
+    });
     
     
     const results = [];
@@ -4765,6 +4976,31 @@ app.post('/api/advanced-search', async (req, res) => {
         }
       }
       const paragraphs = lecture.paragraphs || [];
+
+      if (proximitySpec && proximitySpec.mode === 'word') {
+        paragraphs.forEach((para, paraIndex) => {
+          const content = (para.content || para.text || '');
+          const evaluation = evaluateWordDistanceMatch(content, wordDistanceTermDefs, proximitySpec.value, operators);
+          if (!evaluation.matches) return;
+
+          const matchedIndexes = new Set(evaluation.matchedIndexes);
+          words.forEach((word, wordIndex) => {
+            if (!matchedIndexes.has(wordIndex)) return;
+            if (!searchInText(content, word)) return;
+
+            const snippet = createContextSnippet(content, word, 200);
+            results.push({
+              lectureId: lecture.ID,
+              lectureTitle: lecture.title || lecture.ID,
+              lectureDate: lecture.date || '',
+              snippet: snippet,
+              matchedWord: word,
+              paragraphIndex: paraIndex
+            });
+          });
+        });
+        return;
+      }
       
       // Für jedes Wort: Finde alle Absätze, die es enthalten
       const wordMatches = {};
@@ -4789,9 +5025,9 @@ app.post('/api/advanced-search', async (req, res) => {
       // Wir gehen davon aus, dass die Operatoren die Worte miteinander verbinden:
       // Wort1 OP1 Wort2 OP2 Wort3 OP3 Wort4 ...
       
-      if (proximity) {
+      if (proximitySpec && proximitySpec.mode === 'paragraph') {
         // Mit Proximity: Prüfe ob die Wörter innerhalb des Abstands vorkommen
-        const proximityValue = parseInt(proximity);
+        const proximityValue = proximitySpec.value;
         
         // Für jedes Wort: Prüfe ob es innerhalb des Abstands zu den anderen Wörtern vorkommt
         // Dies ist eine vereinfachte Logik - für eine vollständige Implementierung
@@ -4879,6 +5115,33 @@ app.post('/api/advanced-search', async (req, res) => {
       
       // Konvertiere Buch in Paragraphs
       const bookParagraphs = getBookParagraphsForSearch(book);
+
+      if (proximitySpec && proximitySpec.mode === 'word') {
+        bookParagraphs.forEach((para, paraIndex) => {
+          const content = (para.content || para.text || '');
+          const evaluation = evaluateWordDistanceMatch(content, wordDistanceTermDefs, proximitySpec.value, operators);
+          if (!evaluation.matches) return;
+
+          const matchedIndexes = new Set(evaluation.matchedIndexes);
+          words.forEach((word, wordIndex) => {
+            if (!matchedIndexes.has(wordIndex)) return;
+            if (!searchInText(content, word)) return;
+
+            const snippet = createContextSnippet(content, word, 200);
+            results.push({
+              lectureId: book.ID || book.gaNumber,
+              lectureTitle: book.title || book.fileName || book.ID,
+              lectureDate: book.yearRange || null,
+              snippet: snippet,
+              matchedWord: word,
+              paragraphIndex: paraIndex,
+              index: bookParagraphs[paraIndex].index,
+              isBook: true
+            });
+          });
+        });
+        return;
+      }
       
       // Für jedes Wort: Finde alle Absätze, die es enthalten
       const wordMatches = {};
@@ -4900,8 +5163,8 @@ app.post('/api/advanced-search', async (req, res) => {
       });
       
       // Wende Operatoren und Proximity an (gleiche Logik wie bei Vorträgen)
-      if (proximity) {
-        const proximityValue = parseInt(proximity);
+      if (proximitySpec && proximitySpec.mode === 'paragraph') {
+        const proximityValue = proximitySpec.value;
         
         words.forEach(word => {
           wordMatches[word].forEach(match => {
