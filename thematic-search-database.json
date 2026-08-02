@@ -10953,5 +10953,1630 @@
       "themeArea": ""
     },
     "timestamp": "2026-07-12T17:14:05.765Z"
+  },
+  "luzifer|recherche:v3:alle:alle|300|": {
+    "query": "Luzifer",
+    "content": "",
+    "sources": [
+      {
+        "ID": "GA273/3",
+        "index": "^14anls",
+        "title": "Goethes Ahnungen nach dem Konkreten hin Schattenhafte Begriffe und wirklichkeitsdurchtränkte Vorstellungen",
+        "fileName": "GA273/3 - Goethes Ahnungen nach dem Konkreten hin Schattenhafte Begriffe und wirklichkeitsdurchtränkte Vorstellungen, Vortrag in Dornach, 27. Januar 1917",
+        "score": 156,
+        "matchedTerms": [
+          "luzifer"
+        ]
+      },
+      {
+        "ID": "GA184/10",
+        "index": "^uuj104",
+        "title": "ZEHNTER VORTRAG",
+        "fileName": "GA184/10 - ZEHNTER VORTRAG, Dornach, 4. Oktober 1918",
+        "score": 155,
+        "matchedTerms": [
+          "luzifer"
+        ]
+      },
+      {
+        "ID": "GA254/9",
+        "index": "^4dxit5",
+        "title": "NEUNTER VORTRAG",
+        "fileName": "GA254/9 - NEUNTER VORTRAG, Dornach, 24. Oktober 1915",
+        "score": 154,
+        "matchedTerms": [
+          "luzifer"
+        ]
+      },
+      {
+        "ID": "GA165/11",
+        "index": "^ft111n",
+        "title": "DIE GEISTIGE VEREINIGUNG DER MENSCHHEIT DURCH DEN CHRISTUSIMPULS",
+        "fileName": "GA165/11 - DIE GEISTIGE VEREINIGUNG DER MENSCHHEIT DURCH DEN CHRISTUSIMPULS, Bern, 9. Januar 1916",
+        "score": 153,
+        "matchedTerms": [
+          "luzifer"
+        ]
+      },
+      {
+        "ID": "GA090a/81",
+        "index": "^4q7v1o",
+        "title": "TRENNUNG IN MÄNNLICH UND WEIBLICH",
+        "fileName": "GA090a/81 - TRENNUNG IN MÄNNLICH UND WEIBLICH, Berlin, 31. Dezember 1904",
+        "score": 153,
+        "matchedTerms": [
+          "luzifer"
+        ]
+      },
+      {
+        "ID": "GA148/18",
+        "index": "^w94his",
+        "title": "Zweiter Vortrag",
+        "fileName": "GA148/18 - Zweiter Vortrag, Köln, 18. Dezember 1913",
+        "score": 153,
+        "matchedTerms": [
+          "luzifer"
+        ]
+      },
+      {
+        "ID": "GA184/11",
+        "index": "^9v4c6s",
+        "title": "ELFTER VORTRAG",
+        "fileName": "GA184/11 - ELFTER VORTRAG, Dornach, 5. Oktober 1918",
+        "score": 153,
+        "matchedTerms": [
+          "luzifer"
+        ]
+      },
+      {
+        "ID": "GA153/4",
+        "index": "^geg909",
+        "title": "ZWEITER VORTRAG",
+        "fileName": "GA153/4 - ZWEITER VORTRAG, Wien, 10. April 1914",
+        "score": 153,
+        "matchedTerms": [
+          "luzifer"
+        ]
+      },
+      {
+        "ID": "GA232/2",
+        "index": "^13damd",
+        "title": "ZWEITER VORTRAG",
+        "fileName": "GA232/2 - ZWEITER VORTRAG, Dornach, 24. November 1923",
+        "score": 152,
+        "matchedTerms": [
+          "luzifer"
+        ]
+      },
+      {
+        "ID": "GA232/12",
+        "index": "^k7nzte",
+        "title": "ZWÖLFTER VORTRAG",
+        "fileName": "GA232/12 - ZWÖLFTER VORTRAG, Dornach, 21. Dezember 1923",
+        "score": 152,
+        "matchedTerms": [
+          "luzifer"
+        ]
+      }
+    ],
+    "searchMethod": "hybrid-thematic-unified",
+    "totalMatches": 3736,
+    "llmUsed": true,
+    "recherche": {
+      "subThemes": [
+        {
+          "title": "Wesen und Natur Luzifers",
+          "rows": [
+            {
+              "aussage": "Luzifer: Zwischenstufe zwischen Mensch und Göttern",
+              "zitat": "Es gibt etwas zwischen dem Menschen und den Göttern, eine Art Zwischenstufe, so wie die Mistel eine Zwischenstufe ist zwischen Pflanze und Tier: Das ist Luzifer und das luziferische Wesen überhaupt.",
+              "id": "GA094/3",
+              "index": "rqs4uz",
+              "ref": "GA094/3:rqs4uz",
+              "fileName": "GA094/3 - KOSMOGONIE, Dritter Vortrag, Paris, 27. Mai 1906",
+              "title": "KOSMOGONIE",
+              "relevance": "hoch",
+              "date": "1906-05-27",
+              "year": "1906"
+            },
+            {
+              "aussage": "Luziferische Kräfte: Geister der Dauer, maskiert als Geister der Zeit",
+              "zitat": "Geister der Dauer, die sich als Geister der Zeit maskieren, sind die luziferischen Kräfte; eigentlich Wesenheiten, Wesenskräfte in der kosmischen Ordnung von einer sehr hohen Natur, höhere Kräfte als diejenigen, von denen, wenn sie auch noch so theologisch durchgebildet zu sein glauben, manche Pastoren reden, wenn sie vom Göttlichen sprechen.",
+              "id": "GA184/10",
+              "index": "uuj104",
+              "ref": "GA184/10:uuj104",
+              "fileName": "GA184/10 - ZEHNTER VORTRAG, Dornach, 4. Oktober 1918",
+              "title": "ZEHNTER VORTRAG",
+              "relevance": "hoch",
+              "date": "1918-10-04",
+              "year": "1918"
+            },
+            {
+              "aussage": "Luzifer: Erreger menschlicher Freiheit, Selbstständigkeit neben Unterwerfung",
+              "zitat": "So ist Luzifer derjenige, der im Menschen die astralische Leidenschaft aufruft für das Göttliche. So erregt er in ihm die Teilnahme, nicht als Pflicht, sondern als Neigung, das Göttliche lieben zu lernen. Er fügt zur Unterwerfung die Selbstständigkeit hinzu. Er ist der Erreger der menschlichen Freiheit.",
+              "id": "GA068a/20",
+              "index": "2tw28v",
+              "ref": "GA068a/20:2tw28v",
+              "fileName": "GA068a/20 - ÜBER LUZIFER, Leipzig, 9. November 1906",
+              "title": "ÜBER LUZIFER",
+              "relevance": "hoch",
+              "date": "1906-11-09",
+              "year": "1906"
+            },
+            {
+              "aussage": "Luzifer: Ursprung des Bösen durch Hyperintelligenzen aus der Mondepoche",
+              "zitat": "Weil Hyperintelligenzen von der lunarischen Epoche herübergekommen sind und die Menschen abdrängen von der regelmäßigen Bahn, haben wir das Böse. Das ist der Ursprung des Bösen. Diese Hyperintelligenzen fasst man in der christlichen Esoterik unter dem Namen des «Luzifer» zusammen. Es ist dies auch das Prinzip der Weisheit, aber auf einer nicht richtigen Stufe.",
+              "id": "GA090c/11",
+              "index": "cmwvdt",
+              "ref": "GA090c/11:cmwvdt",
+              "fileName": "GA090c/11 - ÜBER GUTES UND BÖSES, Berlin, 20. Oktober 1903",
+              "title": "ÜBER GUTES UND BÖSES",
+              "relevance": "hoch",
+              "date": "1903-10-20",
+              "year": "1903"
+            },
+            {
+              "aussage": "Luzifer: auf früherer Entwicklungsstufe zurückgeblieben, damit Gottheit höher steigen konnte",
+              "zitat": "Die höheren Dhyan Cohans mussten aus sich heraus das luziferische Prinzip stellen, um die Fähigkeit zu erlangen, mit Manas begabte Wesen zu gestalten. Luzifer ist zurückgeblieben, damit die Gottheit höher steigen konnte. Sodass ihm die Gottheit ihre Stufe in dem jetzigen Rundkreis verdankt.",
+              "id": "GA090a/77",
+              "index": "y24r66",
+              "ref": "GA090a/77:y24r66",
+              "fileName": "GA090a/77 - VORGÄNGE IN DER ZWEITEN HÄLFTE DER LEMURISCHEN RASSENENTWICKLUNG, Berlin, 28. Dezember 1904",
+              "title": "VORGÄNGE IN DER ZWEITEN HÄLFTE DER LEMURISCHEN RASSENENTWICKLUNG",
+              "relevance": "hoch",
+              "date": "1904-12-28",
+              "year": "1904"
+            },
+            {
+              "aussage": "Schlange als Symbol Luzifers, nicht des Bösen – gnostische Tradition",
+              "zitat": "Auch bei den christlichen Mystikern der ersten Jahrhunderte, bei den Gnostikern ist die Schlange nicht ein Symbol für das Böse, sondern sogar ein Symbol für die geistige Führung der Menschheit. Der Weise, der Führer heißt «die Schlange». So wurde derjenige bezeichnet, welcher die Menschheit zur Erkenntnis führt. Die Schlange ist das Symbol des Luzifer.",
+              "id": "GA097/15",
+              "index": "zxfvw2",
+              "ref": "GA097/15:zxfvw2",
+              "fileName": "GA097/15 - LUZIFER, DER TRÄGER DES LICHTES CHRISTUS, DER BRINGER DER LIEBE, Düsseldorf, 30. März 1906",
+              "title": "LUZIFER",
+              "relevance": "hoch",
+              "date": "1906-03-30",
+              "year": "1906"
+            },
+            {
+              "aussage": "Quecksilber: Luzifer unter den Metallen – alchemistische Tradition",
+              "zitat": "Kupfer, Zinn, Eisen, Blei sind die guten Metalle, die mit der Vorsehung fortgeschritten sind; Quecksilber ist der Luzifer unter den Metallen, denn es ist auf einer früheren Stufe der Gestaltung stehengeblieben.",
+              "id": "GA232/12",
+              "index": "k7nzte",
+              "ref": "GA232/12:k7nzte",
+              "fileName": "GA232/12 - ZWÖLFTER VORTRAG, Dornach, 21. Dezember 1923",
+              "title": "ZWÖLFTER VORTRAG",
+              "relevance": "mittel",
+              "date": "1923-12-21",
+              "year": "1923"
+            },
+            {
+              "aussage": "Luzifer: durchdrungen von Weisheit, ohne Liebe",
+              "zitat": "Wir wissen, dass die vorherige Verkörperung unserer Erde der alte Mond, der Kosmos der Weisheit war, dass er ganz durchdrungen, durchsetzt von Weisheit war. Eine Kraft aber, die nun der Erde einverleibt ist, die fehlte ihm: die Liebe. Und so ist auch Luzifer ganz durchdrungen von Weisheit, aber die Liebe kennt er überhaupt nicht.",
+              "id": "GA266b/27",
+              "index": "dyi2f8",
+              "ref": "GA266b/27:dyi2f8",
+              "fileName": "GA266b/27 - Esoterische Stunde, Straßburg, 19. Februar 1911",
+              "title": "Esoterische Stunde",
+              "relevance": "hoch",
+              "date": "1911-02-19",
+              "year": "1911"
+            },
+            {
+              "aussage": "Luzifer: Gott der Weisheit, Jahve: Gott der Liebe – kosmischer Gegensatz",
+              "zitat": "Von der atlantischen Zeit bis zu den Römern kämpften in den Menschen der Gott der Liebe, Jahve, und der Gott der Weisheit, Luzifer. Es kam darauf an, die beiden Extreme zu vereinigen und zu individualisieren.",
+              "id": "GA111/7",
+              "index": "2o8gyr",
+              "ref": "GA111/7:2o8gyr",
+              "fileName": "GA111/7 - DIE ENTWICKLUNG DER MENSCHHEIT DURCH DIE KULTUREPOCHEN Siebter Vortrag Hannover, 27. September 1907",
+              "title": "DIE ENTWICKLUNG DER MENSCHHEIT DURCH DIE KULTUREPOCHEN Siebter Vortrag Hannover",
+              "relevance": "hoch",
+              "date": "1907-09-27",
+              "year": "1907"
+            },
+            {
+              "aussage": "Luzifer: Führer der Mondgötter, Gegenpol zur Liebesströmung Jahves",
+              "zitat": "Die Freiheit, die Individualität wäre verschwunden, die Menschen wären in einem allgemeinen Brei der Liebe aufgegangen, deshalb richteten die Mondgötter ihren stärksten Angriff auf den Zusammenschluss, ihr Führer war Luzifer. Es gab also zwei Strömungen, die des Jahve und die des Luzifer, die der Liebe und der Freiheit.",
+              "id": "GA111/7",
+              "index": "j3an1h",
+              "ref": "GA111/7:j3an1h",
+              "fileName": "GA111/7 - DIE ENTWICKLUNG DER MENSCHHEIT DURCH DIE KULTUREPOCHEN Siebter Vortrag Hannover, 27. September 1907",
+              "title": "DIE ENTWICKLUNG DER MENSCHHEIT DURCH DIE KULTUREPOCHEN Siebter Vortrag Hannover",
+              "relevance": "hoch",
+              "date": "1907-09-27",
+              "year": "1907"
+            },
+            {
+              "aussage": "Luzifer: ähnliche Stufe wie Elohim auf dem Mond, will Irrtum im Innern des Menschen denken lassen",
+              "zitat": "Luzifer aber, der ja auf ähnlicher Stufe ist, wie die Elohim auf dem Monde waren, will dasselbe noch immer ausführen. Er kann sich dazu aber nur des Menschen bedienen, er kann den Irrtum nur im Innern des Menschen denken lassen.",
+              "id": "GA266c/36",
+              "index": "6w0dfl",
+              "ref": "GA266c/36:6w0dfl",
+              "fileName": "GA266c/36 - Esoterische Stunde, Berlin, 27. März 1914",
+              "title": "Esoterische Stunde",
+              "relevance": "hoch",
+              "date": "1914-03-27",
+              "year": "1914"
+            },
+            {
+              "aussage": "Luzifer: rein astralischer Natur, strebt nach Ätherhülle der Erde",
+              "zitat": "Sie durchsetzen das, und sie sind eigentlich, diese luziferischen Wesen, rein astralischer Natur. Sie bekommen nun die Hoffnung, durch alles das, was da im Frühling anfängt hinaufzustreben, ihre astralische Natur durchsetzen zu können mit ätherischer Natur und eine Ätherhülle der Erde hervorzurufen, die aber dann bewohnt werden könnte von ihnen selber.",
+              "id": "GA229/3",
+              "index": "wsjrii",
+              "ref": "GA229/3:wsjrii",
+              "fileName": "GA229/3 - DRITTER VORTRAG, Dornach, 7. Oktober 1923",
+              "title": "DRITTER VORTRAG",
+              "relevance": "hoch",
+              "date": "1923-10-07",
+              "year": "1923"
+            },
+            {
+              "aussage": "Luziferische Wesenheit: Flügel, Ohren, Kehlkopf – Geheimnisse des Weltenalls ertastend, erlebend, aussprechend",
+              "zitat": "Wenn Sie also ein solches luziferisches Wesen mit seinen gelblich-rötlichen Flügel-Ohren-Kehlkopfbildungen anschauen, so sehen Sie in ihm dasjenige, was da wirkt im Weltenall als ertastend die Geheimnisse des Weltenalls durch die Flügel, erlebend diese Geheimnisse des Weltenalls durch die nach ihnen fortwirkenden Ohrengebilde, aussprechend im schöpferischen Worte diese Geheimnisse des Weltenalls in diesem mit Flügel und Ohr als einem organischen Ganzen verbundenen Kehlkopf.",
+              "id": "GA229/3",
+              "index": "y0i7br",
+              "ref": "GA229/3:y0i7br",
+              "fileName": "GA229/3 - DRITTER VORTRAG, Dornach, 7. Oktober 1923",
+              "title": "DRITTER VORTRAG",
+              "relevance": "hoch",
+              "date": "1923-10-07",
+              "year": "1923"
+            }
+          ]
+        },
+        {
+          "title": "Luzifer, Ahriman und Christus: das Dreiheitsverhältnis",
+          "rows": [
+            {
+              "aussage": "Christus in der Mitte zwischen Luzifer und Ahriman: Hauptaufgabe der Zukunft",
+              "zitat": "Zu verstehen, wie der Christus mitten darinsteht zwischen Luzifer und Ahriman, was er bedeutet gegenüber Luzifer und Ahriman, das ist eine der Hauptaufgaben der nächsten Zukunft. Daher wird immer wieder und wiederum in der menschlichen Betrachtung das auftreten müssen, dass man Luzifer und Ahriman nennt und den Christus-Impuls als das sie Bekämpfende, als das, was die Erde rettet von dem einseitigen luziferisch-ahrimanischen Impuls.",
+              "id": "GA165/11",
+              "index": "ft111n",
+              "ref": "GA165/11:ft111n",
+              "fileName": "GA165/11 - DIE GEISTIGE VEREINIGUNG DER MENSCHHEIT DURCH DEN CHRISTUSIMPULS, Bern, 9. Januar 1916",
+              "title": "DIE GEISTIGE VEREINIGUNG DER MENSCHHEIT DURCH DEN CHRISTUSIMPULS",
+              "relevance": "hoch",
+              "date": "1916-01-09",
+              "year": "1916"
+            },
+            {
+              "aussage": "Christus-Impuls: Gleichgewichtslinie, nicht Polarität Luzifer–Ahriman",
+              "zitat": "Der wahre Gegensatz, den diejenigen, die wahr reden wollen aus der geistigen Welt, den Menschen mitgeteilt haben, der wahre Gegensatz ist der zwischen Ahriman und Luzifer, und der Christus–Impuls bringt etwas anderes, und hat nichts zu tun mit der Polarität Ahriman–Luzifer, sondern er bewegt sich in der Gleichgewichtslinie.",
+              "id": "GA184/11",
+              "index": "9v4c6s",
+              "ref": "GA184/11:9v4c6s",
+              "fileName": "GA184/11 - ELFTER VORTRAG, Dornach, 5. Oktober 1918",
+              "title": "ELFTER VORTRAG",
+              "relevance": "hoch",
+              "date": "1918-10-05",
+              "year": "1918"
+            },
+            {
+              "aussage": "Luzifer und Ahriman: Zusammenwirken gegen Harmonie von Glauben und Wissen",
+              "zitat": "Durch diese Betrachtungen nämlich zeigt sich so recht der Anteil Ahrimans und Luzifers an unserem Leben, zeigt sich, wie Luzifer und Ahriman zusammen arbeiten, damit wir nicht die Harmonie bekommen können zwischen Glauben und Wissen, sondern die unrichtige Zweiheit des wissenlosen Glaubens und des glaubeleeren Wissens.",
+              "id": "GA162/9",
+              "index": "rp7ebj",
+              "ref": "GA162/9:rp7ebj",
+              "fileName": "GA162/9 - NEUNTER VORTRAG, Dornach, 25. Juli 1915",
+              "title": "NEUNTER VORTRAG",
+              "relevance": "hoch",
+              "date": "1915-07-25",
+              "year": "1915"
+            },
+            {
+              "aussage": "Luzifer und Christus als Brüder – wenn Christus-Impuls vorhanden",
+              "zitat": "Sind wir zur Sonnenzeit ausgerüstet mit dem Christus-Impuls, so leiten uns Christus und Luzifer als Brüder. Wie verschieden sind doch die gleichen Worte Christi und Luzifers aufzufassen! Als ein wunderbarer Geleitspruch das Wort Christi: «In euch lebt der göttliche Funke, ihr seid Götter.» Und Luzifers große Versuchung: «Ihr werdet sein wie Gott.»",
+              "id": "GA130/24",
+              "index": "4ragqu",
+              "ref": "GA130/24:4ragqu",
+              "fileName": "GA130/24 - DER GESTIRNTE HIMMEL ÜBER MIR DAS MORALISCHE GESETZ IN MIR, St. Gallen, 19. Dezember 1912",
+              "title": "DER GESTIRNTE HIMMEL ÜBER MIR DAS MORALISCHE GESETZ IN MIR",
+              "relevance": "hoch",
+              "date": "1912-12-19",
+              "year": "1912"
+            },
+            {
+              "aussage": "Luzifer-Ahriman: aus physischem Leib Christi ausgestoßen – Vorbild für Menschheit",
+              "zitat": "Luzifer-Ahriman ist in diesem Augenblicke aus dem physischen Leib des Christus ausgestoßen worden! Das große Vorbild steht da, das sich in der Zukunft in der ganzen Menschheit vollziehen muss: Ausgestoßen werden müssen durch den Christus-Impuls die Hemmnisse von Luzifer-Ahriman aus dem physischen Leibe!",
+              "id": "GA112/12",
+              "index": "m5us0m",
+              "ref": "GA112/12:m5us0m",
+              "fileName": "GA112/12 - ZWÖLFTER VORTRAG, Kassel, 5. Juli 1909",
+              "title": "ZWÖLFTER VORTRAG",
+              "relevance": "hoch",
+              "date": "1909-07-05",
+              "year": "1909"
+            },
+            {
+              "aussage": "Recht und Pflicht: Gleichgewichtslage zwischen Luzifer und Ahriman",
+              "zitat": "So sehen wir, wie auch Recht und Pflicht die Gleichgewichtslage darstellen zwischen Luzifer und Ahriman. Wie sich solche Dinge, wie der menschliche physische Leib, der ätherische Leib und astralische Leib im Leben, wie sich Pflicht und Recht im Rechts- und Pflichtenleben darstellen, wie diese Dinge überhaupt in der Welt stehen, das lernen wir nur erkennen, wenn wir das Ineinanderspielen der geistigen Mächte kennenlernen.",
+              "id": "GA158/7",
+              "index": "kttute",
+              "ref": "GA158/7:kttute",
+              "fileName": "GA158/7 - SECHSTER VORTRAG, Dornach, 22. November 1914",
+              "title": "SECHSTER VORTRAG",
+              "relevance": "hoch",
+              "date": "1914-11-22",
+              "year": "1914"
+            },
+            {
+              "aussage": "Menschenschicksale: entrissen Luziferschwingen und Ahrimankrallen durch gute Götter",
+              "zitat": "So etwas geschieht unaufhörlich im Zusammenhange der irdisch–geistigen Welt, dass Menschenschicksale entrissen werden den Luziferschwingen und den Ahrimankrallen, denn die Götter sind gut. Und was durch Ahriman oder Luzifer an Ungerechtigkeit in der Welt hinter den Kulissen des Daseins begründet wird, das wird durch die guten Götter wiederum in die Bahn der Gerechtigkeit geleitet.",
+              "id": "GA236/17",
+              "index": "nxkb24",
+              "ref": "GA236/17:nxkb24",
+              "fileName": "GA236/17 - SIEBZEHNTER VORTRAG, Dornach, 29. Juni 1924",
+              "title": "SIEBZEHNTER VORTRAG",
+              "relevance": "hoch",
+              "date": "1924-06-29",
+              "year": "1924"
+            },
+            {
+              "aussage": "Luziferisierung vs. Ahrimanisierung: zwei Gefahren der modernen Zivilisation",
+              "zitat": "Was auf der anderen Seite immer mehr und mehr aus den westlichen Bestrebungen herauskommt, aus den Bestrebungen, die aus der modernen Zivilisation sich herausentwickeln, insofern diese moderne Zivilisation sich nicht durchdringt mit geisteswissenschaftlichen Erkenntnissen, das ist die Vermechanisierung der Welt, ist immer mehr und mehr das Streben, die Vorgänge des menschlichen Daseins mechanisch zu machen. Ahrimanisierung auf der einen, Luziferisierung auf der anderen Seite.",
+              "id": "GA203/8",
+              "index": "otbehc",
+              "ref": "GA203/8:otbehc",
+              "fileName": "GA203/8 - ACHTER VORTRAG, Dornach, 29. Januar 1921",
+              "title": "ACHTER VORTRAG",
+              "relevance": "hoch",
+              "date": "1921-01-29",
+              "year": "1921"
+            }
+          ]
+        },
+        {
+          "title": "Luziferischer Einfluss auf den Menschen: Seele, Leib, Karma",
+          "rows": [
+            {
+              "aussage": "Luziferischer Einfluss: dreifach im Astral-, Äther- und physischen Leib",
+              "zitat": "Wie wirkt nun der luziferische Einfluss? Er schließt sich in den astralischen Leib ein, wirkt aber dadurch auf alle drei Glieder des Menschen, sowohl auf den Astralleib als auch auf den Äther- und den physischen Leib. Was Sie immer mehr verstehen werden, ist, dass der Luzifer-Einfluss sich dreifach geltend macht: im Astralleibe, im ätherischen und im physischen Leibe des Menschen.",
+              "id": "GA121/10",
+              "index": "r8yin5",
+              "ref": "GA121/10:r8yin5",
+              "fileName": "GA121/10 - NEUNTER VORTRAG, Kristiania, 15. Juni 1910",
+              "title": "NEUNTER VORTRAG",
+              "relevance": "hoch",
+              "date": "1910-06-15",
+              "year": "1910"
+            },
+            {
+              "aussage": "Feigheit: Kräfte an Luzifer ausgeliefert, defekte Herzorgane in nächster Inkarnation",
+              "zitat": "Während wir feige im Leben dastehen, bleiben auch die Kräfte untätig, die unser Herz durchzucken sollen. Sie sind eine Saat für Luzifer. Der bemächtigt sich ihrer, und wir haben sie dann im nächsten Leben nicht. Feige sein dem Leben gegenüber bedeutet, Luzifer eine Anzahl Kräfte auszuliefern, die uns fehlen, wenn wir in unserer nächsten Inkarnation unsere Herzen aufbauen wollen.",
+              "id": "GA159/1",
+              "index": "9yuiee",
+              "ref": "GA159/1:9yuiee",
+              "fileName": "GA159/1 - DIE VIER PLATONISCHEN TUGENDEN UND IHR ZUSAMMENHANG MIT DEN MENSCHLICHEN WESENSGLIEDERN - DAS HEREINWIRKEN GEISTIGER MÄCHTE IN DIE PHYSISCHE WELT, Zürich, 31. Januar 191",
+              "title": "DIE VIER PLATONISCHEN TUGENDEN UND IHR ZUSAMMENHANG MIT DEN MENSCHLICHEN WESENSGLIEDERN - DAS HEREINWIRKEN GEISTIGER MÄCHTE IN DIE PHYSISCHE WELT",
+              "relevance": "hoch",
+              "date": "",
+              "year": ""
+            },
+            {
+              "aussage": "Luzifer: Moralisches von Natürlichem getrennt, krankmachende Kräfte in Materie",
+              "zitat": "Dadurch sind wir versetzt worden in eine Welt, die wirklich von dem Guten verlassen ist, weil Luzifer das Moralische herausgezogen, getrennt hat von dem Natürlichen. Dadurch sind krankmachende Kräfte in die Materie gekommen, «Erkrankungskräfte».",
+              "id": "GA266c/13",
+              "index": "wxvzf9",
+              "ref": "GA266c/13:wxvzf9",
+              "fileName": "GA266c/13 - Esoterische Stunde, Straßburg, 14. Mai 1913",
+              "title": "Esoterische Stunde",
+              "relevance": "hoch",
+              "date": "1913-05-14",
+              "year": "1913"
+            },
+            {
+              "aussage": "Luziferischer Einfluss: Mensch tiefer in Materie geworfen als vorgesehen",
+              "zitat": "Der Mensch ist dazumal heruntergestiegen von göttlichen Höhen; es war ihm bestimmt in einer gewissen Weise sich weiter zu entwickeln; aber durch den luziferischen Einfluss wurde der Mensch tiefer in die Materie hineingeworfen, als es ohne denselben der Fall gewesen wäre. Dadurch wurde sein Fortgang in der Entwickelung nun ein anderer.",
+              "id": "GA131/11",
+              "index": "0wpybp",
+              "ref": "GA131/11:0wpybp",
+              "fileName": "GA131/11 - ZEHNTER VORTRAG, Karlsruhe, 14. Oktober 1911",
+              "title": "ZEHNTER VORTRAG",
+              "relevance": "hoch",
+              "date": "1911-10-14",
+              "year": "1911"
+            },
+            {
+              "aussage": "Luzifer: Absicht, Menschen erdenfern zu machen; Ahriman: immer irdischer",
+              "zitat": "Jedesmal, wenn die luziferischen Gestalten Anstrengungen machen, an den Menschen heranzukommen, dies damit verbunden ist, dass der Mensch eigentlich erdenfremd und erdenfern gemacht werden soll; dagegen, wenn die ahrimanischen Gestalten Anstrengungen machen, sich des Menschen zu bemächtigen, so möchten sie ihn immer irdischer und irdischer machen.",
+              "id": "GA232/2",
+              "index": "13damd",
+              "ref": "GA232/2:13damd",
+              "fileName": "GA232/2 - ZWEITER VORTRAG, Dornach, 24. November 1923",
+              "title": "ZWEITER VORTRAG",
+              "relevance": "hoch",
+              "date": "1923-11-24",
+              "year": "1923"
+            },
+            {
+              "aussage": "Luzifer: Verführung, im Geiste zu bleiben statt Erdenweg zu gehen",
+              "zitat": "Diese Versuchung tritt um so mehr heran, als in keinem Moment der Menschheitsentwickelung Luzifer eine größere Gewalt hat über den Menschen als in diesem Augenblick, wo er ihm einbläst: Ergreife jetzt die Gelegenheit, du kannst im Geiste bleiben, du kannst alles das, was du entwickelt hast, in das geistige Licht überführen!",
+              "id": "GA153/4",
+              "index": "geg909",
+              "ref": "GA153/4:geg909",
+              "fileName": "GA153/4 - ZWEITER VORTRAG, Wien, 10. April 1914",
+              "title": "ZWEITER VORTRAG",
+              "relevance": "hoch",
+              "date": "1914-04-10",
+              "year": "1914"
+            },
+            {
+              "aussage": "Luzifers Absicht: Menschheit überirdisch entwickeln, Erdenweg umgehen",
+              "zitat": "Es war die Absicht Luzifers, die Weisheit der Menschheit zu überliefern, um sie dadurch dazu zu bringen, den Weg der Erdenentwickelung nicht auf sich zu nehmen, sondern die Bahn der Entwickelung in einer überirdischen Sphäre, in einer der Erde entrückten Sphäre durchzumachen.",
+              "id": "GA191/15",
+              "index": "tsl6th",
+              "ref": "GA191/15:tsl6th",
+              "fileName": "GA191/15 - FÜNFZEHNTER VORTRAG, Dornach, 15. November 1919",
+              "title": "FÜNFZEHNTER VORTRAG",
+              "relevance": "hoch",
+              "date": "1919-11-15",
+              "year": "1919"
+            },
+            {
+              "aussage": "Luzifer: Sieg führt zu Ich-losem Träumer ohne Selbstbewusstsein",
+              "zitat": "Siegt Luzifer, oder ist er nahe daran, zu siegen, so kann der Mensch übergehen in seinem astralischen Leibe zu dem, was man einen Ich-losen Träumer nennt, der eigentlich gar nicht recht bei sich ist. Solche Dinge gibt es; mindestens kann der Mensch zeitweilig solchen Zuständen unterworfen sein.",
+              "id": "GA218/8",
+              "index": "xp8vwm",
+              "ref": "GA218/8:xp8vwm",
+              "fileName": "GA218/8 - ERLEBNISSE DER MENSCHENSEELE IM SCHLAFE UND NACH DEM TODE IN DER GEISTIGEN WELT, Zweiter Vortrag, London, 16. November 1922",
+              "title": "ERLEBNISSE DER MENSCHENSEELE IM SCHLAFE UND NACH DEM TODE IN DER GEISTIGEN WELT",
+              "relevance": "hoch",
+              "date": "1922-11-16",
+              "year": "1922"
+            },
+            {
+              "aussage": "Luziferisches Denken: Generalisieren und Vereinheitlichen statt Einzelbetrachtung",
+              "zitat": "In dem Augenblick, wo man generalisiert, wo man vereinheitlicht, naht man sich schon dem luziferischen Denken. Wenn Sie jeden einzelnen Menschen, jedes einzelne Tier, jede einzelne Pflanze, jeden einzelnen Stein für sich betrachten würden, mit Ihrem Denken nur das einzelne Objekt ins Auge fassen würden, nicht Gattungen und Arten bilden würden, nicht generalisieren würden, nicht vereinheitlichen würden im Denken, dann würden Sie allerdings wenig von luziferischem Denken aufnehmen.",
+              "id": "GA191/15",
+              "index": "dv3ygx",
+              "ref": "GA191/15:dv3ygx",
+              "fileName": "GA191/15 - FÜNFZEHNTER VORTRAG, Dornach, 15. November 1919",
+              "title": "FÜNFZEHNTER VORTRAG",
+              "relevance": "hoch",
+              "date": "1919-11-15",
+              "year": "1919"
+            },
+            {
+              "aussage": "Luziferische Verführung: Schutz durch Regeln, moralische Impulse, Einrichtungen",
+              "zitat": "Es gibt vieles in der Welt, welches rein zu dem Zwecke da ist, um den Menschen zu bewahren vor der luziferischen Verführung. Regeln, Anleitungen, moralische Impulse, die beschrieben werden, gibt es, um den Menschen zu behüten vor der luziferischen Verführung, Einrichtungen innerhalb der Menschheitsentwickelung und so weiter.",
+              "id": "GA170/11",
+              "index": "zsvfse",
+              "ref": "GA170/11:zsvfse",
+              "fileName": "GA170/11 - ELFTER VORTRAG, Dornach, 26. August 1916",
+              "title": "ELFTER VORTRAG",
+              "relevance": "hoch",
+              "date": "1916-08-26",
+              "year": "1916"
+            },
+            {
+              "aussage": "Luzifer: verführt, Gott in sich selbst zu suchen; Schutz durch Demut",
+              "zitat": "Luzifer verführt uns, in uns den Gott zu suchen, sich für den Herrgott zu halten. Schützen können wir uns davor durch Demut und Bescheidenheit.",
+              "id": "GA266c/21",
+              "index": "73ryck",
+              "ref": "GA266c/21:73ryck",
+              "fileName": "GA266c/21 - Esoterische Stunde, Kristiania, 6. Oktober 1913",
+              "title": "Esoterische Stunde",
+              "relevance": "hoch",
+              "date": "1913-10-06",
+              "year": "1913"
+            },
+            {
+              "aussage": "Luziferische Wesenheiten im Jahve-Reich: wirken in Gefühlen und Willensimpulsen",
+              "zitat": "Wenn wir im Jahve-Reiche anwesend sind, sagen wir zum Beispiel im Schlafe, da machen die luziferischen Wesenheiten sich geltend in unseren Gefühlen, in unseren Willensimpulsen.",
+              "id": "GA203/15",
+              "index": "j6mj96",
+              "ref": "GA203/15:j6mj96",
+              "fileName": "GA203/15 - FÜNFZEHNTER VORTRAG, Dornach, 13. März 1921",
+              "title": "FÜNFZEHNTER VORTRAG",
+              "relevance": "hoch",
+              "date": "1921-03-13",
+              "year": "1921"
+            },
+            {
+              "aussage": "Luziferisches Mischen in Tastsinn und Ich-Erlebnis",
+              "zitat": "Es mischt sich also das Luziferische, das den Tastsinn gestaltet hat, in das Ich-Erlebnis da hinein. Da ist also ein Innerlichstes mit einem Äußerlichen vermischt, wie beim Sprachsinn ein Äußeres mit einem Inneren vermischt ist.",
+              "id": "GA170/14",
+              "index": "xed8uq",
+              "ref": "GA170/14:xed8uq",
+              "fileName": "GA170/14 - VIERZEHNTER VORTRAG, Dornach, 2. September 1916",
+              "title": "VIERZEHNTER VORTRAG",
+              "relevance": "mittel",
+              "date": "1916-09-02",
+              "year": "1916"
+            }
+          ]
+        },
+        {
+          "title": "Luzifer und die Versuchungen Christi",
+          "rows": [
+            {
+              "aussage": "Erste Versuchung Christi: Luzifer mit Hochmut, Angebot aller Reiche der Welt",
+              "zitat": "Zuerst stand der Christus Jesus einem Wesen gegenüber, das ihm jetzt nahe war, weil er es gesehen hatte, als der Verzweifelte an ihn herangetreten war, und das er dadurch gerade als Luzifer empfinden konnte. Und dann fand durch Luzifer jene Versuchung statt, die ja mit den Worten ausgesprochen ist: Ich gebe dir alle Reiche der Welt und ihre Herrlichkeit, wenn du mich als deinen Herrn anerkennst! - Die Luziferversuchung wurde abgeschlagen.",
+              "id": "GA148/9",
+              "index": "i21tjp",
+              "ref": "GA148/9:i21tjp",
+              "fileName": "GA148/9 - Vierter Vortrag, Berlin, 6. Januar 1914",
+              "title": "Vierter Vortrag",
+              "relevance": "hoch",
+              "date": "1914-01-06",
+              "year": "1914"
+            },
+            {
+              "aussage": "Zweite Versuchung: Luzifer und Ahriman gemeinsam, Furcht und Angst durch Sturz",
+              "zitat": "Die zweite Attacke bestand darin, dass Luzifer wiederkam, aber mit ihm das Wesen, das zwischen dem Jesus von Nazareth und dem Aussätzigen gestanden hatte, und das er deshalb als Ahriman erfühlte. Und stattfand jetzt die Versuchung, die in den anderen Evangelien in die Worte gekleidet ist: Stürze dich hinab, es wird dir nichts geschehen, wenn du der Sohn Gottes bist.",
+              "id": "GA148/9",
+              "index": "nvnfk6",
+              "ref": "GA148/9:nvnfk6",
+              "fileName": "GA148/9 - Vierter Vortrag, Berlin, 6. Januar 1914",
+              "title": "Vierter Vortrag",
+              "relevance": "hoch",
+              "date": "1914-01-06",
+              "year": "1914"
+            },
+            {
+              "aussage": "Versuchungen Christi: Luzifer durch Ahriman und Ahriman durch Luzifer paralysiert",
+              "zitat": "Auch diese Versuchung, die so stattfand, dass Luzifer durch Ahriman und Ahriman durch Luzifer paralysiert werden konnte, wurde abgeschlagen.",
+              "id": "GA148/9",
+              "index": "nvnfk6",
+              "ref": "GA148/9:nvnfk6",
+              "fileName": "GA148/9 - Vierter Vortrag, Berlin, 6. Januar 1914",
+              "title": "Vierter Vortrag",
+              "relevance": "hoch",
+              "date": "1914-01-06",
+              "year": "1914"
+            },
+            {
+              "aussage": "Nach Jordantaufe: Luzifer erste Begegnung Christi, Versuch des Hochmuts",
+              "zitat": "Nach der Taufe am Jordan war der Christus noch lose gebunden an den Leib des Jesus. Der erste, der ihm begegnete, war Luzifer. Er ließ walten alle die Kräfte, die man in einer Wesenheit in bezug auf Hervorrufen des Hochmuts entfalten kann. «Wenn du mich anerkennst, will ich dir alle Reiche der Erde geben.» Rasch war diese Attacke zurückgeschlagen.",
+              "id": "GA148/14",
+              "index": "q1uacm",
+              "ref": "GA148/14:q1uacm",
+              "fileName": "GA148/14 - Zweiter Vortrag (Notizen), Stuttgart, 23. November 1913",
+              "title": "Zweiter Vortrag (Notizen)",
+              "relevance": "hoch",
+              "date": "1913-11-23",
+              "year": "1913"
+            }
+          ]
+        },
+        {
+          "title": "Luzifer in Kunst, Kultur und Geschichte",
+          "rows": [
+            {
+              "aussage": "Goethe: Luzifer und Ahriman zusammengemischt in Mephistopheles-Figur",
+              "zitat": "Goethe mischt nur alles zusammen und nennt alles «Mephistopheles», so dass in den einzelnen Szenen im Faust Luzifer oft Luzifer, in anderen Teilen Mephistopheles oder Ahriman ist. Aber dieses war Goethe ganz klar: in dem Menschen geht etwas vor, was unter dem Einflusse von Luzifer und Ahriman geschieht.",
+              "id": "GA272/6",
+              "index": "4gbc3l",
+              "ref": "GA272/6:4gbc3l",
+              "fileName": "GA272/6 - Pfingststimmung Die Umwandlung der Schuld in eine höhere Erkenntnis Fausts Initiation mit den Geistern der Erde, Vortrag in Dornach am 22. Mai 1915",
+              "title": "Pfingststimmung Die Umwandlung der Schuld in eine höhere Erkenntnis Fausts Initiation mit den Geistern der Erde",
+              "relevance": "hoch",
+              "date": "1915-05-22",
+              "year": "1915"
+            },
+            {
+              "aussage": "Faust: luziferisches Fahrwasser, Scheidung von Mephistopheles durch Bewusstseinsgrenze",
+              "zitat": "Wir sehen auch, wie eine gewisse Scheidung eingetreten ist zwischen Faust, der in das luziferische Fahrwasser geraten ist, und Mephistopheles. Faust ist gewissermaßen mit seiner Seele in einem anderen geistigen Fahrwasser, in das er durch luziferische Impulse gekommen ist, als diejenigen geistigen Wege sind, in denen Mephistopheles wandelt. Sie sind wie durch eine Bewusstseinsgrenze jetzt voneinander geschieden.",
+              "id": "GA273/3",
+              "index": "14anls",
+              "ref": "GA273/3:14anls",
+              "fileName": "GA273/3 - Goethes Ahnungen nach dem Konkreten hin Schattenhafte Begriffe und wirklichkeitsdurchtränkte Vorstellungen, Vortrag in Dornach, 27. Januar 1917",
+              "title": "Goethes Ahnungen nach dem Konkreten hin Schattenhafte Begriffe und wirklichkeitsdurchtränkte Vorstellungen",
+              "relevance": "hoch",
+              "date": "1917-01-27",
+              "year": "1917"
+            },
+            {
+              "aussage": "Meister Bertram: Luzifer im 13./14. Jh. geisteswissenschaftlich korrekt gemalt",
+              "zitat": "Nun gibt es in dieser Hamburgischen Bildergalerie aus dem 13., 14. Jahrhundert ein Bild von Meister Bertram, das die biblische Schöpfungsgeschichte darstellt, und wo dieses paradiesische Symbolum wirklich in der Weise gemalt ist, dass Luzifer, so wie ich ihn jetzt beschrieben habe, genau im Sinne unserer Geisteswissenschaft gemalt ist.",
+              "id": "GA174a/6",
+              "index": "q6mdgj",
+              "ref": "GA174a/6:q6mdgj",
+              "fileName": "GA174a/6 - SECHSTER VORTRAG, München, 20. März 1916",
+              "title": "SECHSTER VORTRAG",
+              "relevance": "mittel",
+              "date": "1916-03-20",
+              "year": "1916"
+            },
+            {
+              "aussage": "Miltons «Verlorenes Paradies» und Klopstocks «Messias»: luziferisches und ahrimanisches Element, nicht göttliches",
+              "zitat": "Während die Menschen glauben, mit einer solchen Gegenüberstellung, wie man sie findet in Miltons «Verlorenem Paradies» oder in Klopstocks «Messias», habe man es zu tun mit den göttlichen und den hÖllischen Elementen, hat man es in Wahrheit zu tun mit dem luziferischen und dem ahrimanischen Elemente. Vom wirklich göttlichen Elemente liegt kein Bewusstsein vor, dagegen werden dem luziferischen Elemente die göttlichen Namen beigelegt.",
+              "id": "GA194/1",
+              "index": "67xw3u",
+              "ref": "GA194/1:67xw3u",
+              "fileName": "GA194/1 - ERSTER VORTRAG, Dornach, 21. November 1919",
+              "title": "ERSTER VORTRAG",
+              "relevance": "hoch",
+              "date": "1919-11-21",
+              "year": "1919"
+            },
+            {
+              "aussage": "Orthodoxes Christentum im Osten: luziferisches Element bewahrt, frühere Stufe",
+              "zitat": "Wenn wir von Asien nach Europa hinübergehen, so finden wir im Osten von Europa, in der russischen Kultur, ausgebreitet das orthodoxe Christentum, das stehengeblieben ist auf einer früheren Stufe der christlichen Entwickelung, das nicht mitgehen wollte, das noch etwas Luziferisches behalten wollte.",
+              "id": "GA159/11",
+              "index": "vgsg4c",
+              "ref": "GA159/11:vgsg4c",
+              "fileName": "GA159/11 - CHRISTUS IM VERHÄLTNIS ZU LUZIFER UND AHRIMAN DIE DREIFACHE WESENSGESTALTUNG, Linz, 18. Mai 1915",
+              "title": "CHRISTUS IM VERHÄLTNIS ZU LUZIFER UND AHRIMAN DIE DREIFACHE WESENSGESTALTUNG",
+              "relevance": "hoch",
+              "date": "1915-05-18",
+              "year": "1915"
+            },
+            {
+              "aussage": "Luziferische Theologie: alte Übersinnlichkeit ins Theologische überführt, ohne lebendige geistige Welt",
+              "zitat": "So entsteht diejenige Geistesströmung, die im wesentlichen eine Art luziferische ist und die die alte Anschauung des Übersinnlichen ins Theologische herüberführt.",
+              "id": "GA208/3",
+              "index": "2u21n9",
+              "ref": "GA208/3:2u21n9",
+              "fileName": "GA208/3 - VIERZEHNTER VORTRAG, Dornach, 23. Oktober 1921",
+              "title": "VIERZEHNTER VORTRAG",
+              "relevance": "hoch",
+              "date": "1921-10-23",
+              "year": "1921"
+            },
+            {
+              "aussage": "Heiliger Gral: Krone Luzifers – Schale verbindet Luzifer- mit Christus-Prinzip",
+              "zitat": "So sehen wir, dass der Krone Luzifers entfällt die Schale. Sie verbindet mit dem Luzifer-Prinzip das Christus-Prinzip. In dieser Erkenntnis wird den Gralsrittern die große Kraft, die sie mit Ich-Leben durchdringt.",
+              "id": "GA092/16",
+              "index": "1iosim",
+              "ref": "GA092/16:1iosim",
+              "fileName": "GA092/16 - Richard Wagner und sein Verhältnis zur Mystik, Nürnberg, 2. Dezember 1907",
+              "title": "Richard Wagner und sein Verhältnis zur Mystik",
+              "relevance": "hoch",
+              "date": "1907-12-02",
+              "year": "1907"
+            },
+            {
+              "aussage": "Luziferischer Mensch: Buddha-Beine untergeschlagen, ahrimanischer Mensch: geschäftiger Hansdampf",
+              "zitat": "Es ist schon gut, wenn man sich ein wenig bekannt macht durch solche Bilder, wie ich sie gebraucht habe, mit den heute lebenden luziferischen Menschen mit den untergeschlagenen Buddha-Beinen, und den ahrimanischen Menschen, die als «Hansdampf auf allen Straßen» geschäftig von Kontor zu Kontor laufen.",
+              "id": "GA208/3",
+              "index": "wfxt2y",
+              "ref": "GA208/3:wfxt2y",
+              "fileName": "GA208/3 - VIERZEHNTER VORTRAG, Dornach, 23. Oktober 1921",
+              "title": "VIERZEHNTER VORTRAG",
+              "relevance": "mittel",
+              "date": "1921-10-23",
+              "year": "1921"
+            }
+          ]
+        },
+        {
+          "title": "Luzifer in der esoterischen Schulung und Geistesforschung",
+          "rows": [
+            {
+              "aussage": "Innere Seelenwelt: luziferische Wesen beim Durchstoßen des inneren Schleiers",
+              "zitat": "Man kann nie in die Welt, die unser wahres Inneres ist, eindringen, ohne in ähnlicher Art mit gewissen Wesen in Berührung zu kommen, wie man in der geschilderten Art mit gewissen Wesen in Berührung kommt, wenn man den Schleier der Natur durchstoßen will und kann; nur sind diejenigen Wesen, mit denen man jetzt in Beziehung kommt, luziferischer Art.",
+              "id": "GA254/9",
+              "index": "4dxit5",
+              "ref": "GA254/9:4dxit5",
+              "fileName": "GA254/9 - NEUNTER VORTRAG, Dornach, 24. Oktober 1915",
+              "title": "NEUNTER VORTRAG",
+              "relevance": "hoch",
+              "date": "1915-10-24",
+              "year": "1915"
+            },
+            {
+              "aussage": "Hellsichtiges Denken: luziferische und ahrimanische Wesen als das erkannt, was sie sind",
+              "zitat": "Die ahrimanischen und luziferischen Wesenheiten werden von dem Menschen als das geschaut, was sie sind, wenn er sie von der geistigen Welt aus mit dem hellsichtigen Blicke betrachtet, der durch das Denken erkraftet ist.",
+              "id": "GA017",
+              "index": "oa6pb9",
+              "ref": "GA017:oa6pb9",
+              "fileName": "GA017 - Die Schwelle der geistigen Welt (1913)",
+              "title": "Die Schwelle der geistigen Welt (1913)",
+              "relevance": "hoch",
+              "date": "1913",
+              "year": "1913"
+            },
+            {
+              "aussage": "Samael: Anführer luziferischer Wesenheiten, dem Hellseher wahrnehmbar",
+              "zitat": "Diese luziferischen Wesenheiten, die dadurch an den Schüler zerstörerisch herantreten, offenbaren sich dem Hellseher als bestimmte Scharen, deren Anführer Samael ist. Diese Wesenheiten, die nichts Menschenähnliches haben, sind für das Geistesauge immer wahrnehmbar.",
+              "id": "GA266b/23",
+              "index": "p06ggn",
+              "ref": "GA266b/23:p06ggn",
+              "fileName": "GA266b/23 - Esoterische Stunde, Stuttgart, 2. Januar 1911",
+              "title": "Esoterische Stunde",
+              "relevance": "hoch",
+              "date": "1911-01-02",
+              "year": "1911"
+            },
+            {
+              "aussage": "Samael: luziferische Wesenheiten in Kälte, Selbsterkenntnis bringend",
+              "zitat": "Bei richtiger Selbsterkenntnis, beim Einsehen unserer eigenen Schlechtigkeit, durchzieht uns ein durchaus kaltes Eisesgefühl, während alles, was in uns an Affekten zur Befriedigung gelangt, sich äußert, im Gegensatz zur Selbsterkenntnis, in einem Wärmegefühl. Samael ist der Anführer der luziferischen Wesenheiten, die in dieser Kälte wirken, dem Menschen Selbsterkenntnis bringend.",
+              "id": "GA266b/37",
+              "index": "dgoixn",
+              "ref": "GA266b/37:dgoixn",
+              "fileName": "GA266b/37 - Esoterische Stunde, Berlin, 27. Oktober 1911",
+              "title": "Esoterische Stunde",
+              "relevance": "hoch",
+              "date": "1911-10-27",
+              "year": "1911"
+            },
+            {
+              "aussage": "Luziferische Mächte: verführen lässige Seelen, auf Weltenlehrer zu warten statt selbst zu lernen",
+              "zitat": "Nun gibt es aber läßige Seelen, die nicht lernen wollen; derer bemächtigen sich die luziferischen Mächte und flüstern ihnen ein, dass sie, statt zu lernen, statt selbst den geraden Weg zu suchen, dass sie lieber auf einen Weltenlehrer warten sollen, der ihnen dann mit beiden Händen hingeben wird, damit sie sich nicht selbst anzustrengen brauchen.",
+              "id": "GA264/18",
+              "index": "t87kf4",
+              "ref": "GA264/18:t87kf4",
+              "fileName": "GA264/18 - Weitere Ausführungen über östlichen und westlichen Okkultismus in esoterischen Stunden anlässlich der Trennung von der Theosophischen Gesellschaft 19 12 13 Basel, 20. S",
+              "title": "Weitere Ausführungen über östlichen und westlichen Okkultismus in esoterischen Stunden anlässlich der Trennung von der Theosophischen Gesellschaft 19 12 13 Basel",
+              "relevance": "hoch",
+              "date": "",
+              "year": ""
+            },
+            {
+              "aussage": "Luziferisch-ahrimanische Wesenheit: Ursprung in Mondentwicklung, Zusammenhang mit Erdenentwicklung",
+              "zitat": "Wir müssen, wenn wir zu einer wenigstens in gewissem Sinne begrenzten Vorstellung derjenigen luziferisch-ahrimanischen Wesenheit kommen wollen, mit der es der Erdenmensch zunächst zu tun hat, zurückblicken nach der Mondenentwickelung unserer Erde, und diese Mondenentwickelung im Zusammenhang mit der eigentlichen Erdenentwickelung einmal ins Auge fassen.",
+              "id": "GA162/7",
+              "index": "kx0zfi",
+              "ref": "GA162/7:kx0zfi",
+              "fileName": "GA162/7 - SIEBENTER VORTRAG, Dornach, 18. Juli 1915",
+              "title": "SIEBENTER VORTRAG",
+              "relevance": "hoch",
+              "date": "1915-07-18",
+              "year": "1915"
+            },
+            {
+              "aussage": "Luziferisch-ahrimanische Kräfte: prägen den Menschen als Raumeswesen von allen Seiten",
+              "zitat": "Wir ihn nicht verstehen, wenn wir einfach die Formen so nehmen, wie sie uns entgegentreten, sondern dass wir ihn erst dann verstehen, wenn wir wissen, wie er mit dem ganzen Geistig-Kosmischen zusammen hängt, wie da von rechts und links, von unten und oben, von vorne und rückwärts die luziferisch-ahrimanischen Kräfte an den Menschen herankommen und wie sie so sein Wesen als Raumeswesen prägen.",
+              "id": "GA158/6",
+              "index": "yl26u4",
+              "ref": "GA158/6:yl26u4",
+              "fileName": "GA158/6 - FÜNFTER VORTRAG, Dornach, 21. November 1914",
+              "title": "FÜNFTER VORTRAG",
+              "relevance": "hoch",
+              "date": "1914-11-21",
+              "year": "1914"
+            }
+          ]
+        },
+        {
+          "title": "Luzifer in Natur, Jahreszeiten und kosmischen Zusammenhängen",
+          "rows": [
+            {
+              "aussage": "Frühlingszeit: Mensch luziferischen Wesen ausgesetzt, Wirkung durch Sommer",
+              "zitat": "Wiederum ist es ja so, dass zwar dasjenige, was die luziferischen Wesen erhoffen, jedes Jahr aufs neue zerstört wird für die äußere Natur; aber im Menschen wirkt es. Und der Mensch ist um die Frühlingszeit, wie er auf der einen Seite den ahrimanischen Kräften stark ausgesetzt ist, wiederum auch immer mehr und mehr den luziferischen Wesen ausgesetzt.",
+              "id": "GA229/3",
+              "index": "i7zyeq",
+              "ref": "GA229/3:i7zyeq",
+              "fileName": "GA229/3 - DRITTER VORTRAG, Dornach, 7. Oktober 1923",
+              "title": "DRITTER VORTRAG",
+              "relevance": "hoch",
+              "date": "1923-10-07",
+              "year": "1923"
+            },
+            {
+              "aussage": "Luzifer und Ahriman: Figuren in der Mittelpunktsgruppe des Goetheanums",
+              "zitat": "Sie haben daher in unserer Mittelpunktsgruppe für unseren Bau eben diese Trinität: den Menschheitsrepräsentanten [...] dann diejenige Figur, in der alles Hauptmäßige, Kopfmäßige wirkt: Ahriman; diejenige Figur, in der alles Extremitätenmäßige wirkt: Luzifer.",
+              "id": "GA183/9",
+              "index": "qnick4",
+              "ref": "GA183/9:qnick4",
+              "fileName": "GA183/9 - NEUNTER VORTRAG, Dornach, 2. September 1918",
+              "title": "NEUNTER VORTRAG",
+              "relevance": "hoch",
+              "date": "1918-09-02",
+              "year": "1918"
+            },
+            {
+              "aussage": "Luziferische Kräfte: Götter verlieren Einfluss auf Menschenseelen durch Luzifer und Ahriman",
+              "zitat": "Als dieser Zeitpunkt heranrückte, mussten sich die Götter der höheren Hierarchien sagen: Wir verlieren die Möglichkeit, dass unsere Diener in die Menschenseelen eingreifen. Dadurch, dass wir Luzifer und Ahriman nicht abhalten konnten, sind wir nur imstande, bis zu diesem Zeitpunkt zu wirken durch unsere Diener. Dann entstehen in den Menschenseelen Kräfte, die nicht mehr von den Engeln, Erzengeln und Archai dirigiert werden können.",
+              "id": "GA148/18",
+              "index": "w94his",
+              "ref": "GA148/18:w94his",
+              "fileName": "GA148/18 - Zweiter Vortrag, Köln, 18. Dezember 1913",
+              "title": "Zweiter Vortrag",
+              "relevance": "hoch",
+              "date": "1913-12-18",
+              "year": "1913"
+            },
+            {
+              "aussage": "Mysterium von Golgatha: korrigiert luziferische Einwirkung – Unterscheidung Gut und Böse",
+              "zitat": "Dies ist der Sinn des Mysteriums von Golgatha, dass in gewisser Weise allmählich wieder korrigiert wird – symbolisch ist es auch in der Bibel angedeutet –, was durch Luzifer in die Welt gekommen ist: Eure Augen werden aufgetan werden, und ihr werdet unterscheiden das Gute vom Bösen.",
+              "id": "GA254/12",
+              "index": "y4am0q",
+              "ref": "GA254/12:y4am0q",
+              "fileName": "GA254/12 - ZWÖLFTER VORTRAG, Dornach, 1. November 1915",
+              "title": "ZWÖLFTER VORTRAG",
+              "relevance": "hoch",
+              "date": "1915-11-01",
+              "year": "1915"
+            }
+          ]
+        },
+        {
+          "title": "Luzifer und das Weibliche, Rassen- und Kulturentwicklung",
+          "rows": [
+            {
+              "aussage": "Frau: berufen, luziferisches Prinzip aufzunehmen – Wirkung auf Seelisches",
+              "zitat": "Wenn wir bedenken, dass Luzifer auf dem Umweg durch das menschlich Niedere auf das Seelische wirkt, so war die Frau dazu berufen, den Einfluss des luziferischen Prinzips aufzunehmen.",
+              "id": "GA090a/81",
+              "index": "4q7v1o",
+              "ref": "GA090a/81:4q7v1o",
+              "fileName": "GA090a/81 - TRENNUNG IN MÄNNLICH UND WEIBLICH, Berlin, 31. Dezember 1904",
+              "title": "TRENNUNG IN MÄNNLICH UND WEIBLICH",
+              "relevance": "hoch",
+              "date": "1904-12-31",
+              "year": "1904"
+            },
+            {
+              "aussage": "Luziferisches Prinzip: Schlange in Schöpfungsgeschichte, öffnet Augen über Gut und Böse",
+              "zitat": "In der Schöpfungsgeschichte wurde das luziferische Prinzip als Schlange hineingestellt. Der Mensch musste aus dumpfer Art herauswachsen, da kam die Schlange und öffnete ihm die Augen über Gut und Böse, und damit wurde dem göttlichen Prinzip ein anderes entgegengesetzt.",
+              "id": "GA068a/20",
+              "index": "rbdxbz",
+              "ref": "GA068a/20:rbdxbz",
+              "fileName": "GA068a/20 - ÜBER LUZIFER, Leipzig, 9. November 1906",
+              "title": "ÜBER LUZIFER",
+              "relevance": "hoch",
+              "date": "1906-11-09",
+              "year": "1906"
+            },
+            {
+              "aussage": "Christus und Luzifer als zwei Pole seit Mysterium von Golgatha",
+              "zitat": "Seit das Christus-Prinzip in die Erde eingegriffen hat, stehen sich Christus und Luzifer als zwei Pole gegenüber. Das Christus-Prinzip hat die Liebe verinnerlicht und zum Wesen der Seele gemacht.",
+              "id": "GA068a/22",
+              "index": "9daioa",
+              "ref": "GA068a/22:9daioa",
+              "fileName": "GA068a/22 - DIE KINDER DES LUZIFER, Leipzig, 14. Dezember 1906",
+              "title": "DIE KINDER DES LUZIFER",
+              "relevance": "hoch",
+              "date": "1906-12-14",
+              "year": "1906"
+            },
+            {
+              "aussage": "Orientalisch-luziferisches Element in der Theosophie: Kampf der Anthroposophie dagegen",
+              "zitat": "Denken Sie nur einmal, wie es notwendig war, das orientalisch-luziferische Element abzulehnen in unserer mitteleuropäischen theosophischen Bewegung. Denn dasjenige, was wir von Osten bekamen als Theosophie, es war von Luzifer durchsetzt und führte ja auch in seinem Extrem zur Anerkennung eines äußeren Menschengötzen, eines physisch wiederverkörperten Christus.",
+              "id": "GA159/10",
+              "index": "kvto9n",
+              "ref": "GA159/10:kvto9n",
+              "fileName": "GA159/10 - DIE BEDEUTUNG DES HINEINGESTELLTSEINS MITTELEUROPAS ZWISCHEN OST UND WEST AHRIMANISCHE INSPIRATION UND SPIRITUELLE IMPULSE DAS SYMBOL DES ROSENKREUZES, Prag, 15. Mai 19",
+              "title": "DIE BEDEUTUNG DES HINEINGESTELLTSEINS MITTELEUROPAS ZWISCHEN OST UND WEST AHRIMANISCHE INSPIRATION UND SPIRITUELLE IMPULSE DAS SYMBOL DES ROSENKREUZES",
+              "relevance": "hoch",
+              "date": "",
+              "year": ""
+            }
+          ]
+        },
+        {
+          "title": "Luzifer und das Zusammenwirken aller drei Impulse (normal, luziferisch, ahrimanisch)",
+          "rows": [
+            {
+              "aussage": "Drei Impulse: normales Menschliches, Luziferisches, Ahrimanisches – nicht einfach meidbar",
+              "zitat": "Da muss man schon das Zusammenwirken dieser drei Impulse: des normal Menschlichen, des Luziferischen, des Ahrimanischen ins Auge fassen. Denn diese Dinge darf man nicht so behandeln, dass man sagt: Ich will ein normaler Mensch sein, und so melde ich alles Ahrimanische, alles Luziferische! - Wer so richtig brav sein will, alles Ahrimanische, alles Luziferische meiden will, der patscht nach der einen Seite ins Luziferische, nach der anderen Seite ins Ahrimanische erst recht hinein.",
+              "id": "GA182/5",
+              "index": "98m8hq",
+              "ref": "GA182/5:98m8hq",
+              "fileName": "GA182/5 - DAS SICH-AUFBÄUMEN DER MENSCHEN GEGEN DEN GEIST, Hamburg 30. Juni 1918",
+              "title": "DAS SICH-AUFBÄUMEN DER MENSCHEN GEGEN DEN GEIST",
+              "relevance": "hoch",
+              "date": "1918-06-30",
+              "year": "1918"
+            },
+            {
+              "aussage": "Altes ohne Geistesimpulse: verwandelt sich in Ahrimanisches und Luziferisches",
+              "zitat": "Von da ab war es nötig – und ist bis heute nötig geblieben selbstverständlich, und wird noch lange nötig sein –, dass die Menschen zugänglich werden für Ideen, für Impulse, die aus der geistigen Welt selbst heraus sind. Sonst verwandelt sich das Alte in Ahrimanisches, Luziferisches.",
+              "id": "GA179/3",
+              "index": "1ffcpl",
+              "ref": "GA179/3:1ffcpl",
+              "fileName": "GA179/3 - DRITTER VORTRAG, Dornach, 10. Dezember 1917",
+              "title": "DRITTER VORTRAG",
+              "relevance": "mittel",
+              "date": "1917-12-10",
+              "year": "1917"
+            },
+            {
+              "aussage": "Künstlerische Impulse: bei Abweichung sofort luziferische und ahrimanische Kräfte los",
+              "zitat": "In dem Augenblicke, wo zum Beispiel das Künstlerische nur ein wenig auf eine schiefe Ebene geführt wird, in dem Augenblicke sind sogleich auch alle möglichen luziferischen und ahrimanischen Kräfte los, und die Sache führt in ein falsches Fahrwasser hinein.",
+              "id": "GA252/17",
+              "index": "6k3rmt",
+              "ref": "GA252/17:6k3rmt",
+              "fileName": "GA252/17 - ANSPRACHE ZUR 9. GENERALVERSAMMLUNG DES VEREINS DES GOETHEANUM, DER FREIEN HOCHSCHULE FÜR GEISTESWISSENSCHAFT, Dornach, 25. Juni 1922",
+              "title": "ANSPRACHE ZUR 9. GENERALVERSAMMLUNG DES VEREINS DES GOETHEANUM",
+              "relevance": "mittel",
+              "date": "1922-06-25",
+              "year": "1922"
+            }
+          ]
+        },
+        {
+          "title": "Die Zeitschrift «Luzifer-Gnosis»",
+          "rows": [
+            {
+              "aussage": "«Luzifer-Gnosis»: Steiners Zeitschrift, dritter Jahrgang, theosophische Fragen",
+              "zitat": "Die Zeitschrift Luzifer - Gnosis, die in Berlin erscheint, und deren Herausgeber Dr. Rudolf Steiner ist, hat jetzt in ihrem dritten Jahrgang begonnen; sie sucht durch eine möglichst allseitige Behandlung der theosophischen Fragen das Interesse für unsere Bewegung zu heben.",
+              "id": "GA037/4",
+              "index": "u7w480",
+              "ref": "GA037/4:u7w480",
+              "fileName": "GA037/4 - REPORT OF THE GERMAN SECTION 1905",
+              "title": "REPORT OF THE GERMAN SECTION 1905",
+              "relevance": "mittel",
+              "date": "",
+              "year": ""
+            },
+            {
+              "aussage": "«Luzifer-Gnosis»: Erstveröffentlichungsort von «Wie erlangt man Erkenntnisse der höheren Welten?»",
+              "zitat": "In «Luzifer-Gnosis» sind ursprünglich auch die Aufsätze zu «Wie erlangt man Erkenntnisse der höheren Welten?», «Die Stufen der höheren Erkenntnis» und «Aus der Akasha-Chronik» erschienen.",
+              "id": "GA034/69",
+              "index": "hkceme",
+              "ref": "GA034/69:hkceme",
+              "fileName": "GA034/69 - HINWEISE",
+              "title": "HINWEISE",
+              "relevance": "mittel",
+              "date": "",
+              "year": ""
+            }
+          ]
+        },
+        {
+          "title": "Luzifers Rolle in der Menschheitsentwicklung",
+          "rows": [
+            {
+              "aussage": "Luziferischer Einfluss: karmische Ursache von Geburt und Tod",
+              "zitat": "Daran sehen wir, wie der luziferische Einfluss die karmische Ursache des Todes des Menschen ist. Gäbe es nicht diese Form der Geburt, so gäbe es nicht diese Form des Todes für den Menschen. Der Tod ist die karmische Folge der Geburt, Geburt und Tod hängen karmisch zusammen.",
+              "id": "GA120/9",
+              "index": "wgkskn",
+              "ref": "GA120/9:wgkskn",
+              "fileName": "GA120/9 - NEUNTER VORTRAG, Hamburg, 26. Mai 1910",
+              "title": "NEUNTER VORTRAG",
+              "relevance": "hoch",
+              "date": "1910-05-26",
+              "year": "1910"
+            },
+            {
+              "aussage": "Luzifer: Ermöglicher menschlicher Freiheit, aber Übergriff auf den ganzen Kosmos problematisch",
+              "zitat": "Diese luziferische Tendenz, sie ist angemessen der Weltenordnung in den Gebieten, in denen freies Geschehen herrschen soll. Und da ist Luzifer der berechtigte geistige Helfer der Menschheits-Entfaltung. Ohne seine Hilfe könnte in das Geistig-Seelische des Menschen, das sich auf der Grundlage des berechenbaren Leiblichen aufbaut, Freiheit nicht einziehen. Aber Luzifer möchte diese Tendenz auf den ganzen Kosmos ausdehnen.",
+              "id": "GA026/21",
+              "index": "vnhb3r",
+              "ref": "GA026/21:vnhb3r",
+              "fileName": "GA026/21 - HIMMELSGESCHICHTE MYTHOLOGISCHE GESCHICHTE ERDGESCHICHTE MYSTERIUM VON GOLGATHA",
+              "title": "HIMMELSGESCHICHTE MYTHOLOGISCHE GESCHICHTE ERDGESCHICHTE MYSTERIUM VON GOLGATHA",
+              "relevance": "hoch",
+              "date": "",
+              "year": ""
+            },
+            {
+              "aussage": "Luzifer: notwendig für Selbstbewusstsein, da Erzengel weniger stark als Archai",
+              "zitat": "Den mehr geistigen Kräften, die von den Erzengeln ausgehen, sind Luzifer und Ahriman mehr gewachsen als den stärkeren der Archai.",
+              "id": "GA026/24",
+              "index": "t9wbk2",
+              "ref": "GA026/24:t9wbk2",
+              "fileName": "GA026/24 - ZWEITER TEIL DER BETRACHTUNG WAS OFFENBART SICH, WENN MAN IN DIE VORIGEN LEBEN ZWISCHEN TOD UND NEUER GEBURT ZURÜCKSCHAUT",
+              "title": "ZWEITER TEIL DER BETRACHTUNG WAS OFFENBART SICH",
+              "relevance": "mittel",
+              "date": "",
+              "year": ""
+            },
+            {
+              "aussage": "Luzifer vermischt sich mit der Schöpfung – Rosenkreuz-Formel: Ex Deo nascimur / In Christo morimur",
+              "zitat": "Das heute Gesagte können wir so in ein Gefühl verwandeln: Aus Gott sind wir geboren [Ex Deo nascimur], - aber da Luzifer sich mit der Schöpfung vermischt hat, muss das Holz des Kreuzes verbrennen, verkohlen, schwarz werden: In Christo morimur.",
+              "id": "GA266c/30",
+              "index": "qe1cqt",
+              "ref": "GA266c/30:qe1cqt",
+              "fileName": "GA266c/30 - Esoterische Stunde, Leipzig, 30. Dezember 1913",
+              "title": "Esoterische Stunde",
+              "relevance": "hoch",
+              "date": "1913-12-30",
+              "year": "1913"
+            },
+            {
+              "aussage": "Luzifer und Ahriman: Intention, Erdenentwicklung in die achte Sphäre verschwinden zu lassen",
+              "zitat": "Wir sehen: es liegt die Tatsache vor, dass seit dem Beginn der Erdenentwickelung es die Intention Luzifers und Ahrimans war, die ganze Erdenentwickelung verschwinden zu lassen in die achte Sphäre.",
+              "id": "GA254/5",
+              "index": "d0w3uh",
+              "ref": "GA254/5:d0w3uh",
+              "fileName": "GA254/5 - FÜNFTER VORTRAG, Dornach, 18. Oktober 1915",
+              "title": "FÜNFTER VORTRAG",
+              "relevance": "hoch",
+              "date": "1915-10-18",
+              "year": "1915"
+            },
+            {
+              "aussage": "Luziferische Geister: Zersplitterung der Weltensprache in viele Sprachen",
+              "zitat": "Das, was Weltensprache ist, diese vielen Verschiedenheiten und Zersplitterungen sind durch die luziferischen Geister veranlasst worden.",
+              "id": "GA266b/35",
+              "index": "5sphhv",
+              "ref": "GA266b/35:5sphhv",
+              "fileName": "GA266b/35 - Esoterische Stunde, Karlsruhe, 10. Oktober 1911",
+              "title": "Esoterische Stunde",
+              "relevance": "hoch",
+              "date": "1911-10-10",
+              "year": "1911"
+            },
+            {
+              "aussage": "Karfunkel: entstand beim Sturz Luzifers aus dem Diadem",
+              "zitat": "Wie eine schöne Legende berichtet, verlor Luzifer, als er aus den himmlischen Bereichen herabgestürzt wurde, einen Stein aus seinem Diadem – das war der Karfunkel. In der Tat entstand dieser Edelstein zur selben Zeit, als das menschliche Vorstellungsvermögen, zunächst bildhaft, zu erwachen begann.",
+              "id": "GA097/29",
+              "index": "t0ygbb",
+              "ref": "GA097/29:t0ygbb",
+              "fileName": "GA097/29 - EDELSTEINE UND METALLE UND IHR ZUSAMMENHANG MIT DER ERDEN- UND MENSCHHEITSEVOLUTION, Leipzig, 13. Oktober 1906",
+              "title": "EDELSTEINE UND METALLE UND IHR ZUSAMMENHANG MIT DER ERDEN- UND MENSCHHEITSEVOLUTION",
+              "relevance": "mittel",
+              "date": "1906-10-13",
+              "year": "1906"
+            },
+            {
+              "aussage": "Christus vereinigt seine Herrschaft mit der des Luzifer; Merkur bereitet Christuswege vor",
+              "zitat": "Christus vereinigt seine Herrschaft mit der des Luzifer. Will man nun die Höhen hinauf den Weg zu den Göttern finden, so braucht man den Götterboten Merkur. Er ist derjenige, der die Wege des Christus von der Mitte der atlantischen Wurzelrasse an vorbereitete.",
+              "id": "GA093a/26",
+              "index": "iixkut",
+              "ref": "GA093a/26:iixkut",
+              "fileName": "GA093a/26 - Berlin, 28. Oktober 1905",
+              "title": "Berlin",
+              "relevance": "mittel",
+              "date": "1905-10-28",
+              "year": "1905"
+            }
+          ]
+        },
+        {
+          "title": "Luzifer und Ahriman: Gleichgewicht und Wechselwirkung",
+          "rows": [
+            {
+              "aussage": "Menschenseele: Waagebalken zwischen luziferischem (Kopf) und ahrimanischem (Wille) Element",
+              "zitat": "Wir Menschen stehen mit unserem Seelenleben wirklich so, dass dieses Seelenleben wie ein Waagebalken ist, der das Gleichgewicht zunächst suchen muss zwischen dem luziferischen Element auf der einen Seite, dem ahrimanischen Element auf der anderen Seite. Nur dass das luziferische Element in unserem hellen Kopfe liegt, das ahrimanische Element unten liegt in der Weisheit, die unseren Willen durchzieht.",
+              "id": "GA194/4",
+              "index": "f2ymwn",
+              "ref": "GA194/4:f2ymwn",
+              "fileName": "GA194/4 - VIERTER VORTRAG, Dornach, 28. November 1919",
+              "title": "VIERTER VORTRAG",
+              "relevance": "hoch",
+              "date": "1919-11-28",
+              "year": "1919"
+            },
+            {
+              "aussage": "Luziferisch: Gefühle und erste Lebenshälfte; ahrimanisch: Verstand, Technik, zweite Lebenshälfte",
+              "zitat": "Das Luziferische ist in vielfacher Weise natürlich vorhanden. Das Ahrimanische, es ergreift die Menschen. Das Luziferische lebt mehr in Gefühlen. Das Ahrimanische wirkt mehr durch den menschlichen Verstand und verwirklicht und verkörpert sich in den Technizismen.",
+              "id": "GA197/10",
+              "index": "tqx1b9",
+              "ref": "GA197/10:tqx1b9",
+              "fileName": "GA197/10 - ZEHNTER VORTRAG, Stuttgart, 14. November 1920",
+              "title": "ZEHNTER VORTRAG",
+              "relevance": "hoch",
+              "date": "1920-11-14",
+              "year": "1920"
+            },
+            {
+              "aussage": "Luziferisch: Illusion, Stoff erzeuge Geistiges; ahrimanisch: Illusion äußerer Energieumwandlung",
+              "zitat": "Das eine ist die luziferische, das andere ist die ahrimanische Illusion.",
+              "id": "GA184/10",
+              "index": "wjo9cn",
+              "ref": "GA184/10:wjo9cn",
+              "fileName": "GA184/10 - ZEHNTER VORTRAG, Dornach, 4. Oktober 1918",
+              "title": "ZEHNTER VORTRAG",
+              "relevance": "hoch",
+              "date": "1918-10-04",
+              "year": "1918"
+            },
+            {
+              "aussage": "Luziferisch-ahrimanisch: Krankheit und Tod im Physischen, Täuschung im Seelischen, Egoismus im Geistigen",
+              "zitat": "Das luziferisch-ahrimanische Element überliefert uns Krankheit und Tod im Physischen, im Seelischen entwickelt es uns all dasjenige, was als Täuschung auftritt dadurch, dass wir das eine oder das andere, was nur der Gedankenwelt, Vorstellungswelt, Phantasiewelt angehört, als eine Wirklichkeit ansehen. In bezug auf das geistige Element ferner dringt gerade die Begierde des Egoismus auf diesem Wege in unser Menschenwesen ein.",
+              "id": "GA194/3",
+              "index": "3hfcfu",
+              "ref": "GA194/3:3hfcfu",
+              "fileName": "GA194/3 - DRITTER VORTRAG, Dornach, 23. November 1919",
+              "title": "DRITTER VORTRAG",
+              "relevance": "hoch",
+              "date": "1919-11-23",
+              "year": "1919"
+            },
+            {
+              "aussage": "Luziferische Kräfte: Ausdruck des Wollens im Ätherleib; ahrimanische: Ausdruck des Denkens",
+              "zitat": "Wenn die ahrimanischen Kräfte die Oberhand haben, so ist das ein Ausdruck des Denkens, wenn die luziferischen Kräfte die Überhand haben, so ist das ein Ausdruck des Wollens, und wenn sie sich gegenseitig raufen, könnte man sagen, so ist das ein Ausdruck des Fühlens.",
+              "id": "GA158/7",
+              "index": "4p7yeg",
+              "ref": "GA158/7:4p7yeg",
+              "fileName": "GA158/7 - SECHSTER VORTRAG, Dornach, 22. November 1914",
+              "title": "SECHSTER VORTRAG",
+              "relevance": "hoch",
+              "date": "1914-11-22",
+              "year": "1914"
+            },
+            {
+              "aussage": "Luziferische Wesenheiten: kämpfen gegen Marsartiges, Jupiterhaftes, Saturnhaftes; ahrimanische gegen Mondhaftes, Venushaftes, Merkurhaftes",
+              "zitat": "Erstens kämpfen die ahrimanischen und luziferischen Wesen gegeneinander; zweitens aber bekämpfen die luziferischen Wesen alles außerhalb der Sonne liegende Marshafte, Jupiterhafte, Saturnhafte; und dann wiederum bekämpfen die ahrimanischen Wesenheiten alles Mondhafte, Venushafte, Merkurhafte.",
+              "id": "GA218/8",
+              "index": "hxzkd2",
+              "ref": "GA218/8:hxzkd2",
+              "fileName": "GA218/8 - ERLEBNISSE DER MENSCHENSEELE IM SCHLAFE UND NACH DEM TODE IN DER GEISTIGEN WELT, Zweiter Vortrag, London, 16. November 1922",
+              "title": "ERLEBNISSE DER MENSCHENSEELE IM SCHLAFE UND NACH DEM TODE IN DER GEISTIGEN WELT",
+              "relevance": "hoch",
+              "date": "1922-11-16",
+              "year": "1922"
+            },
+            {
+              "aussage": "Luziferische Wesenheiten: Verwirrung des Menschen gegenüber seinem Karma",
+              "zitat": "Während also die ahrimanischen Wesenheiten den Menschen in eine Verwirrung hineinbringen in bezug auf sein Ich gegenüber seinen physischen Impulsen, bringen ihn die luziferischen Wesenheiten in eine Verwirrung hinein gegenüber seinem Karma.",
+              "id": "GA232/2",
+              "index": "06t1qz",
+              "ref": "GA232/2:06t1qz",
+              "fileName": "GA232/2 - ZWEITER VORTRAG, Dornach, 24. November 1923",
+              "title": "ZWEITER VORTRAG",
+              "relevance": "hoch",
+              "date": "1923-11-24",
+              "year": "1923"
+            },
+            {
+              "aussage": "Luziferisch-ahrimanische Spaltung: Hindernis für Beziehung zu den Toten und zur geistigen Welt",
+              "zitat": "Würde das nicht der Fall sein, würden wir uns nicht so spalten, dass der eine Pol unserer Wesenheit ahrimanisch, der andere luziferisch ist, so würden wir eine viel nähere Beziehung auch zu den Toten haben – die fortwährend unter uns bleiben –, weil wir eine viel nähere Beziehung auch zur geistigen Welt hätten.",
+              "id": "GA181/19",
+              "index": "6orznh",
+              "ref": "GA181/19:6orznh",
+              "fileName": "GA181/19 - NEUNZEHNTER VORTRAG, Berlin, 23. Juli 1918",
+              "title": "NEUNZEHNTER VORTRAG",
+              "relevance": "mittel",
+              "date": "1918-07-23",
+              "year": "1918"
+            }
+          ]
+        },
+        {
+          "title": "Luzifer und das menschliche Geistesleben: Genie, Denken, Kunst",
+          "rows": [
+            {
+              "aussage": "Luziferische Wesenheit: Quelle des Genies, wirkt parasitär im Menschen",
+              "zitat": "Man darf über den luziferischen Geist nicht so sprechen, als ob er durchaus etwas Hassenswertes wäre, sondern er ist etwas - weil er sich stellvertretend im Menschen entwickelt wie ein Parasit -, was macht, dass der Mensch besessen von ihm ist und unter seinem Einfluss arbeitet als ein Mensch von Genie, als ein inspirierter Mensch. So sind die luziferischen Geister durchaus notwendig.",
+              "id": "GA130/13",
+              "index": "3cjryw",
+              "ref": "GA130/13:3cjryw",
+              "fileName": "GA130/13 - WELTEN-ICH UND MENSCHEN-ICH. MIKROKOSMISCH-ÜBERSINNLICHE WESENHEITEN. DIE NATUR DES CHRISTUS, München, 9. Januar 1912",
+              "title": "WELTEN-ICH UND MENSCHEN-ICH. MIKROKOSMISCH-ÜBERSINNLICHE WESENHEITEN. DIE NATUR DES CHRISTUS",
+              "relevance": "hoch",
+              "date": "1912-01-09",
+              "year": "1912"
+            },
+            {
+              "aussage": "Goethe: am wenigsten luziferisch denkend, hält sich ans konkrete Einzelne",
+              "zitat": "Wenn das Denken nicht luziferisch wäre, dann würden die meisten Menschen der Erde, alle diejenigen, die nicht luziferisch denken, so denken, wie einer derjenigen Menschen, der am wenigsten luziferisch dachte; das ist Goethe. Goethe gehört zu denjenigen Menschen, die am wenigsten luziferisch dachten, die in einer gewissen Beziehung darauf ausgingen, den luziferischen Mächten kühn ins Angesicht zu schauen.",
+              "id": "GA191/15",
+              "index": "1646x0",
+              "ref": "GA191/15:1646x0",
+              "fileName": "GA191/15 - FÜNFZEHNTER VORTRAG, Dornach, 15. November 1919",
+              "title": "FÜNFZEHNTER VORTRAG",
+              "relevance": "hoch",
+              "date": "1919-11-15",
+              "year": "1919"
+            },
+            {
+              "aussage": "Luziferische Wesenheiten: wollen Kunst leblos, nur alte Stilformen, kein moderner Geist",
+              "zitat": "Ebenso möchten diese luziferischen Wesenheiten die Kunst möglichst lebenslos, geistlos in dem Sinne haben, dass in die Form nicht Geist einzieht. Sie möchten immer nur Renaissance haben, das, was in alten Zeiten gelebt hat. Sie geben dem Menschen einen Hass ein gegen jede neue Stilform, die aus dem modernen Menschlichen wirklich hervorgehen kann.",
+              "id": "GA208/3",
+              "index": "5wejr9",
+              "ref": "GA208/3:5wejr9",
+              "fileName": "GA208/3 - VIERZEHNTER VORTRAG, Dornach, 23. Oktober 1921",
+              "title": "VIERZEHNTER VORTRAG",
+              "relevance": "hoch",
+              "date": "1921-10-23",
+              "year": "1921"
+            },
+            {
+              "aussage": "Luzifer auf der Bühne: naturalistisch-realistische Dramen als luziferisches Wirken",
+              "zitat": "In den naturalistisch-realistischen Dramen, die heute geschaffen werden, ist Luzifer wirksam. Luzifer schreitet über die Bühnen. Noch vor hundert Jahren konnte Schiller seinem «Tell» Worte in den Mund legen, wie sie nie ein Mensch gesprochen hat.",
+              "id": "GA266c/21",
+              "index": "5jauic",
+              "ref": "GA266c/21:5jauic",
+              "fileName": "GA266c/21 - Esoterische Stunde, Kristiania, 6. Oktober 1913",
+              "title": "Esoterische Stunde",
+              "relevance": "hoch",
+              "date": "1913-10-06",
+              "year": "1913"
+            },
+            {
+              "aussage": "Faust: umgekehrter Ödipus, der Luzifernatur in sich hereinbekommt",
+              "zitat": "Er tut es auch, indem er sich dem Leben ergibt, das nicht an den Kopf gebunden ist. Er ist der umgekehrte Ödipus, der die Luzifernatur in sich hereinbekommt.",
+              "id": "GA158/5",
+              "index": "qfq4ih",
+              "ref": "GA158/5:qfq4ih",
+              "fileName": "GA158/5 - VIERTER VORTRAG, Dornach, 20. November 1914",
+              "title": "VIERTER VORTRAG",
+              "relevance": "mittel",
+              "date": "1914-11-20",
+              "year": "1914"
+            },
+            {
+              "aussage": "Milton, Klopstock: luziferische Eigenschaften auf das Göttliche übertragen",
+              "zitat": "Wir lesen heute Milton, Klopstock, ihre Schilderungen von der übersinnlichen Welt; wie lesen wir sie? So lesen wir sie, dass überall luziferische Eigenschaften übertragen sind auf dasjenige, was man göttlich nennen will.",
+              "id": "GA195/2",
+              "index": "uxtgji",
+              "ref": "GA195/2:uxtgji",
+              "fileName": "GA195/2 - ZWEITER VORTRAG, Stuttgart, 25. Dezember 1919",
+              "title": "ZWEITER VORTRAG",
+              "relevance": "hoch",
+              "date": "1919-12-25",
+              "year": "1919"
+            },
+            {
+              "aussage": "Luziferisches: das Stehengebliebene, zur falschen Zeit Wirkende",
+              "zitat": "Wenn irgend etwas zu seiner Zeit sich entwickelt, dann ist es im Grunde genommen gut für die Menschheit. Etwas anderes ist es, wenn es stehen bleibt und später herauskommt; wenn dies der Fall ist, das heißt, wenn das Cäsarmäßige noch im zwanzigsten Jahrhundert eine Rolle spielt, dann ist das Cäsarmäßige ins Luziferische umgesetzt. Denn das, was eigentlich in anderer Zeit gewirkt haben sollte, wird, wenn es stehen bleibt, zum Luziferischen; das ist ja das Wesentliche des Luziferischen.",
+              "id": "GA195/2",
+              "index": "3mc6zr",
+              "ref": "GA195/2:3mc6zr",
+              "fileName": "GA195/2 - ZWEITER VORTRAG, Stuttgart, 25. Dezember 1919",
+              "title": "ZWEITER VORTRAG",
+              "relevance": "hoch",
+              "date": "1919-12-25",
+              "year": "1919"
+            }
+          ]
+        },
+        {
+          "title": "Luzifer in der esoterischen Praxis und Schulung",
+          "rows": [
+            {
+              "aussage": "Esoteriker: muss Gleichgewicht zwischen Ahriman und Luzifer halten, Übergriffe erkennen",
+              "zitat": "Der Esoteriker muss nun seine Seele so erkraften, dass er die Übergriffe dieser Wesenheiten erkennt und sich davor bewahrt. Erst wenn der Mensch im physischen Leben sich dazu gebracht hat, das Gleichgewicht zwischen Ahriman und Luzifer zu halten, wenn er bei allem, was ihm begegnet, weiß, welchen Ursprungs es ist, erst dann wird ihm die Selbstsicherheit in der geistigen Welt werden.",
+              "id": "GA266c/18",
+              "index": "tvefwi",
+              "ref": "GA266c/18:tvefwi",
+              "fileName": "GA266c/18 - Esoterische Stunde, München, 3. September 1913",
+              "title": "Esoterische Stunde",
+              "relevance": "hoch",
+              "date": "1913-09-03",
+              "year": "1913"
+            },
+            {
+              "aussage": "Luzifer: bietet Weisheit ohne Liebe, selbstsüchtiges Wissen, will Menschen zu Soldaten seiner Heere",
+              "zitat": "Luzifer, dessen Kräfte in uns leben, sagt uns etwa so: Du wirst in alle Verhältnisse hineinschauen, du wirst alles wissen, dir wird alles klar sein, wenn du mich ganz aufnimmst in dich. - Weisheit ohne Liebe will er den Menschen geben; sie führt zu selbstsüchtigem Wissen. Luzifer glaubt noch immer, dass er die Menschen zu Soldaten seiner Heere gewinnen wird, und er arbeitet stark daran, dieses zu erreichen.",
+              "id": "GA266b/27",
+              "index": "mqhmxz",
+              "ref": "GA266b/27:mqhmxz",
+              "fileName": "GA266b/27 - Esoterische Stunde, Straßburg, 19. Februar 1911",
+              "title": "Esoterische Stunde",
+              "relevance": "hoch",
+              "date": "1911-02-19",
+              "year": "1911"
+            },
+            {
+              "aussage": "Fehlende Demut: luziferische Geister erscheinen in Lichtgestalt statt Engel",
+              "zitat": "Ohne Demut erscheinen einem leicht die Engel karikiert, in Tier- oder dergleichen Gestalt und die luziferischen Geister in Lichtgestalt. Auch wenn ein Okkultist auf der Stufe steht, dass er bewusst in der Gegenwart der Meister war, und bleibt nicht demütig, rühmt sich vielleicht dessen vor andern, dann ist es leicht möglich, dass sich schlimme Geister oder auch schlimme Okkultisten der Maske der Meister bedienen und ihn belügen und verführen.",
+              "id": "GA266b/31",
+              "index": "do5how",
+              "ref": "GA266b/31:do5how",
+              "fileName": "GA266b/31 - Esoterische Stunde, Prag, 29. März 1911",
+              "title": "Esoterische Stunde",
+              "relevance": "hoch",
+              "date": "1911-03-29",
+              "year": "1911"
+            },
+            {
+              "aussage": "Samael: luziferische Wesenheit, abkommandiert für Fortschritt des Esoterikers",
+              "zitat": "Dasjenige Wesen, das nun zum Fortschritt des Esoterikers dieses Ereignis bewirkt, ist eine der luziferischen Wesenheiten, welche zu diesem Zweck abkommandiert sind: es ist Samael mit seinen Scharen, und der Esoteriker muss dessen Wirken als etwas durchaus Gutes für seinen Fortschritt ansehen.",
+              "id": "GA266b/41",
+              "index": "stw5mp",
+              "ref": "GA266b/41:stw5mp",
+              "fileName": "GA266b/41 - Esoterische Stunde, Hannover, 31. Dezember 1911",
+              "title": "Esoterische Stunde",
+              "relevance": "hoch",
+              "date": "1911-12-31",
+              "year": "1911"
+            },
+            {
+              "aussage": "Fahne Luzifers: Gegenstand der Imagination in den Exerzitien des Ignatius",
+              "zitat": "Nun kommt der erste Teil der eigentlichen Übung, die Fahne Luzifers. Der Übende richtet also den geistigen Blick der Imagination hin auf das Heer, welches unter der Fahne Luzifers ist.",
+              "id": "GA185/8",
+              "index": "1e2u4t",
+              "ref": "GA185/8:1e2u4t",
+              "fileName": "GA185/8 - ACHTER VORTRAG, Dornach, 2. November 1918",
+              "title": "ACHTER VORTRAG",
+              "relevance": "hoch",
+              "date": "1918-11-02",
+              "year": "1918"
+            },
+            {
+              "aussage": "Luzifer stärkt Egoismus; Christusname oft auf den Lippen, aber Ahriman gemeint",
+              "zitat": "Luzifer, er stärkt unseren Egoismus. Da ist ein Dritter, der zu uns tritt, der Unbekannte, der zu uns tritt und uns sagt: «Du bist ein flatterhafter Mensch», das ärgert uns. [...] Die Menschen gehen in die Kirchen und beten zu den Wesenheiten, die sie lieben. Wir tragen oftmals auf den Lippen den Namen des Christus, aber wir meinen Ahriman.",
+              "id": "GA266c/27",
+              "index": "c370an",
+              "ref": "GA266c/27:c370an",
+              "fileName": "GA266c/27 - Esoterische Stunde, Stuttgart, 23. November 1913",
+              "title": "Esoterische Stunde",
+              "relevance": "hoch",
+              "date": "1913-11-23",
+              "year": "1913"
+            },
+            {
+              "aussage": "S-Laut: Zeichen des Luzifer, der Schlange – zu überwinden",
+              "zitat": "Das Wellige, Wogende des s ist auch das Zeichen des Luzifer, der Schlange. Die müssen wir überwinden, um die Wirklichkeit des P.S.S.R. zu gewinnen.",
+              "id": "GA266c/8",
+              "index": "tbgfg4",
+              "ref": "GA266c/8:tbgfg4",
+              "fileName": "GA266c/8 - Esoterische Stunde, Berlin, 16. März 1913",
+              "title": "Esoterische Stunde",
+              "relevance": "mittel",
+              "date": "1913-03-16",
+              "year": "1913"
+            },
+            {
+              "aussage": "Blaselaut: Ausdruck des Abstoßens des Luziferischen; Stoßlaut: Festhalten des Ahrimanischen",
+              "zitat": "Man drückt eigentlich mit dem Blaselaut aus: Mit dem Luzifer möchte ich nichts zu tun haben; dasjenige, was luziferisch ist, soll verschwinden. Man drückt, wenn man den Stoßlaut macht, aus: Ahriman will ich festhalten; der muss mir zusammenhalten.",
+              "id": "GA279/10",
+              "index": "cmmkvl",
+              "ref": "GA279/10:cmmkvl",
+              "fileName": "GA279/10 - SIEBENTER VORTRAG, Dornach, 2. Juli 1924",
+              "title": "SIEBENTER VORTRAG",
+              "relevance": "mittel",
+              "date": "1924-07-02",
+              "year": "1924"
+            },
+            {
+              "aussage": "Okkultist: lässt das Böse nur als Gedanken, nicht als Tat – Tat immer luziferisch-ahrimanisch",
+              "zitat": "Er lässt es nicht in die Tat übergehen, die immer luziferisch-ahrimanisch ist. Er schaut sich in Gelassenheit an alles Schlechte und Böse, wissend, dass es einstmals den Boden abgeben wird, auf dem der Keim des Guten dereinst erwachsen soll.",
+              "id": "GA266c/36",
+              "index": "g182nz",
+              "ref": "GA266c/36:g182nz",
+              "fileName": "GA266c/36 - Esoterische Stunde, Berlin, 27. März 1914",
+              "title": "Esoterische Stunde",
+              "relevance": "mittel",
+              "date": "1914-03-27",
+              "year": "1914"
+            }
+          ]
+        },
+        {
+          "title": "Luzifer und Christus",
+          "rows": [
+            {
+              "aussage": "Christus schlägt stärkste Versuchung Luzifers und Ahrimans ab, mildert Sinneswahrnehmung",
+              "zitat": "Dadurch wurde abgemildert die innerliche Stärke der Sinneswahrnehmung, dadurch schlug das Wesen die stärkste Versuchung des Luzifer und Ahriman ab. Indem es die zu starke Wirkung der Kräfte auf die Sinne milderte, gestaltete es das Wahrnehmungsleben in ein maßvolles passives um.",
+              "id": "GA152/6",
+              "index": "7rqeca",
+              "ref": "GA152/6:7rqeca",
+              "fileName": "GA152/6 - DIE DREI GEISTIGEN VORSTUFEN DES MYSTERIUMS VON GOLGATHA, Stuttgart, 5. März 1914",
+              "title": "DIE DREI GEISTIGEN VORSTUFEN DES MYSTERIUMS VON GOLGATHA",
+              "relevance": "hoch",
+              "date": "1914-03-05",
+              "year": "1914"
+            },
+            {
+              "aussage": "Jesus-Vision: Luzifer und Ahriman fliehen fluchtartig vom Tor der Essäer",
+              "zitat": "Als er einstmals ging, nachdem er eben mit den Essäern vereint war, durch das Tor der Essäer, hatte er eine gewaltige, eine tief in seine Seele eingreifende Vision. In unmittelbarer Gegenwart sah er, wie vom Tore der Essäer wie fluchtartig weggingen zwei Gestalten, von denen ihm damals schon in gewisser Weise klar war: Luzifer und Ahriman sind es; sie rannten gleichsam weg vom Tore der Essäer.",
+              "id": "GA148/13",
+              "index": "lpybwk",
+              "ref": "GA148/13:lpybwk",
+              "fileName": "GA148/13 - DAS FÜNFTE EVANGELIUM Erster Vortrag, Stuttgart, 22. November 1913",
+              "title": "DAS FÜNFTE EVANGELIUM Erster Vortrag",
+              "relevance": "hoch",
+              "date": "1913-11-22",
+              "year": "1913"
+            },
+            {
+              "aussage": "Theologie des 19. Jahrhunderts: verluziferisiert, sieht nur den Menschen aus Nazareth",
+              "zitat": "Im 19. Jahrhundert ist selbst die Theologie dahin gekommen, in dem Christus bloß den Menschen aus Nazareth zu sehen. Das heißt, es ist diese Theologie durchaus verluziferisiert. Sie sieht nicht mehr hinein in die geistigen Untergründe des Daseins.",
+              "id": "GA202/14",
+              "index": "z3wya9",
+              "ref": "GA202/14:z3wya9",
+              "fileName": "GA202/14 - VIERZEHNTER VORTRAG, Dornach, 24. Dezember 1920",
+              "title": "VIERZEHNTER VORTRAG",
+              "relevance": "hoch",
+              "date": "1920-12-24",
+              "year": "1920"
+            },
+            {
+              "aussage": "Luziferische und ahrimanische Wesenheiten: Zutritt zum vom Ursprung losgelösten Werk der Götter",
+              "zitat": "Und weil nur das vom Ursprunge losgelöste Werk vorliegt, so haben in dieses Zutritt die luziferischen und ahrimanischen Wesenheiten. Es ergibt sich damit für den Menschen die Notwendigkeit, das von Luzifer und Ahriman durchsetzte Werk zum Orte eines Teiles seiner Lebensgestaltung - der irdischen - zu machen.",
+              "id": "GA026/20",
+              "index": "oeoy65",
+              "ref": "GA026/20:oeoy65",
+              "fileName": "GA026/20 - WEIHNACHTSBETRACHTUNG DAS LOGOS-MYSTERIUM",
+              "title": "WEIHNACHTSBETRACHTUNG DAS LOGOS-MYSTERIUM",
+              "relevance": "hoch",
+              "date": "",
+              "year": ""
+            },
+            {
+              "aussage": "Luzifer-Gespräch mit Benedictus in «Der Seelen Erwachen»: «Ich werde kämpfen» – «Und kämpfend Göttern dienen»",
+              "zitat": "Damit ist Licht geworfen auf etwas, was gleichsam als ein ahrimanischer Einschlag waltet gerade in allem verstandesmäßigen Denken, in der ganzen verstandesmäßigen Kultur der Gegenwart.",
+              "id": "GA147/1",
+              "index": "l6chcs",
+              "ref": "GA147/1:l6chcs",
+              "fileName": "GA147/1 - ERSTER VORTRAG, München, 24. August 1913",
+              "title": "ERSTER VORTRAG",
+              "relevance": "mittel",
+              "date": "1913-08-24",
+              "year": "1913"
+            }
+          ]
+        },
+        {
+          "title": "Luzifer in Kunst und Architektur des Goetheanums",
+          "rows": [
+            {
+              "aussage": "Goetheanum-Gruppe: Christus mit Luzifer über sich, Ahriman unter sich – Holzskulptur",
+              "zitat": "Wenn Sie vom Zuschauerraum in den kleinen Kuppelraum hineinsehen, so sehen Sie unmittelbar unter dem gemalten Christus-artigen Bild, das Luzifer über sich, Ahriman unter sich hat, in Holz geschnitzt alle Formen zusammengefasst, die sich sonst über den Bau verteilt finden.",
+              "id": "GA289/7",
+              "index": "q0kmxn",
+              "ref": "GA289/7:q0kmxn",
+              "fileName": "GA289/7 - ÜBER DAS GOETHEANUM, Dornach, 27. August 1921",
+              "title": "ÜBER DAS GOETHEANUM",
+              "relevance": "hoch",
+              "date": "1921-08-27",
+              "year": "1921"
+            },
+            {
+              "aussage": "Kuppelgemälde: Christus, darüber Luzifer und Ahriman – malerisch und plastisch",
+              "zitat": "Da ist der Christus, darüber Luzifer und Ahriman, und es ist versucht, durch die Farben aussprechen zu lassen, was dargestellt werden sollte durch die Kunst. Gerade durch die Verschiedenartigkeit der Behandlung wird man sehen, wie rein aus den Kunstmitteln heraus die Dinge geholt werden mussten.",
+              "id": "GA181/16",
+              "index": "dc6e13",
+              "ref": "GA181/16:dc6e13",
+              "fileName": "GA181/16 - SECHZEHNTER VORTRAG, Berlin, 3. Juli 1918",
+              "title": "SECHZEHNTER VORTRAG",
+              "relevance": "hoch",
+              "date": "1918-07-03",
+              "year": "1918"
+            },
+            {
+              "aussage": "Christus-Luzifer-Ahriman: musikalisch als Melodie, plastisch als Gruppe",
+              "zitat": "Das, was im Christus konzentriert ist, nehmen wir heraus und teilen es in Luzifer und Ahriman wieder auf, insofern es aufzuteilen ist. Wir machen das, was plastisch zusammengeschweißt wurde in die einzige Gestalt, musikalisch, indem wir es gleichsam zu einer Melodie machen: Christus-Luzifer-Ahriman.",
+              "id": "GA162/10",
+              "index": "whiqa3",
+              "ref": "GA162/10:whiqa3",
+              "fileName": "GA162/10 - ZEHNTER VORTRAG, Dornach, 31. Juli 1915",
+              "title": "ZEHNTER VORTRAG",
+              "relevance": "hoch",
+              "date": "1915-07-31",
+              "year": "1915"
+            },
+            {
+              "aussage": "Luzifergestalt in der Gruppe: Ausdruck der Extremitätenkräfte, die den ganzen Menschen durchwirken würden",
+              "zitat": "Beschauen wir aber den andern Menschen, nicht den Kopfmenschen, sondern den Extremitätenmenschen im weiteren Sinne, so haben wir die Vorstellung: Wenn dasjenige, was in dem übrigen Menschen an Kräften wirkt, den ganzen Menschen durchwirkte, so würde der Mensch so gebildet sein, wie drüben auf der Gruppe die Figur des Luzifer ausgestattet ist.",
+              "id": "GA184/8",
+              "index": "rrglx2",
+              "ref": "GA184/8:rrglx2",
+              "fileName": "GA184/8 - ACHTER VORTRAG, Dornach, 21. September 1918",
+              "title": "ACHTER VORTRAG",
+              "relevance": "hoch",
+              "date": "1918-09-21",
+              "year": "1918"
+            },
+            {
+              "aussage": "Meister Bertram: malte Luzifer noch im Sinne atavistischer Geisteswissenschaft bis ins 13./14. Jahrhundert",
+              "zitat": "Was der Meister Bertram da gemalt hat, das weist noch darauf hin, dass bis ins 13., 14. Jahrhundert herein die Möglichkeit vorhanden war, Luzifer richtig im Sinne der alten Geisteswissenschaft, der atavistischen Geisteswissenschaft zu malen. Man kann also äußerlich beweisen, dass es erst ein paar Jahrhunderte her ist, seit die Menschen so geistverlassen geworden sind wie jetzt.",
+              "id": "GA174a/6",
+              "index": "uxeiku",
+              "ref": "GA174a/6:uxeiku",
+              "fileName": "GA174a/6 - SECHSTER VORTRAG, München, 20. März 1916",
+              "title": "SECHSTER VORTRAG",
+              "relevance": "mittel",
+              "date": "1916-03-20",
+              "year": "1916"
+            },
+            {
+              "aussage": "Trinität Luzifer-Ahriman-Christus: nicht dogmatisch, sondern künstlerisch in Formen",
+              "zitat": "Nicht wie in Dogmen sprechen über Luzifer, Ahriman und Christus, sondern diese Trinität auch künstlerisch in Formen vor sich haben: das ist, was wir brauchen.",
+              "id": "GA184/15",
+              "index": "w1uglo",
+              "ref": "GA184/15:w1uglo",
+              "fileName": "GA184/15 - FÜNFZEHNTER VORTRAG, Dornach, 13. Oktober 1918",
+              "title": "FÜNFZEHNTER VORTRAG",
+              "relevance": "hoch",
+              "date": "1918-10-13",
+              "year": "1918"
+            }
+          ]
+        },
+        {
+          "title": "Luzifer in Natur, Schlaf und sozialem Leben",
+          "rows": [
+            {
+              "aussage": "Luziferisches in der Natur: stark riechende Blüte und ihr Saft",
+              "zitat": "Aber ich gehe da weiter hinauf, und da habe ich eine riechende, eine stark riechende Blüte. Das will fort, geradeso, wie die Phantasie fort will, sonst würde ich es gar nicht riechen können. Nun nehme ich aus der Blüte den Saft. Der ist luziferisch.",
+              "id": "GA349/13",
+              "index": "oe9avd",
+              "ref": "GA349/13:oe9avd",
+              "fileName": "GA349/13 - DREIZEHNTER VORTRAG, Dornach, 7. Mai 1923",
+              "title": "DREIZEHNTER VORTRAG",
+              "relevance": "mittel",
+              "date": "1923-05-07",
+              "year": "1923"
+            },
+            {
+              "aussage": "Schlaf: ahrimanisch-luziferische Einflüsse auf das unbewusste Denken",
+              "zitat": "Wenn sie einschlafen, dann hört dieser freie, sogenannte freie Wille auf; dann denken die Menschen, ohne dass sie es wissen. Aber es ist nicht minder wirksam. Dann denken die Menschen durchaus auch. Man hört nicht auf zu denken, indem man einschläft; man denkt, bis man aufwacht.",
+              "id": "GA185/3",
+              "index": "a0wuio",
+              "ref": "GA185/3:a0wuio",
+              "fileName": "GA185/3 - DRITTER VORTRAG, Dornach, 20. Oktober 1918",
+              "title": "DRITTER VORTRAG",
+              "relevance": "mittel",
+              "date": "1918-10-20",
+              "year": "1918"
+            },
+            {
+              "aussage": "Nationalitätsidee: ahrimanisch-luziferisch durchpulst, löst sich in Schein-Ideen auf",
+              "zitat": "Sobald man auf das Nationale kommt, treten die Kräfte, die nicht mehr überschaut werden können von dem spirituellen Kern unseres Seelenwesens, in Aktion. Die durchpulsen ahrimanisch-luziferisch den menschlichen Organismus und lösen sich [auf] in dem, was man Ideen nennt, was aber keine Ideen sind.",
+              "id": "GA252/10",
+              "index": "yl4mxs",
+              "ref": "GA252/10:yl4mxs",
+              "fileName": "GA252/10 - VORTRAG AM VORABEND DES ERSTEN JAHRESTAGES DER GRUNDSTEINLEGUNG DES JOHANNESBAUS, Dornach, 19. September 1914",
+              "title": "VORTRAG AM VORABEND DES ERSTEN JAHRESTAGES DER GRUNDSTEINLEGUNG DES JOHANNESBAUS",
+              "relevance": "mittel",
+              "date": "1914-09-19",
+              "year": "1914"
+            },
+            {
+              "aussage": "Luziferisch-ahrimanische Denkformen: antichristliche Impulse um das Jahr 1000",
+              "zitat": "Dazumal, als das Ende des ersten christlichen Jahrtausends heranrückte, machten sich - nicht so sehr in den Vorstellungen, die äußerlich wahrnehmbar waren, sondern in den Tiefen der Seelenentwickelung - antichristliche Impulse geltend, welche Denkformen in die Welt hineinstellen, welche direkt unter ahrimanischem und luziferischem Einfluss standen.",
+              "id": "GA286/10",
+              "index": "t3txfs",
+              "ref": "GA286/10:t3txfs",
+              "fileName": "GA286/10 - II München, 30. März 1914 (Einleitung)",
+              "title": "II München",
+              "relevance": "mittel",
+              "date": "1914-03-30",
+              "year": "1914"
+            },
+            {
+              "aussage": "Luziferische Kräfte: wirken auf Ich 3 durch Angeloi und Archangeloi im Guten und Bösen",
+              "zitat": "Da unten in der Strömung der menschlichen Wesenheit, da ruht Ich 3, denn in allem, was der Mensch schaffen kann aus sich selber, was aus den Tiefen seines Seelenlebens heraufsprudelt im Guten und im Bösen, ist dasjenige, was vom Ich 3 kommt. Aber auf dieses Ich 3 haben Einfluss Wesenheiten aus der Kategorie der Angeloi und Wesenheiten aus der Kategorie der Archangeloi, im Guten und im Bösen, mit luziferischer und ahrimanischer Natur.",
+              "id": "GA161/1",
+              "index": "zvylwg",
+              "ref": "GA161/1:zvylwg",
+              "fileName": "GA161/1 - ERSTER VORTRAG, Dornach, 9. Januar 1915",
+              "title": "ERSTER VORTRAG",
+              "relevance": "mittel",
+              "date": "1915-01-09",
+              "year": "1915"
+            }
+          ]
+        },
+        {
+          "title": "Luzifer in Steiners Werk und Publikationen",
+          "rows": [
+            {
+              "aussage": "Zeitschrift «Luzifer – Gnosis»: von Steiner herausgegeben, wächst trotz unregelmäßigem Erscheinen",
+              "zitat": "Die Zeitschrift «Luzifer - Gnosis», welche Dr. Rudolf Steiner herausgibt, kann nicht immer, wegen der Überlastung des Herausgebers mit Arbeiten im Dienste der Gesellschaft, regelmäßig fortgeführt werden; doch aber gewinnt sie an Ausbreitung, da alle alten Nummern in immer neuen Auflagen gedruckt werden mussten.",
+              "id": "GA037/10",
+              "index": "e0qgfy",
+              "ref": "GA037/10:e0qgfy",
+              "fileName": "GA037/10 - Dr. Rudolf Steiner, General Secretary",
+              "title": "Dr. Rudolf Steiner",
+              "relevance": "mittel",
+              "date": "",
+              "year": ""
+            },
+            {
+              "aussage": "«Akasha-Chronik» in «Luzifer – Gnosis»: Quelle für Menschheitsentwicklung und Temperamente",
+              "zitat": "Genauere Mitteilungen darüber können Sie finden in meinem Artikel «Akasha-Chronik» in «Luzifer - Gnosis» (Nummern 13 bis 35).",
+              "id": "GA068d/32",
+              "index": "dxxl65",
+              "ref": "GA068d/32:dxxl65",
+              "fileName": "GA068d/32 - DAS GEHEIMNIS DER TEMPERAMENTE IN GEISTESWISSENSCHAFTLICHER BELEUCHTUNG, Bonn, 23. April 1909",
+              "title": "DAS GEHEIMNIS DER TEMPERAMENTE IN GEISTESWISSENSCHAFTLICHER BELEUCHTUNG",
+              "relevance": "niedrig",
+              "date": "1909-04-23",
+              "year": "1909"
+            },
+            {
+              "aussage": "Vortrag «Über Luzifer»: Luzifer als führende oder verführende Persönlichkeit in geistigen Welten",
+              "zitat": "In das Menschenleben spielen geistige Wesenheiten hinein. Die Religionen des Morgenlandes sprechen von Deva und von Dhyan Tschohan, die westlicheren, wie das Christentum, von Engeln und Erzengeln. Demjenigen, der mit den geistigen Welten bekannt ist, bezeichnen sie etwas Wahres, Wirkliches. Es spielen höhere Wesenheiten in das Menschenleben hinein. Unter den leitenden Persönlichkeiten, den führenden, oder verführenden, versteht man auch den Luzifer.",
+              "id": "GA068a/20",
+              "index": "7p0en1",
+              "ref": "GA068a/20:7p0en1",
+              "fileName": "GA068a/20 - ÜBER LUZIFER, Leipzig, 9. November 1906",
+              "title": "ÜBER LUZIFER",
+              "relevance": "hoch",
+              "date": "1906-11-09",
+              "year": "1906"
+            },
+            {
+              "aussage": "Aufsatz über Ahrimanisches und Luziferisches: Luziferisch in erster, ahrimanisch in zweiter Lebenshälfte",
+              "zitat": "Da ist darauf hingewiesen, wie das Luziferische in der ersten Lebenshälfte eine gewisse Rolle spielt, das Ahrimanische in der zweiten Lebenshälfte, wie diese Impulse des Ahriman und Luzifer durch das ganze Leben hindurch wirken, aber in verschiedener Art.",
+              "id": "GA187/3",
+              "index": "ir325g",
+              "ref": "GA187/3:ir325g",
+              "fileName": "GA187/3 - DRITTER VORTRAG, Dornach, 25. Dezember 1918",
+              "title": "DRITTER VORTRAG",
+              "relevance": "mittel",
+              "date": "1918-12-25",
+              "year": "1918"
+            }
+          ]
+        }
+      ],
+      "curated": true
+    },
+    "rechercheScope": {
+      "sourceType": "alle",
+      "themeArea": ""
+    },
+    "timestamp": "2026-07-29T21:31:23.484Z"
   }
 }
