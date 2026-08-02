@@ -61,6 +61,10 @@ app.use(compression({
   filter: (req, res) => {
     const p = (req.path || '').toLowerCase();
     if (p === '/app.js' || p === '/app.html' || p === '/' || p === '/index.html') return false;
+    // SSE (Chat/Recherche): kein Gzip – sonst puffert compression die Heartbeats
+    if (p.includes('thematic-hybrid-search')) return false;
+    const ct = String(res.getHeader?.('Content-Type') || '');
+    if (ct.includes('text/event-stream')) return false;
     return compression.filter(req, res);
   }
 }));
@@ -5459,8 +5463,8 @@ function transformEssayMarkup(essayText, contextResults) {
     const fileName = sourceEntry.fileName || sourceEntry.title || lectureId;
     const sourceContent = sourceEntry.content || '';
 
-    // Quote-Escape für HTML-Attribute
-    const escapeAttr = (s) => String(s).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;');
+    // Quote-Escape für HTML-Attribute (> muss mit, sonst zerbricht marked/Browser den Tag)
+    const escapeAttr = (s) => String(s).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 
     // Alle Highlight-Snippets sammeln: wörtliche Zitate aus dem Body
     // (zwischen „…" oder "…") plus optional das quelle-Attribut (Paraphrase-Anker).
@@ -5600,7 +5604,7 @@ function transformEssayMarkup(essayText, contextResults) {
   const deutungRegex = /<deutung(?:\s+quelle="([^"]*)")?\s*>([\s\S]*?)<\/deutung>/g;
   text = text.replace(deutungRegex, (match, quelle, body) => {
     stats.deutungCount++;
-    const escapeAttr = (s) => String(s).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;');
+    const escapeAttr = (s) => String(s).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
     const quelleAttr = quelle ? ` data-quelle="${escapeAttr(quelle)}"` : '';
     return `<span class="essay-deutung"${quelleAttr}>${body}</span>`;
   });
@@ -6773,7 +6777,9 @@ function getParagraphContentForHighlight(lectureId, paragraphIndex) {
 }
 
 function addClickableReferences(text, results) {
-  const escapeHtmlAttr = (s) => String(s).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;');
+  // > muss escaped werden: sonst endet das <a>-Tag mitten in data-quote-text
+  // und marked zeigt den Rest als Klartext („merkwürdige Anzeige").
+  const escapeHtmlAttr = (s) => String(s).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
   
   // Bereich der "Weitere relevante Quellen"-Sektion ermitteln, um dort Klammern zu vermeiden
   const sourcesHeading = '## Weitere relevante Quellen';
@@ -6858,7 +6864,7 @@ function addClickableReferences(text, results) {
       const quoteAttr = quoteForHighlight.length >= 5
         ? ` data-quote-text="${escapeHtmlAttr(quoteForHighlight)}"`
         : '';
-      const anchor = `<a href="#" class="ga-reference" data-id="${chunkData.id}" data-index="${cleanIndex}" data-file-name="${chunkData.fileName || ''}"${quoteAttr}>${cleanIdPart}</a>`;
+      const anchor = `<a href="#" class="ga-reference" data-id="${escapeHtmlAttr(chunkData.id)}" data-index="${escapeHtmlAttr(cleanIndex)}" data-file-name="${escapeHtmlAttr(chunkData.fileName || '')}"${quoteAttr}>${escapeHtmlAttr(cleanIdPart)}</a>`;
       // In der "Weitere relevante Quellen"-Sektion keine Klammern um die Links
       const inSourcesSection = sourcesStart !== -1 && matchInfo.position >= sourcesStart && (sourcesEnd === -1 || matchInfo.position < sourcesEnd);
       const replacement = inSourcesSection ? ` ${anchor}` : ` (${anchor})`;
@@ -12720,18 +12726,48 @@ app.post('/api/hybrid-search', async (req, res) => {
 });
 
 app.post('/api/thematic-hybrid-search', async (req, res) => {
+  // useSse/heartbeat ausserhalb von try, damit catch sie sicher ansprechen kann
+  // (Recherche: lange LLM-Wartezeit ohne Zwischenbytes → Browser „Failed to fetch“)
+  let useStreaming = false;
+  let heartbeatTimer = null;
+  const sendSse = (payload) => {
+    if (!useStreaming || res.writableEnded) return;
+    try {
+      res.write(`data: ${JSON.stringify(payload)}\n\n`);
+      // compression/Proxy: Chunk sofort raus, sonst keine Heartbeats beim Client
+      if (typeof res.flush === 'function') res.flush();
+    } catch (_) {}
+  };
   try {
     const { query, limit = 100, gaFilter = '', skipCache = false, preferredProvider = null, thematicMode = 'deep', sourceType = 'alle', themeArea = '', conversationHistory = [], chatMode = false, stream = false } = req.body;
 
-    // SSE-Streaming für Chat-Modus: Header sofort setzen, damit der Browser
-    // Text-Fragmente anzeigen kann, während Claude noch antwortet.
-    const useStreaming = !!(stream && (thematicMode === 'chat' || (thematicMode === 'internet' && chatMode)));
+    // SSE: Chat (Text-Chunks) und Recherche (Heartbeats + finales Ergebnis).
+    // Ohne Heartbeats stirbt die HTTP-Verbindung bei mehr Minuten LLM-Wartezeit.
+    useStreaming = !!(stream && (
+      thematicMode === 'recherche'
+      || thematicMode === 'chat'
+      || (thematicMode === 'internet' && chatMode)
+    ));
     if (useStreaming) {
+      req.setTimeout(600000);
+      res.setTimeout(600000);
       res.setHeader('Content-Type', 'text/event-stream');
       res.setHeader('Cache-Control', 'no-cache');
       res.setHeader('Connection', 'keep-alive');
       res.setHeader('X-Accel-Buffering', 'no');
       res.flushHeaders?.();
+      if (thematicMode === 'recherche') {
+        const t0 = Date.now();
+        sendSse({ progress: 'Recherche läuft - das kann mehr als 5 Minuten dauern; Sie können inzwischen weiterarbeiten.', phase: 'start' });
+        heartbeatTimer = setInterval(() => {
+          const elapsedSec = Math.round((Date.now() - t0) / 1000);
+          sendSse({
+            progress: 'Recherche läuft - das kann mehr als 5 Minuten dauern; Sie können inzwischen weiterarbeiten.',
+            phase: 'heartbeat',
+            elapsedSec
+          });
+        }, 10000);
+      }
     }
     const rawLimit = Number(limit) || 100;
     const effectiveLimit = thematicMode === 'recherche'
@@ -12790,13 +12826,19 @@ app.post('/api/thematic-hybrid-search', async (req, res) => {
           console.error('[ANALYTICS] Fehler beim Tracking der Themen-Suche (Cache):', err.message);
         });
 
-        return res.json({
+        const cachedPayload = {
           ...cachedResult,
           fromCache: true,
           cacheScore: hybridHit.score,
           cacheKey: hybridHit.key,
           cacheTimestamp: cachedResult.timestamp
-        });
+        };
+        if (useStreaming) {
+          if (heartbeatTimer) { clearInterval(heartbeatTimer); heartbeatTimer = null; }
+          sendSse({ done: true, meta: cachedPayload });
+          return res.end();
+        }
+        return res.json(cachedPayload);
       }
       console.warn(`[RECHERCHE-CACHE] Veralteter/ungeeigneter Cache ignoriert (${hybridHit.key}) – neue Suche`);
     }
@@ -13254,10 +13296,16 @@ app.post('/api/thematic-hybrid-search', async (req, res) => {
       const fallbackMax = Number(process.env.RECHERCHE_FALLBACK_MAX) || 100;
       if (!rechercheUsesLlm()) {
         console.log('[RECHERCHE] Schnellmodus: KI-Synthese übersprungen');
+        sendSse({ progress: 'Recherche läuft - das kann mehr als 5 Minuten dauern; Sie können inzwischen weiterarbeiten.', phase: 'fallback' });
         rechercheData = buildRechercheFallbackFromResults(query, topResults, fallbackMax, { fastMode: true });
         const rowCount = countRechercheRows(rechercheData);
         console.log(`[RECHERCHE] Schnellmodus: ${rechercheData.subThemes.length} Unterthemen, ${rowCount} Aussagen`);
       } else {
+        sendSse({
+          progress: 'Recherche läuft - das kann mehr als 5 Minuten dauern; Sie können inzwischen weiterarbeiten.',
+          phase: 'llm',
+          sourceCount: topResults.length
+        });
         const tAnalysisStart = Date.now();
         const analysisResult = await generateRechercheAnalysis(
           query, topResults, effectiveDepth, preferredProvider,
@@ -13283,6 +13331,7 @@ app.post('/api/thematic-hybrid-search', async (req, res) => {
         }
         if (countRechercheRows(rechercheData) === 0 && topResults.length > 0) {
           console.warn(`[RECHERCHE] Fallback auf ${topResults.length} Suchtreffer`);
+          sendSse({ progress: 'Recherche läuft - das kann mehr als 5 Minuten dauern; Sie können inzwischen weiterarbeiten.', phase: 'fallback' });
           rechercheData = buildRechercheFallbackFromResults(query, topResults, fallbackMax);
           console.log(`[RECHERCHE] Fallback: ${rechercheData.subThemes.length} Unterthemen, ${countRechercheRows(rechercheData)} Aussagen`);
         }
@@ -13355,18 +13404,22 @@ app.post('/api/thematic-hybrid-search', async (req, res) => {
     // (wichtig fuer Recherche, deren Cache-Tiefe/Scope sich vom Standard unterscheidet).
     // cacheKey mitliefern
     if (useStreaming) {
-      const metaPayload = { ...searchResult, content: undefined, cacheKey };
-      res.write(`data: ${JSON.stringify({ done: true, meta: metaPayload })}\n\n`);
+      if (heartbeatTimer) { clearInterval(heartbeatTimer); heartbeatTimer = null; }
+      const metaPayload = thematicMode === 'recherche'
+        ? { ...searchResult, cacheKey }
+        : { ...searchResult, content: undefined, cacheKey };
+      sendSse({ done: true, meta: metaPayload });
       return res.end();
     }
     return res.json({ ...searchResult, cacheKey });
   } catch (error) {
+    if (heartbeatTimer) { clearInterval(heartbeatTimer); heartbeatTimer = null; }
     console.error('Hybrid-thematic-Search Fehler:', error);
     console.error('Fehler-Details:', {
       message: error.message,
       stack: error.stack,
       claudeApiKeyPresent: !!process.env.CLAUDE_API_KEY,
-      query: req.body.query
+      query: req.body?.query
     });
     // Spezielle Fehlermeldung für KI-Suche
     const userError = /credit balance|too low to access the Anthropic API/i.test(error.message || '')
@@ -13377,7 +13430,7 @@ app.post('/api/thematic-hybrid-search', async (req, res) => {
       ? 'Zu viele Treffer für die KI-Analyse. Bitte die Anfrage präziser formulieren oder GA-Filter setzen.'
       : 'Suche fehlgeschlagen - bitte Anfrage anders formulieren, relevante Suchworte in Anführungszeichen setzen und in Kürze noch einmal versuchen';
     if (useStreaming && !res.writableEnded) {
-      try { res.write(`data: ${JSON.stringify({ error: userError })}\n\n`); res.end(); } catch (_) {}
+      try { sendSse({ error: userError }); res.end(); } catch (_) {}
       return;
     }
     if (!res.headersSent) {

@@ -17454,7 +17454,7 @@ function scrollToChronologicalYear(year) {
         if (viewer) {
           const chatActive = window.ThematicChatUI?.isChatOutputModeActive?.();
           const waitMsg = thematicMode === 'recherche'
-            ? 'Recherche wird zusammengestellt (Unterthemen und Aussagen, kann 5 oder mehr Minuten dauern – bitte Geduld) – Sie können inzwischen weiterarbeiten.'
+            ? 'Recherche läuft - das kann mehr als 5 Minuten dauern; Sie können inzwischen weiterarbeiten.'
             : thematicMode === 'internet'
             ? (chatActive
               ? 'Chat mit Internet-Recherche wird erstellt, bitte warten (kann etwas länger dauern).'
@@ -17522,6 +17522,8 @@ function scrollToChronologicalYear(year) {
 
         const isChatStream = (thematicMode === 'chat' || (thematicMode === 'internet' && isChatLikeMode))
           && typeof window.ThematicChatUI?.onStreamChunk === 'function';
+        // Recherche: SSE mit Heartbeats – sonst bricht die Verbindung nach Minuten ohne Antwortbytes ab („Failed to fetch“).
+        const isRechercheStream = thematicMode === 'recherche';
 
         const requestBody = {
           query: query,
@@ -17534,7 +17536,7 @@ function scrollToChronologicalYear(year) {
           conversationHistory,
           skipCache: conversationHistory.length > 0 || thematicMode === 'internet' || thematicMode === 'chat',
           chatMode: isChatLikeMode && !!(window.ThematicChatUI?.isChatOutputModeActive?.()),
-          stream: isChatStream
+          stream: isChatStream || isRechercheStream
         };
 
         const response = await fetch(`${API_BASE}/api/thematic-hybrid-search`, {
@@ -17562,8 +17564,10 @@ function scrollToChronologicalYear(year) {
           throw new Error(errorMessage);
         }
 
+        const isSseResponse = (response.headers.get('content-type') || '').includes('text/event-stream');
+
         // --- Streaming-Pfad für Chat-Modus ---
-        if (isChatStream) {
+        if (isChatStream && isSseResponse) {
           if (window.ThematicChatUI?.onStreamStart) window.ThematicChatUI.onStreamStart();
 
           // Viewer sofort mit einer Streaming-Shell befüllen — der Text wächst darin live.
@@ -17655,7 +17659,101 @@ function scrollToChronologicalYear(year) {
           }
           return; // Streaming-Pfad vollständig abgeschlossen
         }
-        // --- Ende Streaming-Pfad ---
+        // --- Ende Streaming-Pfad Chat ---
+
+        // --- Streaming-Pfad Recherche (Heartbeats + finales Meta) ---
+        if (isRechercheStream && isSseResponse) {
+          const reader = response.body.getReader();
+          const decoder = new TextDecoder();
+          let sseBuffer = '';
+          let finalMeta = null;
+          const waitViewer = document.getElementById('viewer');
+
+          while (true) {
+            const { done, value } = await reader.read();
+            if (done) break;
+            sseBuffer += decoder.decode(value, { stream: true });
+            const lines = sseBuffer.split('\n');
+            sseBuffer = lines.pop();
+            for (const line of lines) {
+              if (!line.startsWith('data: ')) continue;
+              const raw = line.slice(6).trim();
+              if (!raw) continue;
+              try {
+                const evt = JSON.parse(raw);
+                if (evt.progress) {
+                  if (waitViewer) {
+                    waitViewer.innerHTML = `<div id="viewer-content"><div style="color: var(--secondary-text); text-align: left; font-style: italic; font-size: 0.9rem;">${String(evt.progress).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}</div></div>`;
+                  }
+                } else if (evt.done && evt.meta) {
+                  finalMeta = evt.meta;
+                } else if (evt.error) {
+                  throw new Error(evt.error);
+                }
+              } catch (parseErr) {
+                if (parseErr.message && !parseErr.message.includes('JSON')) throw parseErr;
+              }
+            }
+          }
+
+          if (!finalMeta) {
+            throw new Error('Recherche ohne Ergebnis abgebrochen – bitte erneut versuchen.');
+          }
+
+          const answer = finalMeta;
+          let sources = answer.sources || [];
+          currentThematicCacheKey = answer.cacheKey || '';
+          currentSources = sources;
+          ensureThematicMainViewerVisible();
+          renderRechercheResults(query, answer.recherche || { intro: '', subThemes: [] }, (gaFilter || ''), {
+            sourceType: rechercheSourceType,
+            themeArea: rechercheThemeArea
+          });
+          if (!document.body.classList.contains('tab-thematic-active')) {
+            const rowCount = (answer.recherche?.subThemes || [])
+              .reduce((n, st) => n + (st.rows?.length || 0), 0);
+            const curated = answer.recherche?.curated;
+            const label = curated ? `${rowCount} Aussagen` : `${rowCount} Treffer (Fallback)`;
+            if (typeof showThematicNotification === 'function') {
+              showThematicNotification(`✓ Recherche „${query}" fertig – ${label}`, 'success');
+            }
+          }
+
+          if (window.ThematicChatUI?.onSearchComplete) {
+            window.ThematicChatUI.onSearchComplete({
+              query,
+              content: '(Recherche-Tabelle)',
+              sources,
+              gaFilter: gaFilterSorted.length ? gaFilterSorted.join(', ') : '',
+              mode: thematicMode,
+              rechercheData: answer.recherche || null,
+              rechercheScope: { sourceType: rechercheSourceType, themeArea: rechercheThemeArea }
+            });
+          }
+
+          if (typeof window.syncThematicSavePayload === 'function') {
+            window.syncThematicSavePayload({
+              query,
+              mode: thematicMode,
+              gaFilter: gaFilterSorted.length ? gaFilterSorted.join(',') : '',
+              limit,
+              sources: currentSources || [],
+              rechercheScope: { sourceType: rechercheSourceType, themeArea: rechercheThemeArea },
+              rechercheData: answer.recherche || null
+            });
+            setTimeout(() => {
+              if (typeof window.refreshThematicSaveContentFromDom === 'function') {
+                window.refreshThematicSaveContentFromDom();
+              }
+            }, 200);
+          }
+
+          if (isLocal) {
+            try { loadRecentThematicQueries(); } catch(_){}
+          }
+          return;
+        }
+        // --- Ende Streaming-Pfad Recherche ---
 
         const answer = await response.json();
         let sources = answer.sources || [];
@@ -17734,7 +17832,12 @@ function scrollToChronologicalYear(year) {
           return;
         }
         console.error('Thematic Search Error:', error);
-        const errorMessage = error.message || 'Suche fehlgeschlagen - bitte Anfrage anders formulieren, relevante Suchworte in Anführungszeichen setzen und in Kürze noch einmal versuchen';
+        let errorMessage = error.message || 'Suche fehlgeschlagen - bitte Anfrage anders formulieren, relevante Suchworte in Anführungszeichen setzen und in Kürze noch einmal versuchen';
+        if (/failed to fetch|networkerror|load failed|network request failed/i.test(errorMessage)) {
+          errorMessage = currentThematicMode === 'recherche'
+            ? 'Verbindung während der Recherche abgebrochen (Zeitüberschreitung). Bitte Seite neu laden und erneut versuchen – die Recherche kann mehrere Minuten dauern.'
+            : 'Verbindung zum Server abgebrochen. Bitte erneut versuchen.';
+        }
         const safeError = String(errorMessage)
           .replace(/&/g, '&amp;')
           .replace(/</g, '&lt;')
@@ -22904,6 +23007,28 @@ function formatAsteriskParagraphs() {
       // Stelle sicher, dass Markdown-Überschriften am Zeilenanfang stehen (für marked.js)
       // Füge Zeilenumbruch vor ##, ###, #### ein, wenn keiner vorhanden ist
       processedContent = processedContent.replace(/([^\n])(#{2,4}\s)/g, '$1\n$2');
+
+      // GA-Links mit data-quote-text vor marked schützen: lange Attribute / ">" im
+      // Zitat würden sonst den Tag zerlegen und als Klartext erscheinen.
+      const escapeGaAttrVal = (val) => {
+        const decoded = String(val)
+          .replace(/&quot;/g, '"')
+          .replace(/&lt;/g, '<')
+          .replace(/&gt;/g, '>')
+          .replace(/&amp;/g, '&');
+        return decoded
+          .replace(/&/g, '&amp;')
+          .replace(/"/g, '&quot;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;');
+      };
+      const gaRefPlaceholders = [];
+      processedContent = processedContent.replace(/<a\b[\s\S]*?\bga-reference\b[\s\S]*?<\/a>/gi, (m) => {
+        const fixed = m.replace(/="([^"]*)"/g, (_, val) => `="${escapeGaAttrVal(val)}"`);
+        const key = `@@GA_REF_${gaRefPlaceholders.length}@@`;
+        gaRefPlaceholders.push(fixed);
+        return key;
+      });
       
       // Konfiguriere marked für Überschriften
       marked.setOptions({
@@ -22914,6 +23039,10 @@ function formatAsteriskParagraphs() {
       });
       
       let parsedContent = marked.parse(processedContent, { breaks: true, gfm: true });
+
+      gaRefPlaceholders.forEach((html, i) => {
+        parsedContent = parsedContent.split(`@@GA_REF_${i}@@`).join(html);
+      });
       
       // Konvertiere _text_ zu <em>text</em> NACH marked.parse()
       parsedContent = convertUnderscoreItalics(parsedContent);
