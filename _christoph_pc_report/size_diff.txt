@@ -1,0 +1,64 @@
+﻿C:\Users\chuec\OneDrive\GitHub\ga_suche\.git\COMMIT_EDITMSG-Christoph_PC | SIZE_DIFF | conflict=136 orig=4
+C:\Users\chuec\OneDrive\GitHub\ga_suche\.git\index-Christoph_PC | SIZE_DIFF | conflict=714421 orig=845025
+C:\Users\chuec\OneDrive\GitHub\ga_suche\.git\index-Christoph_PC-2 | SIZE_DIFF | conflict=850490 orig=845025
+C:\Users\chuec\OneDrive\GitHub\ga_suche\.git\index-Christoph_PC-3 | SIZE_DIFF | conflict=869202 orig=845025
+C:\Users\chuec\OneDrive\GitHub\ga_suche\.git\logs\HEAD-Christoph_PC | SIZE_DIFF | conflict=5012 orig=178010
+C:\Users\chuec\OneDrive\GitHub\ga_suche\.git\logs\HEAD-Christoph_PC-2 | SIZE_DIFF | conflict=174739 orig=178010
+C:\Users\chuec\OneDrive\GitHub\ga_suche\.git\logs\HEAD-Christoph_PC-3 | SIZE_DIFF | conflict=174002 orig=178010
+C:\Users\chuec\OneDrive\GitHub\ga_suche\.git\logs\refs\heads\main-Christoph_PC | SIZE_DIFF | conflict=88495 orig=177711
+C:\Users\chuec\OneDrive\GitHub\ga_suche\.git\logs\refs\heads\main-Christoph_PC-2 | SIZE_DIFF | conflict=174440 orig=177711
+C:\Users\chuec\OneDrive\GitHub\ga_suche\.git\logs\refs\heads\main-Christoph_PC-3 | SIZE_DIFF | conflict=173703 orig=177711
+C:\Users\chuec\OneDrive\GitHub\ga_suche\.git\logs\refs\remotes\origin\HEAD-Christoph_PC | SIZE_DIFF | conflict=6996 orig=369039
+C:\Users\chuec\OneDrive\GitHub\ga_suche\.git\logs\refs\remotes\origin\HEAD-Christoph_PC-2 | SIZE_DIFF | conflict=354729 orig=369039
+C:\Users\chuec\OneDrive\GitHub\ga_suche\.git\logs\refs\remotes\origin\HEAD-Christoph_PC-3 | SIZE_DIFF | conflict=352503 orig=369039
+C:\Users\chuec\OneDrive\GitHub\ga_suche\.git\logs\refs\remotes\origin\HEAD-Christoph_PC-4 | SIZE_DIFF | conflict=358704 orig=369039
+C:\Users\chuec\OneDrive\GitHub\ga_suche\.git\logs\refs\remotes\origin\HEAD-Christoph_PC-5 | SIZE_DIFF | conflict=358704 orig=369039
+C:\Users\chuec\OneDrive\GitHub\ga_suche\Steiner_GA\.obsidian\workspace-Christoph_PC-2.json | SIZE_DIFF | conflict=13097 orig=11526
+C:\Users\chuec\OneDrive\GitHub\ga_suche\Steiner_GA\.obsidian\workspace-Christoph_PC-3.json | SIZE_DIFF | conflict=12286 orig=11526
+C:\Users\chuec\OneDrive\GitHub\ga_suche\Steiner_GA\.obsidian\workspace-Christoph_PC.json | SIZE_DIFF | conflict=11320 orig=11526
+C:\Users\chuec\OneDrive\GitHub\ga_suche\Steiner_GA\GA065-Aus dem mitteleuropäischen Geistesleben\GA065 (1.) GOETHE UND - DAS WELTBILD DES DEUTSCHEN IDEALISMUS, Berlin, 2. Dezember 1915-Christoph_PC.md | SIZE_DIFF | conflict=77003 orig=77002
+C:\Users\chuec\OneDrive\GitHub\ga_suche\Steiner_GA\GA065-Aus dem mitteleuropäischen Geistesleben\GA065 - Aus dem mitteleuropäischen Geistesleben (1915-1916)-Christoph_PC.md | SIZE_DIFF | conflict=1226772 orig=1226771
+C:\Users\chuec\OneDrive\GitHub\ga_suche\Steiner_GA\GA068a-Über das Wesen des Christentums\GA068a (1.) Bericht - DIE THEOSOPHIE UND DIE FORTBILDUNG DER RELIGIONEN (DIE BIBEL-BABEL-FRAGE), Weimar, 15. April 1903-Christoph_PC.md | SIZE_DIFF | conflict=7242 orig=7244
+C:\Users\chuec\OneDrive\GitHub\ga_suche\Steiner_GA\GA069c-Neues Christus-Erleben\GA069c (1.) DER CHRISTUS IM ZWANZIGSTEN JAHRHUNDERT, Kristiania (Oslo), 13. Juni 1910-Christoph_PC.md | SIZE_DIFF | conflict=37081 orig=37367
+C:\Users\chuec\OneDrive\GitHub\ga_suche\Steiner_GA\GA069c-Neues Christus-Erleben\GA069c (10.) VON JESUS ZU CHRISTUS, Nürnberg, 1. Dezember 1911-Christoph_PC.md | SIZE_DIFF | conflict=35396 orig=34098
+C:\Users\chuec\OneDrive\GitHub\ga_suche\Steiner_GA\GA069c-Neues Christus-Erleben\GA069c (11.) VON JESUS ZU CHRISTUS, Hamburg, 15. November 1913-Christoph_PC.md | SIZE_DIFF | conflict=68317 orig=68982
+C:\Users\chuec\OneDrive\GitHub\ga_suche\Steiner_GA\GA069c-Neues Christus-Erleben\GA069c (13.) RAFFAELS MISSION IM LICHTE DER WISSENSCHAFT VOM GEISTE, Stuttgart, 19. Mai 1913-Christoph_PC.md | SIZE_DIFF | conflict=61318 orig=62062
+C:\Users\chuec\OneDrive\GitHub\ga_suche\Steiner_GA\GA069c-Neues Christus-Erleben\GA069c (2.) CHRISTUS UND DAS ZWANZIGSTE JAHRHUNDERT, Stuttgart, 22. Februar 1912-Christoph_PC.md | SIZE_DIFF | conflict=17671 orig=17990
+C:\Users\chuec\OneDrive\GitHub\ga_suche\Steiner_GA\GA069c-Neues Christus-Erleben\GA069c (3.) CHRISTUS UND DAS ZWANZIGSTE JAHRHUNDERT, Köln, 6. Mai 1912-Christoph_PC.md | SIZE_DIFF | conflict=43595 orig=43610
+C:\Users\chuec\OneDrive\GitHub\ga_suche\Steiner_GA\GA069c-Neues Christus-Erleben\GA069c (4.) CHRISTUS IM ZWANZIGSTEN JAHRHUNDERT, Hamburg, 16. November 1912-Christoph_PC.md | SIZE_DIFF | conflict=57424 orig=58361
+C:\Users\chuec\OneDrive\GitHub\ga_suche\Steiner_GA\GA069c-Neues Christus-Erleben\GA069c (5.) DER CHRISTUS DES ZWANZIGSTEN JAHRHUNDERTS, Bremen, 10. Januar 1914-Christoph_PC.md | SIZE_DIFF | conflict=23567 orig=24386
+C:\Users\chuec\OneDrive\GitHub\ga_suche\Steiner_GA\GA069c-Neues Christus-Erleben\GA069c (6.) CHRISTUS IM ZWANZIGSTEN JAHRHUNDERT, Pforzheim, 8. März 1914-Christoph_PC.md | SIZE_DIFF | conflict=7399 orig=7569
+C:\Users\chuec\OneDrive\GitHub\ga_suche\Steiner_GA\GA069c-Neues Christus-Erleben\GA069c (7.) VON BUDDHA ZU CHRISTUS, Dresden, 18. November 1910-Christoph_PC.md | SIZE_DIFF | conflict=14369 orig=14709
+C:\Users\chuec\OneDrive\GitHub\ga_suche\Steiner_GA\GA069c-Neues Christus-Erleben\GA069c (8.) DER WESENSKERN DES CHRISTENTUMS, Straßburg, 18. Februar 1911-Christoph_PC.md | SIZE_DIFF | conflict=58454 orig=59240
+C:\Users\chuec\OneDrive\GitHub\ga_suche\Steiner_GA\GA069c-Neues Christus-Erleben\GA069c (9.) VON JESUS ZU CHRISTUS, Karlsruhe, 4. Oktober 1911-Christoph_PC.md | SIZE_DIFF | conflict=61399 orig=61787
+C:\Users\chuec\OneDrive\GitHub\ga_suche\Steiner_GA\GA069c-Neues Christus-Erleben\GA069c - Neues Christus-Erleben (1910-1914)-Christoph_PC.md | SIZE_DIFF | conflict=554275 orig=553580
+C:\Users\chuec\OneDrive\GitHub\ga_suche\Steiner_GA\GA070b-Wege zur Erkenntnis der ewigen Kräfte der Menschenseele\GA070b (1.) DAS WELTBILD DES DEUTSCHEN IDEALISMUS EINE BETRACHTUNG IM HINBLICK AUF UNSERE SCHICKSALTRAGENDE ZEIT, Stuttgart, 25. November 1915-Christoph_PC.md | SIZE_DIFF | conflict=87363 orig=87367
+C:\Users\chuec\OneDrive\GitHub\ga_suche\Steiner_GA\GA070b-Wege zur Erkenntnis der ewigen Kräfte der Menschenseele\GA070b - Wege zur Erkenntnis der ewigen Kräfte der Menschenseele (1915, 1916)-Christoph_PC.md | SIZE_DIFF | conflict=1417127 orig=1417131
+C:\Users\chuec\OneDrive\GitHub\ga_suche\Steiner_GA\GA094-Kosmogonie. Populärer Okkultismus. Das Johannes-Evangelium\GA094 (28.) POPULÄRER OKKULTISMUS, Zehnter Vortrag, Leipzig, 7. Juli 1906-Christoph_PC.md | SIZE_DIFF | conflict=8785 orig=8784
+C:\Users\chuec\OneDrive\GitHub\ga_suche\Steiner_GA\GA094-Kosmogonie. Populärer Okkultismus. Das Johannes-Evangelium\GA094 - Kosmogonie (1906)-Christoph_PC.md | SIZE_DIFF | conflict=603896 orig=603895
+C:\Users\chuec\OneDrive\GitHub\ga_suche\Steiner_GA\GA099-Die Theosophie des Rosenkreuzers\GA099 (4.) VIERTER VORTRAG, München, 28. Mai 1907-Christoph_PC.md | SIZE_DIFF | conflict=20830 orig=20829
+C:\Users\chuec\OneDrive\GitHub\ga_suche\Steiner_GA\GA099-Die Theosophie des Rosenkreuzers\GA099 - Die Theosophie des Rosenkreuzers (1907)-Christoph_PC.md | SIZE_DIFF | conflict=353781 orig=353780
+C:\Users\chuec\OneDrive\GitHub\ga_suche\Steiner_GA\GA210-Alte und neue Einweihungsmethoden\GA210 (14.) EINZELVORTRAG, Breslau, 1. Februar 1922-Christoph_PC.md | SIZE_DIFF | conflict=22783 orig=22782
+C:\Users\chuec\OneDrive\GitHub\ga_suche\Steiner_GA\GA210-Alte und neue Einweihungsmethoden\GA210 - Alte und neue Einweihungsmethoden (1922)-Christoph_PC.md | SIZE_DIFF | conflict=490056 orig=490055
+C:\Users\chuec\OneDrive\GitHub\ga_suche\Steiner_GA\GA231-Der übersinnliche Mensch - anthroposophisch erfasst\GA231 - Der übersinnliche Mensch anthroposophisch erfasst (1923)-Christoph_PC.md | SIZE_DIFF | conflict=319092 orig=319091
+C:\Users\chuec\OneDrive\GitHub\ga_suche\Steiner_GA\GA255b-Die Anthroposophie und ihre Gegner 1919 - 1921\GA255b (2.) MITGLIEDERVORTRAG, Dornach, 16. November 1919-Christoph_PC.md | SIZE_DIFF | conflict=57323 orig=57322
+C:\Users\chuec\OneDrive\GitHub\ga_suche\Steiner_GA\Schlagwörter\Emanzipation-Christoph_PC.md | SIZE_DIFF | conflict=493 orig=494
+C:\Users\chuec\OneDrive\GitHub\ga_suche\Steiner_GA\Schlagwörter\Frauenfrage-Christoph_PC.md | SIZE_DIFF | conflict=625 orig=626
+C:\Users\chuec\OneDrive\GitHub\ga_suche\Steiner_GA\Schlagwörter\Goethe - Weltanschauung-Christoph_PC.md | SIZE_DIFF | conflict=831 orig=832
+C:\Users\chuec\OneDrive\GitHub\ga_suche\Steiner_GA\Schlagwörter\Harmonie-Christoph_PC.md | SIZE_DIFF | conflict=985 orig=986
+C:\Users\chuec\OneDrive\GitHub\ga_suche\Steiner_GA\Schlagwörter\Kindererziehung-Christoph_PC.md | SIZE_DIFF | conflict=283 orig=284
+C:\Users\chuec\OneDrive\GitHub\ga_suche\Steiner_GA\Schlagwörter\Kultureller Einfluss-Christoph_PC.md | SIZE_DIFF | conflict=279 orig=280
+C:\Users\chuec\OneDrive\GitHub\ga_suche\Steiner_GA\Schlagwörter\Kulturepochen-Christoph_PC.md | SIZE_DIFF | conflict=1141 orig=1142
+C:\Users\chuec\OneDrive\GitHub\ga_suche\Steiner_GA\Schlagwörter\Männliche Natur-Christoph_PC.md | SIZE_DIFF | conflict=487 orig=488
+C:\Users\chuec\OneDrive\GitHub\ga_suche\Steiner_GA\Schlagwörter\Natur & Geist-Christoph_PC.md | SIZE_DIFF | conflict=624 orig=625
+C:\Users\chuec\OneDrive\GitHub\ga_suche\Steiner_GA\Schlagwörter\Weibliche Natur-Christoph_PC.md | SIZE_DIFF | conflict=295 orig=296
+C:\Users\chuec\OneDrive\GitHub\ga_suche\Steiner_GA\Schlagwörter & Text GAs\GA068c - Schlagwörter-Christoph_PC.md | SIZE_DIFF | conflict=61365 orig=61377
+C:\Users\chuec\OneDrive\GitHub\ga_suche\Steiner_GA\Schlagwörter A-Z\E-Christoph_PC.md | SIZE_DIFF | conflict=84652 orig=84653
+C:\Users\chuec\OneDrive\GitHub\ga_suche\Steiner_GA\Schlagwörter A-Z\F-Christoph_PC.md | SIZE_DIFF | conflict=30653 orig=30654
+C:\Users\chuec\OneDrive\GitHub\ga_suche\Steiner_GA\Schlagwörter A-Z\G-Christoph_PC.md | SIZE_DIFF | conflict=169337 orig=169338
+C:\Users\chuec\OneDrive\GitHub\ga_suche\Steiner_GA\Schlagwörter A-Z\H-Christoph_PC.md | SIZE_DIFF | conflict=53880 orig=53881
+C:\Users\chuec\OneDrive\GitHub\ga_suche\Steiner_GA\Schlagwörter A-Z\K-Christoph_PC.md | SIZE_DIFF | conflict=67493 orig=67496
+C:\Users\chuec\OneDrive\GitHub\ga_suche\Steiner_GA\Schlagwörter A-Z\M-Christoph_PC.md | SIZE_DIFF | conflict=131305 orig=131306
+C:\Users\chuec\OneDrive\GitHub\ga_suche\Steiner_GA\Schlagwörter A-Z\N-Christoph_PC.md | SIZE_DIFF | conflict=43825 orig=43826
+C:\Users\chuec\OneDrive\GitHub\ga_suche\Steiner_GA\Schlagwörter A-Z\W-Christoph_PC.md | SIZE_DIFF | conflict=72446 orig=72447
+C:\Users\chuec\OneDrive\GitHub\ga_suche\tools\__pycache__\apply_pagebreaks_from_pdf.cpython-312-Christoph_PC.pyc | SIZE_DIFF | conflict=63305 orig=63265

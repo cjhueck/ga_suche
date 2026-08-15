@@ -22808,7 +22808,10 @@ function formatAsteriskParagraphs() {
                 <option value="niedrig">nur niedrig</option>
               </select>
             </div>
-            <span id="rechercheCountInfo" style="color: var(--secondary-text); margin-left: auto;"></span>
+            <div style="display: flex; align-items: center; gap: 8px; margin-left: auto;">
+              <span id="rechercheCountInfo" style="color: var(--secondary-text);"></span>
+              <button type="button" id="rechercheTocBtn" class="depth-btn" title="Inhaltsübersicht der Zwischenüberschriften im rechten Panel anzeigen" style="display: none; padding: 4px 10px; border: 1px solid var(--accent-color); background: transparent; color: var(--accent-color); cursor: pointer; border-radius: 4px;">Übersicht</button>
+            </div>
           </div>
           <div id="rechercheTables"></div>
         </div>
@@ -22816,6 +22819,7 @@ function formatAsteriskParagraphs() {
 
       const tablesEl = document.getElementById('rechercheTables');
       const countInfoEl = document.getElementById('rechercheCountInfo');
+      const tocBtnEl = document.getElementById('rechercheTocBtn');
 
       // Relevanz-Filter anwenden (Dropdown gilt in beiden Ansichten)
       const applyFilter = (rows) => rows.filter(r => relFilter === 'alle' ? true : r.relevance === relFilter);
@@ -22851,6 +22855,90 @@ function formatAsteriskParagraphs() {
             </thead>
             <tbody>${rows.map(rowHtml).join('')}</tbody></table>`;
 
+      function updateRechercheTocBtnVisibility() {
+        if (!tocBtnEl) return;
+        const show = sortBy === 'thematic' && !!tablesEl?.querySelector('.recherche-subtheme-heading');
+        tocBtnEl.style.display = show ? 'inline-block' : 'none';
+      }
+
+      // Nur Recherche: Inhaltsübersicht ins rechte Summary-Panel schreiben.
+      // Keine Änderung an showLectureFromAdvancedSearch / anderen Tabs —
+      // ein späterer GA-Link überschreibt #summary-content wie bisher.
+      function openRechercheInhaltsuebersicht() {
+        if (sortBy !== 'thematic') return;
+        const headings = Array.from(tablesEl?.querySelectorAll('.recherche-subtheme-heading') || []);
+        if (headings.length === 0) return;
+
+        const summaryPanel = document.getElementById('summary-panel');
+        const mainContainer = document.getElementById('main-container');
+        const summaryContent = document.getElementById('summary-content');
+        if (!summaryPanel || !summaryContent) return;
+
+        summaryPanel.classList.remove('has-members-panel');
+        summaryContent.classList.remove('has-members-panel');
+        window.membersPanelActive = false;
+
+        const wasAlreadyVisible = summaryPanel.classList.contains('visible');
+        const currentPanelWidth = summaryPanel.offsetWidth || 0;
+        summaryPanel.classList.add('visible');
+        if (!wasAlreadyVisible || currentPanelWidth === 0) {
+          const panelWidth = (typeof savedSummaryPanelWidth !== 'undefined' && savedSummaryPanelWidth) || 450;
+          summaryPanel.style.width = panelWidth + 'px';
+          summaryPanel.style.minWidth = panelWidth + 'px';
+          if (mainContainer) mainContainer.style.marginRight = panelWidth + 'px';
+        }
+        summaryPanel.style.display = 'block';
+        summaryPanel.style.opacity = '1';
+        summaryPanel.style.visibility = 'visible';
+
+        const verticalResizeHandleWrapper = document.getElementById('verticalResizeHandleWrapper');
+        if (verticalResizeHandleWrapper) {
+          verticalResizeHandleWrapper.classList.add('visible');
+          verticalResizeHandleWrapper.style.display = 'grid';
+          setTimeout(() => { try { updateHeaderPosition(); } catch (_) {} }, 50);
+        }
+        document.body.classList.remove('summary-panel-collapsed');
+
+        const sideHeader = document.getElementById('sidePanelLectureHeader');
+        if (sideHeader) sideHeader.innerHTML = '';
+
+        const items = headings.map((h) => {
+          const id = h.id;
+          const title = esc(h.textContent || '');
+          return `<li style="margin: 0 0 0.55rem 0; line-height: 1.35;">
+            <a href="#${esc(id)}" class="recherche-toc-link" data-heading-id="${esc(id)}"
+               style="color: var(--link-color, var(--accent-color)); text-decoration: none;"
+               onmouseover="this.style.textDecoration='underline'"
+               onmouseout="this.style.textDecoration='none'">${title}</a>
+          </li>`;
+        }).join('');
+
+        summaryContent.innerHTML = `
+          <div class="recherche-inhaltsuebersicht" style="padding: 1rem 1.2rem 2rem 1.2rem; font-size: var(--text-size, 0.95rem);">
+            <h3 style="margin: 0 0 0.85rem 0; font-size: 1.05rem;">Inhaltsübersicht</h3>
+            <p style="margin: 0 0 0.85rem 0; color: var(--secondary-text); font-size: 0.85em;">Zwischenüberschriften der Recherche (thematisch)</p>
+            <ol style="margin: 0; padding-left: 1.25rem;">${items}</ol>
+          </div>
+        `;
+
+        summaryContent.querySelectorAll('.recherche-toc-link').forEach((a) => {
+          a.addEventListener('click', (e) => {
+            e.preventDefault();
+            const hid = a.getAttribute('data-heading-id');
+            const target = hid ? document.getElementById(hid) : null;
+            const mainEl = document.getElementById('main');
+            if (!target || !mainEl) return;
+            const headingRect = target.getBoundingClientRect();
+            const mainRect = mainEl.getBoundingClientRect();
+            const top = headingRect.top - mainRect.top + mainEl.scrollTop - 12;
+            mainEl.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
+          });
+        });
+
+        try { summaryPanel.scrollTop = 0; } catch (_) {}
+        try { summaryContent.scrollTop = 0; } catch (_) {}
+      }
+
       function renderTables() {
         let html = '';
         let shown = 0;
@@ -22864,11 +22952,13 @@ function formatAsteriskParagraphs() {
           if (rows.length > 0) html = tableHtml(rows);
         } else {
           // Thematisch: gruppiert nach Unterthemen mit Zwischenueberschriften
+          let headingIdx = 0;
           subThemes.forEach(st => {
             const rows = applyFilter(st.rows || []);
             if (rows.length === 0) return;
             shown += rows.length;
-            html += `<h2 style="margin-top: 2.4rem !important; margin-bottom: 1rem !important; font-size: 1.1rem !important;">${esc(st.title)}</h2>`;
+            const hid = `recherche-heading-${headingIdx++}`;
+            html += `<h2 id="${hid}" class="recherche-subtheme-heading" style="margin-top: 2.4rem !important; margin-bottom: 1rem !important; font-size: 1.1rem !important;">${esc(st.title)}</h2>`;
             html += tableHtml(rows);
           });
         }
@@ -22882,6 +22972,7 @@ function formatAsteriskParagraphs() {
         if (countInfoEl) countInfoEl.textContent = shown === totalRows
           ? `${shown} Aussagen`
           : `${shown} von ${totalRows} Aussagen`;
+        updateRechercheTocBtnVisibility();
         bindGaLinks();
       }
 
@@ -22925,6 +23016,12 @@ function formatAsteriskParagraphs() {
         relSelect.addEventListener('change', () => {
           relFilter = relSelect.value;
           renderTables();
+        });
+      }
+      if (tocBtnEl) {
+        tocBtnEl.addEventListener('click', (e) => {
+          e.preventDefault();
+          openRechercheInhaltsuebersicht();
         });
       }
 
