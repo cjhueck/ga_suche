@@ -20536,6 +20536,24 @@ function scrollToChronologicalYear(year) {
           updateCloseSummaryPanelButton();
         }
       } else {
+        // Recherche-Ergebnisse im Main Viewer: ≡ öffnet die Inhaltsübersicht
+        // nur bei Ansicht „thematisch“ (Zwischenüberschriften vorhanden).
+        // Chronologisch / andere Tabs: unverändertes bisheriges Verhalten.
+        const rechercheAnswer = document.querySelector('#viewer .recherche-answer');
+        if (rechercheAnswer) {
+          const hasThematicHeadings = !!rechercheAnswer.querySelector('.recherche-subtheme-heading');
+          if (hasThematicHeadings && typeof window.openRechercheInhaltsuebersicht === 'function') {
+            if (typeof closePdfPanel === 'function') {
+              closePdfPanel();
+            }
+            window.openRechercheInhaltsuebersicht();
+            updateHeaderPosition();
+            return;
+          }
+          // Recherche chronologisch (keine Zwischenüberschriften): Panel nicht öffnen
+          return;
+        }
+
         if (!currentLectureData) {
           alert('Bitte zuerst einen Vortrag laden');
           return;
@@ -22938,6 +22956,7 @@ function formatAsteriskParagraphs() {
         try { summaryPanel.scrollTop = 0; } catch (_) {}
         try { summaryContent.scrollTop = 0; } catch (_) {}
       }
+      window.openRechercheInhaltsuebersicht = openRechercheInhaltsuebersicht;
 
       function renderTables() {
         let html = '';
