@@ -8404,7 +8404,7 @@ async function _displayBookImpl(book, highlightHeadingId = null, keywords = [], 
   }
   
   const bookId = book.ID || book.gaNumber;
-  let headings = Array.isArray(book.headings) ? book.headings : [];
+  let headings = [];
   let paragraphs = book.paragraphs || [];
   
   // V4: Seitenmarker sind bereits im Text eingebettet (|123|)
@@ -8412,19 +8412,25 @@ async function _displayBookImpl(book, highlightHeadingId = null, keywords = [], 
   // um zu vermeiden dass Marker in Überschriften verloren gehen.
   // Siehe Abschnitt nach der htmlContent-Erstellung.
   
-  // Überschriften aus API-Response nutzen; nur bei Bedarf die große summary-database.json laden
-  if (headings.length === 0) {
-    try {
-      const summaryData = await loadSummaryFromDB(bookId);
-      if (summaryData && summaryData.headings) {
-        headings = summaryData.headings;
-        book.headings = headings;
-        console.log(`[BOOK] ${bookId} - ${headings.length} Überschriften aus Summary-DB geladen`);
-      } else {
-        console.warn(`[BOOK] ${bookId}: Keine Überschriften gefunden`);
-      }
-    } catch (e) {
-      console.warn('[BOOK] Konnte Überschriften nicht laden:', e);
+  // Zwischenüberschriften: Summary-DB hat Absatz-Indizes (^abc123), API-headings oft nicht.
+  // Summary-DB zuerst (einmalig gecacht), API-headings nur als Fallback.
+  try {
+    const summaryData = await loadSummaryFromDB(bookId);
+    if (summaryData && summaryData.headings && summaryData.headings.length > 0) {
+      headings = summaryData.headings;
+      book.headings = headings;
+    } else if (Array.isArray(book.headings) && book.headings.length > 0) {
+      headings = book.headings.map(h => ({
+        index: h.index || h.id || '',
+        text: h.text,
+        level: typeof h.level === 'number' ? `h${h.level}` : (h.level || 'h3')
+      }));
+      book.headings = headings;
+    }
+  } catch (e) {
+    console.warn('[BOOK] Konnte Überschriften nicht laden:', e);
+    if (Array.isArray(book.headings) && book.headings.length > 0) {
+      headings = book.headings;
     }
   }
   
