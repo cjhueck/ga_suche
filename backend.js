@@ -14364,6 +14364,7 @@ app.get('/api/book/:gaNumber', async (req, res) => {
     // B: Cache-Treffer? Verarbeitetes Buch direkt zurückgeben (spart Deep-Copy,
     //    Text-Edits, Summary-DB-Zugriff und Bild-URL-Umschreibung bei jedem Aufruf).
     if (processedBookCache.has(gaNumberNormalized)) {
+      res.setHeader('Cache-Control', 'public, max-age=3600');
       return res.json(processedBookCache.get(gaNumberNormalized));
     }
 
@@ -14523,6 +14524,7 @@ app.get('/api/book/:gaNumber', async (req, res) => {
     // B: Verarbeitetes Buch cachen, damit erneutes Öffnen ohne teure Wiederholungsarbeit erfolgt.
     processedBookCache.set(gaNumberNormalized, responseBook);
 
+    res.setHeader('Cache-Control', 'public, max-age=3600');
     res.json(responseBook);
 
   } catch (error) {
