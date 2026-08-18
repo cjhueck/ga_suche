@@ -14341,6 +14341,36 @@ function withAbsoluteLectureImages(lecture, lectureId) {
 // B: Cache für vollständig verarbeitete Bücher (Kopie + Text-Edits + absolute Bild-URLs).
 // Schlüssel: normalisierte GA-Nummer. Wird bei Text-Edits invalidiert (siehe saveTextEditsDatabase).
 const processedBookCache = new Map();
+
+// =============================================================================
+// FEATURE-FLAG: Schnelle Buch-Zwischenüberschriften (siehe app.js BOOK_HEADINGS_VIA_API)
+// true  = /api/book liefert Überschriften aus summary-database (Server-RAM)
+// false = altes Verhalten: nur headings aus steiner-books-JSON
+// ROLLBACK: hier UND in app.js auf false setzen und deployen.
+// =============================================================================
+const BOOK_HEADINGS_VIA_API = true;
+
+function headingsHaveParagraphIndices(headings) {
+  return Array.isArray(headings) && headings.some(h => h && h.index && String(h.index).startsWith('^'));
+}
+
+async function resolveBookHeadingsForApi(bookId, fallbackHeadings) {
+  const fallback = Array.isArray(fallbackHeadings) ? fallbackHeadings : [];
+  if (!BOOK_HEADINGS_VIA_API) {
+    return fallback;
+  }
+  try {
+    const summaryDB = await loadSummaryDatabase();
+    const dbHeadings = summaryDB[bookId]?.headings;
+    if (headingsHaveParagraphIndices(dbHeadings)) {
+      return dbHeadings;
+    }
+  } catch (e) {
+    console.warn(`[BOOK] Überschriften aus Summary-DB für ${bookId} nicht verfügbar:`, e.message);
+  }
+  return fallback;
+}
+
 function invalidateProcessedBookCache(gaNumber) {
   if (gaNumber) {
     processedBookCache.delete(String(gaNumber).toLowerCase());
@@ -14490,7 +14520,7 @@ app.get('/api/book/:gaNumber', async (req, res) => {
       fileName: bookCopy.fileName,
       yearRange: bookCopy.yearRange,
       content: bookCopy.content,
-      headings: bookCopy.headings || [],
+      headings: await resolveBookHeadingsForApi(bookId, bookCopy.headings || []),
       wordCount: bookCopy.wordCount,
       charCount: bookCopy.charCount
     };
