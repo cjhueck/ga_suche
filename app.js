@@ -57,6 +57,28 @@ const isLocal = window.location.hostname === 'localhost' ||
                     window.location.hostname.startsWith('172.') ||
                     window.location.hostname.startsWith('10.') ||
                     window.location.protocol === 'file:';
+
+// =============================================================================
+// FEATURE-FLAG: Schnelle Buch-Zwischenüberschriften (Überschriften in /api/book)
+// true  = Überschriften kommen vom Server im Buch-JSON (schnell, kein 47-MB-Download)
+// false = altes Verhalten: displayBook lädt summary-database.json im Browser
+// ROLLBACK bei Problemen: hier UND in backend.js (BOOK_HEADINGS_VIA_API) auf false,
+//   processedBookCache leeren durch Server-Neustart oder deploy, app.js + backend.js deployen.
+// =============================================================================
+const BOOK_HEADINGS_VIA_API = true;
+
+function headingsHaveParagraphIndices(headings) {
+  return Array.isArray(headings) && headings.some(h => h && h.index && String(h.index).startsWith('^'));
+}
+
+function normalizeBookHeadingsFromApi(rawHeadings) {
+  if (!Array.isArray(rawHeadings)) return [];
+  return rawHeadings.map(h => ({
+    index: h.index || h.id || '',
+    text: h.text,
+    level: typeof h.level === 'number' ? `h${h.level}` : (h.level || 'h3')
+  }));
+}
     
     // Markiere lokale Version im Body (für CSS-Unterscheidungen)
     // WICHTIG: Sicherstellen dass Body bereits existiert oder auf DOMContentLoaded warten
@@ -8412,25 +8434,26 @@ async function _displayBookImpl(book, highlightHeadingId = null, keywords = [], 
   // um zu vermeiden dass Marker in Überschriften verloren gehen.
   // Siehe Abschnitt nach der htmlContent-Erstellung.
   
-  // Zwischenüberschriften: Summary-DB hat Absatz-Indizes (^abc123), API-headings oft nicht.
-  // Summary-DB zuerst (einmalig gecacht), API-headings nur als Fallback.
-  try {
-    const summaryData = await loadSummaryFromDB(bookId);
-    if (summaryData && summaryData.headings && summaryData.headings.length > 0) {
-      headings = summaryData.headings;
-      book.headings = headings;
-    } else if (Array.isArray(book.headings) && book.headings.length > 0) {
-      headings = book.headings.map(h => ({
-        index: h.index || h.id || '',
-        text: h.text,
-        level: typeof h.level === 'number' ? `h${h.level}` : (h.level || 'h3')
-      }));
-      book.headings = headings;
-    }
-  } catch (e) {
-    console.warn('[BOOK] Konnte Überschriften nicht laden:', e);
-    if (Array.isArray(book.headings) && book.headings.length > 0) {
-      headings = book.headings;
+  // Zwischenüberschriften: mit BOOK_HEADINGS_VIA_API aus /api/book (schnell),
+  // sonst altes Verhalten über loadSummaryFromDB (summary-database.json im Browser).
+  if (BOOK_HEADINGS_VIA_API && headingsHaveParagraphIndices(book.headings)) {
+    headings = book.headings;
+  } else {
+    try {
+      const summaryData = await loadSummaryFromDB(bookId);
+      if (summaryData && summaryData.headings && summaryData.headings.length > 0) {
+        headings = summaryData.headings;
+        book.headings = headings;
+      } else if (Array.isArray(book.headings) && book.headings.length > 0) {
+        headings = normalizeBookHeadingsFromApi(book.headings);
+        book.headings = headings;
+      }
+    } catch (e) {
+      console.warn('[BOOK] Konnte Überschriften nicht laden:', e);
+      if (Array.isArray(book.headings) && book.headings.length > 0) {
+        headings = normalizeBookHeadingsFromApi(book.headings);
+        book.headings = headings;
+      }
     }
   }
   
