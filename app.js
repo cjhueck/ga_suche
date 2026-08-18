@@ -7855,8 +7855,8 @@ async function finishBookRendering(book, viewer, targetIndex, mainContainer, hig
         processAllParagraphIndices(bookContentDiv);
       }
       
-      if (typeof buildTableOfContents === 'function') {
-        buildTableOfContents();
+      if (typeof window.buildTableOfContents === 'function') {
+        window.buildTableOfContents();
       }
       
       if (typeof markParagraphsWithBookmarksAndQuotes === 'function') {
@@ -9564,6 +9564,9 @@ async function _displayBookImpl(book, highlightHeadingId = null, keywords = [], 
           processAllParagraphIndices(bookContentDivCheck);
         }
         markParagraphsWithBookmarksAndQuotes(bookId).then(() => {
+          if (typeof window.buildTableOfContents === 'function') {
+            window.buildTableOfContents();
+          }
           // Stelle sicher, dass alle Unterstreichungen Event-Listener haben
           setTimeout(() => {
             if (typeof attachClickListenersToHighlights === 'function') {
@@ -10068,7 +10071,12 @@ function convertFootnotesToLinks() {
       }
     });
   });
-  
+
+  // TOC nach DOM-Umbau neu aufbauen (Fußnoten ersetzen viewer.innerHTML → Scroll-Markierung sonst defekt)
+  if (typeof window.buildTableOfContents === 'function') {
+    window.buildTableOfContents();
+  }
+
   }
 
 // Hilfsfunktion: Aktiviere Fußnoten-Links (für Lectures)
@@ -26129,14 +26137,17 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
           }
         });
         
-        // Wenn keine Headings im Viewport, nimm das letzte Heading vor dem Viewport
+        // Wenn keine Headings im Viewport, nimm das letzte Heading oberhalb des sichtbaren Bereichs
         if (activeHeadings.length === 0) {
+          const header = document.getElementById('viewer-header');
+          const headerBottom = header ? header.getBoundingClientRect().bottom : containerTop;
+          const scrollThreshold = headerBottom - containerTop + 8;
           for (let i = visibleHeadings.length - 1; i >= 0; i--) {
             const heading = visibleHeadings[i];
             const headingRect = heading.getBoundingClientRect();
             const relativeTop = headingRect.top - containerTop;
             
-            if (relativeTop <= 50) {
+            if (relativeTop <= scrollThreshold) {
               activeHeadings.push(heading);
               break;
             }
@@ -26171,6 +26182,7 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
       
       updateActiveTocItem();
     }
+    window.buildTableOfContents = buildTableOfContents;
     // Global verfügbar machen für andere Script-Blöcke
     window.showLecture = showLecture;
 
