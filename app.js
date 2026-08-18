@@ -1082,8 +1082,60 @@ const isLocal = window.location.hostname === 'localhost' ||
     
     // WICHTIG: Mache API_BASE global verfügbar, damit es von allen Funktionen verwendet werden kann
     window.API_BASE = API_BASE;
-    
-    
+
+    // Session-Cache für Buch- und Vortrags-API-Responses (vermeidet erneute Netzwerk-Requests)
+    const textApiCache = new Map();
+
+    async function fetchBookCached(gaNumber) {
+      const key = `book:${String(gaNumber).toLowerCase()}`;
+      if (textApiCache.has(key)) {
+        return textApiCache.get(key);
+      }
+      const response = await fetch(`${API_BASE}/api/book/${encodeURIComponent(gaNumber)}`);
+      if (!response.ok) {
+        const err = new Error(`Buch nicht gefunden: ${gaNumber}`);
+        err.status = response.status;
+        throw err;
+      }
+      const book = await response.json();
+      textApiCache.set(key, book);
+      return book;
+    }
+
+    async function fetchLectureCached(lectureId) {
+      const key = `lecture:${lectureId}`;
+      if (textApiCache.has(key)) {
+        return textApiCache.get(key);
+      }
+      const parts = lectureId.split('/');
+      const url = parts.length === 2
+        ? `${API_BASE}/api/lecture-with-summary/${encodeURIComponent(parts[0])}/${encodeURIComponent(parts[1])}`
+        : `${API_BASE}/api/full-lecture/${encodeURIComponent(lectureId)}`;
+      const response = await fetch(url);
+      if (!response.ok) {
+        const err = new Error(`Vortrag nicht gefunden: ${lectureId}`);
+        err.status = response.status;
+        throw err;
+      }
+      const data = await response.json();
+      textApiCache.set(key, data);
+      return data;
+    }
+
+    function invalidateTextApiCache(id) {
+      if (!id) {
+        textApiCache.clear();
+        return;
+      }
+      const normalized = String(id);
+      textApiCache.delete(`book:${normalized.toLowerCase()}`);
+      textApiCache.delete(`lecture:${normalized}`);
+    }
+
+    window.fetchBookCached = fetchBookCached;
+    window.fetchLectureCached = fetchLectureCached;
+    window.invalidateTextApiCache = invalidateTextApiCache;
+
     let currentSources = [];
     let searchResults = [];
     let currentLectureData = null;
@@ -1306,21 +1358,33 @@ const isLocal = window.location.hostname === 'localhost' ||
   const GITHUB_RAW_SUMMARY_URL = 'https://raw.githubusercontent.com/cjhueck/ga_suche/main/summary-database.json';
   let externalSummaryDBCache = null;
 
+  let externalSummaryDBCachePromise = null;
+
   async function loadExternalSummaryDB() {
-    // KEIN Cache mehr - immer neu laden für lokale Entwicklung
     if (isLocal) {
       return null; // Lokal: Verwende Backend, nicht GitHub
     }
-    try {
-      const cacheBuster = `?t=${Date.now()}`;
-      const resp = await fetch(`${GITHUB_RAW_SUMMARY_URL}${cacheBuster}`);
-      if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
-      const db = await resp.json();
-      return db;
-    } catch (err) {
-      console.warn('[SUMMARIES] Laden externer summary-database.json fehlgeschlagen:', err.message);
-      return null;
+    if (externalSummaryDBCache) {
+      return externalSummaryDBCache;
     }
+    if (externalSummaryDBCachePromise) {
+      return externalSummaryDBCachePromise;
+    }
+    externalSummaryDBCachePromise = (async () => {
+      try {
+        const resp = await fetch(GITHUB_RAW_SUMMARY_URL);
+        if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+        const db = await resp.json();
+        externalSummaryDBCache = db;
+        return db;
+      } catch (err) {
+        console.warn('[SUMMARIES] Laden externer summary-database.json fehlgeschlagen:', err.message);
+        return null;
+      } finally {
+        externalSummaryDBCachePromise = null;
+      }
+    })();
+    return externalSummaryDBCachePromise;
   }
 
     // Initiale CSS-Klassen setzen
@@ -8339,9 +8403,8 @@ async function _displayBookImpl(book, highlightHeadingId = null, keywords = [], 
     }
   }
   
-  // NEU: Lade Überschriften aus summary-database.json (wie bei Vorträgen)
   const bookId = book.ID || book.gaNumber;
-  let headings = [];
+  let headings = Array.isArray(book.headings) ? book.headings : [];
   let paragraphs = book.paragraphs || [];
   
   // V4: Seitenmarker sind bereits im Text eingebettet (|123|)
@@ -8349,21 +8412,20 @@ async function _displayBookImpl(book, highlightHeadingId = null, keywords = [], 
   // um zu vermeiden dass Marker in Überschriften verloren gehen.
   // Siehe Abschnitt nach der htmlContent-Erstellung.
   
-  try {
-    const summaryData = await loadSummaryFromDB(bookId);
-    if (summaryData && summaryData.headings) {
-      headings = summaryData.headings;
-      // Weise auch book.headings zu, damit die IDs später gesetzt werden können
-      book.headings = headings;
-      console.log(`[BOOK] ${bookId} - ${headings.length} Überschriften geladen`);
-      if (headings.length > 0) {
-        console.log(`[BOOK] ${bookId}: Erste Überschrift Index: ${headings[0].index}, Text: ${headings[0].text.substring(0, 40)}`);
+  // Überschriften aus API-Response nutzen; nur bei Bedarf die große summary-database.json laden
+  if (headings.length === 0) {
+    try {
+      const summaryData = await loadSummaryFromDB(bookId);
+      if (summaryData && summaryData.headings) {
+        headings = summaryData.headings;
+        book.headings = headings;
+        console.log(`[BOOK] ${bookId} - ${headings.length} Überschriften aus Summary-DB geladen`);
+      } else {
+        console.warn(`[BOOK] ${bookId}: Keine Überschriften gefunden`);
       }
-    } else {
-      console.warn(`[BOOK] ${bookId}: Keine Überschriften in summary-database.json gefunden`);
+    } catch (e) {
+      console.warn('[BOOK] Konnte Überschriften nicht laden:', e);
     }
-  } catch (e) {
-    console.warn('[BOOK] Konnte Überschriften nicht laden:', e);
   }
   
   // Fallback: Wenn keine paragraphs vorhanden, extrahiere sie aus content
@@ -10138,18 +10200,16 @@ async function showGALectures(gaNumber, skipHistory = false) {
     const isDefinitelyNotABook = gaNumForBookCheck === 18 || gaNumForBookCheck === 28 || isEssayGANumber(gaNumber);
     
     if (!isDefinitelyNotABook && isBookGANumber(gaNumber)) {
-      // Lade Book-Daten
-      const response = await fetch(`${API_BASE}/api/book/${gaNumber}`);
-      if (!response.ok) {
-        if (response.status === 404) {
+      try {
+        const book = await fetchBookCached(gaNumber);
+        await displayBook(book);
+      } catch (err) {
+        if (err.status === 404) {
           viewer.innerHTML = '<div id="viewer-content"><div style="color: var(--secondary-text); text-align: left; font-style: italic; font-size: 0.9rem;">Schrift nicht gefunden.</div></div>';
           return;
         }
-        throw new Error(`HTTP ${response.status}`);
+        throw err;
       }
-      
-      const book = await response.json();
-      await displayBook(book);
       return;
     }
     
@@ -14613,9 +14673,12 @@ function scrollToChronologicalYear(year) {
       try {
         const gaMatch = lectureId.match(/^(GA\d{1,3}[a-z]?)/i);
         if (gaMatch && typeof isBookGANumber === 'function' && isBookGANumber(gaMatch[1])) {
-          const response = await fetch(`${API_BASE}/api/book/${encodeURIComponent(gaMatch[1])}`);
-          if (!response.ok) return null;
-          const book = await response.json();
+          let book;
+          try {
+            book = await fetchBookCached(gaMatch[1]);
+          } catch (_) {
+            return null;
+          }
           const paragraphs = book.paragraphs || [];
           const para = paragraphs.find(p => String(p.index || '').replace(/^\^/, '') === cleanIndex);
           return para?.content || para?.text || null;
@@ -14863,20 +14926,17 @@ function scrollToChronologicalYear(year) {
           return;
         }
         
-        // Lade das Buch
-        const response = await fetch(`${API_BASE}/api/book/${gaNumber}`);
-        if (!response.ok) {
-          // Wenn Buch nicht gefunden wird, prüfe ob es vielleicht ein Aufsatzband ist
+        let book;
+        try {
+          book = await fetchBookCached(gaNumber);
+        } catch (bookErr) {
           if (isEssayGANumber(gaNumber)) {
-            // Es ist ein Aufsatzband - lade stattdessen die GA-Übersicht
             console.log(`[SHOW-BOOK] ${gaNumber} ist ein Aufsatzband, lade GA-Übersicht statt Buch`);
             await openGAOverview(gaNumber);
             return;
           }
-          throw new Error(`Buch nicht gefunden: ${gaNumber}`);
+          throw bookErr;
         }
-        
-        const book = await response.json();
         
         // Setze globale Variablen für Side Panel (für Context-Menü Markierungen)
         window.currentSidePanelLectureId = gaNumber;
@@ -23429,20 +23489,21 @@ function formatAsteriskParagraphs() {
       }
       
       if (!isEssayBand && isBookGANumber(gaNumber)) {
-        // Lade das Buch
-        const bookResponse = await fetch(`${API_BASE}/api/book/${gaNumber}`);
-        if (!bookResponse.ok) {
-          // Wenn Buch nicht gefunden wird, versuche es als GA-Übersicht zu laden
-          console.log(`[SHOW-LECTURE] ${gaNumber} Buch nicht gefunden, versuche GA-Übersicht`);
-          const response = await fetch(`${API_BASE}/api/ga-overview/${gaNumber}`);
-          if (response.ok) {
-            const data = await response.json();
-            await displayGAOverview(data);
-            return;
+        let book;
+        try {
+          book = await fetchBookCached(gaNumber);
+        } catch (bookErr) {
+          if (bookErr.status === 404) {
+            console.log(`[SHOW-LECTURE] ${gaNumber} Buch nicht gefunden, versuche GA-Übersicht`);
+            const response = await fetch(`${API_BASE}/api/ga-overview/${gaNumber}`);
+            if (response.ok) {
+              const data = await response.json();
+              await displayGAOverview(data);
+              return;
+            }
           }
-          throw new Error(`Buch nicht gefunden: ${gaNumber}`);
+          throw bookErr;
         }
-        const book = await bookResponse.json();
         
         // Zeige das Buch im Hauptviewer mit Keywords-Hervorhebung und targetIndex
         // WICHTIG: Wenn targetIndex eine Überschrift-ID ist (kein Paragraph-Index), verwende es als highlightHeadingId
@@ -23538,18 +23599,7 @@ function formatAsteriskParagraphs() {
       }
     }
     
-    // Kombinierter Endpoint: Volltext + Summary in einem Request (spart einen Roundtrip)
-    const url = parts.length === 2 
-                ? `${API_BASE}/api/lecture-with-summary/${encodeURIComponent(parts[0])}/${encodeURIComponent(parts[1])}`
-                : `${API_BASE}/api/full-lecture/${encodeURIComponent(lectureId)}`;
-
-    const response = await fetch(url);
-    
-    if (!response.ok) {
-      throw new Error(`Vortrag nicht gefunden: ${lectureId}`);
-    }
-    
-    const data = await response.json();
+    const data = await fetchLectureCached(lectureId);
     
     // Debug: Prüfe auf Text-Edits im Response
     if (data.lecture && data.lecture._hasTextEdits) {
@@ -31693,25 +31743,14 @@ function getParagraphOrderForLecture(lectureId) {
 
 // Hilfsfunktion: Lade ein Buch von der API (mit Caching)
 async function loadBookForTimeline(bookId) {
-  // Prüfe ob bereits geladen
   if (fullBooksData[bookId]) {
     return fullBooksData[bookId];
   }
   
   try {
-    const response = await fetch(`${API_BASE}/api/book/${bookId}`);
-    if (!response.ok) {
-      console.warn(`[BOOK] Buch ${bookId} nicht gefunden`);
-      return null;
-    }
-    
-    const book = await response.json();
-    
-    // Speichere im Cache
+    const book = await window.fetchBookCached(bookId);
     fullBooksData[bookId] = book;
-    
     return book;
-    
   } catch (error) {
     console.error(`[BOOK] Fehler beim Laden von ${bookId}:`, error);
     return null;
@@ -43242,6 +43281,9 @@ window.cancelTextEditMode = function() {};
       });
       const data = await resp.json();
       if (data.success) {
+        if (typeof window.invalidateTextApiCache === 'function') {
+          window.invalidateTextApiCache(lectureId);
+        }
         console.log(`[KORREKTUR] Gespeichert: ${lectureId} ${paraIndex}` + (data.mdUpdated ? ' (+ MD)' : ''));
       } else {
         console.warn('[KORREKTUR] Speichern fehlgeschlagen:', data.error);
