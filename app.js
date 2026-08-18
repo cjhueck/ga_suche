@@ -79,6 +79,11 @@ function normalizeBookHeadingsFromApi(rawHeadings) {
     level: typeof h.level === 'number' ? `h${h.level}` : (h.level || 'h3')
   }));
 }
+
+function cssHeadingTagSelector(level) {
+  const raw = String(level || 'h3').toLowerCase();
+  return raw.startsWith('h') ? raw : `h${raw}`;
+}
     
     // Markiere lokale Version im Body (für CSS-Unterscheidungen)
     // WICHTIG: Sicherstellen dass Body bereits existiert oder auf DOMContentLoaded warten
@@ -7850,6 +7855,10 @@ async function finishBookRendering(book, viewer, targetIndex, mainContainer, hig
         processAllParagraphIndices(bookContentDiv);
       }
       
+      if (typeof buildTableOfContents === 'function') {
+        buildTableOfContents();
+      }
+      
       if (typeof markParagraphsWithBookmarksAndQuotes === 'function') {
         setTimeout(() => {
           markParagraphsWithBookmarksAndQuotes(bookId);
@@ -7887,7 +7896,7 @@ async function finishBookRendering(book, viewer, targetIndex, mainContainer, hig
     setTimeout(() => {
       let idsSetCount = 0;
       book.headings.forEach(heading => {
-        const headingElements = viewer.querySelectorAll(`h${heading.level || 3}`);
+        const headingElements = viewer.querySelectorAll(cssHeadingTagSelector(heading.level));
         const headingTextNormalized = heading.text.trim().toLowerCase();
         
         for (const el of headingElements) {
@@ -9180,6 +9189,10 @@ async function _displayBookImpl(book, highlightHeadingId = null, keywords = [], 
           bookContentDivAfterImageReplace.dataset.indicesProcessed = 'false';
           processAllParagraphIndices(bookContentDivAfterImageReplace);
         }
+
+        if (typeof buildTableOfContents === 'function') {
+          buildTableOfContents();
+        }
         
         // WICHTIG: Wende Unterstreichungen NACH dem Ersetzen der Bilder wieder an
         // (werden durch innerHTML-Überschreibung entfernt)
@@ -9284,7 +9297,7 @@ async function _displayBookImpl(book, highlightHeadingId = null, keywords = [], 
     if (book.headings && book.headings.length > 0) {
       let idsSetCount = 0;
       book.headings.forEach(heading => {
-        const headingElements = viewer.querySelectorAll(`h${heading.level || 3}`);
+        const headingElements = viewer.querySelectorAll(cssHeadingTagSelector(heading.level));
         // Suche nach Überschrift mit dem Text (normalisiere für Vergleich)
         const headingTextNormalized = heading.text.trim().toLowerCase();
         
@@ -25854,11 +25867,14 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
       targetEntry.scrollIntoView({ behavior: 'auto', block: 'start' });
     }
 
-    /**
-     * TOC / Navigation: Zielüberschrift direkt unter dem fixierten #viewer-header (Viewport) ausrichten.
-     * #viewer-header ist position:fixed → Abstand muss über getBoundingClientRect() relativ zum Viewport,
-     * nicht über mainRect.top, sonst bleibt die Überschrift zu weit unten / unter dem Header.
-     */
+    function getViewerHeadingMatchKey(heading) {
+      if (!heading) return null;
+      if (heading.id) return `id:${heading.id}`;
+      const dataIndex = heading.getAttribute('data-heading-index') || heading.getAttribute('data-index');
+      if (dataIndex) return `idx:${String(dataIndex).replace(/^\^/, '')}`;
+      return null;
+    }
+
     function scrollViewerHeadingBelowViewportHeader(targetHeading, scrollBehavior) {
       const mainContainer = document.getElementById('main');
       const header = document.getElementById('viewer-header');
@@ -26019,7 +26035,11 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
         });
         
         tocList.appendChild(tocHeading);
-        tocItems.push({ element: tocHeading, heading: heading });
+        tocItems.push({
+          element: tocHeading,
+          heading: heading,
+          matchKey: getViewerHeadingMatchKey(heading)
+        });
       });
       
       // Prüfe ob Wandtafelzeichnungen in chalkboards.json für diesen Vortrag vorhanden sind
@@ -26123,6 +26143,10 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
           }
         }
         
+        const activeKeys = new Set(
+          activeHeadings.map(h => getViewerHeadingMatchKey(h)).filter(Boolean)
+        );
+        
         // Alle TOC-Items zurücksetzen
         tocItems.forEach(item => {
           item.element.style.fontWeight = 'normal';
@@ -26130,9 +26154,11 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
           item.element.style.color = isDarkMode ? '#6BA3B8' : '#467886';
         });
         
-        // Markiere alle aktiven Headings (H3 und/oder H4) fett
+        // Markiere aktive Einträge per ID/Index (nicht per DOM-Referenz – wichtig nach innerHTML-Ersetzung bei Büchern)
         tocItems.forEach(item => {
-          if (activeHeadings.includes(item.heading)) {
+          const isActive = (item.matchKey && activeKeys.has(item.matchKey)) ||
+            (item.heading && activeHeadings.includes(item.heading));
+          if (isActive) {
             item.element.style.fontWeight = 'bold';
             const isDarkMode = document.body.classList.contains('dark-mode');
             item.element.style.color = isDarkMode ? '#6BA3B8' : '#467886';
