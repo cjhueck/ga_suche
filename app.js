@@ -19798,10 +19798,12 @@ function scrollToChronologicalYear(year) {
       // Entferne Buttons und interaktive Elemente
       clone.querySelectorAll('button, .download-btn, .copy-btn').forEach(el => el.remove());
       
-      // Entferne alle Inline-Styles für sauberes PDF
-      clone.querySelectorAll('*').forEach(el => {
-        el.removeAttribute('style');
-      });
+      // Entferne alle Inline-Styles für sauberes TXT/MD (aber behalte sie für PDF)
+      if (format !== 'pdf') {
+        clone.querySelectorAll('*').forEach(el => {
+          el.removeAttribute('style');
+        });
+      }
       
       // Konvertiere interne Links zu Online-URLs
       convertInternalLinksToOnlineUrls(clone);
@@ -19845,102 +19847,13 @@ function scrollToChronologicalYear(year) {
       const fileName = `${tabName} - ${timestamp}`;
       
       if (format === 'pdf') {
-        // PDF-Download mit Browser-Print
-        const printWindow = window.open('', '_blank');
-        if (!printWindow) {
-          alert('Popup-Blocker verhindert den PDF-Download. Bitte erlauben Sie Popups für diese Seite.');
-          return;
+        clone.querySelectorAll('#rechercheControlsBar, select, input, #deleteThemaBtn').forEach(el => el.remove());
+        try {
+          await generateFormattedPdfFromElement(clone, tabName, fileName);
+        } catch (error) {
+          console.error('[PDF-GENERATE] Fehler in downloadViewerContent:', error);
+          alert('Fehler beim Erstellen des PDFs:\n\n' + error.message);
         }
-        
-        printWindow.document.write(`
-          <!DOCTYPE html>
-          <html>
-          <head>
-            <title>${tabName}</title>
-            <style>
-              * {
-                margin: 0 !important;
-                padding: 0 !important;
-                box-sizing: border-box;
-              }
-              body { 
-                font-family: Georgia, 'Times New Roman', serif !important; 
-                line-height: 1.3 !important; 
-                padding: 1.5rem !important;
-                max-width: 800px;
-                margin: 0 auto !important;
-                font-size: 11pt !important;
-              }
-              h1 { 
-                color: #467886 !important; 
-                margin-top: 0 !important; 
-                margin-bottom: 0.4em !important;
-                font-size: 1.3em !important;
-                padding-bottom: 0.2em !important;
-              }
-              h2 { 
-                color: #467886 !important; 
-                margin-top: 0.5em !important; 
-                margin-bottom: 0.2em !important;
-                font-size: 1.15em !important;
-              }
-              h3 { 
-                color: #467886 !important; 
-                margin-top: 0.4em !important; 
-                margin-bottom: 0.15em !important;
-                font-size: 1.05em !important;
-              }
-              h4 { 
-                color: #467886 !important; 
-                margin-top: 0.3em !important; 
-                margin-bottom: 0.1em !important;
-                font-size: 1em !important;
-              }
-              p { 
-                margin: 0.15em 0 !important; 
-                padding: 0 !important;
-              }
-              ul, ol {
-                margin: 0.15em 0 !important;
-                padding-left: 1.2em !important;
-              }
-              li {
-                margin: 0.05em 0 !important;
-                padding: 0 !important;
-              }
-              a { 
-                color: #467886 !important; 
-                text-decoration: none !important;
-              }
-              a[href^="http"] {
-                color: #467886 !important;
-                text-decoration: underline !important;
-              }
-              div {
-                margin: 0 !important;
-                padding: 0 !important;
-              }
-              .semantic-answer, .answer-content, .timeline-item, .concept-content {
-                margin: 0 !important;
-                padding: 0 !important;
-              }
-              mark {
-                background: #fff3cd !important;
-                padding: 0 !important;
-              }
-            </style>
-          </head>
-          <body>
-            <h1>${tabName}</h1>
-            ${clone.innerHTML}
-          </body>
-          </html>
-        `);
-        printWindow.document.close();
-        
-        setTimeout(() => {
-          printWindow.print();
-        }, 500);
       } else {
         // TXT oder MD Download
         const extension = format === 'md' ? 'md' : 'txt';
@@ -20168,6 +20081,364 @@ function scrollToChronologicalYear(year) {
       }
     };
     
+    // Formatiertes PDF aus Viewer-HTML (Tabellen, Überschriften, klickbare GA-Links)
+    async function generateFormattedPdfFromElement(root, title, filename) {
+      const { jsPDF } = window.jspdf;
+      const HEADING = [70, 120, 134];
+      const TEXT = [51, 51, 51];
+      const MUTED = [102, 102, 102];
+      const BORDER = [210, 210, 210];
+      const HEADER_BG = [245, 245, 242];
+
+      const firstTable = root.querySelector('table');
+      const rawColCount = firstTable ? (firstTable.querySelector('tr')?.querySelectorAll('th, td').length || 0) : 0;
+      const landscape = rawColCount >= 3;
+
+      const skipTags = new Set(['SCRIPT', 'STYLE', 'BUTTON', 'SELECT', 'OPTION', 'INPUT', 'SVG', 'NOSCRIPT']);
+      const skipIds = new Set(['rechercheControlsBar', 'pdf-loading-msg']);
+
+      const tocEntries = [];
+      const collectToc = (node) => {
+        if (!node || node.nodeType !== 1) return;
+        if (skipTags.has(node.tagName) || skipIds.has(node.id)) return;
+        const isSub = node.classList.contains('recherche-subtheme-heading') || /^H[2-4]$/.test(node.tagName);
+        if (isSub) {
+          const text = (node.innerText || '').replace(/\s+/g, ' ').trim();
+          if (text) tocEntries.push({ el: node, text });
+          return;
+        }
+        if (node.tagName === 'TABLE' || node.tagName === 'P' || /^H[1-6]$/.test(node.tagName)) return;
+        Array.from(node.children).forEach(collectToc);
+      };
+      collectToc(root);
+
+      const headingPages = new Map();
+      const headingTops = new Map();
+      let dry = true;
+      let pdf = null;
+      let pageWidth = landscape ? 297 : 210;
+      let pageHeight = landscape ? 210 : 297;
+      const margin = 12;
+      let contentWidth = pageWidth - 2 * margin;
+      let y = margin;
+      let pageNum = 1;
+
+      const newPage = () => {
+        if (!dry) pdf.addPage();
+        pageNum += 1;
+        y = margin;
+      };
+
+      const ensureSpace = (needed) => {
+        if (y + needed > pageHeight - margin) {
+          newPage();
+          return true;
+        }
+        return false;
+      };
+
+      const wrap = (text, width, fontSize, fontStyle) => {
+        if (!pdf) {
+          pdf = new jsPDF({ orientation: landscape ? 'landscape' : 'portrait', unit: 'mm', format: 'a4' });
+          pageWidth = pdf.internal.pageSize.getWidth();
+          pageHeight = pdf.internal.pageSize.getHeight();
+          contentWidth = pageWidth - 2 * margin;
+        }
+        pdf.setFont('helvetica', fontStyle || 'normal');
+        pdf.setFontSize(fontSize);
+        return pdf.splitTextToSize(String(text || '').trim() || ' ', Math.max(8, width));
+      };
+
+      const drawLines = (lines, x, width, opts) => {
+        const fontSize = opts.fontSize || 9;
+        const lineH = opts.lineH || fontSize * 0.42;
+        const color = opts.color || TEXT;
+        const style = opts.fontStyle || 'normal';
+        const url = opts.url || null;
+        if (!dry) {
+          pdf.setFont('helvetica', style);
+          pdf.setFontSize(fontSize);
+          pdf.setTextColor(...color);
+        }
+        for (const line of lines) {
+          ensureSpace(lineH + 0.5);
+          y += lineH;
+          if (!dry) {
+            pdf.text(line, x, y);
+            if (url) {
+              pdf.link(x, y - lineH + 0.4, width, lineH, { url });
+            }
+          }
+        }
+      };
+
+      const extractCell = (cell) => {
+        const link = cell.querySelector('a[href^="http"]');
+        return {
+          text: (cell.innerText || '').replace(/\s+/g, ' ').trim(),
+          url: link ? link.getAttribute('href') : null,
+          header: cell.tagName === 'TH'
+        };
+      };
+
+      const dropRelevanzColumn = (rows) => {
+        const header = rows.find(r => r.some(c => c.header));
+        let dropIdx = header ? header.findIndex(c => /relevanz/i.test(c.text || '')) : -1;
+        if (dropIdx < 0 && rows[0] && rows[0].length === 4) dropIdx = 3;
+        if (dropIdx < 0) return rows;
+        return rows.map(r => r.filter((_, i) => i !== dropIdx)).filter(r => r.length);
+      };
+
+      const drawTable = (tableEl) => {
+        let rows = [];
+        tableEl.querySelectorAll('tr').forEach(tr => {
+          const cells = Array.from(tr.querySelectorAll('th, td')).map(extractCell);
+          if (cells.length) rows.push(cells);
+        });
+        rows = dropRelevanzColumn(rows);
+        if (!rows.length) return;
+
+        const cols = Math.max(...rows.map(r => r.length));
+        let colWidths;
+        if (cols === 3) {
+          colWidths = [contentWidth * 0.28, contentWidth * 0.55, contentWidth * 0.17];
+        } else if (cols === 2) {
+          colWidths = [contentWidth * 0.38, contentWidth * 0.62];
+        } else {
+          colWidths = Array(cols).fill(contentWidth / cols);
+        }
+
+        const fontSize = landscape ? 8 : 8.5;
+        const lineH = 3.5;
+        const pad = 1.5;
+        const headerRow = rows.find(r => r.some(c => c.header)) || null;
+
+        const paintRowChunk = (row, lineArrays, fromLine, lineCount, isHead) => {
+          const chunkH = lineCount * lineH + pad * 2;
+          if (ensureSpace(chunkH) && headerRow && !isHead) {
+            const headerLines = headerRow.map((c, i) => wrap(c.text, colWidths[i] - pad * 2, fontSize, 'bold'));
+            const headerMax = Math.max(1, ...headerLines.map(a => a.length));
+            paintRowChunk(headerRow, headerLines, 0, headerMax, true);
+          }
+          const h = lineCount * lineH + pad * 2;
+          if (!dry) {
+            let x = margin;
+            for (let ci = 0; ci < cols; ci++) {
+              const w = colWidths[ci];
+              pdf.setDrawColor(...BORDER);
+              pdf.setFillColor(...(isHead ? HEADER_BG : [255, 255, 255]));
+              pdf.rect(x, y, w, h, 'FD');
+              const cell = row[ci];
+              if (cell) {
+                pdf.setFont('helvetica', isHead ? 'bold' : 'normal');
+                pdf.setFontSize(fontSize);
+                pdf.setTextColor(...(isHead ? HEADING : TEXT));
+                const slice = (lineArrays[ci] || []).slice(fromLine, fromLine + lineCount);
+                let ty = y + pad + lineH * 0.85;
+                for (const line of slice) {
+                  pdf.text(line, x + pad, ty);
+                  ty += lineH;
+                }
+                if (cell.url) {
+                  pdf.link(x, y, w, h, { url: cell.url });
+                }
+              }
+              x += w;
+            }
+          }
+          y += h;
+        };
+
+        rows.forEach(row => {
+          const isHead = row.some(c => c.header);
+          const lineArrays = [];
+          for (let ci = 0; ci < cols; ci++) {
+            lineArrays[ci] = wrap((row[ci] && row[ci].text) || ' ', colWidths[ci] - pad * 2, fontSize, isHead ? 'bold' : 'normal');
+          }
+          const totalLines = Math.max(1, ...lineArrays.map(a => a.length));
+          let offset = 0;
+          while (offset < totalLines) {
+            const spaceLeft = pageHeight - margin - y;
+            const minChunk = lineH + pad * 2 + 1;
+            if (spaceLeft < minChunk) newPage();
+            const avail = pageHeight - margin - y;
+            const linesFit = Math.max(1, Math.floor((avail - pad * 2) / lineH));
+            const chunk = Math.min(linesFit, totalLines - offset);
+            paintRowChunk(row, lineArrays, offset, chunk, isHead);
+            offset += chunk;
+          }
+        });
+        y += 4;
+      };
+
+      const drawHeader = () => {
+        y += 4;
+        const titleLines = wrap(String(title || 'Export'), contentWidth, 11, 'bold');
+        if (!dry) {
+          pdf.setFont('helvetica', 'bold');
+          pdf.setFontSize(11);
+          pdf.setTextColor(...HEADING);
+        }
+        titleLines.forEach(line => {
+          y += 5;
+          if (!dry) pdf.text(line, margin, y);
+        });
+        y += 2;
+        if (!dry) {
+          pdf.setDrawColor(...HEADING);
+          pdf.setLineWidth(0.3);
+          pdf.line(margin, y, margin + contentWidth, y);
+        }
+        y += 4;
+      };
+
+      const drawToc = () => {
+        if (!tocEntries.length) return;
+        const tocLines = wrap('Übersicht', contentWidth, 12, 'bold');
+        drawLines(tocLines, margin, contentWidth, { fontSize: 12, lineH: 5.5, color: HEADING, fontStyle: 'bold' });
+        y += 2;
+        tocEntries.forEach((entry, i) => {
+          const pageLabel = headingPages.has(entry.el) ? String(headingPages.get(entry.el)) : '';
+          const label = `${i + 1}. ${entry.text}`;
+          const lines = wrap(label, contentWidth - 14, 10, 'normal');
+          ensureSpace(lines.length * 5 + 1);
+          const linkPage = pageNum;
+          const linkY = y;
+          lines.forEach((line, li) => {
+            y += 5;
+            if (!dry) {
+              pdf.setFont('helvetica', 'normal');
+              pdf.setFontSize(10);
+              pdf.setTextColor(...HEADING);
+              pdf.text(line, margin, y);
+              if (li === lines.length - 1 && pageLabel) {
+                pdf.setTextColor(...MUTED);
+                pdf.text(pageLabel, margin + contentWidth, y, { align: 'right' });
+              }
+            }
+          });
+          if (!dry) {
+            const targetPage = headingPages.get(entry.el) || 1;
+            const targetTop = headingTops.get(entry.el);
+            const linkOpts = { pageNumber: targetPage };
+            if (typeof targetTop === 'number') {
+              linkOpts.magFactor = 'XYZ';
+              linkOpts.top = targetTop;
+            }
+            const h = Math.max(5, y - linkY);
+            const savedPage = pageNum;
+            if (pdf.internal.getCurrentPageInfo().pageNumber !== linkPage) {
+              pdf.setPage(linkPage);
+            }
+            pdf.link(margin, linkY, contentWidth, h, linkOpts);
+            if (pdf.internal.getCurrentPageInfo().pageNumber !== savedPage) {
+              pdf.setPage(savedPage);
+            }
+          }
+        });
+        y += 3;
+        if (!dry) {
+          pdf.setDrawColor(...BORDER);
+          pdf.setLineWidth(0.2);
+          pdf.line(margin, y, margin + contentWidth, y);
+        }
+        y += 4;
+      };
+
+      const walk = (node) => {
+        if (!node || node.nodeType !== 1) return;
+        if (skipTags.has(node.tagName)) return;
+        if (skipIds.has(node.id)) return;
+
+        const tag = node.tagName;
+        if (tag === 'TABLE') {
+          drawTable(node);
+          return;
+        }
+        if (/^H[1-6]$/.test(tag)) {
+          const text = (node.innerText || '').replace(/\s+/g, ' ').trim();
+          if (!text) return;
+          const level = parseInt(tag[1], 10);
+          const fontSize = level === 1 ? 14 : (level === 2 ? 12 : 10.5);
+          y += level <= 2 ? 5 : 3;
+          ensureSpace(fontSize * 0.5 + 2);
+          if (level >= 2) {
+            headingPages.set(node, pageNum);
+            headingTops.set(node, y);
+          }
+          const lines = wrap(text, contentWidth, fontSize, 'bold');
+          drawLines(lines, margin, contentWidth, { fontSize, lineH: fontSize * 0.45, color: HEADING, fontStyle: 'bold' });
+          y += 1.5;
+          return;
+        }
+        if (tag === 'P' || tag === 'LI' || tag === 'BLOCKQUOTE') {
+          const text = (node.innerText || '').replace(/\s+/g, ' ').trim();
+          if (!text) return;
+          const prefix = tag === 'LI' ? '• ' : '';
+          const fontSize = 9.5;
+          const lines = wrap(prefix + text, contentWidth, fontSize, 'normal');
+          const italic = tag === 'BLOCKQUOTE' || node.style.fontStyle === 'italic';
+          drawLines(lines, margin, contentWidth, {
+            fontSize,
+            lineH: 4.2,
+            color: italic ? MUTED : TEXT,
+            fontStyle: italic ? 'italic' : 'normal'
+          });
+          const links = Array.from(node.querySelectorAll('a[href^="http"]'));
+          const seen = new Set();
+          const uniqueLinks = links.filter(a => {
+            const href = a.getAttribute('href');
+            if (!href || seen.has(href)) return false;
+            seen.add(href);
+            return true;
+          });
+          if (uniqueLinks.length) {
+            y += 0.8;
+            uniqueLinks.forEach(a => {
+              const label = (a.textContent || 'Link').replace(/\s+/g, ' ').trim();
+              const href = a.getAttribute('href');
+              const linkLines = wrap(label, contentWidth, 8.5, 'normal');
+              drawLines(linkLines, margin, contentWidth, {
+                fontSize: 8.5,
+                lineH: 3.8,
+                color: HEADING,
+                fontStyle: 'normal',
+                url: href
+              });
+            });
+          }
+          y += 1.8;
+          return;
+        }
+
+        Array.from(node.children).forEach(walk);
+      };
+
+      const render = (isDry) => {
+        dry = isDry;
+        if (!isDry) {
+          pdf = new jsPDF({
+            orientation: landscape ? 'landscape' : 'portrait',
+            unit: 'mm',
+            format: 'a4'
+          });
+          pageWidth = pdf.internal.pageSize.getWidth();
+          pageHeight = pdf.internal.pageSize.getHeight();
+          contentWidth = pageWidth - 2 * margin;
+        }
+        pageNum = 1;
+        y = margin;
+        drawHeader();
+        drawToc();
+        walk(root);
+      };
+
+      wrap(' ', 20, 10, 'normal');
+      render(true);
+      render(false);
+      pdf.save(`${filename}.pdf`);
+    }
+
     // PDF aus Text generieren
     async function generatePdfFromText(textContent, title, filename) {
       try {
