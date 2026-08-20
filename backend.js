@@ -6044,7 +6044,7 @@ ARBEITSWEISE:
 STILISTISCHE ANFORDERUNGEN:
 - Beginne direkt mit Inhalten, keine Einleitung
 - Kurze, prägnante Sätze
-- Keine Wiederholungen oder Redundanzen
+- WICHTIG: Keine thematischen Wiederholungen oder Redundanzen. Fasse inhaltlich ähnliche Aspekte zwingend unter EINER gemeinsamen Zwischenüberschrift zusammen.
 - Keine eigenen Interpretationen oder allgemeinen Einordnungen
 - KEINE Meta-Kommentare über die Suchergebnisse oder Textlage (z.B. NICHT: "Diese Wendung findet sich nicht..." oder "Die Texte zeigen...")
 - NUR Steiners eigene Aussagen und kurze, sachliche Zusammenfassungen oder Verbindungen zwischen diesen Aussagen
@@ -6303,6 +6303,7 @@ Gib NUR ein einziges JSON-Objekt aus – keinen Fliesstext davor oder danach, ke
 
 INHALTLICHE REGELN
 - Gliedere das Material in mehrere sinnvolle Unterthemen (subThemes). Jedes Unterthema buendelt inhaltlich zusammengehoerige Aussagen.
+- WICHTIG ZUR STRUKTUR: Vermeide unbedingt thematische Ueberschneidungen oder Wiederholungen bei den Unterthemen! Fasse aehnliche oder verwandte Aspekte zwingend in EINEM gemeinsamen uebergeordneten Unterthema zusammen (z.B. "Physische Gestalt" und "Physische Beschaffenheit" muessen EIN Unterthema bilden). Pruefe vor dem Erstellen eines neuen Unterthemas streng, ob es in ein bestehendes integriert werden kann.
 - Sammle BREIT: moeglichst viele inhaltlich UNTERSCHIEDLICHE Aussagen. Keine Redundanzen (gleiche Aussage nicht mehrfach).
 - "aussage": TELEGRAMMARTIG kurz – eine verdichtete Schlagzeile aus Stichworten, KEIN vollstaendiger Satz, KEIN Subjekt-Praedikat-Bau, keine Wendungen wie "Steiner sagt/meint", keine Fuellwoerter ("dass", "weil", "waehrend", "man koenne"). Oft hilfreich: ein Doppelpunkt, der Bezug und Kern trennt. Der ausfuehrliche Inhalt steht im Zitat, NICHT in der Aussage.
   Gegenbeispiele (so NICHT) und richtige Kurzform (so):
