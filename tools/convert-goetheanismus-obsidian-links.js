@@ -91,8 +91,22 @@ function convertContent(content) {
     return `([[GA ${ga}]], [${label}](${url}))`;
   });
 
+  // 1b) Bereits vorhandene goto.html-Zitatlinks: Zitattext verlängern, vault/file entfernen
+  const rsoRe = /\(\[\[GA\s*(\d+[a-zA-Z]?)\]\],\s*\[([^\]]+)\]\((https:\/\/rudolf-steiner-online\.de\/goto\.html#[^)]+)\)\)/g;
+  result = result.replace(rsoRe, (match, ga, label, oldUrl, offset) => {
+    const snippet = extractQuoteSnippet(result.slice(0, offset));
+    const params = new URLSearchParams(oldUrl.split('#')[1] || '');
+    const page = params.get('page');
+    const pageEnd = params.get('pageEnd');
+    const date = params.get('date');
+    const url = buildGotoUrl({ ga, page, pageEnd, date, text: snippet });
+    if (url === oldUrl) return match;
+    count++;
+    return `([[GA ${ga}]], [${label}](${url}))`;
+  });
+
   // 2) PDF-Link mit vollständigem Datum: ([[GA 078]], [01.09.1921, S. 80 f.](pdf))
-  const pdfDatedRe = /\(\[\[GA\s*(\d+[a-zA-Z]?)\]\],\s*\[(\d{2})\.(\d{2})\.(\d{4}),\s*S\.\s*(\d+)(?:[-–](\d+))?[^\]]*\]\(https:\/\/akanthosakademie\.files\.wordpress\.com\/[^)]+\)\)/g;
+  const pdfDatedRe = /\(\[\[GA\s*(\d+[a-zA-Z]?)\]\],\s*\[(\d{2})\.(\d{2})\.(\d{4}),\s*S\.\s*(\d+)(?:[-–](\d+))?[^\]]*\]\(https:\/\/akanthosakademie\.files\.wordpress\.com\/[^)]+\)\)?/g;
   result = result.replace(pdfDatedRe, (match, ga, day, month, year, page, pageEnd, offset) => {
     const snippet = extractQuoteSnippet(result.slice(0, offset));
     const url = buildGotoUrl({ ga, page, pageEnd, date: `${year}-${month}-${day}`, text: snippet });
@@ -102,7 +116,7 @@ function convertContent(content) {
   });
 
   // 3) PDF-Link ohne Datum: ([[GA 030]], [S. 325](pdf)) oder [S. 156-157]
-  const pdfPageRe = /\(\[\[GA\s*(\d+[a-zA-Z]?)\]\],\s*\[S\.\s*(\d+)(?:[-–](\d+))?[^\]]*\]\(https:\/\/akanthosakademie\.files\.wordpress\.com\/[^)]+\)\)/g;
+  const pdfPageRe = /\(\[\[GA\s*(\d+[a-zA-Z]?)\]\],\s*\[S\.\s*(\d+)(?:[-–](\d+))?[^\]]*\]\(https:\/\/akanthosakademie\.files\.wordpress\.com\/[^)]+\)\)?/g;
   result = result.replace(pdfPageRe, (match, ga, page, pageEnd, offset) => {
     const snippet = extractQuoteSnippet(result.slice(0, offset));
     const url = buildGotoUrl({ ga, page, pageEnd, text: snippet });
