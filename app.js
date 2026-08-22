@@ -11,8 +11,8 @@ _obsidianBC.onmessage = function(e) {
       if (idx > 0) params[part.substring(0, idx)] = decodeURIComponent(part.substring(idx + 1));
     });
     
-    if (params.ga && params.date) {
-      // GA+Datum+Seite Navigation
+    if (params.ga && (params.date || params.page || params.text)) {
+      // GA+Seite Navigation (Datum optional, z. B. Schriften/Aufsätze)
       if (typeof navigateToGAPage === 'function') {
         navigateToGAPage(params.ga, params.date, params.page, params.text, params.vault, params.file);
       } else {
@@ -27860,8 +27860,8 @@ window.addEventListener('DOMContentLoaded', function() {
           runObsidianSearch(queryParams.q);
         }
         
-        // Obsidian-Link: GA+Datum+Seite ? Vortrag öffnen
-        if (queryParams.ga && queryParams.date) {
+        // Obsidian-Link: GA+Seite (Datum optional) → Text im Tab Texte öffnen
+        if (queryParams.ga && (queryParams.date || queryParams.page || queryParams.text)) {
           navigateToGAPage(queryParams.ga, queryParams.date, queryParams.page, queryParams.text, queryParams.vault, queryParams.file);
         }
         
@@ -27898,13 +27898,14 @@ function runObsidianSearch(rawQ) {
   }, 500);
 }
 
-// Obsidian-Zitat: Via GA+Datum+Seite navigieren
+// Obsidian-Zitat: Via GA+Seite navigieren (Datum optional, für Schriften/Aufsätze)
 var _obsidianTryScrollTimeout = null;  // Verhindert mehrere parallele tryScroll-Loops (Flackern)
 async function navigateToGAPage(ga, date, page, searchText, vault, file) {
   const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
   const apiBase = isLocal ? 'http://localhost:3003' : 'https://ga-suche.onrender.com';
+  searchText = String(searchText || '').replace(/\+/g, ' ').trim();
   
-  console.log('[OBSIDIAN-GA] Navigiere zu GA', ga, 'Datum', date, 'Seite', page, searchText ? `Text: "${searchText}"` : '');
+  console.log('[OBSIDIAN-GA] Navigiere zu GA', ga, 'Datum', date, 'Seite', page, searchText ? `Text: "${searchText.substring(0, 80)}"` : '');
   
   // Vorherigen tryScroll-Loop abbrechen (verhindert mehrfaches Flackern)
   if (_obsidianTryScrollTimeout) {
@@ -27913,9 +27914,12 @@ async function navigateToGAPage(ga, date, page, searchText, vault, file) {
   }
   
   try {
-    const resp = await fetch(`${apiBase}/api/resolve-lecture?ga=${encodeURIComponent(ga)}&date=${encodeURIComponent(date)}`);
+    let resolveUrl = `${apiBase}/api/resolve-lecture?ga=${encodeURIComponent(ga)}`;
+    if (date) resolveUrl += `&date=${encodeURIComponent(date)}`;
+    if (page) resolveUrl += `&page=${encodeURIComponent(page)}`;
+    const resp = await fetch(resolveUrl);
     if (!resp.ok) {
-      console.error('[OBSIDIAN-GA] Vortrag nicht gefunden:', ga, date);
+      console.error('[OBSIDIAN-GA] Text nicht gefunden:', ga, date || '', page || '');
       return;
     }
     
@@ -27925,9 +27929,9 @@ async function navigateToGAPage(ga, date, page, searchText, vault, file) {
       return;
     }
     
-    console.log('[OBSIDIAN-GA] Vortrag gefunden:', data.lectureId, data.title);
+    console.log('[OBSIDIAN-GA] Text gefunden:', data.lectureId, data.title, data.paragraphIndex || '');
     switchTab('texte', true);
-    await showLecture(data.lectureId);
+    await showLecture(data.lectureId, data.paragraphIndex || null);
     
     // Warte bis Vortrag geladen ist – wiederhole mehrmals, da replaceImageSrcWithBase64 den DOM später überschreibt
     var appliedCount = 0;
@@ -27999,8 +28003,8 @@ async function navigateToGAPage(ga, date, page, searchText, vault, file) {
         const words = normalize(searchText).split(/\s+/).filter(w => w.length >= 2);
         console.log('[OBSIDIAN-GA] Durchsuche', allParas.length, '.paragraph Divs');
         
-        // Versuche mit absteigender Wortanzahl (5, 4, 3, 2)
-        for (let len = Math.min(words.length, 5); len >= 2 && !targetPara; len--) {
+        // Längste Wortfolge zuerst (ganzes Zitat, dann kürzer)
+        for (let len = Math.min(words.length, 40); len >= 2 && !targetPara; len--) {
           const searchPhrase = words.slice(0, len).join(' ');
           for (let i = 0; i < allParas.length; i++) {
             const p = allParas[i];
@@ -28081,9 +28085,9 @@ async function navigateToGAPage(ga, date, page, searchText, vault, file) {
               var txt = (elem.textContent || '').trim();
               if (txt.length < 5) continue;
               var norm = (txt || '').toLowerCase().replace(/ß/g, 'ss').replace(/[,;.:!?()"'„"‚'»«›‹—–-]/g, '').replace(/\s+/g, ' ').trim();
-              var searchNorm = (searchText || '').toLowerCase().replace(/ß/g, 'ss').replace(/[^\w\s]/g, ' ').replace(/\s+/g, ' ').trim();
+              var searchNorm = (searchText || '').toLowerCase().replace(/\+/g, ' ').replace(/ß/g, 'ss').replace(/[^\w\s]/g, ' ').replace(/\s+/g, ' ').trim();
               var words = searchNorm.split(/\s+/).filter(function(w){ return w.length >= 2; });
-              var phrase = words.slice(0, Math.min(5, words.length)).join(' ');
+              var phrase = words.slice(0, Math.min(8, words.length)).join(' ');
               if (phrase && norm.includes(phrase)) {
                 pTag = elem;
                 originalHTML = elem.innerHTML || '';
@@ -28094,39 +28098,24 @@ async function navigateToGAPage(ga, date, page, searchText, vault, file) {
             if (!pTag) { pTag = targetPara.querySelector('p') || targetPara; originalHTML = pTag.innerHTML || ''; textContent = pTag.textContent || ''; }
             if (pTag && (originalHTML || textContent)) {
               
-              // Normalisiere den searchText (die ersten 5 Worte aus Obsidian)
-              var normalizedSearchText = searchText.replace(/ß/g, 'ss')
+              var normalizedSearchText = searchText.replace(/\+/g, ' ')
                 .replace(/\[\[([^\]]*?\|)?([^\]]*?)\]\]/g, '$2')
-                .replace(/[^\w\s]/g, ' ')
                 .replace(/\s+/g, ' ')
                 .trim();
               
-              var words = normalizedSearchText.split(/\s+/);
+              var words = normalizedSearchText.split(/\s+/).filter(function(w) { return w.replace(/[^\wÄÖÜäöüß]/gi, '').length >= 2; });
               var match = null;
               var actualText = null;
               
-              // Versuche zuerst alle Worte (normalerweise 5)
-              if (words.length >= 1) {
-                var wordPattern = words.map(w => w.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('\\s+');
+              // Längstes Zitat-Präfix, das im Absatz steht (übliche Treffer-Markierung)
+              for (var wl = Math.min(words.length, 40); wl >= 3 && !match; wl--) {
+                var tryWords = words.slice(0, wl);
+                var wordPattern = tryWords.map(function(w) { return w.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); }).join('[\\s«»„"‚\'()\\[\\]]+');
                 var regex = new RegExp('(' + wordPattern + ')', 'i');
                 match = textContent.match(regex);
-                
                 if (match) {
                   actualText = match[0];
-                  console.log('[OBSIDIAN-GA] ? Zitatanfang gefunden mit ' + words.length + ' Worten:', actualText);
-                }
-              }
-              
-              // Fallback: Versuche nur die ersten 3 Worte
-              if (!match && words.length >= 3) {
-                var firstThree = words.slice(0, 3);
-                var wordPattern3 = firstThree.map(w => w.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('\\s+');
-                var regex3 = new RegExp('(' + wordPattern3 + ')', 'i');
-                match = textContent.match(regex3);
-                
-                if (match) {
-                  actualText = match[0];
-                  console.log('[OBSIDIAN-GA] ? Zitatanfang gefunden mit Fallback (3 Worte):', actualText);
+                  console.log('[OBSIDIAN-GA] Zitat gefunden mit ' + wl + ' Worten');
                 }
               }
               
@@ -28158,7 +28147,7 @@ async function navigateToGAPage(ga, date, page, searchText, vault, file) {
                   patternParts.push(words[i]);
                   if (i < words.length - 1) {
                     // Zwischen Worten: optionale Platzhalter, Whitespace, optionale weitere Platzhalter
-                    patternParts.push('(?:\\s*___PM\\d+___\\s*|\\s+)');
+                    patternParts.push('(?:\\s*___PM\\d+___\\s*|[\\s«»„"‚\'()\\[\\]]+)');
                   }
                 }
                 var flexPattern = new RegExp(patternParts.join(''), 'i');
@@ -28177,15 +28166,15 @@ async function navigateToGAPage(ga, date, page, searchText, vault, file) {
                     console.log('[OBSIDIAN-GA] 🔗 Obsidian-Link erstellt:', obsidianLink);
                   }
                   
-                  // Ersetze den gefundenen Text mit markierter Version (mit Link wenn vorhanden)
+                  // Ersetze den gefundenen Text mit üblicher Treffer-Markierung
                   var markedHTML;
                   if (obsidianLink) {
                     markedHTML = htmlWithPlaceholders.replace(flexPattern, 
-                      '<a href="' + obsidianLink + '" class="obsidian-first-words" style="text-decoration: underline dotted rgba(70, 120, 134, 0.8); text-decoration-thickness: 2px; text-underline-offset: 3px; color: inherit; cursor: pointer;" title="Zurück zu Obsidian">' + 
+                      '<a href="' + obsidianLink + '" class="viewer-search-highlight obsidian-first-words" title="Zurück zu Obsidian">' + 
                       matchInHTML[0] + '</a>');
                   } else {
                     markedHTML = htmlWithPlaceholders.replace(flexPattern, 
-                      '<span class="obsidian-first-words" style="text-decoration: underline dotted rgba(70, 120, 134, 0.8); text-decoration-thickness: 2px; text-underline-offset: 3px;">' + 
+                      '<span class="viewer-search-highlight obsidian-first-words">' + 
                       matchInHTML[0] + '</span>');
                   }
                   
@@ -28215,11 +28204,11 @@ async function navigateToGAPage(ga, date, page, searchText, vault, file) {
                     var markedHTML;
                     if (obsidianLink) {
                       markedHTML = originalHTML.replace(simpleMatch[0], 
-                        '<a href="' + obsidianLink + '" class="obsidian-first-words" style="text-decoration: underline dotted rgba(70, 120, 134, 0.8); text-decoration-thickness: 2px; text-underline-offset: 3px; color: inherit; cursor: pointer;" title="Zurück zu Obsidian">' + 
+                        '<a href="' + obsidianLink + '" class="viewer-search-highlight obsidian-first-words" title="Zurück zu Obsidian">' + 
                         simpleMatch[0] + '</a>');
                     } else {
                       markedHTML = originalHTML.replace(simpleMatch[0], 
-                        '<span class="obsidian-first-words" style="text-decoration: underline dotted rgba(70, 120, 134, 0.8); text-decoration-thickness: 2px; text-underline-offset: 3px;">' + 
+                        '<span class="viewer-search-highlight obsidian-first-words">' + 
                         simpleMatch[0] + '</span>');
                     }
                     pTag.innerHTML = markedHTML;
@@ -28487,8 +28476,8 @@ window.addEventListener('hashchange', function() {
     runObsidianSearch(queryParams.q);
   }
   
-  // Obsidian-Link: GA+Datum+Seite ? Vortrag öffnen
-  if (queryParams.ga && queryParams.date) {
+  // Obsidian-Link: GA+Seite (Datum optional) → Text im Tab Texte öffnen
+  if (queryParams.ga && (queryParams.date || queryParams.page || queryParams.text)) {
     navigateToGAPage(queryParams.ga, queryParams.date, queryParams.page, queryParams.text, queryParams.vault, queryParams.file);
   }
   
