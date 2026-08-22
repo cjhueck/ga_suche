@@ -64,20 +64,83 @@ function extractQuoteSnippet(textBefore) {
   return words.slice(0, MAX_QUOTE_WORDS).join(' ');
 }
 
-function buildGotoUrl({ ga, page, pageEnd, date, text }) {
+function buildGotoUrl({ ga, page, pageEnd, date, text, lecture }) {
   const parts = [`ga=${padGa(ga)}`];
   if (date) parts.push(`date=${date}`);
   if (page) parts.push(`page=${page}`);
   if (pageEnd) parts.push(`pageEnd=${pageEnd}`);
+  if (lecture) parts.push(`lecture=${encodeURIComponent(lecture)}`);
   if (text) parts.push(`text=${encodeURIComponent(text)}`);
   return `${BASE}#${parts.join('&')}`;
+}
+
+const RESOLVE_API = 'https://ga-suche.onrender.com/api/resolve-lecture';
+const lectureIdCache = new Map();
+
+async function resolveLectureId(ga, page, date) {
+  const key = `${padGa(ga)}|${page || ''}|${date || ''}`;
+  if (lectureIdCache.has(key)) return lectureIdCache.get(key);
+  const q = new URLSearchParams({ ga: padGa(ga) });
+  if (date) q.set('date', date);
+  if (page) q.set('page', page);
+  try {
+    const resp = await fetch(`${RESOLVE_API}?${q}`);
+    if (!resp.ok) {
+      lectureIdCache.set(key, null);
+      return null;
+    }
+    const data = await resp.json();
+    const id = data.lectureId || null;
+    lectureIdCache.set(key, id);
+    return id;
+  } catch (e) {
+    lectureIdCache.set(key, null);
+    return null;
+  }
+}
+
+function parseLinkMeta(url) {
+  const pdf = url.match(/ga(\d+[a-zA-Z]?)\.pdf#page=(\d+)/i);
+  if (pdf) return { ga: pdf[1], page: pdf[2] };
+  const hash = (url.split('#')[1] || '').replace(/\+/g, '%20');
+  if (!hash) return null;
+  const p = new URLSearchParams(hash);
+  return {
+    ga: p.get('ga'),
+    date: p.get('date'),
+    page: p.get('page'),
+    lecture: p.get('lecture')
+  };
+}
+
+function findInlineMeta(text, gaHint) {
+  const re = /https:\/\/rudolf-steiner-online\.de\/goto\.html#([^)\s]+)/g;
+  let last = null;
+  let m;
+  while ((m = re.exec(text)) !== null) {
+    const meta = parseLinkMeta('https://rudolf-steiner-online.de/goto.html#' + m[1]);
+    if (!meta || !meta.ga) continue;
+    if (gaHint && padGa(meta.ga) !== padGa(gaHint)) continue;
+    last = meta;
+  }
+  return last;
+}
+
+async function buildStartUrl(meta) {
+  const ga = meta.ga;
+  const date = meta.date || null;
+  let lecture = meta.lecture || null;
+  if (!lecture) {
+    lecture = await resolveLectureId(ga, meta.page, date);
+  }
+  return buildGotoUrl({ ga, date, lecture });
 }
 
 function pageDisplay(pageStart, pageEnd) {
   return pageEnd ? `${pageStart}–${pageEnd}` : pageStart;
 }
 
-function convertContent(content) {
+async function convertContent(content) {
   let result = content;
   let count = 0;
 
@@ -124,21 +187,29 @@ function convertContent(content) {
     return `([[GA ${ga}]], [S. ${pageDisplay(page, pageEnd)}](${url}))`;
   });
 
-  // 4) Quellenzeile unten: leerer PDF-Link – denselben Zitat-Text wie der Inline-Link verwenden
-  const footerRe = /\[ ?\]\(https:\/\/akanthosakademie\.files\.wordpress\.com\/[^)]*?ga(\d+[a-zA-Z]?)\.pdf#page=(\d+)[^)]*\)/gi;
-  result = result.replace(footerRe, (match, ga, page) => {
-    const gaPad = padGa(ga);
-    const reuse = result.match(new RegExp(
-      `https://rudolf-steiner-online\\.de/goto\\.html#ga=${gaPad}&(?:date=[^&]+&)?page=${page}[^)\\s]*`
-    ));
-    if (reuse) {
-      count++;
-      return `[ ](${reuse[0]})`;
-    }
-    const url = buildGotoUrl({ ga, page });
+  // 4) Quellenzeile: leerer Link → Anfang des Textes, ohne page/text-Markierung
+  const footerRe = /\[ ?\]\((https:\/\/(?:akanthosakademie\.files\.wordpress\.com\/[^)]+|rudolf-steiner-online\.de\/(?:goto|app)\.html#[^)]+))\)/gi;
+  const footerMatches = [];
+  let fm;
+  while ((fm = footerRe.exec(result)) !== null) {
+    footerMatches.push({ full: fm[0], url: fm[1], index: fm.index });
+  }
+  for (let i = footerMatches.length - 1; i >= 0; i--) {
+    const { full, url, index } = footerMatches[i];
+    const fromUrl = parseLinkMeta(url) || {};
+    const fromInline = findInlineMeta(result.slice(0, index), fromUrl.ga) || {};
+    const meta = {
+      ga: fromUrl.ga || fromInline.ga,
+      date: fromUrl.date || fromInline.date || null,
+      page: fromUrl.page || fromInline.page || null,
+      lecture: fromUrl.lecture || null
+    };
+    if (!meta.ga) continue;
+    const startUrl = await buildStartUrl(meta);
+    if (`[ ](${startUrl})` === full || `[](${startUrl})` === full) continue;
+    result = result.slice(0, index) + `[ ](${startUrl})` + result.slice(index + full.length);
     count++;
-    return `[ ](${url})`;
-  });
+  }
 
   return { result, count };
 }
@@ -158,7 +229,7 @@ function listMarkdownFiles() {
     .map(f => path.join(QUOTES_DIR, f));
 }
 
-function main() {
+async function main() {
   const files = listMarkdownFiles();
   let filesChanged = 0;
   let linksChanged = 0;
@@ -171,7 +242,7 @@ function main() {
       continue;
     }
     const original = fs.readFileSync(file, 'utf8');
-    const { result, count } = convertContent(original);
+    const { result, count } = await convertContent(original);
     if (count === 0 || result === original) {
       continue;
     }
@@ -194,4 +265,7 @@ function main() {
   console.log(`\n${filesChanged} Datei(en), ${linksChanged} Link(s) ${dryRun ? 'würden geändert' : 'geändert'}.`);
 }
 
-main();
+main().catch(err => {
+  console.error(err);
+  process.exit(1);
+});

@@ -11,10 +11,10 @@ _obsidianBC.onmessage = function(e) {
       if (idx > 0) params[part.substring(0, idx)] = decodeURIComponent(part.substring(idx + 1));
     });
     
-    if (params.ga && (params.date || params.page || params.text)) {
-      // GA+Seite Navigation (Datum optional, z. B. Schriften/Aufsätze)
+    if (params.ga) {
+      // GA-Navigation: mit page/text → Zitat; ohne → Textanfang ohne Markierung
       if (typeof navigateToGAPage === 'function') {
-        navigateToGAPage(params.ga, params.date, params.page, params.text, params.vault, params.file);
+        navigateToGAPage(params.ga, params.date, params.page, params.text, params.vault, params.file, params.lecture);
       } else {
         _obsidianPendingGA = params;
       }
@@ -27843,8 +27843,8 @@ window.addEventListener('DOMContentLoaded', function() {
         history.replaceState({ tab: tabName }, '', `${baseUrl}#${keepHash}`);
         switchTab(tabName, true); // skipHistory = true beim ersten Laden
         
-        // Wenn lecture-Parameter vorhanden, öffne den Vortrag/das Buch
-        if (queryParams.lecture) {
+        // Wenn lecture-Parameter vorhanden (ohne ga=): direkten Vortrag/Buch öffnen
+        if (queryParams.lecture && !queryParams.ga) {
           setTimeout(() => {
             const paragraphIndex = queryParams.p || '';
             const paragraphEndIndex = queryParams.pEnd || '';
@@ -27860,9 +27860,9 @@ window.addEventListener('DOMContentLoaded', function() {
           runObsidianSearch(queryParams.q);
         }
         
-        // Obsidian-Link: GA+Seite (Datum optional) → Text im Tab Texte öffnen
-        if (queryParams.ga && (queryParams.date || queryParams.page || queryParams.text)) {
-          navigateToGAPage(queryParams.ga, queryParams.date, queryParams.page, queryParams.text, queryParams.vault, queryParams.file);
+        // Obsidian-Link: GA → Tab Texte (page/text = Zitat; sonst Textanfang ohne Markierung)
+        if (queryParams.ga) {
+          navigateToGAPage(queryParams.ga, queryParams.date, queryParams.page, queryParams.text, queryParams.vault, queryParams.file, queryParams.lecture);
         }
         
       }, 100);
@@ -27900,17 +27900,24 @@ function runObsidianSearch(rawQ) {
 
 // Obsidian-Zitat: Via GA+Seite navigieren (Datum optional, für Schriften/Aufsätze)
 var _obsidianTryScrollTimeout = null;  // Verhindert mehrere parallele tryScroll-Loops (Flackern)
-async function navigateToGAPage(ga, date, page, searchText, vault, file) {
+async function navigateToGAPage(ga, date, page, searchText, vault, file, lectureId) {
   const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
   const apiBase = isLocal ? 'http://localhost:3003' : 'https://ga-suche.onrender.com';
   searchText = String(searchText || '').replace(/\+/g, ' ').trim();
+  const openAtStart = !page && !searchText;
   
-  console.log('[OBSIDIAN-GA] Navigiere zu GA', ga, 'Datum', date, 'Seite', page, searchText ? `Text: "${searchText.substring(0, 80)}"` : '');
+  console.log('[OBSIDIAN-GA] Navigiere zu GA', ga, 'Datum', date, 'Seite', page, openAtStart ? '(Textanfang, ohne Markierung)' : (searchText ? `Text: "${searchText.substring(0, 80)}"` : ''));
   
   // Vorherigen tryScroll-Loop abbrechen (verhindert mehrfaches Flackern)
   if (_obsidianTryScrollTimeout) {
     clearTimeout(_obsidianTryScrollTimeout);
     _obsidianTryScrollTimeout = null;
+  }
+
+  if (openAtStart && lectureId) {
+    switchTab('texte', true);
+    await showLecture(lectureId);
+    return;
   }
   
   try {
@@ -27932,8 +27939,8 @@ async function navigateToGAPage(ga, date, page, searchText, vault, file) {
     console.log('[OBSIDIAN-GA] Text gefunden:', data.lectureId, data.title, data.paragraphIndex || '');
     switchTab('texte', true);
     // Kein targetIndex: sonst setzt showLecture die transiente highlighted-paragraph-Unterlegung.
-    // Position und Markierung übernimmt tryScroll (Balken + gestrichelte Wortmarkierung).
     await showLecture(data.lectureId);
+    if (openAtStart) return;
     
     // Warte bis Vortrag geladen ist – wiederhole mehrmals, da replaceImageSrcWithBase64 den DOM später überschreibt
     var appliedCount = 0;
@@ -28424,7 +28431,7 @@ if (_obsidianPendingQ) {
   _obsidianPendingQ = null;
 }
 if (_obsidianPendingGA) {
-  navigateToGAPage(_obsidianPendingGA.ga, _obsidianPendingGA.date, _obsidianPendingGA.page, _obsidianPendingGA.text, _obsidianPendingGA.vault, _obsidianPendingGA.file);
+  navigateToGAPage(_obsidianPendingGA.ga, _obsidianPendingGA.date, _obsidianPendingGA.page, _obsidianPendingGA.text, _obsidianPendingGA.vault, _obsidianPendingGA.file, _obsidianPendingGA.lecture);
   _obsidianPendingGA = null;
 }
 
@@ -28465,8 +28472,8 @@ window.addEventListener('hashchange', function() {
   // Tab wechseln
   switchTab(hash, true);
   
-  // Lecture-Parameter (direkte Vortrag-ID)
-  if (queryParams.lecture) {
+  // Lecture-Parameter (direkte Vortrag-ID, ohne ga=)
+  if (queryParams.lecture && !queryParams.ga) {
     setTimeout(() => {
       const paragraphIndex = queryParams.p || '';
       showLecture(queryParams.lecture, paragraphIndex);
@@ -28478,9 +28485,9 @@ window.addEventListener('hashchange', function() {
     runObsidianSearch(queryParams.q);
   }
   
-  // Obsidian-Link: GA+Seite (Datum optional) → Text im Tab Texte öffnen
-  if (queryParams.ga && (queryParams.date || queryParams.page || queryParams.text)) {
-    navigateToGAPage(queryParams.ga, queryParams.date, queryParams.page, queryParams.text, queryParams.vault, queryParams.file);
+  // Obsidian-Link: GA → Tab Texte (page/text = Zitat; sonst Textanfang ohne Markierung)
+  if (queryParams.ga) {
+    navigateToGAPage(queryParams.ga, queryParams.date, queryParams.page, queryParams.text, queryParams.vault, queryParams.file, queryParams.lecture);
   }
   
 });

@@ -4802,7 +4802,11 @@ app.get('/api/resolve-lecture', (req, res) => {
       return res.status(400).json({ error: 'Parameter ga erforderlich' });
     }
     if (!date && !page) {
-      return res.status(400).json({ error: 'Parameter date oder page erforderlich' });
+      const gaNumberPreview = ga.startsWith('GA') ? ga : `GA${ga}`;
+      const uniquePreview = findLecturesByGaNumber(normalizeGaNumberForCompare(gaNumberPreview));
+      if (uniquePreview.length !== 1) {
+        return res.status(400).json({ error: 'Parameter date oder page erforderlich' });
+      }
     }
 
     const gaNumber = ga.startsWith('GA') ? ga : `GA${ga}`;
