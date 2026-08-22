@@ -136,6 +136,15 @@ async function buildStartUrl(meta) {
   return buildGotoUrl({ ga, date, lecture });
 }
 
+function wrapGaLink(url, label) {
+  const href = String(url).replace(/&/g, '&amp;');
+  const safeLabel = String(label)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;');
+  return `<a href="${href}" target="ga-suche" rel="opener">${safeLabel}</a>`;
+}
+
 function pageDisplay(pageStart, pageEnd) {
   return pageEnd ? `${pageStart}–${pageEnd}` : pageStart;
 }
@@ -151,7 +160,7 @@ async function convertContent(content) {
     const url = buildGotoUrl({ ga, page, pageEnd, text: snippet });
     const label = year ? `${year}, S. ${pageDisplay(page, pageEnd)}` : `S. ${pageDisplay(page, pageEnd)}`;
     count++;
-    return `([[GA ${ga}]], [${label}](${url}))`;
+    return `([[GA ${ga}]], ${wrapGaLink(url, label)})`;
   });
 
   // 1b) Bereits vorhandene goto.html-Zitatlinks: Zitattext verlängern, vault/file entfernen
@@ -163,9 +172,8 @@ async function convertContent(content) {
     const pageEnd = params.get('pageEnd');
     const date = params.get('date');
     const url = buildGotoUrl({ ga, page, pageEnd, date, text: snippet });
-    if (url === oldUrl) return match;
     count++;
-    return `([[GA ${ga}]], [${label}](${url}))`;
+    return `([[GA ${ga}]], ${wrapGaLink(url, label)})`;
   });
 
   // 2) PDF-Link mit vollständigem Datum: ([[GA 078]], [01.09.1921, S. 80 f.](pdf))
@@ -175,7 +183,7 @@ async function convertContent(content) {
     const url = buildGotoUrl({ ga, page, pageEnd, date: `${year}-${month}-${day}`, text: snippet });
     const label = `${day}.${month}.${year}, S. ${pageDisplay(page, pageEnd)}`;
     count++;
-    return `([[GA ${ga}]], [${label}](${url}))`;
+    return `([[GA ${ga}]], ${wrapGaLink(url, label)})`;
   });
 
   // 3) PDF-Link ohne Datum: ([[GA 030]], [S. 325](pdf)) oder [S. 156-157]
@@ -184,7 +192,7 @@ async function convertContent(content) {
     const snippet = extractQuoteSnippet(result.slice(0, offset));
     const url = buildGotoUrl({ ga, page, pageEnd, text: snippet });
     count++;
-    return `([[GA ${ga}]], [S. ${pageDisplay(page, pageEnd)}](${url}))`;
+    return `([[GA ${ga}]], ${wrapGaLink(url, `S. ${pageDisplay(page, pageEnd)}`)})`;
   });
 
   // 4) Quellenzeile: leerer Link → Anfang des Textes, ohne page/text-Markierung
@@ -206,10 +214,19 @@ async function convertContent(content) {
     };
     if (!meta.ga) continue;
     const startUrl = await buildStartUrl(meta);
-    if (`[ ](${startUrl})` === full || `[](${startUrl})` === full) continue;
-    result = result.slice(0, index) + `[ ](${startUrl})` + result.slice(index + full.length);
+    if (wrapGaLink(startUrl, ' ') === full) continue;
+    result = result.slice(0, index) + wrapGaLink(startUrl, ' ') + result.slice(index + full.length);
     count++;
   }
+
+  // 5) Markdown-goto-Links → HTML mit benanntem Fenster (Fokus bleibt auf ga-suche)
+  result = result.replace(
+    /\[([^\]]*)\]\((https:\/\/rudolf-steiner-online\.de\/goto\.html#[^)]+)\)/g,
+    (match, label, url) => {
+      count++;
+      return wrapGaLink(url, label);
+    }
+  );
 
   return { result, count };
 }

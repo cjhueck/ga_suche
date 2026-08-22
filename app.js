@@ -2,6 +2,7 @@
 // BroadcastChannel früh registrieren, damit goto.html diesen Tab sofort erreichen kann
 var _obsidianPendingQ = null;
 var _obsidianPendingGA = null;
+try { window.name = 'ga-suche'; } catch (_e) {}
 var _obsidianBC = new BroadcastChannel('steiner-obsidian-nav');
 _obsidianBC.onmessage = function(e) {
   if (e.data && e.data.action === 'navigate' && e.data.hash) {
