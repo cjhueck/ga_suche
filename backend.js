@@ -4730,6 +4730,27 @@ function findParagraphIndexForPage(lecture, pageNum) {
   return null;
 }
 
+function findParagraphIndexForText(lecture, searchText) {
+  if (!searchText || !lecture || !Array.isArray(lecture.paragraphs)) return null;
+  const normalize = (txt) => String(txt || '').toLowerCase()
+    .replace(/ß/g, 'ss')
+    .replace(/[,;.:!?()"'„"‚'»«›‹—–-]/g, '')
+    .replace(/\s+/g, ' ')
+    .trim();
+  const words = normalize(searchText).split(/\s+/).filter(w => w.length >= 2);
+  if (words.length < 3) return null;
+  for (let len = Math.min(words.length, 40); len >= 3; len--) {
+    const phrase = words.slice(0, len).join(' ');
+    for (const para of lecture.paragraphs) {
+      const content = para.content || para.text || '';
+      if (!normalize(content).includes(phrase)) continue;
+      if (!para.index) continue;
+      return String(para.index).replace(/^\^/, '');
+    }
+  }
+  return null;
+}
+
 function findLecturesByGaNumber(gaCompare) {
   const results = [];
   const seen = new Set();
@@ -4783,8 +4804,9 @@ function normalizeDateForCompare(dateStr) {
   return s;
 }
 
-function buildResolveLectureJson(id, lecture, page) {
-  const paragraphIndex = page ? findParagraphIndexForPage(lecture, page) : null;
+function buildResolveLectureJson(id, lecture, page, text) {
+  const paragraphIndex = (text && findParagraphIndexForText(lecture, text))
+    || (page ? findParagraphIndexForPage(lecture, page) : null);
   return {
     success: true,
     lectureId: id,
@@ -4797,7 +4819,7 @@ function buildResolveLectureJson(id, lecture, page) {
 
 app.get('/api/resolve-lecture', (req, res) => {
   try {
-    const { ga, date, page } = req.query;
+    const { ga, date, page, text } = req.query;
     if (!ga) {
       return res.status(400).json({ error: 'Parameter ga erforderlich' });
     }
@@ -4818,7 +4840,7 @@ app.get('/api/resolve-lecture', (req, res) => {
       for (const [id, lecture] of candidates) {
         if (!lecture.date) continue;
         if (normalizeDateForCompare(lecture.date) !== normDate) continue;
-        return res.json(buildResolveLectureJson(id, lecture, page));
+        return res.json(buildResolveLectureJson(id, lecture, page, text));
       }
 
       if (page) {
@@ -4826,14 +4848,14 @@ app.get('/api/resolve-lecture', (req, res) => {
           if (!lecture.date || normalizeDateForCompare(lecture.date) !== normDate) continue;
           const paragraphIndex = findParagraphIndexForPage(lecture, page);
           if (paragraphIndex) {
-            return res.json(buildResolveLectureJson(id, lecture, page));
+            return res.json(buildResolveLectureJson(id, lecture, page, text));
           }
         }
       } else {
         for (const [id, lecture] of Object.entries(fullLectures)) {
           if (!lecture.date || normalizeDateForCompare(lecture.date) !== normDate) continue;
           if (lecture.gaNumber && normalizeGaNumberForCompare(lecture.gaNumber) === gaCompare) {
-            return res.json(buildResolveLectureJson(id, lecture, page));
+            return res.json(buildResolveLectureJson(id, lecture, page, text));
           }
         }
       }
@@ -4843,14 +4865,14 @@ app.get('/api/resolve-lecture', (req, res) => {
       for (const [id, lecture] of candidates) {
         const paragraphIndex = findParagraphIndexForPage(lecture, page);
         if (paragraphIndex) {
-          return res.json(buildResolveLectureJson(id, lecture, page));
+          return res.json(buildResolveLectureJson(id, lecture, page, text));
         }
       }
     }
 
     if (candidates.length === 1) {
       const [id, lecture] = candidates[0];
-      return res.json(buildResolveLectureJson(id, lecture, page));
+      return res.json(buildResolveLectureJson(id, lecture, page, text));
     }
 
     res.status(404).json({ error: `Kein Text gefunden für GA ${ga}${page ? ', Seite ' + page : ''}${normDate ? ', Datum ' + date : ''}` });

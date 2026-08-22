@@ -1,13 +1,13 @@
 /**
  * Konvertiert Quellen-Links in Obsidian-Zitatnotizen zu ga_online (Tab Texte).
  *
- * URL-Schema (sprachunabhängig für Navigation):
- *   https://rudolf-steiner-online.de/goto.html#ga=030&page=325&text=...
+ * URL-Schema:
+ *   Zitat:  goto.html#ga=030&lecture=GA030/21&p=k644x6&page=325&text=...
+ *   Fußzeile (Textanfang, ohne Markierung): goto.html#ga=030&lecture=GA030/21
  * Optional: &date=YYYY-MM-DD nur bei vollständigem Vortragsdatum.
  *
- * `text=` enthält den deutschen Zitat-Anfang (zum Zeitpunkt der Konvertierung).
- * Dadurch bleibt die Treffer-Markierung auch nach einer späteren englischen
- * Übersetzung der Notizen erhalten, solange die URLs nicht mitübersetzt werden.
+ * `lecture` + `p` sind sprachstabile Ortung (gleiche Block-IDs in einer späteren englischen GA).
+ * `text=` bleibt der deutsche Zitat-Anfang für die gepunktete Unterstreichung, solange der GA-Text deutsch ist.
  *
  * Nutzung:
  *   node tools/convert-goetheanismus-obsidian-links.js --dry-run --files "Abweichung vom Normalen.md" "Aktiver Nachvollzug der Bildung.md"
@@ -64,25 +64,78 @@ function extractQuoteSnippet(textBefore) {
   return words.slice(0, MAX_QUOTE_WORDS).join(' ');
 }
 
-function buildGotoUrl({ ga, page, pageEnd, date, text, lecture }) {
+function buildGotoUrl({ ga, page, pageEnd, date, text, lecture, p }) {
   const parts = [`ga=${padGa(ga)}`];
   if (date) parts.push(`date=${date}`);
   if (page) parts.push(`page=${page}`);
   if (pageEnd) parts.push(`pageEnd=${pageEnd}`);
   if (lecture) parts.push(`lecture=${encodeURIComponent(lecture)}`);
+  if (p) parts.push(`p=${encodeURIComponent(String(p).replace(/^\^/, ''))}`);
   if (text) parts.push(`text=${encodeURIComponent(text)}`);
   return `${BASE}#${parts.join('&')}`;
 }
 
-const RESOLVE_API = 'https://ga-suche.onrender.com/api/resolve-lecture';
+const API_BASE = 'https://ga-suche.onrender.com';
+const RESOLVE_API = `${API_BASE}/api/resolve-lecture`;
 const lectureIdCache = new Map();
 
-async function resolveLectureId(ga, page, date) {
+function normalizeForMatch(txt) {
+  return String(txt || '').toLowerCase()
+    .replace(/ß/g, 'ss')
+    .replace(/[,;.:!?()"'„"‚'»«›‹—–-]/g, '')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+function matchParagraphIndex(paragraphs, searchText) {
+  if (!Array.isArray(paragraphs) || !searchText) return null;
+  const words = normalizeForMatch(searchText).split(/\s+/).filter(w => w.length >= 2);
+  if (words.length < 3) return null;
+  for (let len = Math.min(words.length, 40); len >= 3; len--) {
+    const phrase = words.slice(0, len).join(' ');
+    for (const para of paragraphs) {
+      const content = para.content || para.text || '';
+      if (!normalizeForMatch(content).includes(phrase)) continue;
+      if (!para.index) continue;
+      return String(para.index).replace(/^\^/, '');
+    }
+  }
+  return null;
+}
+
+async function findParagraphIdByText(lectureId, text) {
+  if (!lectureId || !text) return null;
+  try {
+    const pathId = String(lectureId).includes('/')
+      ? String(lectureId).split('/').map(encodeURIComponent).join('/')
+      : encodeURIComponent(lectureId);
+    const resp = await fetch(`${API_BASE}/api/full-lecture/${pathId}`);
+    if (!resp.ok) return null;
+    const data = await resp.json();
+    const paras = (data.lecture && data.lecture.paragraphs) || [];
+    return matchParagraphIndex(paras, text);
+  } catch (e) {
+    return null;
+  }
+}
+
+async function resolveLecture(ga, page, date, text) {
   const key = `${padGa(ga)}|${page || ''}|${date || ''}`;
-  if (lectureIdCache.has(key)) return lectureIdCache.get(key);
+  if (lectureIdCache.has(key)) {
+    const cached = lectureIdCache.get(key);
+    if (cached && text && !cached._textMatched) {
+      const byText = await findParagraphIdByText(cached.lectureId, text);
+      if (byText) {
+        cached.paragraphIndex = byText;
+        cached._textMatched = true;
+      }
+    }
+    return cached;
+  }
   const q = new URLSearchParams({ ga: padGa(ga) });
   if (date) q.set('date', date);
   if (page) q.set('page', page);
+  if (text) q.set('text', text);
   try {
     const resp = await fetch(`${RESOLVE_API}?${q}`);
     if (!resp.ok) {
@@ -90,13 +143,28 @@ async function resolveLectureId(ga, page, date) {
       return null;
     }
     const data = await resp.json();
-    const id = data.lectureId || null;
-    lectureIdCache.set(key, id);
-    return id;
+    let paragraphIndex = data.paragraphIndex ? String(data.paragraphIndex).replace(/^\^/, '') : null;
+    const lectureId = data.lectureId || null;
+    if (text && lectureId) {
+      const byText = await findParagraphIdByText(lectureId, text);
+      if (byText) paragraphIndex = byText;
+    }
+    const resolved = {
+      lectureId,
+      paragraphIndex,
+      _textMatched: !!(text && paragraphIndex)
+    };
+    lectureIdCache.set(key, resolved);
+    return resolved;
   } catch (e) {
     lectureIdCache.set(key, null);
     return null;
   }
+}
+
+async function resolveLectureId(ga, page, date) {
+  const resolved = await resolveLecture(ga, page, date);
+  return resolved ? resolved.lectureId : null;
 }
 
 function parseLinkMeta(url) {
@@ -109,7 +177,10 @@ function parseLinkMeta(url) {
     ga: p.get('ga'),
     date: p.get('date'),
     page: p.get('page'),
-    lecture: p.get('lecture')
+    pageEnd: p.get('pageEnd'),
+    lecture: p.get('lecture'),
+    p: p.get('p'),
+    text: p.get('text')
   };
 }
 
@@ -228,6 +299,46 @@ async function convertContent(content) {
     }
   );
 
+  // 6) Bestehende HTML-goto-Links: Zitat → lecture+p+text; Fußzeile → nur lecture
+  const htmlRe = /<a href="(https:\/\/rudolf-steiner-online\.de\/goto\.html#[^"]+)"([^>]*)>([\s\S]*?)<\/a>/g;
+  const htmlMatches = [];
+  let hm;
+  while ((hm = htmlRe.exec(result)) !== null) {
+    htmlMatches.push({ full: hm[0], hrefRaw: hm[1], label: hm[3], index: hm.index });
+  }
+  for (let i = htmlMatches.length - 1; i >= 0; i--) {
+    const { full, hrefRaw, label, index } = htmlMatches[i];
+    const href = hrefRaw.replace(/&amp;/g, '&');
+    const meta = parseLinkMeta(href);
+    if (!meta || !meta.ga) continue;
+    const isFooter = String(label).trim() === '';
+    if (isFooter) {
+      const startUrl = await buildStartUrl(meta);
+      const replacement = wrapGaLink(startUrl, ' ');
+      if (replacement === full) continue;
+      result = result.slice(0, index) + replacement + result.slice(index + full.length);
+      count++;
+      continue;
+    }
+    const resolved = await resolveLecture(meta.ga, meta.page, meta.date, meta.text);
+    const lecture = (resolved && resolved.lectureId) || meta.lecture;
+    const p = (resolved && resolved.paragraphIndex) || meta.p;
+    const url = buildGotoUrl({
+      ga: meta.ga,
+      page: meta.page,
+      pageEnd: meta.pageEnd,
+      date: meta.date,
+      text: meta.text,
+      lecture,
+      p
+    });
+    const hrefEscaped = String(url).replace(/&/g, '&amp;');
+    const replacement = `<a href="${hrefEscaped}" target="ga-suche" rel="opener">${label}</a>`;
+    if (replacement === full) continue;
+    result = result.slice(0, index) + replacement + result.slice(index + full.length);
+    count++;
+  }
+
   return { result, count };
 }
 
@@ -267,13 +378,12 @@ async function main() {
     linksChanged += count;
     console.log(`${path.basename(file)}: ${count} Link(s)`);
     if (dryRun) {
-      const beforeLinks = original.match(/\[[^\]]*\]\([^)]+\)/g) || [];
-      const afterLinks = result.match(/\[[^\]]*\]\([^)]+\)/g) || [];
-      afterLinks.slice(0, 4).forEach((link, i) => {
-        if (link !== beforeLinks[i]) {
-          console.log('  NEU:', link.length > 180 ? link.slice(0, 180) + '…' : link);
-        }
-      });
+      const hrefRe = /goto\.html#([^"'\s)]+)/g;
+      let m;
+      while ((m = hrefRe.exec(result)) !== null) {
+        const decoded = m[1].replace(/&amp;/g, '&');
+        console.log('  URL:', decoded.length > 220 ? decoded.slice(0, 220) + '…' : decoded);
+      }
     } else {
       fs.writeFileSync(file, result, 'utf8');
     }
