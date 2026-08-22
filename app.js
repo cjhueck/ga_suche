@@ -27931,7 +27931,9 @@ async function navigateToGAPage(ga, date, page, searchText, vault, file) {
     
     console.log('[OBSIDIAN-GA] Text gefunden:', data.lectureId, data.title, data.paragraphIndex || '');
     switchTab('texte', true);
-    await showLecture(data.lectureId, data.paragraphIndex || null);
+    // Kein targetIndex: sonst setzt showLecture die transiente highlighted-paragraph-Unterlegung.
+    // Position und Markierung übernimmt tryScroll (Balken + gestrichelte Wortmarkierung).
+    await showLecture(data.lectureId);
     
     // Warte bis Vortrag geladen ist – wiederhole mehrmals, da replaceImageSrcWithBase64 den DOM später überschreibt
     var appliedCount = 0;
@@ -28166,15 +28168,15 @@ async function navigateToGAPage(ga, date, page, searchText, vault, file) {
                     console.log('[OBSIDIAN-GA] 🔗 Obsidian-Link erstellt:', obsidianLink);
                   }
                   
-                  // Ersetze den gefundenen Text mit üblicher Treffer-Markierung
+                  // Ersetze den gefundenen Text mit markierter Version (mit Link wenn vorhanden)
                   var markedHTML;
                   if (obsidianLink) {
                     markedHTML = htmlWithPlaceholders.replace(flexPattern, 
-                      '<a href="' + obsidianLink + '" class="viewer-search-highlight obsidian-first-words" title="Zurück zu Obsidian">' + 
+                      '<a href="' + obsidianLink + '" class="obsidian-first-words" style="text-decoration: underline dotted rgba(70, 120, 134, 0.8); text-decoration-thickness: 2px; text-underline-offset: 3px; color: inherit; cursor: pointer;" title="Zurück zu Obsidian">' + 
                       matchInHTML[0] + '</a>');
                   } else {
                     markedHTML = htmlWithPlaceholders.replace(flexPattern, 
-                      '<span class="viewer-search-highlight obsidian-first-words">' + 
+                      '<span class="obsidian-first-words" style="text-decoration: underline dotted rgba(70, 120, 134, 0.8); text-decoration-thickness: 2px; text-underline-offset: 3px;">' + 
                       matchInHTML[0] + '</span>');
                   }
                   
@@ -28204,11 +28206,11 @@ async function navigateToGAPage(ga, date, page, searchText, vault, file) {
                     var markedHTML;
                     if (obsidianLink) {
                       markedHTML = originalHTML.replace(simpleMatch[0], 
-                        '<a href="' + obsidianLink + '" class="viewer-search-highlight obsidian-first-words" title="Zurück zu Obsidian">' + 
+                        '<a href="' + obsidianLink + '" class="obsidian-first-words" style="text-decoration: underline dotted rgba(70, 120, 134, 0.8); text-decoration-thickness: 2px; text-underline-offset: 3px; color: inherit; cursor: pointer;" title="Zurück zu Obsidian">' + 
                         simpleMatch[0] + '</a>');
                     } else {
                       markedHTML = originalHTML.replace(simpleMatch[0], 
-                        '<span class="viewer-search-highlight obsidian-first-words">' + 
+                        '<span class="obsidian-first-words" style="text-decoration: underline dotted rgba(70, 120, 134, 0.8); text-decoration-thickness: 2px; text-underline-offset: 3px;">' + 
                         simpleMatch[0] + '</span>');
                     }
                     pTag.innerHTML = markedHTML;
