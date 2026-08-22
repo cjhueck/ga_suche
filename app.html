@@ -16,8 +16,8 @@ _obsidianBC.onmessage = function(e) {
       if (idx > 0) params[part.substring(0, idx)] = decodeURIComponent(part.substring(idx + 1));
     });
     
-    if (params.ga && params.date) {
-      // GA+Datum+Seite Navigation
+    if (params.ga && (params.date || params.page || params.text)) {
+      // GA+Seite Navigation (Datum optional, z. B. Schriften/Aufsätze)
       if (typeof navigateToGAPage === 'function') {
         navigateToGAPage(params.ga, params.date, params.page, params.text, params.vault, params.file);
       } else {
@@ -11019,7 +11019,7 @@ PDF
 <link rel="stylesheet" href="thematic-chat-ui.css?v=20260712n">
 <script src="thematic-chat-ui.js?v=20260712n"></script>
 
-<script src="app.js?v=20260722p"></script>
+<script src="app.js?v=20260822a"></script>
 </body>
 </html>
 

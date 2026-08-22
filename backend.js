@@ -4732,14 +4732,38 @@ function findParagraphIndexForPage(lecture, pageNum) {
 
 function findLecturesByGaNumber(gaCompare) {
   const results = [];
+  const seen = new Set();
+  const addCandidate = (id, item) => {
+    const key = String(id || '').toUpperCase();
+    if (!key || seen.has(key)) return;
+    seen.add(key);
+    results.push([id, item]);
+  };
+
   for (const [id, lecture] of Object.entries(fullLectures)) {
     if (lecture.gaNumber && normalizeGaNumberForCompare(lecture.gaNumber) === gaCompare) {
-      results.push([id, lecture]);
+      addCandidate(id, lecture);
       continue;
     }
     const idGa = id.split('/')[0];
     if (normalizeGaNumberForCompare(idGa) === gaCompare) {
-      results.push([id, lecture]);
+      addCandidate(id, lecture);
+    }
+  }
+
+  // Schriften (z. B. GA001) liegen in fullBooks, nicht in fullLectures
+  if (fullBooks && typeof fullBooks === 'object') {
+    for (const [id, book] of Object.entries(fullBooks)) {
+      const bookGa = (book.ID || book.gaNumber || id || '').split('/')[0];
+      if (normalizeGaNumberForCompare(bookGa) !== gaCompare) continue;
+      if (!Array.isArray(book.paragraphs) || book.paragraphs.length === 0) {
+        try {
+          book.paragraphs = convertBookToParagraphs(book);
+        } catch (e) {
+          console.warn('[RESOLVE-LECTURE] Konnte Buch-Absätze nicht erzeugen:', id, e.message);
+        }
+      }
+      addCandidate(id, book);
     }
   }
   return results;

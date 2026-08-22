@@ -22,7 +22,7 @@
     var idx = part.indexOf('=');
     if (idx > 0) params[part.substring(0, idx)] = part.substring(idx + 1);
   });
-  var tab = (params.ga && params.date) ? 'texte' : 'keyword';
+  var tab = params.ga ? 'texte' : 'keyword';
   var targetUrl = 'app.html#' + tab + '&' + hash;
 
   bc.onmessage = function(e) {

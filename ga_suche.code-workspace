@@ -3,6 +3,9 @@
 		{
 			"name": "ga_suche",
 			"path": "."
+		},
+		{
+			"path": "../../../../../Obsidian/Steiner Goetheanismus"
 		}
 	],
 	"settings": {
