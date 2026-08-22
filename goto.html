@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Weiterleitung…</title>
-<style>body{display:flex;flex-direction:column;justify-content:center;align-items:center;height:100vh;margin:0;font-family:system-ui;color:#555}p{text-align:center;line-height:1.8}.ok{color:#2a7d2a}a{color:#467886;margin-top:1rem;font-size:0.9em}</style>
+<style>body{display:flex;flex-direction:column;justify-content:center;align-items:center;height:100vh;margin:0;font-family:system-ui;color:#555}p{text-align:center;line-height:1.8}a{color:#467886;margin-top:1rem;font-size:0.9em}</style>
 </head>
 <body>
 <p id="msg">Weiterleitung zur GA-Suche…</p>
@@ -13,42 +13,27 @@
   var hash = location.hash.substring(1);
   if (!hash) { location.replace('app.html'); return; }
 
-  var bc = new BroadcastChannel('steiner-obsidian-nav');
-  var handled = false;
-
-  // Ziel-URL für Fallback
   var params = {};
   hash.split('&').forEach(function(part) {
     var idx = part.indexOf('=');
     if (idx > 0) params[part.substring(0, idx)] = part.substring(idx + 1);
   });
-  var tab = params.ga ? 'texte' : 'keyword';
+  var tab = (params.ga || params.lecture) ? 'texte' : 'keyword';
   var targetUrl = 'app.html#' + tab + '&' + hash;
 
-  bc.onmessage = function(e) {
-    if (e.data && e.data.action === 'ack') {
-      handled = true;
-      document.getElementById('msg').innerHTML =
-        '<span class="ok">✓ Zitat in GA-Suche geöffnet.</span><br><small>Dieses Tab kann geschlossen werden.</small>';
-      try { window.close(); } catch(ex) {}
-    }
-  };
+  // Immer in DIESEM Fenster weiterleiten (dem, das der Klick geöffnet oder per
+  // target="ga-suche" wiederverwendet hat). Kein BroadcastChannel + close():
+  // sonst fällt der Fokus auf den Obsidian-Publish-Tab zurück.
+  try { window.name = 'ga-suche'; } catch (e) {}
 
-  bc.postMessage({ action: 'navigate', hash: hash });
-
-  // Fallback-Link sichtbar machen (falls Redirect fehlschlägt)
   var fallbackEl = document.getElementById('fallback');
   var linkEl = document.getElementById('fallbackLink');
   if (fallbackEl && linkEl) {
     linkEl.href = targetUrl;
-    setTimeout(function() { fallbackEl.style.display = 'block'; }, 500);
+    setTimeout(function() { fallbackEl.style.display = 'block'; }, 800);
   }
 
-  setTimeout(function() {
-    if (!handled) {
-      location.replace(targetUrl);
-    }
-  }, 400);
+  location.replace(targetUrl);
 })();
 </script>
 </body>
