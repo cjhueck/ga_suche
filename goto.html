@@ -2,6 +2,7 @@
 <html lang="de">
 <head>
 <meta charset="UTF-8">
+<meta http-equiv="Cache-Control" content="no-cache">
 <title>Weiterleitung…</title>
 <style>body{display:flex;flex-direction:column;justify-content:center;align-items:center;height:100vh;margin:0;font-family:system-ui;color:#555}p{text-align:center;line-height:1.8}a{color:#467886;margin-top:1rem;font-size:0.9em}</style>
 </head>
@@ -21,10 +22,29 @@
   var tab = (params.ga || params.lecture) ? 'texte' : 'keyword';
   var targetUrl = 'app.html#' + tab + '&' + hash;
 
-  // Immer in DIESEM Fenster weiterleiten (dem, das der Klick geöffnet oder per
-  // target="ga-suche" wiederverwendet hat). Kein BroadcastChannel + close():
-  // sonst fällt der Fokus auf den Obsidian-Publish-Tab zurück.
   try { window.name = 'ga-suche'; } catch (e) {}
+
+  var bc = null;
+  try { bc = new BroadcastChannel('steiner-obsidian-nav'); } catch (e) {}
+
+  var settled = false;
+  function becomeApp() {
+    if (settled) return;
+    settled = true;
+    location.replace(targetUrl);
+  }
+
+  if (bc) {
+    bc.onmessage = function(e) {
+      if (!e.data || e.data.action !== 'ack') return;
+      // Es gibt schon eine GA-Suche. Dieses Fenster liegt vorn (neuer Klick).
+      // Schließen würde den Fokus nach Obsidian zurückgeben — deshalb bleibt
+      // DIESES Fenster die Anzeige, das alte Exemplar im Hintergrund schließt sich.
+      try { bc.postMessage({ action: 'yield' }); } catch (err) {}
+      becomeApp();
+    };
+    try { bc.postMessage({ action: 'navigate', hash: hash }); } catch (e) {}
+  }
 
   var fallbackEl = document.getElementById('fallback');
   var linkEl = document.getElementById('fallbackLink');
@@ -33,7 +53,7 @@
     setTimeout(function() { fallbackEl.style.display = 'block'; }, 800);
   }
 
-  location.replace(targetUrl);
+  setTimeout(becomeApp, 280);
 })();
 </script>
 </body>
