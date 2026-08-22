@@ -207,6 +207,13 @@ async function buildStartUrl(meta) {
   return buildGotoUrl({ ga, date, lecture });
 }
 
+const FOOTER_ICON = '&nbsp;';
+
+function isFooterLabel(label) {
+  const t = String(label || '').replace(/&amp;/g, '&').replace(/&nbsp;/g, ' ').trim();
+  return t === '' || t === '↗' || t === '🔗';
+}
+
 function wrapGaLink(url, label) {
   const href = String(url).replace(/&/g, '&amp;');
   const safeLabel = String(label)
@@ -214,6 +221,11 @@ function wrapGaLink(url, label) {
     .replace(/</g, '&lt;')
     .replace(/>/g, '&gt;');
   return `<a href="${href}" target="ga-suche" rel="opener">${safeLabel}</a>`;
+}
+
+function wrapGaFooterLink(url) {
+  const href = String(url).replace(/&/g, '&amp;');
+  return `<a href="${href}" target="ga-suche" rel="opener" title="Textanfang in der GA-Suche" class="external-link">${FOOTER_ICON}</a>`;
 }
 
 function pageDisplay(pageStart, pageEnd) {
@@ -285,8 +297,8 @@ async function convertContent(content) {
     };
     if (!meta.ga) continue;
     const startUrl = await buildStartUrl(meta);
-    if (wrapGaLink(startUrl, ' ') === full) continue;
-    result = result.slice(0, index) + wrapGaLink(startUrl, ' ') + result.slice(index + full.length);
+    if (wrapGaFooterLink(startUrl) === full) continue;
+    result = result.slice(0, index) + wrapGaFooterLink(startUrl) + result.slice(index + full.length);
     count++;
   }
 
@@ -311,10 +323,10 @@ async function convertContent(content) {
     const href = hrefRaw.replace(/&amp;/g, '&');
     const meta = parseLinkMeta(href);
     if (!meta || !meta.ga) continue;
-    const isFooter = String(label).trim() === '';
+    const isFooter = isFooterLabel(label);
     if (isFooter) {
       const startUrl = await buildStartUrl(meta);
-      const replacement = wrapGaLink(startUrl, ' ');
+      const replacement = wrapGaFooterLink(startUrl);
       if (replacement === full) continue;
       result = result.slice(0, index) + replacement + result.slice(index + full.length);
       count++;
