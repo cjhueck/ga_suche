@@ -27953,9 +27953,32 @@ async function navigateToGAPage(ga, date, page, searchText, vault, file, lecture
     }
 
     switchTab('texte', true);
-    // Kein targetIndex: sonst setzt showLecture die transiente highlighted-paragraph-Unterlegung.
-    await showLecture(lectureId);
-    if (openAtStart) return;
+
+    var mainEl = document.getElementById('main');
+    var hideUntilQuote = !openAtStart;
+    function revealObsidianViewer() {
+      if (mainEl) mainEl.style.visibility = '';
+    }
+    if (hideUntilQuote && mainEl) {
+      mainEl.style.visibility = 'hidden';
+    }
+    // skipParagraphHighlight: scrollt zu p= ohne die transiente highlighted-paragraph-Unterlegung.
+    window.skipParagraphHighlight = true;
+    try {
+      await showLecture(lectureId, paragraphId || null);
+    } catch (showErr) {
+      revealObsidianViewer();
+      window.skipParagraphHighlight = false;
+      throw showErr;
+    }
+    if (openAtStart) {
+      window.skipParagraphHighlight = false;
+      revealObsidianViewer();
+      return;
+    }
+    setTimeout(function() { window.skipParagraphHighlight = false; }, 2500);
+    
+    // showLecture scrollt intern erst nach ~200ms; bis dahin bleibt der Viewer verborgen.
     
     // Warte bis Vortrag geladen ist – wiederhole mehrmals, da replaceImageSrcWithBase64 den DOM später überschreibt
     var appliedCount = 0;
@@ -27966,6 +27989,7 @@ async function navigateToGAPage(ga, date, page, searchText, vault, file, lecture
     var tryScroll = function() {
       if (Date.now() - startTime > maxWaitTime) {
         if (appliedCount === 0) console.log('[OBSIDIAN-GA] ? Timeout erreicht');
+        revealObsidianViewer();
         _obsidianTryScrollTimeout = null;
         return;
       }
@@ -28094,12 +28118,21 @@ async function navigateToGAPage(ga, date, page, searchText, vault, file, lecture
       
       // Scrolle und markiere
       if (targetPara) {
-        // Bei Fallback: zum Seitenanfang scrollen (Seitenzahlen stehen am Anfang der Seite)
-        if (pageBreakNumForScroll) {
-          pageBreakNumForScroll.scrollIntoView({ behavior: 'auto', block: 'start' });
-        } else {
-          targetPara.scrollIntoView({ behavior: 'auto', block: 'center' });
+        var scrollEl = pageBreakNumForScroll || targetPara;
+        var alreadyInView = false;
+        if (mainEl) {
+          var mainRect = mainEl.getBoundingClientRect();
+          var elRect = scrollEl.getBoundingClientRect();
+          alreadyInView = elRect.top >= mainRect.top + 8 && elRect.top < mainRect.top + mainEl.clientHeight * 0.7;
         }
+        if (!alreadyInView) {
+          if (pageBreakNumForScroll) {
+            pageBreakNumForScroll.scrollIntoView({ behavior: 'auto', block: 'start' });
+          } else {
+            targetPara.scrollIntoView({ behavior: 'auto', block: 'center' });
+          }
+        }
+        revealObsidianViewer();
         
         setTimeout(function() {
           // Markiere Absatz mit blauem Balken (wie bei selected-for-keyword)
@@ -28279,8 +28312,11 @@ async function navigateToGAPage(ga, date, page, searchText, vault, file, lecture
       }
     };
     
-    _obsidianTryScrollTimeout = setTimeout(tryScroll, 500);
+    _obsidianTryScrollTimeout = setTimeout(tryScroll, 250);
   } catch (err) {
+    var mainOnErr = document.getElementById('main');
+    if (mainOnErr) mainOnErr.style.visibility = '';
+    window.skipParagraphHighlight = false;
     console.error('[OBSIDIAN-GA] Fehler:', err.message);
   }
 }
