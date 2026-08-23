@@ -7,7 +7,7 @@
  * Optional: &date=YYYY-MM-DD nur bei vollständigem Vortragsdatum.
  *
  * `lecture` + `p` sind sprachstabile Ortung (gleiche Block-IDs in einer späteren englischen GA).
- * `text=` bleibt der deutsche Zitat-Anfang für die gepunktete Unterstreichung, solange der GA-Text deutsch ist.
+ * `text=` bleibt der deutsche Zitat-Anfang für die Markierung, solange der GA-Text deutsch ist.
  *
  * Nutzung:
  *   node tools/convert-goetheanismus-obsidian-links.js --dry-run --files "Abweichung vom Normalen.md" "Aktiver Nachvollzug der Bildung.md"
@@ -36,32 +36,44 @@ function padGa(ga) {
   return m[1].padStart(3, '0') + m[2].toLowerCase();
 }
 
-function extractQuoteSnippet(textBefore) {
-  const blocks = textBefore.split(/\n(?:---+|____+)\n|\n\n+/);
-  const lastBlock = (blocks.filter(b => b.trim()).pop() || textBefore);
-  const lines = lastBlock.split('\n');
+function isMetaLine(trimmed) {
+  if (!trimmed) return true;
+  if (/^#{1,6}\s/.test(trimmed)) return true;
+  if (/^(\s*\[\[[^\]]+\]\]\s*[\|\s]*)+$/.test(trimmed)) return true;
+  return false;
+}
+
+function snippetFromBlock(block) {
+  const lines = String(block || '').split('\n');
   const contentLines = [];
   for (const line of lines) {
     const trimmed = line.trim();
-    if (!trimmed) continue;
-    if (/^#{1,6}\s/.test(trimmed)) continue;
-    if (/^(\s*\[\[[^\]]+\]\]\s*[\|\s]*)+$/.test(trimmed)) continue;
+    if (isMetaLine(trimmed)) continue;
     contentLines.push(trimmed);
   }
-  const quoteText = contentLines.join(' ');
-  const cleanText = quoteText
+  if (!contentLines.length) return '';
+  const cleanText = contentLines.join(' ')
+    .replace(/\(\[\[GA[\s\S]*$/g, '')
     .replace(/\[\[([^\]]*?\|)?([^\]]*?)\]\]/g, '$2')
     .replace(/\*\*([^*]+)\*\*/g, '$1')
     .replace(/\*([^*]+)\*/g, '$1')
     .replace(/`([^`]+)`/g, '$1')
     .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1')
-    .replace(/\(\[\[GA[\s\S]*$/g, '')
     .trim();
   const words = cleanText
     .split(/\s+/)
     .map(w => w.replace(/^[„"‚'«»‹›(]+|[)"'«»‹›]+$/g, ''))
     .filter(w => w.length >= 1);
   return words.slice(0, MAX_QUOTE_WORDS).join(' ');
+}
+
+function extractQuoteSnippet(textBefore) {
+  const blocks = String(textBefore || '').split(/\n(?:---+|____+)\n|\n\n+/);
+  for (const block of blocks) {
+    const snippet = snippetFromBlock(block);
+    if (snippet) return snippet;
+  }
+  return snippetFromBlock(textBefore);
 }
 
 function buildGotoUrl({ ga, page, pageEnd, date, text, lecture, p }) {
@@ -486,10 +498,12 @@ async function convertContent(content) {
       continue;
     }
     const inSieheAuch = /siehe auch[\s\S]{0,120}$/i.test(result.slice(Math.max(0, index - 120), index));
-    const quoteText = inSieheAuch ? null : meta.text;
+    const extractedSnippet = inSieheAuch ? '' : extractQuoteSnippet(result.slice(0, index));
+    const quoteText = inSieheAuch ? null : (extractedSnippet || meta.text);
+    const snippetChanged = Boolean(!inSieheAuch && extractedSnippet && extractedSnippet !== (meta.text || ''));
     const dateFixed = Boolean(originalDateParam && meta.date && originalDateParam !== meta.date);
     const implausibleDate = Boolean(meta.date && !isPlausibleSteinerDate(meta.date));
-    const skipResolve = meta.lecture && meta.p && !dateFixed && !implausibleDate && !(inSieheAuch && meta.text);
+    const skipResolve = meta.lecture && meta.p && !dateFixed && !implausibleDate && !snippetChanged && !(inSieheAuch && meta.text);
     let lecture = meta.lecture;
     let p = meta.p;
     if (!skipResolve) {
