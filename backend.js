@@ -850,9 +850,28 @@ let fullLecturesByGA = {}; // Index: gaNumber (lowercase) → Array von Lectures
 let fullBooks = {}; // GA-Schriften (GA001-GA046)
 let conceptsDatabase = []; // Cache für concepts-database.json (Schlagwort-System)
 
+function normalizeSearchText(s) {
+  return String(s || '').toLowerCase().replace(/ß/g, 'ss').replace(/[,;.:!?()"\-—–]/g, '');
+}
+
+function getNormalizedParagraphContent(para) {
+  if (!para) return '';
+  if (para._norm != null) return para._norm;
+  para._norm = normalizeSearchText(para.content || para.text || '');
+  return para._norm;
+}
+
 // Hilfsfunktion: Konvertiert Bücher in Paragraphs-Format (für Suche)
 function convertBookToParagraphs(book) {
-  if (!book || !book.content) return [];
+  if (!book) return [];
+  if (book._convertedParagraphs) return book._convertedParagraphs;
+
+  if (Array.isArray(book.paragraphs) && book.paragraphs.length > 0) {
+    book._convertedParagraphs = book.paragraphs;
+    return book._convertedParagraphs;
+  }
+
+  if (!book.content) return [];
   
   const paragraphs = [];
   const content = book.content || '';
@@ -913,15 +932,17 @@ function convertBookToParagraphs(book) {
       }
     });
   }
-  
+
+  book._convertedParagraphs = paragraphs;
   return paragraphs;
 }
 
 // Hilfsfunktion: Erstellt Paragraph-Objekte aus Büchern für Suche
 function getBookParagraphsForSearch(book) {
+  if (book && book._searchParagraphs) return book._searchParagraphs;
+
   const paragraphs = convertBookToParagraphs(book);
-  
-  return paragraphs.map((para, idx) => ({
+  const mapped = paragraphs.map((para, idx) => ({
     ID: book.ID || book.gaNumber,
     title: book.title || book.fileName || book.ID,
     fileName: book.fileName || book.title || book.ID,
@@ -930,8 +951,12 @@ function getBookParagraphsForSearch(book) {
     index: para.index,
     content: para.content,
     text: para.text || para.content,
-    isBook: true
+    isBook: true,
+    _norm: getNormalizedParagraphContent(para)
   }));
+
+  if (book) book._searchParagraphs = mapped;
+  return mapped;
 }
 let synonyms = {};
 let summaryCache = {};
@@ -4417,8 +4442,10 @@ async function performFulltextSearch({
   }
 
   const effectiveProximity = parseProximitySpec(proximity);
+  const needle1 = word1 && !word1IsPhrase ? normalizeSearchText(word1) : '';
+  const needle2 = word2 && !word2IsPhrase ? normalizeSearchText(word2) : '';
 
-  const searchInText = (text, searchTerm, isPhrase) => {
+  const searchInText = (text, searchTerm, isPhrase, preNorm) => {
     if (!searchTerm) return false;
 
     if (isPhrase) {
@@ -4426,8 +4453,9 @@ async function performFulltextSearch({
       const regex = new RegExp(`(^|[\\s,.;:!?()\\-—])${escapedTerm}($|[\\s,.;:!?()\\-—])`);
       return regex.test(text);
     }
-    const normalize = s => s.toLowerCase().replace(/ß/g, 'ss').replace(/[,;.:!?()"\-—–]/g, '');
-    return normalize(text).includes(normalize(searchTerm));
+    const hay = preNorm != null ? preNorm : normalizeSearchText(text);
+    const needle = searchTerm === word1 ? needle1 : (searchTerm === word2 ? needle2 : normalizeSearchText(searchTerm));
+    return hay.includes(needle);
   };
 
   const results = [];
@@ -4453,6 +4481,30 @@ async function performFulltextSearch({
     }
 
     const paragraphs = lecture.paragraphs || [];
+
+    // Schnellpfad: ein Suchwort ohne Phrase/Nähe (Timeline-Schlagwortsuche)
+    if (!word2 && word1 && !word1IsPhrase && !effectiveProximity) {
+      paragraphs.forEach((para, paraIndex) => {
+        if (!getNormalizedParagraphContent(para).includes(needle1)) return;
+        const key = `${lecture.ID}-${paraIndex}`;
+        if (addedParagraphs.has(key)) return;
+        addedParagraphs.add(key);
+        results.push({
+          ID: lecture.ID,
+          title: lecture.title,
+          fileName: lecture.fileName,
+          location: lecture.location,
+          date: lecture.date,
+          paragraphIndex: paraIndex,
+          index: para.index,
+          content: para.content || para.text,
+          hasWord1: true,
+          hasWord2: false
+        });
+      });
+      return;
+    }
+
     let lectureHasWord1 = false;
     let lectureHasWord2 = false;
     if (word2 && wordOperator === 'and' && !effectiveProximity) {
@@ -4554,6 +4606,31 @@ async function performFulltextSearch({
     }
 
     const bookParagraphs = getBookParagraphsForSearch(book);
+
+    // Schnellpfad: ein Suchwort ohne Phrase/Nähe (Timeline-Schlagwortsuche)
+    if (!word2 && word1 && !word1IsPhrase && !effectiveProximity) {
+      bookParagraphs.forEach((para, paraIndex) => {
+        if (!getNormalizedParagraphContent(para).includes(needle1)) return;
+        const key = `${book.ID || book.gaNumber}-${paraIndex}`;
+        if (addedParagraphs.has(key)) return;
+        addedParagraphs.add(key);
+        results.push({
+          ID: book.ID || book.gaNumber,
+          title: book.title,
+          fileName: book.fileName,
+          location: null,
+          date: book.yearRange || null,
+          paragraphIndex: paraIndex,
+          index: para.index,
+          content: para.content || para.text,
+          hasWord1: true,
+          hasWord2: false,
+          isBook: true
+        });
+      });
+      return;
+    }
+
     bookParagraphs.forEach((para, paraIndex) => {
       const content = (para.content || para.text || '');
       const hasWord1 = searchInText(content, word1, word1IsPhrase);
@@ -15577,7 +15654,7 @@ app.get('/api/full-lectures', async (req, res) => {
           gaNumber: lecture.gaNumber,
           gaTitle: lecture.gaTitle,
           lectureNumber: lecture.lectureNumber,
-          paragraphs: lecture.paragraphs || []  // NEU: Absätze mit Indices für Timeline-Überschriften
+          paragraphs: (lecture.paragraphs || []).map(p => ({ index: p.index }))
         };
       }
     });
@@ -20774,12 +20851,19 @@ app.post('/api/generate-summary-keywords-for-lectures', async (req, res) => {
 
 // Lock-Queue für sequenzielles Schreiben in die Keywords-DB
 let keywordsDbWriteQueue = Promise.resolve();
+let keywordsDatabaseCache = null;
+
+function invalidateKeywordsDatabaseCache() {
+  keywordsDatabaseCache = null;
+}
 
 // Lade zentrale Keywords-Datenbank
 async function loadKeywordsDatabase() {
+  if (keywordsDatabaseCache) return keywordsDatabaseCache;
   try {
     const data = await fs.readFile(KEYWORDS_DB_FILE, 'utf8');
-    return JSON.parse(data);
+    keywordsDatabaseCache = JSON.parse(data);
+    return keywordsDatabaseCache;
   } catch (error) {
     return {};
   }
@@ -20803,6 +20887,7 @@ async function saveCompleteKeywordsDatabase(keywordsDB) {
         
         // Speichere Datenbank
         await fs.writeFile(KEYWORDS_DB_FILE, JSON.stringify(keywordsDB, null, 2), 'utf8');
+        invalidateKeywordsDatabaseCache();
         invalidateTimelineSearchCache();
         
         
@@ -20875,6 +20960,7 @@ async function saveKeywordsToDatabase(lectureId, keywordsData) {
         
         // Speichere Datenbank
         await fs.writeFile(KEYWORDS_DB_FILE, JSON.stringify(keywordsDB, null, 2), 'utf8');
+        invalidateKeywordsDatabaseCache();
         invalidateTimelineSearchCache();
         
         
@@ -25722,10 +25808,11 @@ app.get('/api/timeline-data', async (req, res) => {
 });
 
 // ============================================================================
-// TIMELINE-SCHLAGWORT-SUCHE (Cache: Supabase primär, JSON-Fallback)
+// TIMELINE-SCHLAGWORT-SUCHE (Cache: Memory, dann JSON, dann Supabase)
 // ============================================================================
 
 let timelineSearchCacheMemory = null;
+const timelineSearchResultMemory = new Map();
 
 async function loadTimelineSearchCacheJson() {
   if (timelineSearchCacheMemory !== null) return timelineSearchCacheMemory;
@@ -25751,15 +25838,24 @@ async function saveTimelineSearchCacheToJson(cacheKey, entry) {
   const cache = await loadTimelineSearchCacheJson();
   cache[cacheKey] = entry;
   timelineSearchCacheMemory = cache;
-  await fs.writeFile(TIMELINE_SEARCH_CACHE_FILE, JSON.stringify(cache, null, 2), 'utf8');
+  await fs.writeFile(TIMELINE_SEARCH_CACHE_FILE, JSON.stringify(cache), 'utf8');
 }
 
 async function getTimelineSearchCacheFromSupabase(keyword) {
   if (!supabaseClient) return null;
   try {
-    const { data, error } = await supabaseClient.rpc('get_timeline_search_cache', {
+    const rpcPromise = supabaseClient.rpc('get_timeline_search_cache', {
       p_keyword: keyword
     });
+    const timeoutPromise = new Promise((resolve) => {
+      setTimeout(() => resolve({ timeout: true }), 800);
+    });
+    const raced = await Promise.race([rpcPromise, timeoutPromise]);
+    if (raced && raced.timeout) {
+      console.warn('[TIMELINE-CACHE-SUPABASE] Timeout – fahre ohne Supabase-Cache fort');
+      return null;
+    }
+    const { data, error } = raced;
     if (error) {
       if (error.message && error.message.includes('get_timeline_search_cache')) {
         console.warn('[TIMELINE-CACHE-SUPABASE] RPC fehlt – bitte supabase-timeline-search-cache.sql ausführen');
@@ -25811,6 +25907,7 @@ async function saveTimelineSearchCacheEntry(cacheKey, entry) {
 
 function invalidateTimelineSearchCache() {
   timelineSearchCacheMemory = {};
+  timelineSearchResultMemory.clear();
   fs.writeFile(TIMELINE_SEARCH_CACHE_FILE, '{}', 'utf8').catch(err => {
     console.warn('[TIMELINE-CACHE] JSON-Invalidierung fehlgeschlagen:', err.message);
   });
@@ -25867,25 +25964,148 @@ async function buildKeywordDbTimelineResults(keyword) {
   return results;
 }
 
+function slimTimelineSearchResult(result) {
+  return {
+    ID: result.ID,
+    title: result.title,
+    fileName: result.fileName,
+    location: result.location || '',
+    date: result.date,
+    paragraphIndex: result.paragraphIndex,
+    index: result.index,
+    hasWord1: result.hasWord1,
+    hasWord2: result.hasWord2,
+    source: result.source,
+    isBook: !!result.isBook,
+    yearRange: result.yearRange,
+    GA: result.GA,
+    heading: result.heading || null,
+    relevanceCategory: result.relevanceCategory
+  };
+}
+
+function getTimelineParagraphOrder(source) {
+  if (!source) return [];
+  const paragraphs = source.paragraphs || source._searchParagraphs || source._convertedParagraphs;
+  if (Array.isArray(paragraphs) && paragraphs.length > 0) {
+    return paragraphs.map(p => String(p.index || '').replace(/^\^/, '')).filter(Boolean);
+  }
+  return convertBookToParagraphs(source)
+    .map(p => String(p.index || '').replace(/^\^/, ''))
+    .filter(Boolean);
+}
+
+function findTimelineHeadingForIndex(paragraphIndex, headings, lectureId) {
+  if (!paragraphIndex || !headings || headings.length === 0) return null;
+  const cleanIndex = String(paragraphIndex).replace(/^\^/, '');
+
+  const exactH4 = headings.find(h => h.level === 'h4' && String(h.id || h.index || '').replace(/^\^/, '') === cleanIndex);
+  if (exactH4) return exactH4.text;
+  const exactH3 = headings.find(h => h.level === 'h3' && String(h.id || h.index || '').replace(/^\^/, '') === cleanIndex);
+  if (exactH3) return exactH3.text;
+
+  const lectureIdStr = String(lectureId || '');
+  const isBook = isBookGANumberBackend(lectureIdStr);
+  const source = isBook
+    ? (fullBooks[lectureIdStr] || fullBooks[lectureIdStr.toUpperCase()] || fullBooks[lectureIdStr.toLowerCase()])
+    : fullLectures[lectureIdStr];
+  if (!source) return null;
+
+  const paragraphOrder = getTimelineParagraphOrder(source);
+  if (paragraphOrder.length === 0) return null;
+
+  const targetPosition = paragraphOrder.indexOf(cleanIndex);
+  if (targetPosition === -1) return null;
+
+  const indexToPosition = new Map();
+  paragraphOrder.forEach((idx, pos) => indexToPosition.set(idx, pos));
+
+  const headingsWithPosition = headings
+    .map(h => {
+      const hIndex = String(h.id || h.index || '').replace(/^\^/, '');
+      const position = indexToPosition.get(hIndex);
+      return { ...h, position: position !== undefined ? position : -1 };
+    })
+    .filter(h => h.position >= 0 && h.position <= targetPosition);
+
+  if (headingsWithPosition.length === 0) return null;
+  headingsWithPosition.sort((a, b) => b.position - a.position);
+  const bestPosition = headingsWithPosition[0].position;
+  const candidates = headingsWithPosition.filter(h => h.position === bestPosition);
+  const bestHeading = isBook
+    ? (candidates.find(h => h.level === 'h3') || candidates.find(h => h.level === 'h4') || candidates.find(h => h.level === 'h2') || candidates[0])
+    : (candidates.find(h => h.level === 'h4') || candidates[0]);
+  return bestHeading && bestHeading.text ? bestHeading.text : null;
+}
+
+async function attachTimelineHeadings(results) {
+  if (!Array.isArray(results) || results.length === 0) return results;
+  const summaryDB = await loadSummaryDatabase();
+  const headingCache = new Map();
+
+  for (const result of results) {
+    if (result.heading || !result.index || !result.ID) continue;
+    const cacheKey = `${result.ID}:::${result.index}`;
+    if (headingCache.has(cacheKey)) {
+      result.heading = headingCache.get(cacheKey);
+      continue;
+    }
+    const headings = summaryDB[result.ID]?.headings || [];
+    const heading = findTimelineHeadingForIndex(result.index, headings, result.ID);
+    headingCache.set(cacheKey, heading || null);
+    if (heading) result.heading = heading;
+  }
+  return results;
+}
+
+function rememberTimelineSearchResult(cacheKey, entry) {
+  timelineSearchResultMemory.set(cacheKey, entry);
+}
+
+async function prepareCachedTimelineResults(entry) {
+  const results = Array.isArray(entry.results) ? entry.results : [];
+  const needsHeadings = results.some(r => r && r.index && !r.heading);
+  const slimmed = needsHeadings
+    ? await attachTimelineHeadings(results.map(slimTimelineSearchResult))
+    : results.map(r => (r && r.content ? slimTimelineSearchResult(r) : r));
+  return {
+    ...entry,
+    results: slimmed,
+    resultCount: slimmed.length,
+    fromCache: true
+  };
+}
+
 async function executeTimelineKeywordSearch(keyword) {
   const parsed = parseTimelineKeyword(keyword);
   const word1 = parsed.term || String(keyword).trim();
   const cacheKey = normalizeTimelineSearchKey(word1);
 
-  const supabaseHit = await getTimelineSearchCacheFromSupabase(word1);
-  if (supabaseHit) {
-    console.log(`[TIMELINE-CACHE] Supabase-Treffer für "${word1}"`);
-    return supabaseHit;
+  const memoryHit = timelineSearchResultMemory.get(cacheKey);
+  if (memoryHit && Array.isArray(memoryHit.results)) {
+    console.log(`[TIMELINE-CACHE] Memory-Treffer für "${word1}" (${memoryHit.results.length} Treffer)`);
+    return { ...memoryHit, fromCache: true, cacheSource: 'memory' };
   }
 
   const jsonHit = await getTimelineSearchCacheFromJson(cacheKey);
   if (jsonHit) {
-    console.log(`[TIMELINE-CACHE] JSON-Fallback-Treffer für "${word1}" – backfill nach Supabase`);
-    await saveTimelineSearchCacheToSupabase(jsonHit);
-    return jsonHit;
+    console.log(`[TIMELINE-CACHE] JSON-Treffer für "${word1}"`);
+    const prepared = await prepareCachedTimelineResults(jsonHit);
+    rememberTimelineSearchResult(cacheKey, prepared);
+    saveTimelineSearchCacheToSupabase(prepared).catch(() => {});
+    return prepared;
   }
 
-  console.log(`[TIMELINE-CACHE] Miss für "${word1}" – berechne und speichere`);
+  const supabaseHit = await getTimelineSearchCacheFromSupabase(word1);
+  if (supabaseHit) {
+    console.log(`[TIMELINE-CACHE] Supabase-Treffer für "${word1}"`);
+    const prepared = await prepareCachedTimelineResults(supabaseHit);
+    rememberTimelineSearchResult(cacheKey, prepared);
+    return prepared;
+  }
+
+  console.log(`[TIMELINE-CACHE] Miss für "${word1}" – berechne`);
+  const started = Date.now();
   const keywordResults = await buildKeywordDbTimelineResults(word1);
   const searchData = await performFulltextSearch({
     word1,
@@ -25900,7 +26120,9 @@ async function executeTimelineKeywordSearch(keyword) {
     trackAnalytics: false
   });
 
-  const allResults = [...keywordResults, ...(searchData.results || [])];
+  const allResults = await attachTimelineHeadings(
+    [...keywordResults, ...(searchData.results || [])].map(slimTimelineSearchResult)
+  );
   const entry = {
     keyword: word1,
     results: allResults,
@@ -25908,8 +26130,12 @@ async function executeTimelineKeywordSearch(keyword) {
     timestamp: new Date().toISOString()
   };
 
-  await saveTimelineSearchCacheEntry(cacheKey, entry);
+  rememberTimelineSearchResult(cacheKey, { ...entry, fromCache: true, cacheSource: 'memory' });
+  saveTimelineSearchCacheEntry(cacheKey, entry).catch(err => {
+    console.warn('[TIMELINE-CACHE] Persistenz fehlgeschlagen:', err.message);
+  });
 
+  console.log(`[TIMELINE-CACHE] "${word1}" in ${Date.now() - started}ms, ${allResults.length} Treffer`);
   return { ...entry, fromCache: false };
 }
 

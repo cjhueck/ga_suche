@@ -10601,9 +10601,13 @@ function showTimelineBackButton() {
 }
 
 // NEU: Zeige Keyword-Suche in Timeline (kombiniert Keyword-DB + GA-Suche mit Relevanz hoch)
+let timelineKeywordSearchGeneration = 0;
+
 async function showKeywordSearchInTimeline(keyword) {
   // Setze Flag, damit normale Timeline-Rendering übersprungen wird
   showingSearchResultsTimeline = true;
+  const searchGeneration = ++timelineKeywordSearchGeneration;
+  searchResultsTimelineRunning = false;
   
   const resultsDiv = document.getElementById('results');
   if (!resultsDiv) {
@@ -10635,6 +10639,10 @@ async function showKeywordSearchInTimeline(keyword) {
     const searchData = await searchResponse.json();
     const allResults = searchData.results || [];
 
+    if (searchGeneration !== timelineKeywordSearchGeneration) {
+      return;
+    }
+
     if (searchData.fromCache) {
       console.log(`[TIMELINE-CACHE] Server-Cache für "${keyword}" (${allResults.length} Treffer)`);
     }
@@ -10645,6 +10653,7 @@ async function showKeywordSearchInTimeline(keyword) {
     await showSearchResultsTimelineV2(allResults, [keyword]);
     
     } catch (error) {
+    if (searchGeneration !== timelineKeywordSearchGeneration) return;
     console.error('[KEYWORD-SEARCH-TIMELINE] Fehler:', error);
     timelineContainer.innerHTML = `<div style="text-align: center; padding: 2rem; color: #d9534f;">Fehler beim Laden: ${error.message}</div>`;
     showingSearchResultsTimeline = false;
@@ -32059,6 +32068,8 @@ function scrollToKeyword(keyword) {
 // Ctrl+Enter für Zitate-Textfeld
 
 // Lade vollständige Vortragsdaten für Timeline (aus steiner-full-lectures-...json)
+const paragraphOrderCache = new Map();
+
 async function loadFullLecturesForTimeline() {
   // Wenn bereits geladen, überspringe
   if (Object.keys(fullLecturesData).length > 0) {
@@ -32072,6 +32083,7 @@ async function loadFullLecturesForTimeline() {
     }
     
     fullLecturesData = await response.json();
+    paragraphOrderCache.clear();
     return fullLecturesData;
     
   } catch (error) {
@@ -32084,6 +32096,11 @@ async function loadFullLecturesForTimeline() {
 // Hilfsfunktion: Ermittelt die Reihenfolge der Absatz-Indices für einen Vortrag
 // Gibt ein Array von Indices in der Reihenfolge zurück, wie sie im Text erscheinen
 function getParagraphOrderForLecture(lectureId) {
+  if (!lectureId) return [];
+  if (paragraphOrderCache.has(lectureId)) {
+    return paragraphOrderCache.get(lectureId);
+  }
+
   const lecture = fullLecturesData[lectureId];
   if (!lecture || !lecture.paragraphs || !Array.isArray(lecture.paragraphs)) {
     console.warn(`[PARAGRAPH_ORDER] Keine Absätze gefunden für ${lectureId}`);
@@ -32094,7 +32111,8 @@ function getParagraphOrderForLecture(lectureId) {
   const order = lecture.paragraphs
     .map(p => (p.index || '').replace(/^\^/, '')) // Entferne ^ prefix
     .filter(idx => idx); // Nur nicht-leere Indices
-  
+
+  paragraphOrderCache.set(lectureId, order);
   return order;
 }
 
@@ -36004,9 +36022,9 @@ async function updateTimelineFilters(changedBy = 'keyword') {
     await loadKeywordsForTheme(currentTheme);
   }
   
-  // === FALL 2: Keyword wurde geändert ? Zeige zugehöriges Thema ===
+  // === FALL 2: Keyword wurde geändert – Thema parallel setzen, Suche nicht blockieren ===
   if (changedBy === 'keyword' && currentKeyword !== '') {
-    await setThemeForKeyword(currentKeyword);
+    setThemeForKeyword(currentKeyword);
   }
   
   // Timeline neu rendern
@@ -36602,13 +36620,16 @@ async function showSearchResultsTimelineV2(customResults = null, customKeywords 
   timelineContainer.id = 'timelineContainer';
   resultsDiv.appendChild(timelineContainer);
   
-  // Zeige "GA-Suche läuft..." Nachricht
-  timelineContainer.innerHTML = '<div style="text-align: center; padding: 2rem; color: var(--secondary-text); font-style: italic;">Führe GA-Suche durch, bitte einen Moment Geduld...</div>';
-  
   // Verwende customResults falls übergeben, sonst searchResults (lokal) oder window._tempSearchResults
   // WICHTIG: searchResults enthält bereits die relevanz-gefilterten Treffer vom Backend
   // (Das Backend filtert nach Relevanz, bevor die Ergebnisse zurückgegeben werden)
   const resultsToUse = customResults || searchResults || window._tempSearchResults || [];
+  const fromKeywordApi = Array.isArray(customResults) && customResults.length > 0;
+  const resultsHaveHeadings = fromKeywordApi || (resultsToUse.length > 0 && resultsToUse.every(r => !r.index || r.heading));
+  
+  if (!resultsHaveHeadings) {
+    timelineContainer.innerHTML = '<div style="text-align: center; padding: 2rem; color: var(--secondary-text); font-style: italic;">Timeline wird aufbereitet...</div>';
+  }
   
   // Log für Debugging: Zeige Anzahl der verwendeten Ergebnisse
   
@@ -36621,24 +36642,25 @@ async function showSearchResultsTimelineV2(customResults = null, customKeywords 
   }
   
   try {
-    // WICHTIG: Lade zuerst vollständige Vortragsdaten für korrekte Überschriften-Zuordnung
-    await loadFullLecturesForTimeline();
-    
-    // Lade Summary-Database für Überschriften
-    const summaryDBResponse = await fetch(`${API_BASE}/summary-database.json`);
-    const summaryDB = summaryDBResponse.ok ? await summaryDBResponse.json() : {};
-    
-    // Sammle alle eindeutigen Buch-IDs aus den Ergebnissen
-    const bookIds = new Set();
-    resultsToUse.forEach(result => {
-      if (result.isBook && result.ID) {
-        bookIds.add(result.ID);
+    let summaryDB = {};
+    if (!resultsHaveHeadings) {
+      await loadFullLecturesForTimeline();
+      if (typeof getSummaryDBCached === 'function') {
+        summaryDB = await getSummaryDBCached() || {};
+      } else {
+        const summaryDBResponse = await fetch(`${API_BASE}/summary-database.json`);
+        summaryDB = summaryDBResponse.ok ? await summaryDBResponse.json() : {};
       }
-    });
-    
-    // Lade Bücher-Daten für alle gefundenen Bücher
-    if (bookIds.size > 0) {
-      await Promise.all(Array.from(bookIds).map(bookId => loadBookForTimeline(bookId)));
+
+      const bookIds = new Set();
+      resultsToUse.forEach(result => {
+        if (result.isBook && result.ID && !result.heading) {
+          bookIds.add(result.ID);
+        }
+      });
+      if (bookIds.size > 0) {
+        await Promise.all(Array.from(bookIds).map(bookId => loadBookForTimeline(bookId)));
+      }
     }
     
     // Konvertiere Suchergebnisse in Timeline-Einträge
@@ -36687,12 +36709,9 @@ async function showSearchResultsTimelineV2(customResults = null, customKeywords 
       
       // Suchergebnisse haben index direkt im result-Objekt
       if (result.index) {
-        // Finde beste Überschrift für diesen Index (funktioniert für Vorträge und Bücher)
-        const bestHeading = await findBestHeadingForIndex(
-          result.index, 
-          lectureHeadings, 
-          result.ID  // lectureId oder bookId übergeben für korrekte Positionsermittlung
-        );
+        const bestHeading = result.heading || (!resultsHaveHeadings
+          ? await findBestHeadingForIndex(result.index, lectureHeadings, result.ID)
+          : null);
         
         timelineEntries.push({
           lectureId: result.ID,
