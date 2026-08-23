@@ -1,0 +1,40 @@
+DE
+GA 001 - Einleitungen zu Goethes Naturwissenschaftlichen Schriften (1884-1897).md
+GA 002 - Grundlinien einer Erkenntnistheorie der Goetheschen Weltanschauung (1886).md
+GA 006 - Goethes Weltanschauung (1897).md
+GA 030 - Gedanken zum handschriftlichen Nachlasse Goethes (1891).md
+GA 030 - Goethe als Vater einer neuen Ästhetik (1889).md
+GA 030 - Goethe als Ästhetiker (1888).md
+GA 030 - Goethe Studien - Moral und Christentum (1900).md
+GA 030 - Goethe und die Medizin (1901).md
+GA 030 - Goethes Beziehung zur Versammlung Deutscher Naturforscher und Ärzte in Berlin 1828 (1895).md
+GA 030 - Goethes geheime Offenbarung (1899).md
+GA 030 - Goethes Naturanschauung gemäß den neuesten Veröffentlichungen des Goethe-Archivs (1894).md
+GA 030 - Goethes Recht in der Naturwissenschaft. Eine Rettung (1884).md
+GA 030 - Haeckel und seine Gegner (1899).md
+GA 030 - Weimarer Goethe-Ausgabe Bericht der Redaktoren und Herausgeber.md
+GA 030 - Zu dem Fragment 'Über die Natur' (1892).md
+GA 030 - Über den Gewinn der Goethe-Studien durch die Weimarer Ausgabe in naturwissenschaftlicher Beziehung (1889).md
+GA 030 - Über den Gewinn unserer Anschauungen von Goethes naturwissenschaftlichen Arbeiten durch die Publikationen des Goethe-Archivs (1891).md
+GA 036 - Goethe und Goetheanum (1923).md
+Vortragsnachschrift 04.10.1916.md
+EN
+GA 001 - Introductions to Goethe's Scientific Writings (1884-1897).md
+GA 002 - Goethe's Theory of Knowledge (1886).md
+GA 006 - Goethe's World View (1897).md
+GA 030 - Goethe and Medicine (1901).md
+GA 030 - Goethe as Aesthetician (1888).md
+GA 030 - Goethe as Father of a New Aesthetics (1889).md
+GA 030 - Goethe Studies - Morality and Christianity (1900).md
+GA 030 - Goethe's Relation to the Assembly of German Natural Scientists and Physicians in Berlin 1828 (1895).md
+GA 030 - Goethe's Right in Natural Science. A Vindication (1884).md
+GA 030 - Goethe's Secret Revelation (1899).md
+GA 030 - Goethe's View of Nature according to the Latest Publications of the Goethe Archive (1894).md
+GA 030 - Haeckel and His Opponents (1899).md
+GA 030 - On the Fragment 'On Nature' (1892).md
+GA 030 - On the Gain to Goethe Studies through the Weimar Edition in Scientific Respect (1889).md
+GA 030 - On the Gain to Our Views of Goethe's Scientific Work through the Publications of the Goethe Archive (1891).md
+GA 030 - Thoughts on Goethe's Manuscript Nachlass (1891).md
+GA 030 - Weimar Goethe Edition Report of the Editors.md
+GA 036 - Goethe and the Goetheanum (1923).md
+Lecture Transcript 04.10.1916.md
