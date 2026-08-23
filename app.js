@@ -28228,27 +28228,24 @@ async function navigateToGAPage(ga, date, page, searchText, vault, file, lecture
                 
                 var matchInHTML = htmlWithPlaceholders.match(flexPattern);
                 
+                function wrapObsidianQuoteMark(innerHtml, backLink) {
+                  var marked = '<mark>' + innerHtml + '</mark>';
+                  if (backLink) {
+                    return '<a href="' + backLink + '" class="obsidian-first-words" title="Zurück zu Obsidian">' + marked + '</a>';
+                  }
+                  return '<mark class="obsidian-first-words">' + innerHtml + '</mark>';
+                }
+                var obsidianLink = '';
+                if (vault && file) {
+                  obsidianLink = 'obsidian://open?vault=' + encodeURIComponent(vault) + '&file=' + encodeURIComponent(file);
+                }
+                
                 if (matchInHTML) {
                   console.log('[OBSIDIAN-GA] ? Match gefunden:', matchInHTML[0]);
+                  if (obsidianLink) console.log('[OBSIDIAN-GA] 🔗 Obsidian-Link erstellt:', obsidianLink);
                   
-                  // Erstelle Obsidian-Link wenn vault und file vorhanden
-                  var obsidianLink = '';
-                  if (vault && file) {
-                    obsidianLink = 'obsidian://open?vault=' + encodeURIComponent(vault) + '&file=' + encodeURIComponent(file);
-                    console.log('[OBSIDIAN-GA] 🔗 Obsidian-Link erstellt:', obsidianLink);
-                  }
-                  
-                  // Ersetze den gefundenen Text mit markierter Version (mit Link wenn vorhanden)
-                  var markedHTML;
-                  if (obsidianLink) {
-                    markedHTML = htmlWithPlaceholders.replace(flexPattern, 
-                      '<a href="' + obsidianLink + '" class="obsidian-first-words" style="text-decoration: underline dotted rgba(70, 120, 134, 0.8); text-decoration-thickness: 2px; text-underline-offset: 3px; color: inherit; cursor: pointer;" title="Zurück zu Obsidian">' + 
-                      matchInHTML[0] + '</a>');
-                  } else {
-                    markedHTML = htmlWithPlaceholders.replace(flexPattern, 
-                      '<span class="obsidian-first-words" style="text-decoration: underline dotted rgba(70, 120, 134, 0.8); text-decoration-thickness: 2px; text-underline-offset: 3px;">' + 
-                      matchInHTML[0] + '</span>');
-                  }
+                  // Ersetze den gefundenen Text mit markierter Version (wie Suchtreffer)
+                  var markedHTML = htmlWithPlaceholders.replace(flexPattern, wrapObsidianQuoteMark(matchInHTML[0], obsidianLink));
                   
                   // Setze page-break-num Spans wieder ein
                   for (var i = 0; i < pageMarkers.length; i++) {
@@ -28256,7 +28253,7 @@ async function navigateToGAPage(ga, date, page, searchText, vault, file, lecture
                   }
                   
                   pTag.innerHTML = markedHTML;
-                  console.log('[OBSIDIAN-GA] ? Suchworte markiert (gepunktete Unterstreichung):', actualText);
+                  console.log('[OBSIDIAN-GA] ? Suchworte markiert (Highlight wie Suche):', actualText);
                   // Scrolle zu den Suchworten (Hauptziel), damit sie sichtbar sind
                   var markedEl = pTag.querySelector('.obsidian-first-words');
                   if (markedEl) markedEl.scrollIntoView({ behavior: 'auto', block: 'center' });
@@ -28267,22 +28264,7 @@ async function navigateToGAPage(ga, date, page, searchText, vault, file, lecture
                   // Fallback ohne Seitenmarker-Logik
                   var simpleMatch = originalHTML.match(new RegExp(escapedText, 'i'));
                   if (simpleMatch) {
-                    // Erstelle Obsidian-Link wenn vault und file vorhanden
-                    var obsidianLink = '';
-                    if (vault && file) {
-                      obsidianLink = 'obsidian://open?vault=' + encodeURIComponent(vault) + '&file=' + encodeURIComponent(file);
-                    }
-                    
-                    var markedHTML;
-                    if (obsidianLink) {
-                      markedHTML = originalHTML.replace(simpleMatch[0], 
-                        '<a href="' + obsidianLink + '" class="obsidian-first-words" style="text-decoration: underline dotted rgba(70, 120, 134, 0.8); text-decoration-thickness: 2px; text-underline-offset: 3px; color: inherit; cursor: pointer;" title="Zurück zu Obsidian">' + 
-                        simpleMatch[0] + '</a>');
-                    } else {
-                      markedHTML = originalHTML.replace(simpleMatch[0], 
-                        '<span class="obsidian-first-words" style="text-decoration: underline dotted rgba(70, 120, 134, 0.8); text-decoration-thickness: 2px; text-underline-offset: 3px;">' + 
-                        simpleMatch[0] + '</span>');
-                    }
+                    var markedHTML = originalHTML.replace(simpleMatch[0], wrapObsidianQuoteMark(simpleMatch[0], obsidianLink));
                     pTag.innerHTML = markedHTML;
                     console.log('[OBSIDIAN-GA] ? Suchworte markiert (einfache Methode):', actualText);
                     var markedEl = pTag.querySelector('.obsidian-first-words');

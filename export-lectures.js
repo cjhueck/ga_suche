@@ -269,6 +269,17 @@ class SteinerLecturesExporter {
     };
   }
 
+  // Zeitungs-/Teilnehmerberichte nicht exportieren (Titel enthält das Wort "Bericht").
+  // Einzige Ausnahme: GA030 (56.) Weimarer Goethe-Ausgabe Bericht der Redaktoren.
+  shouldSkipBerichtFile(meta, filename) {
+    const haystack = `${filename || ''} ${meta?.title || ''} ${meta?.fullRest || ''}`;
+    if (!/\bbericht\b/i.test(haystack)) return false;
+    const ga = String(meta.gaNumber || '').toUpperCase();
+    const num = String(meta.lectureNumber || '');
+    if (ga === 'GA030' && num === '56') return false;
+    return true;
+  }
+
   // Parse German date format (vereinfacht, wird jetzt in extractMetadataFromFilename direkt gemacht)
   parseDate(dateStr) {
     const months = {
@@ -882,6 +893,7 @@ class SteinerLecturesExporter {
 
       const meta = this.extractMetadataFromFilename(filename, fallbackGa);
       if (!meta) continue;
+      if (this.shouldSkipBerichtFile(meta, filename)) continue;
 
       const content = fs.readFileSync(filePath, 'utf8');
       // Unterstütze sowohl Unix (\n) als auch Windows (\r\n) Zeilenenden

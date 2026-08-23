@@ -108,12 +108,14 @@ _obsidianBC.onmessage = function(e) {
     }
     
     /* Der vertikale Strich | im Text */
-    /* Obsidian-GA-Links: Suchworte = gepunktete Unterstreichung (Hauptziel), blauer Balken am Absatz */
+    /* Obsidian-GA-Links: Zitatanfang wie Suchtreffer highlighten, blauer Balken am Absatz */
     .obsidian-first-words {
-      text-decoration: underline dotted rgba(70, 120, 134, 0.8) !important;
-      text-decoration-thickness: 2px !important;
-      text-underline-offset: 3px !important;
-      background: none !important;
+      color: inherit;
+      text-decoration: none !important;
+    }
+    a.obsidian-first-words {
+      cursor: pointer;
+      background: none;
     }
     .obsidian-page-marker {
       border-left: 4px solid rgba(70, 120, 134, 0.6);
