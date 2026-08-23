@@ -1,0 +1,6 @@
+de_custom_inhalt: HTTP 404 len=0 title=-
+de_custom_root: HTTP 404 len=0 title=-
+en_custom: HTTP <urlopen error [Errno 11001] getaddrinfo failed> len=0 title=-
+np_inhalt: HTTP 200 len=2250 title=<title>INHALT - Goethe: Natur&amp;Philosophie - Obsidian Publish
+ga_inhalt: HTTP 200 len=2192 title=<title>INHALT - Goetheanismus - Obsidian Publish
+np_contents: HTTP 200 len=2258 title=<title>CONTENTS - Goethe: Natur&amp;Philosophie - Obsidian Publish
