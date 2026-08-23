@@ -441,6 +441,20 @@ async function convertContent(content) {
     return `([[GA ${ga}]], ${wrapGaLink(url, label)})`;
   });
 
+  // 3l) Nachweis ohne Wiki-Klammern: (GA 177, S. 224–225, 26.10.1917) / (GA 001, S. 16)
+  const bareGaCiteRe = /\(GA\s*(\d+[a-zA-Z]?),\s*S\.\s*(\d+)(?:[-–](\d+))?(?:\s*f+\.?)?(?:\s*,)?\s*(?:(\d{1,2})\.(\d{1,2})\.(\d{4}))?\)/g;
+  result = result.replace(bareGaCiteRe, (match, ga, page, pageEnd, day, month, year, offset) => {
+    const snippet = extractQuoteSnippet(result.slice(0, offset));
+    let date = null;
+    if (day && month && year) {
+      date = normalizeSteinerDate(`${year}-${pad2(month)}-${pad2(day)}`);
+    }
+    const url = buildGotoUrl({ ga, page, pageEnd, date, text: snippet });
+    const label = citationLabel({ page, pageEnd, date });
+    count++;
+    return `([[GA ${ga}]], ${wrapGaLink(url, label)})`;
+  });
+
   // 4) Quellenzeile: leerer Link → Anfang des Textes, ohne page/text-Markierung
   const footerRe = /\[ ?\]\((https:\/\/(?:akanthosakademie\.files\.wordpress\.com\/[^)]+|rudolf-steiner-online\.de\/(?:goto|app)\.html#[^)]+))\)/gi;
   const footerMatches = [];
