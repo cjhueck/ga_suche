@@ -34186,6 +34186,7 @@ function mapsSetViewMode(mode) {
 }
 
 async function showMapsInViewer() {
+  restoreMapsInThemenLocation();
   var sp = document.getElementById('summary-panel');
   if (sp && sp.classList.contains('visible')) {
     if (typeof closeSummaryPanelFromHeader === 'function') closeSummaryPanelFromHeader();
@@ -34428,16 +34429,19 @@ async function showMapsInViewer() {
     resultsDiv.style.display = 'block';
     const sidebarContent = document.getElementById('sidebar-content');
     if (sidebarContent) sidebarContent.style.display = 'block';
+    const isSammlungen = window._themenView === 'sammlungen';
+    const mapSidebarTarget = isSammlungen ? document.getElementById('sammlungen-map-sidebar') : resultsDiv;
+    if (!mapSidebarTarget) return;
     if (usePublish && map.publishUrl) {
-      resultsDiv.innerHTML = `<div style="min-height: 500px;"><iframe src="${map.publishUrl}" style="width: 100%; height: calc(100vh - 200px); min-height: 500px; border: none; display: block;" title="Obsidian Publish"></iframe></div>`;
+      mapSidebarTarget.innerHTML = `<div style="min-height: 500px;"><iframe src="${map.publishUrl}" style="width: 100%; height: calc(100vh - 200px); min-height: 500px; border: none; display: block;" title="Obsidian Publish"></iframe></div>`;
     } else if (map.contentMapId) {
-      resultsDiv.innerHTML = '<div style="padding: 1rem; color: var(--secondary-text);">Lade Inhalt</div>';
+      mapSidebarTarget.innerHTML = '<div style="padding: 1rem; color: var(--secondary-text);">Lade Inhalt</div>';
       try {
       const apiBase = typeof API_BASE !== 'undefined' ? API_BASE : (window.location.hostname === 'localhost' ? 'http://localhost:3003' : '');
       const res = await fetch(apiBase + '/api/maps-content?map=' + encodeURIComponent(map.contentMapId));
       if (!res.ok) throw new Error('Datei nicht gefunden');
       const data = await res.json();
-      renderMapsObsidianSidebar(resultsDiv, data.markdown, apiBase);
+      renderMapsObsidianSidebar(mapSidebarTarget, data.markdown, apiBase);
       const hash = (window.location.hash || '').replace(/^#/, '');
       let frag = '';
       if (hash.includes('&scroll=')) {
@@ -34449,10 +34453,16 @@ async function showMapsInViewer() {
       const scrollEl = frag ? document.getElementById(frag) : null;
       if (scrollEl) scrollEl.scrollIntoView({ behavior: 'auto', block: 'start' });
     } catch (e) {
-      resultsDiv.innerHTML = '<div style="padding: 1rem; color: var(--secondary-text);">Inhalt konnte nicht geladen werden. Pfad in backend.js prüfen.</div>';
+      mapSidebarTarget.innerHTML = '<div style="padding: 1rem; color: var(--secondary-text);">Inhalt konnte nicht geladen werden. Pfad in backend.js prüfen.</div>';
     }
     } else {
-      resultsDiv.innerHTML = '';
+      mapSidebarTarget.innerHTML = '';
+    }
+    if (isSammlungen) {
+      const kartenContent = document.getElementById('sammlungen-karten-content');
+      if (kartenContent && kartenContent.style.display !== 'none') {
+        initSammlungenEdkMaps();
+      }
     }
   }
 }
@@ -34481,6 +34491,7 @@ function switchThemenView(view) {
   if (viewer) viewer.innerHTML = '';
   const results = document.getElementById('results');
   if (results) {
+    restoreMapsInThemenLocation();
     if (view === 'schwerpunkte') {
       results.innerHTML = '<div style="color: var(--secondary-text); text-align: left; font-style: italic; font-size: 0.9rem;">Für eine Zusammenfassung klicken Sie auf einen Themenschwerpunkt in der Graphik</div>';
     } else {
@@ -34532,6 +34543,7 @@ function switchThemenView(view) {
   }
 
   if (view === 'schwerpunkte') {
+    restoreMapsInThemenLocation();
     if (mapsDiv) mapsDiv.style.display = 'none';
     if (timelineDiv) timelineDiv.style.display = 'none';
     if (typeof initThematicVisualization === 'function') {
@@ -34539,6 +34551,7 @@ function switchThemenView(view) {
     }
 
   } else if (view === 'timeline') {
+    restoreMapsInThemenLocation();
     if (mapsDiv) mapsDiv.style.display = 'none';
     if (timelineDiv) timelineDiv.style.display = 'block';
     // Dropdowns zurücksetzen
@@ -34550,6 +34563,7 @@ function switchThemenView(view) {
     if (keywordSearch) keywordSearch.value = '';
 
   } else if (view === 'karten') {
+    restoreMapsInThemenLocation();
     if (mapsDiv) mapsDiv.style.display = 'flex';
     if (timelineDiv) timelineDiv.style.display = 'none';
     // Maps-State zurücksetzen damit beim nächsten Wechsel zu Karten neu geladen wird
@@ -34572,9 +34586,13 @@ function switchThemenView(view) {
     }
 
   } else if (view === 'sammlungen') {
-    if (mapsDiv) mapsDiv.style.display = 'none';
     if (timelineDiv) timelineDiv.style.display = 'none';
     loadSammlungenList();
+
+  } else {
+    restoreMapsInThemenLocation();
+    if (mapsDiv) mapsDiv.style.display = 'none';
+    if (timelineDiv) timelineDiv.style.display = 'none';
   }
 }
 
@@ -34606,7 +34624,7 @@ function switchCoggleMap(mapId) {
 function updateMapsPdfDownloadBtn() {
   var btn = document.getElementById('mapsPdfDownloadBtn');
   if (!btn) return;
-  var isKarten = document.body.classList.contains('karten-view') || window._themenView === 'karten';
+  var isKarten = document.body.classList.contains('karten-view') || window._themenView === 'karten' || window._themenView === 'sammlungen';
   var hasMap = window._currentMapsMap && window._currentMapsMap.pdfUrl;
   btn.style.display = (isKarten && hasMap) ? 'inline-flex' : 'none';
 }
@@ -34706,16 +34724,208 @@ function showMapsDownloadOptions() {
 }
 
 // ===== Sammlungen Sub-Tab =====
+function restoreMapsInThemenLocation() {
+  var mapsDiv = document.getElementById('maps-in-themen');
+  var placeholder = document.getElementById('maps-in-themen-placeholder');
+  if (!mapsDiv || !placeholder) return;
+  mapsDiv.style.display = 'none';
+  mapsDiv.style.flexDirection = '';
+  mapsDiv.style.alignItems = '';
+  mapsDiv.style.gap = '';
+  mapsDiv.style.marginBottom = '';
+  mapsDiv.querySelectorAll('select').forEach(function(s) {
+    s.style.maxWidth = '';
+    s.style.width = '';
+  });
+  if (mapsDiv !== placeholder.nextElementSibling) {
+    placeholder.parentNode.insertBefore(mapsDiv, placeholder.nextSibling);
+  }
+}
+
+function deactivateSammlungenKarten() {
+  var content = document.getElementById('sammlungen-karten-content');
+  var arrow = document.getElementById('karten-arrow');
+  var toggle = document.querySelector('.sammlungen-karten-toggle');
+  if (content) content.style.display = 'none';
+  if (arrow) arrow.style.transform = 'rotate(0deg)';
+  if (toggle) toggle.classList.remove('active');
+}
+
+function toggleSammlungenKartenSection() {
+  var content = document.getElementById('sammlungen-karten-content');
+  var arrow = document.getElementById('karten-arrow');
+  var toggle = document.querySelector('.sammlungen-karten-toggle');
+  var results = document.getElementById('results');
+  if (!content || !arrow) return;
+  var isVisible = content.style.display !== 'none';
+  content.style.display = isVisible ? 'none' : 'block';
+  arrow.style.transform = isVisible ? 'rotate(0deg)' : 'rotate(90deg)';
+  if (toggle) toggle.classList.toggle('active', !isVisible);
+  if (!isVisible) {
+    if (results) results.querySelectorAll('.sammlungen-collection-link').forEach(function(l) { l.style.fontWeight = ''; });
+    initSammlungenEdkMaps();
+  }
+}
+
+function initSammlungenEdkMaps() {
+  var mapsDiv = document.getElementById('maps-in-themen');
+  var host = document.getElementById('sammlungen-karten-maps-host');
+  if (!mapsDiv || !host) return;
+  if (mapsDiv.parentElement !== host) host.appendChild(mapsDiv);
+  mapsDiv.style.display = 'flex';
+  mapsDiv.style.flexDirection = 'column';
+  mapsDiv.style.alignItems = 'stretch';
+  mapsDiv.style.gap = '8px';
+  mapsDiv.style.marginBottom = '0.5rem';
+  mapsDiv.querySelectorAll('select').forEach(function(s) {
+    s.style.maxWidth = '100%';
+    s.style.width = '100%';
+  });
+  if (typeof COGGLE_MAPS !== 'undefined' && COGGLE_MAPS.length > 0) {
+    var catEl = document.getElementById('maps-category-dropdown');
+    var cat = (catEl && catEl.value) ? catEl.value : 'entwicklung';
+    if (catEl && !catEl.value) catEl.value = 'entwicklung';
+    filterMapsByCategory(cat, window._coggleMapId || '');
+  }
+}
+
+var SAMMLUNGEN_INTRO_STYLE = 'font-size:1.35em !important;line-height:1.3 !important;';
+var ENTWICKLUNG_KIND_TITLE = 'Grundlagen der Waldorfpädagogik - Rudolf Steiner zur Entwicklung des Kindes und Jugendlichen';
+
+function setSammlungenDocumentTitle(text) {
+  var docTitle = document.getElementById('document-title');
+  if (!docTitle) return;
+  docTitle.textContent = text;
+  docTitle.removeAttribute('title');
+  docTitle.removeAttribute('onclick');
+  docTitle.style.cursor = '';
+}
+
+function showGoetheanismusSammlung() {
+  var viewer = document.getElementById('viewer');
+  if (!viewer) return;
+  var docTitle = document.getElementById('document-title');
+  if (docTitle) docTitle.textContent = 'Grundlagen der Anthroposophie - Rudolf Steiner zu Goethes Naturanschauung';
+  window._coggleMapId = null;
+  window._currentMapsMap = null;
+  if (typeof updateMapsPdfDownloadBtn === 'function') updateMapsPdfDownloadBtn();
+  var mapSidebar = document.getElementById('sammlungen-map-sidebar');
+  if (mapSidebar) mapSidebar.innerHTML = '';
+  var viewerSummaryBtn = document.getElementById('viewerSummaryBtn');
+  if (viewerSummaryBtn) viewerSummaryBtn.style.display = 'none';
+
+  var base = 'https://goethe.rudolf-steiner-online.de';
+  var links = [
+    { label: 'Ausgewählte Texte Steiners zu Goethes Naturanschauung', url: base + '/Texte' },
+    { label: 'Zitate aus Texten und Vorträgen Steiners zu Goethes Naturanschauung', url: base + '/Zitate%20Steiner' },
+    { label: 'Zitate Goethes zu seiner Naturanschauung', url: base + '/Zitate%20Goethe' },
+    { label: 'Verlinkte GA-Bände', url: base + '/GA-Links' },
+    { label: 'Sekundärliteratur', url: base + '/Sekund%C3%A4rliteratur' }
+  ];
+
+  var html = '<div class="sammlungen-viewer-content" style="padding:2rem;max-width:800px;">';
+  html += '<p class="sammlungen-viewer-intro" style="' + SAMMLUNGEN_INTRO_STYLE + '"><strong>Sammlung von Zitaten aus dem schriftlichen und Vortragswerk Rudolf Steiners zu Goethes Naturerkenntnis (&quot;Goetheanismus&quot;)</strong></p>';
+  html += '<p style="margin:0.5rem 0 1rem 0;font-size:0.95em;color:var(--secondary-text);"><a href="' + base + '/INHALT" target="_blank" rel="noopener noreferrer" style="color:var(--link-color);">deutsch</a> · <a href="https://goethe-en.rudolf-steiner-online.de/CONTENTS" target="_blank" rel="noopener noreferrer" style="color:var(--link-color);">englisch</a></p>';
+  html += '<ul class="sammlungen-viewer-list" style="line-height:1.8;margin:1rem 0;padding-left:1.5rem;">';
+  links.forEach(function(item) {
+    html += '<li style="margin-bottom:0.4rem;"><a href="' + item.url + '" target="_blank" rel="noopener noreferrer" style="color:var(--link-color);text-decoration:none;">' + item.label + '</a></li>';
+  });
+  html += '</ul>';
+  html += '</div>';
+  viewer.innerHTML = html;
+}
+
+function showGoetheNaturphilosophieSammlung() {
+  var viewer = document.getElementById('viewer');
+  if (!viewer) return;
+  var docTitle = document.getElementById('document-title');
+  if (docTitle) docTitle.textContent = 'Goethe zur Naturphilosophie';
+  window._coggleMapId = null;
+  window._currentMapsMap = null;
+  if (typeof updateMapsPdfDownloadBtn === 'function') updateMapsPdfDownloadBtn();
+  var mapSidebar = document.getElementById('sammlungen-map-sidebar');
+  if (mapSidebar) mapSidebar.innerHTML = '';
+  var viewerSummaryBtn = document.getElementById('viewerSummaryBtn');
+  if (viewerSummaryBtn) viewerSummaryBtn.style.display = 'none';
+
+  var base = 'https://publish.obsidian.md/goethe-naturphilosophie';
+  var links = [
+    { label: 'Goethe Texte', url: base + '/LITERATUR' },
+    { label: 'Zitate', url: base + '/ZITATE' },
+    { label: 'Zitate (ausgewählt)', url: base + '/ZITATE%20(ausgew%C3%A4hlt)' },
+    { label: 'Zeitafel', url: base + '/ZEITAFEL' },
+    { label: 'Online Ressourcen', url: base + '/Online%20Ressourcen' },
+    { label: 'Impressum', url: base + '/Impressum' }
+  ];
+
+  var html = '<div class="sammlungen-viewer-content" style="padding:2rem;max-width:800px;">';
+  html += '<p class="sammlungen-viewer-intro" style="' + SAMMLUNGEN_INTRO_STYLE + '"><strong>Umfassende Sammlung von Goethe-Zitaten zur Erkenntnis und Philosophie der Natur aus Johann Wolfgang von Goethes Schriften, Briefen, Tagebüchern und Gesprächen</strong></p>';
+  html += '<p style="margin:0.5rem 0 1rem 0;font-size:0.95em;color:var(--secondary-text);"><a href="' + base + '/INHALT" target="_blank" rel="noopener noreferrer" style="color:var(--link-color);">Zur Sammlung auf Obsidian Publish</a></p>';
+  html += '<ul class="sammlungen-viewer-list" style="line-height:1.8;margin:1rem 0;padding-left:1.5rem;">';
+  links.forEach(function(item) {
+    html += '<li style="margin-bottom:0.4rem;"><a href="' + item.url + '" target="_blank" rel="noopener noreferrer" style="color:var(--link-color);text-decoration:none;">' + item.label + '</a></li>';
+  });
+  html += '</ul>';
+  html += '</div>';
+  viewer.innerHTML = html;
+}
+
+function showEntwicklungDesKindesSammlung() {
+  var viewer = document.getElementById('viewer');
+  if (!viewer) return;
+  setSammlungenDocumentTitle(ENTWICKLUNG_KIND_TITLE);
+  window._coggleMapId = null;
+  window._currentMapsMap = null;
+  if (typeof updateMapsPdfDownloadBtn === 'function') updateMapsPdfDownloadBtn();
+  var mapSidebar = document.getElementById('sammlungen-map-sidebar');
+  if (mapSidebar) mapSidebar.innerHTML = '';
+  var viewerSummaryBtn = document.getElementById('viewerSummaryBtn');
+  if (viewerSummaryBtn) viewerSummaryBtn.style.display = 'none';
+
+  var anthropologieStartUrl = 'https://publish.obsidian.md/anthropologie/Start';
+  var links = [
+    { label: 'Start', url: anthropologieStartUrl },
+    { label: 'Einführung - Erziehung aus Menschenerkenntnis', url: anthropologieStartUrl },
+    { label: 'Benutzung der Webseite', url: anthropologieStartUrl },
+    { label: 'I. Themen', url: anthropologieStartUrl },
+    { label: 'II. Mindmaps', url: anthropologieStartUrl },
+    { label: 'III. Gesamtdarstellungen', url: anthropologieStartUrl },
+    { label: 'IV. Quellen', url: anthropologieStartUrl },
+    { label: 'Kontakt & Impressum', url: anthropologieStartUrl }
+  ];
+
+  var html = '<div class="sammlungen-viewer-content" style="padding:2rem;max-width:800px;">';
+  html += '<p class="sammlungen-viewer-intro" style="' + SAMMLUNGEN_INTRO_STYLE + '"><strong>Umfassende Sammlung von Darstellungen Rudolf Steiners zur Entwicklung des Menschen in den ersten 21 Lebensjahren.</strong></p>';
+  html += '<ul class="sammlungen-viewer-list" style="line-height:1.8;margin:1rem 0;padding-left:1.5rem;">';
+  links.forEach(function(item) {
+    html += '<li style="margin-bottom:0.4rem;"><a href="' + item.url + '" target="_blank" rel="noopener noreferrer" style="color:var(--link-color);text-decoration:none;">' + item.label + '</a></li>';
+  });
+  html += '</ul>';
+  html += '</div>';
+  viewer.innerHTML = html;
+}
+
 function loadSammlungenList() {
   var results = document.getElementById('results');
   if (!results) return;
 
+  restoreMapsInThemenLocation();
+
   var externalLinkStyle = 'color:var(--link-color);text-decoration:none;font-size:1.2em;font-weight:600;line-height:1.4;display:block;margin:0 0 0.8rem 0;';
 
   var html = '<div style="padding:0 0.5rem;">';
-  html += '<a href="https://goethe.rudolf-steiner-online.de/INHALT" target="_blank" rel="noopener noreferrer" class="sammlungen-external-link" data-analytics-key="goetheanismus" style="' + externalLinkStyle + '">Steiner &amp; Goethe (deutsch/englisch)</a>';
-  html += '<a href="https://publish.obsidian.md/anthropologie/Start" target="_blank" rel="noopener noreferrer" class="sammlungen-external-link" data-analytics-key="entwicklung_kind" style="' + externalLinkStyle + '">Entwicklung des Kindes</a>';
-  html += '<a href="https://publish.obsidian.md/goethe-naturphilosophie/INHALT" target="_blank" rel="noopener noreferrer" class="sammlungen-external-link" data-analytics-key="goethe_naturphilosophie" style="' + externalLinkStyle + 'margin-bottom:0;">Goethes Naturphilosophie</a>';
+  html += '<a href="#" class="sammlungen-goethe-link sammlungen-collection-link" data-analytics-key="goetheanismus" style="' + externalLinkStyle + '">Steiner &amp; Goethe (deutsch/englisch)</a>';
+
+  html += '<div class="sammlungen-edk-block" style="margin:0 0 0.8rem 0;">';
+  html += '<a href="#" class="sammlungen-entwicklung-link sammlungen-collection-link" data-analytics-key="entwicklung_kind" style="' + externalLinkStyle + '">Entwicklung des Kindes</a>';
+  html += '<h1 class="sammlungen-karten-toggle active" onclick="toggleSammlungenKartenSection()" style="font-size:1.05em;margin:0.4rem 0 0.6rem 0;color:var(--heading-color);cursor:pointer;user-select:none;display:flex;align-items:center;gap:6px;">' +
+    '<span id="karten-arrow" style="display:inline-block;transition:transform 0.2s;transform:rotate(0deg);font-size:0.7em;">▶</span> Karten</h1>';
+  html += '<div id="sammlungen-karten-content" style="display:none;padding-left:1rem;">';
+  html += '<div id="sammlungen-karten-maps-host"></div>';
+  html += '</div></div>';
+
+  html += '<a href="#" class="sammlungen-naturphilosophie-link sammlungen-collection-link" data-analytics-key="goethe_naturphilosophie" style="' + externalLinkStyle + 'margin-bottom:0;">Goethes Naturphilosophie</a>';
+  html += '<div id="sammlungen-map-sidebar" style="margin-top:0.8rem;"></div>';
   html += '</div>';
 
   results.innerHTML = html;
@@ -34724,6 +34934,26 @@ function loadSammlungenList() {
     a.addEventListener('click', function() {
       var key = this.dataset.analyticsKey;
       if (key && typeof analyticsTrack === 'function') analyticsTrack('tab_view', key);
+    });
+  });
+
+  results.querySelectorAll('.sammlungen-collection-link').forEach(function(a) {
+    a.addEventListener('click', function(e) {
+      e.preventDefault();
+      var key = this.dataset.analyticsKey;
+      if (key && typeof analyticsTrack === 'function') analyticsTrack('tab_view', key);
+      if (this.classList.contains('sammlungen-goethe-link')) {
+        deactivateSammlungenKarten();
+        showGoetheanismusSammlung();
+      } else if (this.classList.contains('sammlungen-naturphilosophie-link')) {
+        deactivateSammlungenKarten();
+        showGoetheNaturphilosophieSammlung();
+      } else if (this.classList.contains('sammlungen-entwicklung-link')) {
+        deactivateSammlungenKarten();
+        showEntwicklungDesKindesSammlung();
+      }
+      results.querySelectorAll('.sammlungen-collection-link').forEach(function(l) { l.style.fontWeight = ''; });
+      this.style.fontWeight = '700';
     });
   });
 }
