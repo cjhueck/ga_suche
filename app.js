@@ -754,8 +754,9 @@ function cssHeadingTagSelector(level) {
             // Externe Sammlungen (Klicks auf die Themen-Links auf index.html,
             // die in einem neuen Tab eine externe Obsidian-Publish-Seite öffnen).
             var externalCollections = [
+              { key: 'goetheanismus', label: 'Steiner & Goethe (deutsch/englisch)' },
               { key: 'entwicklung_kind', label: 'Entwicklung des Kindes' },
-              { key: 'goetheanismus', label: 'Goetheanistische Naturanschauung' }
+              { key: 'goethe_naturphilosophie', label: 'Goethes Naturphilosophie' }
             ];
             var ts = data.tabStats || {};
             var rows = externalCollections.map(function(c) {
@@ -34521,7 +34522,7 @@ function switchThemenView(view) {
   document.body.classList.toggle('karten-view', view === 'karten');
   if (view !== 'karten') { window._currentMapsMap = null; }
   document.body.classList.toggle('sammlungen-view', view === 'sammlungen');
-      var sammlDlBtn = document.getElementById('sammlungenPdfDownloadBtn'); if (sammlDlBtn) sammlDlBtn.style.display = view === 'sammlungen' ? 'inline-flex' : 'none';
+      var sammlDlBtn = document.getElementById('sammlungenPdfDownloadBtn'); if (sammlDlBtn) sammlDlBtn.style.display = 'none';
   if (typeof updateMapsPdfDownloadBtn === 'function') updateMapsPdfDownloadBtn();
 
   // Side-Panel Toggle: IMMER verstecken beim Sub-View-Wechsel (wird erst bei Text-Anzeige eingeblendet)
@@ -34705,89 +34706,26 @@ function showMapsDownloadOptions() {
 }
 
 // ===== Sammlungen Sub-Tab =====
-async function loadSammlungenList() {
+function loadSammlungenList() {
   var results = document.getElementById('results');
   if (!results) return;
-  results.innerHTML = '<div style="padding:0.3rem 0.5rem;"><div style="color:var(--secondary-text);">Lade Liste…</div></div>';
-  var apiBase = typeof API_BASE !== 'undefined' ? API_BASE : (window.location.hostname === 'localhost' ? 'http://localhost:3003' : '');
 
-  var gesamtPdfs = [];
-  var sammlungPdfs = [];
-
-  try {
-    var [gesamtRes, sammlRes] = await Promise.all([
-      fetch(apiBase + '/api/gesamtdarstellungen-list'),
-      fetch(apiBase + '/api/sammlungen-list')
-    ]);
-    var gesamtData = await gesamtRes.json();
-    var sammlData = await sammlRes.json();
-    gesamtPdfs = gesamtData.pdfs || [];
-    sammlungPdfs = sammlData.pdfs || [];
-  } catch(err) {
-    results.innerHTML = '<div style="padding:1rem;color:var(--error-color);">Fehler beim Laden der Sammlungen.</div>';
-    console.error('[SAMMLUNGEN]', err);
-    return;
-  }
+  var externalLinkStyle = 'color:var(--link-color);text-decoration:none;font-size:1.2em;font-weight:600;line-height:1.4;display:block;margin:0 0 0.8rem 0;';
 
   var html = '<div style="padding:0 0.5rem;">';
-
-  // --- Gesamtdarstellungen (klappbar) ---
-  html += '<h1 class="sammlungen-section-toggle" onclick="toggleSammlungenSection(\'gesamt\')" style="font-size:1.2em;margin:0 0 0.6rem 0;color:var(--heading-color);cursor:pointer;user-select:none;display:flex;align-items:center;gap:6px;">' +
-    '<span id="gesamt-arrow" style="display:inline-block;transition:transform 0.2s;font-size:0.7em;">▶</span> Gesamtdarstellungen</h1>';
-  html += '<ul id="gesamt-list" style="list-style:none;padding:0;margin:0 0 1rem 0;display:none;">';
-  if (gesamtPdfs.length === 0) {
-    html += '<li style="color:var(--secondary-text);font-size:0.9em;padding:4px 0;">Keine Gesamtdarstellungen verfügbar.</li>';
-  } else {
-    gesamtPdfs.forEach(function(p) {
-      html += '<li style="margin-bottom:8px;"><a href="#" class="gesamtdarstellung-link" data-file="' + p.filename.replace(/"/g, '&quot;') + '" style="color:var(--link-color);text-decoration:none;font-size:0.95em;line-height:1.4;display:block;padding:4px 0;border-bottom:1px solid var(--border-color);">' + p.shortName + '</a></li>';
-    });
-  }
-  html += '</ul>';
-
-  // --- Zitat-Sammlungen (klappbar, standardmäßig offen) ---
-  html += '<h1 class="sammlungen-section-toggle" onclick="toggleSammlungenSection(\'zitat\')" style="font-size:1.2em;margin:0 0 0.6rem 0;color:var(--heading-color);cursor:pointer;user-select:none;display:flex;align-items:center;gap:6px;">' +
-    '<span id="zitat-arrow" style="display:inline-block;transition:transform 0.2s;transform:rotate(90deg);font-size:0.7em;">▶</span> Zitat-Sammlungen</h1>';
-  html += '<ul id="zitat-list" style="list-style:none;padding:0;margin:0;">';
-  if (sammlungPdfs.length === 0) {
-    html += '<li style="color:var(--secondary-text);font-size:0.9em;padding:4px 0;">Keine Zitat-Sammlungen gefunden.</li>';
-  } else {
-    sammlungPdfs.forEach(function(p) {
-      html += '<li style="margin-bottom:8px;"><a href="#" class="sammlungen-link" data-file="' + p.filename.replace(/"/g, '&quot;') + '" style="color:var(--link-color);text-decoration:none;font-size:0.95em;line-height:1.4;display:block;padding:4px 0;border-bottom:1px solid var(--border-color);">' + p.shortName + '</a></li>';
-    });
-  }
-  html += '</ul>';
-
+  html += '<a href="https://goethe.rudolf-steiner-online.de/INHALT" target="_blank" rel="noopener noreferrer" class="sammlungen-external-link" data-analytics-key="goetheanismus" style="' + externalLinkStyle + '">Steiner &amp; Goethe (deutsch/englisch)</a>';
+  html += '<a href="https://publish.obsidian.md/anthropologie/Start" target="_blank" rel="noopener noreferrer" class="sammlungen-external-link" data-analytics-key="entwicklung_kind" style="' + externalLinkStyle + '">Entwicklung des Kindes</a>';
+  html += '<a href="https://publish.obsidian.md/goethe-naturphilosophie/INHALT" target="_blank" rel="noopener noreferrer" class="sammlungen-external-link" data-analytics-key="goethe_naturphilosophie" style="' + externalLinkStyle + 'margin-bottom:0;">Goethes Naturphilosophie</a>';
   html += '</div>';
+
   results.innerHTML = html;
 
-  // Click-Handler: Gesamtdarstellungen
-  results.querySelectorAll('.gesamtdarstellung-link').forEach(function(a) {
-    a.addEventListener('click', function(e) {
-      e.preventDefault();
-      results.querySelectorAll('.sammlungen-link, .gesamtdarstellung-link').forEach(function(l) { l.style.fontWeight = ''; });
-      this.style.fontWeight = '700';
-      showGesamtdarstellungPdf(this.dataset.file);
+  results.querySelectorAll('.sammlungen-external-link').forEach(function(a) {
+    a.addEventListener('click', function() {
+      var key = this.dataset.analyticsKey;
+      if (key && typeof analyticsTrack === 'function') analyticsTrack('tab_view', key);
     });
   });
-
-  // Click-Handler: Zitat-Sammlungen
-  results.querySelectorAll('.sammlungen-link').forEach(function(a) {
-    a.addEventListener('click', function(e) {
-      e.preventDefault();
-      results.querySelectorAll('.sammlungen-link, .gesamtdarstellung-link').forEach(function(l) { l.style.fontWeight = ''; });
-      this.style.fontWeight = '700';
-      showSammlungPdf(this.dataset.file);
-    });
-  });
-
-  // Erste Zitat-Sammlung automatisch laden
-  if (sammlungPdfs.length > 0) {
-    var firstLink = results.querySelector('.sammlungen-link');
-    if (firstLink) {
-      firstLink.style.fontWeight = '700';
-      showSammlungPdf(sammlungPdfs[0].filename);
-    }
-  }
 }
 
 function toggleSammlungenSection(section) {
