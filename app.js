@@ -90,6 +90,15 @@ function cssHeadingTagSelector(level) {
   const raw = String(level || 'h3').toLowerCase();
   return raw.startsWith('h') ? raw : `h${raw}`;
 }
+
+function bookHeadingTagName(level) {
+  const raw = String(level == null ? 'h3' : level).toLowerCase().replace(/^h/, '');
+  if (raw === '2') return 'h2';
+  if (raw === '3') return 'h3';
+  if (raw === '5') return 'h5';
+  if (raw === '6') return 'h6';
+  return 'h4';
+}
     
     // Markiere lokale Version im Body (für CSS-Unterscheidungen)
     // WICHTIG: Sicherstellen dass Body bereits existiert oder auf DOMContentLoaded warten
@@ -1125,7 +1134,7 @@ function cssHeadingTagSelector(level) {
       if (textApiCache.has(key)) {
         return textApiCache.get(key);
       }
-      const response = await fetch(`${API_BASE}/api/book/${encodeURIComponent(gaNumber)}`);
+      const response = await fetch(`${API_BASE}/api/book/${encodeURIComponent(gaNumber)}`, { cache: 'no-store' });
       if (!response.ok) {
         const err = new Error(`Buch nicht gefunden: ${gaNumber}`);
         err.status = response.status;
@@ -8635,7 +8644,7 @@ async function _displayBookImpl(book, highlightHeadingId = null, keywords = [], 
       sortedHeadings.forEach((heading, hIdx) => {
         let headingText = heading.text || heading.title || 'Überschrift';
         const level = heading.level || 'h3';
-        const headingTag = (level === 'h3' || level === 3) ? 'h3' : 'h4';
+        const headingTag = bookHeadingTagName(level);
         const headingIndex = heading.index ? heading.index.replace(/^\^/, '') : `heading_${idx} - ${hIdx}`;
         
         // Wende gespeicherte Bearbeitung an, falls vorhanden (von API)
@@ -13926,7 +13935,7 @@ function scrollToChronologicalYear(year) {
             sortedHeadings.forEach((heading, hIdx) => {
               const headingText = heading.text || heading.title || 'Überschrift';
               const level = heading.level || 'h3';
-              const headingTag = (level === 'h3' || level === 3) ? 'h3' : 'h4';
+              const headingTag = bookHeadingTagName(level);
               
               // HTML-Escaping für headingText um sicherzustellen, dass nur Text gerendert wird
               // und der nachfolgende Paragraph nicht im Überschriften-Format erscheint
@@ -25182,6 +25191,10 @@ async function exportCurrentGA() {
     const progressDiv = document.getElementById('export-progress');
     
     if (resp.ok && result.success) {
+      if (typeof invalidateTextApiCache === 'function') {
+        invalidateTextApiCache(result.gaNumber);
+        invalidateTextApiCache();
+      }
       // Erfolg
       const lectureInfo = openedLectureId
         ? `<p><strong>Geöffneter Text:</strong> ${openedLectureId}</p><p style="margin-top: 0.5rem; color: #666;">Export wurde bandweise ausgeführt.</p>`
@@ -26719,7 +26732,7 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
             sortedHeadings.forEach((heading, hIdx) => {
               let headingText = heading.text || heading.title || 'Überschrift';
               const level = heading.level || 'h3';
-              const headingTag = (level === 'h3' || level === 3) ? 'h3' : 'h4';
+              const headingTag = bookHeadingTagName(level);
               const headingIndex = heading.index ? heading.index.replace(/^\^/, '') : `heading_${idx} - ${hIdx}`;
               
               // Wende gespeicherte Bearbeitung an, falls vorhanden

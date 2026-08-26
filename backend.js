@@ -14522,7 +14522,8 @@ app.get('/api/book/:gaNumber', async (req, res) => {
     // B: Cache-Treffer? Verarbeitetes Buch direkt zurückgeben (spart Deep-Copy,
     //    Text-Edits, Summary-DB-Zugriff und Bild-URL-Umschreibung bei jedem Aufruf).
     if (processedBookCache.has(gaNumberNormalized)) {
-      res.setHeader('Cache-Control', 'public, max-age=3600');
+      // Kein HTTP-Cache: nach Export/Neustart sonst eine Stunde lang die alte Fassung.
+      res.setHeader('Cache-Control', 'no-store');
       return res.json(processedBookCache.get(gaNumberNormalized));
     }
 
@@ -14682,7 +14683,7 @@ app.get('/api/book/:gaNumber', async (req, res) => {
     // B: Verarbeitetes Buch cachen, damit erneutes Öffnen ohne teure Wiederholungsarbeit erfolgt.
     processedBookCache.set(gaNumberNormalized, responseBook);
 
-    res.setHeader('Cache-Control', 'public, max-age=3600');
+    res.setHeader('Cache-Control', 'no-store');
     res.json(responseBook);
 
   } catch (error) {
@@ -17409,6 +17410,8 @@ app.post('/api/export/ga', async (req, res) => {
         }
 
         await invalidateGAOverviewCache(`${normalizedGA}/1`);
+        invalidateProcessedBookCache(normalizedGA);
+        console.log(`[EXPORT] processedBookCache geleert für ${normalizedGA}`);
         
         const exportMessage = hasRequestedLecture
           ? `Export für ${normalizedGA} erfolgreich abgeschlossen (angeforderter Text ${requestedLectureId} wurde über den Bandexport aktualisiert)`
