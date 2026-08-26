@@ -4,7 +4,7 @@ Master Export-Skript für Steiner GA-Schriften (GA001-GA046)
 ===========================================================
 Exportiert Schriften als zusammenhängende Texte mit:
 - Rechtschreibkorrekturen (wie bei Vorträgen)
-- Überschriften-Umwandlung: H1→H3, H2→H4, H3→H4
+- Überschriften-Umwandlung: H1→H3, H2→H4, H3→H5 (Unterkapitel bleiben unter den Kapiteln)
 - Inhaltsverzeichnis-Links zu Überschriften
 - Fußnoten-Links
 - Ausgabe als steiner_books_001-046.json (evtl. gesplittet)
@@ -469,20 +469,20 @@ class BooksExporter:
         return files[0] if files else None
     
     def convert_headings(self, text):
-        """Wandelt Überschriften um: H1→H3, H2→H4, H3→H4"""
+        """Wandelt Überschriften um: H1→H3, H2→H4, H3→H5"""
         lines = text.split('\n')
         result = []
         
         for line in lines:
-            # H1 (# Überschrift) → H3 (### Überschrift)
+            # H1 (# Überschrift) → H3 (### Überschrift)  z.B. DRITTER BAND
             if re.match(r'^#\s+[^#]', line):
                 line = re.sub(r'^#\s+', '### ', line)
-            # H2 (## Überschrift) → H4 (#### Überschrift)
+            # H2 (## Überschrift) → H4 (#### Überschrift)  z.B. XVI. Goethe als Denker
             elif re.match(r'^##\s+[^#]', line):
                 line = re.sub(r'^##\s+', '#### ', line)
-            # H3 (### Überschrift) → H4 (#### Überschrift)
+            # H3 (### Überschrift) → H5 (##### Überschrift)  z.B. 6. Goethe, Newton und die Physiker
             elif re.match(r'^###\s+[^#]', line):
-                line = re.sub(r'^###\s+', '#### ', line)
+                line = re.sub(r'^###\s+', '##### ', line)
             
             result.append(line)
         
@@ -494,10 +494,10 @@ class BooksExporter:
         lines = text.split('\n')
         
         for i, line in enumerate(lines):
-            # Erkenne H3 und H4 Überschriften (nach Umwandlung)
-            match = re.match(r'^(###|####)\s+(.+)$', line)
+            # Erkenne H3/H4/H5 Überschriften (nach Umwandlung)
+            match = re.match(r'^(#{3,5})\s+(.+)$', line)
             if match:
-                level = 3 if match.group(1) == '###' else 4
+                level = len(match.group(1))
                 heading_text = match.group(2).strip()
                 
                 # Erstelle ID aus Überschrift (wie Markdown es macht)
@@ -520,8 +520,8 @@ class BooksExporter:
         current_index = None
         
         for line in lines:
-            # Überspringe Überschriften (H3/H4)
-            if re.match(r'^#{3,4}\s+', line):
+            # Überspringe Überschriften (H3/H4/H5)
+            if re.match(r'^#{3,5}\s+', line):
                 # Wenn wir einen Absatz gesammelt haben, speichere ihn
                 if current_paragraph.strip() and current_index:
                     paragraphs.append({
@@ -632,26 +632,20 @@ class BooksExporter:
             # PERFORMANCE: Verwende einfache String-Suche statt mehrerer Regex-Patterns
             # Suche nach Überschrift im Content (mit Markdown-Syntax)
             # WICHTIG: Suche nur ab search_start_pos!
-            heading_text_escaped = re.escape(heading_text.strip())
+            heading_text_stripped = heading_text.strip()
+            heading_line_re = re.compile(
+                r'^#{3,5}[ \t]+' + re.escape(heading_text_stripped) + r'[ \t]*$',
+                re.MULTILINE
+            )
+            heading_match = heading_line_re.search(content, search_start_pos)
+            heading_position = heading_match.start() if heading_match else -1
             
-            # Versuche zuerst exakte Übereinstimmung mit Markdown-Syntax
-            heading_position = -1
-            for markdown_level in ['###', '####']:
-                pattern_str = f'{markdown_level} {heading_text}'
-                # Suche ab search_start_pos, nicht ab 0!
-                pos = content.find(pattern_str, search_start_pos)
-                if pos >= 0:
-                    heading_position = pos
-                    break
-            
-            # Wenn nicht gefunden, suche nur nach Text (schneller)
-            if heading_position == -1:
-                # Suche ab search_start_pos, nicht ab 0!
-                heading_pos = content.find(heading_text, search_start_pos)
+            # Fallback: längere Titel auch ohne Zeilenende-Anker (nicht für bloße "6.")
+            if heading_position == -1 and len(heading_text_stripped) > 4:
+                heading_pos = content.find(heading_text_stripped, search_start_pos)
                 if heading_pos >= 0:
-                    # Prüfe ob es wirklich eine Überschrift ist (hat # davor)
                     before_text = content[max(0, heading_pos - 50):heading_pos]
-                    if '###' in before_text or '####' in before_text:
+                    if re.search(r'#{3,5}[ \t]*$', before_text):
                         heading_position = heading_pos
             
             # Finde den ersten Absatz nach dieser Überschrift
@@ -1193,7 +1187,7 @@ class BooksExporter:
             lines = content.split('\n')
             content_lines = []
             for line in lines:
-                if not re.match(r'^#{3,4}\s+', line):
+                if not re.match(r'^#{3,5}\s+', line):
                     content_lines.append(line)
             content_without_headings = '\n'.join(content_lines)
             
