@@ -34806,7 +34806,7 @@ function showGoetheNaturphilosophieSammlung() {
   var viewerSummaryBtn = document.getElementById('viewerSummaryBtn');
   if (viewerSummaryBtn) viewerSummaryBtn.style.display = 'none';
 
-  var base = 'https://publish.obsidian.md/goethe-naturphilosophie';
+  var base = 'https://goethe-naturphilosophie.de';
   var links = [
     { label: 'Goethe Texte', url: base + '/LITERATUR' },
     { label: 'Zitate', url: base + '/ZITATE' },
@@ -34818,7 +34818,7 @@ function showGoetheNaturphilosophieSammlung() {
 
   var html = '<div class="sammlungen-viewer-content" style="padding:2rem;max-width:800px;">';
   html += '<p class="sammlungen-viewer-intro" style="' + SAMMLUNGEN_INTRO_STYLE + '"><strong>Umfassende Sammlung von Goethe-Zitaten zur Erkenntnis und Philosophie der Natur aus Johann Wolfgang von Goethes Schriften, Briefen, Tagebüchern und Gesprächen</strong></p>';
-  html += '<p style="margin:0.5rem 0 1rem 0;font-size:0.95em;color:var(--secondary-text);"><a href="' + base + '/INHALT" target="_blank" rel="noopener noreferrer" style="color:var(--link-color);">Zur Sammlung auf Obsidian Publish</a></p>';
+  html += '<p style="margin:0.5rem 0 1rem 0;font-size:0.95em;color:var(--secondary-text);"><a href="' + base + '" target="_blank" rel="noopener noreferrer" style="color:var(--link-color);">Zur Sammlung auf goethe-naturphilosophie.de</a></p>';
   html += '<ul class="sammlungen-viewer-list" style="line-height:1.8;margin:1rem 0;padding-left:1.5rem;">';
   links.forEach(function(item) {
     html += '<li style="margin-bottom:0.4rem;"><a href="' + item.url + '" target="_blank" rel="noopener noreferrer" style="color:var(--link-color);text-decoration:none;">' + item.label + '</a></li>';
