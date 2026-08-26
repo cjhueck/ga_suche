@@ -5888,6 +5888,10 @@ function normalizeGANumber(gaNumber) {
         
         // Speichere aktuelle GA-Nummer für spätere Prüfung
         window._currentGAInSidePanel = gaNumber;
+
+        if (typeof updateTexteViewToggle === 'function') {
+          updateTexteViewToggle(gaNumber);
+        }
         
         // Scroll nur bei erstem Laden nach oben (wenn andere GA geladen wurde)
         // Bei Klick auf Vortrag innerhalb derselben GA: Scroll-Position beibehalten
@@ -6032,6 +6036,41 @@ async function saveSummaryToCentral(lectureId, summaryData) {
 
 // Globale Variable für den Toggle-Zustand
 let gaOverviewShowSummaries = true;
+
+// Titel/Kurzzusammenfassung-Toggle im Texte-Tab: immer sichtbar, sobald ein Vortrags-/Aufsatzband angezeigt wird
+function updateTexteViewToggle(gaNumber) {
+  const texteViewToggle = document.getElementById('texteViewToggle');
+  if (!texteViewToggle) return;
+
+  const texteTab = document.getElementById('texte-tab');
+  const isInTexteTab = texteTab && texteTab.classList.contains('active');
+  const isBook = gaNumber && typeof isBookGANumber === 'function' && isBookGANumber(gaNumber);
+  const shouldShow = !!(isInTexteTab && gaNumber && !isBook);
+
+  if (shouldShow) {
+    texteViewToggle.style.display = 'inline-flex';
+    const summariesVisible = typeof gaOverviewShowSummaries !== 'undefined' ? gaOverviewShowSummaries : true;
+    texteViewToggle.innerHTML = summariesVisible ? '▲' : '▼';
+    texteViewToggle.title = summariesVisible ? 'Nur Titel anzeigen' : 'Kurzzusammenfassungen anzeigen';
+
+    const texteSummaryToggle = document.getElementById('texteSummaryToggle');
+    const texteAdminButtons = document.getElementById('texte-admin-buttons');
+    if (texteSummaryToggle && texteAdminButtons && texteAdminButtons.style.display !== 'none') {
+      texteSummaryToggle.style.display = 'inline-block';
+      const texteSummaryToggleText = document.getElementById('texteSummaryToggleText');
+      if (texteSummaryToggleText) {
+        texteSummaryToggleText.textContent = summariesVisible ? 'nur Titel' : 'Kurzzusammenfassung';
+      }
+    }
+  } else {
+    texteViewToggle.style.display = 'none';
+    const texteSummaryToggle = document.getElementById('texteSummaryToggle');
+    if (texteSummaryToggle) {
+      texteSummaryToggle.style.display = 'none';
+    }
+  }
+}
+window.updateTexteViewToggle = updateTexteViewToggle;
 
 // Globale Variable für ausgewählte Vorträge
 let selectedLectureIds = new Set();
@@ -10686,6 +10725,9 @@ function navigateBackToTexteGA() {
         if (resultsContainer) {
           resultsContainer.innerHTML = savedLeftPanel;
           }
+        if (typeof updateTexteViewToggle === 'function') {
+          updateTexteViewToggle(savedGA);
+        }
       } else {
         // Fallback: Lade GA-Übersicht neu
         await openGAOverview(savedGA);
@@ -10786,34 +10828,8 @@ async function displayGAOverview(data) {
     if (typeof updateTexteServerInfo === 'function') {
       updateTexteServerInfo();
     }
-    // Toggle Button im Texte-Tab anzeigen (nur für GA-Bände mit Vorträgen)
-    const texteViewToggle = document.getElementById('texteViewToggle');
-    if (texteViewToggle) {
-      const gaNumber = data.gaNumber || '';
-      const isBook = isBookGANumber(gaNumber);
-      if (isBook) {
-        texteViewToggle.style.display = 'none'; // Verstecke Toggle-Button für Books
-      } else {
-        texteViewToggle.style.display = 'inline-flex';
-      }
-    }
-    
-    // Toggle Button im Admin-Bereich anzeigen (nur für GA-Bände mit Vorträgen)
-    const texteSummaryToggle = document.getElementById('texteSummaryToggle');
-    const texteAdminButtons = document.getElementById('texte-admin-buttons');
-    if (texteSummaryToggle && texteAdminButtons && texteAdminButtons.style.display !== 'none') {
-      const gaNumber = data.gaNumber || '';
-      const isBook = isBookGANumber(gaNumber);
-      if (isBook) {
-        texteSummaryToggle.style.display = 'none'; // Verstecke Toggle-Button für Books
-      } else {
-        texteSummaryToggle.style.display = 'inline-block';
-        // Initialisiere Button-Text
-        const texteSummaryToggleText = document.getElementById('texteSummaryToggleText');
-        if (texteSummaryToggleText) {
-          texteSummaryToggleText.textContent = gaOverviewShowSummaries ? 'nur Titel' : 'Kurzzusammenfassung';
-        }
-      }
+    if (typeof updateTexteViewToggle === 'function') {
+      updateTexteViewToggle(data.gaNumber);
     }
   }
   
@@ -11957,6 +11973,9 @@ function scrollToChronologicalYear(year) {
           }
           await new Promise(resolve => setTimeout(resolve, 200));
           var gaNumber028 = lectureId.split('/')[0];
+          if (typeof updateTexteViewToggle === 'function') {
+            updateTexteViewToggle(gaNumber028);
+          }
           if (typeof loadGAOverviewInSidePanelOnly === 'function') {
             loadGAOverviewInSidePanelOnly(gaNumber028).catch(function() {});
           }
@@ -12023,44 +12042,11 @@ function scrollToChronologicalYear(year) {
         if (texteGAFilter && gaNumber) {
           texteGAFilter.value = gaNumber;
           
-          // Prüfe ob es ein Buch ist
-          const isBook = typeof isBookGANumber === 'function' ? isBookGANumber(gaNumber) : false;
-          
-          // Für GA-Bände mit Vorträgen (nicht Bücher): Lade GA-Daten und aktualisiere UI-Elemente
-          if (!isBook) {
-            try {
-              // Lade GA-Übersicht-Daten, um UI-Elemente (Anzahl Vorträge, Toggle-Buttons) anzuzeigen
-              const API_BASE = window.API_BASE || '';
-              const response = await fetch(`${API_BASE}/api/ga-overview/${gaNumber}`);
-              if (response.ok) {
-                const data = await response.json();
-                
-                // Aktualisiere Statistik (respektiert GA-Band-Auswahl)
-                if (typeof updateTexteServerInfo === 'function') {
-                  updateTexteServerInfo();
-                }
-                
-                // Zeige Toggle-Buttons
-                const texteViewToggle = document.getElementById('texteViewToggle');
-                if (texteViewToggle) {
-                  texteViewToggle.style.display = 'inline-flex';
-                }
-                
-                const texteSummaryToggle = document.getElementById('texteSummaryToggle');
-                const texteAdminButtons = document.getElementById('texte-admin-buttons');
-                if (texteSummaryToggle && texteAdminButtons && texteAdminButtons.style.display !== 'none') {
-                  texteSummaryToggle.style.display = 'inline-block';
-                  // Initialisiere Button-Text
-                  const texteSummaryToggleText = document.getElementById('texteSummaryToggleText');
-                  if (texteSummaryToggleText) {
-                    const gaOverviewShowSummaries = window.gaOverviewShowSummaries || false;
-                    texteSummaryToggleText.textContent = gaOverviewShowSummaries ? 'nur Titel' : 'Kurzzusammenfassung';
-                  }
-                }
-              }
-            } catch (error) {
-              console.error('[NAVIGATION] Fehler beim Laden der GA-Übersicht:', error);
-            }
+          if (typeof updateTexteServerInfo === 'function') {
+            updateTexteServerInfo();
+          }
+          if (typeof updateTexteViewToggle === 'function') {
+            updateTexteViewToggle(gaNumber);
           }
           
           // Lade zuerst den spezifischen Vortrag im Hauptviewer
@@ -12293,44 +12279,11 @@ function scrollToChronologicalYear(year) {
         if (texteGAFilter && gaNumber) {
           texteGAFilter.value = gaNumber;
           
-          // Prüfe ob es ein Buch ist
-          const isBook = typeof isBookGANumber === 'function' ? isBookGANumber(gaNumber) : false;
-          
-          // Für GA-Bände mit Vorträgen (nicht Bücher): Lade GA-Daten und aktualisiere UI-Elemente
-          if (!isBook) {
-            try {
-              // Lade GA-Übersicht-Daten, um UI-Elemente (Anzahl Vorträge, Toggle-Buttons) anzuzeigen
-              const API_BASE = window.API_BASE || '';
-              const response = await fetch(`${API_BASE}/api/ga-overview/${gaNumber}`);
-              if (response.ok) {
-                const data = await response.json();
-                
-                // Aktualisiere Statistik (respektiert GA-Band-Auswahl)
-                if (typeof updateTexteServerInfo === 'function') {
-                  updateTexteServerInfo();
-                }
-                
-                // Zeige Toggle-Buttons
-                const texteViewToggle = document.getElementById('texteViewToggle');
-                if (texteViewToggle) {
-                  texteViewToggle.style.display = 'inline-flex';
-                }
-                
-                const texteSummaryToggle = document.getElementById('texteSummaryToggle');
-                const texteAdminButtons = document.getElementById('texte-admin-buttons');
-                if (texteSummaryToggle && texteAdminButtons && texteAdminButtons.style.display !== 'none') {
-                  texteSummaryToggle.style.display = 'inline-block';
-                  // Initialisiere Button-Text
-                  const texteSummaryToggleText = document.getElementById('texteSummaryToggleText');
-                  if (texteSummaryToggleText) {
-                    const gaOverviewShowSummaries = window.gaOverviewShowSummaries || false;
-                    texteSummaryToggleText.textContent = gaOverviewShowSummaries ? 'nur Titel' : 'Kurzzusammenfassung';
-                  }
-                }
-              }
-            } catch (error) {
-              console.error('[NAVIGATION] Fehler beim Laden der GA-Übersicht:', error);
-            }
+          if (typeof updateTexteServerInfo === 'function') {
+            updateTexteServerInfo();
+          }
+          if (typeof updateTexteViewToggle === 'function') {
+            updateTexteViewToggle(gaNumber);
           }
           
           // Rufe openGAOverview direkt auf, anstatt nur das Change-Event zu triggern
@@ -23801,6 +23754,9 @@ function formatAsteriskParagraphs() {
     const gaMatch = lectureId.match(/^(GA\d{1,3}[a-z]?)/i);
     if (gaMatch) {
       const gaNumber = gaMatch[1];
+      if (typeof updateTexteViewToggle === 'function') {
+        updateTexteViewToggle(gaNumber);
+      }
       
       // DIREKTE PRÜFUNG: GA018, GA019, GA028 etc. sind Aufsatzbände, KEINE Bücher!
       // Diese Prüfung kommt VOR isBookGANumber, um sicherzustellen dass sie nie als Buch geladen werden
@@ -23932,6 +23888,8 @@ function formatAsteriskParagraphs() {
               console.warn('[SHOW-LECTURE] Fehler beim Laden der GA-Übersicht im Side Panel:', error);
             });
           }
+        } else if (typeof updateTexteViewToggle === 'function') {
+          updateTexteViewToggle(gaNumberEarly);
         }
       }
     }

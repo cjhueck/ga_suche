@@ -4158,9 +4158,13 @@ async function navigateToLectureFromMembersPanel(lectureId, targetIndex = null, 
           }
           
           // Zeige Toggle-Buttons
-          const texteViewToggle = document.getElementById('texteViewToggle');
-          if (texteViewToggle) {
-            texteViewToggle.style.display = 'inline-block';
+          if (typeof window.updateTexteViewToggle === 'function') {
+            window.updateTexteViewToggle(gaNumber);
+          } else {
+            const texteViewToggle = document.getElementById('texteViewToggle');
+            if (texteViewToggle) {
+              texteViewToggle.style.display = 'inline-flex';
+            }
           }
           
           const texteSummaryToggle = document.getElementById('texteSummaryToggle');
