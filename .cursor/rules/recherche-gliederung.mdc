@@ -1,0 +1,13 @@
+---
+description: Recherche-Ergebnisse nach Themenbereichen gliedern und redundante Zwischenüberschriften zusammenfassen
+alwaysApply: false
+---
+
+# Recherche-Gliederung
+
+Bei Arbeit am Modus Recherche (Prompts, `subThemes`, Inhaltsübersicht, thematische Tabellen):
+
+- Zuerst wenige **Themenbereiche**, darunter zusammengefasste Zwischenüberschriften.
+- Gleiche oder stark überlappende Überschriften zu einer zusammenfassen; nicht als parallele H2 wiederholen.
+- Die Inhaltsübersicht folgt derselben Tabelle wie die Ergebnisansicht.
+- Breite der Recherche liegt in den Tabellenzeilen, nicht in weiteren ähnlichen Überschriften.

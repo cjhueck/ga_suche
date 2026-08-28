@@ -18443,7 +18443,18 @@ function scrollToChronologicalYear(year) {
           if (input) input.value = effectiveQuery;
           currentSources = entry.sources || [];
           const appliedGA = parts && parts.length >= 4 ? (parts[3] || '') : '';
-          renderRechercheResults(effectiveQuery, entry.recherche || { intro: '', subThemes: [] }, appliedGA, { sourceType, themeArea });
+          const recherche = entry.recherche || { intro: '', subThemes: [] };
+          const hasThemeGroups = recherche.themeGrouped === true
+            || (recherche.subThemes || []).some((st) => st && String(st.group || '').trim());
+          if (!hasThemeGroups) {
+            if (typeof performThematicSearch === 'function') {
+              performThematicSearch();
+            }
+            const sc = document.getElementById('sidebar-content');
+            if (sc) sc.scrollTop = 0;
+            return;
+          }
+          renderRechercheResults(effectiveQuery, recherche, appliedGA, { sourceType, themeArea });
           const sc = document.getElementById('sidebar-content');
           if (sc) sc.scrollTop = 0;
           return;
@@ -20105,7 +20116,7 @@ function scrollToChronologicalYear(year) {
       const collectToc = (node) => {
         if (!node || node.nodeType !== 1) return;
         if (skipTags.has(node.tagName) || skipIds.has(node.id)) return;
-        const isSub = node.classList.contains('recherche-subtheme-heading') || /^H[2-4]$/.test(node.tagName);
+        const isSub = node.classList.contains('recherche-subtheme-heading') || node.classList.contains('recherche-theme-heading') || /^H[2-4]$/.test(node.tagName);
         if (isSub) {
           const text = (node.innerText || '').replace(/\s+/g, ' ').trim();
           if (text) tocEntries.push({ el: node, text });
@@ -23265,7 +23276,7 @@ function formatAsteriskParagraphs() {
 
       function updateRechercheTocBtnVisibility() {
         if (!tocBtnEl) return;
-        const show = sortBy === 'thematic' && !!tablesEl?.querySelector('.recherche-subtheme-heading');
+        const show = sortBy === 'thematic' && !!tablesEl?.querySelector('.recherche-subtheme-heading, .recherche-theme-heading');
         tocBtnEl.style.display = show ? 'inline-block' : 'none';
       }
 
@@ -23274,7 +23285,7 @@ function formatAsteriskParagraphs() {
       // ein späterer GA-Link überschreibt #summary-content wie bisher.
       function openRechercheInhaltsuebersicht() {
         if (sortBy !== 'thematic') return;
-        const headings = Array.from(tablesEl?.querySelectorAll('.recherche-subtheme-heading') || []);
+        const headings = Array.from(tablesEl?.querySelectorAll('.recherche-theme-heading, .recherche-subtheme-heading') || []);
         if (headings.length === 0) return;
 
         const summaryPanel = document.getElementById('summary-panel');
@@ -23313,7 +23324,11 @@ function formatAsteriskParagraphs() {
         const items = headings.map((h) => {
           const id = h.id;
           const title = esc(h.textContent || '');
-          return `<li style="margin: 0 0 0.55rem 0; line-height: 1.35;">
+          const isGroup = h.classList.contains('recherche-theme-heading');
+          const liStyle = isGroup
+            ? 'margin: 0.85rem 0 0.35rem 0; line-height: 1.35; list-style: none; font-weight: 600;'
+            : 'margin: 0 0 0.4rem 0; line-height: 1.35; padding-left: 0.2rem;';
+          return `<li style="${liStyle}">
             <a href="#${esc(id)}" class="recherche-toc-link" data-heading-id="${esc(id)}"
                style="color: var(--link-color, var(--accent-color)); text-decoration: none;"
                onmouseover="this.style.textDecoration='underline'"
@@ -23324,7 +23339,7 @@ function formatAsteriskParagraphs() {
         summaryContent.innerHTML = `
           <div class="recherche-inhaltsuebersicht" style="padding: 1rem 1.2rem 2rem 1.2rem; font-size: var(--text-size, 0.95rem);">
             <h3 style="margin: 0 0 0.85rem 0; font-size: 1.05rem;">Inhaltsübersicht</h3>
-            <p style="margin: 0 0 0.85rem 0; color: var(--secondary-text); font-size: 0.85em;">Zwischenüberschriften der Recherche (thematisch)</p>
+            <p style="margin: 0 0 0.85rem 0; color: var(--secondary-text); font-size: 0.85em;">Themenbereiche und zusammengefasste Zwischenüberschriften</p>
             <ol style="margin: 0; padding-left: 1.25rem;">${items}</ol>
           </div>
         `;
@@ -23362,13 +23377,31 @@ function formatAsteriskParagraphs() {
         } else {
           // Thematisch: gruppiert nach Unterthemen mit Zwischenueberschriften
           let headingIdx = 0;
+          const groups = [];
           subThemes.forEach(st => {
             const rows = applyFilter(st.rows || []);
             if (rows.length === 0) return;
             shown += rows.length;
-            const hid = `recherche-heading-${headingIdx++}`;
-            html += `<h2 id="${hid}" class="recherche-subtheme-heading" style="margin-top: 2.4rem !important; margin-bottom: 1rem !important; font-size: 1.1rem !important;">${esc(st.title)}</h2>`;
-            html += tableHtml(rows);
+            const g = String(st.group || '').trim();
+            let bucket = groups.find(x => x.title === g);
+            if (!bucket) {
+              bucket = { title: g, items: [] };
+              groups.push(bucket);
+            }
+            bucket.items.push({ st, rows });
+          });
+          const useGroups = groups.some(g => g.title);
+          groups.forEach(g => {
+            if (useGroups && g.title) {
+              const gid = `recherche-group-${headingIdx++}`;
+              html += `<h2 id="${gid}" class="recherche-theme-heading" style="margin-top: 2.6rem !important; margin-bottom: 0.6rem !important; font-size: 1.18rem !important;">${esc(g.title)}</h2>`;
+            }
+            g.items.forEach(({ st, rows }) => {
+              const hid = `recherche-heading-${headingIdx++}`;
+              const headingTag = useGroups && g.title ? 'h3' : 'h2';
+              html += `<${headingTag} id="${hid}" class="recherche-subtheme-heading" style="margin-top: ${useGroups && g.title ? '1.4rem' : '2.4rem'} !important; margin-bottom: 1rem !important; font-size: ${useGroups && g.title ? '1.02rem' : '1.1rem'} !important;">${esc(st.title)}</${headingTag}>`;
+              html += tableHtml(rows);
+            });
           });
         }
 
