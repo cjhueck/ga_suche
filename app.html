@@ -2481,9 +2481,13 @@ body:not(.is-local) #translateBtnWrapper {
       color: #1a1a1a;
     }
     
-    /* Chronologisch Button im Dark Mode */
+    /* Chronologisch Button im Dark Mode – ausgefüllt, außer bei aktiver Wandtafeln-Ansicht */
     body.dark-mode #ga-chronological-view-btn {
       color: #1a1a1a !important;
+    }
+    body.dark-mode #ga-chronological-view-btn:not(.active) {
+      background: transparent !important;
+      color: var(--dark-accent-color) !important;
     }
     
     /* Wandtafeln Button im Dark Mode - wenn aktiv */
@@ -4543,7 +4547,7 @@ body.dark-mode #thematic2-visualization-main svg .grid line {
       color: white !important;
     }
     
-    /* Texte View Toggle Button - identisch mit h4ToggleBtn */
+    /* Texte View Toggle Button – dauerhaft farbig ausgefüllt */
     #texteViewToggle {
       min-width: 32px !important;
       width: 32px !important;
@@ -4551,8 +4555,8 @@ body.dark-mode #thematic2-visualization-main svg .grid line {
       min-height: 28px !important;
       font-size: 0.85em !important;
       border: 1px solid var(--accent-color) !important;
-      background: transparent !important;
-      color: var(--accent-color) !important;
+      background: var(--accent-color) !important;
+      color: white !important;
       cursor: pointer !important;
       border-radius: 4px !important;
       transition: background 0.2s, color 0.2s !important;
@@ -4571,17 +4575,20 @@ body.dark-mode #thematic2-visualization-main svg .grid line {
     }
     
     #texteViewToggle:hover {
-      background: var(--accent-color) !important;
+      background: #3a6270 !important;
+      border-color: #3a6270 !important;
       color: white !important;
     }
     
     body.dark-mode #texteViewToggle {
+      background: var(--dark-accent-color) !important;
       border-color: var(--dark-accent-color) !important;
-      color: var(--dark-accent-color) !important;
+      color: white !important;
     }
     
     body.dark-mode #texteViewToggle:hover {
-      background: var(--dark-accent-color) !important;
+      background: #3a6270 !important;
+      border-color: #3a6270 !important;
       color: white !important;
     }
     
@@ -4979,6 +4986,32 @@ body.dark-mode #thematic2-visualization-main svg .grid line {
     #viewer-content .book-content h4 {
       margin-top: 0.2rem !important;
       margin-bottom: 0.08rem !important;
+    }
+
+    #viewer h5,
+    #viewer .book-content h5,
+    #viewer-content h5,
+    #viewer-content .book-content h5 {
+      font-size: 0.85rem !important;
+      margin-top: 0.15rem !important;
+      margin-bottom: 0.06rem !important;
+      margin-left: 1.25rem !important;
+      font-weight: normal !important;
+      color: var(--link-color) !important;
+      display: block;
+      line-height: 1.3 !important;
+      text-align: left !important;
+    }
+
+    #summary-content > h5,
+    #summary-content h5:not(.paragraph h5) {
+      font-size: 0.8rem;
+      line-height: 1.4;
+      color: var(--link-color);
+      margin: var(--paragraph-margin) 0;
+      margin-left: 1.75rem;
+      font-weight: normal;
+      text-align: left;
     }
     
     /* Dark Mode für Viewer */
@@ -11070,7 +11103,7 @@ PDF
 <link rel="stylesheet" href="thematic-chat-ui.css?v=20260712n">
 <script src="thematic-chat-ui.js?v=20260712n"></script>
 
-<script src="app.js?v=20260826b"></script>
+<script src="app.js?v=20260828a"></script>
 </body>
 </html>
 
