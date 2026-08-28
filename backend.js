@@ -6437,16 +6437,19 @@ Gib NUR ein einziges JSON-Objekt aus – keinen Fliesstext davor oder danach, ke
 INHALTLICHE REGELN
 - Gliedere ZWEISTUFIG: zuerst wenige Themenbereiche (themeGroups, typisch 5–9), darunter die Zwischenueberschriften (subThemes). Die Inhaltsuebersicht folgt dieser Tabelle: Themenbereich = uebergeordnete Zeile, darunter zusammengefasste Zwischenueberschriften.
 - Jedes subTheme hat zusaetzlich "group": den Titel des Themenbereichs (identisch mit themeGroups[].title).
-- WICHTIG ZUR STRUKTUR: Keine thematischen Ueberschneidungen. Was dieselbe Sache unter anderem Wortlaut ist, wird EINE Zwischenueberschrift. Nahe Varianten gehoeren in EINEN Themenbereich und werden dort zusammengefasst, nicht als parallele H2 wiederholt.
-  FALSCH (flach und redundant):
-    "Kants Erkenntnistheorie: Ding an sich, Subjekt-Objekt-Trennung und Erscheinungswelt"
-    "Kants Erkenntnistheorie: Ding an sich, Erscheinung und Erkenntnisgrenze"
-    "Steiners Kritik an Kants Erkenntnistheorie und dem kritischen Idealismus"
-    "Steiners grundlegende Kritik an Kant"
-  RICHTIG (Themenbereich + eine zusammengefasste Zwischenueberschrift):
-    group "Kants Erkenntnistheorie" → "Ding an sich, Erscheinung, Subjekt-Objekt-Trennung und Erkenntnisgrenze"
-    group "Steiners Kritik und Gegenposition" → "Kritik am kritischen Idealismus; Denken, Wahrnehmung, Wirklichkeit"
-- Pruefe vor jedem neuen subTheme, ob es in ein bestehendes integriert oder unter denselben Themenbereich gehoert. Lieber 6–14 substanzielle Zwischenueberschriften als 25 Aehnliche.
+- WICHTIG ZUR STRUKTUR: Jedes grobe Feld nur EINMAL als themeGroup. Keine parallelen Bereiche, die sich nur durch den Untertitel unterscheiden. Was dieselbe Sache unter anderem Wortlaut ist, wird EINE Zwischenueberschrift.
+  FALSCH (dasselbe Feld mehrfach):
+    themeGroup "Kants Erkenntnistheorie: Grundzuege und Kernbegriffe"
+    themeGroup "Kants Erkenntnistheorie: Ding an sich, Erscheinung und Erkenntnisgrenze"
+      darin Hume, Verstand/Naturgesetze, Moralphilosophie
+    themeGroup "Kants Erkenntnistheorie: Grundstruktur und Voraussetzungen"
+    themeGroup "Goethe und Kant" UND spaeter noch "Kant und Goethe" UND "Kants Philosophie im Verhaeltnis zu Goethe"
+    themeGroup "Steiners Kritik an Kant" UND spaeter noch "Steiners Gegenposition" UND "Steiners Denk- und Erkenntnislehre"
+  RICHTIG (wenige Bereiche, zugehoerige Punkte darunter):
+    group "Kants Erkenntnistheorie: Grundzuege und Kernbegriffe" enthaelt u. a. Raum/Zeit/Ding an sich, Erkenntnisgrenze, Hume/Kausalitaet, Verstand schreibt der Natur Gesetze vor, Moralphilosophie (Imperativ, Postulate)
+    group "Steiners Kritik und Gegenposition" → Grundfehler, Siegellack, Monismus, reines Denken
+    group "Kant und Goethe" → Naturanschauung, anschauende Urteilskraft, organische Natur (alle Goethe-Bloecke hier)
+- Typisch 5–7 themeGroups, nicht 12–20. Pruefe vor jedem neuen Bereich, ob er in einen bestehenden gehoert. Lieber 6–14 substanzielle Zwischenueberschriften als 25 Aehnliche.
 - Sammle BREIT: moeglichst viele inhaltlich UNTERSCHIEDLICHE Aussagen. Keine Redundanzen (gleiche Aussage nicht mehrfach).
 - "aussage": TELEGRAMMARTIG kurz – eine verdichtete Schlagzeile aus Stichworten, KEIN vollstaendiger Satz, KEIN Subjekt-Praedikat-Bau, keine Wendungen wie "Steiner sagt/meint", keine Fuellwoerter ("dass", "weil", "waehrend", "man koenne"). Oft hilfreich: ein Doppelpunkt, der Bezug und Kern trennt. Der ausfuehrliche Inhalt steht im Zitat, NICHT in der Aussage.
   Gegenbeispiele (so NICHT) und richtige Kurzform (so):
@@ -7115,6 +7118,8 @@ function buildThematicCacheDepth(thematicMode, sourceType, themeArea, fallbackDe
   return fallbackDepth;
 }
 
+const RECHERCHE_GROUP_VERSION = 2;
+
 function isRechercheCacheUsable(rechercheData) {
   if (!rechercheData || countRechercheRows(rechercheData) === 0) return false;
   if (rechercheData.fallback) return false;
@@ -7294,9 +7299,11 @@ function rechercheColonPrefix(title) {
   return String(title).slice(0, i).trim().toLowerCase();
 }
 
-function mergeSimilarRechercheSubThemes(data) {
+function mergeSimilarRechercheSubThemes(data, options = {}) {
   const list = (data && Array.isArray(data.subThemes)) ? data.subThemes : [];
   if (list.length < 2) return data;
+  const jacMin = options.jacMin || 0.5;
+  const sameGroupOnly = !!options.sameGroupOnly;
   const used = new Set();
   const out = [];
   for (let i = 0; i < list.length; i++) {
@@ -7310,11 +7317,12 @@ function mergeSimilarRechercheSubThemes(data) {
     for (let j = i + 1; j < list.length; j++) {
       if (used.has(j)) continue;
       const other = list[j];
+      if (sameGroupOnly && String(base.group || '') !== String(other.group || '')) continue;
       const otherPrefix = rechercheColonPrefix(other.title);
       const jac = rechercheTitleJaccard(base.title, other.title);
       const samePrefix = prefix && otherPrefix && prefix === otherPrefix;
       const shared = rechercheTitleTokens(base.title).filter((t) => rechercheTitleTokens(other.title).includes(t)).length;
-      const close = jac >= 0.5 && shared >= 2;
+      const close = jac >= jacMin && shared >= 2;
       if (!samePrefix && !close) continue;
       used.add(j);
       (other.rows || []).forEach((r) => {
@@ -7346,6 +7354,97 @@ function applyHeuristicRechercheGroups(data) {
   return { ...data, subThemes: grouped };
 }
 
+function rechercheGroupBucket(groupTitle) {
+  const t = String(groupTitle || '')
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/ß/g, 'ss');
+  if (/goethe/.test(t)) return 'goethe';
+  if (/schiller/.test(t)) return 'schiller';
+  if (/\bkritik\b|gegenposition|denk- und erkenntnis|denken als wahrnehmung|siegellack/.test(t)) return 'kritik';
+  if (/erkenntnistheorie|ding an sich|erscheinungswelt|grundvorurteil|grundzuege|grundzuge|grundstruktur|kernbegriff|platon|ideenwelt|idee.wirklich/.test(t)) return 'erkenntnis';
+  if (/ubersinn|imagination|inspiration|intuition|hellsehen|mystik|geisteswissenschaft|theosoph|gehirndenken/.test(t)) return 'geist';
+  if (/interpreten|vorlander|zeitgenoss|gegenwartsphilosoph/.test(t)) return 'zeit';
+  if (/biograph|wirkungsgeschichte/.test(t)) return 'bio';
+  if (/idealismus|fichte|schelling|hegel|neukant|spinoza|jacobi|feuerbach|philosophiegeschichte|nominalis|dilthey|messerwetzen|mutlosigkeit|vertrauensverlust/.test(t)) return 'geschichte';
+  if (/materialismus/.test(t) && /gehirn|theosoph|geist/.test(t)) return 'geist';
+  return null;
+}
+
+function collapseRechercheGroups(data) {
+  const list = (data && Array.isArray(data.subThemes)) ? data.subThemes.filter((st) => st && st.title) : [];
+  if (list.length === 0) return data;
+
+  const bucketMeta = [];
+  const keyOf = list.map((st) => {
+    const g = String(st.group || '').trim();
+    const key = rechercheGroupBucket(g) || `raw:${g.toLowerCase()}`;
+    if (!bucketMeta.some((b) => b.key === key)) {
+      bucketMeta.push({ key, title: g || 'Weitere Aspekte' });
+    }
+    return key;
+  });
+
+  bucketMeta.forEach((b) => {
+    if (!b.key.startsWith('raw:')) return;
+    let best = null;
+    let bestJac = 0.38;
+    bucketMeta.forEach((other) => {
+      if (other.key === b.key || other.key.startsWith('raw:')) return;
+      const jac = rechercheTitleJaccard(b.title, other.title);
+      if (jac > bestJac) {
+        bestJac = jac;
+        best = other;
+      }
+    });
+    if (best) b.redirect = best.key;
+  });
+
+  for (let i = 0; i < bucketMeta.length; i++) {
+    for (let j = i + 1; j < bucketMeta.length; j++) {
+      const a = bucketMeta[i];
+      const b = bucketMeta[j];
+      if (!a.key.startsWith('raw:') || !b.key.startsWith('raw:')) continue;
+      if (a.redirect || b.redirect) continue;
+      if (rechercheTitleJaccard(a.title, b.title) >= 0.4) b.redirect = a.key;
+    }
+  }
+
+  function resolveKey(key, seen = new Set()) {
+    if (seen.has(key)) return key;
+    seen.add(key);
+    const b = bucketMeta.find((x) => x.key === key);
+    if (b && b.redirect) return resolveKey(b.redirect, seen);
+    return key;
+  }
+
+  const titleByKey = {};
+  bucketMeta.forEach((b) => {
+    const k = resolveKey(b.key);
+    if (!titleByKey[k]) titleByKey[k] = b.title;
+  });
+
+  const out = list.map((st, i) => ({
+    ...st,
+    group: titleByKey[resolveKey(keyOf[i])] || st.group
+  }));
+  const groupCount = new Set(out.map((st) => st.group)).size;
+  if (groupCount < new Set(list.map((st) => String(st.group || ''))).size) {
+    console.log(`[RECHERCHE] Themenbereiche verdichtet: ${new Set(list.map((st) => st.group)).size} → ${groupCount}`);
+  }
+  return { ...data, subThemes: out };
+}
+
+function upgradeRechercheStructure(data) {
+  if (!data || data.fallback || countRechercheRows(data) === 0) return data;
+  let next = collapseRechercheGroups(data);
+  next = mergeSimilarRechercheSubThemes(next, { jacMin: 0.4, sameGroupOnly: true });
+  next.themeGrouped = true;
+  next.themeGroupedVersion = RECHERCHE_GROUP_VERSION;
+  return next;
+}
+
 function parseRechercheGroupJson(text) {
   const cleaned = String(text || '').replace(/```json\n?/g, '').replace(/```\n?/g, '').trim();
   const start = cleaned.indexOf('{');
@@ -7371,8 +7470,15 @@ ${numbered}
 
 AUFGABE
 1. Fasse REDUNDANTE Überschriften (gleiche Sache, anderer Wortlaut) zu EINER zusammen.
-2. Ordne die verbleibenden unter 5–9 Themenbereiche. Themenbereiche sind grobe Felder (z. B. Erkenntnistheorie, Kritik und Gegenposition, Philosophiegeschichte, Moralphilosophie, Goethe, Übersinnliches) – nicht die Zwischenüberschrift wiederholen.
+2. Ordne die verbleibenden unter höchstens 7 Themenbereiche. Jedes grobe Feld nur EINMAL – keine parallelen Bereiche, die sich nur durch den Untertitel unterscheiden.
 3. Jede Nummer genau einmal verwenden.
+
+FELDER NUR EINMAL (Beispiel Kant – analog auf andere Themen anwenden):
+- Erkenntnistheorie: Raum/Zeit/Ding an sich, Erscheinungswelt, Hume/Kausalität, Verstand schreibt der Natur Gesetze vor, Grundvorurteile, Moralphilosophie (Imperativ, Postulate) – NICHT als zweiten oder dritten Erkenntnistheorie-Block.
+- Steiners Kritik und Gegenposition: Grundfehler, Siegellack, Monismus, reines Denken, Denk- und Erkenntnislehre – EIN Bereich.
+- Goethe: alle Goethe-gegen-Kant-Blöcke in EINEM Bereich.
+- Deutscher Idealismus / Philosophiegeschichte: Fichte, Schelling, Hegel, Neukantianismus, Nominalismus, Dilthey.
+- Übersinnliches / Geisteswissenschaft: Hellsehen, Imagination/Inspiration/Intuition, Gehirndenken.
 
 AUSGABE: nur JSON
 {
@@ -7386,7 +7492,7 @@ AUSGABE: nur JSON
   ]
 }`;
   try {
-    const response = await generateCompletionWithFallback(prompt, { maxTokens: 2500, temperature: 0.15 }, 'analysis');
+    const response = await generateCompletionWithFallback(prompt, { maxTokens: 4000, temperature: 0.15 }, 'analysis');
     const parsed = parseRechercheGroupJson(response);
     if (!parsed || !Array.isArray(parsed.groups) || parsed.groups.length === 0) {
       return applyHeuristicRechercheGroups(data);
@@ -7440,7 +7546,7 @@ async function finalizeRechercheStructure(query, data) {
   if (titles.length > 0 && titles.every((t) => fallbackTitles.has(t))) return data;
   let next = mergeSimilarRechercheSubThemes(data);
   next = await groupRechercheSubThemesWithLlm(query, next);
-  next.themeGrouped = true;
+  next = upgradeRechercheStructure(next);
   return next;
 }
 
@@ -13170,13 +13276,27 @@ app.post('/api/thematic-hybrid-search', async (req, res) => {
       const cachedResult = thematicDB[hybridHit.key];
       const rechercheCacheOk = thematicMode !== 'recherche' || isRechercheCacheUsable(cachedResult.recherche);
       if (rechercheCacheOk) {
+        let payloadSource = cachedResult;
+        if (thematicMode === 'recherche' && (cachedResult.recherche.themeGroupedVersion || 0) < RECHERCHE_GROUP_VERSION) {
+          sendSse({ progress: 'Themenbereiche werden verdichtet…', phase: 'gliederung' });
+          const refined = upgradeRechercheStructure(cachedResult.recherche);
+          payloadSource = { ...cachedResult, recherche: refined };
+          if (shouldCache) {
+            thematicDB[hybridHit.key] = { ...payloadSource, timestamp: new Date().toISOString() };
+            saveThematicSearchDatabase(thematicDB).catch((err) => {
+              console.warn('[THEMATIC-CACHE] Fehler beim Speichern der verdichteten Gliederung:', err.message);
+            });
+          }
+          console.log(`[RECHERCHE] Cache-Gliederung auf Version ${RECHERCHE_GROUP_VERSION} angehoben`);
+        }
+
         // Analytics-Tracking auch für Cache-Hits (es ist immer noch eine Suchanfrage)
         trackSearch(query).catch(err => {
           console.error('[ANALYTICS] Fehler beim Tracking der Themen-Suche (Cache):', err.message);
         });
 
         const cachedPayload = {
-          ...cachedResult,
+          ...payloadSource,
           fromCache: true,
           cacheScore: hybridHit.score,
           cacheKey: hybridHit.key,

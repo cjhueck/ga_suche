@@ -18446,7 +18446,8 @@ function scrollToChronologicalYear(year) {
           const recherche = entry.recherche || { intro: '', subThemes: [] };
           const hasThemeGroups = recherche.themeGrouped === true
             || (recherche.subThemes || []).some((st) => st && String(st.group || '').trim());
-          if (!hasThemeGroups) {
+          const groupedVersion = Number(recherche.themeGroupedVersion || 0);
+          if (!hasThemeGroups || groupedVersion < 2) {
             if (typeof performThematicSearch === 'function') {
               performThematicSearch();
             }
@@ -23321,26 +23322,46 @@ function formatAsteriskParagraphs() {
         const sideHeader = document.getElementById('sidePanelLectureHeader');
         if (sideHeader) sideHeader.innerHTML = '';
 
-        const items = headings.map((h) => {
-          const id = h.id;
-          const title = esc(h.textContent || '');
-          const isGroup = h.classList.contains('recherche-theme-heading');
-          const liStyle = isGroup
-            ? 'margin: 0.85rem 0 0.35rem 0; line-height: 1.35; list-style: none; font-weight: 600;'
-            : 'margin: 0 0 0.4rem 0; line-height: 1.35; padding-left: 0.2rem;';
-          return `<li style="${liStyle}">
-            <a href="#${esc(id)}" class="recherche-toc-link" data-heading-id="${esc(id)}"
+        const themeHeads = Array.from(tablesEl.querySelectorAll('.recherche-theme-heading'));
+        const subHeads = Array.from(tablesEl.querySelectorAll('.recherche-subtheme-heading'));
+        let tocBody = '';
+        if (themeHeads.length > 0) {
+          tocBody = themeHeads.map((th) => {
+            const kids = [];
+            let el = th.nextElementSibling;
+            while (el && !el.classList.contains('recherche-theme-heading')) {
+              if (el.classList.contains('recherche-subtheme-heading')) {
+                kids.push(`<li style="margin: 0 0 0.4rem 0; line-height: 1.35;">
+            <a href="#${esc(el.id)}" class="recherche-toc-link" data-heading-id="${esc(el.id)}"
                style="color: var(--link-color, var(--accent-color)); text-decoration: none;"
                onmouseover="this.style.textDecoration='underline'"
-               onmouseout="this.style.textDecoration='none'">${title}</a>
-          </li>`;
-        }).join('');
+               onmouseout="this.style.textDecoration='none'">${esc(el.textContent || '')}</a>
+          </li>`);
+              }
+              el = el.nextElementSibling;
+            }
+            return `<h4 style="margin: 1rem 0 0.4rem 0; font-size: 0.98rem; font-weight: 600;">
+            <a href="#${esc(th.id)}" class="recherche-toc-link" data-heading-id="${esc(th.id)}"
+               style="color: var(--link-color, var(--accent-color)); text-decoration: none;"
+               onmouseover="this.style.textDecoration='underline'"
+               onmouseout="this.style.textDecoration='none'">${esc(th.textContent || '')}</a>
+          </h4>
+          <ol style="margin: 0 0 0.35rem 0; padding-left: 1.25rem;">${kids.join('')}</ol>`;
+          }).join('');
+        } else {
+          tocBody = `<ol style="margin: 0; padding-left: 1.25rem;">${subHeads.map((h) => `<li style="margin: 0 0 0.4rem 0; line-height: 1.35;">
+            <a href="#${esc(h.id)}" class="recherche-toc-link" data-heading-id="${esc(h.id)}"
+               style="color: var(--link-color, var(--accent-color)); text-decoration: none;"
+               onmouseover="this.style.textDecoration='underline'"
+               onmouseout="this.style.textDecoration='none'">${esc(h.textContent || '')}</a>
+          </li>`).join('')}</ol>`;
+        }
 
         summaryContent.innerHTML = `
           <div class="recherche-inhaltsuebersicht" style="padding: 1rem 1.2rem 2rem 1.2rem; font-size: var(--text-size, 0.95rem);">
             <h3 style="margin: 0 0 0.85rem 0; font-size: 1.05rem;">Inhaltsübersicht</h3>
             <p style="margin: 0 0 0.85rem 0; color: var(--secondary-text); font-size: 0.85em;">Themenbereiche und zusammengefasste Zwischenüberschriften</p>
-            <ol style="margin: 0; padding-left: 1.25rem;">${items}</ol>
+            ${tocBody}
           </div>
         `;
 
