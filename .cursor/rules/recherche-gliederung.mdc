@@ -7,7 +7,7 @@ alwaysApply: false
 
 Bei Arbeit am Modus Recherche (Prompts, `subThemes`, Inhaltsübersicht, thematische Tabellen):
 
-- Zuerst wenige **Themenbereiche**, darunter zusammengefasste Zwischenüberschriften.
-- Gleiche oder stark überlappende Überschriften zu einer zusammenfassen; nicht als parallele H2 wiederholen.
-- Die Inhaltsübersicht folgt derselben Tabelle wie die Ergebnisansicht.
+- Zuerst wenige **Themenbereiche** (jedes grobe Feld nur einmal), darunter zusammengefasste Zwischenüberschriften.
+- Gleiche oder stark überlappende Überschriften zu einer zusammenfassen; nicht als parallele H2 wiederholen. Hume, Ding an sich, Verstand/Naturgesetze und Kants Moralphilosophie gehören in denselben Erkenntnistheorie-Bereich, nicht in einen zweiten.
+- Die Inhaltsübersicht folgt derselben Tabelle wie die Ergebnisansicht; nummeriert werden nur die Zwischenüberschriften, nicht die Bereichstitel.
 - Breite der Recherche liegt in den Tabellenzeilen, nicht in weiteren ähnlichen Überschriften.

@@ -16,17 +16,17 @@ Die Inhaltsübersicht folgt derselben Tabelle: zuerst der Themenbereich, darunte
 
 ## Redundanz
 
-Nicht parallel stehen lassen (Beispiel Kant):
+Nicht als parallele Themenbereiche stehen lassen (Beispiel Kant):
 
-- „Kants Erkenntnistheorie: Ding an sich, Subjekt-Objekt-Trennung und Erscheinungswelt“
-- „Kants Erkenntnistheorie: Ding an sich, Erscheinung und Erkenntnisgrenze“
-- „Steiners Kritik an Kants Erkenntnistheorie und dem kritischen Idealismus“
-- „Steiners grundlegende Kritik an Kant“
+- „Kants Erkenntnistheorie: Grundzüge und Kernbegriffe“
+- „Kants Erkenntnistheorie: Ding an sich, Erscheinung und Erkenntnisgrenze“ (darin Hume, Verstand/Naturgesetze, Moralphilosophie)
+- „Kants Erkenntnistheorie: Grundstruktur und Voraussetzungen“
+- mehrere Goethe-Blöcke („Goethe und Kant“, „Kant und Goethe“, „… im Verhältnis zu Goethe“)
+- mehrere Steiner-Kritik/Gegenposition/Denklehre-Blöcke
 
-Stattdessen:
+Stattdessen **ein** Bereich **Kants Erkenntnistheorie** mit den Zwischenüberschriften zu Ding an sich, Hume/Kausalität, Verstand/Naturgesetze, Moralphilosophie; **ein** Bereich **Steiners Kritik und Gegenposition**; **ein** Goethe-Bereich.
 
-- Themenbereich **Kants Erkenntnistheorie** → eine Überschrift zu Ding an sich, Erscheinung, Subjekt-Objekt-Trennung und Erkenntnisgrenze
-- Themenbereich **Steiners Kritik und Gegenposition** → eine Überschrift zu Kritik am kritischen Idealismus; Denken, Wahrnehmung, Wirklichkeit
+Die Inhaltsübersicht nummeriert nur die Zwischenüberschriften, nicht die Themenbereichstitel.
 
 ## Breite sitzt in den Zeilen
 
