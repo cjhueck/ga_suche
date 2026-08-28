@@ -6413,15 +6413,21 @@ Gib NUR ein einziges JSON-Objekt aus – keinen Fliesstext davor oder danach, ke
 
 {
   "intro": "Optional: ein einziger einleitender Satz (oder leerer String).",
-  "subThemes": [
+  "themeGroups": [
     {
-      "title": "Praegnanter Titel des Unterthemas",
-      "rows": [
+      "title": "Themenbereich (grob, nicht die Zwischenueberschrift wiederholen)",
+      "subThemes": [
         {
-          "aussage": "Telegrammartige Kurzform (Stichworte/Schlagzeile, KEIN ganzer Satz, KEIN Zitat).",
-          "zitat": "Ein WOERTLICHES, zusammenhaengendes Zitat aus GENAU EINER Textpassage, das die Aussage belegt.",
-          "ref": "GA###/lectureNum:index",
-          "relevance": "hoch"
+          "title": "Zusammengefasste Zwischenueberschrift",
+          "group": "Themenbereich (gleicher Text wie themeGroups[].title)",
+          "rows": [
+            {
+              "aussage": "Telegrammartige Kurzform (Stichworte/Schlagzeile, KEIN ganzer Satz, KEIN Zitat).",
+              "zitat": "Ein WOERTLICHES, zusammenhaengendes Zitat aus GENAU EINER Textpassage, das die Aussage belegt.",
+              "ref": "GA###/lectureNum:index",
+              "relevance": "hoch"
+            }
+          ]
         }
       ]
     }
@@ -6429,8 +6435,18 @@ Gib NUR ein einziges JSON-Objekt aus – keinen Fliesstext davor oder danach, ke
 }
 
 INHALTLICHE REGELN
-- Gliedere das Material in mehrere sinnvolle Unterthemen (subThemes). Jedes Unterthema buendelt inhaltlich zusammengehoerige Aussagen.
-- WICHTIG ZUR STRUKTUR: Vermeide unbedingt thematische Ueberschneidungen oder Wiederholungen bei den Unterthemen! Fasse aehnliche oder verwandte Aspekte zwingend in EINEM gemeinsamen uebergeordneten Unterthema zusammen (z.B. "Physische Gestalt" und "Physische Beschaffenheit" muessen EIN Unterthema bilden). Pruefe vor dem Erstellen eines neuen Unterthemas streng, ob es in ein bestehendes integriert werden kann.
+- Gliedere ZWEISTUFIG: zuerst wenige Themenbereiche (themeGroups, typisch 5–9), darunter die Zwischenueberschriften (subThemes). Die Inhaltsuebersicht folgt dieser Tabelle: Themenbereich = uebergeordnete Zeile, darunter zusammengefasste Zwischenueberschriften.
+- Jedes subTheme hat zusaetzlich "group": den Titel des Themenbereichs (identisch mit themeGroups[].title).
+- WICHTIG ZUR STRUKTUR: Keine thematischen Ueberschneidungen. Was dieselbe Sache unter anderem Wortlaut ist, wird EINE Zwischenueberschrift. Nahe Varianten gehoeren in EINEN Themenbereich und werden dort zusammengefasst, nicht als parallele H2 wiederholt.
+  FALSCH (flach und redundant):
+    "Kants Erkenntnistheorie: Ding an sich, Subjekt-Objekt-Trennung und Erscheinungswelt"
+    "Kants Erkenntnistheorie: Ding an sich, Erscheinung und Erkenntnisgrenze"
+    "Steiners Kritik an Kants Erkenntnistheorie und dem kritischen Idealismus"
+    "Steiners grundlegende Kritik an Kant"
+  RICHTIG (Themenbereich + eine zusammengefasste Zwischenueberschrift):
+    group "Kants Erkenntnistheorie" → "Ding an sich, Erscheinung, Subjekt-Objekt-Trennung und Erkenntnisgrenze"
+    group "Steiners Kritik und Gegenposition" → "Kritik am kritischen Idealismus; Denken, Wahrnehmung, Wirklichkeit"
+- Pruefe vor jedem neuen subTheme, ob es in ein bestehendes integriert oder unter denselben Themenbereich gehoert. Lieber 6–14 substanzielle Zwischenueberschriften als 25 Aehnliche.
 - Sammle BREIT: moeglichst viele inhaltlich UNTERSCHIEDLICHE Aussagen. Keine Redundanzen (gleiche Aussage nicht mehrfach).
 - "aussage": TELEGRAMMARTIG kurz – eine verdichtete Schlagzeile aus Stichworten, KEIN vollstaendiger Satz, KEIN Subjekt-Praedikat-Bau, keine Wendungen wie "Steiner sagt/meint", keine Fuellwoerter ("dass", "weil", "waehrend", "man koenne"). Oft hilfreich: ein Doppelpunkt, der Bezug und Kern trennt. Der ausfuehrliche Inhalt steht im Zitat, NICHT in der Aussage.
   Gegenbeispiele (so NICHT) und richtige Kurzform (so):
@@ -6459,7 +6475,7 @@ ${directRefIds}
 
 Anzahl Textpassagen: ${topResults.length}
 
-WICHTIG: Wenn zu den Textpassagen inhaltlich passendes Material vorliegt, darf "subThemes" NICHT leer sein. Extrahiere so viele verschiedene Aussagen wie das Material hergibt (typisch 25–70 Zeilen bei breitem Material).
+WICHTIG: Wenn zu den Textpassagen inhaltlich passendes Material vorliegt, duerfen themeGroups/subThemes NICHT leer sein. Extrahiere so viele verschiedene Aussagen wie das Material hergibt (typisch 25–70 Zeilen bei breitem Material). Die Zahl der Zwischenueberschriften bleibt klein; die Breite sitzt in den Zeilen, nicht in weiteren aehnlichen Ueberschriften.
 
 TEXTPASSAGEN:
 ${contextText}
@@ -7091,7 +7107,7 @@ async function resolveRechercheScope(sourceType, themeArea, gaFilter) {
 function buildThematicCacheDepth(thematicMode, sourceType, themeArea, fallbackDepth) {
   const themeSeg = (themeArea || 'alle').toLowerCase();
   if (thematicMode === 'recherche') {
-    return `recherche:v3:${sourceType}:${themeSeg}`;
+    return `recherche:v4:${sourceType}:${themeSeg}`;
   }
   if (thematicMode !== 'chat' && (sourceType !== 'alle' || (themeArea && themeArea !== 'alle'))) {
     return `${thematicMode}:${sourceType}:${themeSeg}`;
@@ -7102,11 +7118,12 @@ function buildThematicCacheDepth(thematicMode, sourceType, themeArea, fallbackDe
 function isRechercheCacheUsable(rechercheData) {
   if (!rechercheData || countRechercheRows(rechercheData) === 0) return false;
   if (rechercheData.fallback) return false;
-  if (rechercheData.curated === true) return true;
-  // Alte Cache-Einträge ohne Flag: Schnellmodus-Sektionen erkennen und verwerfen
-  const fallbackTitles = new Set(['Direkte Texttreffer', 'Weitere thematische Treffer', 'Suchtreffer']);
   const titles = (rechercheData.subThemes || []).map((st) => String(st.title || '').trim());
+  const fallbackTitles = new Set(['Direkte Texttreffer', 'Weitere thematische Treffer', 'Suchtreffer']);
   if (titles.length > 0 && titles.every((t) => fallbackTitles.has(t))) return false;
+  // Vor der Themenbereich-Gliederung gespeicherte flache Listen nicht wiederverwenden
+  const hasGroups = (rechercheData.subThemes || []).some((st) => st && String(st.group || '').trim());
+  if (!rechercheData.themeGrouped && !hasGroups) return false;
   return titles.length > 0;
 }
 
@@ -7236,12 +7253,195 @@ function mergeRechercheDataObjects(dataArray) {
         const existingRefs = new Set(existing.rows.map(r => r.ref || r.quote));
         const newRows = (st.rows || []).filter(r => !existingRefs.has(r.ref || r.quote));
         existing.rows = [...existing.rows, ...newRows];
+        if (!existing.group && st.group) existing.group = st.group;
       } else {
         merged.subThemes.push({ ...st, rows: [...(st.rows || [])] });
       }
     }
   }
   return merged;
+}
+
+const RECHERCHE_TITLE_STOP = new Set([
+  'kant', 'kants', 'steiner', 'steiners', 'und', 'oder', 'der', 'die', 'das', 'des', 'dem', 'den',
+  'ein', 'eine', 'einem', 'einer', 'im', 'in', 'zu', 'zur', 'zum', 'von', 'vom', 'als', 'mit',
+  'fuer', 'für', 'ueber', 'über', 'seine', 'seiner', 'seinen', 'seinem', 'an', 'am', 'auf', 'nach',
+  'bei', 'durch', 'ohne', 'auch', 'nicht', 'wie', 'ist', 'sind', 'war', 'kontext', 'verhaeltnis',
+  'verhältnis'
+]);
+
+function rechercheTitleTokens(title) {
+  return String(title || '')
+    .toLowerCase()
+    .replace(/[„"':;,./\\(\)\[\]–—-]+/g, ' ')
+    .split(/\s+/)
+    .map((t) => t.normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/ß/g, 'ss'))
+    .filter((t) => t.length >= 4 && !RECHERCHE_TITLE_STOP.has(t));
+}
+
+function rechercheTitleJaccard(a, b) {
+  const A = new Set(rechercheTitleTokens(a));
+  const B = new Set(rechercheTitleTokens(b));
+  if (A.size === 0 || B.size === 0) return 0;
+  let inter = 0;
+  A.forEach((t) => { if (B.has(t)) inter += 1; });
+  return inter / new Set([...A, ...B]).size;
+}
+
+function rechercheColonPrefix(title) {
+  const i = String(title || '').indexOf(':');
+  if (i < 16) return '';
+  return String(title).slice(0, i).trim().toLowerCase();
+}
+
+function mergeSimilarRechercheSubThemes(data) {
+  const list = (data && Array.isArray(data.subThemes)) ? data.subThemes : [];
+  if (list.length < 2) return data;
+  const used = new Set();
+  const out = [];
+  for (let i = 0; i < list.length; i++) {
+    if (used.has(i)) continue;
+    const base = list[i];
+    const prefix = rechercheColonPrefix(base.title);
+    const rows = [...(base.rows || [])];
+    const refs = new Set(rows.map((r) => r.ref || r.zitat));
+    let title = base.title;
+    let group = base.group || '';
+    for (let j = i + 1; j < list.length; j++) {
+      if (used.has(j)) continue;
+      const other = list[j];
+      const otherPrefix = rechercheColonPrefix(other.title);
+      const jac = rechercheTitleJaccard(base.title, other.title);
+      const samePrefix = prefix && otherPrefix && prefix === otherPrefix;
+      const shared = rechercheTitleTokens(base.title).filter((t) => rechercheTitleTokens(other.title).includes(t)).length;
+      const close = jac >= 0.5 && shared >= 2;
+      if (!samePrefix && !close) continue;
+      used.add(j);
+      (other.rows || []).forEach((r) => {
+        const key = r.ref || r.zitat;
+        if (refs.has(key)) return;
+        refs.add(key);
+        rows.push(r);
+      });
+      if ((other.title || '').length > String(title).length) title = other.title;
+      if (!group && other.group) group = other.group;
+    }
+    out.push({ title, group, rows });
+  }
+  return { ...data, subThemes: out };
+}
+
+function applyHeuristicRechercheGroups(data) {
+  const list = (data && Array.isArray(data.subThemes)) ? data.subThemes : [];
+  const hasGroups = list.some((st) => st.group);
+  if (hasGroups || list.length < 4) return data;
+  const grouped = list.map((st) => {
+    const prefix = rechercheColonPrefix(st.title);
+    const tokens = rechercheTitleTokens(st.title).slice(0, 2);
+    const group = prefix
+      ? String(st.title).split(':')[0].trim()
+      : (tokens.length ? tokens.map((t) => t.charAt(0).toUpperCase() + t.slice(1)).join(' und ') : 'Weitere Aspekte');
+    return { ...st, group };
+  });
+  return { ...data, subThemes: grouped };
+}
+
+function parseRechercheGroupJson(text) {
+  const cleaned = String(text || '').replace(/```json\n?/g, '').replace(/```\n?/g, '').trim();
+  const start = cleaned.indexOf('{');
+  const end = cleaned.lastIndexOf('}');
+  if (start < 0 || end < start) return null;
+  try {
+    return JSON.parse(cleaned.slice(start, end + 1));
+  } catch (e) {
+    return null;
+  }
+}
+
+async function groupRechercheSubThemesWithLlm(query, data) {
+  const list = (data && Array.isArray(data.subThemes)) ? data.subThemes : [];
+  if (list.length < 4) return applyHeuristicRechercheGroups(data);
+  const numbered = list.map((st, i) => `${i + 1}. ${st.title}`).join('\n');
+  const prompt = `Du ordnest Zwischenüberschriften einer Steiner-Recherche.
+
+ANFRAGE: "${query}"
+
+ZWISCHENÜBERSCHRIFTEN:
+${numbered}
+
+AUFGABE
+1. Fasse REDUNDANTE Überschriften (gleiche Sache, anderer Wortlaut) zu EINER zusammen.
+2. Ordne die verbleibenden unter 5–9 Themenbereiche. Themenbereiche sind grobe Felder (z. B. Erkenntnistheorie, Kritik und Gegenposition, Philosophiegeschichte, Moralphilosophie, Goethe, Übersinnliches) – nicht die Zwischenüberschrift wiederholen.
+3. Jede Nummer genau einmal verwenden.
+
+AUSGABE: nur JSON
+{
+  "groups": [
+    {
+      "title": "Themenbereich",
+      "items": [
+        { "from": [1, 8], "title": "Zusammengefasste Zwischenüberschrift" }
+      ]
+    }
+  ]
+}`;
+  try {
+    const response = await generateCompletionWithFallback(prompt, { maxTokens: 2500, temperature: 0.15 }, 'analysis');
+    const parsed = parseRechercheGroupJson(response);
+    if (!parsed || !Array.isArray(parsed.groups) || parsed.groups.length === 0) {
+      return applyHeuristicRechercheGroups(data);
+    }
+    const used = new Set();
+    const out = [];
+    parsed.groups.forEach((g) => {
+      const groupTitle = String(g.title || '').trim();
+      (g.items || []).forEach((item) => {
+        const from = Array.isArray(item.from) ? item.from : [];
+        const rows = [];
+        const refs = new Set();
+        from.forEach((n) => {
+          const idx = Number(n) - 1;
+          if (idx < 0 || idx >= list.length || used.has(idx)) return;
+          used.add(idx);
+          (list[idx].rows || []).forEach((r) => {
+            const key = r.ref || r.zitat;
+            if (refs.has(key)) return;
+            refs.add(key);
+            rows.push(r);
+          });
+        });
+        if (rows.length === 0) return;
+        const firstIdx = Number(from[0]) - 1;
+        const fallbackTitle = (firstIdx >= 0 && list[firstIdx]) ? list[firstIdx].title : 'Weitere Aussagen';
+        out.push({
+          title: String(item.title || fallbackTitle).trim(),
+          group: groupTitle,
+          rows
+        });
+      });
+    });
+    list.forEach((st, i) => {
+      if (used.has(i)) return;
+      out.push({ ...st, group: st.group || 'Weitere Aspekte' });
+    });
+    if (out.length === 0) return applyHeuristicRechercheGroups(data);
+    console.log(`[RECHERCHE] Gliederung: ${list.length} Überschriften → ${out.length} in ${parsed.groups.length} Themenbereichen`);
+    return { ...data, subThemes: out };
+  } catch (err) {
+    console.warn(`[RECHERCHE] Themenbereich-Gliederung fehlgeschlagen (${err.message})`);
+    return applyHeuristicRechercheGroups(data);
+  }
+}
+
+async function finalizeRechercheStructure(query, data) {
+  if (!data || data.fallback || countRechercheRows(data) === 0) return data;
+  const fallbackTitles = new Set(['Direkte Texttreffer', 'Weitere thematische Treffer', 'Suchtreffer']);
+  const titles = (data.subThemes || []).map((st) => String(st.title || '').trim());
+  if (titles.length > 0 && titles.every((t) => fallbackTitles.has(t))) return data;
+  let next = mergeSimilarRechercheSubThemes(data);
+  next = await groupRechercheSubThemesWithLlm(query, next);
+  next.themeGrouped = true;
+  return next;
 }
 
 // Recherche-Analyse: Gemini → Einzel-Aufruf mit allen Quellen (großes Kontext-Fenster),
@@ -7329,7 +7529,7 @@ function tryRepairTruncatedRechercheJson(text) {
   for (let i = 0; i < openBraces - closeBraces; i++) fragment += '}';
   try {
     const parsed = JSON.parse(fragment);
-    return Array.isArray(parsed.subThemes) ? parsed : null;
+    return Array.isArray(parsed.subThemes) || Array.isArray(parsed.themeGroups) ? parsed : null;
   } catch (_) {
     return null;
   }
@@ -7452,6 +7652,23 @@ function buildRechercheData(jsonText, results, llmSources = null) {
     return { intro: '', subThemes: [] };
   }
 
+  if (Array.isArray(parsed.themeGroups) && parsed.themeGroups.length > 0) {
+    const flat = [];
+    parsed.themeGroups.forEach(g => {
+      if (!g) return;
+      const groupTitle = String(g.title || g.group || '').trim();
+      const nested = Array.isArray(g.subThemes) ? g.subThemes
+        : Array.isArray(g.subthemes) ? g.subthemes
+        : Array.isArray(g.themes) ? g.themes
+        : [];
+      nested.forEach(st => {
+        if (!st) return;
+        flat.push({ ...st, group: String(st.group || groupTitle).trim() });
+      });
+    });
+    if (flat.length > 0) parsed.subThemes = flat;
+  }
+
   if (!Array.isArray(parsed.subThemes)) {
     parsed.subThemes = Array.isArray(parsed.subthemes) ? parsed.subthemes
       : Array.isArray(parsed.themes) ? parsed.themes
@@ -7503,7 +7720,11 @@ function buildRechercheData(jsonText, results, llmSources = null) {
       });
     });
     if (rows.length > 0) {
-      subThemes.push({ title: String(st.title || '').trim() || 'Weitere Aussagen', rows });
+      subThemes.push({
+        title: String(st.title || '').trim() || 'Weitere Aussagen',
+        group: String(st.group || st.themeGroup || '').trim(),
+        rows
+      });
     }
   });
 
@@ -13451,7 +13672,8 @@ app.post('/api/thematic-hybrid-search', async (req, res) => {
             console.log(`[RECHERCHE] LLM-Analyse: ${tAnalysis}ms, ${llmSources.length} Quellen im LLM-Prompt`);
             rechercheData = buildRechercheData(analysisResult.text || '', topResults, llmSources);
           }
-          if (countRechercheRows(rechercheData) > 0) {
+          if (countRechercheRows(rechercheData) > 0 && !rechercheData.fallback) {
+            rechercheData = await finalizeRechercheStructure(query, rechercheData);
             rechercheData.curated = true;
           }
           const rowCount = countRechercheRows(rechercheData);
