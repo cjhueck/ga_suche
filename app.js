@@ -1659,10 +1659,10 @@ function removeManualHeadingsFromContent(content) {
   
   // Entferne <h2>...</h2>, <h3>...</h3>, <h4>...</h4> Tags komplett
   // Pattern erfasst auch Tags mit Attributen und Zeilenumbrüche im Inhalt
-  cleaned = cleaned.replace(/<h[2-4][^>]*>[\s\S]*?<\/h[2-4]>\s*/gi, '');
+  cleaned = cleaned.replace(/<h[2-5][^>]*>[\s\S]*?<\/h[2-5]>\s*/gi, '');
   
   // Auch Markdown-Style Überschriften entfernen: ## Text oder ### Text am Zeilenanfang
-  cleaned = cleaned.replace(/^#{2,4}\s+.*$/gm, '');
+  cleaned = cleaned.replace(/^#{2,5}\s+.*$/gm, '');
   
   // Mehrfache Leerzeilen/Whitespace durch eine Leerzeile ersetzen
   cleaned = cleaned.replace(/\n{3,}/g, '\n\n');
@@ -6653,8 +6653,6 @@ function populateGABandFilterDropdown(chalkboardsOnly = false) {
 
 // Funktion: Toggle zwischen "Chronologisch" (alle Bände) und gefilterter Ansicht
 function toggleChronologicalView() {
-  const gaBandDropdown = document.getElementById('ga-band-filter-dropdown');
-  const yearDropdown = document.getElementById('ga-year-filter-dropdown');
   const chalkboardsBtn = document.getElementById('ga-chalkboards-btn');
   
   // Deaktiviere Wandtafeln-Ansicht wenn aktiv
@@ -6672,38 +6670,31 @@ function toggleChronologicalView() {
     populateGABandFilterDropdown(false);
   }
   
-  // Button zeigt "Alle Bände" (chronologische Ansicht aktiv)
+  // Button zeigt "Alle Bände" (chronologische Ansicht aktiv) → zurück zur Default-Ansicht des GA-Tabs
   if (currentGAView === 'chronological') {
-    console.log('[GA-TOGGLE] Setze Filter zurück, zeige alle Bände chronologisch');
-    
-    if (gaBandDropdown) {
-      gaBandDropdown.value = '';
-    }
-    if (gaBandFilterDropdown) {
-      gaBandFilterDropdown.setSelectedValue('');
-    }
-    selectedGABandFilter = null;
-    
-    if (yearDropdown) {
-      yearDropdown.value = '';
-    }
-    selectedYearFilter = null;
-    chronologicalNavYear = null;
-    
-    displayGAVolumesInSidebar();
-    
-    if (allChronologicalLectures && allChronologicalLectures.length > 0) {
-      currentGAView = 'chronological';
-      updateChronologicalButtonText();
-      displayGAChronological(allChronologicalLectures);
-    } else {
-      showGAChronologicalView(true);
-    }
+    console.log('[GA-TOGGLE] Chronologische Ansicht beenden, zurück zur GA-Bände-Übersicht');
+    showGAVolumesView();
   } else {
     // Button zeigt "Chronologisch" -> chronologische Ansicht (Bandfilter bleibt erhalten)
     console.log('[GA-TOGGLE] Zeige chronologische Ansicht',
       selectedGABandFilter ? 'für ' + selectedGABandFilter : '(alle Bände)');
     showGAChronologicalView();
+  }
+}
+
+function setChronologicalButtonFilled(filled) {
+  const btn = document.getElementById('ga-chronological-view-btn');
+  if (!btn) return;
+  if (filled) {
+    btn.style.background = 'var(--accent-color)';
+    btn.style.color = 'white';
+    btn.style.border = '1px solid var(--accent-color)';
+    btn.classList.add('active');
+  } else {
+    btn.style.background = 'transparent';
+    btn.style.color = 'var(--accent-color)';
+    btn.style.border = '1px solid var(--accent-color)';
+    btn.classList.remove('active');
   }
 }
 
@@ -6714,15 +6705,12 @@ function updateChronologicalButtonText() {
 
   if (currentGAView === 'chronological') {
     btn.textContent = 'Alle Bände';
-    btn.style.background = 'var(--accent-color)';
-    btn.style.color = 'white';
-    btn.style.border = '1px solid var(--accent-color)';
   } else {
     btn.textContent = 'Chronologisch';
-    btn.style.background = 'transparent';
-    btn.style.color = 'var(--accent-color)';
-    btn.style.border = '1px solid var(--accent-color)';
   }
+
+  // Immer ausgefüllt, außer wenn die Wandtafeln-Ansicht aktiv ist
+  setChronologicalButtonFilled(!isChalkboardsViewActive);
 }
 
 // ============================================================================
@@ -6963,7 +6951,9 @@ async function toggleChalkboardsView() {
       btn.style.color = 'white';
       btn.classList.add('active');
     }
-    if (chronoBtn) {
+    if (typeof setChronologicalButtonFilled === 'function') {
+      setChronologicalButtonFilled(false);
+    } else if (chronoBtn) {
       chronoBtn.style.background = 'transparent';
       chronoBtn.style.color = 'var(--accent-color)';
       chronoBtn.classList.remove('active');
@@ -7371,6 +7361,9 @@ function openLectureFromChalkboard(lectureId, gaNumber = null, dateStr = null) {
   }
   removeChalkboardsYearButtons();
   hideChalkboardsButtons(); // Buttons verstecken
+  if (typeof updateChronologicalButtonText === 'function') {
+    updateChronologicalButtonText();
+  }
   
   // WICHTIG: Entferne den Chalkboards-Galerie-Wrapper aus dem Viewer
   const chalkboardsWrapper = document.getElementById('chalkboards-year-nav-wrapper');
@@ -8653,7 +8646,11 @@ async function _displayBookImpl(book, highlightHeadingId = null, keywords = [], 
         }
         
         // Erstelle ID für Überschrift: Verwende heading.id falls vorhanden, sonst heading.index oder para-{index}
-        const headingId = heading.id || (heading.index && !heading.index.startsWith('^') ? heading.index : `para-${headingIndex}`);
+        // Bei mehreren Überschriften am selben Absatz (Band + Kapitel) eindeutiges Suffix.
+        const headingIdBase = heading.id && !String(heading.id).startsWith('^')
+          ? heading.id
+          : `para-${headingIndex}`;
+        const headingId = hIdx > 0 ? `${headingIdBase}-h${hIdx}` : headingIdBase;
         const hasTextEdit = heading._edited ? 'has-text-edit' : '';
         
         // HTML-Escaping für headingText
@@ -9140,12 +9137,11 @@ async function _displayBookImpl(book, highlightHeadingId = null, keywords = [], 
       // Entferne ^ am Anfang, da es Probleme mit DOM-Selektoren verursacht
       const rawIndex = heading.index || heading.id || '';
       const headingIndex = rawIndex.replace(/^\^/, '');
-      const indent = level === 'h4' || level === 4 ? 'padding-left: 1.5rem;' : '';
+      const headingTagName = bookHeadingTagName(level);
+      const indent = headingTagName === 'h5' ? 'padding-left: 2.5rem;' : (headingTagName === 'h4' ? 'padding-left: 1.5rem;' : '');
       
-      // Unterschiedliche Schriftgrößen für H2/H3 und H4
-      // H2/H3 (z.B. "ZUR EINFÜHRUNG", "ERSTER BAND", "VORREDE ZUR NEU-AUFLAGE"): größere Schrift
-      // H4 (z.B. "I. Einleitung", "1. Ausgangspunkt"): kleinere Schrift
-      const fontSize = (level === 'h4' || level === 4) ? '0.9em' : '0.95em';
+      // H3 (Bände): größer; H4 (Kapitel): etwas kleiner; H5 (Unterkapitel, z.B. "6. Goethe, Newton..."): eingerückt
+      const fontSize = headingTagName === 'h5' ? '0.85em' : (headingTagName === 'h4' ? '0.9em' : '0.95em');
       
       // H3-Überschriften bekommen größeren Abstand davor (margin-top)
       // Bei Büchern ist H3 die Hauptebene (z.B. "VORREDE ZUR NEU-AUFLAGE")
@@ -10184,7 +10180,6 @@ async function showGALectures(gaNumber, skipHistory = false) {
   try {
     // Setze Ansicht auf 'volumes', da wir einen einzelnen GA-Band anzeigen
     currentGAView = 'volumes';
-    updateChronologicalButtonText();
     
     // WICHTIG: Deaktiviere Wandtafeln-Ansicht falls aktiv und stelle Scroll-Verhalten wieder her
     if (isChalkboardsViewActive) {
@@ -10199,6 +10194,7 @@ async function showGALectures(gaNumber, skipHistory = false) {
       removeChalkboardsYearButtons();
       hideChalkboardsButtons();
     }
+    updateChronologicalButtonText();
     
     // WICHTIG: Entferne auch WZ-Galerie-Elemente falls vorhanden
     const chalkboardsWrapper = document.getElementById('chalkboards-year-nav-wrapper');
@@ -11094,48 +11090,78 @@ if (typeof window !== 'undefined') {
   }
 }
 
-// Zeige GA-Bände Ansicht (Standard)
+// Zeige GA-Bände Ansicht (Standard, wie beim ersten Öffnen des GA-Tabs)
 function showGAVolumesView() {
   currentGAView = 'volumes';
-  
-  // Entferne Jahres-Buttons aus chronologischer Ansicht - MEHRFACH für maximale Robustheit
+  selectedGABandFilter = null;
+  selectedYearFilter = null;
+  chronologicalNavYear = null;
+  currentGANumber = null;
+
+  const gaBandDropdown = document.getElementById('ga-band-filter-dropdown');
+  if (gaBandDropdown) gaBandDropdown.value = '';
+  if (typeof gaBandFilterDropdown !== 'undefined' && gaBandFilterDropdown) {
+    gaBandFilterDropdown.setSelectedValue('');
+  }
+  const yearDropdown = document.getElementById('ga-year-filter-dropdown');
+  if (yearDropdown) yearDropdown.value = '';
+
+  if (typeof populateGABandFilterDropdown === 'function') {
+    populateGABandFilterDropdown(false);
+  }
+
   if (typeof removeChronologicalYearButtons === 'function') {
     removeChronologicalYearButtons();
-    } else {
-    const chronologicalNav = document.getElementById('chronological-year-nav');
-    if (chronologicalNav) {
-      chronologicalNav.remove();
-      }
   }
-  
-  // Entferne alte Jahres-Buttons aus anderen Ansichten
-  const oldButtonsContainer = document.querySelector('.ga-year-buttons-container');
-  if (oldButtonsContainer) {
-    oldButtonsContainer.remove();
-  }
-  
-  // Zusätzliche Prüfung nach kurzer Verzögerung
-  setTimeout(() => {
-    if (typeof removeChronologicalYearButtons === 'function') {
-      removeChronologicalYearButtons();
+
+  const chronologicalNav = document.getElementById('chronological-year-nav');
+  if (chronologicalNav) chronologicalNav.remove();
+  const chronologicalViewerContent = document.getElementById('chronological-viewer-content');
+  if (chronologicalViewerContent) chronologicalViewerContent.remove();
+  const wrapper = document.getElementById('chronological-year-nav-wrapper');
+  if (wrapper) {
+    if (typeof createViewerElement === 'function' && wrapper.parentNode) {
+      wrapper.parentNode.replaceChild(createViewerElement(), wrapper);
     } else {
-      const chronologicalNav2 = document.getElementById('chronological-year-nav');
-      if (chronologicalNav2) {
-        chronologicalNav2.remove();
-      }
+      wrapper.remove();
     }
-  }, 50);
-  
-  // Zeige GA-Bände Liste
+  }
+  const oldButtonsContainer = document.querySelector('.ga-year-buttons-container');
+  if (oldButtonsContainer) oldButtonsContainer.remove();
+
+  const mainElement = document.getElementById('main');
+  if (mainElement) {
+    mainElement.style.overflow = '';
+    mainElement.style.height = '';
+  }
+
   const viewer = document.getElementById('viewer');
-  viewer.innerHTML = '<div id="viewer-content"><p style="color: #666; font-style: italic;">Bitte wählen Sie einen GA-Band aus dem Menü "Texte".</p></div>';
-  
+  if (viewer) {
+    viewer.innerHTML = '<div id="viewer-content"><div style="color: var(--secondary-text); text-align: left; font-style: italic; font-size: 0.9rem;">Wählen Sie einen GA-Band aus der linken Liste aus.</div></div>';
+  }
+
   const titleElement = document.getElementById('document-title');
-  titleElement.textContent = 'Rudolf Steiner Gesamtausgabe';
-  
-  // Lösche Sidebar
-  const resultsContainer = document.getElementById('results');
-  resultsContainer.innerHTML = '';
+  if (titleElement) {
+    titleElement.textContent = 'GA-Bände Übersicht';
+  }
+
+  if (typeof updateButtonStates === 'function') {
+    updateButtonStates();
+  }
+  if (typeof updateChronologicalButtonText === 'function') {
+    updateChronologicalButtonText();
+  }
+
+  if (typeof loadGAVolumesInSidebar === 'function') {
+    loadGAVolumesInSidebar();
+  } else if (typeof displayGAVolumesInSidebar === 'function') {
+    displayGAVolumesInSidebar();
+  }
+
+  if (window.location.hash && window.location.hash.indexOf('view=chronological') !== -1) {
+    const baseUrl = window.location.pathname + '#ga';
+    history.replaceState({ tab: 'ga' }, '', baseUrl);
+  }
 }
 
 // Zeige chronologische Ansicht
@@ -12138,7 +12164,7 @@ function scrollToChronologicalYear(year) {
           if (!viewer || !mainContainer) return false;
           
           // Find the H2, H3 or H4 heading that matches (exakt wie TOC-Links)
-          const headings = viewer.querySelectorAll('h2, h3, h4');
+          const headings = viewer.querySelectorAll('h2, h3, h4, h5');
           let foundHeading = null;
           const searchText = targetText.trim();
           
@@ -20799,8 +20825,8 @@ function scrollToChronologicalYear(year) {
       }
       
       const tocList = document.getElementById('toc-list');
-      const viewerH4 = viewer.querySelectorAll('h4');
-      const tocH4 = tocList ? tocList.querySelectorAll('h4') : [];
+      const viewerH4 = viewer.querySelectorAll('h4, h5');
+      const tocH4 = tocList ? tocList.querySelectorAll('h4, h5') : [];
       
       // Schlagwörter-Container im Viewer finden
       const viewerKeywords = viewer.querySelector('.lecture-keywords-section');
@@ -21162,6 +21188,9 @@ setTimeout(() => {
     }
     removeChalkboardsYearButtons();
     hideChalkboardsButtons(); // Buttons verstecken
+    if (typeof updateChronologicalButtonText === 'function') {
+      updateChronologicalButtonText();
+    }
   }
   
   // Mitgliederbereich schließen wenn offen
@@ -21954,6 +21983,8 @@ function showSummaryView() {
         html += `<h3 id="heading-${idx}-${hIdx}" data-heading-index="${cleanHeadingIndex}" data-index="${headingIndex}" class="${hasTextEditClass}">${headingText}</h3>`;
       } else if (level === 'h4') {
         html += `<h4 id="heading-${idx}-${hIdx}" data-heading-index="${cleanHeadingIndex}" data-index="${headingIndex}" class="${hasTextEditClass}">${headingText}</h4>`;
+      } else if (level === 'h5' || level === 5) {
+        html += `<h5 id="heading-${idx}-${hIdx}" data-heading-index="${cleanHeadingIndex}" data-index="${headingIndex}" class="${hasTextEditClass}">${headingText}</h5>`;
       }
     });
     
@@ -26044,7 +26075,7 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
           if (!viewer || !mainContainer) return;
           
           // Find the H2, H3 or H4 heading that matches this TOC entry (case-insensitive)
-          const headings = viewer.querySelectorAll('h2, h3, h4');
+          const headings = viewer.querySelectorAll('h2, h3, h4, h5');
           let foundHeading = null;
           
           for (const heading of headings) {
@@ -26174,7 +26205,7 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
       
       // Für Briefe: H4 mit data-index werden automatisch gefunden (h2, h3, h4 Selector)
       // WICHTIG: Auch H2 einschließen für GA001 und andere Bände mit H2-Überschriften
-      const headings = viewer.querySelectorAll('h2, h3, h4');
+      const headings = viewer.querySelectorAll('h2, h3, h4, h5');
       tocList.innerHTML = '';
       
       let headingIndex = 0;
@@ -26213,7 +26244,7 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
         tocHeading.style.marginBottom = '0.3rem';
         
         // Wenn H4 und viewerH4Collapsed aktiv ist, verstecke das Element beim Erstellen
-        if (heading.tagName.toLowerCase() === 'h4' && viewerH4Collapsed) {
+        if ((heading.tagName.toLowerCase() === 'h4' || heading.tagName.toLowerCase() === 'h5') && viewerH4Collapsed) {
           tocHeading.classList.add('hidden');
           tocHeading.style.display = 'none';
         }
@@ -26233,6 +26264,10 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
           tocHeading.style.fontWeight = 'normal';
           tocHeading.style.fontSize = '0.8em';
           tocHeading.style.marginLeft = '1rem';
+        } else if (heading.tagName.toLowerCase() === 'h5') {
+          tocHeading.style.fontWeight = 'normal';
+          tocHeading.style.fontSize = '0.75em';
+          tocHeading.style.marginLeft = '1.75rem';
         }
         
         // Kein Hover-Effekt für TOC-Links (unterstreichen entfernt)
@@ -26245,7 +26280,7 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
           if (dataIndex) {
             // Suche die Überschrift (H2, H3 oder H4) mit diesem data-index im Viewer
             const cleanIndex = dataIndex.replace(/^\^/, '');
-            const targetHeading = viewer.querySelector(`h2[data-index="${dataIndex}"], h2[data-index="^${cleanIndex}"], h3[data-index="${dataIndex}"], h3[data-index="^${cleanIndex}"], h4[data-index="${dataIndex}"], h4[data-index="^${cleanIndex}"]`);
+            const targetHeading = viewer.querySelector(`h2[data-index="${dataIndex}"], h2[data-index="^${cleanIndex}"], h3[data-index="${dataIndex}"], h3[data-index="^${cleanIndex}"], h4[data-index="${dataIndex}"], h4[data-index="^${cleanIndex}"], h5[data-index="${dataIndex}"], h5[data-index="^${cleanIndex}"]`);
             
             if (targetHeading) {
               scrollViewerHeadingBelowViewportHeader(targetHeading, 'auto');
@@ -26381,7 +26416,7 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
         const activeHeadings = [];
         
         // Immer beide H3 und H4 berücksichtigen für die Aktivmarkierung
-        const visibleHeadings = Array.from(viewer.querySelectorAll('h2, h3, h4'));
+        const visibleHeadings = Array.from(viewer.querySelectorAll('h2, h3, h4, h5'));
         
         // Sammle alle Headings, die im sichtbaren Bereich sind
         visibleHeadings.forEach(heading => {
@@ -33721,7 +33756,7 @@ document.addEventListener('DOMContentLoaded', function() {
       let headingLectureId = null;
       
       // a) Element mit data-heading-index oder data-index direkt gefunden
-      const headingEl = ancestorEl.closest('[data-heading-index], h2[data-index], h3[data-index], h4[data-index]');
+      const headingEl = ancestorEl.closest('[data-heading-index], h2[data-index], h3[data-index], h4[data-index], h5[data-index]');
       if (headingEl) {
         headingIndex = headingEl.getAttribute('data-heading-index') || headingEl.getAttribute('data-index');
         headingLectureId = headingEl.getAttribute('data-lecture-id');
@@ -33735,7 +33770,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if (isInTOC && viewerEl) {
           // Prüfe ob der selektierte Text eine Überschrift im Viewer ist
           const normalizedSelected = selectedText.trim().toLowerCase();
-          const viewerHeadings = viewerEl.querySelectorAll('h2[data-heading-index], h3[data-heading-index], h4[data-heading-index], h2[data-index], h3[data-index], h4[data-index]');
+          const viewerHeadings = viewerEl.querySelectorAll('h2[data-heading-index], h3[data-heading-index], h4[data-heading-index], h5[data-heading-index], h2[data-index], h3[data-index], h4[data-index], h5[data-index]');
           for (const vh of viewerHeadings) {
             const vhText = vh.textContent.trim().toLowerCase();
             if (vhText === normalizedSelected || vhText.includes(normalizedSelected) || normalizedSelected.includes(vhText)) {
