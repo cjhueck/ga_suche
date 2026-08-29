@@ -476,7 +476,7 @@
         <div class="control-group">
             <label for="vortrag-select" id="vortrag-label">Vortrag:</label>
             <select id="vortrag-select" disabled>
-                <option value="">-- Wähle Vortrag --</option>
+                <option value="">-- Wahle Vortrag --</option>
             </select>
         </div>
         
@@ -509,7 +509,7 @@
                 <button onclick="searchLocalNext()">Weiter</button>
             </div>
             <div class="panel-content">
-                <textarea id="local-editor" placeholder="Wähle einen GA-Band und Vortrag aus..." spellcheck="false"></textarea>
+                <textarea id="local-editor" placeholder="Wahle einen GA-Band und Vortrag aus..." spellcheck="false"></textarea>
             </div>
         </div>
         
@@ -525,7 +525,7 @@
                 <button onclick="searchOnlineNext()">Weiter</button>
             </div>
             <div class="panel-content" id="online-content-wrapper">
-                <div id="online-content">Wähle einen GA-Band und Vortrag aus...</div>
+                <div id="online-content">Wahle einen GA-Band und Vortrag aus...</div>
             </div>
         </div>
         
@@ -735,7 +735,7 @@
                 }
                 
                 // Populate dropdown
-                vortragSelect.innerHTML = `<option value="">-- Wähle ${itemLabel} --</option>`;
+                vortragSelect.innerHTML = `<option value="">-- Wahle ${itemLabel} --</option>`;
                 localData.vortraege.forEach(v => {
                     const opt = document.createElement('option');
                     opt.value = v.filename;
@@ -757,7 +757,7 @@
                 // Nur leeren wenn kein Vortrag/Teil gewählt wurde
                 if (!vortragSelect.value) {
                     localEditor.value = '';
-                    onlineContent.textContent = `Wähle einen ${itemLabel} aus dem Dropdown...`;
+                    onlineContent.textContent = `Wahle einen ${itemLabel} aus dem Dropdown...`;
                     clearDiff();
                     pageMarkers = [];
                     renderPageMarkers();
