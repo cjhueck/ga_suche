@@ -5276,7 +5276,7 @@ async function r2RefreshFiles() {
             const typeLabel = r2PickMode === 'pdfviewer' ? 'PDF' : (r2PickMode === 'pdf' ? 'PDF' : 'MD');
             const targetLabel = r2PickMode === 'pdfviewer' ? 'den PDF-Viewer' : 'den Editor';
             html += `<div style="padding:6px 10px;background:rgba(59,130,246,0.08);font-size:0.8rem;color:var(--accent-color);border-bottom:1px solid var(--border-color);">
-                Wählen Sie eine ${typeLabel}-Datei für ${targetLabel}
+                Wahlen Sie eine ${typeLabel}-Datei für ${targetLabel}
                 <span onclick="r2PickMode=null;r2RefreshFiles();" style="float:right;cursor:pointer;font-weight:bold;" title="Abbrechen">✕</span>
             </div>`;
         }
