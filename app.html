@@ -5089,6 +5089,38 @@ body.dark-mode #thematic2-visualization-main svg .grid line {
       left: -0.5em;
       font-weight: normal;
     }
+
+    /* Abfrage-Ergebnisse (Essay, Entwicklung): echte Aufzählungspunkte, keine Anmerkungs-Sternchen */
+    #viewer .semantic-answer ul,
+    #viewer .answer-content ul {
+      list-style-type: disc !important;
+      padding-left: 1.5em !important;
+    }
+    #viewer .semantic-answer ul li::before,
+    #viewer .answer-content ul li::before {
+      content: none !important;
+      display: none !important;
+    }
+    #viewer h2.entwicklung-section-heading {
+      margin-top: 1.35rem !important;
+      margin-bottom: 0.85rem !important;
+    }
+    #viewer h2.entwicklung-section-heading:first-child {
+      margin-top: 0.35rem !important;
+    }
+    #viewer .entwicklung-section-summary {
+      font-style: italic;
+      margin: 0.2em 0 0.6em 0;
+    }
+    #viewer .entwicklung-weitere {
+      margin: 0.45em 0 1.1em 0;
+      font-size: 0.95em;
+      line-height: 1.7;
+    }
+    #viewer .entwicklung-weitere-label {
+      font-weight: 400;
+      margin-right: 0.35em;
+    }
     
     /* Sternchen-Marker (wird von JavaScript gesetzt) - für ein, zwei, drei oder mehr Sternchen */
     #viewer ul li .asterisk-marker {
@@ -8046,6 +8078,10 @@ body.local-mode #texte-select-all-label { display: inline-flex !important; }
     <label style="display: flex; align-items: center; gap: 3px; cursor: pointer; font-size: 0.85em;" title="Recherche: Sammelt möglichst viele Aussagen Steiners zum Thema als nach Themenbereichen gegliederte Tabelle; ähnliche Zwischenüberschriften werden zusammengefasst (Aussage | Zitat mit GA-Link | Jahr/Datum | Relevanz)">
       <input type="radio" name="thematicMode" value="recherche" onchange="updateRechercheControlsVisibility()" style="accent-color: var(--accent-color); width: 14px; height: 14px; cursor: pointer;">
       <span style="color: var(--text-color); font-weight: 500;">Recherche</span>
+    </label>
+      <label style="display: flex; align-items: center; gap: 3px; cursor: pointer; font-size: 0.85em;" title="Entwicklung: Chronologische Stichpunkte aus der Recherche – Überschriften nach Jahren/Themen, nur GA-Links, ohne Zitate und ohne Kommentar">
+      <input type="radio" name="thematicMode" value="entwicklung" onchange="updateRechercheControlsVisibility()" style="accent-color: var(--accent-color); width: 14px; height: 14px; cursor: pointer;">
+      <span style="color: var(--text-color); font-weight: 500;">Entwicklung</span>
     </label>
     <label id="thematic-header-internet-option" style="display: flex; align-items: center; gap: 3px; cursor: pointer; font-size: 0.85em;" title="Internet: Tiefe GA-Analyse mit ergänzender Recherche im öffentlichen Internet (Web-Quellen werden gesondert gekennzeichnet)">
       <input type="radio" name="thematicMode" value="internet" style="accent-color: var(--accent-color); width: 14px; height: 14px; cursor: pointer;">

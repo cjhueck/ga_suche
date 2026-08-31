@@ -5985,6 +5985,12 @@ async function generateAnalysis(query, results, depth = 'allgemein', preferredPr
       console.log(`[RECHERCHE] ${topResults.length} Quellen ans LLM (dynamische Kürzung nach Prompt-Budget)`);
     }
   }
+
+  if (thematicMode === 'entwicklung' && topResults.length > 0) {
+    const before = topResults.length;
+    topResults = diversifyResultsByYear(topResults, topResults.length);
+    console.log(`[ENTWICKLUNG] ${before} Quellen jahresverteilt (${buildEntwicklungYearOverview(topResults)})`);
+  }
   
   // Provider-spezifische Limits (Zeichen, ca. 4 Zeichen pro Token)
   const providerName = provider.name?.toLowerCase() || 'claude';
@@ -6025,7 +6031,7 @@ async function generateAnalysis(query, results, depth = 'allgemein', preferredPr
     // Höchstens so viele wie ursprünglich
     targetCount = Math.min(targetCount, topResults.length);
     
-    topResults = results.slice(0, targetCount);
+    topResults = topResults.slice(0, targetCount);
     testContextText = topResults
       .map((result, index) => {
         const refId = `${result.ID}:${result.index}`;
@@ -6036,7 +6042,7 @@ async function generateAnalysis(query, results, depth = 'allgemein', preferredPr
     // Falls immer noch zu lang, weiter reduzieren
     while (testContextText.length > MAX_PROMPT_CHARS && targetCount > 10) {
       targetCount = Math.floor(targetCount * 0.7);
-      topResults = results.slice(0, targetCount);
+      topResults = topResults.slice(0, targetCount);
       testContextText = topResults
         .map((result, index) => {
           const refId = `${result.ID}:${result.index}`;
@@ -6048,7 +6054,7 @@ async function generateAnalysis(query, results, depth = 'allgemein', preferredPr
     console.warn(`[LLM] Reduziert auf ${topResults.length} Ergebnisse (${testContextText.length} Zeichen)`);
   }
 
-  const contextText = topResults
+  let contextText = topResults
     .map((result, index) => {
       const refId = `${result.ID}:${result.index}`;
       const matchTag = result.expandedMatch ? ' [INDIREKT-EXPANSION]'
@@ -6059,8 +6065,23 @@ async function generateAnalysis(query, results, depth = 'allgemein', preferredPr
     .join('\n\n---\n\n');
     
   const directRefs = topResults.filter(r => !r.expandedMatch && !r.semanticMatch);
-  const availableRefs = topResults.map(r => `${r.ID}:${r.index}`).join(', ');
+  let availableRefs = topResults.map(r => `${r.ID}:${r.index}`).join(', ');
   const directRefIds = directRefs.map(r => `${r.ID}:${r.index}`).join(', ');
+  let entwicklungYearOverview = '';
+
+  if (thematicMode === 'entwicklung') {
+    topResults = [...topResults].sort((a, b) => {
+      const da = getResultYearDate(a).date || '9999';
+      const db = getResultYearDate(b).date || '9999';
+      return String(da).localeCompare(String(db));
+    });
+    contextText = topResults.map(formatEntwicklungPassage).join('\n\n---\n\n');
+    availableRefs = topResults.map((r) => {
+      const { date } = getResultYearDate(r);
+      return date ? `${r.ID}:${r.index} (${date})` : `${r.ID}:${r.index}`;
+    }).join(', ');
+    entwicklungYearOverview = buildEntwicklungYearOverview(topResults);
+  }
   
   
   const maxTokens = {
@@ -6069,6 +6090,7 @@ async function generateAnalysis(query, results, depth = 'allgemein', preferredPr
     'broad': 32000,  // Breite Sammlung: Gemini 2.5 Flash unterstützt bis 65k
     'quote': 6000,   // Zitatsuche: ein bis wenige Zitate mit kurzer Begründung
     'essay': 16000,  // Essay-Modus: Synthese + Belege, braucht Raum
+    'entwicklung': 16000,
     'recherche': (provider && (provider.name || '').toLowerCase() === 'gemini')
       ? (Number(process.env.RECHERCHE_MAX_TOKENS_GEMINI) || 65536)
       : (Number(process.env.RECHERCHE_MAX_TOKENS) || 16000),
@@ -6398,6 +6420,72 @@ TEXTPASSAGEN:
 ${contextText}
 
 ESSAY:`;
+  } else if (thematicMode === 'entwicklung') {
+    console.log(`[ANALYSIS] Modus: Entwicklung (chronologische Lehrentwicklung) - ${topResults.length} Quellen`);
+    prompt = `Du bist ein wissenschaftlich arbeitender Assistent zur chronologischen Erschließung von Rudolf Steiners Gesamtausgabe (GA). Deine Aufgabe ist es, zur folgenden Anfrage zu beschreiben, wie Steiner das Thema in der GA über die Jahre hinweg entfaltet: welche Motive wann auftreten, wo sich der Register ändert, und was spätere Formulierungen gegenüber früheren voraussetzen.
+
+ANFRAGE DES NUTZERS
+"${query}"
+
+JAHRESÜBERSICHT DER VORLIEGENDEN PASSAGEN
+${entwicklungYearOverview || '(keine Jahresangaben)'}
+
+AUFGABE
+Schreibe eine chronologische Entwicklungsdarstellung, keine systematische Querschnittssynthese und keine thematische Tabelle. Der Text soll zeigen, wie die Lehre sich bewegt – nicht, indem Du der Lehrgeschichte eine Metamorphose überstülpst, sondern indem Du an datierten Stellen nachweist, was sich ändert.
+
+QUELLENPFLICHT — KEINE ERFUNDENEN JAHRE, KEINE ERFUNDENEN ZITATE
+1. Jahreszahlen, Daten und Phasen nur aus den DATUM-Feldern der unten gelisteten Passagen. Wenn für ein Jahr keine Passage vorliegt, behaupte nicht, Steiner habe in diesem Jahr X gelehrt.
+2. Jede inhaltliche Zuschreibung an Steiner („1906 macht Karma zum Schlüssel…") braucht mindestens einen <beleg> aus einer Passage dieses Jahres bzw. Datums.
+3. Wörtliche Zitate nur aus GENAU EINER der gelisteten Passagen. Keine Paraphrase als Zitat. Keine Seitenzahlen erfinden.
+4. Anführungszeichen („…") nur für verifizierten Wortlaut. Treffer-Tags [INDIREKT-EXPANSION] / [INDIREKT-SEMANTISCH] sind erlaubt, bleiben aber belegpflichtig.
+5. Wenn die Quellenlage für eine Phase dünn ist: das sagen, nicht füllen.
+
+PHASENBILDUNG
+- Bilde Phasen nur, wo die Texte einen echten Wechsel zeigen (neues Motiv, anderes Register, anderer Adressatenkreis, neue Verknüpfung). Nicht jedes Kalenderjahr eine eigene Phase.
+- Eine Jahresüberschrift wie „1909" ist nur zulässig, wenn in den Passagen mindestens eine Stelle von 1909 das behauptete Motiv trägt.
+- Unterscheide: (a) neues Motiv, (b) dasselbe Motiv in neuem Zusammenhang, (c) Wiederholung. Nur (a) und (b) tragen eine Phase.
+- Interpretierende Periodisierung („Samenphase", „Umstülpung der Lehre") gehört in <deutung> und darf nicht als Steiner-Befund ausgegeben werden.
+- Übertrage Steiners Metamorphosenlehre (Pflanze, Kopf/Gliedmaßen, Inkarnation) NICHT auf die Geschichte seiner eigenen Lehre, es sei denn, eine vorliegende Passage sagt das ausdrücklich.
+
+MARKUP — GLEICHES SCHEMA WIE IM ESSAY-MODUS
+(1) <beleg id="GA###/lectureNum:index">…</beleg>
+   - Body enthält IMMER ein wörtliches Zitat in *„…"*.
+   - GENAU EINE id, exakt eine der verfügbaren Referenzen.
+   - Auslassungen mit […] nur innerhalb EINER Passage.
+   - Kurzer Vorspann (max. ein Halbsatz) vor dem Zitat ist erlaubt.
+(2) <deutung>…</deutung>
+   - Deine Stimme: Verknüpfung, Phasenübergang, Einordnung, was die Quellen NICHT hergeben.
+   - Keine unbelegte Steiner-Zuschreibung in <deutung>. Wenn der Satz die Form hat „Steiner lehrt 19xx X", muss ein <beleg> das tragen.
+
+KEINE VERBALEN ZUSCHREIBUNGEN
+Nicht „Steiner sagt/schreibt/hebt hervor". Die Quelle steht im Tag. Formuliere den Sachverhalt direkt, mit Datum wo nötig: „1909, zur Bewahrung höherer Wesensglieder: *„…"*"
+
+ABSOLUTE WORTTREUE
+Innerhalb von „…" den Wortlaut nicht ändern: keine Klammereinschübe [hat]/[ist], keine Modernisierung. Nur […] und Anpassung der Großschreibung am Zitatanfang.
+
+STRUKTUR
+- Kurzer Eröffnungsabschnitt (<deutung>): welcher Zug der Lehre sich in den vorliegenden Stellen tatsächlich verschiebt. Kein „Im Folgenden…".
+- Danach Phasen als Markdown-Überschriften ##, die Jahre oder Jahresspannen nennen, z. B. „## 1904–1905: Individualität und Schicksal". Die Abschnitte folgen der Zeit, nicht der Systematik.
+- Innerhalb der Phase: fließende Prosa, wenige tragende Zitate, verbunden durch <deutung>. Kein Zitat-Stakkato.
+- Am Ende ## Ertrag: was sich nachweislich entfaltet hat; was nur Deutung ist; welche Jahre in der vorliegenden Quellenlage fehlen.
+
+STIL
+- Nüchtern, argumentativ, ohne Superlative und ohne rhetorische Fragen.
+- Keine Bullet-Listen für die Argumentation.
+- Überschriften benennen Inhalt und Zeit, nicht den Methodenschritt.
+
+VERFÜGBARE REFERENZEN
+${availableRefs}
+
+DIREKTE KEYWORD-TREFFER (bevorzugt für <beleg>):
+${directRefIds}
+
+Anzahl Textpassagen: ${topResults.length}
+
+TEXTPASSAGEN (chronologisch, mit Datum in Klammern):
+${contextText}
+
+ENTWICKLUNGSANALYSE:`;
   } else if (thematicMode === 'recherche') {
     // RECHERCHE-MODUS: Claude - sammelt moeglichst viele Aussagen Steiners zum Thema
     // und gibt sie als strukturiertes JSON aus (Unterthemen mit Zeilen), das das
@@ -6450,7 +6538,9 @@ INHALTLICHE REGELN
     group "Steiners Kritik und Gegenposition" → Grundfehler, Siegellack, Monismus, reines Denken
     group "Kant und Goethe" → Naturanschauung, anschauende Urteilskraft, organische Natur (alle Goethe-Bloecke hier)
 - Typisch 5–7 themeGroups, nicht 12–20. Pruefe vor jedem neuen Bereich, ob er in einen bestehenden gehoert. Lieber 6–14 substanzielle Zwischenueberschriften als 25 Aehnliche.
-- Sammle BREIT: moeglichst viele inhaltlich UNTERSCHIEDLICHE Aussagen. Keine Redundanzen (gleiche Aussage nicht mehrfach).
+- Sammle BREIT: moeglichst viele inhaltlich UNTERSCHIEDLICHE Aussagen. Keine Redundanzen (gleiche allgemeine Lehre nicht mehrfach).
+- Konkrete Einzelfaelle, Namensbeispiele und individuelle Reihen sind EIGENE Aussagen, keine Wiederholung der allgemeinen Karma- oder Reinkarnationslehre. Wenn eine Passage historische Personen oder wiederholte Erdenleben bestimmter Gestalten nennt (typisch in den Karmavortraegen 1924), MUSS jede solche Reihe eine eigene Zeile werden (Kurzform: Namen und Zuordnung der Leben). Nicht zu "Karma wirkt durch Wiederverkoerperung" zusammenziehen.
+- KEINE bibliographischen Angaben und KEINE redaktionellen Ankuendigungen: nicht extrahieren, wann oder wo eine Schrift erschienen ist (Einzelschrift, Luzifer-Gnosis als Sammelband, Bibl.-Nr., spaetere Erwaehnung eines frueheren Titels in Konferenzen oder Literaturlisten); auch keine Folgeaufsatz-Ankuendigungen, Fortsetzungshinweise oder Hinweise auf die naechste Nummer. Nur inhaltliche Lehr-Aussagen zum angefragten Thema.
 - "aussage": TELEGRAMMARTIG kurz – eine verdichtete Schlagzeile aus Stichworten, KEIN vollstaendiger Satz, KEIN Subjekt-Praedikat-Bau, keine Wendungen wie "Steiner sagt/meint", keine Fuellwoerter ("dass", "weil", "waehrend", "man koenne"). Oft hilfreich: ein Doppelpunkt, der Bezug und Kern trennt. Der ausfuehrliche Inhalt steht im Zitat, NICHT in der Aussage.
   Gegenbeispiele (so NICHT) und richtige Kurzform (so):
     FALSCH: "Goethe widersprach Kant aus seiner persoenlichen Seelenerfahrung, dass man durch anschauende Urteilskraft sich wirklich in die geistige Welt erheben koenne."
@@ -6725,13 +6815,15 @@ ${noWebSection}`;
   const effectiveMaxTokens = thematicMode === 'broad' ? maxTokens['broad']
                             : thematicMode === 'quote' ? maxTokens['quote']
                             : thematicMode === 'essay' ? maxTokens['essay']
+                            : thematicMode === 'entwicklung' ? maxTokens['entwicklung']
                             : thematicMode === 'recherche' ? maxTokens['recherche']
                             : thematicMode === 'chat' || (thematicMode === 'internet' && chatMode) ? maxTokens['chat']
                             : maxTokens['ausführlich'];
 
   // Modell pro Modus aus .env (mit sinnvollen Defaults).
   // Chat/Konversation + Tiefe/Internet -> Sonnet 4.6 (schnell, kosteneffizient),
-  // Essay/Recherche -> Opus 4.8 (tiefe Synthese), Zitat -> Sonnet 4.6 mit Opus-Eskalation,
+  // Essay/Entwicklung -> Opus 4.8 (tiefe Synthese), Recherche -> Sonnet 4.6,
+  // Zitat -> Sonnet 4.6 mit Opus-Eskalation,
   // Breite -> Gemini 2.5 Pro (großer Kontext).
   const providerNameLower = (provider.name || '').toLowerCase();
   const hasConversation = Array.isArray(conversationHistory) && conversationHistory.length > 0;
@@ -6745,7 +6837,7 @@ ${noWebSection}`;
   if (providerNameLower === 'claude') {
     if (thematicMode === 'recherche') {
       modelForMode = rechercheModel;
-    } else if (thematicMode === 'essay') {
+    } else if (thematicMode === 'essay' || thematicMode === 'entwicklung') {
       modelForMode = synthesisModel;
     } else if (thematicMode === 'quote') {
       modelForMode = quoteModel;
@@ -6772,6 +6864,7 @@ ${noWebSection}`;
     // ClaudeProvider transparent gehandhabt.
     const effectiveTemperature = thematicMode === 'quote' ? 0.1
                                : thematicMode === 'recherche' ? 0.2
+                               : thematicMode === 'entwicklung' ? 0.3
                                : 0.7;
     const baseCallOptions = {
       maxTokens: effectiveMaxTokens,
@@ -6856,7 +6949,7 @@ ${noWebSection}`;
 
     // Im Essay-Modus: <beleg>/<deutung>-Tags in HTML transformieren,
     // ID-Validität gegen den Quellenpool prüfen, Zitat-Drift markieren.
-    if (thematicMode === 'essay') {
+    if (thematicMode === 'essay' || thematicMode === 'entwicklung') {
       const essayResult = transformEssayMarkup(analysisText, topResults);
       analysisText = essayResult.text;
       const s = essayResult.stats;
@@ -7112,6 +7205,9 @@ function buildThematicCacheDepth(thematicMode, sourceType, themeArea, fallbackDe
   if (thematicMode === 'recherche') {
     return `recherche:v4:${sourceType}:${themeSeg}`;
   }
+  if (thematicMode === 'entwicklung') {
+    return `entwicklung:v13:${sourceType}:${themeSeg}`;
+  }
   if (thematicMode !== 'chat' && (sourceType !== 'alle' || (themeArea && themeArea !== 'alle'))) {
     return `${thematicMode}:${sourceType}:${themeSeg}`;
   }
@@ -7137,19 +7233,855 @@ function countRechercheRows(rechercheData) {
   return rechercheData.subThemes.reduce((n, st) => n + ((st.rows && st.rows.length) || 0), 0);
 }
 
+function isEntwicklungBibliographicRow(r) {
+  const blob = [r.aussage, r.zitat, r.theme, r.title]
+    .map((s) => String(s || ''))
+    .join('\n');
+  const t = blob
+    .toLowerCase()
+    .replace(/ä/g, 'ae').replace(/ö/g, 'oe').replace(/ü/g, 'ue').replace(/ß/g, 'ss');
+  if (/einzelschrift/.test(t)) return true;
+  if (/bibl\.?\s*-?\s*nr/.test(t)) return true;
+  if (/erschienen\s+(als|in)/.test(t)) return true;
+  if (/luzifer-gnosis/.test(t) && /erschienen|einzelschrift|1903\s*[-–]\s*1908|sammelband|bibl/.test(t)) return true;
+  if (/grundlegende aufsaetze/.test(t)) return true;
+  if (/ga dornach 19\d{2}/.test(t)) return true;
+  if (/dornach 19(?:6|7|8|9)\d/.test(t)) return true;
+  if (/konferenzen mit den lehrern/.test(t)) return true;
+  if (/schrift\s+['„"'].{8,80}['“"'].{0,40}erschienen/.test(t)) return true;
+  if (/1903/.test(t) && /1909/.test(t) && /luzifer-gnosis|einzelschrift/.test(t)) return true;
+  if (/folgeaufsatz/.test(t)) return true;
+  if (/fortsetzung folgt/.test(t)) return true;
+  if (/in der naechsten (nummer|folge)/.test(t)) return true;
+  if (/(naechster|folgenden?)\s+aufsatz/.test(t)) return true;
+  if (/aufsatz.{0,50}angekuendigt/.test(t) || /angekuendigt.{0,50}(aufsatz|folge|nummer|schrift)/.test(t)) return true;
+  const workTitle = /reinkarnation und karma[:.,]?\s*vom standpunkt/.test(t)
+    || /vom standpunkt[e]?\s+(der\s+)?modern(?:en|er)\s+naturwissenschaft notwendige vorstellungen/.test(t);
+  if (workTitle) {
+    const id = String(r.id || r.ref || '');
+    if (!/^GA0*34\b/i.test(id)) return true;
+  }
+  return false;
+}
+
+function normalizeEntwicklungText(s) {
+  return String(s || '')
+    .toLowerCase()
+    .replace(/ä/g, 'ae').replace(/ö/g, 'oe').replace(/ü/g, 'ue').replace(/ß/g, 'ss');
+}
+
+function queryLooksLikeKarmaReinkarnation(query) {
+  const t = normalizeEntwicklungText(query);
+  return /reinkarnation|wiederverkoerper|wiedergeburt|karmisch|\bkarma\b/.test(t);
+}
+
+function queryLooksLikeZwischenTodGeburt(query) {
+  const t = normalizeEntwicklungText(query);
+  return /zwischen tod und geburt|kamaloka|leben nach dem tod|verstorben/.test(t);
+}
+
+function isZwischenTodGeburtTerm(term) {
+  const t = normalizeEntwicklungText(term);
+  return /zwischen tod|kamaloka|verstorben|nach dem tod|seelenwelt nach dem|leben nach dem tode/.test(t);
+}
+
+function isKarmaResearchLectureId(id) {
+  const m = String(id || '').match(/^GA0*(\d{1,3})/i);
+  if (!m) return false;
+  const n = parseInt(m[1], 10);
+  return n >= 235 && n <= 240;
+}
+
+function isEntwicklungOffTopicRow(r, query) {
+  const blob = [r.aussage, r.zitat, r.theme, r.title]
+    .map((s) => String(s || ''))
+    .join('\n');
+  const t = normalizeEntwicklungText(blob);
+  const q = normalizeEntwicklungText(query);
+  if (/verstorben(?:e|en)\s+freundin/.test(t) && !/freundin/.test(q)) return true;
+  if (queryLooksLikeZwischenTodGeburt(query)) return false;
+  if (!queryLooksLikeKarmaReinkarnation(query)) return false;
+  if (/leben zwischen tod/.test(t) || /zwischen tod und geburt/.test(t)) return true;
+  if (/kamaloka/.test(t) && !/wiederverkoerper|reinkarnation|erdenleben/.test(t)) return true;
+  return false;
+}
+
+function extractKarmaSeriesNames(content) {
+  const found = [];
+  const seen = new Set();
+  const stop = new Set([
+    'sehen', 'diese', 'dieser', 'dieses', 'diese', 'meine', 'liebe', 'freunde', 'wenn', 'aber',
+    'also', 'dann', 'durch', 'nach', 'eine', 'einer', 'einem', 'einen', 'eines', 'solche',
+    'solcher', 'nun', 'alles', 'alle', 'allem', 'mensch', 'menschen', 'seele', 'karma',
+    'inkarnation', 'inkarnationen', 'erdenleben', 'individualitaet', 'individualitaeten',
+    'vortrag', 'vortraege', 'heute', 'hier', 'dort', 'damit', 'dazu', 'leben', 'welt',
+    'geist', 'wesen', 'zeit', 'jahr', 'jahre', 'jahrhundert', 'mysterium', 'golgatha',
+    'anthroposophie', 'christus', 'christentum', 'europa', 'orient', 'insbesondere',
+    'persoenlichkeit', 'persoenlichkeiten', 'seele', 'seelen', 'weisheit', 'bildung'
+  ]);
+  const push = (raw) => {
+    const t = String(raw || '').replace(/\s+/g, ' ').replace(/[,.;:!?()]+$/g, '').trim();
+    if (t.length < 4 || t.length > 55) return;
+    const first = t.split(/\s+/)[0].toLowerCase().replace(/ä/g, 'ae').replace(/ö/g, 'oe').replace(/ü/g, 'ue').replace(/ß/g, 'ss');
+    if (stop.has(first)) return;
+    const k = t.toLowerCase();
+    if (seen.has(k)) return;
+    seen.add(k);
+    found.push(t);
+  };
+  const multi = content.match(/\b[A-ZÄÖÜ][a-zäöüßéèê]+(?:\s+(?:al|von|de|van|der|des)\s+[A-ZÄÖÜ][a-zäöüßéèê]+|\s+[A-ZÄÖÜ][a-zäöüßéèê]{2,})+\b/g) || [];
+  multi.forEach(push);
+  const reincAs = content.match(/(?:wiedererscheint|wiederverk[öo]rpert|verk[öo]rpert)\s+(?:in|als)\s+([A-ZÄÖÜ][A-Za-zÄÖÜäöüßéèê\-]+(?:\s+(?:al|von|de|van|der|des)\s+[A-ZÄÖÜ][A-Za-zäöüßéèê]+|\s+[A-ZÄÖÜ][a-zäöüßéèê]+){0,3})/g) || [];
+  reincAs.forEach((m) => {
+    const name = m.replace(/^(?:wiedererscheint|wiederverk[öo]rpert|verk[öo]rpert)\s+(?:in|als)\s+/i, '');
+    push(name);
+  });
+  return found;
+}
+
+function karmaSeriesParagraphScore(content) {
+  const n = normalizeEntwicklungText(content);
+  let s = 0;
+  if (/wiedererschein/.test(n)) s += 6;
+  if (/wiederverkoerper/.test(n)) s += 6;
+  if (/inkarnation/.test(n)) s += 1;
+  const names = extractKarmaSeriesNames(content);
+  s += names.length * 2;
+  return { score: s, names };
+}
+
+function injectKarmaResearchPassages(keywordResults, paragraphs, gaFilter) {
+  if (!Array.isArray(keywordResults) || !Array.isArray(paragraphs)) return 0;
+  let gaFilters = [];
+  if (Array.isArray(gaFilter)) gaFilters = gaFilter.map((s) => String(s).trim()).filter(Boolean);
+  else if (typeof gaFilter === 'string' && gaFilter.trim()) gaFilters = gaFilter.split(',').map((s) => s.trim()).filter(Boolean);
+  const existing = new Set(keywordResults.map((r) => `${r.ID}:${r.index}`));
+  const marker = /karma|inkarnation|erdenleben|verkoerper|wiederverkoerper|frueheren leben|vorleben|wiedererschein/i;
+  const candidates = [];
+  for (const p of paragraphs) {
+    if (!isKarmaResearchLectureId(p.ID)) continue;
+    if (gaFilters.length > 0 && !gaFilters.some((f) => p.ID && p.ID.startsWith(f))) continue;
+    if (existing.has(`${p.ID}:${p.index}`)) continue;
+    const content = p.content || '';
+    if (content.length < 80) continue;
+    if (!marker.test(content) && !marker.test(normalizeEntwicklungText(content))) continue;
+    const { score } = karmaSeriesParagraphScore(content);
+    candidates.push({ p, score: score || content.length / 2000 });
+  }
+  candidates.sort((a, b) => b.score - a.score);
+  let added = 0;
+  for (const { p } of candidates.slice(0, 50)) {
+    keywordResults.push({
+      ...p,
+      keywordScore: 80,
+      matchedTerms: ['[karmavortrag-1924]'],
+      karmaResearchHit: true
+    });
+    existing.add(`${p.ID}:${p.index}`);
+    added += 1;
+  }
+  return added;
+}
+
+function extractKarmaSeriesRows(paragraphs, gaFilter) {
+  let gaFilters = [];
+  if (Array.isArray(gaFilter)) gaFilters = gaFilter.map((s) => String(s).trim()).filter(Boolean);
+  else if (typeof gaFilter === 'string' && gaFilter.trim()) gaFilters = gaFilter.split(',').map((s) => s.trim()).filter(Boolean);
+  const scored = [];
+  for (const p of paragraphs || []) {
+    if (!isKarmaResearchLectureId(p.ID)) continue;
+    if (gaFilters.length > 0 && !gaFilters.some((f) => p.ID && p.ID.startsWith(f))) continue;
+    const content = p.content || '';
+    if (content.length < 80) continue;
+    const { score, names } = karmaSeriesParagraphScore(content);
+    if (score < 6 || names.length < 1) continue;
+    if (names.length < 2 && !/wiedererschein|wiederverkoerper/.test(normalizeEntwicklungText(content))) continue;
+    scored.push({ p, score, names });
+  }
+  scored.sort((a, b) => b.score - a.score);
+  const rows = [];
+  const seenNames = new Set();
+  const perLecture = new Map();
+  for (const { p, names } of scored) {
+    const nameKey = names.slice(0, 4).join('|').toLowerCase();
+    if (seenNames.has(nameKey)) continue;
+    const lecCount = perLecture.get(p.ID) || 0;
+    if (lecCount >= 2) continue;
+    const excerpt = String(p.content || '').replace(/\s+/g, ' ').replace(/\|?\d+\|/g, ' ').trim();
+    const zitat = excerpt.length > 480 ? `${excerpt.slice(0, 460).replace(/\s+\S*$/, '')} […]` : excerpt;
+    const dateInfo = getResultYearDate(p);
+    const index = String(p.index || '').replace(/^\^/, '');
+    rows.push({
+      aussage: `Karmische Reihe: ${names.slice(0, 4).join(' – ')}`,
+      zitat,
+      ref: `${p.ID}:${index}`,
+      id: p.ID,
+      index,
+      year: dateInfo.year || '1924',
+      date: dateInfo.date || '1924',
+      theme: 'Individuelle karmische Reihen',
+      relevance: 'hoch',
+      title: p.title || ''
+    });
+    seenNames.add(nameKey);
+    perLecture.set(p.ID, lecCount + 1);
+    if (rows.length >= 18) break;
+  }
+  return rows;
+}
+
+function mergeKarmaSeriesRows(chronoRows, seriesRows) {
+  const out = Array.isArray(chronoRows) ? [...chronoRows] : [];
+  const keys = new Set(out.map((r) => `${r.id}:${r.index}`));
+  for (const s of seriesRows || []) {
+    if (keys.has(`${s.id}:${s.index}`)) continue;
+    out.push(s);
+    keys.add(`${s.id}:${s.index}`);
+  }
+  return out;
+}
+
+function boostKarmaResearchScores(results) {
+  for (const r of results || []) {
+    if (!isKarmaResearchLectureId(r.ID)) continue;
+    r.finalScore = (r.finalScore || 0) + 1000;
+    r.karmaResearchHit = true;
+  }
+  return results;
+}
+
+function ensureKarmaResearchCoverage(topResults, rankedResults, minCount = 20) {
+  const have = (topResults || []).filter((r) => isKarmaResearchLectureId(r.ID));
+  if (have.length >= minCount) return topResults;
+  const haveKeys = new Set((topResults || []).map((r) => `${r.ID}:${r.index}`));
+  const extra = (rankedResults || []).filter((r) => isKarmaResearchLectureId(r.ID) && !haveKeys.has(`${r.ID}:${r.index}`));
+  const add = extra.slice(0, minCount - have.length);
+  if (add.length === 0) return topResults;
+  const replaceable = topResults
+    .map((r, i) => ({ r, i }))
+    .filter((x) => !isKarmaResearchLectureId(x.r.ID))
+    .sort((a, b) => (a.r.finalScore || 0) - (b.r.finalScore || 0));
+  const next = [...topResults];
+  for (let k = 0; k < add.length && k < replaceable.length; k++) {
+    next[replaceable[k].i] = { ...add[k], finalScore: (add[k].finalScore || 0) + 1000, karmaResearchHit: true };
+  }
+  return next;
+}
+
+function flattenRechercheRowsChronological(rechercheData, query = '') {
+  const seen = new Set();
+  const rows = [];
+  for (const st of (rechercheData && rechercheData.subThemes) || []) {
+    for (const r of st.rows || []) {
+      const key = r.ref || `${r.id}:${r.index}`;
+      if (!key || seen.has(key)) continue;
+      seen.add(key);
+      const row = { ...r, theme: st.title || '' };
+      if (isEntwicklungBibliographicRow(row)) continue;
+      if (isEntwicklungOffTopicRow(row, query)) continue;
+      rows.push(row);
+    }
+  }
+  rows.sort((a, b) => {
+    const ya = a.year || 9999;
+    const yb = b.year || 9999;
+    if (ya !== yb) return ya - yb;
+    const da = String(a.date || '');
+    const db = String(b.date || '');
+    if (da && db && da !== db) return da.localeCompare(db);
+    return String(a.ref || '').localeCompare(String(b.ref || ''));
+  });
+  return rows;
+}
+
+function diversifyChronoRowsByYear(rows, maxRows) {
+  if (!Array.isArray(rows) || rows.length <= maxRows) return rows || [];
+  const byYear = new Map();
+  for (const r of rows) {
+    const y = r.year || 0;
+    if (!byYear.has(y)) byYear.set(y, []);
+    byYear.get(y).push(r);
+  }
+  const years = [...byYear.keys()].sort((a, b) => a - b);
+  const out = [];
+  let i = 0;
+  while (out.length < maxRows) {
+    let added = false;
+    for (const y of years) {
+      const bucket = byYear.get(y);
+      if (i < bucket.length) {
+        out.push(bucket[i]);
+        added = true;
+        if (out.length >= maxRows) break;
+      }
+    }
+    if (!added) break;
+    i++;
+  }
+  return flattenRechercheRowsChronological({ subThemes: [{ title: '', rows: out }] });
+}
+
+function selectChronoRowsForEntwicklung(rows, maxRows = 200) {
+  if (!Array.isArray(rows) || rows.length <= maxRows) return rows || [];
+  const high = rows.filter((r) => r.relevance === 'hoch');
+  const rest = rows.filter((r) => r.relevance !== 'hoch');
+  const pool = high.length >= Math.min(20, maxRows) ? [...high, ...rest] : rows;
+  return diversifyChronoRowsByYear(pool, maxRows);
+}
+
+function cleanEntwicklungAussage(s) {
+  return String(s || '')
+    .replace(/^[\s*•\-–—]+/, '')
+    .replace(/\s+/g, ' ')
+    .replace(/[„""][^„""]{0,400}[""]/g, '')
+    .trim();
+}
+
+function dominantEntwicklungTheme(rows) {
+  const counts = new Map();
+  for (const r of rows || []) {
+    const t = String(r.theme || '').trim();
+    if (!t) continue;
+    counts.set(t, (counts.get(t) || 0) + 1);
+  }
+  let best = '';
+  let n = 0;
+  counts.forEach((c, t) => {
+    if (c > n) { n = c; best = t; }
+  });
+  return best;
+}
+
+function groupChronoRowsIntoSections(rows) {
+  const byYear = new Map();
+  for (const r of rows || []) {
+    const y = r.year ? Number(r.year) : 0;
+    const key = y || 'ohne Jahr';
+    if (!byYear.has(key)) byYear.set(key, []);
+    byYear.get(key).push(r);
+  }
+  const years = [...byYear.keys()].sort((a, b) => {
+    if (a === 'ohne Jahr') return 1;
+    if (b === 'ohne Jahr') return -1;
+    return a - b;
+  });
+  const sections = [];
+  for (const y of years) {
+    const yRows = byYear.get(y);
+    const theme = dominantEntwicklungTheme(yRows);
+    const last = sections[sections.length - 1];
+    const yNum = y === 'ohne Jahr' ? null : y;
+    const lastNum = last && last.endYear !== 'ohne Jahr' ? Number(last.endYear) : null;
+    const consecutive = last && yNum && lastNum && yNum > lastNum && (yNum - lastNum) <= 3 && last.theme && theme && last.theme === theme;
+    if (consecutive) {
+      last.endYear = y;
+      last.rows.push(...yRows);
+    } else {
+      sections.push({ startYear: y, endYear: y, theme, rows: yRows });
+    }
+  }
+  return sections;
+}
+
+function escapeEntwicklungAttr(s) {
+  return String(s)
+    .replace(/&/g, '&amp;')
+    .replace(/"/g, '&quot;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;');
+}
+
+function uniqueEntwicklungThemes(sec) {
+  const seen = new Set();
+  const out = [];
+  for (const r of sec.rows || []) {
+    const t = String(r.theme || '').trim();
+    if (!t) continue;
+    const k = t.toLowerCase();
+    if (seen.has(k)) continue;
+    seen.add(k);
+    out.push(t);
+  }
+  return out;
+}
+
+function buildEntwicklungSectionHeading(sec) {
+  const yearLabel = sec.startYear === sec.endYear
+    ? String(sec.startYear)
+    : `${sec.startYear}–${sec.endYear}`;
+  return sec.theme ? `${yearLabel}: ${sec.theme}` : yearLabel;
+}
+
+function fallbackEntwicklungSectionSummary(sec, query, index, total) {
+  const themes = uniqueEntwicklungThemes(sec);
+  const yearLabel = sec.startYear === sec.endYear
+    ? String(sec.startYear)
+    : `${sec.startYear}–${sec.endYear}`;
+  if (themes.length === 0) return '';
+  if (total <= 1) return `Im Werk: ${themes[0]}.`;
+  if (index === 0) return `Einsatz der Lehre: ${themes.join(', ')}.`;
+  if (index === total - 1) return `Späte Verdichtung: ${themes.join(', ')}.`;
+  return `${yearLabel} im Verlauf: ${themes.join(', ')}.`;
+}
+
+async function generateEntwicklungSectionSummaries(query, sections) {
+  if (!sections || sections.length === 0) return [];
+  const phaseLines = sections.map((sec, i) => {
+    const heading = buildEntwicklungSectionHeading(sec);
+    const themes = uniqueEntwicklungThemes(sec);
+    return `${i + 1}. ${heading}\n   Themen: ${themes.join('; ') || '(ohne Unterthema)'}`;
+  }).join('\n');
+  const prompt = `Die Anfrage lautet: "${query}"
+
+Unten die chronologischen Phasen, in denen Steiner dieses Thema in der GA entfaltet. Schreibe für JEDE Phase EINEN kurzen Satz (höchstens 28 Wörter).
+
+Der Satz soll das Thema oder die Themen dieser Phase zusammenfassend beschreiben — und zwar im Hinblick auf die Entwicklung des angefragten Gegenstands im gesamten Werk (was hier neu einsetzt, sich verschiebt oder verdichtet). Nicht die Einzelaussagen aufzählen, nicht zitieren, keine Stichpunkt-Wiederholung, keine Floskeln wie „Im Folgenden".
+
+Ausgabe: ausschließlich JSON, gleiche Reihenfolge und Anzahl wie die Phasen:
+{"summaries":["Satz zur Phase 1","Satz zur Phase 2"]}
+
+PHASEN
+${phaseLines}
+
+JSON:`;
+
+  try {
+    const { createProvider } = require('./llm-providers');
+    let provider;
+    try {
+      provider = createProvider('claude');
+      if (!provider.isAvailable()) provider = getProviderForTask('analysis');
+    } catch (err) {
+      return [];
+    }
+    const model = process.env.CLAUDE_MODEL_RECHERCHE || 'claude-sonnet-4-6';
+    let text;
+    try {
+      if ((provider.name || '').toLowerCase() === 'claude' && isProviderRateLimited('claude')) {
+        throw new Error('rate-limited');
+      }
+      text = await provider.generateCompletion(prompt, { maxTokens: 2500, temperature: 0.2, model });
+    } catch (primaryErr) {
+      const fallbackResult = await generateCompletionWithFallback(prompt, { maxTokens: 2500, temperature: 0.2 }, 'analysis');
+      text = fallbackResult && fallbackResult.text;
+    }
+    if (!text) return [];
+    const cleaned = String(text).replace(/^```(?:json)?\s*/i, '').replace(/\s*```$/i, '').trim();
+    const start = cleaned.indexOf('{');
+    const end = cleaned.lastIndexOf('}');
+    const parsed = JSON.parse(start >= 0 ? cleaned.slice(start, end + 1) : cleaned);
+    const arr = Array.isArray(parsed.summaries) ? parsed.summaries : [];
+    return sections.map((sec, i) => {
+      const s = String(arr[i] || '').replace(/\s+/g, ' ').trim();
+      return s || fallbackEntwicklungSectionSummary(sec, query, i, sections.length);
+    });
+  } catch (err) {
+    console.warn(`[ENTWICKLUNG] Abschnittszusammenfassungen fehlgeschlagen (${err.message})`);
+    return sections.map((sec, i) => fallbackEntwicklungSectionSummary(sec, query, i, sections.length));
+  }
+}
+
+function buildEntwicklungGaLink(r) {
+  const lectureId = r.id || '';
+  const paragraphIndex = String(r.index || '').replace(/^\^/, '');
+  if (!lectureId || !paragraphIndex) return '';
+  const zitat = String(r.zitat || '').replace(/\s+/g, ' ').trim();
+  const esc = escapeEntwicklungAttr;
+  const quoteAttr = zitat ? ` data-quote="${esc(zitat)}"` : '';
+  return `(<a href="#" class="ga-reference recherche-ga-link" data-id="${esc(lectureId)}" data-index="${esc(paragraphIndex)}"${quoteAttr}>${esc(lectureId)}</a>)`;
+}
+
+function stretchEntwicklungSectionYears(sections) {
+  for (let i = 0; i < (sections || []).length - 1; i++) {
+    const cur = sections[i];
+    const next = sections[i + 1];
+    const curEnd = cur.endYear === 'ohne Jahr' ? null : Number(cur.endYear);
+    const nextStart = next.startYear === 'ohne Jahr' ? null : Number(next.startYear);
+    if (curEnd && nextStart && nextStart > curEnd + 1) {
+      cur.endYear = nextStart - 1;
+    }
+  }
+  return sections;
+}
+
+function asEntwicklungLinkRef(r) {
+  const id = r.id || r.ID || '';
+  const index = String(r.index || '').replace(/^\^/, '');
+  const fromRow = r.year ? { year: String(r.year), date: r.date || '' } : getResultYearDate(r);
+  return {
+    id,
+    index,
+    year: String(fromRow.year || r.year || ''),
+    date: fromRow.date || r.date || '',
+    zitat: String(r.zitat || r.content || '').replace(/\s+/g, ' ').trim()
+  };
+}
+
+function attachEntwicklungWeitere(sections, extraSources) {
+  const usedIds = new Set();
+  for (const sec of sections || []) {
+    for (const r of sec.rows || []) {
+      if (r.id) usedIds.add(r.id);
+    }
+  }
+  const extras = (extraSources || [])
+    .map(asEntwicklungLinkRef)
+    .filter((x) => x.id && x.index && !usedIds.has(x.id))
+    .sort((a, b) => {
+      const ya = a.year || '9999';
+      const yb = b.year || '9999';
+      if (ya !== yb) return ya.localeCompare(yb);
+      return String(a.id).localeCompare(String(b.id));
+    });
+  const seenExtra = new Set();
+  for (const sec of sections || []) {
+    const start = sec.startYear === 'ohne Jahr' ? 0 : Number(sec.startYear);
+    const end = sec.endYear === 'ohne Jahr' ? start : Number(sec.endYear);
+    const links = [];
+    for (const x of extras) {
+      if (seenExtra.has(x.id) || usedIds.has(x.id)) continue;
+      if (isEntwicklungBibliographicRow(x)) continue;
+      const y = Number(x.year);
+      if (!y || y < start || y > end) continue;
+      seenExtra.add(x.id);
+      links.push(x);
+      if (links.length >= 16) break;
+    }
+    sec.weitere = links;
+  }
+}
+
+function collectEntwicklungOutlineSections(chronoRows, query = '') {
+  const sections = groupChronoRowsIntoSections(chronoRows);
+  const seenAussage = new Set();
+  const kept = [];
+  for (const sec of sections) {
+    const rows = [];
+    for (const r of sec.rows || []) {
+      if (isEntwicklungBibliographicRow(r)) continue;
+      if (isEntwicklungOffTopicRow(r, query)) continue;
+      const aussage = cleanEntwicklungAussage(r.aussage);
+      const key = aussage.toLowerCase();
+      if (!aussage || seenAussage.has(key)) continue;
+      seenAussage.add(key);
+      rows.push(r);
+    }
+    if (rows.length === 0) continue;
+    kept.push({ ...sec, rows });
+  }
+  return kept;
+}
+
+function buildEntwicklungOutlineMarkdown(sections, sectionSummaries = []) {
+  const parts = [];
+  const esc = escapeEntwicklungAttr;
+  for (let i = 0; i < (sections || []).length; i++) {
+    const sec = sections[i];
+    const headingText = buildEntwicklungSectionHeading(sec);
+    const lis = (sec.rows || []).map((r) => {
+      const aussage = cleanEntwicklungAussage(r.aussage);
+      return `<li>${esc(aussage)} ${buildEntwicklungGaLink(r)}</li>`;
+    });
+    if (lis.length === 0) continue;
+    const hid = `entwicklung-sec-${i}`;
+    const summary = String(sectionSummaries[i] || '').trim();
+    const summaryHtml = summary
+      ? `<p class="entwicklung-section-summary">${esc(summary)}</p>\n`
+      : '';
+    const weitere = (sec.weitere || []).map((r) => buildEntwicklungGaLink(r)).filter(Boolean);
+    const weitereHtml = weitere.length
+      ? `<p class="entwicklung-weitere"><span class="entwicklung-weitere-label">Weitere relevante Darstellungen</span> ${weitere.join(' ')}</p>`
+      : '';
+    parts.push(`<h2 id="${hid}" class="entwicklung-section-heading">${esc(headingText)}</h2>\n${summaryHtml}<ul class="entwicklung-list">\n${lis.join('\n')}\n</ul>${weitereHtml ? `\n${weitereHtml}` : ''}`);
+  }
+  return parts.join('\n\n');
+}
+
+function formatChronoRowsForPrompt(rows) {
+  return rows.map((r, i) => {
+    const when = r.date || (r.year ? String(r.year) : 'ohne Datum');
+    const zitat = String(r.zitat || '').replace(/\s+/g, ' ').trim();
+    const aussage = String(r.aussage || '').trim();
+    return `[${i + 1}] ${when} | ${r.ref}\n   Aussage: ${aussage}\n   Zitat: ${zitat}`;
+  }).join('\n\n');
+}
+
+function findCachedRechercheForQuery(query, sourceType, themeArea, gaFilter, thematicDB) {
+  if (!thematicDB) return null;
+  const themeSeg = (themeArea || 'alle').toLowerCase();
+  const depth = `recherche:v4:${sourceType || 'alle'}:${themeSeg}`;
+  const limit = Number(process.env.RECHERCHE_MAX_POOL) || 300;
+  const hit = findHybridCacheHit(query, depth, limit, gaFilter, thematicDB);
+  if (hit && hit.key && thematicDB[hit.key] && isRechercheCacheUsable(thematicDB[hit.key].recherche)) {
+    return thematicDB[hit.key].recherche;
+  }
+  return null;
+}
+
+function buildEntwicklungSourcePool(chronoRows, topResults) {
+  const pool = Array.isArray(topResults) ? topResults : [];
+  return (chronoRows || []).map((r) => {
+    const fromPool = pool.find((x) =>
+      x && x.ID === r.id && String(x.index || '').replace(/^\^/, '') === String(r.index || '').replace(/^\^/, '')
+    );
+    const content = (fromPool && fromPool.content)
+      || getParagraphContentForHighlight(r.id, r.index)
+      || r.zitat
+      || '';
+    return {
+      ID: r.id,
+      index: r.index,
+      title: r.title || (fromPool && fromPool.title) || '',
+      fileName: r.fileName || (fromPool && fromPool.fileName) || '',
+      content,
+      date: r.date,
+      year: r.year
+    };
+  });
+}
+
+function mapEntwicklungSources(sourcePool) {
+  return (sourcePool || []).slice(0, 10).map((result) => ({
+    ID: result.ID,
+    index: result.index,
+    title: result.title,
+    fileName: result.fileName,
+    score: Math.round(result.finalScore || 0),
+    matchedTerms: result.matchedTerms
+  }));
+}
+
+async function generateEntwicklungCommentary(query, chronoRows, sourcePool, extraSources = []) {
+  chronoRows = enrichEntwicklungRowDates(chronoRows);
+  const yearBuckets = {};
+  chronoRows.forEach((r) => {
+    const y = r.year || 'ohne Jahr';
+    yearBuckets[y] = (yearBuckets[y] || 0) + 1;
+  });
+  const yearOverview = Object.keys(yearBuckets)
+    .sort((a, b) => String(a).localeCompare(String(b)))
+    .map((y) => `${y}: ${yearBuckets[y]}`)
+    .join(', ');
+  console.log(`[ENTWICKLUNG] Stichpunkte aus Recherche (${chronoRows.length} Aussagen; ${yearOverview})`);
+
+  const sections = collectEntwicklungOutlineSections(chronoRows, query);
+  stretchEntwicklungSectionYears(sections);
+  attachEntwicklungWeitere(sections, extraSources);
+  const sectionSummaries = await generateEntwicklungSectionSummaries(query, sections);
+  let analysisText = buildEntwicklungOutlineMarkdown(sections, sectionSummaries);
+  if (!analysisText.trim()) {
+    throw new Error('Keine datierten Aussagen für die Entwicklungsdarstellung gefunden. Bitte die Anfrage anders formulieren.');
+  }
+
+  analysisText = addClickableReferences(analysisText, sourcePool);
+  analysisText = fixGermanQuotes(analysisText);
+  return analysisText;
+}
+
+
+const GA_DATE_TEXT_CACHE = new Map();
+const STEINER_YEAR_RE = '(18(?:8[3-9]|9\\d)|19(?:0\\d|1\\d|2[0-5]))';
+const STEINER_MONTHS_RE = 'Januar|Februar|März|April|Mai|Juni|Juli|August|September|Oktober|November|Dezember';
+
+function resolveGaBookForDate(id) {
+  if (!id) return null;
+  if (fullBooks[id]) return fullBooks[id];
+  const m = String(id).match(/^(GA)(\d{1,3})([a-z]?)/i);
+  if (!m) return null;
+  const letter = m[3] || '';
+  const padded = `${m[1]}${m[2].padStart(3, '0')}${letter}`;
+  const unpadded = `${m[1]}${String(parseInt(m[2], 10))}${letter}`;
+  return fullBooks[padded] || fullBooks[padded.toUpperCase()]
+    || fullBooks[unpadded] || fullBooks[unpadded.toUpperCase()]
+    || null;
+}
+
+function parseSteinerDateFromText(text) {
+  if (!text) return { date: '', year: '' };
+  const t = String(text);
+
+  const german = t.match(new RegExp(
+    `(?:(\\d{1,2})\\.\\s*)?(${STEINER_MONTHS_RE})\\s+${STEINER_YEAR_RE}`,
+    'i'
+  ));
+  if (german) {
+    const year = german[3];
+    const month = german[2];
+    const day = german[1] ? String(parseInt(german[1], 10)) : '';
+    const date = day ? `${day}. ${month} ${year}` : `${month} ${year}`;
+    return { date, year };
+  }
+
+  const iso = t.match(new RegExp(`\\b(${STEINER_YEAR_RE})-(\\d{2})-(\\d{2})\\b`));
+  if (iso) {
+    const year = iso[1];
+    const months = ['Januar','Februar','März','April','Mai','Juni','Juli','August','September','Oktober','November','Dezember'];
+    const month = months[parseInt(iso[3], 10) - 1] || iso[3];
+    const day = String(parseInt(iso[4], 10));
+    return { date: `${day}. ${month} ${year}`, year };
+  }
+
+  const numeric = t.match(new RegExp(`\\b(\\d{1,2})\\.(\\d{1,2})\\.${STEINER_YEAR_RE}\\b`));
+  if (numeric) {
+    const year = numeric[3];
+    const months = ['Januar','Februar','März','April','Mai','Juni','Juli','August','September','Oktober','November','Dezember'];
+    const month = months[parseInt(numeric[2], 10) - 1] || numeric[2];
+    return { date: `${parseInt(numeric[1], 10)}. ${month} ${year}`, year };
+  }
+
+  const pub = t.match(new RegExp(
+    `(?:Berlin|Dornach|Leipzig|Stuttgart|München|Muenchen|Erstdruck|Erstausgabe|Auflage|Copyright|erschienen)[^\\n]{0,80}${STEINER_YEAR_RE}`,
+    'i'
+  ));
+  if (pub) return { date: pub[1], year: pub[1] };
+
+  const years = [...t.matchAll(new RegExp(`\\b${STEINER_YEAR_RE}\\b`, 'g'))];
+  if (years.length > 0) return { date: years[0][1], year: years[0][1] };
+  return { date: '', year: '' };
+}
+
+function collectGaFrontMatterText(id) {
+  const lec = fullLectures[id];
+  if (lec) {
+    const parts = [lec.title, lec.location, lec.fileName, lec.date];
+    const paras = lec.paragraphs || [];
+    for (let i = 0; i < Math.min(8, paras.length); i++) {
+      parts.push(paras[i].content || paras[i].text || '');
+    }
+    return parts.filter(Boolean).join('\n');
+  }
+  const book = resolveGaBookForDate(id);
+  if (book) {
+    const parts = [book.title, book.yearRange, book.date, book.fileName, book.gaTitle];
+    const paras = book.paragraphs || convertBookToParagraphs(book) || [];
+    for (let i = 0; i < Math.min(25, paras.length); i++) {
+      parts.push(paras[i].content || paras[i].text || '');
+    }
+    if (paras.length === 0 && book.content) {
+      parts.push(String(book.content).slice(0, 6000));
+    }
+    return parts.filter(Boolean).join('\n');
+  }
+  return '';
+}
+
+function extractDateFromGaText(id) {
+  if (!id) return { date: '', year: '' };
+  if (GA_DATE_TEXT_CACHE.has(id)) return GA_DATE_TEXT_CACHE.get(id);
+  const found = parseSteinerDateFromText(collectGaFrontMatterText(id));
+  GA_DATE_TEXT_CACHE.set(id, found);
+  if (found.year) {
+    console.log(`[ENTWICKLUNG] Datum aus GA-Text: ${id} → ${found.date || found.year}`);
+  }
+  return found;
+}
+
+function enrichEntwicklungRowDates(rows) {
+  if (!Array.isArray(rows) || rows.length === 0) return rows || [];
+  let filled = 0;
+  const out = rows.map((r) => {
+    if (r.year) return r;
+    const found = lookupRechercheDate(r.id);
+    if (!found.year) return r;
+    filled++;
+    return { ...r, date: found.date || r.date, year: found.year };
+  });
+  if (filled) console.log(`[ENTWICKLUNG] ${filled} undatierte Stellen aus GA-Text nachdatiert`);
+  out.sort((a, b) => {
+    const ya = a.year || 9999;
+    const yb = b.year || 9999;
+    if (ya !== yb) return ya - yb;
+    const da = String(a.date || '');
+    const db = String(b.date || '');
+    if (da && db && da !== db) return da.localeCompare(db);
+    return String(a.ref || '').localeCompare(String(b.ref || ''));
+  });
+  return out;
+}
+
 function lookupRechercheDate(id) {
+  if (!id) return { date: '', year: '' };
   const lec = fullLectures[id];
   if (lec && lec.date) {
     const m = String(lec.date).match(/\d{4}/);
-    return { date: lec.date, year: m ? m[0] : '' };
+    if (m) return { date: lec.date, year: m[0] };
   }
-  const book = fullBooks[id];
+  const book = fullBooks[id] || resolveGaBookForDate(id);
   if (book && (book.yearRange || book.date)) {
     const raw = book.yearRange || book.date;
     const m = String(raw).match(/\d{4}/);
-    return { date: raw, year: m ? m[0] : '' };
+    if (m) return { date: raw, year: m[0] };
   }
-  return { date: '', year: '' };
+  return extractDateFromGaText(id);
+}
+
+function getResultYearDate(result) {
+  if (result && result.date) {
+    const m = String(result.date).match(/\d{4}/);
+    return { date: result.date, year: m ? m[0] : '' };
+  }
+  return lookupRechercheDate(result && result.ID);
+}
+
+function diversifyResultsByYear(results, targetCount) {
+  const scored = [...results].sort((a, b) => (b.finalScore || 0) - (a.finalScore || 0));
+  const byYear = new Map();
+  for (const r of scored) {
+    const year = getResultYearDate(r).year || 'undatiert';
+    if (!byYear.has(year)) byYear.set(year, []);
+    byYear.get(year).push(r);
+  }
+  const years = [...byYear.keys()].sort((a, b) => {
+    if (a === 'undatiert') return 1;
+    if (b === 'undatiert') return -1;
+    return a.localeCompare(b);
+  });
+  const selected = [];
+  const seen = new Set();
+  const keyOf = (r) => `${r.ID}:${r.index}`;
+  const maxPerYear = Math.max(2, Math.ceil(targetCount / Math.max(years.length, 1)));
+  let round = 0;
+  while (selected.length < targetCount) {
+    let added = 0;
+    for (const y of years) {
+      const pool = byYear.get(y) || [];
+      if (round < pool.length && round < maxPerYear) {
+        const r = pool[round];
+        const k = keyOf(r);
+        if (!seen.has(k)) {
+          seen.add(k);
+          selected.push(r);
+          added++;
+          if (selected.length >= targetCount) break;
+        }
+      }
+    }
+    if (added === 0) break;
+    round++;
+  }
+  return selected;
+}
+
+function buildEntwicklungYearOverview(results) {
+  const counts = new Map();
+  for (const r of results) {
+    const year = getResultYearDate(r).year || 'undatiert';
+    counts.set(year, (counts.get(year) || 0) + 1);
+  }
+  return [...counts.entries()]
+    .sort((a, b) => a[0].localeCompare(b))
+    .map(([year, n]) => `${year}: ${n}`)
+    .join(', ');
+}
+
+function formatEntwicklungPassage(result) {
+  const refId = `${result.ID}:${result.index}`;
+  const { date } = getResultYearDate(result);
+  const matchTag = result.expandedMatch ? ' [INDIREKT-EXPANSION]'
+                 : result.semanticMatch  ? ' [INDIREKT-SEMANTISCH]'
+                 : '';
+  const dateTag = date ? ` (${date})` : '';
+  return `[${refId}]${matchTag}${dateTag} ${result.fileName || result.title}\n${result.content}`;
 }
 
 function buildRechercheFallbackFromResults(query, results, maxRows = 80, options = {}) {
@@ -13185,6 +14117,7 @@ app.post('/api/thematic-hybrid-search', async (req, res) => {
   // (Recherche: lange LLM-Wartezeit ohne Zwischenbytes → Browser „Failed to fetch“)
   let useStreaming = false;
   let heartbeatTimer = null;
+  let sseHeartbeatMsg = '';
   const sendSse = (payload) => {
     if (!useStreaming || res.writableEnded) return;
     try {
@@ -13200,6 +14133,7 @@ app.post('/api/thematic-hybrid-search', async (req, res) => {
     // Ohne Heartbeats stirbt die HTTP-Verbindung bei mehr Minuten LLM-Wartezeit.
     useStreaming = !!(stream && (
       thematicMode === 'recherche'
+      || thematicMode === 'entwicklung'
       || thematicMode === 'chat'
       || (thematicMode === 'internet' && chatMode)
     ));
@@ -13211,13 +14145,16 @@ app.post('/api/thematic-hybrid-search', async (req, res) => {
       res.setHeader('Connection', 'keep-alive');
       res.setHeader('X-Accel-Buffering', 'no');
       res.flushHeaders?.();
-      if (thematicMode === 'recherche') {
+      if (thematicMode === 'recherche' || thematicMode === 'entwicklung') {
         const t0 = Date.now();
-        sendSse({ progress: 'Recherche läuft - das kann mehr als 5 Minuten dauern; Sie können inzwischen weiterarbeiten.', phase: 'start' });
+        sseHeartbeatMsg = thematicMode === 'entwicklung'
+          ? 'Entwicklung: zuerst datierte Recherche, dann Darstellung – das kann mehr als 5 Minuten dauern; Sie können inzwischen weiterarbeiten.'
+          : 'Recherche läuft - das kann mehr als 5 Minuten dauern; Sie können inzwischen weiterarbeiten.';
+        sendSse({ progress: sseHeartbeatMsg, phase: 'start' });
         heartbeatTimer = setInterval(() => {
           const elapsedSec = Math.round((Date.now() - t0) / 1000);
           sendSse({
-            progress: 'Recherche läuft - das kann mehr als 5 Minuten dauern; Sie können inzwischen weiterarbeiten.',
+            progress: sseHeartbeatMsg,
             phase: 'heartbeat',
             elapsedSec
           });
@@ -13225,7 +14162,7 @@ app.post('/api/thematic-hybrid-search', async (req, res) => {
       }
     }
     const rawLimit = Number(limit) || 100;
-    const effectiveLimit = thematicMode === 'recherche'
+    const effectiveLimit = (thematicMode === 'recherche' || thematicMode === 'entwicklung')
       ? Math.min(rawLimit, Number(process.env.RECHERCHE_MAX_POOL) || 300)
       : rawLimit;
     const effectiveDepth = 'ausführlich';
@@ -13241,6 +14178,7 @@ app.post('/api/thematic-hybrid-search', async (req, res) => {
     const modeLabel = thematicMode === 'deep' ? 'Tiefe Analyse (Claude)'
                     : thematicMode === 'quote' ? 'Zitatsuche (Claude)'
                     : thematicMode === 'essay' ? 'Essay – Synthese & Belege (Claude Opus)'
+                    : thematicMode === 'entwicklung' ? 'Entwicklung – Recherche chronologisch, dann Darstellung (Claude Opus)'
                     : thematicMode === 'recherche'
                       ? (rechercheUsesLlm() ? 'Recherche – KI-Tabelle (Claude Sonnet)' : 'Recherche – Schnellmodus (Suchtreffer)')
                     : thematicMode === 'internet' && chatMode ? 'Chat + Internet (Claude Sonnet + Web-Suche)'
@@ -13312,6 +14250,9 @@ app.post('/api/thematic-hybrid-search', async (req, res) => {
       console.warn(`[RECHERCHE-CACHE] Veralteter/ungeeigneter Cache ignoriert (${hybridHit.key}) – neue Suche`);
     }
 
+    // Entwicklung: eigene Extraktion. Eine vorhandene Recherche-Tabelle
+    // gruppiert thematisch und streicht Einzelfall-Reihen oft als Redundanz.
+
     // Kein Cache-Hit: Neue Suche
     const tStart = Date.now();
     let keywordResults = effectiveChatMode
@@ -13335,26 +14276,29 @@ app.post('/api/thematic-hybrid-search', async (req, res) => {
     // statt der Summe aller drei.
     const tParallelStart = Date.now();
     const isRechercheMode = thematicMode === 'recherche';
+    const isChronoBasisMode = thematicMode === 'recherche' || thematicMode === 'entwicklung';
     const semThreshold = isQuoteMode ? 0.28 : 0.35;
-    const semTopN = isQuoteMode ? 50 : 30;
+    const semTopN = isQuoteMode ? 50 : (thematicMode === 'entwicklung' ? 40 : 30);
     // Absatz-Embeddings: höhere Schwelle (Absätze sind spezifischer als Summaries),
     // im Essay-Modus mehr Treffer (großzügigerer Pool für Belege).
     const paraThreshold = retrievalMode === 'essay' ? 0.50
+                        : retrievalMode === 'entwicklung' ? 0.48
                         : retrievalMode === 'recherche' ? 0.50
                         : retrievalMode === 'chat' ? 0.52
                         : isQuoteMode ? 0.55
                         : 0.55;
     const paraTopN = retrievalMode === 'essay' ? 40
+                   : retrievalMode === 'entwicklung' ? 50
                    : retrievalMode === 'recherche' ? 45
                    : retrievalMode === 'chat' ? 18
                    : isQuoteMode ? 30
                    : 25;
-    const [expandedTerms, phrases, lectureSimilarities, paragraphSimilarities, webContext] = await Promise.all([
+    const [expandedTermsIn, phrases, lectureSimilarities, paragraphSimilarities, webContext] = await Promise.all([
       effectiveChatMode
         ? Promise.resolve([])
         : expandQueryWithLLM(query).catch(err => {
         console.warn('[THEMATIC] Query-Expansion fehlgeschlagen:', err.message);
-        return isRechercheMode ? extractKeyTerms(query) : [];
+        return isChronoBasisMode ? extractKeyTerms(query) : [];
       }),
       isQuoteMode
         ? expandQueryToQuotePhrases(query).catch(err => {
@@ -13381,6 +14325,13 @@ app.post('/api/thematic-hybrid-search', async (req, res) => {
           })
         : Promise.resolve(null)
     ]);
+    let expandedTerms = Array.isArray(expandedTermsIn) ? [...expandedTermsIn] : [];
+    if (thematicMode === 'entwicklung' && queryLooksLikeKarmaReinkarnation(query) && !queryLooksLikeZwischenTodGeburt(query)) {
+      expandedTerms = expandedTerms.filter((t) => !isZwischenTodGeburtTerm(t));
+      for (const extra of ['wiederholte erdenleben', 'früheren erdenleben', 'karmische zusammenhänge']) {
+        if (!expandedTerms.includes(extra)) expandedTerms.push(extra);
+      }
+    }
     const tParallel = Date.now() - tParallelStart;
 
     // Chat-Schnellpfad: erst semantisch vorsortieren, dann Keyword-Suche nur
@@ -13422,7 +14373,7 @@ app.post('/api/thematic-hybrid-search', async (req, res) => {
     if (expandedTerms.length > 0) {
       const existingKeys = new Set(keywordResults.map(r => `${r.ID}-${r.index}`));
       let addedCount = 0;
-      const maxExpanded = isRechercheMode ? 300 : 500;
+      const maxExpanded = isChronoBasisMode ? 300 : 500;
 
       for (const term of expandedTerms) {
         if (addedCount >= maxExpanded) break;
@@ -13605,6 +14556,13 @@ app.post('/api/thematic-hybrid-search', async (req, res) => {
       console.log(`[THEMATIC] Absatz-Semantik: +${addedParaCount} neue Absätze, ${boostedCount} bestehende Treffer geboostet (Threshold ${paraThreshold})`);
     }
 
+    if (thematicMode === 'entwicklung' && queryLooksLikeKarmaReinkarnation(query)) {
+      const addedKarma = injectKarmaResearchPassages(keywordResults, paragraphsFromLectures, effectiveGaFilter);
+      if (addedKarma > 0) {
+        console.log(`[ENTWICKLUNG] Karmavorträge GA 235–240: +${addedKarma} Absätze`);
+      }
+    }
+
     const tSync = Date.now() - tSyncStart;
     console.log(`[THEMATIC] Timing: keyword=${tKeyword}ms, parallel(LLM+LLM+emb+paraEmb)=${tParallel}ms, sync=${tSync}ms`);
 
@@ -13633,6 +14591,9 @@ app.post('/api/thematic-hybrid-search', async (req, res) => {
     }
 
     let rankedResults = applySemanticRanking(keywordResults, query, lectureSimilarities);
+    if (thematicMode === 'entwicklung' && queryLooksLikeKarmaReinkarnation(query)) {
+      boostKarmaResearchScores(rankedResults);
+    }
     
     // Im Quote-Modus haben exakte Phrasen-Treffer (quoteExactMatch) absolute Priorität:
     // Sie kommen IMMER in die Top-N, unabhängig von der direkten/indirekten Quote-Logik.
@@ -13692,6 +14653,13 @@ app.post('/api/thematic-hybrid-search', async (req, res) => {
     };
     pushUnique(exactPhraseHits);
     pushUnique(topSemanticHits);
+    if (thematicMode === 'entwicklung' && queryLooksLikeKarmaReinkarnation(query)) {
+      const karmaHits = rankedResults
+        .filter((r) => isKarmaResearchLectureId(r.ID))
+        .sort((a, b) => (b.finalScore || 0) - (a.finalScore || 0))
+        .slice(0, 30);
+      pushUnique(karmaHits);
+    }
     pushUnique(directResults.slice(0, directQuota));
     pushUnique(indirectResults.slice(0, indirectQuota));
 
@@ -13750,6 +14718,16 @@ app.post('/api/thematic-hybrid-search', async (req, res) => {
       }
     }
 
+    if (thematicMode === 'entwicklung' && topResults.length > 40) {
+      const beforeY = topResults.length;
+      topResults = diversifyResultsByYear(topResults, topResults.length);
+      if (queryLooksLikeKarmaReinkarnation(query)) {
+        topResults = ensureKarmaResearchCoverage(topResults, rankedResults, 20);
+      }
+      const karmaN = topResults.filter((r) => isKarmaResearchLectureId(r.ID)).length;
+      console.log(`[ENTWICKLUNG] Quellen jahresverteilt: ${beforeY} (${buildEntwicklungYearOverview(topResults)}; Karmavorträge 1924: ${karmaN})`);
+    }
+
     // Query-Tracking
     trackQueryTerms(query, topResults.length);
     
@@ -13760,18 +14738,23 @@ app.post('/api/thematic-hybrid-search', async (req, res) => {
 
     let analysis = '';
     let rechercheData = null;
+    let entwicklungSources = null;
 
-    if (thematicMode === 'recherche') {
+    if (thematicMode === 'recherche' || thematicMode === 'entwicklung') {
       const fallbackMax = Number(process.env.RECHERCHE_FALLBACK_MAX) || 100;
+      const basisLabel = thematicMode === 'entwicklung' ? 'ENTWICKLUNG' : 'RECHERCHE';
       if (!rechercheUsesLlm()) {
-        console.log('[RECHERCHE] Schnellmodus: KI-Synthese übersprungen');
-        sendSse({ progress: 'Recherche läuft - das kann mehr als 5 Minuten dauern; Sie können inzwischen weiterarbeiten.', phase: 'fallback' });
+        console.log(`[${basisLabel}] Schnellmodus: KI-Synthese übersprungen`);
+        sendSse({ progress: sseHeartbeatMsg || 'Recherche läuft…', phase: 'fallback' });
         rechercheData = buildRechercheFallbackFromResults(query, topResults, fallbackMax, { fastMode: true });
         const rowCount = countRechercheRows(rechercheData);
-        console.log(`[RECHERCHE] Schnellmodus: ${rechercheData.subThemes.length} Unterthemen, ${rowCount} Aussagen`);
+        console.log(`[${basisLabel}] Schnellmodus: ${rechercheData.subThemes.length} Unterthemen, ${rowCount} Aussagen`);
       } else {
+        sseHeartbeatMsg = thematicMode === 'entwicklung'
+          ? 'Datierte Aussagen werden recherchiert – danach folgt die Entwicklungsdarstellung.'
+          : 'Recherche läuft - das kann mehr als 5 Minuten dauern; Sie können inzwischen weiterarbeiten.';
         sendSse({
-          progress: 'Recherche läuft - das kann mehr als 5 Minuten dauern; Sie können inzwischen weiterarbeiten.',
+          progress: sseHeartbeatMsg,
           phase: 'llm',
           sourceCount: topResults.length
         });
@@ -13783,28 +14766,47 @@ app.post('/api/thematic-hybrid-search', async (req, res) => {
         const tAnalysis = Date.now() - tAnalysisStart;
         if (analysisResult) {
           if (analysisResult.rechercheData) {
-            // Parallel-Batches: rechercheData wurde bereits in generateRechercheAnalysis gebaut
             rechercheData = analysisResult.rechercheData;
             const rowCount = countRechercheRows(rechercheData);
-            console.log(`[RECHERCHE] Batch-Merge: ${tAnalysis}ms, ${rechercheData.subThemes.length} Unterthemen, ${rowCount} Aussagen`);
+            console.log(`[${basisLabel}] Batch-Merge: ${tAnalysis}ms, ${rechercheData.subThemes.length} Unterthemen, ${rowCount} Aussagen`);
           } else {
             const llmSources = analysisResult.llmSources || topResults;
-            console.log(`[RECHERCHE] LLM-Analyse: ${tAnalysis}ms, ${llmSources.length} Quellen im LLM-Prompt`);
+            console.log(`[${basisLabel}] LLM-Analyse: ${tAnalysis}ms, ${llmSources.length} Quellen im LLM-Prompt`);
             rechercheData = buildRechercheData(analysisResult.text || '', topResults, llmSources);
           }
           if (countRechercheRows(rechercheData) > 0 && !rechercheData.fallback) {
-            rechercheData = await finalizeRechercheStructure(query, rechercheData);
+            if (thematicMode === 'recherche') {
+              rechercheData = await finalizeRechercheStructure(query, rechercheData);
+            }
             rechercheData.curated = true;
           }
           const rowCount = countRechercheRows(rechercheData);
-          console.log(`[RECHERCHE] ${rechercheData.subThemes.length} Unterthemen, ${rowCount} valide Aussagen`);
+          console.log(`[${basisLabel}] ${rechercheData.subThemes.length} Unterthemen, ${rowCount} valide Aussagen`);
         }
         if (countRechercheRows(rechercheData) === 0 && topResults.length > 0) {
-          console.warn(`[RECHERCHE] Fallback auf ${topResults.length} Suchtreffer`);
-          sendSse({ progress: 'Recherche läuft - das kann mehr als 5 Minuten dauern; Sie können inzwischen weiterarbeiten.', phase: 'fallback' });
+          console.warn(`[${basisLabel}] Fallback auf ${topResults.length} Suchtreffer`);
+          sendSse({ progress: sseHeartbeatMsg || 'Recherche läuft…', phase: 'fallback' });
           rechercheData = buildRechercheFallbackFromResults(query, topResults, fallbackMax);
-          console.log(`[RECHERCHE] Fallback: ${rechercheData.subThemes.length} Unterthemen, ${countRechercheRows(rechercheData)} Aussagen`);
+          console.log(`[${basisLabel}] Fallback: ${rechercheData.subThemes.length} Unterthemen, ${countRechercheRows(rechercheData)} Aussagen`);
         }
+      }
+      if (thematicMode === 'entwicklung') {
+        const allChrono = flattenRechercheRowsChronological(rechercheData, query);
+        let chronoRows = selectChronoRowsForEntwicklung(allChrono);
+        if (queryLooksLikeKarmaReinkarnation(query)) {
+          const series = extractKarmaSeriesRows(paragraphsFromLectures, effectiveGaFilter);
+          chronoRows = mergeKarmaSeriesRows(chronoRows, series);
+          if (series.length) console.log(`[ENTWICKLUNG] Individuelle karmische Reihen: +${series.length}`);
+        }
+        if (chronoRows.length === 0) {
+          throw new Error('Keine datierten Aussagen für die Entwicklungsdarstellung gefunden. Bitte die Anfrage anders formulieren.');
+        }
+        sseHeartbeatMsg = 'Entwicklungsdarstellung wird aus der chronologischen Recherche geschrieben…';
+        sendSse({ progress: sseHeartbeatMsg, phase: 'entwicklung' });
+        const sourcePool = buildEntwicklungSourcePool(chronoRows, topResults);
+        analysis = await generateEntwicklungCommentary(query, chronoRows, sourcePool, [...allChrono, ...(topResults || [])]);
+        entwicklungSources = mapEntwicklungSources(sourcePool);
+        rechercheData = null;
       }
     } else {
       const tAnalysisStart = Date.now();
@@ -13824,14 +14826,14 @@ app.post('/api/thematic-hybrid-search', async (req, res) => {
     let searchResult = {
       query: query,
       content: analysis,
-      sources: topResults.slice(0, 10).map(result => ({
+      sources: (entwicklungSources || topResults.slice(0, 10).map(result => ({
         ID: result.ID,
         index: result.index,
         title: result.title,
         fileName: result.fileName,
         score: Math.round(result.finalScore),
         matchedTerms: result.matchedTerms
-      })),
+      }))),
       searchMethod: 'hybrid-thematic-unified',
       totalMatches: keywordResults.length,
       llmUsed: !!process.env.CLAUDE_API_KEY
@@ -13875,7 +14877,7 @@ app.post('/api/thematic-hybrid-search', async (req, res) => {
     // cacheKey mitliefern
     if (useStreaming) {
       if (heartbeatTimer) { clearInterval(heartbeatTimer); heartbeatTimer = null; }
-      const metaPayload = thematicMode === 'recherche'
+      const metaPayload = (thematicMode === 'recherche' || thematicMode === 'entwicklung')
         ? { ...searchResult, cacheKey }
         : { ...searchResult, content: undefined, cacheKey };
       sendSse({ done: true, meta: metaPayload });
@@ -19438,7 +20440,7 @@ const SUMMARY_DB_FILE = path.join(__dirname, 'summary-database.json');
 const SUMMARY_KEYWORDS_DB_FILE = path.join(__dirname, 'summary-keywords-database.json');
 const THEMATIC_SEARCH_DB_FILE = path.join(__dirname, 'thematic-search-database.json');
 const THEMATIC_EXAMPLES_FILE = path.join(__dirname, 'thematic-examples.json');
-const THEMATIC_EXAMPLE_CATEGORIES = ['chat', 'deep', 'broad', 'quote', 'essay', 'recherche'];
+const THEMATIC_EXAMPLE_CATEGORIES = ['chat', 'deep', 'broad', 'quote', 'essay', 'entwicklung', 'recherche'];
 const TIMELINE_SEARCH_CACHE_FILE = path.join(__dirname, 'timeline-search-cache.json');
 const KEYWORDS_DB_FILE = path.join(__dirname, 'keywords-database.json');
 const THEMES_DB_FILE = path.join(__dirname, 'themes', 'themes-database.json');
