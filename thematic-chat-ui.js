@@ -30,6 +30,7 @@
     broad: 'Breite',
     quote: 'Zitat',
     essay: 'Essay',
+    entwicklung: 'Entwicklung',
     recherche: 'Recherche',
     internet: '+ Internet'
   };
@@ -511,13 +512,14 @@
     if (menu) menu.classList.remove('open');
   }
 
-  const EXAMPLE_CATEGORIES = ['chat', 'deep', 'broad', 'quote', 'essay', 'recherche'];
+  const EXAMPLE_CATEGORIES = ['chat', 'deep', 'broad', 'quote', 'essay', 'entwicklung', 'recherche'];
   const EXAMPLE_CATEGORY_LABELS = {
     chat: 'Chat',
     deep: 'Tiefe',
     broad: 'Breite',
     quote: 'Zitat',
     essay: 'Essay',
+    entwicklung: 'Entwicklung',
     recherche: 'Recherche'
   };
 

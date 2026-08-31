@@ -1192,7 +1192,7 @@ function bookHeadingTagName(level) {
     let currentThematicQuery = '';
     let steinerImages = {}; // Bilder-Datenbank
     let currentThematicGAFilter = '';
-    let currentThematicLimit = 100; // Limit basierend auf Modus (100 = Tiefe, 250 = Zitat, 300 = Breite)
+    let currentThematicLimit = 100; // Limit basierend auf Modus (100 = Tiefe, 150 = Essay, 180 = Entwicklung, 250 = Zitat, 300 = Breite)
     let currentThematicMode = 'deep';
     let currentThematicCacheKey = ''; // Vom Backend gelieferter Cache-Key der aktuellen Abfrage (fuer gezieltes Loeschen)
     // Suchhistorie aus localStorage laden (falls vorhanden)
@@ -17559,9 +17559,11 @@ function scrollToChronologicalYear(year) {
 
         // Spinner-Badge am Abfrage-Tab-Button (sichtbar auch wenn User Tab wechselt)
         const _rechercheTabBtn = document.querySelector('[data-help="tab-themen"]');
-        if (_rechercheTabBtn && thematicMode === 'recherche') {
+        if (_rechercheTabBtn && (thematicMode === 'recherche' || thematicMode === 'entwicklung')) {
           _rechercheTabBtn.dataset.searching = 'true';
-          _rechercheTabBtn.title = `Recherche „${query}" läuft…`;
+          _rechercheTabBtn.title = thematicMode === 'entwicklung'
+            ? `Entwicklung „${query}" läuft…`
+            : `Recherche „${query}" läuft…`;
         }
 
         const viewer = document.getElementById('viewer');
@@ -17569,6 +17571,8 @@ function scrollToChronologicalYear(year) {
           const chatActive = window.ThematicChatUI?.isChatOutputModeActive?.();
           const waitMsg = thematicMode === 'recherche'
             ? 'Recherche läuft - das kann mehr als 5 Minuten dauern; Sie können inzwischen weiterarbeiten.'
+            : thematicMode === 'entwicklung'
+            ? 'Entwicklung: zuerst datierte Recherche, dann Darstellung – das kann mehr als 5 Minuten dauern; Sie können inzwischen weiterarbeiten.'
             : thematicMode === 'internet'
             ? (chatActive
               ? 'Chat mit Internet-Recherche wird erstellt, bitte warten (kann etwas länger dauern).'
@@ -17592,6 +17596,7 @@ function scrollToChronologicalYear(year) {
         // - "quote" (Zitatsuche): Claude, breitere Quellenbasis durch Phrasen-/Semantik-
         //                          Anreicherung im Backend, präzise Zitatauswahl
         // - "essay" (Essay-Synthese): Claude Opus 4.8, viele Quellen, beleg/deutung-Markup
+        // - "entwicklung" (Lehrentwicklung): Recherche chronologisch, dann essayistische Darstellung (Claude Opus)
         let limit, preferredProvider;
         if (thematicMode === 'broad') {
           limit = 300;
@@ -17601,6 +17606,9 @@ function scrollToChronologicalYear(year) {
           preferredProvider = 'claude';
         } else if (thematicMode === 'essay') {
           limit = 150;
+          preferredProvider = 'claude';
+        } else if (thematicMode === 'entwicklung') {
+          limit = 300;
           preferredProvider = 'claude';
         } else if (thematicMode === 'recherche') {
           limit = 300;
@@ -17636,8 +17644,8 @@ function scrollToChronologicalYear(year) {
 
         const isChatStream = (thematicMode === 'chat' || (thematicMode === 'internet' && isChatLikeMode))
           && typeof window.ThematicChatUI?.onStreamChunk === 'function';
-        // Recherche: SSE mit Heartbeats – sonst bricht die Verbindung nach Minuten ohne Antwortbytes ab („Failed to fetch“).
-        const isRechercheStream = thematicMode === 'recherche';
+        // Recherche/Entwicklung: SSE mit Heartbeats – sonst bricht die Verbindung nach Minuten ohne Antwortbytes ab („Failed to fetch“).
+        const isLongAnalysisStream = thematicMode === 'recherche' || thematicMode === 'entwicklung';
 
         const requestBody = {
           query: query,
@@ -17650,7 +17658,7 @@ function scrollToChronologicalYear(year) {
           conversationHistory,
           skipCache: conversationHistory.length > 0 || thematicMode === 'internet' || thematicMode === 'chat',
           chatMode: isChatLikeMode && !!(window.ThematicChatUI?.isChatOutputModeActive?.()),
-          stream: isChatStream || isRechercheStream
+          stream: isChatStream || isLongAnalysisStream
         };
 
         const response = await fetch(`${API_BASE}/api/thematic-hybrid-search`, {
@@ -17775,8 +17783,8 @@ function scrollToChronologicalYear(year) {
         }
         // --- Ende Streaming-Pfad Chat ---
 
-        // --- Streaming-Pfad Recherche (Heartbeats + finales Meta) ---
-        if (isRechercheStream && isSseResponse) {
+        // --- Streaming-Pfad Recherche/Entwicklung (Heartbeats + finales Meta) ---
+        if (isLongAnalysisStream && isSseResponse) {
           const reader = response.body.getReader();
           const decoder = new TextDecoder();
           let sseBuffer = '';
@@ -17811,7 +17819,9 @@ function scrollToChronologicalYear(year) {
           }
 
           if (!finalMeta) {
-            throw new Error('Recherche ohne Ergebnis abgebrochen – bitte erneut versuchen.');
+            throw new Error(thematicMode === 'entwicklung'
+              ? 'Entwicklung ohne Ergebnis abgebrochen – bitte erneut versuchen.'
+              : 'Recherche ohne Ergebnis abgebrochen – bitte erneut versuchen.');
           }
 
           const answer = finalMeta;
@@ -17819,28 +17829,37 @@ function scrollToChronologicalYear(year) {
           currentThematicCacheKey = answer.cacheKey || '';
           currentSources = sources;
           ensureThematicMainViewerVisible();
-          renderRechercheResults(query, answer.recherche || { intro: '', subThemes: [] }, (gaFilter || ''), {
-            sourceType: rechercheSourceType,
-            themeArea: rechercheThemeArea
-          });
-          if (!document.body.classList.contains('tab-thematic-active')) {
-            const rowCount = (answer.recherche?.subThemes || [])
-              .reduce((n, st) => n + (st.rows?.length || 0), 0);
-            const curated = answer.recherche?.curated;
-            const label = curated ? `${rowCount} Aussagen` : `${rowCount} Treffer (Fallback)`;
-            if (typeof showThematicNotification === 'function') {
-              showThematicNotification(`✓ Recherche „${query}" fertig – ${label}`, 'success');
+          if (thematicMode === 'entwicklung') {
+            renderThematicResults(query, answer.content || '', sources, (gaFilter || ''));
+            if (!document.body.classList.contains('tab-thematic-active')) {
+              if (typeof showThematicNotification === 'function') {
+                showThematicNotification(`✓ Entwicklung „${query}" fertig`, 'success');
+              }
+            }
+          } else {
+            renderRechercheResults(query, answer.recherche || { intro: '', subThemes: [] }, (gaFilter || ''), {
+              sourceType: rechercheSourceType,
+              themeArea: rechercheThemeArea
+            });
+            if (!document.body.classList.contains('tab-thematic-active')) {
+              const rowCount = (answer.recherche?.subThemes || [])
+                .reduce((n, st) => n + (st.rows?.length || 0), 0);
+              const curated = answer.recherche?.curated;
+              const label = curated ? `${rowCount} Aussagen` : `${rowCount} Treffer (Fallback)`;
+              if (typeof showThematicNotification === 'function') {
+                showThematicNotification(`✓ Recherche „${query}" fertig – ${label}`, 'success');
+              }
             }
           }
 
           if (window.ThematicChatUI?.onSearchComplete) {
             window.ThematicChatUI.onSearchComplete({
               query,
-              content: '(Recherche-Tabelle)',
+              content: thematicMode === 'entwicklung' ? (answer.content || '') : '(Recherche-Tabelle)',
               sources,
               gaFilter: gaFilterSorted.length ? gaFilterSorted.join(', ') : '',
               mode: thematicMode,
-              rechercheData: answer.recherche || null,
+              rechercheData: thematicMode === 'recherche' ? (answer.recherche || null) : null,
               rechercheScope: { sourceType: rechercheSourceType, themeArea: rechercheThemeArea }
             });
           }
@@ -17853,7 +17872,7 @@ function scrollToChronologicalYear(year) {
               limit,
               sources: currentSources || [],
               rechercheScope: { sourceType: rechercheSourceType, themeArea: rechercheThemeArea },
-              rechercheData: answer.recherche || null
+              rechercheData: thematicMode === 'recherche' ? (answer.recherche || null) : null
             });
             setTimeout(() => {
               if (typeof window.refreshThematicSaveContentFromDom === 'function') {
@@ -17950,6 +17969,8 @@ function scrollToChronologicalYear(year) {
         if (/failed to fetch|networkerror|load failed|network request failed/i.test(errorMessage)) {
           errorMessage = currentThematicMode === 'recherche'
             ? 'Verbindung während der Recherche abgebrochen (Zeitüberschreitung). Bitte Seite neu laden und erneut versuchen – die Recherche kann mehrere Minuten dauern.'
+            : currentThematicMode === 'entwicklung'
+            ? 'Verbindung während der Entwicklungsanalyse abgebrochen. Bitte erneut versuchen – die Auswertung kann einige Minuten dauern.'
             : 'Verbindung zum Server abgebrochen. Bitte erneut versuchen.';
         }
         const safeError = String(errorMessage)
@@ -18375,6 +18396,7 @@ function scrollToChronologicalYear(year) {
           const modeLabel = (depth && depth.indexOf('recherche') === 0) ? '[Recherche]'
                           : limit === 300 ? '[breit]'
                           : limit === 250 ? '[Zitat]'
+                          : limit === 180 ? '[Entwicklung]'
                           : limit === 150 ? '[Essay]'
                           : '[tief]';
           const keyEnc = encodeURIComponent(item.key);
@@ -18412,7 +18434,8 @@ function scrollToChronologicalYear(year) {
         currentThematicCacheKey = cacheKey || '';
         const parts = (cacheKey || '').split('|');
         const depthSeg = parts && parts.length >= 2 ? (parts[1] || '') : '';
-        const isRecherche = !!entry.recherche || depthSeg.indexOf('recherche') === 0;
+        const isEntwicklung = depthSeg.indexOf('entwicklung') === 0;
+        const isRecherche = !isEntwicklung && (!!entry.recherche || depthSeg.indexOf('recherche') === 0);
 
         if (isRecherche) {
           // Recherche-Modus wiederherstellen: Radio + Auswahlfelder + Tabelle
@@ -18471,14 +18494,17 @@ function scrollToChronologicalYear(year) {
               .split(',').map(s => s.trim()).filter(Boolean);
             thematicGAFilterDropdown.setSelectedValues(cachedGAs);
           }
-          // Radio-Button synchronisieren (100 = Tiefe, 250 = Zitat, 300 = Breite)
+          // Radio-Button synchronisieren
           let modeValue;
-          if (currentThematicLimit === 300) modeValue = 'broad';
+          if (isEntwicklung || depthSeg.indexOf('entwicklung') === 0) modeValue = 'entwicklung';
+          else if (currentThematicLimit === 300) modeValue = 'broad';
           else if (currentThematicLimit === 250) modeValue = 'quote';
+          else if (currentThematicLimit === 180) modeValue = 'entwicklung';
           else if (currentThematicLimit === 150) modeValue = 'essay';
           else modeValue = 'deep';
           const modeRadio = document.querySelector(`input[name="thematicMode"][value="${modeValue}"]`);
           if (modeRadio) modeRadio.checked = true;
+          currentThematicMode = modeValue;
           if (typeof updateRechercheControlsVisibility === 'function') updateRechercheControlsVisibility();
           const scope = entry.rechercheScope || {};
           let sourceType = scope.sourceType || 'alle';
@@ -20951,6 +20977,16 @@ function scrollToChronologicalYear(year) {
           return;
         }
 
+        const entwicklungHeads = document.querySelectorAll('#viewer .entwicklung-section-heading');
+        if (entwicklungHeads.length > 0 && typeof window.openEntwicklungInhaltsuebersicht === 'function') {
+          if (typeof closePdfPanel === 'function') {
+            closePdfPanel();
+          }
+          window.openEntwicklungInhaltsuebersicht();
+          updateHeaderPosition();
+          return;
+        }
+
         if (!currentLectureData) {
           alert('Bitte zuerst einen Vortrag laden');
           return;
@@ -22771,6 +22807,7 @@ function replaceBulletPointsWithAsterisks() {
   const lists = viewer.querySelectorAll('ul');
   
   lists.forEach(ul => {
+    if (ul.closest('.semantic-answer, .answer-content, .entwicklung-list')) return;
     // Finde den vorherigen Absatz oder Paragraph
     let previousElement = ul.previousElementSibling;
     
@@ -23531,13 +23568,15 @@ function formatAsteriskParagraphs() {
         selectedGA = String(appliedGA).split(',').map(s => s.trim()).filter(Boolean).join(', ');
       }
       const headingBase = autocorrectQuery(query) || '';
-      // Modus-Label basierend auf currentThematicLimit
-      // (100 = tief, 150 = Essay, 250 = zitat, 300 = breit)
+      // Modus-Label basierend auf currentThematicMode / Limit
+      // (100 = tief, 150 = Essay, 180 = Entwicklung, 250 = zitat, 300 = breit)
       let modeLabel;
       if (currentThematicMode === 'internet') modeLabel = '[+ Internet]';
       else if (currentThematicMode === 'chat') modeLabel = '[Chat]';
+      else if (currentThematicMode === 'entwicklung') modeLabel = '[Entwicklung]';
       else if (currentThematicLimit === 300) modeLabel = '[breit]';
       else if (currentThematicLimit === 250) modeLabel = '[Zitat]';
+      else if (currentThematicLimit === 180) modeLabel = '[Entwicklung]';
       else if (currentThematicLimit === 150) modeLabel = '[Essay]';
       else modeLabel = '[tief]';
       const headingWithMode = `${headingBase} ${modeLabel}`;
@@ -23698,11 +23737,94 @@ function formatAsteriskParagraphs() {
       
       setTimeout(() => {
         bindThematicGaLinksInViewer(answerDiv);
+        if (currentThematicMode === 'entwicklung' && answerDiv) {
+          Array.from(answerDiv.querySelectorAll('h2')).forEach((h, i) => {
+            h.classList.add('entwicklung-section-heading');
+            if (!h.id) h.id = 'entwicklung-sec-' + i;
+          });
+        }
       }, 100);
 
       window.renderThematicResults = renderThematicResults;
       injectThematicViewerBackBar();
     }
+
+    function openEntwicklungInhaltsuebersicht() {
+      const headings = Array.from(document.querySelectorAll('#viewer .entwicklung-section-heading'));
+      if (headings.length === 0) return;
+
+      const summaryPanel = document.getElementById('summary-panel');
+      const mainContainer = document.getElementById('main-container');
+      const summaryContent = document.getElementById('summary-content');
+      if (!summaryPanel || !summaryContent) return;
+
+      const esc = (s) => String(s || '')
+        .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+
+      summaryPanel.classList.remove('has-members-panel');
+      summaryContent.classList.remove('has-members-panel');
+      window.membersPanelActive = false;
+
+      const wasAlreadyVisible = summaryPanel.classList.contains('visible');
+      const currentPanelWidth = summaryPanel.offsetWidth || 0;
+      summaryPanel.classList.add('visible');
+      if (!wasAlreadyVisible || currentPanelWidth === 0) {
+        const panelWidth = (typeof savedSummaryPanelWidth !== 'undefined' && savedSummaryPanelWidth) || 450;
+        summaryPanel.style.width = panelWidth + 'px';
+        summaryPanel.style.minWidth = panelWidth + 'px';
+        if (mainContainer) mainContainer.style.marginRight = panelWidth + 'px';
+      }
+      summaryPanel.style.display = 'block';
+      summaryPanel.style.opacity = '1';
+      summaryPanel.style.visibility = 'visible';
+
+      const verticalResizeHandleWrapper = document.getElementById('verticalResizeHandleWrapper');
+      if (verticalResizeHandleWrapper) {
+        verticalResizeHandleWrapper.classList.add('visible');
+        verticalResizeHandleWrapper.style.display = 'grid';
+        setTimeout(() => { try { updateHeaderPosition(); } catch (_) {} }, 50);
+      }
+      document.body.classList.remove('summary-panel-collapsed');
+
+      const sideHeader = document.getElementById('sidePanelLectureHeader');
+      if (sideHeader) sideHeader.innerHTML = '';
+
+      const tocBody = `<ol style="margin: 0; padding-left: 1.25rem;">${headings.map((h) => {
+        if (!h.id) h.id = 'entwicklung-sec-' + Math.random().toString(36).slice(2, 8);
+        return `<li style="margin: 0 0 0.45rem 0; line-height: 1.35;">
+            <a href="#${esc(h.id)}" class="recherche-toc-link" data-heading-id="${esc(h.id)}"
+               style="color: var(--link-color, var(--accent-color)); text-decoration: none;"
+               onmouseover="this.style.textDecoration='underline'"
+               onmouseout="this.style.textDecoration='none'">${esc(h.textContent || '')}</a>
+          </li>`;
+      }).join('')}</ol>`;
+
+      summaryContent.innerHTML = `
+        <div class="recherche-inhaltsuebersicht" style="padding: 1rem 1.2rem 2rem 1.2rem; font-size: var(--text-size, 0.95rem);">
+          <h3 style="margin: 0 0 0.85rem 0; font-size: 1.05rem;">Inhaltsübersicht</h3>
+          <p style="margin: 0 0 0.85rem 0; color: var(--secondary-text); font-size: 0.85em;">Zwischenüberschriften der Lehrentwicklung</p>
+          ${tocBody}
+        </div>
+      `;
+
+      summaryContent.querySelectorAll('.recherche-toc-link').forEach((a) => {
+        a.addEventListener('click', (e) => {
+          e.preventDefault();
+          const hid = a.getAttribute('data-heading-id');
+          const target = hid ? document.getElementById(hid) : null;
+          const mainEl = document.getElementById('main');
+          if (!target || !mainEl) return;
+          const headingRect = target.getBoundingClientRect();
+          const mainRect = mainEl.getBoundingClientRect();
+          const top = headingRect.top - mainRect.top + mainEl.scrollTop - 12;
+          mainEl.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
+        });
+      });
+
+      try { summaryPanel.scrollTop = 0; } catch (_) {}
+      try { summaryContent.scrollTop = 0; } catch (_) {}
+    }
+    window.openEntwicklungInhaltsuebersicht = openEntwicklungInhaltsuebersicht;
 
     async function showLectureTop(lectureId) {
       // Scroll zum Anfang erzwingen
