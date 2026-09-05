@@ -736,8 +736,8 @@ function bookHeadingTagName(level) {
             // entwicklung_kind und goetheanismus werden separat unter
             // "Externe Sammlungen" angezeigt, damit sie nicht in der Tab-Liste
             // mit den internen Tabs vermischt werden.
-            var excludeFromTabList = { zitate: 1, keywords: 1, docs: 1, entwicklung_kind: 1, goetheanismus: 1 };
-            var entries = Object.entries(ts).filter(function(e) { return !excludeFromTabList[e[0]] && !/^fn\d|^fnref\d/.test(e[0]); }).sort(function(a,b) { return b[1] - a[1]; });
+            var excludeFromTabList = { zitate: 1, keywords: 1, docs: 1, entwicklung_kind: 1, goetheanismus: 1, goethe_naturphilosophie: 1, korrektur: 1, maps: 1, Sprache: 1 };
+            var entries = Object.entries(ts).filter(function(e) { return !excludeFromTabList[e[0]] && !/^fn\d|^fnref\d/.test(e[0]) && e[0].indexOf('#') === -1; }).sort(function(a,b) { return b[1] - a[1]; });
             if (entries.length === 0) {
               if (data.tabsMigrationNeeded) {
                 return '<div class="analytics-section"><h3>Aufrufe je Tab</h3><p style="font-size:0.85em;color:#c9433d;">Supabase-Migration erforderlich: Bitte <code>supabase-analytics-tabs-quotes.sql</code> im Supabase SQL Editor ausführen</p></div>';
