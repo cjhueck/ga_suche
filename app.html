@@ -3903,6 +3903,48 @@ gap: 4px !important;
       margin-top: 3px;
     }
     
+    #ga-view-toggle {
+      display: flex;
+      flex-wrap: nowrap;
+      align-items: stretch;
+      gap: 4px;
+      width: 100%;
+      min-width: 0;
+    }
+
+    #ga-view-toggle > .depth-btn {
+      flex: 0 0 auto;
+      padding: 6px 5px;
+      font-size: 0.78em;
+      white-space: nowrap;
+      line-height: 1.2;
+      margin: 0;
+      min-height: 2.2em;
+      height: 2.2em;
+      box-sizing: border-box;
+    }
+
+    #ga-filter-dropdowns-row {
+      display: flex;
+      flex: 1 1 0;
+      min-width: 0;
+      gap: 4px;
+    }
+
+    #ga-filter-dropdowns-row .custom-dropdown {
+      flex: 1 1 0;
+      min-width: 0;
+    }
+
+    #ga-filter-dropdowns-row .custom-dropdown-button {
+      padding: 6px 5px;
+      font-size: 0.78em;
+      margin: 0;
+      min-height: 2.2em;
+      height: 2.2em;
+      box-sizing: border-box;
+    }
+
     .custom-dropdown-list {
       position: fixed;
       background: #FAF8F3 !important;
@@ -3918,24 +3960,28 @@ gap: 4px !important;
     #gaFilterList,
     #advancedGAFilterList,
     #texteGAFilterList,
-    #gaBandFilterList {
+    #gaBandFilterList,
+    #gaPlaceFilterList {
       width: auto;
     }
 
     #texteGAFilterList,
-    #gaBandFilterList {
+    #gaBandFilterList,
+    #gaPlaceFilterList {
       max-width: calc(100vw - 12px);
     }
 
     #texteGAFilterList .custom-dropdown-item,
-    #gaBandFilterList .custom-dropdown-item {
+    #gaBandFilterList .custom-dropdown-item,
+    #gaPlaceFilterList .custom-dropdown-item {
       overflow: visible;
       text-overflow: clip;
       max-width: none;
     }
 
     #texteGAFilterButton .custom-dropdown-text,
-    #gaBandFilterButton .custom-dropdown-text {
+    #gaBandFilterButton .custom-dropdown-text,
+    #gaPlaceFilterButton .custom-dropdown-text {
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -7689,25 +7735,37 @@ body.dark-mode .viewer-search-highlight.active {
 <div class="tab-content active" id="ga-tab">
 <div style="padding: 0.2rem;">
 <!-- View Toggle Buttons -->
-<div id="ga-view-toggle" style="display: flex; gap: 8px; margin-bottom: 0.5rem; align-items: center; flex-wrap: wrap;">
-<button id="ga-chronological-view-btn" class="depth-btn" onclick="toggleChronologicalView()" style="padding: 8px; font-size: 0.85em; background: var(--accent-color); color: white; border: 1px solid var(--accent-color); flex-shrink: 0;">
+<div id="ga-view-toggle" style="margin-bottom: 0.5rem;">
+<button id="ga-chronological-view-btn" class="depth-btn" onclick="toggleChronologicalView()" style="background: var(--accent-color); color: white; border: 1px solid var(--accent-color);">
 Chronologisch
 </button>
-<button id="ga-chalkboards-btn" class="depth-btn" onclick="toggleChalkboardsView()" style="padding: 8px; font-size: 0.85em; background: transparent; color: var(--accent-color); border: 1px solid var(--accent-color); flex-shrink: 0;">
+<button id="ga-chalkboards-btn" class="depth-btn" onclick="toggleChalkboardsView()" style="background: transparent; color: var(--accent-color); border: 1px solid var(--accent-color);">
 Wandtafeln
 </button>
-<select id="ga-year-filter-dropdown" class="filter-dropdown" onchange="handleYearFilterChange(this.value)" style="display: none; padding: 8px; font-size: 0.85em; border: 1.5px solid var(--accent-color); border-radius: 4px; background: var(--background-color); color: var(--text-color); cursor: pointer; width: 90px; flex-shrink: 0;">
+<select id="ga-year-filter-dropdown" class="filter-dropdown" onchange="handleYearFilterChange(this.value)" style="display: none; padding: 6px; font-size: 0.78em; border: 1.5px solid var(--accent-color); border-radius: 4px; background: var(--background-color); color: var(--text-color); cursor: pointer; width: 72px; flex-shrink: 0;">
 <option value="">Jahr</option>
 </select>
+<div id="ga-filter-dropdowns-row">
 <select id="ga-band-filter-dropdown" class="filter-dropdown" style="display: none;" aria-hidden="true" tabindex="-1">
 <option value="">GA-Bände</option>
 </select>
-<div class="custom-dropdown" id="gaBandFilterContainer" style="flex: 1; min-width: 0; max-width: 100%;">
-  <button type="button" class="filter-dropdown custom-dropdown-button" id="gaBandFilterButton" style="padding: 8px; font-size: 0.85em; border: 1.5px solid var(--accent-color); border-radius: 4px; background: var(--background-color); color: var(--text-color); cursor: pointer; width: 100%;">
+<div class="custom-dropdown" id="gaBandFilterContainer">
+  <button type="button" class="filter-dropdown custom-dropdown-button" id="gaBandFilterButton" style="border: 1.5px solid var(--accent-color); border-radius: 4px; background: var(--background-color); color: var(--text-color); cursor: pointer; width: 100%;">
     <span class="custom-dropdown-text">GA-Bände</span>
     <span class="custom-dropdown-arrow"></span>
   </button>
   <div class="custom-dropdown-list" id="gaBandFilterList"></div>
+</div>
+<select id="ga-place-filter-dropdown" class="filter-dropdown" style="display: none;" aria-hidden="true" tabindex="-1">
+<option value="">Orte</option>
+</select>
+<div class="custom-dropdown" id="gaPlaceFilterContainer">
+  <button type="button" class="filter-dropdown custom-dropdown-button" id="gaPlaceFilterButton" style="border: 1.5px solid var(--accent-color); border-radius: 4px; background: var(--background-color); color: var(--text-color); cursor: pointer; width: 100%;">
+    <span class="custom-dropdown-text">Orte</span>
+    <span class="custom-dropdown-arrow"></span>
+  </button>
+  <div class="custom-dropdown-list" id="gaPlaceFilterList"></div>
+</div>
 </div>
 </div>
 <div id="ga-volumes-info" style="font-size: 0.85em; color: var(--text-color);">
@@ -8895,6 +8953,10 @@ Bestehende Schlagwörter überschreiben
         <td style="padding: 0.4rem; border: 1px solid var(--border-color);">Zeigt alle Wandtafelzeichnungen. Jahr-Filter verfügbar. <code>toggleChalkboardsView()</code></td>
       </tr>
       <tr style="background: var(--sidebar-bg);">
+        <td style="padding: 0.4rem; border: 1px solid var(--border-color);">Orte (Dropdown)</td>
+        <td style="padding: 0.4rem; border: 1px solid var(--border-color);">Filtert Vorträge und Wandtafeln nach Vortragsort (alphabetisch). Helsinki umfasst Helsingfors. <code>handlePlaceFilterChange()</code></td>
+      </tr>
+      <tr>
         <td style="padding: 0.4rem; border: 1px solid var(--border-color);">Jahr-Buttons (1884-1925)</td>
         <td style="padding: 0.4rem; border: 1px solid var(--border-color);">Filtert chronologische Ansicht oder Wandtafeln nach Jahr</td>
       </tr>

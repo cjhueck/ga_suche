@@ -5211,6 +5211,7 @@ function normalizeGANumber(gaNumber) {
         this.listId = listId;
         this.placeholderText = placeholderText;
         this.searchPlaceholder = options.searchPlaceholder || 'Suchen…';
+        this.matchMode = options.matchMode || 'ga';
         this.container = document.getElementById(containerId);
         this.button = document.getElementById(buttonId);
         this.list = document.getElementById(listId);
@@ -5311,6 +5312,13 @@ function normalizeGANumber(gaNumber) {
       getFilteredItems() {
         const q = String(this.searchQuery || '').trim();
         if (!q) return this.items;
+        if (this.matchMode === 'label') {
+          const qLower = q.toLowerCase();
+          return this.items.filter(item => {
+            const hay = `${item.label || ''} ${item.value || ''} ${item.searchText || ''}`.toLowerCase();
+            return hay.includes(qLower);
+          });
+        }
         return this.items.filter(item => {
           const ga = { number: item.value, title: item.label };
           return typeof gaVolumeMatchesSearch === 'function'
@@ -6217,6 +6225,197 @@ let gaVolumesLoading = false; // Verhindert doppeltes Laden
 let gaVolumesRetryCount = 0; // Zählt Retry-Versuche
 let selectedGABandFilter = null; // Filter für GA-Band-Auswahl im GA-Tab
 let gaBandFilterDropdown = null;
+let selectedPlaceFilter = null; // Filter für Vortragsort im GA-Tab
+let gaPlaceFilterDropdown = null;
+
+const LOCATION_CANONICAL = {
+  helsingfors: 'Helsinki',
+  helsinki: 'Helsinki',
+  kristiania: 'Oslo',
+  christiania: 'Oslo',
+  oslo: 'Oslo',
+  haag: 'Den Haag',
+  'den haag': 'Den Haag',
+  stratford: 'Stratford-on-Avon',
+  'stratford-on-avon': 'Stratford-on-Avon',
+  'stratford-en-avon': 'Stratford-on-Avon'
+};
+
+const LOCATION_DROPDOWN_LABELS = {
+  Helsinki: 'Helsinki / Helsingfors',
+  Oslo: 'Oslo / Kristiania',
+  'Den Haag': 'Den Haag / Haag'
+};
+
+function canonicalizeLectureLocation(city) {
+  if (!city || city === '-') return city;
+  const mapped = LOCATION_CANONICAL[String(city).toLowerCase()];
+  return mapped || city;
+}
+
+function cleanLectureLocation(loc, fullTitle = '') {
+  const knownCities = [
+    'Dornach', 'Berlin', 'Stuttgart', 'München', 'Basel', 'Wien', 'Zürich',
+    'Karlsruhe', 'Hamburg', 'Köln', 'Frankfurt', 'Leipzig', 'Dresden', 'Hannover',
+    'Nürnberg', 'Breslau', 'Düsseldorf', 'Bremen', 'Mannheim', 'Heidelberg',
+    'Bern', 'Genf', 'Luzern', 'St. Gallen', 'Winterthur',
+    'Prag', 'Budapest', 'Kristiania', 'Oslo', 'Stockholm', 'Kopenhagen',
+    'London', 'Paris', 'Amsterdam', 'Den Haag', 'Haag',
+    'Barmen', 'Elberfeld', 'Kassel', 'Weimar', 'Jena', 'Erfurt',
+    'Darmstadt', 'Straßburg', 'Freiburg', 'Ulm', 'Augsburg',
+    'Bochum', 'Essen', 'Dortmund', 'Münster', 'Wuppertal',
+    'Braunschweig', 'Magdeburg', 'Halle', 'Chemnitz',
+    'Danzig', 'Stettin', 'Königsberg',
+    'Arlesheim', 'Neuchâtel', 'La Chaux-de-Fonds',
+    'Torquay', 'Oxford', 'Manchester', 'Penmaenmawr',
+    'Helsingfors', 'Helsinki', 'Christiania',
+    'Hermannstadt', 'Stratford-on-Avon', 'Stratford',
+    'Ilkley', 'York', 'Mailand', 'Rom', 'Florenz', 'Göteborg',
+    'Brüssel', 'Antwerpen', 'Warschau', 'Graz', 'Innsbruck', 'Salzburg',
+    'Lausanne', 'Liestal', 'Kiel', 'Wiesbaden', 'Petersburg', 'Moskau',
+    'New York', 'Chicago', 'Rotterdam'
+  ];
+
+  const normalizeCity = (city) => {
+    const specialCases = {
+      'st. gallen': 'St. Gallen',
+      'den haag': 'Den Haag',
+      'la chaux-de-fonds': 'La Chaux-de-Fonds',
+      'stratford-on-avon': 'Stratford-on-Avon',
+      'stratford-en-avon': 'Stratford-on-Avon',
+      'new york': 'New York'
+    };
+
+    const lowerCity = city.toLowerCase();
+    if (specialCases[lowerCity]) {
+      return canonicalizeLectureLocation(specialCases[lowerCity]);
+    }
+
+    if (city.includes('-')) {
+      return canonicalizeLectureLocation(city.split('-').map(part =>
+        part.charAt(0).toUpperCase() + part.slice(1).toLowerCase()
+      ).join('-'));
+    }
+
+    return canonicalizeLectureLocation(city.charAt(0).toUpperCase() + city.slice(1).toLowerCase());
+  };
+
+  const invalidPatterns = [
+    /^(Erster|Zweiter|Dritter|Vierter|Fünfter|Sechster|Siebter|Achter|Neunter|Zehnter|Elfter|Zwölfter|Dreizehnter|Vierzehnter|Fünfzehnter|Sechzehnter|Siebzehnter|Achtzehnter|Neunzehnter|Zwanzigster|Einundzwanzigster|Zweiundzwanzigster|Dreiundzwanzigster|Vierundzwanzigster|Fünfundzwanzigster|Sechsundzwanzigster|Siebenundzwanzigster|Achtundzwanzigster|Neunundzwanzigster|Dreißigster)\s+Vortrag$/i,
+    /^(Erste|Zweite|Dritte|Vierte|Fünfte|Sechste|Siebte|Achte|Neunte|Zehnte|Elfte|Zwölfte|Dreizehnte|Vierzehnte|Fünfzehnte|Sechzehnte|Siebzehnte|Achtzehnte|Neunzehnte|Zwanzigste)\s+Stunde$/i,
+    /^(öffentlicher|nicht\s+öffentlicher|Mitglieder)\s*Vortrag$/i,
+    /^(Montag|Dienstag|Mittwoch|Donnerstag|Freitag|Samstag|Sonntag|Pfingstmontag|Pfingstsonntag|Karfreitag|Ostermontag|Ostersamstag|Ostersonntag|Gründonnerstag|Himmelfahrt|Dreikönigstag)$/i,
+    /^(Notizen|Mündliche\s+Mitteilung|Beilage|Aus\s+einem\s+Brief|Zu\s+einem\s+Brief)/i,
+    /^(Ansprache|Schlusswort|Eröffnungsansprache|Fragenbeantwortung|Diskussion|Anmerkung)$/i,
+    /^[A-ZÄÖÜ\s]{10,}$/,
+    /die\s+(größte|klassische)/i,
+    /^GOETHE|^DIE\s+ENTWICKLUNG|^SCHULUNG/i,
+    /johannesbau|broschüre|nachrichtenblatt/i,
+    /^(Der|Die|Das|Den|Dem|Des)\s+[a-zäöü]/i
+  ];
+
+  const findCityInText = (text) => {
+    if (!text) return null;
+
+    const inMatch = text.match(/Vortrag\s+in\s+([A-ZÄÖÜ][a-zäöüß]+)/);
+    if (inMatch) {
+      const cityCandidate = inMatch[1];
+      const cityLower = cityCandidate.toLowerCase();
+      for (const city of knownCities) {
+        if (city.toLowerCase() === cityLower) {
+          return normalizeCity(city);
+        }
+      }
+      if (cityCandidate.length >= 4 && !invalidPatterns.some(p => p.test(cityCandidate))) {
+        return normalizeCity(cityCandidate);
+      }
+    }
+
+    const textLower = text.toLowerCase();
+    for (const city of knownCities) {
+      const cityLower = city.toLowerCase();
+      if (textLower.includes(cityLower)) {
+        return normalizeCity(city);
+      }
+    }
+    return null;
+  };
+
+  let cleanedLoc = loc ? loc.replace(/\s*\([^)]*\)/g, '').trim() : loc;
+
+  if (cleanedLoc && /^(In|in)\s+/.test(cleanedLoc)) {
+    cleanedLoc = cleanedLoc.replace(/^(In|in)\s+/, '');
+  }
+
+  if (!cleanedLoc || cleanedLoc === '-' || cleanedLoc.length > 100 || invalidPatterns.some(p => p.test(cleanedLoc.trim()))) {
+    const cityFromTitle = findCityInText(fullTitle);
+    return cityFromTitle || '-';
+  }
+
+  const cityFromLoc = findCityInText(cleanedLoc);
+  if (cityFromLoc) {
+    return cityFromLoc;
+  }
+
+  let cleaned = cleanedLoc
+    .replace(/^(Erster|Zweiter|Dritter|Vierter|Fünfter|Sechster|Siebter|Achter|Neunter|Zehnter|Elfter|Zwölfter|Dreizehnter|Vierzehnter|Fünfzehnter|Sechzehnter|Siebzehnter|Achtzehnter|Neunzehnter|Zwanzigster|Einundzwanzigster)\s+Vortrag[,\s]*/i, '')
+    .replace(/^(Erste|Zweite|Dritte|Vierte|Fünfte|Sechste|Siebte|Achte|Neunte|Zehnte|Elfte|Zwölfte)\s+Stunde[,\s]*/i, '')
+    .replace(/^(öffentlicher|nicht\s+öffentlicher|Mitglieder)\s*Vortrag[,\s]*/i, '')
+    .replace(/^Vortrag[,\s]*/i, '')
+    .replace(/^\s*[,;]\s*/, '')
+    .trim();
+
+  if (cleaned.includes(',')) {
+    const parts = cleaned.split(',').map(p => p.trim());
+    for (const part of parts) {
+      if (part.length >= 3 && !invalidPatterns.some(p => p.test(part))) {
+        const cityInPart = findCityInText(part);
+        if (cityInPart) return cityInPart;
+        return normalizeCity(part);
+      }
+    }
+  }
+
+  if (cleaned.length < 3 || invalidPatterns.some(p => p.test(cleaned))) {
+    const cityFromTitle = findCityInText(fullTitle);
+    return cityFromTitle || '-';
+  }
+
+  return normalizeCity(cleaned);
+}
+
+function getLecturePlace(lecture) {
+  if (!lecture) return '';
+  const title = lecture.fileName || lecture.title || '';
+  const loc = cleanLectureLocation(lecture.location, title);
+  return loc && loc !== '-' ? loc : '';
+}
+
+function lectureMatchesPlace(lecture, place) {
+  if (!place) return true;
+  const loc = getLecturePlace(lecture);
+  if (!loc) return false;
+  return loc.toLowerCase() === String(place).toLowerCase();
+}
+
+function getFilteredChronologicalLectures() {
+  const lectures = allChronologicalLectures || [];
+  return lectures.filter(lecture => {
+    if (selectedGABandFilter) {
+      if (!lecture.gaNumber) return false;
+      if (normalizeGANumber(lecture.gaNumber) !== normalizeGANumber(selectedGABandFilter)) return false;
+    }
+    if (selectedYearFilter) {
+      if (!lecture.date) return false;
+      const lectureYear = String(lecture.date).substring(0, 4);
+      if (lectureYear !== String(selectedYearFilter)) return false;
+    }
+    if (selectedPlaceFilter && !lectureMatchesPlace(lecture, selectedPlaceFilter)) {
+      return false;
+    }
+    return true;
+  });
+}
 
 function gaVolumeMatchesSearch(ga, rawQuery) {
   const q = String(rawQuery || '').trim().toLowerCase();
@@ -6244,6 +6443,16 @@ function getFilteredGAVolumesForSidebar() {
   if (selectedGABandFilter) {
     filteredData = filteredData.filter(ga =>
       ga.number.toLowerCase() === selectedGABandFilter.toLowerCase()
+    );
+  }
+  if (selectedPlaceFilter && allChronologicalLectures && allChronologicalLectures.length > 0) {
+    const gaNumbers = new Set();
+    allChronologicalLectures.forEach(lecture => {
+      if (!lectureMatchesPlace(lecture, selectedPlaceFilter) || !lecture.gaNumber) return;
+      gaNumbers.add(normalizeGANumber(lecture.gaNumber).toLowerCase());
+    });
+    filteredData = filteredData.filter(ga =>
+      gaNumbers.has(normalizeGANumber(ga.number).toLowerCase())
     );
   }
   return filteredData;
@@ -6295,6 +6504,101 @@ function initGABandFilterDropdown() {
   }
 }
 
+function hookGAPlaceFilterValueSync() {
+  const gaPlaceFilter = document.getElementById('ga-place-filter-dropdown');
+  if (!gaPlaceFilter || gaPlaceFilter._valueHooked) return;
+  gaPlaceFilter._valueHooked = true;
+  const descriptor = Object.getOwnPropertyDescriptor(HTMLSelectElement.prototype, 'value');
+  Object.defineProperty(gaPlaceFilter, 'value', {
+    get() { return descriptor.get.call(this); },
+    set(v) {
+      descriptor.set.call(this, v);
+      if (gaPlaceFilterDropdown) {
+        gaPlaceFilterDropdown.setSelectedValue(v || '');
+      }
+    },
+    configurable: true
+  });
+}
+
+function initGAPlaceFilterDropdown() {
+  const container = document.getElementById('gaPlaceFilterContainer');
+  if (!container || container._gaPlaceDropdownInitialized) return;
+  if (typeof window.SingleSelectSearchDropdown !== 'function') return;
+  container._gaPlaceDropdownInitialized = true;
+
+  gaPlaceFilterDropdown = new window.SingleSelectSearchDropdown(
+    'gaPlaceFilterContainer',
+    'gaPlaceFilterButton',
+    'gaPlaceFilterList',
+    'Orte',
+    { searchPlaceholder: 'Ort suchen …', matchMode: 'label' }
+  );
+
+  hookGAPlaceFilterValueSync();
+
+  if (!container._singleselectListenerBound) {
+    container._singleselectListenerBound = true;
+    container.addEventListener('singleselect-change', (e) => {
+      const gaPlaceFilter = document.getElementById('ga-place-filter-dropdown');
+      if (!gaPlaceFilter) return;
+      const selectedPlace = e.detail.value || '';
+      const descriptor = Object.getOwnPropertyDescriptor(HTMLSelectElement.prototype, 'value');
+      descriptor.set.call(gaPlaceFilter, selectedPlace);
+      handlePlaceFilterChange(selectedPlace);
+    });
+  }
+}
+
+function populatePlaceFilterDropdown() {
+  const dropdown = document.getElementById('ga-place-filter-dropdown');
+  if (!dropdown) return;
+
+  initGAPlaceFilterDropdown();
+
+  const currentValue = dropdown.value || selectedPlaceFilter || '';
+  const places = new Set();
+  (allChronologicalLectures || []).forEach(lecture => {
+    const loc = getLecturePlace(lecture);
+    if (loc) places.add(loc);
+  });
+
+  const sorted = Array.from(places).sort((a, b) => a.localeCompare(b, 'de', { sensitivity: 'base' }));
+  dropdown.innerHTML = '<option value="">Orte</option>';
+
+  const items = sorted.map(place => ({
+    value: place,
+    label: LOCATION_DROPDOWN_LABELS[place] || place,
+    searchText: LOCATION_DROPDOWN_LABELS[place] || place
+  }));
+
+  sorted.forEach(place => {
+    const option = document.createElement('option');
+    option.value = place;
+    option.textContent = LOCATION_DROPDOWN_LABELS[place] || place;
+    dropdown.appendChild(option);
+  });
+
+  let restoredValue = '';
+  if (currentValue) {
+    const match = sorted.find(place => place.toLowerCase() === currentValue.toLowerCase());
+    if (match) {
+      dropdown.value = match;
+      restoredValue = match;
+      selectedPlaceFilter = match;
+    } else if (allChronologicalLectures && allChronologicalLectures.length > 0) {
+      dropdown.value = '';
+      selectedPlaceFilter = null;
+    }
+  }
+
+  if (gaPlaceFilterDropdown) {
+    gaPlaceFilterDropdown.setPlaceholder('Orte');
+    gaPlaceFilterDropdown.setItems(items);
+    gaPlaceFilterDropdown.setSelectedValue(restoredValue);
+  }
+}
+
 let selectedYearFilter = null; // Filter für Jahr-Auswahl im GA-Tab
 let chronologicalNavYear = null; // null = keine Nav-Auswahl, 'all' = Alle geklickt, sonst Jahr-String
 let selectedChalkboardsYearFilter = null; // Filter für Jahr-Auswahl bei Wandtafelzeichnungen
@@ -6321,6 +6625,9 @@ async function loadGAVolumesInSidebar(retryAttempt = 0) {
     
     // Befülle Dropdown mit GA-Bänden
     populateGABandFilterDropdown();
+    ensureChronologicalLecturesLoaded().then(ok => {
+      if (ok) populatePlaceFilterDropdown();
+    });
     
     displayGAVolumesInSidebar();
     
@@ -6409,6 +6716,9 @@ async function loadGAVolumesInSidebar(retryAttempt = 0) {
     
     // Befülle Dropdown mit GA-Bänden
     populateGABandFilterDropdown();
+    ensureChronologicalLecturesLoaded().then(ok => {
+      if (ok) populatePlaceFilterDropdown();
+    });
     
     // Zeige GA-Bände im Sidebar (im #results Bereich)
     displayGAVolumesInSidebar();
@@ -6502,10 +6812,10 @@ function displayGAVolumesInSidebar() {
   let filteredData = getFilteredGAVolumesForSidebar();
   
   // Prüfe ob alle Bände wieder angezeigt werden (kein Filter aktiv)
-  const isShowingAllVolumes = !selectedGABandFilter;
+  const isShowingAllVolumes = !selectedGABandFilter && !selectedPlaceFilter;
   
   // Wenn alle Bände wieder angezeigt werden, setze Viewer zurück
-  if (isShowingAllVolumes) {
+  if (isShowingAllVolumes && currentGAView !== 'chronological' && !isChalkboardsViewActive) {
     const gaTab = document.getElementById('ga-tab');
     const isInGATab = gaTab && gaTab.classList.contains('active');
     
@@ -6585,6 +6895,7 @@ function populateGABandFilterDropdown(chalkboardsOnly = false) {
   }
 
   initGABandFilterDropdown();
+  initGAPlaceFilterDropdown();
   
   // Speichere aktuellen Wert
   const currentValue = dropdown.value;
@@ -7072,6 +7383,20 @@ async function loadAndDisplayChalkboards() {
       return year === selectedChalkboardsYearFilter;
     });
   }
+
+  if (selectedPlaceFilter) {
+    filteredChalkboards = filteredChalkboards.filter(cb => {
+      if (cb.location && lectureMatchesPlace({ location: cb.location, fileName: '', title: '' }, selectedPlaceFilter)) {
+        return true;
+      }
+      try {
+        const lecture = findLectureByGAAndDate(cb.ga, cb.date);
+        return !!(lecture && lectureMatchesPlace(lecture, selectedPlaceFilter));
+      } catch (e) {
+        return false;
+      }
+    });
+  }
   
   // Sortiere nach aktueller Sortierreihenfolge
   if (chalkboardsSortOrder === 'date') {
@@ -7150,7 +7475,10 @@ function displayChalkboardsGallery(chalkboards) {
   // Setze Titel im Header (wie bei "Vorträge chronologisch")
   const documentTitle = document.getElementById('document-title');
   if (documentTitle) {
-    const filterInfo = selectedGABandFilter ? ' aus ' + selectedGABandFilter : '';
+    const filterInfo = [
+      selectedGABandFilter ? ' aus ' + selectedGABandFilter : '',
+      selectedPlaceFilter ? ' · ' + selectedPlaceFilter : ''
+    ].join('');
     documentTitle.innerHTML = `<span style="font-size: 1em;">Wandtafelzeichnungen</span> <span style="font-size: 0.85em; font-weight: normal; color: var(--secondary-text);">(${chalkboards.length} Bilder${filterInfo})</span>`;
   }
   
@@ -7423,18 +7751,25 @@ function findLectureByGAAndDate(gaNumber, dateStr) {
 
 // Funktion: Lade chronologische Vorträge für Wandtafel-Links (falls noch nicht geladen)
 async function ensureChronologicalLecturesLoaded() {
-  if (allChronologicalLectures && allChronologicalLectures.length > 0) return true;
+  if (allChronologicalLectures && allChronologicalLectures.length > 0) {
+    populatePlaceFilterDropdown();
+    return true;
+  }
   
   try {
     const response = await fetch(`${API_BASE}/api/lectures/chronological`);
     if (!response.ok) return false;
     
     const data = await response.json();
-    allChronologicalLectures = data.lectures || [];
-    console.log(`[CHALKBOARDS] ${allChronologicalLectures.length} Vorträge für Links geladen`);
+    allChronologicalLectures = (data.lectures || []).filter(lecture => {
+      if (!lecture.gaNumber) return true;
+      return normalizeGANumber(lecture.gaNumber) !== 'GA031';
+    });
+    console.log(`[CHRONOLOGICAL] ${allChronologicalLectures.length} Vorträge geladen`);
+    populatePlaceFilterDropdown();
     return true;
   } catch (error) {
-    console.warn('[CHALKBOARDS] Konnte Vorträge nicht laden:', error);
+    console.warn('[CHRONOLOGICAL] Konnte Vorträge nicht laden:', error);
     return false;
   }
 }
@@ -7595,38 +7930,9 @@ function handleYearFilterChange(value) {
   
   if (isChronologicalViewActive && allChronologicalLectures && allChronologicalLectures.length > 0) {
     console.log('[YEAR-FILTER] Filtere Vorträge nach Jahr');
-    
-    // WICHTIG: Setze currentGAView explizit
     currentGAView = 'chronological';
-    
-    // Filtere die Vorträge
-    let filteredLectures = allChronologicalLectures;
-    
-    // Filter nach Jahr
-    if (selectedYearFilter) {
-      filteredLectures = filteredLectures.filter(lecture => {
-        if (!lecture.date) return false;
-        const year = new Date(lecture.date).getFullYear();
-        return year === selectedYearFilter;
-      });
-      console.log('[YEAR-FILTER] Nach Jahr gefiltert:', filteredLectures.length, 'Vorträge für Jahr', selectedYearFilter);
-    }
-    
-    // Filter nach GA-Band (falls auch ausgewählt)
-    if (selectedGABandFilter) {
-      const normalizedFilter = normalizeGANumber(selectedGABandFilter);
-      filteredLectures = filteredLectures.filter(lecture => {
-        if (!lecture.gaNumber) return false;
-        const normalizedLectureGA = normalizeGANumber(lecture.gaNumber);
-        return normalizedLectureGA === normalizedFilter;
-      });
-      console.log('[YEAR-FILTER] Nach GA-Band gefiltert:', filteredLectures.length, 'Vorträge');
-    }
-    
-    // Zeige gefilterte Vorträge an
-    displayGAChronological(filteredLectures);
+    displayGAChronological(getFilteredChronologicalLectures());
   } else if (isChronologicalViewActive) {
-    // Lade Ansicht neu
     showGAChronologicalView(true);
   }
 }
@@ -7658,6 +7964,13 @@ function handleGABandFilterChange(value) {
     return;
   }
 
+  if (selectedPlaceFilter) {
+    console.log('[GA-FILTER] Ort-Filter aktiv, zeige chronologische Ansicht');
+    currentGAView = 'chronological';
+    showGAChronologicalView(true);
+    return;
+  }
+
   if (selectedGABandFilter) {
     console.log('[GA-FILTER] Zeige Inhaltsverzeichnis für', selectedGABandFilter);
     showGALectures(selectedGABandFilter, true);
@@ -7679,6 +7992,51 @@ function handleGABandFilterChange(value) {
     removeChronologicalYearButtons();
   }
 
+  const viewer = document.getElementById('viewer');
+  if (viewer) {
+    viewer.innerHTML = '<div id="viewer-content"><div style="color: var(--secondary-text); text-align: left; font-style: italic; font-size: 0.9rem;">Wählen Sie einen GA-Band aus der linken Liste aus.</div></div>';
+  }
+  const documentTitle = document.getElementById('document-title');
+  if (documentTitle) {
+    documentTitle.textContent = 'GA-Bände Übersicht';
+  }
+  if (typeof updateButtonStates === 'function') {
+    updateButtonStates();
+  }
+}
+
+function handlePlaceFilterChange(value) {
+  selectedPlaceFilter = value || null;
+  console.log('[PLACE-FILTER] Ort geändert zu:', selectedPlaceFilter);
+
+  updateChronologicalButtonText();
+  displayGAVolumesInSidebar();
+
+  const gaTab = document.getElementById('ga-tab');
+  const isInGATab = gaTab && gaTab.classList.contains('active');
+  if (isChalkboardsViewActive && isInGATab) {
+    loadAndDisplayChalkboards();
+    return;
+  }
+
+  if (!isInGATab) return;
+
+  if (selectedPlaceFilter || selectedYearFilter || currentGAView === 'chronological') {
+    currentGAView = 'chronological';
+    showGAChronologicalView(true);
+    return;
+  }
+
+  if (selectedGABandFilter) {
+    showGALectures(selectedGABandFilter, true);
+    return;
+  }
+
+  currentGAView = 'volumes';
+  currentGANumber = null;
+  if (typeof removeChronologicalYearButtons === 'function') {
+    removeChronologicalYearButtons();
+  }
   const viewer = document.getElementById('viewer');
   if (viewer) {
     viewer.innerHTML = '<div id="viewer-content"><div style="color: var(--secondary-text); text-align: left; font-style: italic; font-size: 0.9rem;">Wählen Sie einen GA-Band aus der linken Liste aus.</div></div>';
@@ -11094,6 +11452,7 @@ if (typeof window !== 'undefined') {
 function showGAVolumesView() {
   currentGAView = 'volumes';
   selectedGABandFilter = null;
+  selectedPlaceFilter = null;
   selectedYearFilter = null;
   chronologicalNavYear = null;
   currentGANumber = null;
@@ -11102,6 +11461,11 @@ function showGAVolumesView() {
   if (gaBandDropdown) gaBandDropdown.value = '';
   if (typeof gaBandFilterDropdown !== 'undefined' && gaBandFilterDropdown) {
     gaBandFilterDropdown.setSelectedValue('');
+  }
+  const gaPlaceDropdown = document.getElementById('ga-place-filter-dropdown');
+  if (gaPlaceDropdown) gaPlaceDropdown.value = '';
+  if (typeof gaPlaceFilterDropdown !== 'undefined' && gaPlaceFilterDropdown) {
+    gaPlaceFilterDropdown.setSelectedValue('');
   }
   const yearDropdown = document.getElementById('ga-year-filter-dropdown');
   if (yearDropdown) yearDropdown.value = '';
@@ -11226,6 +11590,9 @@ async function showGAChronologicalView(skipHistory = false) {
     if (selectedGABandFilter) {
       titleHtml += ` <span style="font-size: 1em;">– ${selectedGABandFilter}</span>`;
     }
+    if (selectedPlaceFilter) {
+      titleHtml += ` <span style="font-size: 1em;">– ${selectedPlaceFilter}</span>`;
+    }
     titleElement.innerHTML = titleHtml;
     
     
@@ -11241,35 +11608,10 @@ async function showGAChronologicalView(skipHistory = false) {
       return normalizedGA !== 'GA031';
     });
     
-    // Befülle das Jahr-Filter-Dropdown
     populateYearFilterDropdown();
-    
-    // Filtere nach ausgewähltem GA-Band und/oder Jahr
-    // Hinweis: GA031 wird automatisch in displayGAChronological herausgefiltert
-    let filteredLectures = allChronologicalLectures;
-    
-    // Filter nach GA-Band
-    if (selectedGABandFilter) {
-      const normalizedFilter = normalizeGANumber(selectedGABandFilter);
-      filteredLectures = filteredLectures.filter(lecture => {
-        if (!lecture.gaNumber) return false;
-        const normalizedLectureGA = normalizeGANumber(lecture.gaNumber);
-        return normalizedLectureGA === normalizedFilter;
-      });
-      console.log('[GA-FILTER] Nach GA-Band gefiltert:', filteredLectures.length, 'Vorträge für', normalizedFilter);
-    }
-    
-    // Filter nach Jahr
-    if (selectedYearFilter) {
-      filteredLectures = filteredLectures.filter(lecture => {
-        if (!lecture.date) return false;
-        const year = new Date(lecture.date).getFullYear();
-        return year === selectedYearFilter;
-      });
-      console.log('[GA-FILTER] Nach Jahr gefiltert:', filteredLectures.length, 'Vorträge für Jahr', selectedYearFilter);
-    }
-    
-    displayGAChronological(filteredLectures);
+    populatePlaceFilterDropdown();
+    displayGAVolumesInSidebar();
+    displayGAChronological(getFilteredChronologicalLectures());
     
   } catch (error) {
     console.error('Fehler beim Laden der chronologischen Ansicht:', error);
@@ -11326,7 +11668,10 @@ function displayGAChronological(lectures) {
   
   if (!lectures || lectures.length === 0) {
     targetElement.innerHTML = '<p style="color: #666; font-style: italic;">Keine Vorträge gefunden.</p>';
-    titleElement.innerHTML = '<span style="font-size: 1em;">Vorträge chronologisch</span>';
+    let emptyTitle = '<span style="font-size: 1em;">Vorträge chronologisch</span>';
+    if (selectedGABandFilter) emptyTitle += ` <span style="font-size: 1em;">– ${selectedGABandFilter}</span>`;
+    if (selectedPlaceFilter) emptyTitle += ` <span style="font-size: 1em;">– ${selectedPlaceFilter}</span>`;
+    titleElement.innerHTML = emptyTitle;
     return;
   }
   
@@ -11334,6 +11679,9 @@ function displayGAChronological(lectures) {
   let titleHtml = `<span style="font-size: 1em;">Vorträge chronologisch</span>`;
   if (selectedGABandFilter) {
     titleHtml += ` <span style="font-size: 1em;">– ${selectedGABandFilter}</span>`;
+  }
+  if (selectedPlaceFilter) {
+    titleHtml += ` <span style="font-size: 1em;">– ${selectedPlaceFilter}</span>`;
   }
   titleHtml += ` <span style="font-size: 0.85em; font-weight: normal; color: var(--secondary-text);">(${lectures.length} Vorträge)</span>`;
   titleElement.innerHTML = titleHtml;
@@ -11363,13 +11711,19 @@ function displayGAChronological(lectures) {
   
   // Für die Jahres-Buttons: Verwende ALLE Jahre aus allChronologicalLectures (nicht nur gefilterte)
   const allYearsSet = new Set();
-  if (allChronologicalLectures && allChronologicalLectures.length > 0) {
-    allChronologicalLectures.forEach(lecture => {
-      if (lecture.date) {
-        allYearsSet.add(lecture.date.substring(0, 4));
-      }
-    });
-  }
+  const yearButtonSource = (allChronologicalLectures || []).filter(lecture => {
+    if (selectedGABandFilter) {
+      if (!lecture.gaNumber) return false;
+      if (normalizeGANumber(lecture.gaNumber) !== normalizeGANumber(selectedGABandFilter)) return false;
+    }
+    if (selectedPlaceFilter && !lectureMatchesPlace(lecture, selectedPlaceFilter)) return false;
+    return true;
+  });
+  yearButtonSource.forEach(lecture => {
+    if (lecture.date) {
+      allYearsSet.add(lecture.date.substring(0, 4));
+    }
+  });
   const years = Array.from(allYearsSet).sort((a, b) => parseInt(a) - parseInt(b));
   
   // Erstelle sticky Jahres-Header mit ALLEN Jahren
@@ -11402,154 +11756,6 @@ function displayGAChronological(lectures) {
         <tbody>
   `;
   
-  // Hilfsfunktion: Extrahiere nur den Ortsnamen mit intelligenter Erkennung
-  const cleanLocation = (loc, fullTitle = '') => {
-    // Liste bekannter Vortragsorte (häufigste zuerst)
-    const knownCities = [
-      'Dornach', 'Berlin', 'Stuttgart', 'München', 'Basel', 'Wien', 'Zürich',
-      'Karlsruhe', 'Hamburg', 'Köln', 'Frankfurt', 'Leipzig', 'Dresden', 'Hannover',
-      'Nürnberg', 'Breslau', 'Düsseldorf', 'Bremen', 'Mannheim', 'Heidelberg',
-      'Bern', 'Genf', 'Luzern', 'St. Gallen', 'Winterthur',
-      'Prag', 'Budapest', 'Kristiania', 'Oslo', 'Stockholm', 'Kopenhagen',
-      'London', 'Paris', 'Amsterdam', 'Den Haag', 'Haag',
-      'Barmen', 'Elberfeld', 'Kassel', 'Weimar', 'Jena', 'Erfurt',
-      'Darmstadt', 'Straßburg', 'Freiburg', 'Ulm', 'Augsburg',
-      'Bochum', 'Essen', 'Dortmund', 'Münster', 'Wuppertal',
-      'Braunschweig', 'Magdeburg', 'Halle', 'Chemnitz',
-      'Danzig', 'Stettin', 'Königsberg',
-      'Arlesheim', 'Neuchâtel', 'La Chaux-de-Fonds',
-      'Torquay', 'Oxford', 'Manchester', 'Penmaenmawr',
-      'Helsingfors', 'Helsinki', 'Christiania',
-      'Hermannstadt', 'Stratford-on-Avon', 'Stratford'
-    ];
-    
-    // Funktion: Normalisiere Ortsnamen (Capitalize)
-    const normalizeCity = (city) => {
-      // Spezialfälle mit mehreren Teilen
-      const specialCases = {
-        'st. gallen': 'St. Gallen',
-        'den haag': 'Den Haag',
-        'la chaux-de-fonds': 'La Chaux-de-Fonds',
-        'stratford-on-avon': 'Stratford-on-Avon',
-        'stratford-en-avon': 'Stratford-on-Avon'
-      };
-      
-      const lowerCity = city.toLowerCase();
-      if (specialCases[lowerCity]) {
-        return specialCases[lowerCity];
-      }
-      
-      // Für Städte mit Bindestrichen: jeden Teil kapitalisieren
-      if (city.includes('-')) {
-        return city.split('-').map(part => 
-          part.charAt(0).toUpperCase() + part.slice(1).toLowerCase()
-        ).join('-');
-      }
-      
-      // Standard: Erster Buchstabe groß, Rest klein
-      return city.charAt(0).toUpperCase() + city.slice(1).toLowerCase();
-    };
-    
-    // Liste von ungültigen Mustern/Texten
-    const invalidPatterns = [
-      /^(Erster|Zweiter|Dritter|Vierter|Fünfter|Sechster|Siebter|Achter|Neunter|Zehnter|Elfter|Zwölfter|Dreizehnter|Vierzehnter|Fünfzehnter|Sechzehnter|Siebzehnter|Achtzehnter|Neunzehnter|Zwanzigster|Einundzwanzigster|Zweiundzwanzigster|Dreiundzwanzigster|Vierundzwanzigster|Fünfundzwanzigster|Sechsundzwanzigster|Siebenundzwanzigster|Achtundzwanzigster|Neunundzwanzigster|Dreißigster)\s+Vortrag$/i,
-      /^(Erste|Zweite|Dritte|Vierte|Fünfte|Sechste|Siebte|Achte|Neunte|Zehnte|Elfte|Zwölfte|Dreizehnte|Vierzehnte|Fünfzehnte|Sechzehnte|Siebzehnte|Achtzehnte|Neunzehnte|Zwanzigste)\s+Stunde$/i,
-      /^(öffentlicher|nicht\s+öffentlicher|Mitglieder)\s*Vortrag$/i,
-      /^(Montag|Dienstag|Mittwoch|Donnerstag|Freitag|Samstag|Sonntag|Pfingstmontag|Pfingstsonntag|Karfreitag|Ostermontag|Ostersamstag|Ostersonntag|Gründonnerstag|Himmelfahrt|Dreikönigstag)$/i,
-      /^(Notizen|Mündliche\s+Mitteilung|Beilage|Aus\s+einem\s+Brief|Zu\s+einem\s+Brief)/i,
-      /^(Ansprache|Schlusswort|Eröffnungsansprache|Fragenbeantwortung|Diskussion|Anmerkung)$/i,
-      /^[A-ZÄÖÜ\s]{10,}$/,  // Nur Großbuchstaben (wahrscheinlich Titel)
-      /die\s+(größte|klassische)/i,  // Textfragmente
-      /^GOETHE|^DIE\s+ENTWICKLUNG|^SCHULUNG/i,  // Bekannte Vortragstitel
-      /johannesbau|broschüre|nachrichtenblatt/i,  // Spezielle Begriffe
-      /^(Der|Die|Das|Den|Dem|Des)\s+[a-zäöü]/i  // Artikel + Kleinbuchstabe
-    ];
-    
-    // Hilfsfunktion: Suche nach bekanntem Ort in Text
-    const findCityInText = (text) => {
-      if (!text) return null;
-      
-      // Spezialfall: Suche nach "Vortrag in [Stadt]" oder "Vortrag, [Stadt]"
-      const inMatch = text.match(/Vortrag\s+in\s+([A-ZÄÖÜ][a-zäöüß]+)/);
-      if (inMatch) {
-        const cityCandidate = inMatch[1];
-        const cityLower = cityCandidate.toLowerCase();
-        // Prüfe ob es eine bekannte Stadt ist
-        for (const city of knownCities) {
-          if (city.toLowerCase() === cityLower) {
-            return normalizeCity(city);
-          }
-        }
-        // Auch wenn nicht in knownCities, nehme es wenn es plausibel aussieht
-        if (cityCandidate.length >= 4 && !invalidPatterns.some(p => p.test(cityCandidate))) {
-          return normalizeCity(cityCandidate);
-        }
-      }
-      
-      const textLower = text.toLowerCase();
-      for (const city of knownCities) {
-        const cityLower = city.toLowerCase();
-        if (textLower.includes(cityLower)) {
-          // Normalisiere Schreibweise
-          return normalizeCity(city);
-        }
-      }
-      return null;
-    };
-    
-    // Entferne Klammern und deren Inhalt (z.B. "(Siebenbürgen)")
-    let cleanedLoc = loc ? loc.replace(/\s*\([^)]*\)/g, '').trim() : loc;
-    
-    // Entferne "In " oder "in " am Anfang
-    if (cleanedLoc && /^(In|in)\s+/.test(cleanedLoc)) {
-      cleanedLoc = cleanedLoc.replace(/^(In|in)\s+/, '');
-    }
-    
-    // 1. Wenn loc ungültig ist, suche im Titel
-    if (!cleanedLoc || cleanedLoc === '-' || cleanedLoc.length > 100 || invalidPatterns.some(p => p.test(cleanedLoc.trim()))) {
-      const cityFromTitle = findCityInText(fullTitle);
-      return cityFromTitle || '-';
-    }
-    
-    // 2. Suche nach bekannten Ortsnamen in loc
-    const cityFromLoc = findCityInText(cleanedLoc);
-    if (cityFromLoc) {
-      return cityFromLoc;
-    }
-    
-    // 3. Versuche Text zu bereinigen
-    let cleaned = cleanedLoc
-      .replace(/^(Erster|Zweiter|Dritter|Vierter|Fünfter|Sechster|Siebter|Achter|Neunter|Zehnter|Elfter|Zwölfter|Dreizehnter|Vierzehnter|Fünfzehnter|Sechzehnter|Siebzehnter|Achtzehnter|Neunzehnter|Zwanzigster|Einundzwanzigster)\s+Vortrag[,\s]*/i, '')
-      .replace(/^(Erste|Zweite|Dritte|Vierte|Fünfte|Sechste|Siebte|Achte|Neunte|Zehnte|Elfte|Zwölfte)\s+Stunde[,\s]*/i, '')
-      .replace(/^(öffentlicher|nicht\s+öffentlicher|Mitglieder)\s*Vortrag[,\s]*/i, '')
-      .replace(/^Vortrag[,\s]*/i, '')
-      .replace(/^\s*[,;]\s*/, '')
-      .trim();
-    
-    // Wenn nach Komma getrennt, nimm den ersten sinnvollen Teil
-    if (cleaned.includes(',')) {
-      const parts = cleaned.split(',').map(p => p.trim());
-      for (const part of parts) {
-        if (part.length >= 3 && !invalidPatterns.some(p => p.test(part))) {
-          // Suche auch hier nach bekannten Städten
-          const cityInPart = findCityInText(part);
-          if (cityInPart) return cityInPart;
-          return normalizeCity(part);
-        }
-      }
-    }
-    
-    // Prüfe ob cleaned ein gültiger Ort ist
-    if (cleaned.length < 3 || invalidPatterns.some(p => p.test(cleaned))) {
-      // Als letztes Resort: Suche im Titel
-      const cityFromTitle = findCityInText(fullTitle);
-      return cityFromTitle || '-';
-    }
-    
-    // Normalisiere Schreibweise
-    return normalizeCity(cleaned);
-  };
-  
   // Funktion: Füge Bindestriche für Zeilenumbruch bei bestimmten Ortsnamen hinzu
   const addHyphenation = (city) => {
     if (!city) return city;
@@ -11567,7 +11773,7 @@ function displayGAChronological(lectures) {
     yearLectures.forEach((lecture, idx) => {
       const date = lecture.date ? formatDate(lecture.date) : '-';
       const title = lecture.fileName || `${formatLectureId(lecture.ID)} - ${lecture.title}`;
-      const location = addHyphenation(cleanLocation(lecture.location, title));
+      const location = addHyphenation(cleanLectureLocation(lecture.location, title));
       
       // Erste Zeile eines Jahres zeigt das Jahr, danach leer
       const yearCell = idx === 0 ? year : '';
@@ -11900,21 +12106,7 @@ function scrollToChronologicalYear(year) {
   
   // Filtere und zeige die Vorträge
   if (allChronologicalLectures && allChronologicalLectures.length > 0) {
-    let filteredLectures = allChronologicalLectures;
-    
-    if (year) {
-      // Filtere nach Jahr
-      filteredLectures = allChronologicalLectures.filter(lecture => {
-        if (!lecture.date) return false;
-        const lectureYear = lecture.date.substring(0, 4);
-        return lectureYear === String(year);
-      });
-    }
-    
-    // Zeige gefilterte Vorträge
-    displayGAChronological(filteredLectures);
-    
-    // Aktualisiere Button-Text
+    displayGAChronological(getFilteredChronologicalLectures());
     updateChronologicalButtonText();
   }
 }
