@@ -6247,6 +6247,21 @@ const LOCATION_DROPDOWN_LABELS = {
   'Den Haag': 'Den Haag / Haag'
 };
 
+const LOCATION_DATE_MONTHS = 'januar|februar|märz|maerz|april|mai|juni|juli|august|september|oktober|november|dezember|jan\\.?|feb\\.?|mär\\.?|apr\\.?|jun\\.?|jul\\.?|aug\\.?|sept?\\.?|okt\\.?|nov\\.?|dez\\.?';
+
+function isLectureLocationDateLike(text) {
+  if (!text) return false;
+  const t = String(text).trim();
+  if (!t || t === '-') return false;
+  const month = `(?:${LOCATION_DATE_MONTHS})(?![a-zäöüß])`;
+  if (new RegExp(`\\d{1,2}\\.\\s*(?:und|u\\.?|bis|[–—/-])\\s*\\d{1,2}\\.?\\s*${month}`, 'i').test(t)) return true;
+  if (new RegExp(`\\d{1,2}\\.\\s*${month}`, 'i').test(t)) return true;
+  if (new RegExp(`^${month}\\s+\\d{4}$`, 'i').test(t)) return true;
+  if (/^\d{1,2}\.\s*\d{1,2}\.(?:\s*\d{2,4})?$/.test(t)) return true;
+  if (/^\d{4}-\d{2}-\d{2}/.test(t)) return true;
+  return false;
+}
+
 function canonicalizeLectureLocation(city) {
   if (!city || city === '-') return city;
   const mapped = LOCATION_CANONICAL[String(city).toLowerCase()];
@@ -6347,7 +6362,7 @@ function cleanLectureLocation(loc, fullTitle = '') {
     cleanedLoc = cleanedLoc.replace(/^(In|in)\s+/, '');
   }
 
-  if (!cleanedLoc || cleanedLoc === '-' || cleanedLoc.length > 100 || invalidPatterns.some(p => p.test(cleanedLoc.trim()))) {
+  if (!cleanedLoc || cleanedLoc === '-' || cleanedLoc.length > 100 || invalidPatterns.some(p => p.test(cleanedLoc.trim())) || isLectureLocationDateLike(cleanedLoc)) {
     const cityFromTitle = findCityInText(fullTitle);
     return cityFromTitle || '-';
   }
@@ -6368,6 +6383,7 @@ function cleanLectureLocation(loc, fullTitle = '') {
   if (cleaned.includes(',')) {
     const parts = cleaned.split(',').map(p => p.trim());
     for (const part of parts) {
+      if (isLectureLocationDateLike(part)) continue;
       if (part.length >= 3 && !invalidPatterns.some(p => p.test(part))) {
         const cityInPart = findCityInText(part);
         if (cityInPart) return cityInPart;
@@ -6376,7 +6392,7 @@ function cleanLectureLocation(loc, fullTitle = '') {
     }
   }
 
-  if (cleaned.length < 3 || invalidPatterns.some(p => p.test(cleaned))) {
+  if (cleaned.length < 3 || invalidPatterns.some(p => p.test(cleaned)) || isLectureLocationDateLike(cleaned)) {
     const cityFromTitle = findCityInText(fullTitle);
     return cityFromTitle || '-';
   }
@@ -6560,7 +6576,7 @@ function populatePlaceFilterDropdown() {
   const places = new Set();
   (allChronologicalLectures || []).forEach(lecture => {
     const loc = getLecturePlace(lecture);
-    if (loc) places.add(loc);
+    if (loc && !isLectureLocationDateLike(loc)) places.add(loc);
   });
 
   const sorted = Array.from(places).sort((a, b) => a.localeCompare(b, 'de', { sensitivity: 'base' }));
