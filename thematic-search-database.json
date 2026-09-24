@@ -20778,5 +20778,1101 @@
       "themeArea": ""
     },
     "timestamp": "2026-08-31T12:57:41.491Z"
+  },
+  "jahrsiebte in der menschlichen biographie|recherche:v4:alle:alle|300|": {
+    "query": "Jahrsiebte in der menschlichen Biographie",
+    "content": "",
+    "sources": [
+      {
+        "ID": "GA018/2",
+        "index": "^s537fg",
+        "title": "ERSTER BAND",
+        "fileName": "GA018/2 - ERSTER BAND",
+        "score": 1312,
+        "matchedTerms": [
+          "ich",
+          "menschlichen"
+        ]
+      },
+      {
+        "ID": "GA007",
+        "index": "^puw1j2",
+        "title": "Die Mystik im Aufgange des neuzeitlichen Geisteslebens und ihr Verhältnis zur modernen Weltanschauung (1901)",
+        "fileName": "GA007-Die Mystik im Aufgange des neuzeitlichen Geisteslebens und ihr Verhältnis zur modernen Weltanschauung (1901)",
+        "score": 1198,
+        "matchedTerms": [
+          "ich",
+          "der menschlichen",
+          "menschlichen"
+        ]
+      },
+      {
+        "ID": "GA031/106",
+        "index": "^r7bw1d",
+        "title": "FRAU ELISABETH FÖRSTER-NIETZSCHE UND IHR RITTER VON KOMISCHER GESTALT",
+        "fileName": "GA031/106 - FRAU ELISABETH FÖRSTER-NIETZSCHE UND IHR RITTER VON KOMISCHER GESTALT",
+        "score": 970,
+        "matchedTerms": [
+          "ich"
+        ]
+      },
+      {
+        "ID": "GA020",
+        "index": "^lyokym",
+        "title": "Vom Menschenrätsel (1916)",
+        "fileName": "GA020 - Vom Menschenrätsel (1916)",
+        "score": 964,
+        "matchedTerms": [
+          "ich",
+          "der menschlichen",
+          "menschlichen"
+        ]
+      },
+      {
+        "ID": "GA031/105",
+        "index": "^hcf4fo",
+        "title": "ZUR «WIEDERKUNFT DES GLEICHEN» VON NIETZSCHE",
+        "fileName": "GA031/105 - ZUR «WIEDERKUNFT DES GLEICHEN» VON NIETZSCHE",
+        "score": 907,
+        "matchedTerms": [
+          "ich"
+        ]
+      },
+      {
+        "ID": "GA007",
+        "index": "^vjynjd",
+        "title": "Die Mystik im Aufgange des neuzeitlichen Geisteslebens und ihr Verhältnis zur modernen Weltanschauung (1901)",
+        "fileName": "GA007-Die Mystik im Aufgange des neuzeitlichen Geisteslebens und ihr Verhältnis zur modernen Weltanschauung (1901)",
+        "score": 880,
+        "matchedTerms": [
+          "ich",
+          "der menschlichen",
+          "menschlichen"
+        ]
+      },
+      {
+        "ID": "GA013",
+        "index": "^mbfp89",
+        "title": "Die Geheimwissenschaft im Umriss (1910)",
+        "fileName": "GA013 - Die Geheimwissenschaft im Umriss (1910)",
+        "score": 865,
+        "matchedTerms": [
+          "ich"
+        ]
+      },
+      {
+        "ID": "GA007",
+        "index": "^pah9l7",
+        "title": "Die Mystik im Aufgange des neuzeitlichen Geisteslebens und ihr Verhältnis zur modernen Weltanschauung (1901)",
+        "fileName": "GA007-Die Mystik im Aufgange des neuzeitlichen Geisteslebens und ihr Verhältnis zur modernen Weltanschauung (1901)",
+        "score": 859,
+        "matchedTerms": [
+          "ich"
+        ]
+      },
+      {
+        "ID": "GA102/7",
+        "index": "^l2phk7",
+        "title": "SIEBENTER VORTRAG",
+        "fileName": "GA102/7 - SIEBENTER VORTRAG, Berlin, 13. April 1908",
+        "score": 837,
+        "matchedTerms": [
+          "ich",
+          "der menschlichen",
+          "menschlichen"
+        ]
+      },
+      {
+        "ID": "GA021",
+        "index": "^02vczv",
+        "title": "Von Seelenrätseln (1917)",
+        "fileName": "GA021 - Von Seelenrätseln (1917)",
+        "score": 781,
+        "matchedTerms": [
+          "ich"
+        ]
+      }
+    ],
+    "searchMethod": "hybrid-thematic-unified",
+    "totalMatches": 201877,
+    "llmUsed": true,
+    "recherche": {
+      "subThemes": [
+        {
+          "title": "Keine einschlägigen Passagen zu Jahrsiebt-Biographie vorhanden",
+          "group": "Hinweis zur Quellenlage",
+          "rows": [
+            {
+              "aussage": "Quellenlage: Jahrsiebte in keiner der verfügbaren Passagen behandelt",
+              "zitat": "In meinen Vorträgen über die Entwickelung der Erde und der Menschheit wird darauf hingewiesen, dass die Vorfahren der jetzigen Kulturvölker auf einem Landesgebiet gewohnt haben, welches sich einstmals an der Stelle der Erdoberfläche ausdehnte, die heute von einem großen Teile des Atlantischen Ozeans eingenommen wird.",
+              "id": "GA011",
+              "index": "8gs33k",
+              "ref": "GA011:8gs33k",
+              "fileName": "GA011 - Aus der Akasha-Chronik (1904)",
+              "title": "Aus der Akasha-Chronik (1904)",
+              "relevance": "niedrig",
+              "date": "1904",
+              "year": "1904"
+            }
+          ]
+        },
+        {
+          "title": "Dämon als biographisches Schicksal: Heraklit",
+          "group": "Menschliche Entwicklung und Lebensrhythmus",
+          "rows": [
+            {
+              "aussage": "Heraklit: Dämon des Menschen = sein Schicksal; persönliches Leben als Erscheinungsform des überpersönlichen Dämons",
+              "zitat": "Des Menschen Dämon ist sein Schicksal. So erweitert sich für Heraklit das, was im Menschen lebt, weit über das Persönliche hinaus. Dieses Persönliche ist der Träger eines Dämonischen. Eines Dämonischen, das nicht in die Grenzen der Persönlichkeit eingeschlossen ist, für welches Sterben und Geborenwerden des Persönlichen keine Bedeutung haben.",
+              "id": "GA008",
+              "index": "e803ic",
+              "ref": "GA008:e803ic",
+              "fileName": "GA008 - Das Christentum als mystische Tatsache und die Mysterien des Altertums (1902)",
+              "title": "Das Christentum als mystische Tatsache und die Mysterien des Altertums (1902)",
+              "relevance": "mittel",
+              "date": "1902",
+              "year": "1902"
+            },
+            {
+              "aussage": "Dämon wandelt sich von Persönlichkeit zu Persönlichkeit; Wiederverkörperung als Konsequenz",
+              "zitat": "Der Dämon kann sich nicht innerhalb einer Persönlichkeit abschließen. Er hat Kraft, viele Persönlichkeiten zu beleben. Von Persönlichkeit zu Persönlichkeit vermag er sich zu wandeln. Der große Gedanke der Wiederverkörperung springt wie etwas Selbstverständliches aus den Heraklitischen Voraussetzungen.",
+              "id": "GA008",
+              "index": "e803ic",
+              "ref": "GA008:e803ic",
+              "fileName": "GA008 - Das Christentum als mystische Tatsache und die Mysterien des Altertums (1902)",
+              "title": "Das Christentum als mystische Tatsache und die Mysterien des Altertums (1902)",
+              "relevance": "mittel",
+              "date": "1902",
+              "year": "1902"
+            },
+            {
+              "aussage": "Frühere Leben als Vorarbeit für spätere Persönlichkeiten; Anlagen als Ergebnis früherer Lebensarbeit",
+              "zitat": "Wer das Dämonische in sich gewahr wird, findet es nicht als ein unschuldvolles, erstes vor. Er findet es mit Eigenschaften. Wodurch hat es diese? Warum habe ich Anlagen? Weil an meinem Dämon schon andere Persönlichkeiten gearbeitet haben. Und was wird aus dem, was ich an dem Dämon wirke, wenn ich nicht annehmen darf, dass dessen Aufgaben in meiner Persönlichkeit erschöpft sind? Ich arbeite für eine spätere Persönlichkeit vor.",
+              "id": "GA008",
+              "index": "e803ic",
+              "ref": "GA008:e803ic",
+              "fileName": "GA008 - Das Christentum als mystische Tatsache und die Mysterien des Altertums (1902)",
+              "title": "Das Christentum als mystische Tatsache und die Mysterien des Altertums (1902)",
+              "relevance": "mittel",
+              "date": "1902",
+              "year": "1902"
+            }
+          ]
+        },
+        {
+          "title": "Geistiger Erwerb in früheren Leben als Grundlage heutiger Fähigkeiten",
+          "group": "Menschliche Entwicklung und Lebensrhythmus",
+          "rows": [
+            {
+              "aussage": "Genialer Blick muss erworben sein: Fähigkeiten aus früheren Erdenleben",
+              "zitat": "Auch dieser 'geniale Blick' muss erworben sein: er muss gelernt sein. Und tritt er in einer Persönlichkeit auf, so nennen wir ihn ein Geistiges. Aber dieses Geistige hat eben auch erst gelernt; es hat sich in einem früheren Leben erworben, was es in einem späteren 'kann'.",
+              "id": "GA008",
+              "index": "e803ic",
+              "ref": "GA008:e803ic",
+              "fileName": "GA008 - Das Christentum als mystische Tatsache und die Mysterien des Altertums (1902)",
+              "title": "Das Christentum als mystische Tatsache und die Mysterien des Altertums (1902)",
+              "relevance": "mittel",
+              "date": "1902",
+              "year": "1902"
+            },
+            {
+              "aussage": "Geist wird wie Leib: Goethes Geist hat mehr geistige Vorfahren als der des Wilden",
+              "zitat": "So wenig wie ein Fisch die gleichen Voraussetzungen hat wie ein Affe, so wenig hat der Goethesche Geist dieselben geistigen Vorbedingungen wie der des Wilden. Die geistige Ahnenschaft des Goetheschen Geistes ist eine andere als die des wilden Geistes. Geworden ist der Geist wie der Leib.",
+              "id": "GA008",
+              "index": "e803ic",
+              "ref": "GA008:e803ic",
+              "fileName": "GA008 - Das Christentum als mystische Tatsache und die Mysterien des Altertums (1902)",
+              "title": "Das Christentum als mystische Tatsache und die Mysterien des Altertums (1902)",
+              "relevance": "mittel",
+              "date": "1902",
+              "year": "1902"
+            }
+          ]
+        },
+        {
+          "title": "Sokrates: Philosophisches Leben als Vorbereitung auf den Tod – Ablösung vom Leiblichen",
+          "group": "Menschliche Entwicklung und Lebensrhythmus",
+          "rows": [
+            {
+              "aussage": "Philosophisches Leben = schrittweise Ablösung der Seele vom Leib; Sterben als Ziel des Weisen",
+              "zitat": "Diejenigen, die sich auf rechte Art mit Philosophie befassen, mögen wohl, ohne dass es freilich die anderen merken, nach gar nichts anderem streben, als zu sterben und tot zu sein. Ist nun dies wahr: so wäre es doch wohl sonderbar, wenn sie ihr ganzes Leben hindurch zwar sich um nichts anderes bemühten als darum; wenn es nun aber selbst käme, unwillig zu sein über das, wonach sie so lange gestrebt und sich bemüht haben.",
+              "id": "GA008",
+              "index": "r6eici",
+              "ref": "GA008:r6eici",
+              "fileName": "GA008 - Das Christentum als mystische Tatsache und die Mysterien des Altertums (1902)",
+              "title": "Das Christentum als mystische Tatsache und die Mysterien des Altertums (1902)",
+              "relevance": "niedrig",
+              "date": "1902",
+              "year": "1902"
+            },
+            {
+              "aussage": "Seele wendet sich im Laufe des Lebens vom Sinnlichen ab und dem Ewigen zu",
+              "zitat": "Wann also trifft die Seele die Wahrheit? Denn wenn sie mit des Leibes Hilfe versucht etwas zu betrachten, dann wird sie offenbar von diesem betrogen. ... Heisst nun nicht der Tod die Erlösung und Absonderung der Seele vom Leibe? Und sie zu lösen, streben immer am meisten nur allein die wahrhaften Philosophen.",
+              "id": "GA008",
+              "index": "r6eici",
+              "ref": "GA008:r6eici",
+              "fileName": "GA008 - Das Christentum als mystische Tatsache und die Mysterien des Altertums (1902)",
+              "title": "Das Christentum als mystische Tatsache und die Mysterien des Altertums (1902)",
+              "relevance": "niedrig",
+              "date": "1902",
+              "year": "1902"
+            }
+          ]
+        },
+        {
+          "title": "Innerer Sinn und geistige Wiedergeburt der Dinge",
+          "group": "Erkenntnisentwicklung und Selbsterkenntnis des Menschen",
+          "rows": [
+            {
+              "aussage": "Wissen auf höhere Stufe heben: geistige Wiedergeburt der Dinge durch Erweckung des Selbst",
+              "zitat": "Handelte es sich um eine bloße Wiederholung der Dinge: es wäre sinnlos, diese zu vollführen. – Aber es handelt sich nur so lange um eine bloße Wiederholung, als ich nicht mit meinem eigenen Selbst den in mich aufgenommenen geistigen Inhalt der Dinge zu einem höheren Dasein erwecke. Geschieht dies, dann habe ich das Wesen der Dinge in mir nicht wiederholt, sondern ich habe es auf einer höheren Stufe wiedergeboren.",
+              "id": "GA007",
+              "index": "iyj24c",
+              "ref": "GA007:iyj24c",
+              "fileName": "GA007-Die Mystik im Aufgange des neuzeitlichen Geisteslebens und ihr Verhältnis zur modernen Weltanschauung (1901)",
+              "title": "Die Mystik im Aufgange des neuzeitlichen Geisteslebens und ihr Verhältnis zur modernen Weltanschauung (1901)",
+              "relevance": "niedrig",
+              "date": "1901",
+              "year": "1901"
+            },
+            {
+              "aussage": "Innerer Sinn sieht nur Geist; Einigungsband zwischen zwei Hälften des Lebens",
+              "zitat": "Es ist mit diesem Sinne gesehen worden, seitdem Menschen da sind, und alles Große und Treffliche, was in der Welt ist, und welches allein die Menschheit bestehen macht, stammt aus den Gesichten dieses Sinnes. Dass aber dieser Sinn sich selbst gesehen haben sollte in seinem Unterschiede und Gegensatze mit dem andern gewöhnlichen Sinne, war nicht der Fall. Die Eindrücke der beiden Sinne verschmolzen, das Leben zerfiel ohne Einigungsband in diese zwei Hälften.",
+              "id": "GA007",
+              "index": "iyj24c",
+              "ref": "GA007:iyj24c",
+              "fileName": "GA007-Die Mystik im Aufgange des neuzeitlichen Geisteslebens und ihr Verhältnis zur modernen Weltanschauung (1901)",
+              "title": "Die Mystik im Aufgange des neuzeitlichen Geisteslebens und ihr Verhältnis zur modernen Weltanschauung (1901)",
+              "relevance": "niedrig",
+              "date": "1901",
+              "year": "1901"
+            }
+          ]
+        },
+        {
+          "title": "Weigel und Troxler: Stufenfolge der Erkenntnis vom Sinnlichen zum Geistigen",
+          "group": "Erkenntnisentwicklung und Selbsterkenntnis des Menschen",
+          "rows": [
+            {
+              "aussage": "Weigel: Erkenntnis fließt vom Auge in den Gegenstand, nicht umgekehrt; Mensch muss tätig erkennen",
+              "zitat": "Würde die Erkenntnis aus dem Gegenwurf (Ding) in das Auge fließen, so müsste notwendig von einem und demselben Ding eine gleiche und vollkommene Erkenntnis in alle Augen kommen. Dies ist aber nicht der Fall, sondern jeder sieht nach Maßgabe seiner Augen.",
+              "id": "GA007",
+              "index": "z725rr",
+              "ref": "GA007:z725rr",
+              "fileName": "GA007-Die Mystik im Aufgange des neuzeitlichen Geisteslebens und ihr Verhältnis zur modernen Weltanschauung (1901)",
+              "title": "Die Mystik im Aufgange des neuzeitlichen Geisteslebens und ihr Verhältnis zur modernen Weltanschauung (1901)",
+              "relevance": "niedrig",
+              "date": "1901",
+              "year": "1901"
+            },
+            {
+              "aussage": "Troxler: übersinnlicher Sinn und übersinnlicher Geist als höhere Erkenntnisstufe",
+              "zitat": "Erlebt er sich nun in der Wesenheit, die in ihm denkt, so dass er über das bloße Denken zu geistigem Erleben aufsteigt, dann ergreift ihn von diesem Erleben aus eine innere rein geistige Kraft des Verbildlichens. Er schaut dann eine Welt in Bildern, die übersinnlich erlebter Wirklichkeit als Offenbarung dienen kann.",
+              "id": "GA020",
+              "index": "czs7j9",
+              "ref": "GA020:czs7j9",
+              "fileName": "GA020 - Vom Menschenrätsel (1916)",
+              "title": "Vom Menschenrätsel (1916)",
+              "relevance": "niedrig",
+              "date": "1916",
+              "year": "1916"
+            },
+            {
+              "aussage": "Troxler: höherer Mensch liegt dem Sinnesmenschen zugrunde; Glaube, Hoffnung, Liebe als Organe des übersinnlichen Menschen",
+              "zitat": "Erahnt Troxler in dem Menschen, der in der Sinneswelt sich erlebt, einen 'höheren Menschen', der diesem zugrunde liegt, und der der übersinnlichen Welt angehört; und er fühlt sich in dieser Meinung im Einklange mit dem, was Friedrich Schlegel ausgesprochen hat.",
+              "id": "GA020",
+              "index": "czs7j9",
+              "ref": "GA020:czs7j9",
+              "fileName": "GA020 - Vom Menschenrätsel (1916)",
+              "title": "Vom Menschenrätsel (1916)",
+              "relevance": "niedrig",
+              "date": "1916",
+              "year": "1916"
+            }
+          ]
+        },
+        {
+          "title": "Fichte: Ich als fortwährende Tathandlung – Selbsterschaffung im Augenblick",
+          "group": "Erkenntnisentwicklung und Selbsterkenntnis des Menschen",
+          "rows": [
+            {
+              "aussage": "Fichte: Ich nur als fortwährendes Sich-Schaffen; Einheit von Wille und Gedanke als Grundlage der Ichwesenheit",
+              "zitat": "Damit ich mein Ich als Ich erlebe, muss ich mich fortwährend schaffend erzeugen. In dem Augenblick, wo ich die Schöpferkräfte in mir verliere, wo ich nicht aus unbekannten Tiefen heraus mich in ein unmittelbares Dasein versetzen kann für mein Inneres, bin ich kein Ich. Damit wird der Gedanke, das 'Ich denke' hinuntergetaucht in den Willen.",
+              "id": "GA070b/1",
+              "index": "qjlrax",
+              "ref": "GA070b/1:qjlrax",
+              "fileName": "GA070b/1 - DAS WELTBILD DES DEUTSCHEN IDEALISMUS EINE BETRACHTUNG IM HINBLICK AUF UNSERE SCHICKSALTRAGENDE ZEIT, Stuttgart, 25. November 1915",
+              "title": "DAS WELTBILD DES DEUTSCHEN IDEALISMUS EINE BETRACHTUNG IM HINBLICK AUF UNSERE SCHICKSALTRAGENDE ZEIT",
+              "relevance": "niedrig",
+              "date": "1915-11-25",
+              "year": "1915"
+            }
+          ]
+        },
+        {
+          "title": "Biographisches Scheitern: Rudolf Ronsperger als Typus",
+          "group": "Individualität, Biographie und Schicksal",
+          "rows": [
+            {
+              "aussage": "Ronsperger: Energielosigkeit als biographisches Grundproblem; Überzeugung vom Dichterberuf trotz äußerem Scheitern",
+              "zitat": "Energielosigkeit ist der erste und größte all dieser Fehler; der Mangel an Kraft und Beharrlichkeit, jener eisernen Ausdauer, jener ziel- und siegesbewussten Zähigkeit in der Verfolgung einmal gefasster Pläne, die immer die Begleiteigenschaften des Talentes sind und ihm unter den schwierigsten Umständen zum Durchbruch verhelfen.",
+              "id": "GA031/79",
+              "index": "azpm1b",
+              "ref": "GA031/79:azpm1b",
+              "fileName": "GA031/79 - EIN DENKMAL",
+              "title": "EIN DENKMAL",
+              "relevance": "niedrig",
+              "date": "",
+              "year": ""
+            },
+            {
+              "aussage": "Ronsperger als Typus österreichischer Charaktere: Streben bis zur Wirklichkeit, dann Rückzug",
+              "zitat": "Er ist ein Repräsentant der namentlich in Österreich so zahlreichen Charaktere, die mit allem ihrem Streben so weit gehen, bis die Wirklichkeit an sie herantritt. Und wenn diese Wirklichkeit auch Hindernisse von lächerlicher Kleinlichkeit bietet, wie in diesem Falle, – sie betreten diese Wirklichkeit nicht.",
+              "id": "GA031/79",
+              "index": "azpm1b",
+              "ref": "GA031/79:azpm1b",
+              "fileName": "GA031/79 - EIN DENKMAL",
+              "title": "EIN DENKMAL",
+              "relevance": "niedrig",
+              "date": "",
+              "year": ""
+            }
+          ]
+        },
+        {
+          "title": "Historischer Sinn und Lebenskraft: Nietzsche über Erinnerung und Vergessen",
+          "group": "Individualität, Biographie und Schicksal",
+          "rows": [
+            {
+              "aussage": "Nietzsche: Vergessen als Lebensbedingung; zu viel Geschichte lähmt die schöpferischen Kräfte",
+              "zitat": "Denkt euch das äußerste Beispiel, einen Menschen, der die Kraft zu vergessen gar nicht besäße, der verurteilt wäre, überall ein Werden zu sehen: ein solcher glaubt nicht mehr an sein eigenes Sein, glaubt nicht mehr an sich, sieht alles in bewegte Punkte auseinanderfließen und verliert sich in diesem Strome des Werdens. ... Zu allem Handeln gehört Vergessen: wie zum Leben alles Organischen nicht nur Licht, sondern auch Dunkel gehört.",
+              "id": "GA005",
+              "index": "f3q270",
+              "ref": "GA005:f3q270",
+              "fileName": "GA005 - Friedrich Nietzsche - ein Kämpfer gegen seine Zeit (1895)",
+              "title": "Friedrich Nietzsche - ein Kämpfer gegen seine Zeit (1895)",
+              "relevance": "niedrig",
+              "date": "1895",
+              "year": "1895"
+            },
+            {
+              "aussage": "Plastische Kraft des Menschen bestimmt, wie viel Geschichte er verträgt",
+              "zitat": "Um den Grad zu bestimmen und durch ihn dann die Grenze, 'an der das Vergangene vergessen werden muss, wenn es nicht zum Totengräber des Gegenwärtigen werden soll, müsste man genau wissen, wie groß die plastische Kraft eines Menschen, eines Volkes, einer Kultur ist; ich meine jene Kraft, aus sich heraus eigenartig zu wachsen, Vergangenes und Fremdes umzubilden und einzuverleiben'.",
+              "id": "GA005",
+              "index": "f3q270",
+              "ref": "GA005:f3q270",
+              "fileName": "GA005 - Friedrich Nietzsche - ein Kämpfer gegen seine Zeit (1895)",
+              "title": "Friedrich Nietzsche - ein Kämpfer gegen seine Zeit (1895)",
+              "relevance": "niedrig",
+              "date": "1895",
+              "year": "1895"
+            },
+            {
+              "aussage": "Nur aus der Kraft der Gegenwart kann das Vergangene gedeutet werden",
+              "zitat": "Nur aus der höchsten Kraft der Gegenwart dürft ihr das Vergangne deuten: nur in der stärksten Anspannung eurer edelsten Eigenschaften werdet ihr erraten, was in dem Vergangnen wissens- und bewahrungswürdig und groß ist.",
+              "id": "GA005",
+              "index": "f3q270",
+              "ref": "GA005:f3q270",
+              "fileName": "GA005 - Friedrich Nietzsche - ein Kämpfer gegen seine Zeit (1895)",
+              "title": "Friedrich Nietzsche - ein Kämpfer gegen seine Zeit (1895)",
+              "relevance": "niedrig",
+              "date": "1895",
+              "year": "1895"
+            }
+          ]
+        },
+        {
+          "title": "Pädagogik und individuelle Entwicklung: Monismus und Erziehung",
+          "group": "Individualität, Biographie und Schicksal",
+          "rows": [
+            {
+              "aussage": "Echter Pädagoge: jeder Mensch ein Neues, nie Dagewesenes; individuelle Prinzipien statt allgemeiner Normen",
+              "zitat": "Für den wahren Erzieher gibt es keine allgemeinen Erziehungsnormen, wie sie etwa die Herbartsche Schule aufstellen will. Für den echten Pädagogen ist jeder Mensch ein Neues, noch nie Dagewesenes, ein Studienobjekt, aus dessen Natur er die ganz individuellen Prinzipien entnimmt, nach denen er in diesem Falle erziehen soll.",
+              "id": "GA030/3",
+              "index": "qdnrrw",
+              "ref": "GA030/3:qdnrrw",
+              "fileName": "GA030/3 - EINHEITLICHE NATURANSCHAUUNG UND ERKENNTNISGRENZEN (1892-93)",
+              "title": "EINHEITLICHE NATURANSCHAUUNG UND ERKENNTNISGRENZEN (1892-93)",
+              "relevance": "niedrig",
+              "date": "1892",
+              "year": "1892"
+            },
+            {
+              "aussage": "Kulturentwicklung: Ziel ist Selbstgesetzgebung des autonomen Menschen",
+              "zitat": "Der autonome Mensch folgt eben nicht der Richtschnur, von der er bloß glauben soll, dass sie ihn zum Ziele führe, sondern er muss einsehen, dass sie ihn dahin führe, und das Ziel selbst muss ihm individuell als ein erwünschtes erscheinen.",
+              "id": "GA030/3",
+              "index": "qdnrrw",
+              "ref": "GA030/3:qdnrrw",
+              "fileName": "GA030/3 - EINHEITLICHE NATURANSCHAUUNG UND ERKENNTNISGRENZEN (1892-93)",
+              "title": "EINHEITLICHE NATURANSCHAUUNG UND ERKENNTNISGRENZEN (1892-93)",
+              "relevance": "niedrig",
+              "date": "1892",
+              "year": "1892"
+            }
+          ]
+        },
+        {
+          "title": "Imponderabilien im Unterricht: Lehrer-Kind-Verhältnis und Unterbewusstsein",
+          "group": "Individualität, Biographie und Schicksal",
+          "rows": [
+            {
+              "aussage": "Unterbewusstsein des Kindes bildet fortwährend Urteil über den Lehrer; Imponderabilien entscheidend",
+              "zitat": "Das Kind in seinem Unterbewusstsein sich fortwährend ein Urteil bildet, wenn der Lehrer mit dem Unterrichtsstoffe so in der Klasse steht. Da spricht das Unterbewusstsein des Kindes: Warum soll ich wissen, was der nicht weiß?",
+              "id": "GA306/9",
+              "index": "5ma2lu",
+              "ref": "GA306/9:5ma2lu",
+              "fileName": "GA306/9 - DREI FRAGENBEANTWORTUNGEN, Dornach, 18. April 1923",
+              "title": "DREI FRAGENBEANTWORTUNGEN",
+              "relevance": "niedrig",
+              "date": "1923-04-18",
+              "year": "1923"
+            },
+            {
+              "aussage": "Kein Weiser so gescheit, dass er nicht von einem Säugling lernen könnte; Lehrer lernt aus jeder Kindesantwort",
+              "zitat": "Kein Weiser ist so gescheit, dass er nicht von einem Säugling etwas lernen könnte – ja man kann noch so weit in der Wissenschaft fortgeschritten sein, der Schrei eines Säuglings kann einen viel lehren –, so kann man tatsächlich als Lehrer aus jeder Antwort des Kindes, wenn man die Frage in dieser Gesinnung stellt, lernen zu lehren.",
+              "id": "GA306/9",
+              "index": "5ma2lu",
+              "ref": "GA306/9:5ma2lu",
+              "fileName": "GA306/9 - DREI FRAGENBEANTWORTUNGEN, Dornach, 18. April 1923",
+              "title": "DREI FRAGENBEANTWORTUNGEN",
+              "relevance": "niedrig",
+              "date": "1923-04-18",
+              "year": "1923"
+            }
+          ]
+        },
+        {
+          "title": "Goethes Naturanschauung als Gegenpol zu Kant",
+          "group": "Geist und Natur: Goethe und Kant",
+          "rows": [
+            {
+              "aussage": "Goethe: Mensch ganz in der Natur; Natur selbst ist Geist – Gegenpol zu Kants Subjektivismus",
+              "zitat": "Bei Kant ist die Natur ganz im menschlichen Geiste; bei Goethe ist der menschliche Geist ganz in der Natur, weil die Natur selbst Geist ist.",
+              "id": "GA018/2",
+              "index": "zkl076",
+              "ref": "GA018/2:zkl076",
+              "fileName": "GA018/2 - ERSTER BAND",
+              "title": "ERSTER BAND",
+              "relevance": "niedrig",
+              "date": "",
+              "year": ""
+            },
+            {
+              "aussage": "Goethes Grundirrtum Kants: subjektives Erkenntnisvermögen als Objekt betrachtet",
+              "zitat": "Der Grundirrtum Kants, meint Goethe, bestünde darin, dass dieser 'das subjektive Erkenntnisvermögen ... selbst als Objekt betrachtet und den Punkt, wo subjektiv und objektiv zusammentreffen, zwar scharf, aber nicht ganz richtig sondert'.",
+              "id": "GA018/2",
+              "index": "zkl076",
+              "ref": "GA018/2:zkl076",
+              "fileName": "GA018/2 - ERSTER BAND",
+              "title": "ERSTER BAND",
+              "relevance": "niedrig",
+              "date": "",
+              "year": ""
+            }
+          ]
+        },
+        {
+          "title": "Kant: Idee und Ideal als höchster Wert der Menschenseele",
+          "group": "Geist und Natur: Goethe und Kant",
+          "rows": [
+            {
+              "aussage": "Kant: Sinnlichkeit unerkennbar, aber Idee/Ideal hat unbedingten Wert für die Seele",
+              "zitat": "Nicht eine Weltanschauung des Zweifels stellt Kant hin, sondern eine Weltanschauung, die den Zweifel gerade aus der Welt schaffen will. Allerdings kommt er dazu, sagen zu müssen, er müsse das Wissen bekämpfen. Kant sagt es, um für den Glauben Platz zu bekommen.",
+              "id": "GA070b/1",
+              "index": "qjlrax",
+              "ref": "GA070b/1:qjlrax",
+              "fileName": "GA070b/1 - DAS WELTBILD DES DEUTSCHEN IDEALISMUS EINE BETRACHTUNG IM HINBLICK AUF UNSERE SCHICKSALTRAGENDE ZEIT, Stuttgart, 25. November 1915",
+              "title": "DAS WELTBILD DES DEUTSCHEN IDEALISMUS EINE BETRACHTUNG IM HINBLICK AUF UNSERE SCHICKSALTRAGENDE ZEIT",
+              "relevance": "niedrig",
+              "date": "1915-11-25",
+              "year": "1915"
+            }
+          ]
+        },
+        {
+          "title": "Mystiker und Alchimist: zwei entgegengesetzte Erkenntnisrichtungen",
+          "group": "Mystik, Alchimie und Erkenntnisweg",
+          "rows": [
+            {
+              "aussage": "Mystiker: tiefer in Leiblichkeit hinein; Alchimist: aus Leiblichkeit heraus in Geistnatur der Welt",
+              "zitat": "Der Alchimist strebt danach, sich mit seinem bewussten Wesen aus dem gewöhnlichen Zusammenhang des Leiblichen herauszuziehen und in die Welt einzutreten, welche als 'Geistiges der Natur' hinter dem Bereich der sinnlichen Wahrnehmungswelt liegt. Der Mystiker versucht, die bewusste Seele tiefer hineinzuführen in den Zusammenhang des Leiblichen.",
+              "id": "GA035/13",
+              "index": "l7py6i",
+              "ref": "GA035/13:l7py6i",
+              "fileName": "GA035/13 - DIE CHYMISCHE HOCHZEIT DES CHRISTIAN ROSENKREUTZ",
+              "title": "DIE CHYMISCHE HOCHZEIT DES CHRISTIAN ROSENKREUTZ",
+              "relevance": "niedrig",
+              "date": "",
+              "year": ""
+            },
+            {
+              "aussage": "Echte Mystik: vollbewusstes Seelenwesen in innigeren Leibeszusammenhang; nicht krankhaftes Visionärtum",
+              "zitat": "Wahre Mystik entsteht nur, wenn der Mensch sein vollbewusstes seelisches Wesen in den gekennzeichneten innigeren Zusammenhang mit dem Leibe hineinträgt und er nicht durch den Zwang der Leibesorganisation zu krankhaft visionärem oder herabgestimmtem Bewusstsein getrieben wird.",
+              "id": "GA035/13",
+              "index": "l7py6i",
+              "ref": "GA035/13:l7py6i",
+              "fileName": "GA035/13 - DIE CHYMISCHE HOCHZEIT DES CHRISTIAN ROSENKREUTZ",
+              "title": "DIE CHYMISCHE HOCHZEIT DES CHRISTIAN ROSENKREUTZ",
+              "relevance": "niedrig",
+              "date": "",
+              "year": ""
+            }
+          ]
+        },
+        {
+          "title": "Naturwissenschaftliche und mystische Vorstellungen: beide in der Wirklichkeit verwurzelt",
+          "group": "Mystik, Alchimie und Erkenntnisweg",
+          "rows": [
+            {
+              "aussage": "Naturwissenschaftliche und mystische Gedanken wurzeln gleichermaßen im wahrhaft Wirklichen",
+              "zitat": "Naturwissenschaftlich gerichtete und mystische Gedanken wurzeln in gleicher Art im wahrhaft Wirklichen. Die wirkliche Welt ist weder das, was der naturwissenschaftliche gerichtete Gedanke, noch was der mystische umfasst; sie fordert nicht den einen oder den andern Gedanken, sondern beide.",
+              "id": "GA046/77",
+              "index": "mh0uxy",
+              "ref": "GA046/77:mh0uxy",
+              "fileName": "GA046/77 - Außermenschliche Wirklichkeit und echte Mystik (um 1916)",
+              "title": "Außermenschliche Wirklichkeit und echte Mystik (um 1916)",
+              "relevance": "niedrig",
+              "date": "1916",
+              "year": "1916"
+            }
+          ]
+        },
+        {
+          "title": "Seelisch-leibliche Entwicklung in aufeinanderfolgenden Siebenjahresperioden",
+          "group": "Jahrsiebte als Entwicklungsphasen im individuellen Menschenleben",
+          "rows": [
+            {
+              "aussage": "Seelische Entwicklung parallel zur leiblichen: Gedächtnis und Erinnerung als Spiegel des Organismus",
+              "zitat": "Studiert man die ganze menschliche Entwicklung, so kommt man dazu, in dieser Erinnerung etwas zu sehen wie eine Spiegelung unseres Erfahrungslebens an unserem eigenen Organismus.",
+              "id": "GA077a/1",
+              "index": "24x6nk",
+              "ref": "GA077a/1:24x6nk",
+              "fileName": "GA077a/1 - ERSTER VORTRAG - NATUR-ERKENNEN, Darmstadt, 27. Juli 1921",
+              "title": "ERSTER VORTRAG - NATUR-ERKENNEN",
+              "relevance": "mittel",
+              "date": "1921-07-27",
+              "year": "1921"
+            },
+            {
+              "aussage": "Leibliche und seelische Vorgänge parallel: Entwicklung vom Kindesalter an als Grundlage der Seelenlehre",
+              "zitat": "Man kann verfolgen, wie unter der Entwicklung der leiblichen Vorgänge vom zarten Kindesalter an sich auch entwickeln die geistig-seelischen Vorgänge in demselben Maße, als das Leibliche sich umwandelt, umformt, und – wie man oftmals auch sagt – vollkommener wird.",
+              "id": "GA070b/2",
+              "index": "8uklbo",
+              "ref": "GA070b/2:8uklbo",
+              "fileName": "GA070b/2 - DIE EWIGEN KRÄFTE DER MENSCHENSEELE VOM GESICHTSPUNKTE DER GEISTESWISSENSCHAFT, Stuttgart, 26. November 1915",
+              "title": "DIE EWIGEN KRÄFTE DER MENSCHENSEELE VOM GESICHTSPUNKTE DER GEISTESWISSENSCHAFT",
+              "relevance": "hoch",
+              "date": "1915-11-26",
+              "year": "1915"
+            },
+            {
+              "aussage": "Entwicklungsfähigkeit bis in die Zwanziger: Merkmal des gegenwärtigen Zeitalters",
+              "zitat": "Wir, die wir in diesem Zeitraum seit dem fünfzehnten Jahrhundert leben, sind seelisch daraufhin organisiert, dass wir uns durch die Kindheit bis in die zwanziger Jahre hinein entwickeln, und dass wir dann dasjenige, was wir in den zwanziger Jahren entwickelt haben, in das künftige Leben hineintragen, dass also der Mensch gewissermaßen innerlich fühlt, dass seine Entwicklungsperiode in den zwanziger Jahren abgeschlossen ist.",
+              "id": "GA067/6",
+              "index": "rci53f",
+              "ref": "GA067/6:rci53f",
+              "fileName": "GA067/6 - DAS GESCHICHTLICHE LEBEN DER MENSCHHEIT UND SEINE RÄTSEL IM LICHTE DER GEISTESFORSCHUNG, Berlin, 14. März 1918",
+              "title": "DAS GESCHICHTLICHE LEBEN DER MENSCHHEIT UND SEINE RÄTSEL IM LICHTE DER GEISTESFORSCHUNG",
+              "relevance": "hoch",
+              "date": "1918-03-14",
+              "year": "1918"
+            },
+            {
+              "aussage": "Dreißiger Jahre als Entwicklungsgrenze: griechisch-römische Epoche",
+              "zitat": "In dem vorhergehenden Zeitalter, das vom achten vorchristlichen bis zum fünfzehnten nachchristlichen Jahrhundert geht, griff das geschichtliche Leben der Menschheit so ein in das individuelle Leben, dass es besonders ergriff die dreißiger Jahre.",
+              "id": "GA067/6",
+              "index": "rci53f",
+              "ref": "GA067/6:rci53f",
+              "fileName": "GA067/6 - DAS GESCHICHTLICHE LEBEN DER MENSCHHEIT UND SEINE RÄTSEL IM LICHTE DER GEISTESFORSCHUNG, Berlin, 14. März 1918",
+              "title": "DAS GESCHICHTLICHE LEBEN DER MENSCHHEIT UND SEINE RÄTSEL IM LICHTE DER GEISTESFORSCHUNG",
+              "relevance": "hoch",
+              "date": "1918-03-14",
+              "year": "1918"
+            },
+            {
+              "aussage": "Vierziger Jahre als Entwicklungsgrenze: älteste Kulturepoche vor dem 8. vorchristlichen Jahrhundert",
+              "zitat": "Geisteswissenschaft zeigt, dass man, noch weiter zurückgehend, zu Zeiten kommt, wo die Menschen entwickelungsfähig blieben bis in ein höheres Alter, bis in die vierziger Jahre hinein.",
+              "id": "GA067/6",
+              "index": "rci53f",
+              "ref": "GA067/6:rci53f",
+              "fileName": "GA067/6 - DAS GESCHICHTLICHE LEBEN DER MENSCHHEIT UND SEINE RÄTSEL IM LICHTE DER GEISTESFORSCHUNG, Berlin, 14. März 1918",
+              "title": "DAS GESCHICHTLICHE LEBEN DER MENSCHHEIT UND SEINE RÄTSEL IM LICHTE DER GEISTESFORSCHUNG",
+              "relevance": "hoch",
+              "date": "1918-03-14",
+              "year": "1918"
+            }
+          ]
+        },
+        {
+          "title": "Verjüngung der Menschheit im Kulturverlauf: Umkehrung von Jugend und Alter",
+          "group": "Jahrsiebte als Entwicklungsphasen im individuellen Menschenleben",
+          "rows": [
+            {
+              "aussage": "Menschheit wird im Kulturverlauf immer jünger: Gegensatz zum individuellen Altern",
+              "zitat": "Im einzelnen individuellen Leben wird man immer älter, die Menschheit als solche entwickelt sich in umgekehrter Richtung; sie wird immer jünger, das heißt sie bleibt immer jünger; sie trägt die Jugend immer weniger in das spätere individuelle Lebensalter hinauf.",
+              "id": "GA067/6",
+              "index": "rci53f",
+              "ref": "GA067/6:rci53f",
+              "fileName": "GA067/6 - DAS GESCHICHTLICHE LEBEN DER MENSCHHEIT UND SEINE RÄTSEL IM LICHTE DER GEISTESFORSCHUNG, Berlin, 14. März 1918",
+              "title": "DAS GESCHICHTLICHE LEBEN DER MENSCHHEIT UND SEINE RÄTSEL IM LICHTE DER GEISTESFORSCHUNG",
+              "relevance": "hoch",
+              "date": "1918-03-14",
+              "year": "1918"
+            },
+            {
+              "aussage": "Klassiker werden nur noch in der Jugend gelesen: Symptom der verkürzten Entwicklungsperiode",
+              "zitat": "Man wird es sehr leicht erleben, dass die Menschen sagen: Goethes Iphigenie, überhaupt die Klassiker, die liest man eben in der Jugend, im späteren Leben nicht mehr.",
+              "id": "GA067/6",
+              "index": "rci53f",
+              "ref": "GA067/6:rci53f",
+              "fileName": "GA067/6 - DAS GESCHICHTLICHE LEBEN DER MENSCHHEIT UND SEINE RÄTSEL IM LICHTE DER GEISTESFORSCHUNG, Berlin, 14. März 1918",
+              "title": "DAS GESCHICHTLICHE LEBEN DER MENSCHHEIT UND SEINE RÄTSEL IM LICHTE DER GEISTESFORSCHUNG",
+              "relevance": "mittel",
+              "date": "1918-03-14",
+              "year": "1918"
+            },
+            {
+              "aussage": "Drei aufeinanderfolgende Kulturperioden: Vierziger, Dreißiger, Zwanziger als Entwicklungsgrenzen",
+              "zitat": "Man findet drei aufeinanderfolgende Zeitperioden im geschichtlichen Leben der Menschheit: eine hinter dem achten vorchristlichen Jahrhundert zurückliegende, in der finden wir Menschen, welche bis in die vierziger Jahre hinein sich jung fühlen; dann kommt der Zeitraum, der die ganze griechische und römische Kultur von einem gewissen Gesichtspunkte aus gerade durch die Tatsache charakterisiert, dass die Menschen entwickelungsfähig, jung bleiben bis in die dreißiger Jahre; dann der Zeitraum, in dem sie entwickelungsfähig sind bis in die zwanziger Jahre hinein.",
+              "id": "GA067/6",
+              "index": "rci53f",
+              "ref": "GA067/6:rci53f",
+              "fileName": "GA067/6 - DAS GESCHICHTLICHE LEBEN DER MENSCHHEIT UND SEINE RÄTSEL IM LICHTE DER GEISTESFORSCHUNG, Berlin, 14. März 1918",
+              "title": "DAS GESCHICHTLICHE LEBEN DER MENSCHHEIT UND SEINE RÄTSEL IM LICHTE DER GEISTESFORSCHUNG",
+              "relevance": "hoch",
+              "date": "1918-03-14",
+              "year": "1918"
+            }
+          ]
+        },
+        {
+          "title": "Erziehungskunst und Kenntnis der Volksseele als Grundlage für Unterricht",
+          "group": "Pädagogik und Erziehung im Lichte der Lebensalter",
+          "rows": [
+            {
+              "aussage": "Schröers pädagogische Einsichten aus Volksseelenkunde: Ziele und Methoden des Unterrichtens",
+              "zitat": "Als er dann im Amte des Direktors mehrerer Schulen erproben konnte, wie Ansichten über Erziehung und Unterricht sich einem Geiste gestalten, der so tief in das Wesen des Volksgemütes geschaut hat wie er durch seine Forschung, da wurden diese Einsichten fruchttragend.",
+              "id": "GA020",
+              "index": "fdudps",
+              "ref": "GA020:fdudps",
+              "fileName": "GA020 - Vom Menschenrätsel (1916)",
+              "title": "Vom Menschenrätsel (1916)",
+              "relevance": "mittel",
+              "date": "1916",
+              "year": "1916"
+            },
+            {
+              "aussage": "Reiche Lebenserfahrung als Grundlage pädagogischer Vorstellungsart: bleibt immer fruchtbar",
+              "zitat": "Eine solche auf Grund einer reichen Lebenserfahrung gewonnene Vorstellungsart bleibt immer fruchtbar, auch wenn sie der später Lebende auf neue Bedingungen hin anwenden muss.",
+              "id": "GA020",
+              "index": "fdudps",
+              "ref": "GA020:fdudps",
+              "fileName": "GA020 - Vom Menschenrätsel (1916)",
+              "title": "Vom Menschenrätsel (1916)",
+              "relevance": "mittel",
+              "date": "1916",
+              "year": "1916"
+            }
+          ]
+        },
+        {
+          "title": "Jugend und Lernen: Grenzen der Entwicklungsfähigkeit im Lebensalter",
+          "group": "Pädagogik und Erziehung im Lichte der Lebensalter",
+          "rows": [
+            {
+              "aussage": "Ernsthaftes Lernen in den Dreißigern heute kaum mehr möglich: kulturelles Symptom",
+              "zitat": "Dass jemand heute so leicht noch in den dreißiger Jahren ernstlich lernen wollte, das wird man in einer Zeit, wo schon die jüngsten Menschen unter dem Strich in den Zeitungen schreiben, wohl schwerlich behaupten wollen.",
+              "id": "GA067/6",
+              "index": "rci53f",
+              "ref": "GA067/6:rci53f",
+              "fileName": "GA067/6 - DAS GESCHICHTLICHE LEBEN DER MENSCHHEIT UND SEINE RÄTSEL IM LICHTE DER GEISTESFORSCHUNG, Berlin, 14. März 1918",
+              "title": "DAS GESCHICHTLICHE LEBEN DER MENSCHHEIT UND SEINE RÄTSEL IM LICHTE DER GEISTESFORSCHUNG",
+              "relevance": "hoch",
+              "date": "1918-03-14",
+              "year": "1918"
+            }
+          ]
+        },
+        {
+          "title": "Jahrelange innere Übung als Voraussetzung geistiger Erkenntnis",
+          "group": "Seelische Reifung, Selbsterkenntnis und innere Entwicklung",
+          "rows": [
+            {
+              "aussage": "Jahrelange Übung notwendig für geisteswissenschaftliche Ergebnisse: Analogie zur Wissenschaft",
+              "zitat": "Was auf diese Weise geübt wird, und was wirklich nur zu Erfolgen führen kann, wenn es jahrelang geübt wird – alle wissenschaftlichen Resultate werden ja auch nur in langer Arbeit erreicht –, was auf diese Weise erreicht wird, das ist ein Einleben des Bewusstseins wirklich in eine ganz andere Welt.",
+              "id": "GA065/9",
+              "index": "j80z7j",
+              "ref": "GA065/9:j80z7j",
+              "fileName": "GA065/9 - WIE WERDEN DIE EWIGEN KRÄFTE DER MENSCHENSEELE ERFORSCHT , Berlin, 11. Februar 1916",
+              "title": "WIE WERDEN DIE EWIGEN KRÄFTE DER MENSCHENSEELE ERFORSCHT",
+              "relevance": "mittel",
+              "date": "1916-02-11",
+              "year": "1916"
+            },
+            {
+              "aussage": "Gedächtnisspiegel durchbrechen: Weg zur konkreten Selbsterkenntnis durch Meditation",
+              "zitat": "Es ist möglich, auch durch Meditation das Gedächtnis zu «unterbrechen», so wie man den Spiegel zerbrechen und dann auch das schauen kann, was dahinter ist. Wenn das durch volle Willenskultur in Besonnenheit und mit Aufrechterhaltung des Ich-Bewusstseins geschieht, dann führt das den Menschen dazu, hinter das Gedächtnis zu schauen.",
+              "id": "GA077a/1",
+              "index": "24x6nk",
+              "ref": "GA077a/1:24x6nk",
+              "fileName": "GA077a/1 - ERSTER VORTRAG - NATUR-ERKENNEN, Darmstadt, 27. Juli 1921",
+              "title": "ERSTER VORTRAG - NATUR-ERKENNEN",
+              "relevance": "mittel",
+              "date": "1921-07-27",
+              "year": "1921"
+            },
+            {
+              "aussage": "Zwei Jahrzehnte Lebenserfahrung als Reifungsmaßstab: Irrlicht-Figur im Drama",
+              "zitat": "Als ein Mann, der zwei Jahrzehnte länger des Lebens Strom an sich vorüberziehen ließ als ihr, er darf wohl ein wenig abschwächen, was ihr so sicher eben hingestellt.",
+              "id": "GA044/1",
+              "index": "dsbnag",
+              "ref": "GA044/1:dsbnag",
+              "fileName": "GA044/1 - DIE PFORTE DER EINWEIHUNG",
+              "title": "DIE PFORTE DER EINWEIHUNG",
+              "relevance": "mittel",
+              "date": "",
+              "year": ""
+            },
+            {
+              "aussage": "Lange Jahre des Lebens und Erkennens: Erfahrung als Reifungsweg der Seele",
+              "zitat": "So hat man denn die langen schönen Jahre seines Lebens verbracht, zu erkennen, was als Frucht tausendjährigen menschlichen Sinnens an unser Innres pocht. In frischer Jugendkraft hat man erfasst, was durch Zeitenwenden die Menschen als Ideale errungen.",
+              "id": "GA044/1",
+              "index": "dsbnag",
+              "ref": "GA044/1:dsbnag",
+              "fileName": "GA044/1 - DIE PFORTE DER EINWEIHUNG",
+              "title": "DIE PFORTE DER EINWEIHUNG",
+              "relevance": "mittel",
+              "date": "",
+              "year": ""
+            }
+          ]
+        },
+        {
+          "title": "Seelische Entwicklungsstufen und Reifestufen im Platonischen und mystischen Denken",
+          "group": "Seelische Reifung, Selbsterkenntnis und innere Entwicklung",
+          "rows": [
+            {
+              "aussage": "Verschiedene Reifestufen der Seele: Liebe als Vorstufe der Weisheit im Symposion",
+              "zitat": "Nach dem die Menschen verschiedener Reifestufen ihre Gedanken von Liebe dargelegt haben, – ergreift Sokrates das Wort. Er betrachtet als Erkenntnismensch die Liebe.",
+              "id": "GA008",
+              "index": "etlw75",
+              "ref": "GA008:etlw75",
+              "fileName": "GA008 - Das Christentum als mystische Tatsache und die Mysterien des Altertums (1902)",
+              "title": "Das Christentum als mystische Tatsache und die Mysterien des Altertums (1902)",
+              "relevance": "mittel",
+              "date": "1902",
+              "year": "1902"
+            },
+            {
+              "aussage": "Seele als Mutter des Göttlichen: unbewusste Kraft führt stufenweise zum Geistigen",
+              "zitat": "Die noch weisheitslose Seele ist die Mutter dessen, was zum Göttlichen führt. Man wird da auf eine wichtige Vorstellung der Mystik geführt. Die Seele wird als die Mutter des Göttlichen anerkannt. Unbewusst führt sie mit der Notwendigkeit einer Naturkraft den Menschen zum Göttlichen hin.",
+              "id": "GA008",
+              "index": "etlw75",
+              "ref": "GA008:etlw75",
+              "fileName": "GA008 - Das Christentum als mystische Tatsache und die Mysterien des Altertums (1902)",
+              "title": "Das Christentum als mystische Tatsache und die Mysterien des Altertums (1902)",
+              "relevance": "mittel",
+              "date": "1902",
+              "year": "1902"
+            }
+          ]
+        },
+        {
+          "title": "Geschichtliche Zeiträume und individuelle Lebensalter: geisteswissenschaftliche Betrachtung",
+          "group": "Kulturgeschichtliche Epochen und ihre Entsprechung zu Lebensaltern",
+          "rows": [
+            {
+              "aussage": "Zeitraum 8. Jh. v. Chr. bis 15. Jh. n. Chr.: geschichtliche Impulse greifen in die Dreißiger des Einzellebens",
+              "zitat": "In dem vorhergehenden Zeitalter, das vom achten vorchristlichen bis zum fünfzehnten nachchristlichen Jahrhundert geht, griff das geschichtliche Leben der Menschheit so ein in das individuelle Leben, dass es besonders ergriff die dreißiger Jahre.",
+              "id": "GA067/6",
+              "index": "rci53f",
+              "ref": "GA067/6:rci53f",
+              "fileName": "GA067/6 - DAS GESCHICHTLICHE LEBEN DER MENSCHHEIT UND SEINE RÄTSEL IM LICHTE DER GEISTESFORSCHUNG, Berlin, 14. März 1918",
+              "title": "DAS GESCHICHTLICHE LEBEN DER MENSCHHEIT UND SEINE RÄTSEL IM LICHTE DER GEISTESFORSCHUNG",
+              "relevance": "hoch",
+              "date": "1918-03-14",
+              "year": "1918"
+            },
+            {
+              "aussage": "Seit dem 15. Jahrhundert: geschichtliche Impulse greifen nur noch in die Zwanziger des Einzellebens",
+              "zitat": "In unserm Zeitalter wirkt das Geschichtliche namentlich hinein in dasjenige in der individuellen Menschennatur, was sich bis in die zwanziger Jahre des Lebens entwickelt. Das ist das Geheimnis unseres gegenwärtigen Werdens, dass wir durch die geschichtlichen Verhältnisse besonders entwickelt erhalten diejenigen Kräfte, die unserm individuellen Leben in den zwanziger Jahren angehören.",
+              "id": "GA067/6",
+              "index": "rci53f",
+              "ref": "GA067/6:rci53f",
+              "fileName": "GA067/6 - DAS GESCHICHTLICHE LEBEN DER MENSCHHEIT UND SEINE RÄTSEL IM LICHTE DER GEISTESFORSCHUNG, Berlin, 14. März 1918",
+              "title": "DAS GESCHICHTLICHE LEBEN DER MENSCHHEIT UND SEINE RÄTSEL IM LICHTE DER GEISTESFORSCHUNG",
+              "relevance": "hoch",
+              "date": "1918-03-14",
+              "year": "1918"
+            },
+            {
+              "aussage": "Kulturstrom der Menschheit nicht vergleichbar mit individuellem Lebensweg: umgekehrte Richtung",
+              "zitat": "Es lässt sich der Strom des geschichtlichen Werdens der Menschheit nicht etwa vergleichen mit dem Strom des einzelnen individuellen Lebens. Im einzelnen individuellen Leben wird man immer älter, die Menschheit als solche entwickelt sich in umgekehrter Richtung.",
+              "id": "GA067/6",
+              "index": "rci53f",
+              "ref": "GA067/6:rci53f",
+              "fileName": "GA067/6 - DAS GESCHICHTLICHE LEBEN DER MENSCHHEIT UND SEINE RÄTSEL IM LICHTE DER GEISTESFORSCHUNG, Berlin, 14. März 1918",
+              "title": "DAS GESCHICHTLICHE LEBEN DER MENSCHHEIT UND SEINE RÄTSEL IM LICHTE DER GEISTESFORSCHUNG",
+              "relevance": "hoch",
+              "date": "1918-03-14",
+              "year": "1918"
+            },
+            {
+              "aussage": "Symptomatische Geschichtsbetrachtung: innere Gesetze des Kulturwerdens anders als gewöhnlich angenommen",
+              "zitat": "Sie sehen, etwas ganz anderes, als was man sich gewöhnlich unter den inneren Gesetzen des Kulturwerdens vorstellt, wird herauskommen, wenn man wirklich symptomatisch die Geschichtsentwicklung betrachtet.",
+              "id": "GA067/6",
+              "index": "rci53f",
+              "ref": "GA067/6:rci53f",
+              "fileName": "GA067/6 - DAS GESCHICHTLICHE LEBEN DER MENSCHHEIT UND SEINE RÄTSEL IM LICHTE DER GEISTESFORSCHUNG, Berlin, 14. März 1918",
+              "title": "DAS GESCHICHTLICHE LEBEN DER MENSCHHEIT UND SEINE RÄTSEL IM LICHTE DER GEISTESFORSCHUNG",
+              "relevance": "mittel",
+              "date": "1918-03-14",
+              "year": "1918"
+            }
+          ]
+        },
+        {
+          "title": "Bewusstseinswandel der Menschheit in aufeinanderfolgenden Kulturperioden",
+          "group": "Kulturgeschichtliche Epochen und ihre Entsprechung zu Lebensaltern",
+          "rows": [
+            {
+              "aussage": "Ältere Ärzte sahen anders: anderes Bewusstsein in früheren Epochen, nicht rückholbar",
+              "zitat": "Man könnte geradezu von einer anderen Orientierung des ärztlichen Bewusstseins sprechen für jene älteren Zeiten, die eigentlich radikal ihr Ende gefunden haben mit Galen.",
+              "id": "GA314/5",
+              "index": "6dpkzn",
+              "ref": "GA314/5:6dpkzn",
+              "fileName": "GA314/5 - Anthroposophische Grundlagen für die Arzneikunst. ERSTER VORTRAG, Stuttgart, 26. Oktober 1922",
+              "title": "Anthroposophische Grundlagen für die Arzneikunst. ERSTER VORTRAG",
+              "relevance": "mittel",
+              "date": "1922-10-26",
+              "year": "1922"
+            },
+            {
+              "aussage": "Fortschritt zur sinnenfälligen Empirie in der Menschheitsentwicklung begründet: kein Rückfall möglich",
+              "zitat": "Wir werden auch nur, wenn wir irgendwelche atavistische Fähigkeiten uns aneignen, so etwas von Natur aus haben, wie die Alten es auf allen Gebieten, also auch auf ärztlichem Gebiete hatten. Wenn man heute hereinwächst einfach schon durch unsere besonders geartete Volksschulbildung in unsere Zivilisation, so ist es unmöglich, dass man etwas so sieht, wie es die Alten gesehen haben.",
+              "id": "GA314/5",
+              "index": "6dpkzn",
+              "ref": "GA314/5:6dpkzn",
+              "fileName": "GA314/5 - Anthroposophische Grundlagen für die Arzneikunst. ERSTER VORTRAG, Stuttgart, 26. Oktober 1922",
+              "title": "Anthroposophische Grundlagen für die Arzneikunst. ERSTER VORTRAG",
+              "relevance": "mittel",
+              "date": "1922-10-26",
+              "year": "1922"
+            },
+            {
+              "aussage": "Renaissance-Kultur als Sterbeepoche: Zersplitterung und Umschwung im 19. Jahrhundert",
+              "zitat": "Seit Anbruch der Neuzeit, im ganzen Verlaufe der Renaissancekultur treten wohl in keinem Jahrhundert deutlicher als in diesem letzten die Gegensätze des Werdens und Vergehens nebeneinander hervor. Schroff prallen sie aufeinander, und wenn sich im Geistesleben des sechzehnten, siebzehnten und achtzehnten Jahrhunderts immer letzte große Einheiten enthüllen, so wird das unserer Zeit gerade durch seine Zersplitterung und Uneinigkeit gekennzeichnet.",
+              "id": "GA032/54",
+              "index": "l8wjhn",
+              "ref": "GA032/54:l8wjhn",
+              "fileName": "GA032/54 - VON DER «MODERNEN SEELE»",
+              "title": "VON DER «MODERNEN SEELE»",
+              "relevance": "niedrig",
+              "date": "",
+              "year": ""
+            }
+          ]
+        },
+        {
+          "title": "Schröers Lebensweg: Jugend, Reife, Alterswerk als biographische Gliederung",
+          "group": "Individualität, Biographie und Schicksal",
+          "rows": [
+            {
+              "aussage": "Schröer: Jugend an deutschen Universitäten, Rückkehr, Übernahme des Lehramts 1846",
+              "zitat": "Durch die Geistesart seines Vaters hatte auf Karl Julius Schröer die Sonne des deutschen Weltanschauungsidealismus schon voraus geleuchtet, als er Ende der vierziger Jahre des vorigen Jahrhunderts an die Universitäten Leipzig, Halle und Berlin ging und da durch vieles, das auf ihn wirkte, hindurch die Vorstellungsart dieses Idealismus noch empfinden konnte. In die Heimat zurückgekehrt, übernahm er 1846 die Leitung des «Seminariums für deutsche Literärgeschichte und Sprache».",
+              "id": "GA020",
+              "index": "fdudps",
+              "ref": "GA020:fdudps",
+              "fileName": "GA020 - Vom Menschenrätsel (1916)",
+              "title": "Vom Menschenrätsel (1916)",
+              "relevance": "mittel",
+              "date": "1916",
+              "year": "1916"
+            },
+            {
+              "aussage": "Schröers letzte Lebensjahrzehnte: Vertiefung in Goethes Werk als Alterswerk",
+              "zitat": "In seinen letzten Lebensjahrzehnten war Schröers Geistesarbeit fast ganz der Vertiefung in Goethes Lebenswerk und Vorstellungsart zugewandt.",
+              "id": "GA020",
+              "index": "fdudps",
+              "ref": "GA020:fdudps",
+              "fileName": "GA020 - Vom Menschenrätsel (1916)",
+              "title": "Vom Menschenrätsel (1916)",
+              "relevance": "mittel",
+              "date": "1916",
+              "year": "1916"
+            },
+            {
+              "aussage": "Fichtes Jugendkraft und Lebensauffassung: großer, ernster Stil als Persönlichkeitsmerkmal",
+              "zitat": "Das hervorstechendste Merkmal in Fichtes Persönlichkeit ist der große, ernste Stil in seiner Lebensauffassung. Die höchsten Maßstäbe legt er an alles.",
+              "id": "GA018/2",
+              "index": "0o1i5a",
+              "ref": "GA018/2:0o1i5a",
+              "fileName": "GA018/2 - ERSTER BAND",
+              "title": "ERSTER BAND",
+              "relevance": "niedrig",
+              "date": "",
+              "year": ""
+            },
+            {
+              "aussage": "Uhlands dramatische Versuche in verschiedenen Lebensphasen: Jugend bis Alter",
+              "zitat": "Der letzte dramatische Plan, der Uhland beschäftigte, fällt in das Jahr 1820. Er wollte die Geschichte des Johannes Parricida behandeln. Von einer Ausführung dieser Idee ist nichts bekannt. Sie war die letzte, die Uhland zum Schaffen auf dramatischem Gebiete begeisterte. Die Muse dieser Kunst besuchte fortan den Dichter nicht wieder.",
+              "id": "GA033/8",
+              "index": "vc9ofd",
+              "ref": "GA033/8:vc9ofd",
+              "fileName": "GA033/8 - LUDWIG UHLAND Uhland und Goethe",
+              "title": "LUDWIG UHLAND Uhland und Goethe",
+              "relevance": "niedrig",
+              "date": "",
+              "year": ""
+            }
+          ]
+        },
+        {
+          "title": "Nietzsche: biographische Entwicklung und Krankheit als Einschnitt",
+          "group": "Individualität, Biographie und Schicksal",
+          "rows": [
+            {
+              "aussage": "Nietzsche: Vorstadien der Erkrankung spielen in letzte Philosophiephase hinein",
+              "zitat": "Ich fürchte mich nicht vor dem pöbelhaften Vorwurfe, dass ich kein wahrer Nietzsche-Verehrer sei, weil ich meine obige Überzeugung ausspreche. Ich weiß, wie schwer sie mir geworden ist, diese Überzeugung, dass die Vorstadien der Erkrankung in die letzte Phase des Nietzscheschen Philosophieren doch hineinspielen.",
+              "id": "GA031/105",
+              "index": "tgxfew",
+              "ref": "GA031/105:tgxfew",
+              "fileName": "GA031/105 - ZUR «WIEDERKUNFT DES GLEICHEN» VON NIETZSCHE",
+              "title": "ZUR «WIEDERKUNFT DES GLEICHEN» VON NIETZSCHE",
+              "relevance": "niedrig",
+              "date": "1900",
+              "year": "1900"
+            },
+            {
+              "aussage": "Nietzsche 1881: Entwurf zur Ewigen Wiederkunft als biographischer Wendepunkt",
+              "zitat": "So ungefähr mögen die Ideen ausgesehen haben, die Nietzsche durch den Kopf gingen, als er 1881 in Sils-Maria den «Entwurf» zur «Wiederkunft des Gleichen» schrieb.",
+              "id": "GA031/105",
+              "index": "tgxfew",
+              "ref": "GA031/105:tgxfew",
+              "fileName": "GA031/105 - ZUR «WIEDERKUNFT DES GLEICHEN» VON NIETZSCHE",
+              "title": "ZUR «WIEDERKUNFT DES GLEICHEN» VON NIETZSCHE",
+              "relevance": "niedrig",
+              "date": "1900",
+              "year": "1900"
+            }
+          ]
+        },
+        {
+          "title": "Blick hinter Geburt und Tod: Geisteswissenschaft erschließt vorgeburtliches Leben",
+          "group": "Geistesforschung und Erkenntnis der präexistenten und postmortalen Lebensphasen",
+          "rows": [
+            {
+              "aussage": "Übersinnliche Erkenntnis des Organismus führt zum Blick ins präexistente Leben",
+              "zitat": "Sieht man auf diese Weise durch geistig-übersinnliche Kräfte in das eigentlich Materielle der menschlichen Organisation hinein, dann überwindet man auch das bloße materielle Anschauen dieser menschlichen Organisation. Denn zuletzt sieht man, wie das, was sich einem da als Materielles im Menschen darstellt, nicht bloß aus der Vererbungsströmung herausgeboren ist, mit der es sich nur verbunden hat, sondern wie es herausgeboren ist aus einer Welt, die der Mensch durchlebt hat vor seiner Geburt oder Empfängnis.",
+              "id": "GA077a/1",
+              "index": "24x6nk",
+              "ref": "GA077a/1:24x6nk",
+              "fileName": "GA077a/1 - ERSTER VORTRAG - NATUR-ERKENNEN, Darmstadt, 27. Juli 1921",
+              "title": "ERSTER VORTRAG - NATUR-ERKENNEN",
+              "relevance": "mittel",
+              "date": "1921-07-27",
+              "year": "1921"
+            },
+            {
+              "aussage": "Seelenwesen vor Geburt und nach Tod: naturwissenschaftliche Einwände ernst nehmen",
+              "zitat": "Man muss sich das immer wiederum gegenwärtig halten, dass die naturwissenschaftlichen Einwände, die überhaupt gegen ein abgesondert im Menschen liegendes Seelenwesen sprechen – gegen ein Seelenwesen, das vorhanden war, bevor der Mensch durch die Geburt – oder sagen wir die Empfängnis – in das sinnliche Dasein getreten ist, das vorhanden bleibt, wenn der Mensch durch die Pforte des Todes getreten ist –, diese Einwände gegen die Annahme eines solchen Seelenwesens, die heute vom naturwissenschaftlichen Standpunkte aus, der sich zu einer Weltanschauung entwickeln will, gemacht werden, sie sind eben durchaus nicht leicht zu nehmen.",
+              "id": "GA070b/2",
+              "index": "8uklbo",
+              "ref": "GA070b/2:8uklbo",
+              "fileName": "GA070b/2 - DIE EWIGEN KRÄFTE DER MENSCHENSEELE VOM GESICHTSPUNKTE DER GEISTESWISSENSCHAFT, Stuttgart, 26. November 1915",
+              "title": "DIE EWIGEN KRÄFTE DER MENSCHENSEELE VOM GESICHTSPUNKTE DER GEISTESWISSENSCHAFT",
+              "relevance": "mittel",
+              "date": "1915-11-26",
+              "year": "1915"
+            }
+          ]
+        },
+        {
+          "title": "Karma und Schicksal: Schuld und Ausgleich über Lebensphasen hinweg",
+          "group": "Geistesforschung und Erkenntnis der präexistenten und postmortalen Lebensphasen",
+          "rows": [
+            {
+              "aussage": "Schuld und Rückgabe über Lebensphasen: Maria über Empfangenes und Zurückzugebendes",
+              "zitat": "Es könnte einer tiefen Notwendigkeit entsprechen des Daseins, dass ich solches empfange, wie angedeutet ist. Doch erwüchse mir die Notwendigkeit, in andrer Form zurück zu erstatten das Empfangene. Bestürzen könnt es mich nimmermehr, dass ich es nehmen muss. Doch erwächst mir die strenge Pflicht, zurückzugeben das Empfangene.",
+              "id": "GA044/2",
+              "index": "ff2h0f",
+              "ref": "GA044/2:ff2h0f",
+              "fileName": "GA044/2 - DIE PRÜFUNG DER SEELE",
+              "title": "DIE PRÜFUNG DER SEELE",
+              "relevance": "mittel",
+              "date": "",
+              "year": ""
+            },
+            {
+              "aussage": "Schicksalsrätsel und Weltenwille: Menschenseele trägt anvertrauten Schatz über Lebensphasen",
+              "zitat": "Doch schaudernd muss ich es empfinden den anvertrauten Schatz des Weltenwillens, muss mit dem eignen Fall verderben die Seele, die nicht wissen kann.",
+              "id": "GA044/2",
+              "index": "ff2h0f",
+              "ref": "GA044/2:ff2h0f",
+              "fileName": "GA044/2 - DIE PRÜFUNG DER SEELE",
+              "title": "DIE PRÜFUNG DER SEELE",
+              "relevance": "niedrig",
+              "date": "",
+              "year": ""
+            }
+          ]
+        },
+        {
+          "title": "Dreigliederung des menschlichen Organismus und ihre Entwicklung im Lebenslauf",
+          "group": "Menschlicher Organismus und seine Entwicklung: Leib, Seele, Geist",
+          "rows": [
+            {
+              "aussage": "Nerven-Sinnes-, Rhythmisches und Stoffwechselsystem: Zusammenwirken im Sprechen und in der Eurythmie",
+              "zitat": "Wir haben in einer gewissen Weise ein Sich-Begegnen von einer Dynamik, die aus dem Stoffwechselsystem des Menschen kommt, und einer Dynamik, welche aus dem Nerven-Sinnessystem des Menschen kommt. Die beiden treffen sich so, dass das Stoffwechselsystem sich zunächst metamorphosiert in den Zirkulationsvorgängen, und das Vorstellungsgemäße, das aus dem Nerven-Sinnessystem kommt, sich metamorphosiert im Atmungssystem.",
+              "id": "GA315/8",
+              "index": "mke1fn",
+              "ref": "GA315/8:mke1fn",
+              "fileName": "GA315/8 - ACHTER VORTRAG, Stuttgart, 28. Oktober 1922 (Vor Ärzten)",
+              "title": "ACHTER VORTRAG",
+              "relevance": "niedrig",
+              "date": "1922-10-28",
+              "year": "1922"
+            },
+            {
+              "aussage": "Atmungsrhythmus als Urrhythmus: Dichter schließt sich unbewusst an menschlichen Rhythmus an",
+              "zitat": "Der wahre Dichter ganz unbewusst seine Sprachbehandlung so einrichtet, dass er in der Aufeinanderfolge der Laute und Worte und in der ganzen Satzgestaltung der Sprache eine solche Gestalt gibt, dass sie sich an den reinen menschlichen Atmungsrhythmus anschließt oder wenigstens zu diesem reinen menschlichen Atmungsrhythmus in einem ganz bestimmten Verhältnisse steht.",
+              "id": "GA277/41",
+              "index": "rgnmbu",
+              "ref": "GA277/41:rgnmbu",
+              "fileName": "GA277/41 - URRHYTHMUS, URGESANG UND ARRHYTHMUS IN IHREM VERHÄLTNIS ZUR EURYTHMIE, Dornach, 9. April 1921",
+              "title": "URRHYTHMUS",
+              "relevance": "niedrig",
+              "date": "1921-04-09",
+              "year": "1921"
+            }
+          ]
+        },
+        {
+          "title": "Entwicklung des Sehens und Erkennens: Auge als Analogie zur Bewusstseinsentwicklung",
+          "group": "Menschlicher Organismus und seine Entwicklung: Leib, Seele, Geist",
+          "rows": [
+            {
+              "aussage": "Auge als Entwicklungsanalogie: von unbestimmtem zu scharf konturiertem Sehen",
+              "zitat": "Es können heute Fähigkeiten des geistigen Schauens entwickelt werden. Nun sehen Sie, wenn solche Fähigkeiten des geistigen Schauens entwickelt werden – ich habe die Entwickelung dargestellt in meinem Buche «Wie erlangt man Erkenntnisse der höheren Welten?» –, wenn solche Fähigkeiten entwickelt werden beim Menschen, dann sieht er zunächst eine Welt, die er früher nicht gesehen hat.",
+              "id": "GA314/5",
+              "index": "6dpkzn",
+              "ref": "GA314/5:6dpkzn",
+              "fileName": "GA314/5 - Anthroposophische Grundlagen für die Arzneikunst. ERSTER VORTRAG, Stuttgart, 26. Oktober 1922",
+              "title": "Anthroposophische Grundlagen für die Arzneikunst. ERSTER VORTRAG",
+              "relevance": "niedrig",
+              "date": "1922-10-26",
+              "year": "1922"
+            }
+          ]
+        }
+      ],
+      "themeGrouped": true,
+      "themeGroupedVersion": 2,
+      "curated": true
+    },
+    "rechercheScope": {
+      "sourceType": "alle",
+      "themeArea": ""
+    },
+    "timestamp": "2026-09-24T14:50:06.885Z"
   }
 }
