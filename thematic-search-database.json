@@ -21874,5 +21874,1504 @@
       "themeArea": ""
     },
     "timestamp": "2026-09-24T14:50:06.885Z"
+  },
+  "der begriff des opfers und der geopferten substanz in der weltentwicklung von altem saturn, alter sonne, altem mond und erde|recherche:v4:alle:alle|300|": {
+    "query": "Der Begriff des Opfers und der geopferten Substanz in der Weltentwicklung von altem Saturn, alter Sonne, altem Mond und Erde",
+    "content": "",
+    "sources": [
+      {
+        "ID": "GA347/9",
+        "index": "^9r3a6y",
+        "title": "NEUNTER VORTRAG",
+        "fileName": "GA347/9 - NEUNTER VORTRAG, Dornach, 27. September 1922",
+        "score": 446,
+        "matchedTerms": [
+          "mond",
+          "erde"
+        ]
+      },
+      {
+        "ID": "GA327/5",
+        "index": "^3m77vi",
+        "title": "DRITTER VORTRAG",
+        "fileName": "GA327/5 - DRITTER VORTRAG, Koberwitz, 11.Juni 1924, Exkurs in die Tätigkeit der Natur Die Wirkung des Geistes in der Natur",
+        "score": 417,
+        "matchedTerms": [
+          "erde"
+        ]
+      },
+      {
+        "ID": "GA227/9",
+        "index": "^bkdlbv",
+        "title": "SIEBENTER VORTRAG",
+        "fileName": "GA227/9 - SIEBENTER VORTRAG, Penmaenmawr, 25. August 1923",
+        "score": 383,
+        "matchedTerms": [
+          "saturn",
+          "sonne",
+          "mond",
+          "erde"
+        ]
+      },
+      {
+        "ID": "GA104a/15",
+        "index": "^52ocuy",
+        "title": "ELFTER VORTRAG",
+        "fileName": "GA104a/15 - ELFTER VORTRAG, Kristiania, 20. Mai 1909",
+        "score": 372,
+        "matchedTerms": [
+          "saturn",
+          "sonne",
+          "mond",
+          "erde"
+        ]
+      },
+      {
+        "ID": "GA295/10",
+        "index": "^horxlk",
+        "title": "ZEHNTE SEMINARBESPRECHUNG",
+        "fileName": "GA295/10 - ZEHNTE SEMINARBESPRECHUNG, Stuttgart, 1. September 1919",
+        "score": 368,
+        "matchedTerms": [
+          "begriff des",
+          "begriff",
+          "erde"
+        ]
+      },
+      {
+        "ID": "GA095/9",
+        "index": "^absrw5",
+        "title": "NEUNTER VORTRAG",
+        "fileName": "GA095/9 - NEUNTER VORTRAG, Stuttgart, 30. August 1906",
+        "score": 367,
+        "matchedTerms": [
+          "saturn",
+          "sonne",
+          "mond",
+          "erde"
+        ]
+      },
+      {
+        "ID": "GA148/10",
+        "index": "^ki4oud",
+        "title": "Fünfter Vortrag",
+        "fileName": "GA148/10 - Fünfter Vortrag, Berlin, 13. Januar 1914",
+        "score": 355,
+        "matchedTerms": [
+          "erde"
+        ]
+      },
+      {
+        "ID": "GA100/17",
+        "index": "^3r49b3",
+        "title": "DAS JOHANNES-EVANGELIUM - DRITTER VORTRAG",
+        "fileName": "GA100/17 - DAS JOHANNES-EVANGELIUM - DRITTER VORTRAG, Basel, 18. November 1907",
+        "score": 351,
+        "matchedTerms": [
+          "sonne",
+          "mond",
+          "erde"
+        ]
+      },
+      {
+        "ID": "GA037/72",
+        "index": "^m4ge9x",
+        "title": "III. WAS ICH WEITERES DEN JÜNGEREN MITGLIEDERN ZU SAGEN HABE",
+        "fileName": "GA037/72 - III. WAS ICH WEITERES DEN JÜNGEREN MITGLIEDERN ZU SAGEN HABE",
+        "score": 350,
+        "matchedTerms": [
+          "altem",
+          "alter"
+        ]
+      },
+      {
+        "ID": "GA217a/12",
+        "index": "^0lyxlt",
+        "title": "Nachrichtenblatt",
+        "fileName": "GA217a/12 - Nachrichtenblatt, 23. März 1924 III. Was ich Weiteres den jüngeren Mitgliedern zu sagen habe",
+        "score": 350,
+        "matchedTerms": [
+          "altem",
+          "alter"
+        ]
+      }
+    ],
+    "searchMethod": "hybrid-thematic-unified",
+    "totalMatches": 111844,
+    "llmUsed": true,
+    "recherche": {
+      "subThemes": [
+        {
+          "title": "Vier Zustände als Metamorphosen eines einzigen Planeten",
+          "group": "Planetarische Entwicklungsstufen: Saturn, Sonne, Mond, Erde als Metamorphosen",
+          "rows": [
+            {
+              "aussage": "Saturn, Sonne, Mond, Erde: vier Erscheinungszustände desselben Planeten, keine getrennten Himmelskörper",
+              "zitat": "Man darf sich aber diese vier Planeten, Saturn, Sonne, Mond, Erde, nicht als vier voneinander getrennte Planeten vorstellen; das wäre ganz falsch. Es sind vier Erscheinungszustände eines und desselben Planeten. Es sind richtige Metamorphosen des einen Planeten, und alle Wesen auf demselben metamorphosieren sich mit ihm. Der Mensch war nie auf einem anderen Planeten, aber die Erde war in verschiedenen Zuständen da.",
+              "id": "GA095/9",
+              "index": "absrw5",
+              "ref": "GA095/9:absrw5",
+              "fileName": "GA095/9 - NEUNTER VORTRAG, Stuttgart, 30. August 1906",
+              "title": "NEUNTER VORTRAG",
+              "relevance": "hoch",
+              "date": "1906-08-30",
+              "year": "1906"
+            },
+            {
+              "aussage": "Vier Entwicklungsstufen entsprechen vier Elementen: Feuer, Luft, Wasser, Erde",
+              "zitat": "Die vier aufeinanderfolgenden Zustände von Saturn, Sonne, Mond und Erde stimmen mit den vier Elementen Feuer, Luft, Wasser, Erde überein.",
+              "id": "GA111/24",
+              "index": "cnlm4q",
+              "ref": "GA111/24:cnlm4q",
+              "fileName": "GA111/24 - DIE ROSENKREUZ-ESOTERIK UND IHRE LEHRE VON DER ENTWICKLUNG DES KOSMOS, Nimwegen, 10. März 1908, nachmittags",
+              "title": "DIE ROSENKREUZ-ESOTERIK UND IHRE LEHRE VON DER ENTWICKLUNG DES KOSMOS",
+              "relevance": "hoch",
+              "date": "1908-03-10",
+              "year": "1908"
+            },
+            {
+              "aussage": "Jede Weltenstufe (Saturn, Sonne, Mond, Erde) in sieben Unterperioden gegliedert",
+              "zitat": "Aber jede von diesen Welten: Saturn, Sonne, Mond gliedern wir ja so, wie wir auch das Irdische gliedern. Wir gliedern das Irdische: in die polarische Zeit, in die hyperboräische Zeit, dann haben wir die lemurische Zeit, die atlantische, die nachatlantische und so weiter: 7. In jeder 7 Perioden.",
+              "id": "GA273/4",
+              "index": "enxwdv",
+              "ref": "GA273/4:enxwdv",
+              "fileName": "GA273/4 - Faust und die Mütter, Vortrag in Dornach, 2. November 1917",
+              "title": "Faust und die Mütter",
+              "relevance": "hoch",
+              "date": "1917-11-02",
+              "year": "1917"
+            },
+            {
+              "aussage": "Gegenwärtiges Sonnensystem: äußere Körperlichkeit des vom Mondendasein verwandelten Erdendaseins",
+              "zitat": "Wenn Sie also hinausschauen, das gegenwärtige Sonnensystem anschauen, so ist das gewissermaßen die äußere Körperlichkeit desjenigen, was vom Mondendasein verschwunden ist oder sich vom Mondendasein verwandelt hat zu dem Erdendasein. Und wiederum, was wir heute hinaussenden in unseren Weltenraum, das bereitet das Jupiterdasein vor.",
+              "id": "GA213/3",
+              "index": "ae7n8a",
+              "ref": "GA213/3:ae7n8a",
+              "fileName": "GA213/3 - DRITTER VORTRAG, Dornach, 30. Juni 1922",
+              "title": "DRITTER VORTRAG",
+              "relevance": "hoch",
+              "date": "1922-06-30",
+              "year": "1922"
+            },
+            {
+              "aussage": "Erde und Mensch: tiefster Punkt der Verfestigung, nun Aufstieg zum Geistigen",
+              "zitat": "Je weiter wir in der parallellaufenden Entwickelung von Erde und Menschheit zurückgehen, desto mehr finden wir beide im flüssigen und embryonalen Zustand, desto näher sind sie auch dem geistigen Zustand. Heute, wo wir den tiefsten Punkt der abwärtsgehenden Entwickelung erreicht haben, haben Erde und Mensch den äußersten Grad von Verfestigung erreicht und sind im Begriff, durch Betätigung des individuellen Willens, zum geistigen Zustand wieder aufzusteigen.",
+              "id": "GA094/13",
+              "index": "6bugi0",
+              "ref": "GA094/13:6bugi0",
+              "fileName": "GA094/13 - KOSMOGONIE, Dreizehnter Vortrag, Paris, 9. Juni 1906",
+              "title": "KOSMOGONIE",
+              "relevance": "hoch",
+              "date": "1906-06-09",
+              "year": "1906"
+            }
+          ]
+        },
+        {
+          "title": "Weltentag, Weltenmonat, Weltenjahr: Zyklen der Form- und Bewusstseinsentwicklung",
+          "group": "Planetarische Entwicklungsstufen: Saturn, Sonne, Mond, Erde als Metamorphosen",
+          "rows": [
+            {
+              "aussage": "Weltenmonat (Lebenszustände) zwischen Weltentag (Formzyklus) und Weltenjahr (Bewusstseinszyklus)",
+              "zitat": "Das Durchgehen durch alle Bewusstseinszustände nennt man ein Weltenjahr. Zwischen dem Weltentag (Formzyklus) und dem Weltenjahr (Bewusstseinszyklus) liegt der Weltenmonat (Lebenszustände), der länger ist als der Weltentag und kürzer als das Weltenjahr.",
+              "id": "GA089/12",
+              "index": "8mjomb",
+              "ref": "GA089/12:8mjomb",
+              "fileName": "GA089/12 - Die planetarische Entwicklung - vierter Vortrag, Berlin, 25. Oktober 1904",
+              "title": "Die planetarische Entwicklung - vierter Vortrag",
+              "relevance": "hoch",
+              "date": "1904-10-25",
+              "year": "1904"
+            }
+          ]
+        },
+        {
+          "title": "Zahl 666 als kritische Zahl der Evolution: Ausscheidung unvollkommener Substanz",
+          "group": "Planetarische Entwicklungsstufen: Saturn, Sonne, Mond, Erde als Metamorphosen",
+          "rows": [
+            {
+              "aussage": "Nach 666 von 343 Stufen (Saturn bis Venus): Ausscheidung des Unvollkommenen aus der Evolution",
+              "zitat": "Wenn von diesen 343=7 mal 7 mal 7 Stufen 666=6 mal 6 mal 6=216 vergangen sein werden, also nach 5 Planeten (Saturn, Sonne, Mond, Erde, Jupiter) in der Venus, wenn in dieser wieder 5 Lebenszustände verflossen sind, also im 6. Lebenszustand der Venus und im 6. Formzustand dieses 6. Lebenszustandes, dann wird alles ausgesondert sein von der Erdenevolution, was nicht zur Vollkommenheit kommen kann; die Zahl 666=216 ist daher die kritische Zahl der Evolution.",
+              "id": "GA046/61",
+              "index": "4ybnww",
+              "ref": "GA046/61:4ybnww",
+              "fileName": "GA046/61 - Zeichen und Entwicklung der drei Logoi in der Menschheit (1906)",
+              "title": "Zeichen und Entwicklung der drei Logoi in der Menschheit (1906)",
+              "relevance": "hoch",
+              "date": "1906",
+              "year": "1906"
+            },
+            {
+              "aussage": "666 = kritische Zahl der Evolution: im 6. Lebenszustand der Venus wird alles ausgesondert, was nicht zur Vollkommenheit kommen kann",
+              "zitat": "666 = 6 x 6 x 6 = 216 vergangen sein werden, also nach 5 Planeten (Saturn, Sonne, Mond, Erde, Jupiter) in der Venus, wenn in dieser wieder 5 Lebenszustände verflossen sind, also im 6. Lebenszustand der Venus und im 6. Formzustand dieses 6. Lebenszustandes, dann wird alles ausgesondert sein von der Erdenevolution, was nicht zur Vollkommenheit kommen kann; die Zahl 666 = 216 ist daher die kritische Zahl der Evolution (Apokalypse).",
+              "id": "GA089/22",
+              "index": "9aizsv",
+              "ref": "GA089/22:9aizsv",
+              "fileName": "GA089/22 - Zeichen und Entwicklung der drei Logoi in der Menschheit, Niederschrift für Edouard Schuré, Mai 1906",
+              "title": "Zeichen und Entwicklung der drei Logoi in der Menschheit",
+              "relevance": "hoch",
+              "date": "Mai 1906",
+              "year": "1906"
+            }
+          ]
+        },
+        {
+          "title": "Opfer der Geister des Willens (Throne) auf dem alten Saturn: Ursprung der Wärmesubstanz",
+          "group": "Das Opfer der geistigen Hierarchien und die Entstehung des physischen Leibes",
+          "rows": [
+            {
+              "aussage": "Geister des Willens: ausstrahlende Materie auf dem Saturn, Grundlage des physischen Leibes",
+              "zitat": "Wir müssen nun zurückgreifen auf die ausstrahlende Materie von Seiten der Geister des Willens. Aus ihr wird der physische Leib geformt auf dem Saturn, umgebildet wird er auf der Sonne, auf dem Monde und auf der Erde, und nun beginnt er abzubröckeln, sich abzulösen vom Menschen – wenn er Engel wird.",
+              "id": "GA091/37",
+              "index": "wn7n89",
+              "ref": "GA091/37:wn7n89",
+              "fileName": "GA091/37 - BEWUSSTSEINSFORMEN, Fünfzehnte Stunde, Haubinda, 12. August 1905",
+              "title": "BEWUSSTSEINSFORMEN",
+              "relevance": "hoch",
+              "date": "1905-08-12",
+              "year": "1905"
+            }
+          ]
+        },
+        {
+          "title": "Opfer vor und nach der Mitte der Erdenentwicklung: Unterschied zwischen Opfer und Hemmnis",
+          "group": "Das Opfer der geistigen Hierarchien und die Entstehung des physischen Leibes",
+          "rows": [
+            {
+              "aussage": "Saturn, Sonne, Mond vor der Erdenmitte: zurückgebliebene Wesenheiten brachten Opfer; nach der Mitte: Hemmnis statt Opfer",
+              "zitat": "Aber Saturn, Sonne und Mond liegen vor der Mitte der Erdenentwickelung; die Wesenheiten, die vor der Mitte zurückgeblieben sind, brachten ein Opfer. Diejenigen jedoch, die von nun an nach der Mitte der Erdenentwickelung zurückbleiben, würden damit ein Hemmnis und kein Opfer bedeuten. Die luziferischen Geister haben aber der Menschheit auch etwas Positives gebracht; sie durchsetzten seinen Astralleib mit ihren Kräften und brachten ihn zur Selbständigkeit.",
+              "id": "GA104a/15",
+              "index": "52ocuy",
+              "ref": "GA104a/15:52ocuy",
+              "fileName": "GA104a/15 - ELFTER VORTRAG, Kristiania, 20. Mai 1909",
+              "title": "ELFTER VORTRAG",
+              "relevance": "hoch",
+              "date": "1909-05-20",
+              "year": "1909"
+            }
+          ]
+        },
+        {
+          "title": "Ägyptische Einweihungslehre: Werden der Dreiheit Sonne, Mond, Erde",
+          "group": "Das Opfer der geistigen Hierarchien und die Entstehung des physischen Leibes",
+          "rows": [
+            {
+              "aussage": "Werden der Dreiheit Sonne, Mond, Erde: ägyptischen Schülern in tiefen Bildern mitgeteilt",
+              "zitat": "So hat sich abgespielt das Werden der Dreiheit von Sonne, Mond und Erde. Alles das wurde dem ägyptischen Schüler mitgeteilt, in tiefen, tiefen, bewusst geformten Bildern.",
+              "id": "GA106/5",
+              "index": "5n1aro",
+              "ref": "GA106/5:5n1aro",
+              "fileName": "GA106/5 - FÜNFTER VORTRAG, Leipzig, 7. September 1908",
+              "title": "FÜNFTER VORTRAG",
+              "relevance": "hoch",
+              "date": "1908-09-07",
+              "year": "1908"
+            }
+          ]
+        },
+        {
+          "title": "Abtrennung der Sonne: Lebenskräfte von außen, Mondabtrennung: Formkräfte",
+          "group": "Trennung von Sonne und Mond von der Erde: kosmisches Gleichgewicht und Opferakt",
+          "rows": [
+            {
+              "aussage": "Abtrennung von Sonne und Mond: Gleichgewicht zwischen Leben und Form für Menschheitsentwicklung notwendig",
+              "zitat": "Durch das Abtrennen der Sonnen- und Mondkräfte von der Erde ist jenes Gleichgewicht zwischen Leben und Form gegeben worden, das für die Menschheitsentwicklung notwendig war. Nur weil diese Kräfte nunmehr von außen auf den Menschen wirken, kann der Mensch sich richtig entwickeln. Die von der Sonne kommenden Kräfte schaffen und befruchten das Leben. Was dieses Leben in feste Formen gießt, kommt von dem Monde. Dem Monde verdanken wir die Entstehung des physischen Leibes, wie wir ihn heute haben.",
+              "id": "GA100/17",
+              "index": "3r49b3",
+              "ref": "GA100/17:3r49b3",
+              "fileName": "GA100/17 - DAS JOHANNES-EVANGELIUM - DRITTER VORTRAG, Basel, 18. November 1907",
+              "title": "DAS JOHANNES-EVANGELIUM - DRITTER VORTRAG",
+              "relevance": "hoch",
+              "date": "1907-11-18",
+              "year": "1907"
+            },
+            {
+              "aussage": "Elohim: bei Sonnentrennung mit Sonne verbunden geblieben; Christus als höchster Elohim, Regent des Sonnensystems",
+              "zitat": "Die Elohim sind diejenigen Wesenheiten, die bei der Trennung der Sonne von Mond und Erde mit der Sonne verbunden geblieben sind; sie gehören der Hierarchie an, die man die Gewalten, Geister der Form nennt. Christus, der Höchste der Elohim, ist der Regent derselben. Er gehört aber nicht zu den Hierarchien, sondern zur Trinität. In Christus haben wir eine Wesenheit vor uns, die so mächtig ist, dass sie auf alle Glieder unseres Sonnensystems Einfluss hat.",
+              "id": "GA110/11",
+              "index": "cvmqln",
+              "ref": "GA110/11:cvmqln",
+              "fileName": "GA110/11 - FRAGENBEANTWORTUNG, Düsseldorf, 21. April 1909, abends",
+              "title": "FRAGENBEANTWORTUNG",
+              "relevance": "hoch",
+              "date": "1909-04-21",
+              "year": "1909"
+            },
+            {
+              "aussage": "Sonne und Mond: in der sechsten Unterrasse als zwei Zeugen irdischer Entwicklung dargestellt",
+              "zitat": "Die Abgliederung von Sonne, Erde und Mond entwickelt sich umgekehrt in der sechsten Unterrasse. Die beiden, Sonne und Mond, werden dargestellt als die zwei Zeugen irdischer Entwicklung.",
+              "id": "GA090b/27",
+              "index": "fq2xco",
+              "ref": "GA090b/27:fq2xco",
+              "fileName": "GA090b/27 - DIE APOKALYPSE DES JOHANNES II, Köln, 19. März 1905",
+              "title": "DIE APOKALYPSE DES JOHANNES II",
+              "relevance": "mittel",
+              "date": "1905-03-19",
+              "year": "1905"
+            }
+          ]
+        },
+        {
+          "title": "Mondaustritt aus der Erde und Differenzierung der Menschheit",
+          "group": "Trennung von Sonne und Mond von der Erde: kosmisches Gleichgewicht und Opferakt",
+          "rows": [
+            {
+              "aussage": "Mondaustritt aus der Erde: Differenzierung der Menschheit, Entstehung des Rassenbegriffs im Lemurischen",
+              "zitat": "Auf dem Monde, und auch auf der Erde zu ihrer Mondenzeit, gab es Menschen verschiedener Entwickelungsstufen. Wir können das verfolgen bis in das lemurische Zeitalter, wo durch den Austritt des Mondes die Menschheit sich differenziert; darnach taucht der Rassenbegriff auf und beginnt von jetzt ab einen gewissen Sinn, eine gewisse Bedeutung zu haben.",
+              "id": "GA109/18",
+              "index": "2mpk2i",
+              "ref": "GA109/18:2mpk2i",
+              "fileName": "GA109/18 - Die Entwickelungsstadien unserer Erde bis zur lemurischen Epoche, Siebenter Vortrag, Budapest, 9. Juni 1909",
+              "title": "Die Entwickelungsstadien unserer Erde bis zur lemurischen Epoche",
+              "relevance": "hoch",
+              "date": "1909-06-09",
+              "year": "1909"
+            }
+          ]
+        },
+        {
+          "title": "Saturn: verborgene Wärme- und Kältekräfte im Weltenraum",
+          "group": "Trennung von Sonne und Mond von der Erde: kosmisches Gleichgewicht und Opferakt",
+          "rows": [
+            {
+              "aussage": "Saturn: Quelle verborgener Wärme- und Kälteverhältnisse im planetarischen Erdenraum",
+              "zitat": "Diese verborgenen Wärme– und Kälteverhältnisse des Weltenraumes, die kommen nicht vom Monde, nicht von der Sonne, sie kommen eigentlich in der Hauptsache von einem Stern, der im Grunde genommen sehr bescheiden strahlt im Weltenraume, von dem Saturn. Die eigentümliche bescheidene Strahlung des Saturns in unseren planetarischen Erden–Weltenraum hinein, die gibt diejenigen verborgenen Kräfte.",
+              "id": "GA227/9",
+              "index": "bkdlbv",
+              "ref": "GA227/9:bkdlbv",
+              "fileName": "GA227/9 - SIEBENTER VORTRAG, Penmaenmawr, 25. August 1923",
+              "title": "SIEBENTER VORTRAG",
+              "relevance": "hoch",
+              "date": "1923-08-25",
+              "year": "1923"
+            }
+          ]
+        },
+        {
+          "title": "Aurische Substanz: Einatmen zur Erde, Ausatmen in den Kosmos",
+          "group": "Geopferte Substanz: Äther, Materie und kosmisches Ein- und Ausatmen",
+          "rows": [
+            {
+              "aussage": "Äther-/aurische Substanz: fortwährendes Einatmen zur Erde und Ausatmen in den Kosmos; nach dem Tod genutzt für Rückkehr in die Geistige Welt",
+              "zitat": "Nun ist es bedeutsam, dass diese Substanz, welche zur Erde strömt und von der Erde wieder fortströmt, dass diese Substanz, wenn sie fortströmt von den Menschen, wenn sie sterben, benützt wird, um wiederum die Kräfte zu finden, in die geistige Welt hineinzukommen. Diese Materie, die ich hier im Zuzuge zur Erde einwärts angedeutet habe, die geht bis zu einer gewissen Tiefe in den Erdboden hinein, strömt dann wiederum fort; so dass man fortwährend wahrnehmen kann eine Art Einatmen von Äther oder aurischer Substanz in die Erde, und wieder ein Ausatmen.",
+              "id": "GA180/13",
+              "index": "4mjcdc",
+              "ref": "GA180/13:4mjcdc",
+              "fileName": "GA180/13 - VIERZEHNTER VORTRAG, Dornach, 13. Januar 1918",
+              "title": "VIERZEHNTER VORTRAG",
+              "relevance": "hoch",
+              "date": "1918-01-13",
+              "year": "1918"
+            }
+          ]
+        },
+        {
+          "title": "Kieselsäure als Durchgangsstation für das Geistige in der Erdsubstanz",
+          "group": "Geopferte Substanz: Äther, Materie und kosmisches Ein- und Ausatmen",
+          "rows": [
+            {
+              "aussage": "Kieselsäure (28 % der Erdsubstanz): Durchgangsstation für das Geistige, wie Licht durch Durchsichtiges",
+              "zitat": "Es sind ja um die Erde herum achtundzwanzig Prozent der Gesamtsubstanz Kieselsäure und durch alles, was im Kieselsäureprozess ist, geht das Geistige durch, wie eben das Licht durch etwas Durchsichtiges durchgeht.",
+              "id": "GA319/11",
+              "index": "plzlrd",
+              "ref": "GA319/11:plzlrd",
+              "fileName": "GA319/11 - ZEHNTER VORTRAG, London, 28. August 1924",
+              "title": "ZEHNTER VORTRAG",
+              "relevance": "mittel",
+              "date": "1924-08-28",
+              "year": "1924"
+            }
+          ]
+        },
+        {
+          "title": "Kohle als planetarisches Absonderungsprodukt: Analogie zum Korallenstock",
+          "group": "Geopferte Substanz: Äther, Materie und kosmisches Ein- und Ausatmen",
+          "rows": [
+            {
+              "aussage": "Planet setzt Kohle ab wie Korallenstock Kalk: physischer Leib löst sich ab, Planet wächst durch Absonderung",
+              "zitat": "Ein Analogon haben wir im Korallenstock, er wurzelt im Wasser, mehr und mehr setzt er Kalk an, woran sich immer mehr und mehr Tierchen bilden, welche absterben; dadurch wächst die Koralle. So wird unser Planet immer mehr und mehr Kohle absetzen.",
+              "id": "GA091/37",
+              "index": "wn7n89",
+              "ref": "GA091/37:wn7n89",
+              "fileName": "GA091/37 - BEWUSSTSEINSFORMEN, Fünfzehnte Stunde, Haubinda, 12. August 1905",
+              "title": "BEWUSSTSEINSFORMEN",
+              "relevance": "hoch",
+              "date": "1905-08-12",
+              "year": "1905"
+            }
+          ]
+        },
+        {
+          "title": "Myrrhe als Symbol der Opferung des Irdischen",
+          "group": "Opfer und Transformation im Mysterium von Golgatha",
+          "rows": [
+            {
+              "aussage": "Myrrhe: Symbol der Opferung, Abtötung des Irdischen, damit das Höhere aufleben kann",
+              "zitat": "Und dieses alles drückt sich aus in den Myrrhen, die das Symbol der Opferung, der Abtötung sind, der Opferung des Irdischen, um das Höhere aufleben zu lassen.",
+              "id": "GA090a/80",
+              "index": "3k8eph",
+              "ref": "GA090a/80:3k8eph",
+              "fileName": "GA090a/80 - DAS DREIKÖNIGSFEST, Berlin, 30. Dezember 1904",
+              "title": "DAS DREIKÖNIGSFEST",
+              "relevance": "hoch",
+              "date": "1904-12-30",
+              "year": "1904"
+            }
+          ]
+        },
+        {
+          "title": "Blut aus der Wunde des Erlösers: Opfer zur Überwindung des Egoismus",
+          "group": "Opfer und Transformation im Mysterium von Golgatha",
+          "rows": [
+            {
+              "aussage": "Blut des Erlösers: Opfer, das den Egoismus von der Erde hinwegbannte; Heiliger Gral als Kelch der Menschheit",
+              "zitat": "Wir haben gestern gesehen, wie dieses Blut aus der Wunde des Erlösers den Egoismus von der Erde hinwegbannte. So ist diese Lanze eine Vorbedeutung für die höhere Lanze, die der ins Geistige umgesetzte Sonnenstrahl ist. Und der Heilige Gral weist hin auf den Kelch der Menschheit, der sich entwickelt aus dem Kehlkopf heraus, der gerade das gereinigte Reproduktionsorgan der Zukunft sein wird.",
+              "id": "GA100/13",
+              "index": "9h1y7p",
+              "ref": "GA100/13:9h1y7p",
+              "fileName": "GA100/13 - DREIZEHNTER VORTRAG, Kassel, 28. Juni 1907",
+              "title": "DREIZEHNTER VORTRAG",
+              "relevance": "hoch",
+              "date": "1907-06-28",
+              "year": "1907"
+            }
+          ]
+        },
+        {
+          "title": "Mysterium von Golgatha: kosmischer Glanz, der die Erdenentwicklung überstrahlt",
+          "group": "Opfer und Transformation im Mysterium von Golgatha",
+          "rows": [
+            {
+              "aussage": "Mysterium von Golgatha: innerer Glanz wird kosmischer Glanz; Zukunft der Erdenentwicklung im tieferen Verstehen",
+              "zitat": "Wir sind als Menschheit heute erst im Anfange des Verstehens dieses Mysteriums von Golgatha, und die Zukunft der Erdenentwicklung wird darinnen zu bestehen haben, dass dieses Mysterium von Golgatha immer reifer und reifer von der Menschheit verstanden wird, dass dieser Glanz, der ausgeht von dem Mysterium von Golgatha, immer mehr und mehr aus einem inneren Glänze ein kosmischer Glanz wird.",
+              "id": "GA228/8",
+              "index": "502pzm",
+              "ref": "GA228/8:502pzm",
+              "fileName": "GA228/8 - DER MENSCH IN VERGANGENHEIT, GEGENWART UND ZUKUNFT VOM GESICHTSPUNKT DER BEWUSSTSEINSENTWICKELUNG. Zweiter Vortrag, Stuttgart, 15. September 1923",
+              "title": "DER MENSCH IN VERGANGENHEIT",
+              "relevance": "mittel",
+              "date": "1923-09-15",
+              "year": "1923"
+            }
+          ]
+        },
+        {
+          "title": "Imaginationen seit der Mondenzeit im Menschen; Erdenentwicklung als Überdeckung und Rückkehr",
+          "group": "Mondenbewusstsein, Imaginationen und Rückkehr in der Erdenentwicklung",
+          "rows": [
+            {
+              "aussage": "Imaginationen seit Mondenzeit im Menschen; Erdenentwicklung legt Bewusstseinsschichten darüber; imaginative Erkenntnis als Rückkehr",
+              "zitat": "Eigentlich sind die Imaginationen schon in uns, sie sind in uns seit der Mondenzeit, und die Erdenentwickelung besteht darinnen, dass wir die gewöhnlichen Bewusstseinsschichten darübergelegt haben. Jetzt kehren wir durch das, was wir uns im gewöhnlichen Erdenbewusstsein angeeignet haben, wiederum zurück. Es ist eine wirkliche Rückkehr.",
+              "id": "GA164/2",
+              "index": "fp6wrp",
+              "ref": "GA164/2:fp6wrp",
+              "fileName": "GA164/2 - ZWEITER VORTRAG, Dornach, 18. September 1915",
+              "title": "ZWEITER VORTRAG",
+              "relevance": "hoch",
+              "date": "1915-09-18",
+              "year": "1915"
+            }
+          ]
+        },
+        {
+          "title": "Jupiterzustand: Anbahnung durch Atemübungen; Mondenzustand plus Erdzustand",
+          "group": "Mondenbewusstsein, Imaginationen und Rückkehr in der Erdenentwicklung",
+          "rows": [
+            {
+              "aussage": "Jupiterzustand = Mondenbewusstsein + Erdbewusstsein; Anbahnung durch Atemübungen",
+              "zitat": "In unserer Entwicklung steigen wir von der Erde wieder hinauf auf die Höhe des früheren Mondbewusstseins-Zustandes, den Jupiterbewusstseins-Zustand, nun verbunden mit dem klaren Erdbewusstsein: Auf dem Pfade der Entwicklung wird daher dieser Jupiterzustand schon jetzt anzubahnen gesucht, und zwar durch die Atemübungen. Beim Anhalten des Atems mit voller Lunge wird das Blut gewissermaßen nach außen getrieben; es ist der Mondenzustand, der zusammen mit dem Erdzustand den Jupiterzustand ergibt.",
+              "id": "GA266a/50",
+              "index": "pyyu68",
+              "ref": "GA266a/50:pyyu68",
+              "fileName": "GA266a/50 - Esoterische Stunde, Berlin, 26. Januar 1908",
+              "title": "Esoterische Stunde",
+              "relevance": "hoch",
+              "date": "1908-01-26",
+              "year": "1908"
+            }
+          ]
+        },
+        {
+          "title": "Mondwesen steigen zur Erde nieder: Gewand der Umgestaltung (Eleusinisches Drama)",
+          "group": "Mondenbewusstsein, Imaginationen und Rückkehr in der Erdenentwicklung",
+          "rows": [
+            {
+              "aussage": "Mondwesen steigen zur Erde: Gewand gewoben und wieder abgenommen; Königin der Umgestaltung als kosmische Kraft",
+              "zitat": "Ein feines Gewand zu weben Den Wesen, die vom Monde Zur Erde niedersteigen, und ihnen Es zu nehmen wieder, wenn Zu Uranos sie finden sollen Die Rückkehr, alles dies obliegt Der Königin der Umgestaltung.",
+              "id": "GA042/1",
+              "index": "n7tj3o",
+              "ref": "GA042/1:n7tj3o",
+              "fileName": "GA042/1 - DAS HEILIGE DRAMA VON ELEUSIS",
+              "title": "DAS HEILIGE DRAMA VON ELEUSIS",
+              "relevance": "hoch",
+              "date": "",
+              "year": ""
+            }
+          ]
+        },
+        {
+          "title": "Sonne spiegelt das Menschen-Ich zurück: Opfer der Sonnenwesenheiten",
+          "group": "Mondenbewusstsein, Imaginationen und Rückkehr in der Erdenentwicklung",
+          "rows": [
+            {
+              "aussage": "Sonne strahlt in Menscheninneres, spiegelt das Ich zurück; Mond und Erde von Sonne bestrahlt",
+              "zitat": "Mond und Erde aber müssen bestrahlt sein von der Sonne. Die strahlt hinein in das Menscheninnere, und in ihr spiegelt sich wider das Menschen-Ich. Und wenn wir hinaufblicken zur Sonne, so müssen wir sagen: O du herrliches Gestirn am Firmament, dass du deine Strahlen hineinsendest in das Innere des Menschen und zurückstrahlst dieses Innerste, das Ich des Menschen.",
+              "id": "GA266c/14",
+              "index": "ty0n97",
+              "ref": "GA266c/14:ty0n97",
+              "fileName": "GA266c/14 - Esoterische Stunde, Stuttgart, 18. Mai 1913",
+              "title": "Esoterische Stunde",
+              "relevance": "hoch",
+              "date": "1913-05-18",
+              "year": "1913"
+            }
+          ]
+        },
+        {
+          "title": "Erdenentwicklung verwoben mit Vorbereitung von Jupiter-, Venus-, Vulkandasein",
+          "group": "Zukunft der Weltentwicklung: Jupiter, Venus, Vulkan als Fortsetzung des Erdenopfers",
+          "rows": [
+            {
+              "aussage": "Menschheit bereitet durch Erdentaten Jupiterdasein, Venusdasein, Vulkandasein vor",
+              "zitat": "Und aus dem, was da auftritt, formt sich der Mensch dann das Stück Zukunft, das er zunächst zu formen hat, sein nächstes Erdendasein. Aber er ist zu gleicher Zeit verwoben in das Vorbereiten all derjenigen Zukunft, die für die Welt vorbereitet wird: Jupiterdasein, Venusdasein, Vulkandasein, in die das Erdendasein übergehen wird.",
+              "id": "GA227/13",
+              "index": "xomy8q",
+              "ref": "GA227/13:xomy8q",
+              "fileName": "GA227/13 - ELFTER VORTRAG, Penmaenmawr, 29. August 1923",
+              "title": "ELFTER VORTRAG",
+              "relevance": "hoch",
+              "date": "1923-08-29",
+              "year": "1923"
+            }
+          ]
+        },
+        {
+          "title": "Griechische Kosmologie: Mysterien der Erde und Unterwelt als Zugang zu kosmischen Geheimnissen",
+          "group": "Zukunft der Weltentwicklung: Jupiter, Venus, Vulkan als Fortsetzung des Erdenopfers",
+          "rows": [
+            {
+              "aussage": "Griechische Kosmologie: Uranus und Gäa, Mysterien der Erde und Unterwelt als kosmische Mysterien",
+              "zitat": "In Griechenland fing man an, dasjenige kennenzulernen, was von der Erde selbst abhängt: Uranus und Gäa. Gäa, die Erde, steht am Ausgangspunkte der griechischen Kosmologie. Und immer trachtete der Grieche, die Mysterien der Erde selbst kennenzulernen, die natürlich auch die kosmischen Mysterien sind, die durch die Erde hindurchwirken.",
+              "id": "GA214/11",
+              "index": "limkdu",
+              "ref": "GA214/11:limkdu",
+              "fileName": "GA214/11 - ELFTER VORTRAG, London, 30. August 1922",
+              "title": "ELFTER VORTRAG",
+              "relevance": "mittel",
+              "date": "1922-08-30",
+              "year": "1922"
+            }
+          ]
+        },
+        {
+          "title": "Aufeinanderfolge der Planetenzustände als kosmische Entwicklungsreihe",
+          "group": "Planetarische Entwicklungsstufen: Saturn, Sonne, Mond, Erde als Metamorphosen",
+          "rows": [
+            {
+              "aussage": "Saturn, Sonne, Mond, Erde: aufeinanderfolgende Entwicklungszustände unserer Erde",
+              "zitat": "Unsere Erde war also vorher Mond, und der war vorher Sonne. Und dann kann der Mensch noch auf einen weiteren Entwicklungszustand zurückblicken, der im Okkultismus mit Saturn bezeichnet wird. So dass wir von den vorhergehenden Entwicklungszuständen unserer Erde zu unterscheiden haben: Saturn-, Sonnen-, Mondenzustand, sowie Erdenzustand, und in Zukunft werden folgen: Jupiter-, Venus-, Vulkanzustand.",
+              "id": "GA100/8",
+              "index": "n2wihi",
+              "ref": "GA100/8:n2wihi",
+              "fileName": "GA100/8 - ACHTER VORTRAG, Kassel, 23. Juni 1907",
+              "title": "ACHTER VORTRAG",
+              "relevance": "hoch",
+              "date": "1907-06-23",
+              "year": "1907"
+            },
+            {
+              "aussage": "Erdenbeginn: Verbindung mit Substanz aller Planeten, Herausdifferenzierung als Ergebnis früherer Entwicklungskräfte",
+              "zitat": "Als die Erde in der jetzigen Gestalt beginnt, da ist sie noch verbunden mit der Substanz aller Planeten, die zu unserem Sonnensystem gehören und die sich erst später herausdifferenzieren. Diese Herausdifferenzierung ist ein Ergebnis von Kräften, die während des Saturn-, Sonnen- und Mondendaseins gewirkt haben.",
+              "id": "GA123/3",
+              "index": "hs83ob",
+              "ref": "GA123/3:hs83ob",
+              "fileName": "GA123/3 - DRITTER VORTRAG, Bern, 3. September 1910",
+              "title": "DRITTER VORTRAG",
+              "relevance": "hoch",
+              "date": "1910-09-03",
+              "year": "1910"
+            },
+            {
+              "aussage": "Sieben Planeten als Entwicklungsstationen: Saturn bis Vulkan, Geister der Form als dirigierende Wesenheiten",
+              "zitat": "Ich habe Ihnen gesagt: unsere Menschheit entwickelt sich durch Saturn, Sonne, Mond, Erde, Jupiter, Venus und Vulkan. Die Wesenheiten der geistigen Hierarchie, die von einem Planeten zum andern hinüber die Menschheitsmission dirigieren, das sind die Gewalten, die Geister der Form.",
+              "id": "GA110/6",
+              "index": "rupf7k",
+              "ref": "GA110/6:rupf7k",
+              "fileName": "GA110/6 - SECHSTER VORTRAG, Düsseldorf, 15. April 1909, abends",
+              "title": "SECHSTER VORTRAG",
+              "relevance": "hoch",
+              "date": "1909-04-15",
+              "year": "1909"
+            },
+            {
+              "aussage": "Polarische, hyperboräische, lemurische Zeit: Phasen der Sonnen- und Mondtrennung in der Erdenperiode",
+              "zitat": "Die Zeit, da die Sonne hinausgeht aus der Erde, nennt man die hyperboräische Zeit, und jene, wo Sonne, Mond und Erde noch zusammen waren, die polarische Zeit.",
+              "id": "GA109/18",
+              "index": "16p39o",
+              "ref": "GA109/18:16p39o",
+              "fileName": "GA109/18 - Die Entwickelungsstadien unserer Erde bis zur lemurischen Epoche, Siebenter Vortrag, Budapest, 9. Juni 1909",
+              "title": "Die Entwickelungsstadien unserer Erde bis zur lemurischen Epoche",
+              "relevance": "hoch",
+              "date": "1909-06-09",
+              "year": "1909"
+            }
+          ]
+        },
+        {
+          "title": "Dem Menschen Eingeprägte durch Saturn, Sonne und Mond als Vorbereitung der Erdenentwicklung",
+          "group": "Planetarische Entwicklungsstufen: Saturn, Sonne, Mond, Erde als Metamorphosen",
+          "rows": [
+            {
+              "aussage": "Saturn, Sonne, Mond: Einprägung in den Menschen; Christus-Ereignis als letzter Abschluss auf der Erde",
+              "zitat": "So sehen wir, wie gleichsam als letzter Abschluss dessen, was dem Menschen eingeprägt worden ist durch Saturn, Sonne und Mond, auf der Erde das Christus-Ereignis gekommen ist, welches dem Menschen das Höchste gegeben hat, was ihn fähig macht, in die Perspektive der Zukunft hinein zu leben.",
+              "id": "GA107/19",
+              "index": "d0drgb",
+              "ref": "GA107/19:d0drgb",
+              "fileName": "GA107/19 - NEUNZEHNTER VORTRAG, Berlin, 17. Juni 1909",
+              "title": "NEUNZEHNTER VORTRAG",
+              "relevance": "hoch",
+              "date": "1909-06-17",
+              "year": "1909"
+            },
+            {
+              "aussage": "Sonnenzeit: Erde empfängt Fähigkeit zur Entfaltung der Ich-Impulse; Mondzeit: Grundlage des Astralischen",
+              "zitat": "Dass das Sonnenhafte dem Menschen gibt, was er für sein Astralisches braucht, das rührt von den Wirkungen her, die sich während der alten Sonnenzeit abgespielt haben. Da hat die Erde die Fähigkeit empfangen, die Ich-Impulse der Menschheit zu entfalten.",
+              "id": "GA026/30",
+              "index": "43rcv5",
+              "ref": "GA026/30:43rcv5",
+              "fileName": "GA026/30 - DER MENSCH IN SEINER MAKROKOSMISCHEN WESENHEIT",
+              "title": "DER MENSCH IN SEINER MAKROKOSMISCHEN WESENHEIT",
+              "relevance": "hoch",
+              "date": "",
+              "year": ""
+            },
+            {
+              "aussage": "Planetentöne: Saturn, Sonne, Mond, Mars, Merkur, Jupiter, Venus wirken in den Ätherleib; Erde, Sonne, Mond in den Astralleib",
+              "zitat": "Was von der Erde, der Sonne und dem Mond ausgeht, das klingt zusammen in unserem astralischen Leib. In unseren Ätherleib aber klingt hinein, was ausgeht von den sieben Planeten. Es ist da ein siebenfacher Einfluss von den Planeten auf den Ätherleib.",
+              "id": "GA104a/3",
+              "index": "udw0pc",
+              "ref": "GA104a/3:udw0pc",
+              "fileName": "GA104a/3 - DRITTER VORTRAG, München, 8. Mai 1907",
+              "title": "DRITTER VORTRAG",
+              "relevance": "hoch",
+              "date": "1907-05-08",
+              "year": "1907"
+            }
+          ]
+        },
+        {
+          "title": "Trennung der Sonne von der Erde als Opferakt höherer Wesenheiten",
+          "group": "Opfer und Trennung: Sonne, Mond und Erde als Akte des kosmischen Opfers",
+          "rows": [
+            {
+              "aussage": "Hohe Wesenheiten trennen sich vom Mond, um eigene Entwicklung zu ermöglichen; Wiedervereinigung zur Rettung zurückgebliebener Wesen",
+              "zitat": "Die hohen Wesenheiten, die auf der abgetrennten Sonne lebten, hatten sich vom Monde trennen müssen, um in ihrer eigenen Entwicklung weiterkommen zu können. Nun aber mussten diese auf dem Monde zurückgebliebenen Wesen, die sich dort weiter verfestigt hatten, gerettet werden; deshalb musste sich die Sonne mit dem Monde wieder vereinigen.",
+              "id": "GA101/9",
+              "index": "45invm",
+              "ref": "GA101/9:45invm",
+              "fileName": "GA101/9 - OKKULTE ZEICHEN UND SYMBOLE - ZWEITER VORTRAG, Stuttgart, 14. September 1907",
+              "title": "OKKULTE ZEICHEN UND SYMBOLE - ZWEITER VORTRAG",
+              "relevance": "hoch",
+              "date": "1907-09-14",
+              "year": "1907"
+            },
+            {
+              "aussage": "Mondtrennung von der Erde: Abtrennung verhärtender Substanzen, damit Menschheitsentwicklung richtiges Tempo findet",
+              "zitat": "Es wurden von den verhärtenden Kräften die dichtesten Substanzen aus der Erde herausgeholt und abgespalten: es geschah die Abtrennung des Mondes. Dadurch wurden die zurückbleibenden Kräfte nicht mehr in ihrer Entwickelung gestört.",
+              "id": "GA109/18",
+              "index": "16p39o",
+              "ref": "GA109/18:16p39o",
+              "fileName": "GA109/18 - Die Entwickelungsstadien unserer Erde bis zur lemurischen Epoche, Siebenter Vortrag, Budapest, 9. Juni 1909",
+              "title": "Die Entwickelungsstadien unserer Erde bis zur lemurischen Epoche",
+              "relevance": "hoch",
+              "date": "1909-06-09",
+              "year": "1909"
+            },
+            {
+              "aussage": "Sonnentrennung in hyperboräischer Zeit: Sonne wirkt nun von außen; Zarathustra verkündet Ahura Mazdao als Sonnengeist",
+              "zitat": "Die Sonne hatte sich da von der Erde getrennt und wirkte nun von außen. Die Trennung spiegelt sich in der urpersischen Kulturepoche, da Zarathustra den Ahura Mazdao, den Sonnengeist verkündete.",
+              "id": "GA104a/10",
+              "index": "x3p0o1",
+              "ref": "GA104a/10:x3p0o1",
+              "fileName": "GA104a/10 - SECHSTER VORTRAG, Kristiania, 15. Mai 1909",
+              "title": "SECHSTER VORTRAG",
+              "relevance": "hoch",
+              "date": "1909-05-15",
+              "year": "1909"
+            }
+          ]
+        },
+        {
+          "title": "Opfer der Mondwesenheiten: Rückzug zum Schutz der Menschheitsfreiheit",
+          "group": "Opfer und Trennung: Sonne, Mond und Erde als Akte des kosmischen Opfers",
+          "rows": [
+            {
+              "aussage": "Hohe Wesenheiten ziehen sich von der Erde zurück, um Menschen Freiheit zu ermöglichen",
+              "zitat": "Diese Wesenheiten hatten sozusagen den wunderbaren Ratschluss gefasst, sich von der Erde zurückzuziehen, sich an einen geschlossenen Ort im Universum zurückzuziehen, um dort, fern von dem menschlichen Dasein, ihr Weltengeschäft zu verrichten, damit die Menschen ferner nicht von ihnen beeinflusst werden, damit die Menschen alle die Impulse des Universums aufnehmen können und freie Wesen werden können.",
+              "id": "GA228/2",
+              "index": "d65q34",
+              "ref": "GA228/2:d65q34",
+              "fileName": "GA228/2 - DIE GEISTIGEN INDIVIDUALITATEN UNSERES PLANETENSYSTEMS - SCHICKSALBESTIMMENDE UND MENSCHENBEFREIENDE PLANETEN, Zweiter Vortrag, Dornach, 28. Juli 1923",
+              "title": "DIE GEISTIGEN INDIVIDUALITATEN UNSERES PLANETENSYSTEMS - SCHICKSALBESTIMMENDE UND MENSCHENBEFREIENDE PLANETEN",
+              "relevance": "hoch",
+              "date": "1923-07-28",
+              "year": "1923"
+            }
+          ]
+        },
+        {
+          "title": "Marsdurchgang und Eisensubstanz: geopfertes Material als Bedingung des roten Blutes",
+          "group": "Opfer und Trennung: Sonne, Mond und Erde als Akte des kosmischen Opfers",
+          "rows": [
+            {
+              "aussage": "Marsdurchgang durch die Erde: Eisen als geopferte Substanz, Vorbedingung für rotes Blut",
+              "zitat": "Der Durchgang des Mars durch die Erde. Die Substanzen der beiden Weltkörper Mars und Erde waren dazumal so dünn, dass der Mars seiner Substanz nach durch den Erdenkörper hindurchgehen konnte. Er ließ einen Stoff zurück, den die Erde früher nicht hatte: das Eisen. Das Eisen gliederte sich der Erde erst ein durch den Marsdurchgang, und dieses Eisen war die notwendige Vorbedingung, dass sich rotes Blut bilden konnte.",
+              "id": "GA101/5",
+              "index": "zjkmua",
+              "ref": "GA101/5:zjkmua",
+              "fileName": "GA101/5 - FÜNFTER VORTRAG, Berlin, 28. Oktober 1907",
+              "title": "FÜNFTER VORTRAG",
+              "relevance": "hoch",
+              "date": "1907-10-28",
+              "year": "1907"
+            },
+            {
+              "aussage": "Wärme nach Mondtrennung: Wärmeatmosphäre der Erde als Summe der späteren Blutwärme aller Warmblüter",
+              "zitat": "Denken Sie sich alle die Wärme, die heute in den Leibern der Millionen von Menschen und Tieren mit warmem Blut, die die Erde bewohnen, drinnen ist, heraus, denken Sie sich, dass sie lebte als Wärmeatmosphäre um die Erde herum: dann haben Sie ungefähr den Zustand, in dem die Erde war, unmittelbar nachdem der Mond weggegangen war.",
+              "id": "GA101/5",
+              "index": "zjkmua",
+              "ref": "GA101/5:zjkmua",
+              "fileName": "GA101/5 - FÜNFTER VORTRAG, Berlin, 28. Oktober 1907",
+              "title": "FÜNFTER VORTRAG",
+              "relevance": "hoch",
+              "date": "1907-10-28",
+              "year": "1907"
+            }
+          ]
+        },
+        {
+          "title": "Mondkräfte in der Fortpflanzung: aufgespeicherte Substanz aus der Mondzeit",
+          "group": "Mondkräfte und Sonnenkräfte als geopferte und weitergewirkte Substanzen",
+          "rows": [
+            {
+              "aussage": "Mondkräfte in Tieren aufgespeichert: Fortpflanzungskräfte als Erbe der Mondzeit",
+              "zitat": "Der Mond ist heraus aus der Erde, und die Tiere, die sich fortpflanzen, die haben eben jetzt die Mondenkräfte in sich.",
+              "id": "GA347/9",
+              "index": "15cq3m",
+              "ref": "GA347/9:15cq3m",
+              "fileName": "GA347/9 - NEUNTER VORTRAG, Dornach, 27. September 1922",
+              "title": "NEUNTER VORTRAG",
+              "relevance": "hoch",
+              "date": "1922-09-27",
+              "year": "1922"
+            },
+            {
+              "aussage": "Mondlicht von außen: Phantasie und innere Lebendigkeit, nicht mehr Fortpflanzung",
+              "zitat": "Und von außen gibt ja der Mond auch noch Kräfte. [...] Das sind Kräfte, durch die die Phantasie angeregt wird, durch die man innerlich lebendiger wird. Das sind Kräfte, die nicht mehr auf die Fortpflanzung wirken, sondern die von außen hereinstrahlen, die gar nicht mehr die Fortpflanzung bewirken können.",
+              "id": "GA347/9",
+              "index": "ltqm9a",
+              "ref": "GA347/9:ltqm9a",
+              "fileName": "GA347/9 - NEUNTER VORTRAG, Dornach, 27. September 1922",
+              "title": "NEUNTER VORTRAG",
+              "relevance": "hoch",
+              "date": "1922-09-27",
+              "year": "1922"
+            },
+            {
+              "aussage": "Sonnen- und Mondenkräfte nach Mondtrennung: Gleichgewicht von außen, Verbesserung der Menschenleiber",
+              "zitat": "Nun wirkten die Sonnen- und die Mondenkräfte von außen auf die Erde gemeinsam und hielten sich die Waage, das Gleichgewicht. Nach und nach, während der Mond sich hinausbegab, fand nun wieder eine Art von Verweichung, von Verbesserung der Menschenleiber statt.",
+              "id": "GA109/18",
+              "index": "16p39o",
+              "ref": "GA109/18:16p39o",
+              "fileName": "GA109/18 - Die Entwickelungsstadien unserer Erde bis zur lemurischen Epoche, Siebenter Vortrag, Budapest, 9. Juni 1909",
+              "title": "Die Entwickelungsstadien unserer Erde bis zur lemurischen Epoche",
+              "relevance": "hoch",
+              "date": "1909-06-09",
+              "year": "1909"
+            }
+          ]
+        },
+        {
+          "title": "Jehova als Mondgottheit: geopferte Sonnenwesenheit zum Schutz der Menschenform",
+          "group": "Mondkräfte und Sonnenkräfte als geopferte und weitergewirkte Substanzen",
+          "rows": [
+            {
+              "aussage": "Jehova: Sonnenwesenheit, die sich abgliedert und Mond bewohnt; formt Menschenleib zur Aufnahme des Ich",
+              "zitat": "Eine dieser Wesenheiten hat sich jedoch abgegliedert und den heutigen Mond zum Wohnsitz genommen. Diesen mit dem Mond verbundenen Geist nennt man Jehova, den Gott der Form oder die Mondgottheit. Dieser Gott Jehova oder Jahve formte die drei Leiber des Menschen so, dass sie fähig wurden, den Ich-Tropfen aufzunehmen.",
+              "id": "GA100/17",
+              "index": "a8l0yg",
+              "ref": "GA100/17:a8l0yg",
+              "fileName": "GA100/17 - DAS JOHANNES-EVANGELIUM - DRITTER VORTRAG, Basel, 18. November 1907",
+              "title": "DAS JOHANNES-EVANGELIUM - DRITTER VORTRAG",
+              "relevance": "hoch",
+              "date": "1907-11-18",
+              "year": "1907"
+            }
+          ]
+        },
+        {
+          "title": "Sonne als Herrschaftsgebiet der Geister der Form: kosmische Funktion der Sonnensphäre",
+          "group": "Mondkräfte und Sonnenkräfte als geopferte und weitergewirkte Substanzen",
+          "rows": [
+            {
+              "aussage": "Sonne: Herrschaftsgebiet der Geister der Form, das über einzelne Planeten hinausgeht",
+              "zitat": "Die Sonne war ja schon da als ein besonderer Körper neben dem alten Mond, sie ist jetzt wieder da neben der Erde, wird auch noch neben dem Jupiter sein. Ihr Herrschaftsgebiet geht über den einzelnen Planeten hinaus. Daher muss das Dasein der Sonne verbunden sein mit denjenigen geistigen Wesenheiten, deren Herrschaftsgebiet auch hinausgeht über den einzelnen Planeten.",
+              "id": "GA110/6",
+              "index": "rupf7k",
+              "ref": "GA110/6:rupf7k",
+              "fileName": "GA110/6 - SECHSTER VORTRAG, Düsseldorf, 15. April 1909, abends",
+              "title": "SECHSTER VORTRAG",
+              "relevance": "hoch",
+              "date": "1909-04-15",
+              "year": "1909"
+            }
+          ]
+        },
+        {
+          "title": "Geister der Form als Geister der Liebe: Opfer des Gleichgewichts der drei früheren Zustände",
+          "group": "Geistige Wesenheiten und ihr Opfer in den Planetenverkörperungen",
+          "rows": [
+            {
+              "aussage": "Geister der Form = Geister der Liebe: Mission, drei frühere Zustände (Saturn, Sonne, Mond) ins Gleichgewicht zu bringen",
+              "zitat": "Deshalb muss man die Geister der Form in ihrer Gesamtheit, weil sie gerade diese Mission haben, die drei früheren Zustände ins Gleichgewicht zu bringen, zugleich als die Geister der Liebe bezeichnen.",
+              "id": "GA121/6",
+              "index": "4s5b5f",
+              "ref": "GA121/6:4s5b5f",
+              "fileName": "GA121/6 - FÜNFTER VORTRAG, Kristiania, 11. Juni 1910",
+              "title": "FÜNFTER VORTRAG",
+              "relevance": "hoch",
+              "date": "1910-06-11",
+              "year": "1910"
+            }
+          ]
+        },
+        {
+          "title": "Hierarchien und ihre Wohnbereiche: Engel, Erzengel in Planetensphären",
+          "group": "Geistige Wesenheiten und ihr Opfer in den Planetenverkörperungen",
+          "rows": [
+            {
+              "aussage": "Engel im Mond-Erde-Kreis, Erzengel im Merkur-Erde-Kreis: Hierarchien füllen Planetensphären",
+              "zitat": "Wenn Sie sich den ganzen Umkreis denken von der Erde bis zum Mond, so ist er ausgefüllt mit Engelwirksamkeit, und den Umkreis von der Erde bis zum Merkur, so ist er ausgefüllt mit der Wirksamkeit der Erzengel und so weiter.",
+              "id": "GA110/6",
+              "index": "rupf7k",
+              "ref": "GA110/6:rupf7k",
+              "fileName": "GA110/6 - SECHSTER VORTRAG, Düsseldorf, 15. April 1909, abends",
+              "title": "SECHSTER VORTRAG",
+              "relevance": "hoch",
+              "date": "1909-04-15",
+              "year": "1909"
+            }
+          ]
+        },
+        {
+          "title": "Kain-Linie: von Elohim abstammende Menschheit als Träger irdischer Künste und Wissenschaften",
+          "group": "Geistige Wesenheiten und ihr Opfer in den Planetenverkörperungen",
+          "rows": [
+            {
+              "aussage": "Kain-Geschlecht: direkt von Elohim abstammend, Träger von Künsten und Wissenschaften auf der Erde",
+              "zitat": "Von dem Geschlecht des Kain stammen alle ab, die auf der Erde Künste und Wissenschaften ins Leben gerufen haben, zum Beispiel Methusael, der die Schrift, die Tau-Schrift erfunden hat und Tubal-Kain, der die Bearbeitung der Erze und des Eisens lehrte. So entstand in dieser Linie, direkt von dem Elohim abstammend, die Menschheit, die sich in Künsten und Wissenschaften ausbildet.",
+              "id": "GA093/5",
+              "index": "oha6ch",
+              "ref": "GA093/5:oha6ch",
+              "fileName": "GA093/5 - DAS MYSTERIUM DER ROSENKREUZER, Berlin, 4. November 1904",
+              "title": "DAS MYSTERIUM DER ROSENKREUZER",
+              "relevance": "mittel",
+              "date": "1904-11-04",
+              "year": "1904"
+            }
+          ]
+        },
+        {
+          "title": "Mensch als Gedanke der Hierarchien: kosmisches Opfer des Denkens",
+          "group": "Geistige Wesenheiten und ihr Opfer in den Planetenverkörperungen",
+          "rows": [
+            {
+              "aussage": "Mensch als von Hierarchien gedachter Gedanke: Ewigkeit durch Weitergabe von Kategorie zu Kategorie",
+              "zitat": "Meditieren Sie einmal über die Idee «Ich denke meinen Gedanken» und «Ich bin ein Gedanke, der von den Hierarchien des Kosmos gedacht wird». Mein Ewiges besteht darin, dass das Denken der Hierarchien ein Ewiges ist. Und wenn ich einmal von einer Kategorie der Hierarchien ausgedacht bin, dann werde ich übergeben [...] von einer Kategorie an die andere, damit diese mich in meiner ewigen, wahren Natur denke.",
+              "id": "GA151/4",
+              "index": "behgbv",
+              "ref": "GA151/4:behgbv",
+              "fileName": "GA151/4 - VIERTER VORTRAG, Berlin, 23. Januar 1914",
+              "title": "VIERTER VORTRAG",
+              "relevance": "mittel",
+              "date": "1914-01-23",
+              "year": "1914"
+            }
+          ]
+        },
+        {
+          "title": "Christus-Ereignis als Abschluss der Saturn-Sonne-Mond-Einprägungen",
+          "group": "Das Christus-Ereignis als Kulminationspunkt des Erdopfers",
+          "rows": [
+            {
+              "aussage": "Christus-Ereignis: Abschluss der Einprägungen durch Saturn, Sonne, Mond; gibt dem Menschen Zukunftsperspektive und Heiligen Geist",
+              "zitat": "So sehen wir, wie gleichsam als letzter Abschluss dessen, was dem Menschen eingeprägt worden ist durch Saturn, Sonne und Mond, auf der Erde das Christus-Ereignis gekommen ist, welches dem Menschen das Höchste gegeben hat, was ihn fähig macht, in die Perspektive der Zukunft hinein zu leben und immer mehr heraus zu schaffen aus den Verhältnissen [...] was im umfassendsten Sinne der Heilige Geist ist.",
+              "id": "GA089/31",
+              "index": "7hj4hq",
+              "ref": "GA089/31:7hj4hq",
+              "fileName": "GA089/31 - Aus Vortrag Berlin, 17. Juni 1909 (in GA 107)",
+              "title": "Aus Vortrag Berlin",
+              "relevance": "hoch",
+              "date": "1909-06-17",
+              "year": "1909"
+            },
+            {
+              "aussage": "Christentum als mystische Tatsache: Erscheinen des Christus ändert geistige Konfiguration des Erdenplaneten",
+              "zitat": "Mit vollem Vorbedacht ist mein Buch nicht «Die Mystik des Christentums» benannt worden, sondern «Das Christentum als mystische Tatsache»; das heißt, das Christentum selbst ist eine mystische Tatsache und nur dann zu verstehen, wenn man weiß, dass mit der Erscheinung des Christus Jesus sich die ganze geistige Konfiguration unseres Erdenplaneten geändert hat.",
+              "id": "GA096/17",
+              "index": "l8omw3",
+              "ref": "GA096/17:l8omw3",
+              "fileName": "GA096/17 - DIE WELTGESCHICHTLICHE BEDEUTUNG DES AM KREUZE FLIESSENDEN BLUTES, Berlin, 25. März 1907",
+              "title": "DIE WELTGESCHICHTLICHE BEDEUTUNG DES AM KREUZE FLIESSENDEN BLUTES",
+              "relevance": "mittel",
+              "date": "1907-03-25",
+              "year": "1907"
+            }
+          ]
+        },
+        {
+          "title": "Messopfer und Kommunion: Abbild des kosmischen Opfervorgangs in den Mysterien",
+          "group": "Das Christus-Ereignis als Kulminationspunkt des Erdopfers",
+          "rows": [
+            {
+              "aussage": "Kommunion im Messopfer: Vereinigung des Menschen mit dem Übersinnlichen, Abbild des Einweihungserlebnisses",
+              "zitat": "Der vierte Teil des Meßopfers ist dann die Kommunion, die ja nichts anderes als dieses ausdrücken soll: Nachdem der Mensch mit diesem Übersinnlichen zusammengewachsen ist, lässt er seine ganze irdische Wesenheit sich hineinergießen in die Vereinigung mit dem Übersinnlichen. Dieser vierte Teil stellt bildhaft dar, was der zu Initiierende, der Einzuweihende, auch in den älteren und neueren Mysterien zu erleben hatte.",
+              "id": "GA342/3",
+              "index": "jbvh6i",
+              "ref": "GA342/3:jbvh6i",
+              "fileName": "GA342/3 - DRITTER VORTRAG, Stuttgart, 14. Juni 1921, vormittags",
+              "title": "DRITTER VORTRAG",
+              "relevance": "mittel",
+              "date": "1921-06-14",
+              "year": "1921"
+            }
+          ]
+        },
+        {
+          "title": "Ich-Arbeit an Astral-, Äther- und physischem Leib: Manas, Budhi, Atman",
+          "group": "Substanz und Transformation: Ich-Arbeit an den Leibern als Fortsetzung des Planetenopfers",
+          "rows": [
+            {
+              "aussage": "Ich wandelt Astralleib zu Manas, Ätherleib zu Budhi, physischen Leib zu Atman um",
+              "zitat": "Von diesem Ich aus wird er der Herr und Umgestalter seiner anderen drei Glieder. Indem das Ich arbeitet, wandelt es zunächst einen Teil des Astralleibes um in das Geistselbst oder Manas. Indem das Ich aus mächtigen Impulsen heraus an sich arbeitet, wird der Lebensleib umgestaltet in Lebensgeist oder Budhi. Wenn das Ich bis in das physische Prinzip hineinarbeitet, entwickelt sich daraus, aus dem physischen Prinzip, Atman oder der Geistesmensch.",
+              "id": "GA068b/8",
+              "index": "akidzf",
+              "ref": "GA068b/8:akidzf",
+              "fileName": "GA068b/8 - DAS GEHEIMNIS DES TODES UND DAS RÄTSEL DES LEBENS, Wiesbaden, 1. Februar 1908",
+              "title": "DAS GEHEIMNIS DES TODES UND DAS RÄTSEL DES LEBENS",
+              "relevance": "mittel",
+              "date": "1908-02-01",
+              "year": "1908"
+            }
+          ]
+        },
+        {
+          "title": "Rosenkreuz-Symbol: Stirb und Werde als Bild des Substanzopfers",
+          "group": "Substanz und Transformation: Ich-Arbeit an den Leibern als Fortsetzung des Planetenopfers",
+          "rows": [
+            {
+              "aussage": "Rosenkreuz: schwarzes Kreuz = abzustreifende Substanz; Rosen = reine geistige Natur; Stirb und Werde als Entwicklungsgesetz",
+              "zitat": "Ausgedrückt ist uns das im Rosenkreuze, das «Stirb und Werde» im niederen Menschen, das Abstreifen und Loslösen dessen, was der Mensch in Kauf genommen hat im schwarzen Kreuz. Das «Werde» auf einer höheren Stufe der Entwicklung der innersten geistigen Menschennatur gleicht auch wiederum dem reinen keuschen Pflanzensaft in den Rosen, die das Rosenkreuz schmücken.",
+              "id": "GA068b/48",
+              "index": "bnqu9q",
+              "ref": "GA068b/48:bnqu9q",
+              "fileName": "GA068b/48 - WO UND WIE FINDET MAN DEN GEIST , Breslau, 1. Dezember 1908",
+              "title": "WO UND WIE FINDET MAN DEN GEIST",
+              "relevance": "mittel",
+              "date": "1908-12-01",
+              "year": "1908"
+            }
+          ]
+        },
+        {
+          "title": "Sinn der Erdenentwicklung: Liebe, Gewissen, Mitgefühl als eingefügte Substanz",
+          "group": "Substanz und Transformation: Ich-Arbeit an den Leibern als Fortsetzung des Planetenopfers",
+          "rows": [
+            {
+              "aussage": "Vierte nachatlantische Epoche: Erstaunen, Gewissen, Liebe als in die Menschheitsentwicklung eingefügte Substanz des Erdensinns",
+              "zitat": "Alles weist darauf hin, sowohl das Eintreten von Erstaunen oder Verwunderung, wie der Eintritt des Gewissens, wie auch das Eintreten von Liebe und Mitgefühl in den fortgehenden Strom der Menschheitsentwickelung, dass in der Zeit der vierten nachatlantischen Kulturepoche alle Zeichen geschehen, dass wirklich in die Menschheitsentwickelung das eingefügt werde, was wir nennen können den Sinn der Erdenentwickelung.",
+              "id": "GA133/6",
+              "index": "2zhoa3",
+              "ref": "GA133/6:2zhoa3",
+              "fileName": "GA133/6 - SECHSTER VORTRAG, Berlin, 14. Mai 1912",
+              "title": "SECHSTER VORTRAG",
+              "relevance": "mittel",
+              "date": "1912-05-14",
+              "year": "1912"
+            }
+          ]
+        },
+        {
+          "title": "Planetenwesen als Seele und Geist: äußere Körper verhalten sich zur Seele wie Leib zu Geist",
+          "group": "Geistiger Charakter der Planetenwesen und Substanz: Sonne, Mond, Planeten als Seele und Geist",
+          "rows": [
+            {
+              "aussage": "Geist des Merkur und der Sonne als Wirklichkeit: äußere Himmelskörper verhalten sich zur theosophischen Erkenntnis wie Leib zur Seele",
+              "zitat": "Wer sich nicht aufschwingen kann dazu, einzusehen, dass es eine Wirklichkeit ist, von dem Geiste des Merkur und der Sonne zu sprechen, und dass das, was das Auge sieht und wir mit unseren Instrumenten erforschen können, sich zu dem, was in der Theosophie gesprochen wird, genau ebenso verhält wie die äußeren Körper des Menschen zu seiner Seele, wer sich nicht dazu aufschwingen kann, für den werden die theosophischen Ergebnisse vergeblich gesprochen sein.",
+              "id": "GA068b/31",
+              "index": "08wj8q",
+              "ref": "GA068b/31:08wj8q",
+              "fileName": "GA068b/31 - DIE PLANETENENTWICKLUNG, Berlin, 5. April 1906",
+              "title": "DIE PLANETENENTWICKLUNG",
+              "relevance": "hoch",
+              "date": "1906-04-05",
+              "year": "1906"
+            },
+            {
+              "aussage": "Weltenall als Organismus, Seele und Geist: Astronomie muss über Mechanik hinausgehen",
+              "zitat": "Von da aus wiederum gewonnen werden muss ein Wissen, das jetzt nicht nur mechanischer Natur ist, das nicht nur von einer großen Himmelsmaschinerie handelt, sondern das gesamte Weltenall als Organismus, aber auch als Seele und Geist zu fassen imstande ist.",
+              "id": "GA180/5",
+              "index": "cmqvc8",
+              "ref": "GA180/5:cmqvc8",
+              "fileName": "GA180/5 - FÜNFTER VORTRAG, Dornach, 29. Dezember 1917",
+              "title": "FÜNFTER VORTRAG",
+              "relevance": "mittel",
+              "date": "1917-12-29",
+              "year": "1917"
+            },
+            {
+              "aussage": "Mittelalterliche Sphärenlehre (Dante): Mond, Venus, Sonne, Mars, Jupiter, Saturn als geistige, nicht physische Zusammenhänge",
+              "zitat": "Wenn Sie bei Dante die Erde in der Mitte finden, und dann Sphären von Mond, Venus, Sonne, Mars, Jupiter, Saturn und dann die Sphäre der Fixsterne, so bedeutet das nicht in demselben physischen Sinne den Raum wie das von der Astronomie im physischen Sinne aufgefasst wird, sondern dieses bedeutet geistige, mentale Zusammenhänge.",
+              "id": "GA090a/8",
+              "index": "2xww1z",
+              "ref": "GA090a/8:2xww1z",
+              "fileName": "GA090a/8 - KOSMOLOGIE UND PLANETEN, Berlin, 22. Dezember 1903",
+              "title": "KOSMOLOGIE UND PLANETEN",
+              "relevance": "mittel",
+              "date": "1903-12-22",
+              "year": "1903"
+            }
+          ]
+        },
+        {
+          "title": "Sonne kreuzförmig geteilt: okkulte Struktur der Sonnenwirkung",
+          "group": "Geistiger Charakter der Planetenwesen und Substanz: Sonne, Mond, Planeten als Seele und Geist",
+          "rows": [
+            {
+              "aussage": "Sonne okkulter Betrachtung: kreuzförmig in vier Räume geteilt; Sonne, Erde, Mond in gegenseitigem Wirkungsverhältnis",
+              "zitat": "Nun stehen diese drei Himmelskörper - Sonne, Erde und Mond in einem gewissen gegenseitigen Verhältnis; sie schicken ihre Wirkungen einander zu. [...] Dann sieht man die Sonne, wenn man sie in Projektion anschaut, wie sie kreuzförmig in vier Partien, in vier Räume geteilt ist.",
+              "id": "GA286/7",
+              "index": "nw2vtz",
+              "ref": "GA286/7:nw2vtz",
+              "fileName": "GA286/7 - DIE WAHREN ÄSTHETISCHEN FORMGESETZE, Vierter Vortrag, Dornach, 5. Juli 1914",
+              "title": "DIE WAHREN ÄSTHETISCHEN FORMGESETZE",
+              "relevance": "mittel",
+              "date": "1914-07-05",
+              "year": "1914"
+            }
+          ]
+        },
+        {
+          "title": "Kuh als Opfertier: geistige Substanz für die Erde",
+          "group": "Opfer und geopferte Substanz als kosmisches Grundprinzip",
+          "rows": [
+            {
+              "aussage": "Kuh als wahres Opfertier: geistige Substanz fortwährend an die Erde abgegeben",
+              "zitat": "Wenn die Kuh stirbt, dann ist diese geistige Substanz, die die Kuh in sich trägt, fähig, mit der Erdenmaterie zur Wohltat des Lebens der ganzen Erde von dieser Erde aufgenommen zu werden. Und man tut recht, wenn man der Kuh gegenüber die Empfindung hat: Du bist das wahre Opfertier, denn du gibst im Grunde genommen der Erde fortwährend das, was sie braucht, ohne das sie nicht weiter bestehen könnte, ohne das sie verhärten und vertrocknen würde. Du gibst ihr fortwährend geistige Substanz und erneuerst die innere Regsamkeit, die innere Lebendigkeit der Erde.",
+              "id": "GA230/3",
+              "index": "90nhqc",
+              "ref": "GA230/3:90nhqc",
+              "fileName": "GA230/3 - DRITTER VORTRAG, Dornach, 21. Oktober 1923",
+              "title": "DRITTER VORTRAG",
+              "relevance": "hoch",
+              "date": "1923-10-21",
+              "year": "1923"
+            }
+          ]
+        },
+        {
+          "title": "Substanzen der Erde als Samen aus Sonnen- und Mondenzeit",
+          "group": "Opfer und geopferte Substanz als kosmisches Grundprinzip",
+          "rows": [
+            {
+              "aussage": "Irdische Substanzen (Kupfer, Zinn, Blei): Samen aus alter Sonnen- und Mondenzeit, vom Himmel in die Erde eingepflanzt",
+              "zitat": "Scheinbar nur liegt Kupfer, liegt Zinn, liegt Blei in der Erde. Sie aber sind die Samen, welche hereingepflanzt worden sind während der alten Sonnen- und Mondenzeit von dem Himmel in das irdische Dasein.",
+              "id": "GA232/12",
+              "index": "iqkd5o",
+              "ref": "GA232/12:iqkd5o",
+              "fileName": "GA232/12 - ZWÖLFTER VORTRAG, Dornach, 21. Dezember 1923",
+              "title": "ZWÖLFTER VORTRAG",
+              "relevance": "hoch",
+              "date": "1923-12-21",
+              "year": "1923"
+            }
+          ]
+        },
+        {
+          "title": "Götter sorgen durch Saturn–Sonnen–Monden–Erdenzeit für menschliche Intellektualität",
+          "group": "Opfer und geopferte Substanz als kosmisches Grundprinzip",
+          "rows": [
+            {
+              "aussage": "Götter: Intellektualität des Menschen durch Werkzeug von Saturn-, Sonnen-, Monden- und Erdenzeit zugeleitet",
+              "zitat": "Das ist ein sehr Wichtiges, Bedeutsames, das uns nun aufklärt darüber, warum die Menschen in bezug auf das Moralische zurückgeblieben sein müssen, während die Götter sehr gut vorgesorgt haben für die Intellektualität der Menschen, die sie ihnen nicht nur durch das Werkzeug von Saturn–, Sonnen–, Monden- und Erdenzeit zugeleitet haben, sondern für die sie ihnen auch noch Zehrgelder geben, indem sie sie mit Weisheit durchdringen in der Welt, in die der Mensch eingeht während des Schlafens.",
+              "id": "GA177/2",
+              "index": "hupl5x",
+              "ref": "GA177/2:hupl5x",
+              "fileName": "GA177/2 - ZWEITER VORTRAG, Dornach, 30. September 1917",
+              "title": "ZWEITER VORTRAG",
+              "relevance": "hoch",
+              "date": "1917-09-30",
+              "year": "1917"
+            }
+          ]
+        },
+        {
+          "title": "Vier Planetenzustände als Entwicklungsstufen: Saturn, Sonne, Mond, Erde",
+          "group": "Alter Saturn, alte Sonne, alter Mond: Stufenfolge der Weltentwicklung",
+          "rows": [
+            {
+              "aussage": "Ginnungagap (nordisches Chaos) entspricht Erdbeginn nach Saturn-, Sonnen- und Mondzustand",
+              "zitat": "Da, wo angefangen wird bei dem germanisch-nordischen Chaos, bei dem Ginnungagap, mit dem stehen wir ungefähr da, wo die Erde sich wieder von neuem bildet, nachdem sie die drei früheren Zustände, Saturn-, Sonnen- und Mondzustand, durchgemacht hat, wo die Erde sich also aus dem Pralaya wieder heraushebt, wo die Reiche der Natur sich noch nicht differenziert haben, wo die Menschen noch ganz geistige Wesen sind.",
+              "id": "GA121/9",
+              "index": "sezzlj",
+              "ref": "GA121/9:sezzlj",
+              "fileName": "GA121/9 - ACHTER VORTRAG, Kristiania, 14. Juni 1910",
+              "title": "ACHTER VORTRAG",
+              "relevance": "hoch",
+              "date": "1910-06-14",
+              "year": "1910"
+            },
+            {
+              "aussage": "Mondmanvantara: Entwicklung von Kama; Absicht und Erreichen im Weltprozess",
+              "zitat": "Und nun etwas von dem Zweck des Weltprozesses: Da haben wir die zwei Begriffe von der 'Absicht' und von dem 'Erreichen' zu vergleichen. Die Absicht ist das nach außen Wollende, und das Ende ist das, worin die Absicht sich verwirklicht hat. Am besten macht man sich das klar an einem konkreten Fall. Nehmen wir ein Mondmanvantara oder eine Erdepoche und darin das Pralaya. Im Mondmanvantara hat sich entwickelt: Kama.",
+              "id": "GA090a/5",
+              "index": "4ig45n",
+              "ref": "GA090a/5:4ig45n",
+              "fileName": "GA090a/5 - ÜBER SINNETTS «ESOTERISCHER BUDDHISMUS», Berlin, 17. November 1903",
+              "title": "ÜBER SINNETTS «ESOTERISCHER BUDDHISMUS»",
+              "relevance": "mittel",
+              "date": "1903-11-17",
+              "year": "1903"
+            }
+          ]
+        },
+        {
+          "title": "Alte Sonne: Ätherleib-Bildung und pranische Lebenskraft",
+          "group": "Alter Saturn, alte Sonne, alter Mond: Stufenfolge der Weltentwicklung",
+          "rows": [
+            {
+              "aussage": "Alte Sonne: Ätherleib-Bildung durch pranische Lebenskraft; Mond und Erde noch in Sonne eingeschlossen",
+              "zitat": "Auf der Sonne, die nun also noch Mond und Erde in sich schloss, bildete sich der Ätherleib des Menschen, indem er die pranische Lebenskraft empfing. Als die Sonne abgespalten war, bewegte sich der große Mond, inklusive Erde, um die Sonne, aber ohne sich um sich selbst zu drehen.",
+              "id": "GA090b/35",
+              "index": "daosdn",
+              "ref": "GA090b/35:daosdn",
+              "fileName": "GA090b/35 - DIE WOCHENTAGE - SIBYLLENWEISHEIT, Hamburg, 9. April 1905",
+              "title": "DIE WOCHENTAGE - SIBYLLENWEISHEIT",
+              "relevance": "hoch",
+              "date": "1905-04-09",
+              "year": "1905"
+            }
+          ]
+        },
+        {
+          "title": "Alter Mond: Astralleib-Entwicklung und Manas-Hinzukommen auf der Erde",
+          "group": "Alter Saturn, alte Sonne, alter Mond: Stufenfolge der Weltentwicklung",
+          "rows": [
+            {
+              "aussage": "Alter Mond: Astralleib-Entwicklung; Mond als Schlacken-Abspaltung; Manas auf der Erde hinzugekommen",
+              "zitat": "Er war dazu noch nicht beweglich genug, denn das Astrale entwickelte sich erst auf dem Monde. Und erst als diese Lebenskraft von den Menschen und der Erde aufgesogen war, spaltete sich der Mond nun aus der überschüssigen Materie, den Schlacken ab und bildete den Trabanten der Erde, als welchen wir ihn kennen. Auf der Erde ist dann zu den vier niedrigen Prinzipien das Manas hinzugekommen, und seine Aufgabe ist es, den Menschen zu entwickeln bis zur Budhi-Stufe.",
+              "id": "GA090b/35",
+              "index": "daosdn",
+              "ref": "GA090b/35:daosdn",
+              "fileName": "GA090b/35 - DIE WOCHENTAGE - SIBYLLENWEISHEIT, Hamburg, 9. April 1905",
+              "title": "DIE WOCHENTAGE - SIBYLLENWEISHEIT",
+              "relevance": "hoch",
+              "date": "1905-04-09",
+              "year": "1905"
+            }
+          ]
+        },
+        {
+          "title": "Kalkige Substanz: Wandlung von Flüssigem zu Luft und Erde als Stufenfolge",
+          "group": "Alter Saturn, alte Sonne, alter Mond: Stufenfolge der Weltentwicklung",
+          "rows": [
+            {
+              "aussage": "Kalkige Substanz: ehemals flüssig, Aufstieg als Dunst (Luft), Abstieg als Regen (Erde) – Niveau-Übergang in der Weltentwicklung",
+              "zitat": "Wir haben hier in dem Kalkigen durchaus noch etwas, das ein Flüssiges war; es stieg als Dunst auf, träufelte als Regen herab. Das Kalkige war ein Flüssiges; indem es aufstieg, wandelte es sich in Luft, indem es abstieg, wandelte es sich in Erde. Wir haben hier Wasser, Luft, Erde. Es ist um ein Niveau tiefer als hier im menschlichen Abbilde.",
+              "id": "GA232/6",
+              "index": "eofeni",
+              "ref": "GA232/6:eofeni",
+              "fileName": "GA232/6 - SECHSTER VORTRAG, Dornach, 2. Dezember 1923",
+              "title": "SECHSTER VORTRAG",
+              "relevance": "mittel",
+              "date": "1923-12-02",
+              "year": "1923"
+            }
+          ]
+        },
+        {
+          "title": "Sonnen-Abtrennung und erste Mond-Erde-Trennung",
+          "group": "Trennung von Sonne und Mond von der Erde: kosmisches Gleichgewicht und Opferakt",
+          "rows": [
+            {
+              "aussage": "Sonne trennt sich zuerst von Erde-Mond, dann Mond von Erde: drei Körper entstehen",
+              "zitat": "Wir haben einen Einblick in eine Entwicklung gewonnen bis zu dem Zeitpunkte hin, wo zuerst die Sonne sich von der Erde und von dem Mond getrennt hat, dann der Mond von der Erde sich abtrennte und die Erde in dem Zustand ließ, den ich Ihnen eben beschrieben habe.",
+              "id": "GA100/10",
+              "index": "0lfhjv",
+              "ref": "GA100/10:0lfhjv",
+              "fileName": "GA100/10 - ZEHNTER VORTRAG, Kassel, 25. Juni 1907",
+              "title": "ZEHNTER VORTRAG",
+              "relevance": "hoch",
+              "date": "1907-06-25",
+              "year": "1907"
+            },
+            {
+              "aussage": "Mond-Abtrennung: Halbierung der Befruchtungskraft, Entstehung der Geschlechtertrennung",
+              "zitat": "Es trennen sich Erde und Mond; der kleinere Mond trennt sich von der Erde ab. Jetzt sind es drei Körper: Sonne, Mond und Erde. Dadurch war für die lebenden Wesen etwas außerordentlich Wichtiges gegeben. Der Mond nahm einen großen Teil derjenigen Kräfte mit sich fort, welche die Menschen und Tiergebilde brauchten, um aus sich selbst andere Wesen hervorgehen zu lassen. In jedem Menschen war jetzt nur noch die Hälfte der Befruchtungskraft, die früher in ihm gewesen war. Die produktive Kraft war halbiert, und dadurch entstand nach und nach die Trennung in zwei Geschlechter.",
+              "id": "GA095/10",
+              "index": "r9ttrj",
+              "ref": "GA095/10:r9ttrj",
+              "fileName": "GA095/10 - ZEHNTER VORTRAG, Stuttgart, 31. August 1906",
+              "title": "ZEHNTER VORTRAG",
+              "relevance": "hoch",
+              "date": "1906-08-31",
+              "year": "1906"
+            }
+          ]
+        },
+        {
+          "title": "Verdichtung der Materie parallel zur Mond-Abtrennung: Knochen- und Felsenbildung",
+          "group": "Trennung von Sonne und Mond von der Erde: kosmisches Gleichgewicht und Opferakt",
+          "rows": [
+            {
+              "aussage": "Mond-Abtrennung: Verdichtung zu Knorpel/Knochen im Menschen, Felsbildung auf der Erde – parallele Prozesse",
+              "zitat": "Kurz vor der Trennung von Erde und Mond waren dichtere Einlagerungen entstanden, und nach der Trennung bildeten sich in Mensch und Tier knorpelartige Substanzen mit Anlagen zur Knochenverdichtung. In demselben Maße, wie sich die äußere Erdmasse verdichtete und der feste Boden, die feste Erdkruste sich heranbildete, bildete sich im Menschen und im Tier die feste Knochenmasse.",
+              "id": "GA095/10",
+              "index": "r9ttrj",
+              "ref": "GA095/10:r9ttrj",
+              "fileName": "GA095/10 - ZEHNTER VORTRAG, Stuttgart, 31. August 1906",
+              "title": "ZEHNTER VORTRAG",
+              "relevance": "hoch",
+              "date": "1906-08-31",
+              "year": "1906"
+            }
+          ]
+        },
+        {
+          "title": "Geistige Bedeutung der Mond-Abtrennung",
+          "group": "Trennung von Sonne und Mond von der Erde: kosmisches Gleichgewicht und Opferakt",
+          "rows": [
+            {
+              "aussage": "Physische Mond-Abtrennung zugleich bedeutungsvolle geistige Tatsache",
+              "zitat": "Allein diese physische Abtrennung oder auch ätherische Abtrennung, die ist nicht alles, was uns mit Beziehung auf das Mondendasein und auf das menschliche Leben beschäftigen soll, sondern wir haben es in der Abtrennung des Mondes zugleich zu tun mit einer bedeutungsvollen geistigen Tatsache. Und auf diese geistige Tatsache wollen wir einmal das Augenmerk lenken.",
+              "id": "GA240/4",
+              "index": "abam8i",
+              "ref": "GA240/4:abam8i",
+              "fileName": "GA240/4 - VIERTER VORTRAG, Stuttgart, 6. Februar 1924",
+              "title": "VIERTER VORTRAG",
+              "relevance": "hoch",
+              "date": "1924-02-06",
+              "year": "1924"
+            }
+          ]
+        },
+        {
+          "title": "Erde: erste physische Materie als Äthermaterie; Verdichtungsstufen",
+          "group": "Trennung von Sonne und Mond von der Erde: kosmisches Gleichgewicht und Opferakt",
+          "rows": [
+            {
+              "aussage": "Erste physische Materie der Erde: Äthermaterie; Verdichtung von ätherisch über luftartig und flüssig zu fest",
+              "zitat": "Was ist nun während dieser wichtigen kosmischen Ereignisse, als zuerst die Sonne und dann der Mond sich abspalteten, geschehen? Wenn wir uns das einmal klarmachen wollen, wird es gut sein darauf hinzuweisen, dass damals die Erde von einer sehr dünnen, aber schon physischen Materie in eine immer dichtere und dichtere sich verwandelte. Die erste physische Materie, in der alle Menschen auf der Erde vorhanden waren, war Äthermaterie, eine sehr feine Materie, feiner als unser Gas.",
+              "id": "GA093/14",
+              "index": "ydd3k9",
+              "ref": "GA093/14:ydd3k9",
+              "fileName": "GA093/14 - ÜBER DEN VERLORENEN UND WIEDERZUERRICHTENDEN TEMPEL - vierter Vortrag, Berlin, Pfingstmontag, 5. Juni 1905",
+              "title": "ÜBER DEN VERLORENEN UND WIEDERZUERRICHTENDEN TEMPEL - vierter Vortrag",
+              "relevance": "hoch",
+              "date": "1905-06-05",
+              "year": "1905"
+            }
+          ]
+        },
+        {
+          "title": "Sonne und Mond: differenzierte Einwirkung auf physischen Leib und Ätherleib nach Geschlecht",
+          "group": "Sonne und Mond als Kräftequellen für den Menschen",
+          "rows": [
+            {
+              "aussage": "Mann: Mond → Ätherleib, Sonne → physischer Leib; Frau: umgekehrt",
+              "zitat": "Nun müssen Sie sich klar sein, dass beim Manne der stärkere Einfluss auf den Ätherleib ausgeht vom Monde und der stärkere Einfluss auf den physischen Leib von der Sonne. Bei der Frau dagegen ist es umgekehrt: der physische Leib wird beeinflusst von den Kräften des Mondes und der Ätherleib von denen der Sonne.",
+              "id": "GA099/12",
+              "index": "yjfdsa",
+              "ref": "GA099/12:yjfdsa",
+              "fileName": "GA099/12 - ZWÖLFTER VORTRAG, München, 4. Juni 1907",
+              "title": "ZWÖLFTER VORTRAG",
+              "relevance": "hoch",
+              "date": "1907-06-04",
+              "year": "1907"
+            }
+          ]
+        },
+        {
+          "title": "Sonne und Mond im menschlichen Auge: kosmisches Abbild",
+          "group": "Sonne und Mond als Kräftequellen für den Menschen",
+          "rows": [
+            {
+              "aussage": "Zwei menschliche Augen: Abbilder des einheitlichen Sonnenmond-Menschenauges aus früherer Inkarnationsvorbereitung",
+              "zitat": "Indem wir die zwei Abbilder von Sonne und Mond in eines bilden, erbilden wir uns so für die künftige Inkarnation. [...] Dann aber, damit man dieses Einheitliche auch fühlen kann, entsteht wiederum jenes einheitliche Sonnenmond-Menschenauge. Das Sonnenmond-Menschenauge ist das Umwandeln in der Gestalt desjenigen, was wir dann als Auge an uns tragen, und unsere zwei Augen sind eben die Abbilder des einheitlichen Sonnenmond-Menschenauges.",
+              "id": "GA214/9",
+              "index": "79ayy3",
+              "ref": "GA214/9:79ayy3",
+              "fileName": "GA214/9 - NEUNTER VORTRAG, Oxford, 22. August 1922",
+              "title": "NEUNTER VORTRAG",
+              "relevance": "mittel",
+              "date": "1922-08-22",
+              "year": "1922"
+            }
+          ]
+        },
+        {
+          "title": "Sonne trägt den Menschen zur Erde, Mond trägt ihn zurück in den Kosmos",
+          "group": "Sonne und Mond als Kräftequellen für den Menschen",
+          "rows": [
+            {
+              "aussage": "Sonne: Mensch aus Kosmos zur Erde; Mond: Mensch von Erde in den Kosmos – Korrelat zu Lunge-Herz-Strömung",
+              "zitat": "Die Sonne trägt den Menschen aus dem Kosmos zur Erde; der Mond trägt den Menschen von der Erde in den Kosmos. Ins Große umgesetzt: Was von der Lunge zum Herzen strömt, ist menschliches Korrelat des Herabsteigens des Christus auf die Erde; was vom Herzen nach der Lunge kraftet, ist menschliches Korrelat des Hindurchführens des Menschen nach dem Tode durch den Chr[istus] Impuls in die Geistes-Welt.",
+              "id": "GA046/129",
+              "index": "ftzzak",
+              "ref": "GA046/129:ftzzak",
+              "fileName": "GA046/129 - Medizinische Fragenbeantwortung zum dreigliedrigen Organismus und Herz (1924)",
+              "title": "Medizinische Fragenbeantwortung zum dreigliedrigen Organismus und Herz (1924)",
+              "relevance": "mittel",
+              "date": "1924",
+              "year": "1924"
+            }
+          ]
+        },
+        {
+          "title": "Sonnenkräfte in der Pflanze: aufgespeicherte Sonnenwärme bis zum Samen",
+          "group": "Sonne und Mond als Kräftequellen für den Menschen",
+          "rows": [
+            {
+              "aussage": "Pflanze: trägt vorjährige Sonnenwärme durch eigenen Leib bis zum Samen – direktere Sonnenaufnahme als Tier",
+              "zitat": "Die Pflanze aber trägt durch ihren eigenen Leib bis zum Samen in der Blüte herauf die vorjährige Sonnenwärme, die also in die Erde hinein sich aufgespeichert hat.",
+              "id": "GA347/9",
+              "index": "xdcggv",
+              "ref": "GA347/9:xdcggv",
+              "fileName": "GA347/9 - NEUNTER VORTRAG, Dornach, 27. September 1922",
+              "title": "NEUNTER VORTRAG",
+              "relevance": "mittel",
+              "date": "1922-09-27",
+              "year": "1922"
+            }
+          ]
+        },
+        {
+          "title": "Sonne und Mond: Kräfte im menschlichen Leib und in der Seele",
+          "group": "Sonne und Mond als Kräftequellen für den Menschen",
+          "rows": [
+            {
+              "aussage": "Mensch: physischer Leib von Sonne-Mond-Kräften abgetrennt, aber Sonnenkräfte im Physischen und in der Seele tätig",
+              "zitat": "So wie sein Leib von den Kräften, die in Sonne und Mond walten, abgetrennt ist, und wie sein äußeres Physisches doch Kräfte beherbergt, die in Sonne und Mond tätig sind, so ist auch in seiner Seele dieselbe Geistigkeit tätig, die auf Sonne und Mond herrscht.",
+              "id": "GA054/10",
+              "index": "itux8b",
+              "ref": "GA054/10:itux8b",
+              "fileName": "GA054/10 - DAS WEIHNACHTSFEST ALS WAHRZEICHEN DES SONNENSIEGES, Berlin, 14. Dezember 1905",
+              "title": "DAS WEIHNACHTSFEST ALS WAHRZEICHEN DES SONNENSIEGES",
+              "relevance": "hoch",
+              "date": "1905-12-14",
+              "year": "1905"
+            }
+          ]
+        },
+        {
+          "title": "Sonne und Mond: Sphären als Zweiheit, nicht unmittelbar vereinigt",
+          "group": "Sonne und Mond als Kräftequellen für den Menschen",
+          "rows": [
+            {
+              "aussage": "Sphäre des Mondes und Sphäre der Sonne: räumlich zusammenfallend, den Kräften nach Zweiheit – nicht unmittelbar vereinigt",
+              "zitat": "Wenn das die Sphäre des Mondes ist (2), das die Sphäre der Sonne ist (i), so müsste ich jetzt beides ineinanderschieben (3), so dass sie zwar räumlich zusammenfallen, innerlich den Kräften nach aber eine Zweiheit sind, sich nicht unmittelbar miteinander vereinigen.",
+              "id": "GA196/2",
+              "index": "28lz3j",
+              "ref": "GA196/2:28lz3j",
+              "fileName": "GA196/2 - ZWEITER VORTRAG, Dornach, 10. Januar 1920",
+              "title": "ZWEITER VORTRAG",
+              "relevance": "mittel",
+              "date": "1920-01-10",
+              "year": "1920"
+            }
+          ]
+        },
+        {
+          "title": "Jehovah und Mondlektion: Sexualität und Manas-Funke als Opfergabe",
+          "group": "Manas, Sexualität und Jehovah: Opfer geistiger Kräfte auf dem Mond und der Erde",
+          "rows": [
+            {
+              "aussage": "Mondlektion: Mächte erwerben Fähigkeit zur Sexualität; Manas-Funke und Liebe als Opfergabe an den Menschen; Jehovah mit menschlicher Liebe verbunden",
+              "zitat": "Die Errungenschaft, in die Wesen Sexualität eingießen zu können, haben sich die Mächte erworben durch die in Weisheit erlernte Lektion auf dem Monde. Was sie dem Menschen nun bringen konnten, war der Funke von Manas, und von außen mussten sie arbeiten in der Durchglühung des menschlichen Körpers mit Liebe. Insbesondere zeigt es sich so klar, dass Jehovah in Verbindung stand mit der menschlichen Liebe durch den Menschen.",
+              "id": "GA090a/77",
+              "index": "d2txek",
+              "ref": "GA090a/77:d2txek",
+              "fileName": "GA090a/77 - VORGÄNGE IN DER ZWEITEN HÄLFTE DER LEMURISCHEN RASSENENTWICKLUNG, Berlin, 28. Dezember 1904",
+              "title": "VORGÄNGE IN DER ZWEITEN HÄLFTE DER LEMURISCHEN RASSENENTWICKLUNG",
+              "relevance": "hoch",
+              "date": "1904-12-28",
+              "year": "1904"
+            }
+          ]
+        },
+        {
+          "title": "Manas auf der Erde: Aufgabe der Entwicklung bis zur Budhi-Stufe",
+          "group": "Manas, Sexualität und Jehovah: Opfer geistiger Kräfte auf dem Mond und der Erde",
+          "rows": [
+            {
+              "aussage": "Manas auf der Erde hinzugekommen: Aufgabe, den Menschen bis zur Budhi-Stufe zu entwickeln",
+              "zitat": "Auf der Erde ist dann zu den vier niedrigen Prinzipien das Manas hinzugekommen, und seine Aufgabe ist es, den Menschen zu entwickeln bis zur Budhi-Stufe.",
+              "id": "GA090b/35",
+              "index": "daosdn",
+              "ref": "GA090b/35:daosdn",
+              "fileName": "GA090b/35 - DIE WOCHENTAGE - SIBYLLENWEISHEIT, Hamburg, 9. April 1905",
+              "title": "DIE WOCHENTAGE - SIBYLLENWEISHEIT",
+              "relevance": "hoch",
+              "date": "1905-04-09",
+              "year": "1905"
+            }
+          ]
+        },
+        {
+          "title": "Außerirdischer Kosmos gibt Kräfte; Erde gibt Selbstbewusstsein",
+          "group": "Mensch als Kräfte-Empfänger des Kosmos: Selbstbewusstsein und Erde",
+          "rows": [
+            {
+              "aussage": "Mensch: Kräfte seines Wesens vom außerirdischen Kosmos; Selbstbewusstsein von der Erde",
+              "zitat": "Gezeigt hat sich, wie der Mensch die Kräfte seines Wesens vom außerirdischen Kosmos hat, außer denen, die ihm sein Selbstbewusstsein geben. Diese kommen ihm von der Erde.",
+              "id": "GA026/25",
+              "index": "u5cdmk",
+              "ref": "GA026/25:u5cdmk",
+              "fileName": "GA026/25 - WAS IST DIE ERDE IN WIRKLICHKEIT IM MAKROKOSMOS",
+              "title": "WAS IST DIE ERDE IN WIRKLICHKEIT IM MAKROKOSMOS",
+              "relevance": "hoch",
+              "date": "",
+              "year": ""
+            }
+          ]
+        },
+        {
+          "title": "Intellektualismus: Verlust des geistigen Wesens, Gewinn der Freiheit",
+          "group": "Mensch als Kräfte-Empfänger des Kosmos: Selbstbewusstsein und Erde",
+          "rows": [
+            {
+              "aussage": "Intellektualismus: Verlust des geistigen Wesens (nicht durch Tod tragbar), aber Erwerb der Freiheit",
+              "zitat": "Der Mensch verliert im Intellektualismus sein geistiges Wesen, denn er kann vom Intellektualismus nichts durch des Todes Pforte tragen. Aber er erwirbt hier die Freiheit durch den Intellektualismus, und was er so in Freiheit erwirbt, das kann er dann durch des Todes Pforte tragen.",
+              "id": "GA207/10",
+              "index": "8hdtnn",
+              "ref": "GA207/10:8hdtnn",
+              "fileName": "GA207/10 - ZEHNTER VORTRAG, Dornach, 15. Oktober 1921",
+              "title": "ZEHNTER VORTRAG",
+              "relevance": "mittel",
+              "date": "1921-10-15",
+              "year": "1921"
+            }
+          ]
+        }
+      ],
+      "themeGrouped": true,
+      "themeGroupedVersion": 2,
+      "curated": true
+    },
+    "rechercheScope": {
+      "sourceType": "alle",
+      "themeArea": ""
+    },
+    "timestamp": "2026-10-10T06:21:21.653Z"
   }
 }
