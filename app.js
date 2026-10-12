@@ -6835,7 +6835,8 @@ function displayGAVolumesInSidebar() {
     const gaTab = document.getElementById('ga-tab');
     const isInGATab = gaTab && gaTab.classList.contains('active');
     
-    if (isInGATab) {
+    const hashVolume = new URLSearchParams((window.location.hash.split('?')[1] || '')).get('volume');
+    if (isInGATab && !currentGANumber && !hashVolume) {
       // Setze Viewer auf Standard-Nachricht zurück
       const viewer = document.getElementById('viewer');
       if (viewer) {
@@ -7989,7 +7990,7 @@ function handleGABandFilterChange(value) {
 
   if (selectedGABandFilter) {
     console.log('[GA-FILTER] Zeige Inhaltsverzeichnis für', selectedGABandFilter);
-    showGALectures(selectedGABandFilter, true);
+    showGALectures(selectedGABandFilter);
     return;
   }
 
@@ -8003,6 +8004,7 @@ function handleGABandFilterChange(value) {
   console.log('[GA-FILTER] Filter zurückgesetzt, zeige Platzhalter');
   currentGAView = 'volumes';
   currentGANumber = null;
+  history.pushState({ tab: 'ga' }, '', `${window.location.pathname}#ga`);
 
   if (typeof removeChronologicalYearButtons === 'function') {
     removeChronologicalYearButtons();
@@ -8044,7 +8046,7 @@ function handlePlaceFilterChange(value) {
   }
 
   if (selectedGABandFilter) {
-    showGALectures(selectedGABandFilter, true);
+    showGALectures(selectedGABandFilter);
     return;
   }
 
@@ -8133,6 +8135,25 @@ async function loadSummaryDatabase() {
 // Funktion: Zeige Vorträge eines GA-Bandes im Main Viewer
 // Hilfsfunktion: Prüft ob ein GA-Band ein Book (Schrift) ist
 // Ausnahmen: GA029-GA037, GA041b und GA046 sind Aufsatzbände
+function canonicalGAVolumeId(id) {
+  const match = String(id || '').trim().match(/^GA(\d{1,3})([a-z]?)$/i);
+  if (!match) return String(id || '').trim();
+  return `GA${match[1].padStart(3, '0')}${match[2].toLowerCase()}`;
+}
+
+/** GA-Band ohne Vortragsnummer, z.B. GA053 — nicht GA053/12. */
+function isGAVolumeIdWithoutLecture(id) {
+  if (!id || String(id).includes('/')) return false;
+  return /^GA\d{1,3}[a-z]?$/i.test(String(id).trim());
+}
+
+/** Schriften werden unter #texte?lecture=GA017 als Buch geöffnet, nicht als Band-Inhaltsverzeichnis. */
+function isBookVolumeForTexteTab(id) {
+  if (typeof isBookGANumber !== 'function' || !isBookGANumber(id)) return false;
+  if (typeof isEssayGANumber === 'function' && isEssayGANumber(id)) return false;
+  return true;
+}
+
 function isBookGANumber(gaNumber) {
   if (!gaNumber) return false;
   
@@ -10606,6 +10627,7 @@ async function showGALectures(gaNumber, skipHistory = false) {
     }
     
     // Browser History: Erstelle neuen Eintrag für diesen GA-Band
+    gaNumber = canonicalGAVolumeId(gaNumber) || gaNumber;
     if (!skipHistory) {
       const url = `${window.location.pathname}#ga?volume=${encodeURIComponent(gaNumber)}`;
       const newState = { tab: 'ga', gaVolume: gaNumber };
@@ -10617,6 +10639,17 @@ async function showGALectures(gaNumber, skipHistory = false) {
     // Speichere aktuellen GA-Band für Theme-Wechsel
     currentGANumber = gaNumber;
     
+    if (!gaVolumesData.length && typeof loadGAVolumesInSidebar === 'function') {
+      try {
+        await loadGAVolumesInSidebar();
+      } catch (loadErr) {
+        console.warn('[GA-TAB] GA-Liste vor Bandanzeige nicht geladen:', loadErr);
+      }
+      for (let wait = 0; wait < 30 && !gaVolumesData.length; wait++) {
+        await new Promise(resolve => setTimeout(resolve, 100));
+      }
+    }
+    
     // Zeige Loading-Nachricht
     const viewer = document.getElementById('viewer');
     const documentTitle = document.getElementById('document-title');
@@ -10624,10 +10657,16 @@ async function showGALectures(gaNumber, skipHistory = false) {
     if (!viewer || !documentTitle) return;
     
     // Finde GA-Band-Info
-    const gaInfo = gaVolumesData.find(ga => ga.number.toLowerCase() === gaNumber.toLowerCase());
+    const gaInfo = gaVolumesData.find(ga => ga.number.toLowerCase() === String(gaNumber).toLowerCase());
     if (!gaInfo) {
       viewer.innerHTML = '<div id="viewer-content"><div style="color: var(--secondary-text); text-align: left; font-style: italic; font-size: 0.9rem;">GA-Band nicht gefunden.</div></div>';
       return;
+    }
+
+    if (skipHistory) {
+      selectedGABandFilter = gaNumber;
+      const bandDropdown = document.getElementById('ga-band-filter-dropdown');
+      if (bandDropdown && bandDropdown.value !== gaNumber) bandDropdown.value = gaNumber;
     }
     
     // Setze Titel mit Link zum Texte-Tab
@@ -24119,6 +24158,21 @@ function formatAsteriskParagraphs() {
   lastHighlightedEndIndex = window._pendingHighlightEndIndex || null;
   window._pendingHighlightEndIndex = null;
   console.log('[HIGHLIGHT-DEBUG] showLecture START: lectureId =', lectureId, 'targetIndex =', targetIndex, 'lastHighlightedEndIndex =', lastHighlightedEndIndex);
+
+  // #texte?lecture=GA053 (Band ohne Vortragsnummer) öffnet den GA-Tab mit Inhaltsverzeichnis.
+  // Schriften (GA001–GA046, keine Aufsatzbände) bleiben im Texte-Tab.
+  if (typeof isGAVolumeIdWithoutLecture === 'function' && isGAVolumeIdWithoutLecture(lectureId) &&
+      !(typeof isBookVolumeForTexteTab === 'function' && isBookVolumeForTexteTab(lectureId))) {
+    const volumeId = canonicalGAVolumeId(lectureId);
+    console.log('[SHOW-LECTURE] Band ohne Vortrag, öffne GA-Inhaltsverzeichnis:', volumeId);
+    if (typeof switchTab === 'function') switchTab('ga', true);
+    const volumeUrl = `${window.location.pathname}#ga?volume=${encodeURIComponent(volumeId)}`;
+    history.replaceState({ tab: 'ga', gaVolume: volumeId }, '', volumeUrl);
+    if (typeof showGALectures === 'function') {
+      await showGALectures(volumeId, true);
+    }
+    return;
+  }
   
   const summaryPanel = document.getElementById('summary-panel');
   const verticalResizeHandleWrapper = document.getElementById('verticalResizeHandleWrapper');
@@ -28243,6 +28297,24 @@ window.addEventListener('DOMContentLoaded', function() {
     if (tabName) {
       // Warte kurz, bis alle Initialisierungen abgeschlossen sind
       setTimeout(() => {
+        const lectureId = queryParams.lecture || '';
+        const volumeFromLecture = lectureId && isGAVolumeIdWithoutLecture(lectureId) && !isBookVolumeForTexteTab(lectureId)
+          ? canonicalGAVolumeId(lectureId)
+          : '';
+        const volumeParam = queryParams.volume ? canonicalGAVolumeId(queryParams.volume) : '';
+        const gaVolume = volumeFromLecture || ((tabName === 'ga' || volumeParam) ? volumeParam : '');
+
+        // Band-URL (#ga?volume=GA053 oder #texte?lecture=GA053) → GA-Tab mit Inhaltsverzeichnis
+        if (gaVolume && !queryParams.ga) {
+          const baseUrl = window.location.origin + window.location.pathname;
+          history.replaceState({ tab: 'ga', gaVolume: gaVolume }, '', `${baseUrl}#ga?volume=${encodeURIComponent(gaVolume)}`);
+          switchTab('ga', true);
+          setTimeout(() => {
+            if (typeof showGALectures === 'function') showGALectures(gaVolume, true);
+          }, 200);
+          return;
+        }
+
         // Setze initialen History State ohne neuen Eintrag - Maps mit scroll= behalten
         const baseUrl = window.location.origin + window.location.pathname;
         const keepHash = (tabName === 'maps' && queryParams.scroll) ? `${tabName}&scroll=${encodeURIComponent(queryParams.scroll)}` : tabName;
@@ -28907,6 +28979,25 @@ window.addEventListener('hashchange', function() {
   }
   
   if (!hash) return;
+  
+  const lectureId = queryParams.lecture || '';
+  const volumeFromLecture = lectureId && isGAVolumeIdWithoutLecture(lectureId) && !isBookVolumeForTexteTab(lectureId)
+    ? canonicalGAVolumeId(lectureId)
+    : '';
+  const volumeParam = queryParams.volume ? canonicalGAVolumeId(queryParams.volume) : '';
+  const gaVolume = volumeFromLecture || (hash === 'ga' ? volumeParam : '');
+  if (gaVolume && !queryParams.ga) {
+    switchTab('ga', true);
+    history.replaceState(
+      { tab: 'ga', gaVolume: gaVolume },
+      '',
+      `${window.location.pathname}#ga?volume=${encodeURIComponent(gaVolume)}`
+    );
+    setTimeout(() => {
+      if (typeof showGALectures === 'function') showGALectures(gaVolume, true);
+    }, 200);
+    return;
+  }
   
   // Tab wechseln
   switchTab(hash, true);
