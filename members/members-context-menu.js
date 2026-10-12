@@ -354,6 +354,28 @@ function cleanParagraphText(text) {
   return cleanedText;
 }
 
+/**
+ * cleanParagraphText entfernt nur einen Präfix (Vortragsüberschrift, führende Leerzeichen).
+ * Die Offsets werden am Rohtext gezählt und müssen um dieselbe Länge zurückgesetzt werden,
+ * sonst beginnt die Markierung zu spät — mitten im Wort.
+ */
+function alignOffsetsToCleanedText(rawText, cleanedText, start, end) {
+  if (start == null || start < 0 || !rawText || !cleanedText || rawText === cleanedText) {
+    return { start: start, end: end };
+  }
+  if (!rawText.endsWith(cleanedText)) {
+    return { start: start, end: end };
+  }
+  const prefixLen = rawText.length - cleanedText.length;
+  if (prefixLen <= 0) {
+    return { start: start, end: end };
+  }
+  const alignedStart = Math.max(0, start - prefixLen);
+  const alignedEnd = end == null || end < 0 ? end : Math.max(alignedStart, end - prefixLen);
+  console.log('[HIGHLIGHT-SAVE] Offset um entfernten Präfix korrigiert:', prefixLen, '→', alignedStart, alignedEnd);
+  return { start: alignedStart, end: alignedEnd };
+}
+
 function getCurrentLectureDate(lectureId) {
   if (!lectureId) {
     console.warn('[LECTURE-DATE] Keine lectureId übergeben');
@@ -1189,6 +1211,11 @@ async function saveContextHighlight(text, lectureId, lectureTitle, paragraphInde
         }
       }
       
+      if (textStartOffset !== null && textStartOffset !== -1) {
+        const aligned = alignOffsetsToCleanedText(combinedText, paragraphText, textStartOffset, textEndOffset);
+        textStartOffset = aligned.start;
+        textEndOffset = aligned.end;
+      }
       console.log('[HIGHLIGHT-SAVE] Multi-Para Offsets:', textStartOffset, '-', textEndOffset);
       console.log('[HIGHLIGHT-SAVE] Multi-Para Text Länge:', paragraphText.length);
       
@@ -1246,6 +1273,9 @@ async function saveContextHighlight(text, lectureId, lectureTitle, paragraphInde
         
         if (foundStart) {
           textEndOffset = textStartOffset + text.length;
+          const aligned = alignOffsetsToCleanedText(rawParagraphText, paragraphText, textStartOffset, textEndOffset);
+          textStartOffset = aligned.start;
+          textEndOffset = aligned.end;
           console.log('[HIGHLIGHT-SAVE] Offsets aus Range berechnet:', textStartOffset, textEndOffset);
         } else {
           // Fallback: Verwende indexOf
@@ -1566,6 +1596,13 @@ function applyHighlightToSelection(range, color = 'blue', highlightId = null, ga
       });
     }
     
+    let rangeRoot = range.commonAncestorContainer;
+    if (rangeRoot && rangeRoot.nodeType !== 1) rangeRoot = rangeRoot.parentElement;
+    const paragraphRoot = rangeRoot && rangeRoot.closest ? (rangeRoot.closest('.paragraph') || rangeRoot) : rangeRoot;
+    if (typeof clampRangeInsideStartBlock === 'function') {
+      clampRangeInsideStartBlock(range, paragraphRoot);
+    }
+
     const contents = range.extractContents();
     span.appendChild(contents);
     range.insertNode(span);
