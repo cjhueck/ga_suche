@@ -7935,6 +7935,49 @@ function removePageMarkers(text) {
 }
 
 /**
+ * true, wenn der Offset auf einem Wortanfang liegt.
+ * Das Zeichen davor ist dann Leerzeichen oder Satzzeichen.
+ */
+function highlightOffsetAtWordBoundary(text, index) {
+  if (index <= 0) return true;
+  if (!text || index >= text.length) return false;
+  return /[\s\u00a0.,;:!?()[\]"'«»–—-]/.test(text[index - 1]);
+}
+
+/**
+ * Hält eine Markierungs-Range innerhalb des Block-Elements, in dem sie beginnt.
+ * Läuft das Ende in den Leerraum hinter </p>, bricht extractContents das <p> auf.
+ * Der zweite Absatzteil landet als Block im Span und erzwingt einen Zeilenumbruch,
+ * auch mitten im Wort.
+ */
+function clampRangeInsideStartBlock(range, root) {
+  if (!range || !root || root.nodeType !== 1) return range;
+  const blockTags = { P: 1, DIV: 1, LI: 1, BLOCKQUOTE: 1, H1: 1, H2: 1, H3: 1, H4: 1, H5: 1, H6: 1 };
+  function closestBlock(node) {
+    let el = node && node.nodeType === 3 ? node.parentElement : node;
+    while (el && el !== root) {
+      if (blockTags[el.tagName]) return el;
+      el = el.parentElement;
+    }
+    return root;
+  }
+  try {
+    const startBlock = closestBlock(range.startContainer);
+    const endBlock = closestBlock(range.endContainer);
+    if (startBlock && endBlock && startBlock !== endBlock && startBlock !== root) {
+      const endRange = document.createRange();
+      endRange.selectNodeContents(startBlock);
+      if (range.compareBoundaryPoints(Range.END_TO_END, endRange) > 0) {
+        range.setEnd(endRange.endContainer, endRange.endOffset);
+      }
+    }
+  } catch (e) {
+    console.warn('[HIGHLIGHT] Range konnte nicht auf den Absatz begrenzt werden:', e);
+  }
+  return range;
+}
+
+/**
  * Hilfsfunktion: Wendet Unterstreichung auf ein Element an (vereinheitlicht für Bücher und Vorträge)
  */
 function applyHighlightToElement(targetElement, highlight) {
@@ -8084,11 +8127,38 @@ function applyHighlightToElement(targetElement, highlight) {
       // Finde die Position des Textes im akkumulierten Text
       const fullText = textNodes.map(n => n.text).join('');
       
-      // ROBUST: Wenn useDirectOffsets, verwende die gespeicherten Offsets direkt
+      // Offsets stammen vom Rohtext des Absatzes (TreeWalker, inklusive Einrückung).
+      // paragraph_text ist dagegen vorne um Leerzeichen und Zeilenumbrüche gekürzt.
+      // substring() auf diesem gekürzten Text setzt die Markierung zu spät an —
+      // hier mitten in „übersinnliche“ — und das Ende fällt in den Leerraum hinter </p>.
       let textIndex;
       let textEndIndex;
-      
-      if (useDirectOffsets) {
+
+      const storedSlice = highlight.paragraph_text.substring(
+        highlight.text_start_offset,
+        Math.min(highlight.text_end_offset, highlight.paragraph_text.length)
+      );
+      const storedPos = storedSlice ? fullText.indexOf(storedSlice) : -1;
+      const rawEndClamped = Math.min(highlight.text_end_offset, fullText.length);
+      const rawSlice = highlight.text_start_offset >= 0 && rawEndClamped > highlight.text_start_offset
+        ? fullText.slice(highlight.text_start_offset, rawEndClamped)
+        : '';
+      const rawProbe = rawSlice.replace(/\s+/g, ' ').trim().slice(0, 40);
+      const paragraphNorm = (highlight.paragraph_text || '').replace(/\s+/g, ' ');
+      const rawOffsetAnchored = rawProbe.length >= 8
+        && paragraphNorm.includes(rawProbe)
+        && highlightOffsetAtWordBoundary(fullText, highlight.text_start_offset);
+      const storedStartsMidWord = storedPos >= 0 && !highlightOffsetAtWordBoundary(fullText, storedPos);
+
+      if (storedStartsMidWord && rawOffsetAnchored) {
+        textIndex = highlight.text_start_offset;
+        textEndIndex = rawEndClamped;
+        console.log('[HIGHLIGHT] DOM-Offsets an Wortgrenze:', textIndex, '-', textEndIndex, rawProbe);
+      } else if (storedPos >= 0 && highlightOffsetAtWordBoundary(fullText, storedPos)) {
+        textIndex = storedPos;
+        textEndIndex = storedPos + storedSlice.length;
+        console.log('[HIGHLIGHT] Textsuche an Wortgrenze:', textIndex, '-', textEndIndex);
+      } else if (useDirectOffsets) {
         // Verwende direkt die gespeicherten Offsets
         textIndex = highlight.text_start_offset;
         textEndIndex = highlight.text_end_offset;
@@ -8249,6 +8319,7 @@ function applyHighlightToElement(targetElement, highlight) {
           try {
             range.setStart(startNode, startOffsetInNode);
             range.setEnd(endNode, endOffsetInNode);
+            clampRangeInsideStartBlock(range, targetElement);
             
             const highlightColor = getHighlightColor(highlight.color || 'blue');
             const span = document.createElement('span');
