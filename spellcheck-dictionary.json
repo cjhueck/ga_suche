@@ -14199,6 +14199,7 @@
     "Erkenntnistätigkeit",
     "Erkenntnistheoretiker",
     "erkenntnistheoretisch",
+    "erkenntnistheoretische",
     "Erkenntnistheorie",
     "Erkenntnistheorien",
     "Erkenntnistrieb",
@@ -21446,6 +21447,7 @@
     "haushaltsüblich",
     "haushoch",
     "haushohe",
+    "Haushund",
     "hausieren",
     "hausierer",
     "hausintern",
@@ -54557,7 +54559,13 @@
     "ldots": "...",
     "ausschlob": "ausschloss",
     "Urorganisinen": "Urorganismen",
-    "Erketintnisdrang": "Erkenntnisdrang"
+    "Erketintnisdrang": "Erkenntnisdrang",
+    "Ir-disch": "Irdisch",
+    "Fun-damental": "Fundamental",
+    "Univer-sell": "Universell",
+    "übersinn-lich": "übersinnlich",
+    "Trans-zendent": "Transzendent",
+    "erkenntnis-theoretische": "erkenntnistheoretische"
   },
-  "updatedAt": "2026-10-13T12:47:57.192Z"
+  "updatedAt": "2026-10-13T12:51:45.813Z"
 }
