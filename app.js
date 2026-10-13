@@ -2678,6 +2678,13 @@ function normalizeGANumber(gaNumber) {
     }
     
     function switchTab(mode, skipHistory = false) {
+      const tabBtn = Array.from(document.querySelectorAll('.tab-button')).find(btn =>
+        (btn.getAttribute('onclick') || '').includes(`switchTab('${mode}')`)
+      );
+      if (!tabBtn) {
+        console.warn('[TABS] Unbekannter Tab:', mode);
+        return;
+      }
       console.log('[HISTORY] *** switchTab aufgerufen:', mode, 'skipHistory:', skipHistory);
       // Fixierten Side-Panel-Titel beim Tab-Wechsel leeren (kein veralteter Titel)
       const _lectHeaderTab = document.getElementById('sidePanelLectureHeader');
@@ -3242,7 +3249,7 @@ function normalizeGANumber(gaNumber) {
       }
       
       document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
-      document.querySelector(`[onclick="switchTab('${mode}')"]`).classList.add('active');
+      tabBtn.classList.add('active');
       
       // Setze Body-Klasse für Index-Tab, Themen-Tab und Timeline-Tab (für CSS-Fallback)
       if (mode === 'schlagworte') {
@@ -4055,7 +4062,7 @@ function normalizeGANumber(gaNumber) {
       initChalkboardsSortToggleButton();
       
       // Prüfe beim ersten Laden auf URL-Parameter (falls direkt mit Hash geladen)
-      const url = window.location.hash;
+      const url = '#' + peelTextFragment(window.location.hash.replace(/^#/, ''));
       if (url) {
         const hashParts = url.split('?');
         let hash = hashParts[0].substring(1);
@@ -4186,8 +4193,10 @@ function normalizeGANumber(gaNumber) {
     // WICHTIG: Setze initialen History-State beim Seitenstart
     // Damit der Back-Button nicht zu index.html führt, sondern zum vorherigen App-Zustand
     if (!history.state) {
-      const initialTab = window.location.hash.substring(1).split('?')[0] || 'ga';
-      history.replaceState({ tab: initialTab, isInitial: true }, '', window.location.href);
+      const routeHash = window.location.hash.substring(1).split(':~:')[0];
+      const initialTab = routeHash.split('?')[0].split('&')[0] || 'ga';
+      const url = window.location.pathname + window.location.search + (routeHash ? '#' + routeHash : '');
+      history.replaceState({ tab: initialTab, isInitial: true }, '', url);
     }
   }
     });
@@ -8154,6 +8163,213 @@ function isBookVolumeForTexteTab(id) {
   return true;
 }
 
+function decodeTextFragmentPiece(value) {
+  const raw = String(value || '').replace(/\+/g, '%20');
+  try { return decodeURIComponent(raw); } catch (e) { return raw; }
+}
+
+/** Scroll-to-text-Fragment: text=[prefix-,]anfang[,ende][,-suffix] */
+function parseTextFragmentValue(raw) {
+  const parts = String(raw || '').split(',');
+  let prefix = '';
+  let suffix = '';
+  const texts = [];
+  parts.forEach((part, index) => {
+    if (!prefix && texts.length === 0 && part.endsWith('-') && part.length > 1) {
+      prefix = decodeTextFragmentPiece(part.slice(0, -1));
+    } else if (index === parts.length - 1 && part.startsWith('-') && part.length > 1) {
+      suffix = decodeTextFragmentPiece(part.slice(1));
+    } else if (part) {
+      texts.push(decodeTextFragmentPiece(part));
+    }
+  });
+  if (!texts.length || !String(texts[0]).trim()) return null;
+  return { start: texts[0], end: texts[1] || '', prefix, suffix };
+}
+
+function parseTextFragmentDirective(directive) {
+  const textParam = String(directive || '').split('&').find(part => part.startsWith('text='));
+  if (!textParam) return null;
+  return parseTextFragmentValue(textParam.slice(5));
+}
+
+/**
+ * Trennt :~:text=… vom Routen-Hash, damit #texte?lecture=GA115/1:~:text=…
+ * nicht als Vortrags-ID gelesen wird.
+ */
+function captureNavigationTextFragment() {
+  try {
+    const nav = performance.getEntriesByType('navigation')[0];
+    if (!nav || !nav.name) return;
+    const hashAt = nav.name.indexOf('#');
+    if (hashAt === -1) return;
+    // Chrome entfernt :~:text= aus location.hash, lässt es aber in der Navigation-URL stehen.
+    peelTextFragment(nav.name.slice(hashAt + 1));
+  } catch (e) { /* kein Textfragment */ }
+}
+
+function peelTextFragment(hash) {
+  if (!hash) return '';
+  let source = String(hash);
+  if (/%3a~%3a/i.test(source)) {
+    try { source = decodeURIComponent(source); } catch (e) { /* Rohtext behalten */ }
+  }
+  const marker = source.indexOf(':~:');
+  if (marker === -1) return hash;
+  const parsed = parseTextFragmentDirective(source.slice(marker + 3));
+  const route = source.slice(0, marker);
+  if (parsed) {
+    const lectureMatch = route.match(/(?:^|[?&])lecture=([^&]*)/);
+    if (lectureMatch) {
+      try { parsed.lectureId = decodeURIComponent(lectureMatch[1]); }
+      catch (e) { parsed.lectureId = lectureMatch[1]; }
+    }
+    window._pendingTextFragment = parsed;
+    scheduleTextFragmentScroll();
+  }
+  return route;
+}
+
+function hashLectureId(id) {
+  return encodeURIComponent(String(id || '')).replace(/%2F/gi, '/');
+}
+
+function normalizeLectureId(id) {
+  let value = String(id || '');
+  try { value = decodeURIComponent(value); } catch (e) { /* bereits dekodiert */ }
+  return value.replace(/%2F/gi, '/');
+}
+
+function withTextFragment(url) {
+  // Chrome streicht :~:text= aus jeder per History-API gesetzten URL.
+  // Zurückschreiben würde die Adresse auf den Vortrag ohne Fundstelle umspringen lassen.
+  const hashAt = String(url).indexOf('#');
+  if (hashAt === -1) return url;
+  const marker = url.indexOf(':~:', hashAt);
+  return marker === -1 ? url : url.slice(0, marker);
+}
+
+function scheduleTextFragmentScroll() {
+  if (!window._pendingTextFragment || window._textFragmentLoopActive) return;
+  window._textFragmentLoopActive = true;
+  let attempts = 0;
+  let stable = 0;
+  const tick = () => {
+    attempts += 1;
+    const viewer = document.getElementById('viewer');
+    const applied = viewer && applyTextFragmentHighlight(viewer, window._pendingTextFragment, true);
+    if (applied && textFragmentInView()) stable += 1;
+    else stable = 0;
+    if (stable < 8 && attempts < 80 && window._pendingTextFragment) {
+      setTimeout(tick, applied ? 400 : 200);
+    } else {
+      window._textFragmentLoopActive = false;
+    }
+  };
+  setTimeout(tick, 300);
+}
+
+function buildViewerTextIndex(root) {
+  const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+    acceptNode(node) {
+      if (!node.textContent) return NodeFilter.FILTER_REJECT;
+      const parent = node.parentElement;
+      if (parent && parent.closest('.page-break-container, script, style')) return NodeFilter.FILTER_REJECT;
+      return NodeFilter.FILTER_ACCEPT;
+    }
+  });
+  let norm = '';
+  const map = [];
+  let prevSpace = true;
+  let node;
+  while ((node = walker.nextNode())) {
+    const text = node.textContent;
+    for (let i = 0; i < text.length; i++) {
+      if (text[i] === '\u00AD' || text[i] === '\u200B') continue;
+      if (/\s/.test(text[i])) {
+        if (!prevSpace) {
+          norm += ' ';
+          map.push({ node, offset: i });
+          prevSpace = true;
+        }
+      } else {
+        norm += text[i].toLowerCase();
+        map.push({ node, offset: i });
+        prevSpace = false;
+      }
+    }
+  }
+  return { norm, map };
+}
+
+function applyTextFragmentHighlight(root, fragment, shouldScroll) {
+  if (!root || !fragment || !fragment.start) return false;
+  const { norm, map } = buildViewerTextIndex(root);
+  const needle = fragment.start.replace(/\s+/g, ' ').trim().toLowerCase();
+  if (!needle || norm.length < needle.length) return false;
+  const prefix = (fragment.prefix || '').replace(/\s+/g, ' ').trim().toLowerCase();
+  const suffix = (fragment.suffix || '').replace(/\s+/g, ' ').trim().toLowerCase();
+  const endNeedle = (fragment.end || '').replace(/\s+/g, ' ').trim().toLowerCase();
+  let from = 0;
+  let startAt = -1;
+  let endAt = -1;
+  while (from < norm.length) {
+    const found = norm.indexOf(needle, from);
+    if (found === -1) break;
+    if (prefix) {
+      const before = norm.slice(Math.max(0, found - prefix.length - 1), found).trimEnd();
+      if (!before.endsWith(prefix)) { from = found + 1; continue; }
+    }
+    let matchEnd = found + needle.length;
+    if (endNeedle) {
+      const endPos = norm.indexOf(endNeedle, matchEnd);
+      if (endPos === -1) { from = found + 1; continue; }
+      matchEnd = endPos + endNeedle.length;
+    }
+    if (suffix) {
+      const after = norm.slice(matchEnd, matchEnd + suffix.length + 1).trimStart();
+      if (!after.startsWith(suffix)) { from = found + 1; continue; }
+    }
+    startAt = found;
+    endAt = matchEnd;
+    break;
+  }
+  if (startAt < 0 || !map[startAt] || !map[endAt - 1]) return false;
+  const range = document.createRange();
+  range.setStart(map[startAt].node, map[startAt].offset);
+  const endPoint = map[endAt - 1];
+  range.setEnd(endPoint.node, endPoint.offset + 1);
+  if (window.CSS && CSS.highlights && typeof Highlight === 'function') {
+    CSS.highlights.set('text-fragment', new Highlight(range));
+  }
+  if (shouldScroll) scrollTextFragmentRange(range);
+  return true;
+}
+
+function textFragmentInView() {
+  const set = window.CSS && CSS.highlights && CSS.highlights.get('text-fragment');
+  if (!set || !set.size) return false;
+  const range = [...set][0];
+  const rect = range && range.getClientRects()[0];
+  const main = document.getElementById('main');
+  if (!rect || !main) return false;
+  const mainRect = main.getBoundingClientRect();
+  const header = document.getElementById('viewer-header');
+  const topLimit = header ? header.getBoundingClientRect().bottom : mainRect.top;
+  return rect.top >= topLimit - 8 && rect.bottom <= mainRect.bottom && rect.top < mainRect.bottom;
+}
+
+function scrollTextFragmentRange(range) {
+  const rect = range.getClientRects()[0];
+  const main = document.getElementById('main');
+  if (!rect || !main) return;
+  const mainRect = main.getBoundingClientRect();
+  const header = document.getElementById('viewer-header');
+  const topLimit = header ? header.getBoundingClientRect().bottom : mainRect.top;
+  if (rect.top >= topLimit - 8 && rect.bottom <= mainRect.bottom && rect.top < mainRect.bottom) return;
+  main.scrollTo({ top: Math.max(0, main.scrollTop + rect.top - topLimit - 24), behavior: 'auto' });
+}
+
 function isBookGANumber(gaNumber) {
   if (!gaNumber) return false;
   
@@ -10629,7 +10845,7 @@ async function showGALectures(gaNumber, skipHistory = false) {
     // Browser History: Erstelle neuen Eintrag für diesen GA-Band
     gaNumber = canonicalGAVolumeId(gaNumber) || gaNumber;
     if (!skipHistory) {
-      const url = `${window.location.pathname}#ga?volume=${encodeURIComponent(gaNumber)}`;
+      const url = withTextFragment(`${window.location.pathname}#ga?volume=${encodeURIComponent(gaNumber)}`);
       const newState = { tab: 'ga', gaVolume: gaNumber };
       console.log('[HISTORY] showGALectures: pushState für GA-Band:', gaNumber, 'State:', JSON.stringify(newState));
       history.pushState(newState, '', url);
@@ -24166,7 +24382,7 @@ function formatAsteriskParagraphs() {
     const volumeId = canonicalGAVolumeId(lectureId);
     console.log('[SHOW-LECTURE] Band ohne Vortrag, öffne GA-Inhaltsverzeichnis:', volumeId);
     if (typeof switchTab === 'function') switchTab('ga', true);
-    const volumeUrl = `${window.location.pathname}#ga?volume=${encodeURIComponent(volumeId)}`;
+    const volumeUrl = withTextFragment(`${window.location.pathname}#ga?volume=${encodeURIComponent(volumeId)}`);
     history.replaceState({ tab: 'ga', gaVolume: volumeId }, '', volumeUrl);
     if (typeof showGALectures === 'function') {
       await showGALectures(volumeId, true);
@@ -24196,6 +24412,12 @@ function formatAsteriskParagraphs() {
       }
   }
   
+  if (window._pendingTextFragment && window._pendingTextFragment.lectureId &&
+      normalizeLectureId(window._pendingTextFragment.lectureId) !== normalizeLectureId(lectureId)) {
+    window._pendingTextFragment = null;
+    if (window.CSS && CSS.highlights) CSS.highlights.delete('text-fragment');
+  }
+
   // Aktuellen Vortrag tracken
   window.currentOpenLectureId = lectureId;
   
@@ -24210,13 +24432,13 @@ function formatAsteriskParagraphs() {
     if (activeTabContent) {
       currentTab = activeTabContent.id.replace('-tab', '');
     } else {
-      const hashTab = window.location.hash.substring(1).split('?')[0];
+      const hashTab = peelTextFragment(window.location.hash.substring(1)).split('?')[0];
       if (hashTab) currentTab = hashTab;
     }
     
     console.log('[HISTORY] showLecture: pushState für Tab:', currentTab, 'Lecture:', lectureId);
     
-    const url = `${window.location.pathname}#${currentTab}?lecture=${encodeURIComponent(lectureId)}`;
+    const url = `${window.location.pathname}#${currentTab}?lecture=${hashLectureId(lectureId)}`;
     const newState = { 
       tab: currentTab, 
       lecture: lectureId,
@@ -28247,7 +28469,8 @@ window.addEventListener('DOMContentLoaded', function() {
 });
 
 window.addEventListener('DOMContentLoaded', function() {
-  let hash = window.location.hash.substring(1); // Entferne das #
+  captureNavigationTextFragment();
+  let hash = peelTextFragment(window.location.hash.substring(1)); // Entferne :~:text= vor der Tab-Auswertung
   
   // Parse Query-Parameter aus dem Hash
   // Unterstützt sowohl "texte&lecture=GA005" als auch "texte?lecture=GA005"
@@ -28307,7 +28530,7 @@ window.addEventListener('DOMContentLoaded', function() {
         // Band-URL (#ga?volume=GA053 oder #texte?lecture=GA053) → GA-Tab mit Inhaltsverzeichnis
         if (gaVolume && !queryParams.ga) {
           const baseUrl = window.location.origin + window.location.pathname;
-          history.replaceState({ tab: 'ga', gaVolume: gaVolume }, '', `${baseUrl}#ga?volume=${encodeURIComponent(gaVolume)}`);
+          history.replaceState({ tab: 'ga', gaVolume: gaVolume }, '', withTextFragment(`${baseUrl}#ga?volume=${encodeURIComponent(gaVolume)}`));
           switchTab('ga', true);
           setTimeout(() => {
             if (typeof showGALectures === 'function') showGALectures(gaVolume, true);
@@ -28315,10 +28538,18 @@ window.addEventListener('DOMContentLoaded', function() {
           return;
         }
 
-        // Setze initialen History State ohne neuen Eintrag - Maps mit scroll= behalten
+        // Hash nicht auf den Tab-Namen kürzen: lecture= und Schrägstrich bleiben,
+        // sonst schreibt showLecture danach GA115%2F3 und das Textfragment ist weg.
         const baseUrl = window.location.origin + window.location.pathname;
-        const keepHash = (tabName === 'maps' && queryParams.scroll) ? `${tabName}&scroll=${encodeURIComponent(queryParams.scroll)}` : tabName;
-        history.replaceState({ tab: tabName }, '', `${baseUrl}#${keepHash}`);
+        let keepHash = tabName;
+        if (queryParams.lecture) {
+          keepHash = `${tabName}?lecture=${hashLectureId(queryParams.lecture)}`;
+          if (queryParams.p) keepHash += `&p=${encodeURIComponent(queryParams.p)}`;
+          if (queryParams.pEnd) keepHash += `&pEnd=${encodeURIComponent(queryParams.pEnd)}`;
+        } else if (tabName === 'maps' && queryParams.scroll) {
+          keepHash = `${tabName}&scroll=${encodeURIComponent(queryParams.scroll)}`;
+        }
+        history.replaceState({ tab: tabName, lecture: queryParams.lecture || null }, '', `${baseUrl}#${keepHash}`);
         switchTab(tabName, true); // skipHistory = true beim ersten Laden
         
         // Wenn lecture-Parameter vorhanden (ohne ga=): direkten Vortrag/Buch öffnen
@@ -28329,7 +28560,7 @@ window.addEventListener('DOMContentLoaded', function() {
             // Speichere End-Index in temporärer Variable, die showLecture ausliest
             window._pendingHighlightEndIndex = paragraphEndIndex ? paragraphEndIndex.replace(/^\^/, '') : null;
             console.log('[HIGHLIGHT-DEBUG] URL-Parser: lecture =', queryParams.lecture, 'p =', paragraphIndex, 'pEnd =', paragraphEndIndex, '_pendingHighlightEndIndex =', window._pendingHighlightEndIndex);
-            showLecture(queryParams.lecture, paragraphIndex);
+            showLecture(queryParams.lecture, paragraphIndex, [], [], true);
           }, 200);
         }
         
@@ -28948,7 +29179,7 @@ if (_obsidianPendingGA) {
 
 // Reagiere auf Hash-Änderungen (z.B. bei Navigation über Obsidian-Links)
 window.addEventListener('hashchange', function() {
-  let hash = window.location.hash.substring(1);
+  let hash = peelTextFragment(window.location.hash.substring(1));
   if (!hash) return;
   
   // Fußnoten-Anker (fn4, fnref11, ...) sind keine Navigations-Hashes
@@ -28991,7 +29222,7 @@ window.addEventListener('hashchange', function() {
     history.replaceState(
       { tab: 'ga', gaVolume: gaVolume },
       '',
-      `${window.location.pathname}#ga?volume=${encodeURIComponent(gaVolume)}`
+      withTextFragment(`${window.location.pathname}#ga?volume=${encodeURIComponent(gaVolume)}`)
     );
     setTimeout(() => {
       if (typeof showGALectures === 'function') showGALectures(gaVolume, true);
@@ -29006,7 +29237,7 @@ window.addEventListener('hashchange', function() {
   if (queryParams.lecture && !queryParams.ga) {
     setTimeout(() => {
       const paragraphIndex = queryParams.p || '';
-      showLecture(queryParams.lecture, paragraphIndex);
+      showLecture(queryParams.lecture, paragraphIndex, [], [], true);
     }, 200);
   }
   

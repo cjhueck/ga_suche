@@ -7614,6 +7614,12 @@ body.dark-mode #viewer-search-close:hover {
   overflow-x: hidden;
 }
 
+/* Textfragment aus der URL (:~:text=), ohne DOM-Umbau */
+::highlight(text-fragment) {
+  background-color: #ffe08a;
+  color: inherit;
+}
+
 /* Markierte Suchergebnisse */
 .viewer-search-highlight {
   background: rgba(70, 120, 134, 0.2); /* Gleiches Blau wie im Tab Suche */
@@ -11201,7 +11207,7 @@ PDF
 <link rel="stylesheet" href="thematic-chat-ui.css?v=20260712n">
 <script src="thematic-chat-ui.js?v=20260712n"></script>
 
-<script src="app.js?v=20260828a"></script>
+<script src="app.js?v=20261013a"></script>
 </body>
 </html>
 
