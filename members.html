@@ -915,13 +915,19 @@
 
     .account-modal-actions {
       display: flex;
+      flex-wrap: wrap;
       flex-direction: row;
       gap: 0.75rem;
       margin-top: 1rem;
     }
 
     .account-modal-actions .account-modal-btn {
-      flex: 1;
+      flex: 1 1 calc(50% - 0.4rem);
+      min-width: 140px;
+    }
+
+    .account-modal-actions .account-modal-btn.delete-account {
+      flex-basis: 100%;
     }
 
     .account-modal-btn {
@@ -934,12 +940,14 @@
       transition: all 0.2s;
     }
 
-    .account-modal-btn.change-email {
+    .account-modal-btn.change-email,
+    .account-modal-btn.change-password {
       background-color: var(--accent-color);
       color: white;
     }
 
-    .account-modal-btn.change-email:hover {
+    .account-modal-btn.change-email:hover,
+    .account-modal-btn.change-password:hover {
       background-color: #3a6270;
     }
 
@@ -952,19 +960,30 @@
       background-color: #d32f2f;
     }
 
-    .change-email-form {
+    .change-email-form,
+    .change-password-form {
       display: none;
       margin-top: 1rem;
       padding-top: 1rem;
       border-top: 1px solid var(--border-color);
     }
 
-    .change-email-form.active {
+    .change-email-form.active,
+    .change-password-form.active {
       display: block;
     }
 
-    .change-email-form input {
+    .change-email-form input,
+    .change-password-form input {
       margin-bottom: 0.75rem;
+    }
+
+    .change-password-form label {
+      margin-top: 0.25rem;
+    }
+
+    .change-password-form label:first-of-type {
+      margin-top: 0;
     }
 
     .change-email-form-actions {
@@ -1276,9 +1295,23 @@
             <button class="account-modal-btn cancel-btn" id="cancel-email-btn">Abbrechen</button>
           </div>
         </div>
+
+        <div class="change-password-form" id="change-password-form">
+          <label for="current-password-input">Aktuelles Passwort</label>
+          <input type="password" id="current-password-input" placeholder="Aktuelles Passwort" autocomplete="current-password" required>
+          <label for="account-new-password-input">Neues Passwort</label>
+          <input type="password" id="account-new-password-input" placeholder="Mindestens 6 Zeichen" minlength="6" autocomplete="new-password" required>
+          <label for="account-confirm-password-input">Neues Passwort bestätigen</label>
+          <input type="password" id="account-confirm-password-input" placeholder="Passwort wiederholen" minlength="6" autocomplete="new-password" required>
+          <div class="change-email-form-actions">
+            <button class="account-modal-btn change-password" id="save-password-btn">Speichern</button>
+            <button class="account-modal-btn cancel-btn" id="cancel-password-btn">Abbrechen</button>
+          </div>
+        </div>
         
-        <div class="account-modal-actions">
+        <div class="account-modal-actions" id="account-modal-actions">
           <button class="account-modal-btn change-email" id="change-email-btn">E-Mail-Adresse ändern</button>
+          <button class="account-modal-btn change-password" id="change-password-btn">Passwort ändern</button>
           <button class="account-modal-btn delete-account" id="delete-account-btn">Account löschen</button>
         </div>
       </div>
@@ -1349,7 +1382,7 @@
       document.getElementById('auth-message').innerHTML = '<div class="message error">⚠️ WICHTIG: Diese Seite muss über einen lokalen Server geöffnet werden, nicht direkt über file:///<br><br>Bitte starten Sie einen lokalen Server (z.B. mit Python: <code>python -m http.server 8000</code>) und öffnen Sie dann <code>http://localhost:8000/members.html</code></div>';
     }
     
-    let signUp, signIn, signOut, getCurrentUser, onAuthStateChange, updateUserEmail, deleteUserAccount, resetPassword, updatePassword;
+    let signUp, signIn, signOut, getCurrentUser, onAuthStateChange, updateUserEmail, deleteUserAccount, resetPassword, updatePassword, changePassword;
     let getQuotes, deleteQuote, updateQuote;
     let getHighlights, deleteHighlight, updateHighlight;
     let getNotes, deleteNote, createNote, updateNote;
@@ -1364,6 +1397,7 @@
       onAuthStateChange = authModule.onAuthStateChange;
       resetPassword = authModule.resetPassword;
       updatePassword = authModule.updatePassword;
+      changePassword = authModule.changePassword;
       updateUserEmail = authModule.updateUserEmail;
       deleteUserAccount = authModule.deleteUserAccount;
       supabase = authModule.supabase;
@@ -1388,6 +1422,7 @@
       window.updateUserEmail = updateUserEmail;
       window.resetPassword = resetPassword;
       window.updatePassword = updatePassword;
+      window.changePassword = changePassword;
       window.deleteUserAccount = deleteUserAccount;
       window.getQuotes = getQuotes;
       window.deleteQuote = deleteQuote;
@@ -1964,65 +1999,60 @@
       const changeEmailBtn = document.getElementById('change-email-btn');
       const cancelEmailBtn = document.getElementById('cancel-email-btn');
       const saveEmailBtn = document.getElementById('save-email-btn');
+      const changePasswordBtn = document.getElementById('change-password-btn');
+      const cancelPasswordBtn = document.getElementById('cancel-password-btn');
+      const savePasswordBtn = document.getElementById('save-password-btn');
       const deleteAccountBtn = document.getElementById('delete-account-btn');
       const changeEmailForm = document.getElementById('change-email-form');
+      const changePasswordForm = document.getElementById('change-password-form');
+      const accountModalActions = document.getElementById('account-modal-actions');
       const newEmailInput = document.getElementById('new-email-input');
+      const currentPasswordInput = document.getElementById('current-password-input');
+      const newPasswordInput = document.getElementById('account-new-password-input');
+      const confirmPasswordInput = document.getElementById('account-confirm-password-input');
       const accountEmailDisplay = document.getElementById('account-email-display');
+
+      function resetAccountForms() {
+        if (changeEmailForm) changeEmailForm.classList.remove('active');
+        if (changePasswordForm) changePasswordForm.classList.remove('active');
+        if (newEmailInput) newEmailInput.value = '';
+        if (currentPasswordInput) currentPasswordInput.value = '';
+        if (newPasswordInput) newPasswordInput.value = '';
+        if (confirmPasswordInput) confirmPasswordInput.value = '';
+        if (accountEmailDisplay) accountEmailDisplay.classList.remove('hidden');
+        if (accountModalActions) accountModalActions.style.display = 'flex';
+      }
+
+      function closeAccountModal() {
+        if (accountModal) {
+          accountModal.classList.remove('active');
+        }
+        resetAccountForms();
+      }
 
       // Öffne Modal
       if (accountBtn) {
         accountBtn.addEventListener('click', () => {
           if (currentUser && accountEmailDisplay) {
             accountEmailDisplay.textContent = currentUser.email || '';
-            // Stelle sicher, dass die E-Mail-Anzeige sichtbar ist
-            accountEmailDisplay.classList.remove('hidden');
           }
+          resetAccountForms();
           if (accountModal) {
             accountModal.classList.add('active');
-            changeEmailForm.classList.remove('active');
-            newEmailInput.value = '';
-            // Stelle sicher, dass der Button zum Ändern sichtbar ist
-            if (changeEmailBtn) {
-              changeEmailBtn.style.display = 'block';
-            }
           }
         });
       }
 
       // Schließe Modal
       if (accountModalClose) {
-        accountModalClose.addEventListener('click', () => {
-          if (accountModal) {
-            accountModal.classList.remove('active');
-            changeEmailForm.classList.remove('active');
-            newEmailInput.value = '';
-            // Stelle sicher, dass die E-Mail-Anzeige sichtbar ist
-            if (accountEmailDisplay) {
-              accountEmailDisplay.classList.remove('hidden');
-            }
-            // Stelle sicher, dass der Button zum Ändern sichtbar ist
-            if (changeEmailBtn) {
-              changeEmailBtn.style.display = 'block';
-            }
-          }
-        });
+        accountModalClose.addEventListener('click', closeAccountModal);
       }
 
       // Schließe Modal bei Klick außerhalb
       if (accountModal) {
         accountModal.addEventListener('click', (e) => {
           if (e.target === accountModal) {
-            accountModal.classList.remove('active');
-            changeEmailForm.classList.remove('active');
-            newEmailInput.value = '';
-            // Stelle sicher, dass die E-Mail-Anzeige sichtbar ist
-            if (accountEmailDisplay) {
-              accountEmailDisplay.classList.remove('hidden');
-            }
-            // Stelle sicher, dass der Button zum Ändern sichtbar ist
-            if (changeEmailBtn) {
-              changeEmailBtn.style.display = 'block';
-            }
+            closeAccountModal();
           }
         });
       }
@@ -2030,37 +2060,23 @@
       // Zeige Email-Ändern-Formular
       if (changeEmailBtn) {
         changeEmailBtn.addEventListener('click', () => {
+          resetAccountForms();
           if (changeEmailForm) {
             changeEmailForm.classList.add('active');
-            // Verstecke die E-Mail-Anzeige
             if (accountEmailDisplay) {
               accountEmailDisplay.classList.add('hidden');
             }
-            // Verstecke den Button zum Ändern der E-Mail
-            if (changeEmailBtn) {
-              changeEmailBtn.style.display = 'none';
+            if (accountModalActions) {
+              accountModalActions.style.display = 'none';
             }
-            newEmailInput.focus();
+            newEmailInput?.focus();
           }
         });
       }
 
       // Abbrechen Email-Ändern
       if (cancelEmailBtn) {
-        cancelEmailBtn.addEventListener('click', () => {
-          if (changeEmailForm) {
-            changeEmailForm.classList.remove('active');
-            newEmailInput.value = '';
-            // Zeige die E-Mail-Anzeige wieder
-            if (accountEmailDisplay) {
-              accountEmailDisplay.classList.remove('hidden');
-            }
-            // Zeige den Button zum Ändern der E-Mail wieder
-            if (changeEmailBtn) {
-              changeEmailBtn.style.display = 'block';
-            }
-          }
-        });
+        cancelEmailBtn.addEventListener('click', resetAccountForms);
       }
 
       // Speichere neue Email
@@ -2087,31 +2103,97 @@
             const result = await updateEmailFunc(newEmail);
             if (result.success) {
               alert('E-Mail-Adresse wurde erfolgreich geändert. Bitte bestätigen Sie die neue E-Mail-Adresse in Ihrer E-Mail.');
-              // Aktualisiere Anzeige
               if (currentUser) {
                 currentUser.email = newEmail;
               }
               if (accountEmailDisplay) {
                 accountEmailDisplay.textContent = newEmail;
-                // Zeige die E-Mail-Anzeige wieder
-                accountEmailDisplay.classList.remove('hidden');
               }
               const userEmailEl = document.getElementById('user-email');
               if (userEmailEl) {
                 userEmailEl.textContent = newEmail;
               }
-              changeEmailForm.classList.remove('active');
-              newEmailInput.value = '';
-              // Zeige den Button zum Ändern wieder
-              if (changeEmailBtn) {
-                changeEmailBtn.style.display = 'block';
-              }
+              resetAccountForms();
             } else {
               alert('Fehler beim Ändern der E-Mail: ' + (result.message || 'Unbekannter Fehler'));
             }
           } catch (error) {
             console.error('[MEMBERS-HTML] Fehler beim Ändern der E-Mail:', error);
             alert('Fehler beim Ändern der E-Mail: ' + (error.message || 'Unbekannter Fehler'));
+          }
+        });
+      }
+
+      // Zeige Passwort-Ändern-Formular
+      if (changePasswordBtn) {
+        changePasswordBtn.addEventListener('click', () => {
+          resetAccountForms();
+          if (changePasswordForm) {
+            changePasswordForm.classList.add('active');
+            if (accountModalActions) {
+              accountModalActions.style.display = 'none';
+            }
+            currentPasswordInput?.focus();
+          }
+        });
+      }
+
+      // Abbrechen Passwort-Ändern
+      if (cancelPasswordBtn) {
+        cancelPasswordBtn.addEventListener('click', resetAccountForms);
+      }
+
+      // Speichere neues Passwort
+      if (savePasswordBtn) {
+        savePasswordBtn.addEventListener('click', async () => {
+          const currentPassword = currentPasswordInput?.value || '';
+          const newPassword = newPasswordInput?.value || '';
+          const confirmPassword = confirmPasswordInput?.value || '';
+
+          if (!currentPassword || !newPassword || !confirmPassword) {
+            alert('Bitte füllen Sie alle Passwortfelder aus.');
+            return;
+          }
+
+          if (newPassword.length < 6) {
+            alert('Das neue Passwort muss mindestens 6 Zeichen lang sein.');
+            return;
+          }
+
+          if (newPassword !== confirmPassword) {
+            alert('Die neuen Passwörter stimmen nicht überein.');
+            return;
+          }
+
+          if (currentPassword === newPassword) {
+            alert('Das neue Passwort muss sich vom aktuellen Passwort unterscheiden.');
+            return;
+          }
+
+          const originalLabel = savePasswordBtn.textContent;
+          savePasswordBtn.disabled = true;
+          savePasswordBtn.textContent = 'Speichern…';
+
+          try {
+            const changePasswordFunc = window.changePassword || changePassword;
+            if (typeof changePasswordFunc !== 'function') {
+              alert('Fehler: Funktion zum Ändern des Passworts nicht verfügbar.');
+              return;
+            }
+
+            const result = await changePasswordFunc(currentPassword, newPassword);
+            if (result.success) {
+              alert('Passwort wurde erfolgreich geändert.');
+              resetAccountForms();
+            } else {
+              alert('Fehler beim Ändern des Passworts: ' + (result.message || 'Unbekannter Fehler'));
+            }
+          } catch (error) {
+            console.error('[MEMBERS-HTML] Fehler beim Ändern des Passworts:', error);
+            alert('Fehler beim Ändern des Passworts: ' + (error.message || 'Unbekannter Fehler'));
+          } finally {
+            savePasswordBtn.disabled = false;
+            savePasswordBtn.textContent = originalLabel;
           }
         });
       }
