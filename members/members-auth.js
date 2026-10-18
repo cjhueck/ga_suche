@@ -210,6 +210,52 @@ export async function updatePassword(newPassword) {
 
 
 /**
+ * Passwort ändern (eingeloggter User, mit Prüfung des aktuellen Passworts)
+ */
+export async function changePassword(currentPassword, newPassword) {
+  try {
+    const user = await getCurrentUser();
+    if (!user?.email) {
+      throw new Error('Kein User angemeldet');
+    }
+
+    if (!newPassword || newPassword.length < 6) {
+      throw new Error('Das neue Passwort muss mindestens 6 Zeichen lang sein');
+    }
+
+    const { error: signInError } = await supabase.auth.signInWithPassword({
+      email: user.email,
+      password: currentPassword
+    });
+
+    if (signInError) {
+      return {
+        success: false,
+        message: 'Das aktuelle Passwort ist nicht korrekt.'
+      };
+    }
+
+    const { error } = await supabase.auth.updateUser({
+      password: newPassword
+    });
+
+    if (error) throw error;
+
+    return {
+      success: true,
+      message: 'Passwort wurde erfolgreich geändert!'
+    };
+  } catch (error) {
+    return {
+      success: false,
+      message: `Fehler: ${error.message}`,
+      error: error
+    };
+  }
+}
+
+
+/**
  * Auth State Listener - ruft Callback bei Änderungen auf
  */
 export function onAuthStateChange(callback) {
