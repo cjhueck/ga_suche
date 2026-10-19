@@ -1383,6 +1383,7 @@
     }
     
     let signUp, signIn, signOut, getCurrentUser, onAuthStateChange, updateUserEmail, deleteUserAccount, resetPassword, updatePassword, changePassword;
+    let getAuthCallbackInfo, isPasswordRecoveryPending, clearPasswordRecoveryPending, getLastAuthEvent;
     let getQuotes, deleteQuote, updateQuote;
     let getHighlights, deleteHighlight, updateHighlight;
     let getNotes, deleteNote, createNote, updateNote;
@@ -1400,6 +1401,10 @@
       changePassword = authModule.changePassword;
       updateUserEmail = authModule.updateUserEmail;
       deleteUserAccount = authModule.deleteUserAccount;
+      getAuthCallbackInfo = authModule.getAuthCallbackInfo;
+      isPasswordRecoveryPending = authModule.isPasswordRecoveryPending;
+      clearPasswordRecoveryPending = authModule.clearPasswordRecoveryPending;
+      getLastAuthEvent = authModule.getLastAuthEvent;
       supabase = authModule.supabase;
       
       const apiModule = await import('./members/members-api.js');
@@ -1424,6 +1429,10 @@
       window.updatePassword = updatePassword;
       window.changePassword = changePassword;
       window.deleteUserAccount = deleteUserAccount;
+      window.getAuthCallbackInfo = getAuthCallbackInfo;
+      window.isPasswordRecoveryPending = isPasswordRecoveryPending;
+      window.clearPasswordRecoveryPending = clearPasswordRecoveryPending;
+      window.getLastAuthEvent = getLastAuthEvent;
       window.getQuotes = getQuotes;
       window.deleteQuote = deleteQuote;
       window.updateQuote = updateQuote;
@@ -1471,46 +1480,13 @@
           return;
         }
         
-        // Prüfe auf Passwort-Reset-Token in der URL
-        const hash = window.location.hash;
-        if (hash) {
-          const hashParams = new URLSearchParams(hash.substring(1));
-          const type = hashParams.get('type');
-          
-          if (type === 'recovery') {
-            // Reset-Token gefunden - Supabase verarbeitet den Token automatisch
-            // Warte kurz, damit Supabase die Session setzen kann
-            try {
-              // Prüfe ob Session gesetzt wurde (Supabase verarbeitet Token automatisch)
-              const { data: { session } } = await supabase.auth.getSession();
-              
-              if (session) {
-                // Session wurde gesetzt - zeige Formular zum Setzen des neuen Passworts
-                showNewPasswordForm();
-                // Entferne Token aus URL (aus Sicherheitsgründen)
-                window.history.replaceState(null, '', window.location.pathname);
-                return;
-              } else {
-                // Session nicht gesetzt - möglicherweise ist der Token abgelaufen
-                showAuth();
-                showAuthMessage('Der Passwort-Reset-Link ist ungültig oder abgelaufen. Bitte fordern Sie einen neuen Link an.', 'error');
-                // Entferne Token aus URL
-                window.history.replaceState(null, '', window.location.pathname);
-                return;
-              }
-            } catch (error) {
-              console.error('[MEMBERS-HTML] Fehler beim Verarbeiten des Reset-Tokens:', error);
-              showAuth();
-              showAuthMessage('Fehler beim Verarbeiten des Passwort-Reset-Links. Bitte versuchen Sie es erneut.', 'error');
-              // Entferne Token aus URL
-              window.history.replaceState(null, '', window.location.pathname);
-              return;
-            }
-          }
-        }
-        
         setupToolbarListeners();
         setupDragAndDrop();
+
+        const handledRecovery = await handlePasswordRecoveryRedirect();
+        if (handledRecovery) {
+          return;
+        }
         
         const user = await getCurrentUserFunc();
         if (user) {
@@ -1527,6 +1503,107 @@
     }
 
     // ===== Auth Functions =====
+    function delay(ms) {
+      return new Promise((resolve) => setTimeout(resolve, ms));
+    }
+
+    function clearAuthCallbackFromUrl() {
+      window.history.replaceState(null, '', window.location.pathname);
+    }
+
+    async function waitForAuthSession(maxMs) {
+      const started = Date.now();
+      while (Date.now() - started < maxMs) {
+        try {
+          const { data: { session } } = await supabase.auth.getSession();
+          if (session) return session;
+        } catch (e) {
+          console.warn('[MEMBERS-HTML] getSession während Recovery:', e);
+        }
+        const lastEvent = typeof getLastAuthEvent === 'function' ? getLastAuthEvent() : null;
+        if (lastEvent === 'PASSWORD_RECOVERY') {
+          try {
+            const { data: { session } } = await supabase.auth.getSession();
+            if (session) return session;
+          } catch (e) {}
+        }
+        await delay(200);
+      }
+      try {
+        const { data: { session } } = await supabase.auth.getSession();
+        return session || null;
+      } catch (e) {
+        return null;
+      }
+    }
+
+    async function handlePasswordRecoveryRedirect() {
+      const infoFn = window.getAuthCallbackInfo || getAuthCallbackInfo;
+      const pendingFn = window.isPasswordRecoveryPending || isPasswordRecoveryPending;
+      const clearPendingFn = window.clearPasswordRecoveryPending || clearPasswordRecoveryPending;
+      const lastEventFn = window.getLastAuthEvent || getLastAuthEvent;
+      const info = typeof infoFn === 'function' ? infoFn() : { hasAuthPayload: false, isRecovery: false, type: null };
+      const pending = typeof pendingFn === 'function' ? pendingFn() : false;
+      const lastEvent = typeof lastEventFn === 'function' ? lastEventFn() : null;
+      const urlSaysRecovery = info.type === 'recovery';
+      const eventSaysRecovery = lastEvent === 'PASSWORD_RECOVERY';
+      const isRecovery = !!(urlSaysRecovery || eventSaysRecovery || (pending && info.hasAuthPayload));
+
+      if (info.hasAuthError && isRecovery) {
+        showAuth();
+        showAuthMessage('Der Passwort-Reset-Link ist ungültig oder abgelaufen. Bitte fordern Sie einen neuen Link an.', 'error');
+        clearAuthCallbackFromUrl();
+        if (typeof clearPendingFn === 'function') clearPendingFn();
+        return true;
+      }
+
+      if (!info.hasAuthPayload && !isRecovery) {
+        return false;
+      }
+
+      if (!isRecovery && info.hasAuthPayload) {
+        // PKCE-Code ohne type=recovery: kurz auf PASSWORD_RECOVERY warten
+        const session = await waitForAuthSession(2500);
+        const becameRecovery = (typeof lastEventFn === 'function' && lastEventFn() === 'PASSWORD_RECOVERY')
+          || (typeof pendingFn === 'function' && pendingFn());
+        if (!becameRecovery) {
+          return false;
+        }
+        if (session) {
+          showNewPasswordForm();
+          clearAuthCallbackFromUrl();
+          if (typeof clearPendingFn === 'function') clearPendingFn();
+          return true;
+        }
+      }
+
+      showAuth();
+      showAuthMessage('Passwort-Reset wird verarbeitet…', 'success');
+
+      try {
+        const session = await waitForAuthSession(8000);
+        if (session) {
+          showNewPasswordForm();
+          clearAuthCallbackFromUrl();
+          if (typeof clearPendingFn === 'function') clearPendingFn();
+          return true;
+        }
+
+        showAuth();
+        showAuthMessage('Der Passwort-Reset-Link ist ungültig oder abgelaufen. Bitte fordern Sie einen neuen Link an.', 'error');
+        clearAuthCallbackFromUrl();
+        if (typeof clearPendingFn === 'function') clearPendingFn();
+        return true;
+      } catch (error) {
+        console.error('[MEMBERS-HTML] Fehler beim Verarbeiten des Reset-Tokens:', error);
+        showAuth();
+        showAuthMessage('Fehler beim Verarbeiten des Passwort-Reset-Links. Bitte versuchen Sie es erneut.', 'error');
+        clearAuthCallbackFromUrl();
+        if (typeof clearPendingFn === 'function') clearPendingFn();
+        return true;
+      }
+    }
+
     function showAuth() {
       const authView = document.getElementById('auth-view');
       const appView = document.getElementById('app-view');
@@ -1716,7 +1793,7 @@
             if (result.success) {
               // Erfolgsmeldung - auch wenn E-Mail nicht registriert ist, zeigen wir die gleiche Meldung
               // (aus Sicherheitsgründen sollte man nicht verraten, welche E-Mails registriert sind)
-              showAuthMessage('Falls diese E-Mail-Adresse registriert ist, wurde ein Passwort-Reset-Link an Ihre E-Mail-Adresse gesendet. Bitte schauen Sie auch in Ihren Spam-Ordner, falls Sie keine E-Mail erhalten.', 'success');
+              showAuthMessage('Falls diese E-Mail-Adresse registriert ist, wurde ein Passwort-Reset-Link gesendet. Öffnen Sie den Link in der E-Mail – Sie gelangen dann direkt zum Formular „Neues Passwort setzen“. Bitte schauen Sie auch in den Spam-Ordner.', 'success');
               // Setze E-Mail-Feld zurück
               const resetEmailInput = document.getElementById('reset-email');
               if (resetEmailInput) {
@@ -1768,6 +1845,8 @@
             const result = await updatePasswordFunc(newPassword);
             
             if (result.success) {
+              const clearPendingFn = window.clearPasswordRecoveryPending || clearPasswordRecoveryPending;
+              if (typeof clearPendingFn === 'function') clearPendingFn();
               showAuthMessage('Passwort wurde erfolgreich geändert! Sie können sich jetzt mit Ihrem neuen Passwort anmelden.', 'success');
               
               // Setze Felder zurück

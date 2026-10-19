@@ -10295,15 +10295,24 @@ async function handlePasswordReset() {
     // Prüfe zuerst, ob die E-Mail registriert ist
     // Supabase sendet auch bei nicht registrierten E-Mails eine Bestätigung (aus Sicherheitsgründen)
     // aber wir können trotzdem versuchen zu prüfen
-    const { error } = await supabaseClient.auth.resetPasswordForEmail(email, {
-      redirectTo: `${window.location.origin}/index.html`
+    try {
+      sessionStorage.setItem('ga_password_recovery_pending', '1');
+    } catch (e) {}
+    const redirectMembers = `${window.location.origin}/members.html`;
+    let { error } = await supabaseClient.auth.resetPasswordForEmail(email, {
+      redirectTo: redirectMembers
     });
+    if (error && /redirect/i.test(error.message || '')) {
+      ({ error } = await supabaseClient.auth.resetPasswordForEmail(email, {
+        redirectTo: `${window.location.origin}/index.html`
+      }));
+    }
     
     if (error) throw error;
     
     // Erfolgsmeldung - auch wenn E-Mail nicht registriert ist, zeigen wir die gleiche Meldung
     // (aus Sicherheitsgründen sollte man nicht verraten, welche E-Mails registriert sind)
-    messageDiv.innerHTML = '<div class="success-msg">✓ Falls diese E-Mail-Adresse registriert ist, wurde ein Passwort-Reset-Link an Ihre E-Mail-Adresse gesendet.<br><br>Bitte schauen Sie auch in Ihren Spam-Ordner, falls Sie keine E-Mail erhalten.</div>';
+    messageDiv.innerHTML = '<div class="success-msg">✓ Falls diese E-Mail-Adresse registriert ist, wurde ein Passwort-Reset-Link gesendet.<br><br>Öffnen Sie den Link in der E-Mail – Sie gelangen dann direkt zum Formular „Neues Passwort setzen“. Bitte schauen Sie auch in den Spam-Ordner.</div>';
     
     // Setze E-Mail-Feld zurück
     document.getElementById('members-reset-email').value = '';
