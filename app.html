@@ -2,6 +2,7 @@
 <html lang="de">
 <head>
 <meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Steiner GA-Suche</title>
 <script src="members/forward-auth-callback.js"></script>
 <script>
@@ -7640,6 +7641,215 @@ body.dark-mode .viewer-search-highlight {
 
 body.dark-mode .viewer-search-highlight.active {
   background: rgba(70, 120, 134, 0.65); /* Etwas dunkler für aktiven Treffer (Dark Mode), gleiche Größe */
+}
+
+@media (max-width: 768px) {
+  html, body {
+    overflow-x: hidden;
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
+
+  body {
+    height: 100dvh;
+  }
+
+  #sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: 100%;
+    height: 100dvh;
+    z-index: 1200;
+    background: var(--background-color);
+    box-shadow: 4px 0 16px rgba(0, 0, 0, 0.12);
+  }
+
+  #sidebar.collapsed {
+    width: 0 !important;
+    min-width: 0 !important;
+    box-shadow: none;
+  }
+
+  #main-container {
+    width: 100%;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+
+  #main {
+    padding: 0.5rem 0 2rem 0 !important;
+  }
+
+  #sidebar-header {
+    overflow-y: auto;
+    flex-shrink: 1;
+    max-height: 75dvh;
+  }
+
+  .site-logo {
+    height: 56px;
+    margin-right: 0.35rem;
+  }
+
+  .site-sign {
+    max-height: 36px;
+    width: auto;
+  }
+
+  .tab-container .tab-buttons {
+    overflow-x: auto !important;
+    flex-wrap: nowrap !important;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+    margin-bottom: 0.6rem;
+  }
+
+  .tab-button {
+    padding: 10px 10px;
+    font-size: 0.9em;
+  }
+
+  .search-words-row,
+  .filter-row {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+  }
+
+  .word-operator-container {
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+    padding: 4px 0;
+    gap: 1.25rem;
+  }
+
+  .word-operator-label {
+    font-size: 0.95em;
+    min-height: 44px;
+  }
+
+  .word-operator-label input[type="radio"] {
+    width: 18px;
+    height: 18px;
+  }
+
+  .search-input,
+  .filter-dropdown,
+  .custom-dropdown-button {
+    font-size: 16px !important;
+    min-height: 44px;
+    padding: 10px 12px;
+  }
+
+  .radio-group,
+  .radio-group > div {
+    flex-wrap: wrap !important;
+    gap: 8px !important;
+  }
+
+  .radio-group .depth-btn {
+    min-height: 44px;
+    font-size: 1em;
+    padding: 10px 14px;
+  }
+
+  .custom-dropdown,
+  .distance-filter-group,
+  #yearFilterContainer,
+  #gaFilterContainer {
+    width: 100% !important;
+    flex: 1 1 auto !important;
+  }
+
+  #proximityFilterButton,
+  #relevanceFilter {
+    width: 100% !important;
+  }
+
+  #viewer {
+    padding: 0.75rem 1rem 2rem 2.25rem !important;
+  }
+
+  #viewer p,
+  #viewer .paragraph,
+  #viewer-content p,
+  .book-content p {
+    font-size: 1.05rem !important;
+    line-height: 1.65 !important;
+    text-align: left !important;
+  }
+
+  .page-break-num,
+  ol .page-break-num,
+  ul .page-break-num,
+  li .page-break-num,
+  [style*="margin-left"] .page-break-num,
+  [style*="padding-left"] .page-break-num,
+  .indented .page-break-num,
+  blockquote .page-break-num {
+    float: none;
+    display: inline;
+    margin-left: 0;
+    margin-right: 0.4em;
+    width: auto;
+    text-align: left;
+  }
+
+  #viewer-header {
+    flex-direction: column !important;
+    flex-wrap: wrap;
+    align-items: stretch !important;
+    justify-content: flex-start !important;
+    padding: 0.65rem 0.75rem 0.65rem 2.25rem !important;
+    gap: 0.4rem;
+    left: 0 !important;
+    width: 100% !important;
+  }
+
+  #document-title {
+    margin-left: 0 !important;
+    font-size: 1.05rem;
+    min-width: 0;
+    width: 100%;
+    max-width: 100%;
+    flex: 1 1 auto;
+    word-break: normal;
+    overflow-wrap: break-word;
+    line-height: 1.3;
+  }
+
+  #viewer-header .viewer-buttons-container {
+    flex-wrap: wrap;
+    margin-left: 0 !important;
+    justify-content: flex-start;
+    width: 100%;
+  }
+
+  .vertical-resize-handle-wrapper {
+    display: none !important;
+  }
+
+  body.sidebar-collapsed .resize-handle-wrapper {
+    width: 22px;
+    z-index: 1300;
+  }
+
+  body.sidebar-collapsed .resize-handle {
+    width: 22px;
+    height: 48px;
+    min-height: 48px;
+  }
+
+  #summary-panel.visible {
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: 100%;
+    z-index: 1250;
+  }
 }
 
 </style>
