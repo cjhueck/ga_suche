@@ -1856,14 +1856,24 @@ function normalizeGANumber(gaNumber) {
     
     // Hilfsfunktion: Erstellt ein korrekt konfiguriertes Viewer-Element mit CSS-Padding
     // WICHTIG: Verwende diese Funktion überall, wo ein neuer Viewer erstellt wird
+    function applyViewerReadingStyles(viewer) {
+      const el = viewer || document.getElementById('viewer');
+      if (!el) return;
+      const mobile = window.matchMedia('(max-width: 768px)').matches;
+      if (mobile) {
+        el.style.setProperty('padding', '0.75rem 1rem 2rem 2.25rem', 'important');
+        el.style.setProperty('line-height', '1.65', 'important');
+      } else {
+        el.style.setProperty('padding', '0.5rem 2.5em 0.5rem 2.5em', 'important');
+        el.style.setProperty('line-height', '1.4', 'important');
+      }
+    }
+
     function createViewerElement() {
       const viewer = document.createElement('div');
       viewer.id = 'viewer';
       viewer.className = 'viewer';
-      // Setze Padding explizit, um sicherzustellen, dass es sofort angewendet wird
-      // CSS definiert: padding: 0.5rem 2.5em 0.5rem 2.5em !important (symmetrisch links/rechts)
-      viewer.style.setProperty('padding', '0.5rem 2.5em 0.5rem 2.5em', 'important');
-      viewer.style.setProperty('line-height', '1.4', 'important');
+      applyViewerReadingStyles(viewer);
       viewer.style.setProperty('word-break', 'keep-all', 'important');
       viewer.style.setProperty('cursor', 'text', 'important');
       viewer.style.setProperty('overflow-wrap', 'break-word', 'important');
@@ -1873,6 +1883,7 @@ function normalizeGANumber(gaNumber) {
     
     // Stelle Funktion global zur Verfügung
     window.createViewerElement = createViewerElement;
+    window.applyViewerReadingStyles = applyViewerReadingStyles;
     
     // Hilfsfunktion: Stelle sicher, dass #main Padding-Werte nicht durch inline-styles überschrieben werden
     // WICHTIG: Diese Funktion muss IMMER aufgerufen werden, wenn Styles von #main geändert werden
@@ -1974,8 +1985,19 @@ function normalizeGANumber(gaNumber) {
           headerWidth = window.innerWidth - mainRect.left; // Header bis zum rechten Rand
         }
         
-        header.style.left = headerLeft + 'px';
-        header.style.width = headerWidth + 'px';
+        if (window.matchMedia('(max-width: 768px)').matches) {
+          header.style.left = '0px';
+          header.style.width = '100%';
+          header.style.flexDirection = 'column';
+          header.style.alignItems = 'stretch';
+          header.style.justifyContent = 'flex-start';
+        } else {
+          header.style.left = headerLeft + 'px';
+          header.style.width = headerWidth + 'px';
+          header.style.flexDirection = '';
+          header.style.alignItems = '';
+          header.style.justifyContent = '';
+        }
         
         // Positioniere das Summary-Panel unter dem Header und passe Main-Container an
         if (summaryPanel) {
@@ -2245,6 +2267,7 @@ function normalizeGANumber(gaNumber) {
 
     // Header-Position und Toggle-Position bei Resize und Laden aktualisieren
     window.addEventListener('resize', function() {
+      applyViewerReadingStyles();
       updateHeaderPosition();
       
       // Passe Main-Container bei Fenstergrößenänderung an (nur in erweiterter Suche)
@@ -2264,6 +2287,7 @@ function normalizeGANumber(gaNumber) {
       }
     });
     document.addEventListener('DOMContentLoaded', function() {
+      applyViewerReadingStyles();
       updateHeaderPosition();
       // Suchhistorie aus localStorage laden und datalist aktualisieren
       updateHistoryDatalist();
@@ -2445,6 +2469,31 @@ function normalizeGANumber(gaNumber) {
         }).join('');
       }
     }
+
+    function isMobileViewport() {
+      return window.matchMedia('(max-width: 768px)').matches;
+    }
+
+    function setSidebarCollapsedForMobile(collapsed) {
+      if (!isMobileViewport()) return;
+      const sidebar = document.getElementById('sidebar');
+      if (!sidebar) return;
+      const isCollapsed = sidebar.classList.contains('collapsed');
+      if (collapsed === isCollapsed) return;
+      toggleSidebar();
+    }
+
+    function closeSummaryPanelForMobileReading() {
+      if (!isMobileViewport()) return;
+      if (window.membersNavigating || window._membersNavLock) return;
+      if (typeof isMembersPanelActive === 'function' && isMembersPanelActive()) return;
+      if (typeof closeSummaryPanelFromHeader === 'function') {
+        closeSummaryPanelFromHeader();
+      }
+    }
+    window.isMobileViewport = isMobileViewport;
+    window.setSidebarCollapsedForMobile = setSidebarCollapsedForMobile;
+    window.closeSummaryPanelForMobileReading = closeSummaryPanelForMobileReading;
 
     function toggleSidebar() {
       const sidebar = document.getElementById('sidebar');
@@ -3196,6 +3245,9 @@ function normalizeGANumber(gaNumber) {
       
       // Beim Wechsel ZUM Suche-Tab: Lösche alte Statistik und setze auf Default
       if (mode === 'keyword') {
+        if (typeof setSidebarCollapsedForMobile === 'function') {
+          setSidebarCollapsedForMobile(false);
+        }
         const viewToggle = document.getElementById('viewToggle');
         if (viewToggle) viewToggle.style.display = 'none';
         
@@ -8744,7 +8796,7 @@ async function finishBookRendering(book, viewer, targetIndex, mainContainer, hig
     const inTexteTab = texteTabEl && texteTabEl.classList.contains('active');
     const inKeywordTab = keywordTabEl && keywordTabEl.classList.contains('active');
     const membersOpen = (typeof isMembersPanelActive === 'function' && isMembersPanelActive()) || window.membersNavigating === true;
-    if (!inGATab && (inTexteTab || inKeywordTab) && !membersOpen) {
+    if (!inGATab && (inTexteTab || inKeywordTab) && !membersOpen && !(typeof isMobileViewport === 'function' && isMobileViewport())) {
       const summaryPanel = document.getElementById('summary-panel');
       const summaryContent = document.getElementById('summary-content');
       if (summaryPanel) {
@@ -8828,7 +8880,7 @@ async function _displayBookImpl(book, highlightHeadingId = null, keywords = [], 
   
   // WICHTIG: Stelle sicher, dass Viewer korrektes Padding hat (nach Tab-Wechsel vom chronologischen Tab)
   if (viewer) {
-    viewer.style.setProperty('padding', '0.5rem 2.5em 0.5rem 2.5em', 'important');
+    applyViewerReadingStyles(viewer);
   }
   
   if (!viewer || !documentTitle) return;
@@ -10101,8 +10153,10 @@ async function _displayBookImpl(book, highlightHeadingId = null, keywords = [], 
     } else if ((isInTexteTabNow || isInKeywordTabNow) && !isMembersPanelOpen && !isMembersNavigating && !window._membersNavLock) {
       // Texte-Tab ODER Suche-Tab: Öffne Sidebar für TOC-Anzeige
       // ABER NICHT wenn Members Panel aktiv ist oder Navigation läuft
-      // Texte-Tab: Öffne Sidebar für TOC-Anzeige
-      if (summaryPanel) {
+      // Auf Mobil bleibt der Text voll sichtbar; TOC über den Header-Button
+      if (typeof isMobileViewport === 'function' && isMobileViewport()) {
+        if (typeof closeSummaryPanelForMobileReading === 'function') closeSummaryPanelForMobileReading();
+      } else if (summaryPanel) {
         const tabName = isInTexteTabNow ? 'Texte-Tab' : 'Suche-Tab';
         
         // WICHTIG: Setze lastSyncedWidth zurück, damit syncMainContainerWithPanel() neu synchronisiert
@@ -12519,10 +12573,9 @@ function scrollToChronologicalYear(year) {
           chronologicalWrapper.parentNode.replaceChild(newViewer, chronologicalWrapper);
         }
         
-        // Stelle sicher, dass Viewer korrektes Padding hat (symmetrisch links/rechts)
         const viewerAfterSwitch = document.getElementById('viewer');
         if (viewerAfterSwitch) {
-          viewerAfterSwitch.style.setProperty('padding', '0.5rem 2.5em 0.5rem 2.5em', 'important');
+          applyViewerReadingStyles(viewerAfterSwitch);
         }
         
         // Sicherheitsprüfung: Entferne Jahres-Buttons nochmal nach Tab-Wechsel (falls sie noch vorhanden sind)
@@ -12552,10 +12605,9 @@ function scrollToChronologicalYear(year) {
             const kw = Array.isArray(keywords) ? keywords : [];
             await showLecture(lectureId, null, kw);
             
-            // WICHTIG: Stelle Viewer-Padding nochmal sicher (nach showLecture) - symmetrisch links/rechts
             const viewerAfterLecture = document.getElementById('viewer');
             if (viewerAfterLecture) {
-              viewerAfterLecture.style.setProperty('padding', '0.5rem 2.5em 0.5rem 2.5em', 'important');
+              applyViewerReadingStyles(viewerAfterLecture);
             }
             
             // Scrolle zum ersten hervorgehobenen Suchwort
@@ -22188,7 +22240,7 @@ function showSummaryView() {
   
   // WICHTIG: Stelle sicher, dass Viewer korrektes Padding hat (nach Tab-Wechsel vom chronologischen Tab)
   if (viewer) {
-    viewer.style.setProperty('padding', '0.5rem 2.5em 0.5rem 2.5em', 'important');
+    applyViewerReadingStyles(viewer);
   }
   
   // WICHTIG: Wenn Navigation aus dem Members Panel läuft, NICHT das Panel schließen!
@@ -24400,6 +24452,14 @@ function formatAsteriskParagraphs() {
   // damit er beim Klick auf ein Suchergebnis nicht stehen bleibt.
   const _sideHeaderClear = document.getElementById('sidePanelLectureHeader');
   if (_sideHeaderClear) _sideHeaderClear.innerHTML = '';
+
+  if (typeof setSidebarCollapsedForMobile === 'function') {
+    setSidebarCollapsedForMobile(true);
+  }
+  if (typeof closeSummaryPanelForMobileReading === 'function') {
+    closeSummaryPanelForMobileReading();
+  }
+  applyViewerReadingStyles();
   
   // WICHTIG: Entferne Jahres-Buttons beim Anzeigen eines einzelnen Vortrags
   // da wir dann nicht mehr in der chronologischen Übersicht sind
@@ -24729,7 +24789,7 @@ function formatAsteriskParagraphs() {
           // Öffne Summary Panel SOFORT (nicht mit setTimeout)
           // ABER: Nicht wenn wir von einem Buch zu einem Vortrag gewechselt sind
           // Prüfe BEIDE Flags für Members-Navigation
-          if (summaryPanel && !window.membersNavigating && !window._membersNavLock && !shouldClosePanelFromBook) {
+          if (summaryPanel && !window.membersNavigating && !window._membersNavLock && !shouldClosePanelFromBook && !isMobileViewport()) {
             
             // Prüfe ob Mitglieder-Panel aktiv ist
             const isMembersPanelOpen = typeof isMembersPanelActive === 'function' && isMembersPanelActive();
@@ -24898,6 +24958,10 @@ function formatAsteriskParagraphs() {
     setTimeout(() => {
       // WICHTIG: Prüfe BEIDE Flags - membersNavigating UND _membersNavLock
       if (window.membersNavigating || window._membersNavLock) {
+        return;
+      }
+      if (isMobileViewport()) {
+        closeSummaryPanelForMobileReading();
         return;
       }
       
@@ -27146,7 +27210,7 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
       
       // WICHTIG: Stelle sicher, dass Viewer korrektes Padding hat (nach Tab-Wechsel vom chronologischen Tab)
       if (viewer) {
-        viewer.style.setProperty('padding', '0.5rem 2.5em 0.5rem 2.5em', 'important');
+        applyViewerReadingStyles(viewer);
       }
       
       // Normalisiere den Index - füge ^ hinzu wenn es fehlt
@@ -29976,6 +30040,9 @@ function switchTabExtended(mode) {
   
   // Prüfe, ob wir ZUM Suche-Tab wechseln
   if (mode === 'keyword') {
+    if (typeof setSidebarCollapsedForMobile === 'function') {
+      setSidebarCollapsedForMobile(false);
+    }
     // Lösche Suchfelder und Ergebnisse beim Öffnen des Suche-Tabs
     resetSearchTab();
     
