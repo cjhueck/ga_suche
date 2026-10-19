@@ -58,6 +58,72 @@ const getSupabaseClient = () => {
 
 export const supabase = getSupabaseClient();
 
+const PASSWORD_RECOVERY_FLAG = 'ga_password_recovery_pending';
+let lastAuthEvent = null;
+
+if (supabase?.auth?.onAuthStateChange) {
+  supabase.auth.onAuthStateChange((event) => {
+    lastAuthEvent = event;
+    if (event === 'PASSWORD_RECOVERY') {
+      markPasswordRecoveryPending();
+    }
+  });
+}
+
+export function getPasswordResetRedirectTo() {
+  return `${window.location.origin}/members.html`;
+}
+
+export function markPasswordRecoveryPending() {
+  try {
+    sessionStorage.setItem(PASSWORD_RECOVERY_FLAG, '1');
+  } catch (e) {
+    // sessionStorage kann in manchen Browser-Modi fehlen
+  }
+}
+
+export function isPasswordRecoveryPending() {
+  if (lastAuthEvent === 'PASSWORD_RECOVERY') return true;
+  try {
+    return sessionStorage.getItem(PASSWORD_RECOVERY_FLAG) === '1';
+  } catch (e) {
+    return false;
+  }
+}
+
+export function clearPasswordRecoveryPending() {
+  try {
+    sessionStorage.removeItem(PASSWORD_RECOVERY_FLAG);
+  } catch (e) {
+    // ignore
+  }
+}
+
+export function getLastAuthEvent() {
+  return lastAuthEvent;
+}
+
+export function getAuthCallbackInfo() {
+  const hash = window.location.hash || '';
+  const search = window.location.search || '';
+  const hashParams = new URLSearchParams(hash.startsWith('#') ? hash.slice(1) : hash);
+  const searchParams = new URLSearchParams(search);
+  const type = hashParams.get('type') || searchParams.get('type');
+  const hasCode = searchParams.has('code');
+  const hasAccessToken = hashParams.has('access_token');
+  const hasAuthError = hashParams.has('error') || searchParams.has('error');
+  const isRecovery = type === 'recovery' || isPasswordRecoveryPending();
+  return {
+    type,
+    hasCode,
+    hasAccessToken,
+    hasAuthError,
+    isRecovery,
+    hasAuthPayload: hasCode || hasAccessToken || hasAuthError || type === 'recovery',
+    errorDescription: hashParams.get('error_description') || searchParams.get('error_description') || hashParams.get('error') || searchParams.get('error')
+  };
+}
+
 
 // ============================================
 // Authentifizierungs-Funktionen
@@ -164,9 +230,17 @@ export async function getCurrentUser() {
  */
 export async function resetPassword(email) {
   try {
-    const { error } = await supabase.auth.resetPasswordForEmail(email, {
-      redirectTo: `${window.location.origin}/index.html`
+    markPasswordRecoveryPending();
+    const redirectMembers = getPasswordResetRedirectTo();
+    let { error } = await supabase.auth.resetPasswordForEmail(email, {
+      redirectTo: redirectMembers
     });
+
+    if (error && /redirect/i.test(error.message || '')) {
+      ({ error } = await supabase.auth.resetPasswordForEmail(email, {
+        redirectTo: `${window.location.origin}/index.html`
+      }));
+    }
 
     if (error) throw error;
 
