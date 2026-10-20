@@ -19433,17 +19433,44 @@ app.post('/api/keyword-thematic-search', async (req, res) => {
                            req.ip === '127.0.0.1';
     
     
-    // Cache-System für Keyword-Thematische Suche
-    const cacheKey = `keyword_${query.toLowerCase().trim()}_${effectiveDepth}_${limit}`;
+    const normalizedQuery = query.toLowerCase().trim();
+
+    // Index-DB: gespeicherte Einträge haben Vorrang (gleiches Schema wie Index-Liste)
+    if (useCache && Array.isArray(conceptsDatabase) && conceptsDatabase.length > 0) {
+      const existingConcept = conceptsDatabase.find(entry =>
+        String(entry.keyword || '').trim().toLowerCase() === normalizedQuery
+      );
+      if (existingConcept && existingConcept.text) {
+        return res.json({
+          query,
+          content: existingConcept.text,
+          overview: existingConcept.overview || null,
+          sources: mapConceptSourcesForThematicApi(existingConcept.sources, limit),
+          searchMethod: 'concept-v1',
+          promptVersion: existingConcept.promptVersion || 'concept-v1',
+          totalMatches: existingConcept.totalMatches || (existingConcept.sources || []).length,
+          llmUsed: false,
+          fromCache: true,
+          fromConceptDatabase: true,
+          cacheTimestamp: existingConcept.generatedAt || null
+        });
+      }
+    }
+
+    // Cache-System für Keyword-Thematische Suche (Legacy / Zwischenergebnisse)
+    const cacheKey = `keyword_${normalizedQuery}_${effectiveDepth}_${limit}`;
     const keywordThematicDB = await loadKeywordThematicDatabase();
     
     // Prüfe Cache (nur wenn useCache true ist)
     if (useCache && keywordThematicDB[cacheKey]) {
-      return res.json({
-        ...keywordThematicDB[cacheKey],
-        fromCache: true,
-        cacheTimestamp: keywordThematicDB[cacheKey].timestamp
-      });
+      const cached = keywordThematicDB[cacheKey];
+      if (cached.promptVersion === 'concept-v1' || cached.searchMethod === 'concept-v1') {
+        return res.json({
+          ...cached,
+          fromCache: true,
+          cacheTimestamp: cached.timestamp
+        });
+      }
     }
     
     // Führe Keyword-Suche durch
@@ -19454,7 +19481,7 @@ app.post('/api/keyword-thematic-search', async (req, res) => {
         query: query,
         content: 'Keine relevanten Textstellen für dieses Schlagwort gefunden.',
         sources: [],
-        searchMethod: 'keyword-thematic-search',
+        searchMethod: 'concept-v1',
         totalMatches: 0,
         llmUsed: false
       };
@@ -19471,25 +19498,15 @@ app.post('/api/keyword-thematic-search', async (req, res) => {
       return res.json(emptyResult);
     }
     
-    // Semantisches Ranking
-    let rankedResults = applySemanticRanking(keywordResults, query);
-    let topResults = rankedResults.slice(0, limit);
-    
-    // Generiere Keyword-spezifische Analyse
-    let analysis = await generateKeywordAnalysis(query, topResults, effectiveDepth);
+    // Index-Tab: Lexikon-Prompt wie bei concepts-database (concept-v1)
+    let analysis = await generateConceptAnalysis(query, keywordResults);
     
     let searchResult = {
       query: query,
       content: analysis,
-      sources: topResults.slice(0, 10).map(result => ({
-        ID: result.ID,
-        index: result.index,
-        title: result.title,
-        fileName: result.fileName,
-        score: Math.round(result.finalScore),
-        matchedTerms: result.matchedTerms
-      })),
-      searchMethod: 'keyword-thematic-search',
+      sources: mapConceptSourcesForThematicApi(mapIndexConceptSources(keywordResults, limit), 10),
+      searchMethod: 'concept-v1',
+      promptVersion: 'concept-v1',
       totalMatches: keywordResults.length,
       llmUsed: !!process.env.CLAUDE_API_KEY
     };
@@ -19617,6 +19634,115 @@ async function saveKeywordThematicDatabase(keywordThematicDB) {
   }
 }
 
+function mapIndexConceptSources(keywordResults, limit = 20) {
+  return keywordResults.slice(0, limit).map(result => ({
+    id: result.ID,
+    index: result.index,
+    title: result.title,
+    fileName: result.fileName
+  }));
+}
+
+function mapConceptSourcesForThematicApi(sources, limit = 10) {
+  return (sources || []).slice(0, limit).map(source => ({
+    ID: source.id || source.ID,
+    index: source.index,
+    title: source.title,
+    fileName: source.fileName
+  }));
+}
+
+function findConceptIndexByKeyword(allConcepts, keyword) {
+  const needle = String(keyword || '').trim().toLowerCase();
+  if (!needle) return -1;
+  return allConcepts.findIndex(entry =>
+    String(entry.keyword || '').trim().toLowerCase() === needle
+  );
+}
+
+/**
+ * Index-Tab: gleiches Schema wie bestehende Einträge in concepts-database.json
+ * (generateConceptAnalysis + generateConceptOverviewData, promptVersion concept-v1).
+ */
+async function buildIndexConceptEntry(trimmedKeyword, options = {}) {
+  const {
+    batchId = null,
+    batchIndex = null,
+    sourceTag = 'ki-generated',
+    logPrefix = '[INDEX-CONCEPT]'
+  } = options;
+
+  const keywordResults = performThematicKeywordSearch(trimmedKeyword, paragraphsFromLectures);
+  if (keywordResults.length === 0) {
+    return {
+      ok: false,
+      status: 'failed',
+      keyword: trimmedKeyword,
+      reason: 'Keine relevanten Textstellen gefunden'
+    };
+  }
+
+  const [analysisResult, overviewResult] = await Promise.allSettled([
+    generateConceptAnalysis(trimmedKeyword, keywordResults),
+    generateConceptOverviewData(trimmedKeyword, '')
+  ]);
+
+  let analysis;
+  if (analysisResult.status === 'fulfilled') {
+    analysis = analysisResult.value;
+  } else {
+    console.error(`${logPrefix} KI-Suchergebnis fehlgeschlagen für "${trimmedKeyword}":`, analysisResult.reason?.message || analysisResult.reason);
+    analysis = `Fehler bei der Generierung des KI-Suchergebnisses: ${analysisResult.reason?.message || 'Unbekannter Fehler'}`;
+  }
+
+  let overviewData;
+  if (overviewResult.status === 'fulfilled') {
+    overviewData = overviewResult.value;
+  } else {
+    console.error(`${logPrefix} Themen_Übersicht fehlgeschlagen für "${trimmedKeyword}":`, overviewResult.reason?.message || overviewResult.reason);
+    overviewData = {
+      overview: {
+        alternativeTerms: [],
+        definitionText: 'Themen_Übersicht konnte nicht generiert werden.',
+        functionText: 'Themen_Übersicht konnte nicht generiert werden.',
+        interactionText: 'Themen_Übersicht konnte nicht generiert werden.',
+        specialText: 'Themen_Übersicht konnte nicht generiert werden.'
+      }
+    };
+  }
+
+  const newConcept = {
+    keyword: trimmedKeyword,
+    alphabetical: trimmedKeyword.charAt(0).toUpperCase(),
+    text: analysis,
+    overview: overviewData.overview,
+    sources: mapIndexConceptSources(keywordResults),
+    gaReferences: keywordResults.slice(0, 20).map(r => r.ID),
+    source: sourceTag,
+    promptVersion: 'concept-v1',
+    overviewVersion: 'overview-v1',
+    generatedAt: new Date().toISOString(),
+    totalMatches: keywordResults.length
+  };
+
+  if (batchId) {
+    newConcept.batchId = batchId;
+    newConcept.batchIndex = batchIndex;
+  }
+
+  return {
+    ok: true,
+    status: 'successful',
+    keyword: trimmedKeyword,
+    newConcept,
+    analysis,
+    overview: overviewData.overview,
+    keywordResults,
+    resultCount: keywordResults.length,
+    analysisLength: analysis.length
+  };
+}
+
 // API-Endpunkt: Batch-Schlagwort-Generierung
 // Verarbeitet bis zu 10 Schlagwörter parallel
 app.post('/api/concepts-batch-add', async (req, res) => {
@@ -19668,10 +19794,7 @@ app.post('/api/concepts-batch-add', async (req, res) => {
       }
       
       
-      // Prüfe auf Duplikate
-      const existingConceptIndex = allConcepts.findIndex(k => 
-        k.keyword.toLowerCase() === trimmedKeyword.toLowerCase()
-      );
+      const existingConceptIndex = findConceptIndexByKeyword(allConcepts, trimmedKeyword);
       
       if (existingConceptIndex !== -1 && !overwrite) {
         return {
@@ -19682,84 +19805,31 @@ app.post('/api/concepts-batch-add', async (req, res) => {
           existingKeyword: allConcepts[existingConceptIndex].keyword
         };
       }
-      
-      // Führe Keyword-Thematische Suche durch
-      let keywordResults = performThematicKeywordSearch(trimmedKeyword, paragraphsFromLectures);
-      
-      if (keywordResults.length === 0) {
+
+      const built = await buildIndexConceptEntry(trimmedKeyword, {
+        batchId: results.batchId,
+        batchIndex: i,
+        sourceTag: 'ki-generated-batch',
+        logPrefix: '[KEYWORDS-BATCH-ADD]'
+      });
+
+      if (!built.ok) {
         return {
           status: 'failed',
           keyword: trimmedKeyword,
-          reason: 'Keine relevanten Textstellen gefunden',
+          reason: built.reason,
           index: i
         };
       }
-      
-      // Führe BEIDE KI-Prompts parallel aus (unabhängig voneinander):
-      // 1. Bestehender Prompt für KI-Suchergebnis (Content Fenster)
-      // 2. Themen_Übersicht-Prompt (Main Viewer)
-      
-      const [analysisResult, overviewResult] = await Promise.allSettled([
-        generateConceptAnalysis(trimmedKeyword, keywordResults),
-        generateConceptOverviewData(trimmedKeyword, '')
-      ]);
-      
-      // Verarbeite Ergebnisse unabhängig voneinander
-      let analysis;
-      if (analysisResult.status === 'fulfilled') {
-        analysis = analysisResult.value;
-      } else {
-        console.error(`[KEYWORDS-BATCH-ADD] KI-Suchergebnis fehlgeschlagen für "${trimmedKeyword}":`, analysisResult.reason?.message || analysisResult.reason);
-        analysis = `Fehler bei der Generierung des KI-Suchergebnisses: ${analysisResult.reason?.message || 'Unbekannter Fehler'}`;
-      }
-      
-      let overviewData;
-      if (overviewResult.status === 'fulfilled') {
-        overviewData = overviewResult.value;
-      } else {
-        console.error(`[KEYWORDS-BATCH-ADD] Themen_Übersicht fehlgeschlagen für "${trimmedKeyword}":`, overviewResult.reason?.message || overviewResult.reason);
-        overviewData = {
-          overview: {
-            alternativeTerms: [],
-            definitionText: 'Themen_Übersicht konnte nicht generiert werden.',
-            functionText: 'Themen_Übersicht konnte nicht generiert werden.',
-            interactionText: 'Themen_Übersicht konnte nicht generiert werden.',
-            specialText: 'Themen_Übersicht konnte nicht generiert werden.'
-          }
-        };
-      }
-      
-      // Erstelle neues Concept-Objekt mit vollständigem Text und Themen_Übersicht
-      const newConcept = {
-        keyword: trimmedKeyword,
-        alphabetical: trimmedKeyword.charAt(0).toUpperCase(),
-        text: analysis, // ← VOLLSTÄNDIGER Text für Content Fenster (KI-Suchergebnis)
-        overview: overviewData.overview, // ← Themen_Übersicht für Main Viewer
-        sources: keywordResults.slice(0, 20).map(result => ({
-          id: result.ID,
-          index: result.index,
-          title: result.title,
-          fileName: result.fileName
-        })),
-        gaReferences: keywordResults.slice(0, 20).map(r => r.ID),
-        source: 'ki-generated-batch',
-        promptVersion: 'concept-v1', // Markierung für neuen Concept-Prompt
-        overviewVersion: 'overview-v1', // Markierung für Themen_Übersicht
-        generatedAt: new Date().toISOString(),
-        totalMatches: keywordResults.length,
-        batchId: results.batchId,
-        batchIndex: i
-      };
-      
-      
+
       return {
         status: 'successful',
         keyword: trimmedKeyword,
         index: i,
-        resultCount: keywordResults.length,
-        analysisLength: analysis.length,
-        newConcept: newConcept,
-        existingConceptIndex: existingConceptIndex
+        resultCount: built.resultCount,
+        analysisLength: built.analysisLength,
+        newConcept: built.newConcept,
+        existingConceptIndex
       };
     };
     
@@ -19929,10 +19999,7 @@ app.get('/api/concepts-batch-add-stream', async (req, res) => {
         return { status: 'skipped', keyword, reason: 'Leeres Schlagwort' };
       }
 
-      // Prüfe auf Duplikate
-      const existingConceptIndex = allConcepts.findIndex(k => 
-        k.keyword.toLowerCase() === trimmedKeyword.toLowerCase()
-      );
+      const existingConceptIndex = findConceptIndexByKeyword(allConcepts, trimmedKeyword);
 
       if (existingConceptIndex !== -1 && !overwrite) {
         sendEvent('progress', {
@@ -19949,79 +20016,31 @@ app.get('/api/concepts-batch-add-stream', async (req, res) => {
         };
       }
 
-      // Führe Keyword-Thematische Suche durch
-      let keywordResults = performThematicKeywordSearch(trimmedKeyword, paragraphsFromLectures);
+      sendEvent('progress', {
+        keyword: trimmedKeyword,
+        index,
+        status: 'generating',
+        message: `KI generiert Index-Eintrag für "${trimmedKeyword}"...`
+      });
 
-      if (keywordResults.length === 0) {
+      const built = await buildIndexConceptEntry(trimmedKeyword, {
+        batchId,
+        batchIndex: index,
+        sourceTag: 'ki-generated-batch-stream',
+        logPrefix: '[BATCH-STREAM]'
+      });
+
+      if (!built.ok) {
         sendEvent('progress', {
           keyword: trimmedKeyword,
           index,
           status: 'failed',
           message: `Keine Textstellen für "${trimmedKeyword}" gefunden`
         });
-        return { status: 'failed', keyword: trimmedKeyword, reason: 'Keine relevanten Textstellen gefunden' };
+        return { status: 'failed', keyword: trimmedKeyword, reason: built.reason };
       }
 
-      // Progress-Event: KI-Generierung läuft
-      sendEvent('progress', {
-        keyword: trimmedKeyword,
-        index,
-        status: 'generating',
-        message: `KI generiert Inhalte für "${trimmedKeyword}" (${keywordResults.length} Fundstellen)...`
-      });
-
-      // Führe BEIDE KI-Prompts parallel aus
-      const [analysisResult, overviewResult] = await Promise.allSettled([
-        generateConceptAnalysis(trimmedKeyword, keywordResults),
-        generateConceptOverviewData(trimmedKeyword, '')
-      ]);
-
-      // Verarbeite Ergebnisse
-      let analysis;
-      if (analysisResult.status === 'fulfilled') {
-        analysis = analysisResult.value;
-      } else {
-        console.error(`[BATCH-STREAM] KI-Analyse fehlgeschlagen für "${trimmedKeyword}":`, analysisResult.reason?.message);
-        analysis = `Fehler bei der Generierung: ${analysisResult.reason?.message || 'Unbekannter Fehler'}`;
-      }
-
-      let overviewData;
-      if (overviewResult.status === 'fulfilled') {
-        overviewData = overviewResult.value;
-      } else {
-        console.error(`[BATCH-STREAM] Übersicht fehlgeschlagen für "${trimmedKeyword}":`, overviewResult.reason?.message);
-        overviewData = {
-          overview: {
-            alternativeTerms: [],
-            definitionText: 'Übersicht konnte nicht generiert werden.',
-            functionText: '',
-            interactionText: '',
-            specialText: ''
-          }
-        };
-      }
-
-      // Erstelle neues Concept-Objekt
-      const newConcept = {
-        keyword: trimmedKeyword,
-        alphabetical: trimmedKeyword.charAt(0).toUpperCase(),
-        text: analysis,
-        overview: overviewData.overview,
-        sources: keywordResults.slice(0, 20).map(result => ({
-          id: result.ID,
-          index: result.index,
-          title: result.title,
-          fileName: result.fileName
-        })),
-        gaReferences: keywordResults.slice(0, 20).map(r => r.ID),
-        source: 'ki-generated-batch-stream',
-        promptVersion: 'concept-v1',
-        overviewVersion: 'overview-v1',
-        generatedAt: new Date().toISOString(),
-        totalMatches: keywordResults.length,
-        batchId,
-        batchIndex: index
-      };
+      const newConcept = built.newConcept;
 
       // Erfolg-Event senden
       sendEvent('progress', {
@@ -20029,8 +20048,8 @@ app.get('/api/concepts-batch-add-stream', async (req, res) => {
         index,
         status: 'completed',
         message: `"${trimmedKeyword}" erfolgreich generiert`,
-        resultCount: keywordResults.length,
-        analysisLength: analysis.length
+        resultCount: built.resultCount,
+        analysisLength: built.analysisLength
       });
 
       return {
@@ -20148,108 +20167,38 @@ app.post('/api/concepts-add', async (req, res) => {
     }
     
     const cleanKeyword = keyword.trim();
-    
-    // Prüfe ob Schlagwort bereits existiert
-    const keywordsFile = path.join(__dirname, 'keywords.json');
-    let allKeywords = [];
-    
-    try {
-      const fileContent = await fs.readFile(keywordsFile, 'utf8');
-      allKeywords = JSON.parse(fileContent);
-    } catch (error) {
-    }
-    
-    // Prüfe auf Duplikate
-    const existingKeywordIndex = allKeywords.findIndex(k => 
-      k.keyword.toLowerCase() === cleanKeyword.toLowerCase()
-    );
-    
-    if (existingKeywordIndex !== -1 && !overwrite) {
-      return res.status(409).json({ 
-        error: 'Schlagwort bereits vorhanden',
-        existingKeyword: allKeywords[existingKeywordIndex].keyword
-      });
-    }
-    
-    // Führe Keyword-Thematische Suche durch, um das Schlagwort zu analysieren
-    
-    let keywordResults = performThematicKeywordSearch(cleanKeyword, paragraphsFromLectures);
-    
-    if (keywordResults.length === 0) {
-      return res.status(404).json({ 
-        error: 'Keine relevanten Textstellen für dieses Schlagwort gefunden',
-        keyword: cleanKeyword
-      });
-    }
-    
-    // Führe BEIDE KI-Prompts parallel aus (unabhängig voneinander):
-    // 1. Bestehender Prompt für KI-Suchergebnis (Content Fenster)
-    // 2. Themen_Übersicht-Prompt (Main Viewer)
-    
-    const [analysisResult, overviewResult] = await Promise.allSettled([
-      generateConceptAnalysis(cleanKeyword, keywordResults),
-      generateConceptOverviewData(cleanKeyword, '')
-    ]);
-    
-    // Verarbeite Ergebnisse unabhängig voneinander
-    let analysis;
-    if (analysisResult.status === 'fulfilled') {
-      analysis = analysisResult.value;
-    } else {
-      console.error(`[KEYWORDS-ADD] KI-Suchergebnis fehlgeschlagen:`, analysisResult.reason?.message || analysisResult.reason);
-      analysis = `Fehler bei der Generierung des KI-Suchergebnisses: ${analysisResult.reason?.message || 'Unbekannter Fehler'}`;
-    }
-    
-    let overviewData;
-    if (overviewResult.status === 'fulfilled') {
-      overviewData = overviewResult.value;
-    } else {
-      console.error(`[KEYWORDS-ADD] Themen_Übersicht fehlgeschlagen:`, overviewResult.reason?.message || overviewResult.reason);
-      overviewData = {
-        overview: {
-          alternativeTerms: [],
-          definitionText: 'Themen_Übersicht konnte nicht generiert werden.',
-          functionText: 'Themen_Übersicht konnte nicht generiert werden.',
-          interactionText: 'Themen_Übersicht konnte nicht generiert werden.',
-          specialText: 'Themen_Übersicht konnte nicht generiert werden.'
-        }
-      };
-    }
-    
-    // Erstelle neues Schlagwort-Objekt mit vollständigem Text, Sources und Themen_Übersicht
     const conceptsFile = path.join(__dirname, 'concepts-database.json');
-    
-    const newConcept = {
-      keyword: cleanKeyword,
-      alphabetical: cleanKeyword.charAt(0).toUpperCase(),
-      text: analysis, // ← VOLLSTÄNDIGER Text für Content Fenster (KI-Suchergebnis)
-      overview: overviewData.overview, // ← Themen_Übersicht für Main Viewer
-      sources: keywordResults.slice(0, 20).map(result => ({
-        id: result.ID,
-        index: result.index,
-        title: result.title,
-        fileName: result.fileName
-      })),
-      gaReferences: keywordResults.slice(0, 20).map(r => r.ID),
-      source: 'ki-generated',
-      promptVersion: 'concept-v1', // Markierung für neuen Concept-Prompt
-      overviewVersion: 'overview-v1', // Markierung für Themen_Übersicht
-      generatedAt: new Date().toISOString(),
-      totalMatches: keywordResults.length
-    };
-    
-    // Lade concepts-database.json
+
     let allConcepts = [];
     try {
       const conceptsContent = await fs.readFile(conceptsFile, 'utf8');
       allConcepts = JSON.parse(conceptsContent);
     } catch (error) {
     }
-    
-    // Prüfe auf Duplikate in concepts-database.json
-    const existingConceptIndex = allConcepts.findIndex(k => 
-      k.keyword.toLowerCase() === cleanKeyword.toLowerCase()
-    );
+
+    const existingConceptIndex = findConceptIndexByKeyword(allConcepts, cleanKeyword);
+
+    if (existingConceptIndex !== -1 && !overwrite) {
+      return res.status(409).json({
+        error: 'Schlagwort bereits vorhanden',
+        existingKeyword: allConcepts[existingConceptIndex].keyword
+      });
+    }
+
+    const built = await buildIndexConceptEntry(cleanKeyword, {
+      sourceTag: 'ki-generated',
+      logPrefix: '[CONCEPTS-ADD]'
+    });
+
+    if (!built.ok) {
+      return res.status(404).json({
+        error: 'Keine relevanten Textstellen für dieses Schlagwort gefunden',
+        keyword: cleanKeyword
+      });
+    }
+
+    const newConcept = built.newConcept;
+    const analysis = built.analysis;
     
     if (existingConceptIndex !== -1 && overwrite) {
       // Überschreibe bestehendes Concept
@@ -20272,14 +20221,14 @@ app.post('/api/concepts-add', async (req, res) => {
       keyword: newConcept,
       // Beide Ergebnisse zurückgeben
       analysis: analysis, // Für Content Fenster (KI-Suchergebnis)
-      overview: overviewData.overview, // Für Main Viewer (Themen_Übersicht)
+      overview: built.overview, // Für Main Viewer (Themen_Übersicht)
       totalConcepts: allConcepts.length,
       analysisLength: analysis.length,
-      resultCount: keywordResults.length
+      resultCount: built.resultCount
     });
     
   } catch (error) {
-    console.error('[KEYWORDS-ADD] Fehler beim Hinzufügen:', error);
+    console.error('[CONCEPTS-ADD] Fehler beim Hinzufügen:', error);
     res.status(500).json({ 
       error: 'Fehler beim Hinzufügen des Schlagworts',
       details: error.message 

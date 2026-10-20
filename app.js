@@ -2477,9 +2477,43 @@ function normalizeGANumber(gaNumber) {
              window.matchMedia('(max-width: 768px)').matches;
     }
 
+    function isForceMobilePreviewActive() {
+      try {
+        return sessionStorage.getItem('ga_force_mobile') === '1';
+      } catch (e) {
+        return false;
+      }
+    }
+
+    function restoreDesktopLayoutAfterMobile() {
+      var sidebar = document.getElementById('sidebar');
+      if (sidebar) {
+        sidebar.style.width = '';
+        sidebar.style.minWidth = '';
+        sidebar.style.transition = '';
+        sidebar.classList.remove('collapsed');
+      }
+      if (document.body) {
+        document.body.classList.remove('sidebar-collapsed');
+        document.body.classList.remove('mobile-text-open');
+        document.body.classList.remove('mobile-last-text-handle-muted');
+      }
+      if (typeof setMobileGAOverviewMode === 'function') {
+        setMobileGAOverviewMode(false);
+      }
+      if (typeof updateMobileTextOpenState === 'function') {
+        updateMobileTextOpenState();
+      }
+      if (typeof syncMainContainerWithPanel === 'function') {
+        syncMainContainerWithPanel();
+      }
+      if (typeof updateLeftResizeHandlePosition === 'function') {
+        updateLeftResizeHandlePosition();
+      }
+    }
+
     function applyMobileLayoutClass() {
-      var forced = false;
-      try { forced = sessionStorage.getItem('ga_force_mobile') === '1'; } catch (e) {}
+      var forced = isForceMobilePreviewActive();
       var mq = window.matchMedia('(max-width: 768px)').matches;
       var mobile = forced || mq;
       var wasMobile = document.documentElement.classList.contains('mobile-layout');
@@ -2510,14 +2544,7 @@ function normalizeGANumber(gaNumber) {
         }
       }
       if (!mobile && wasMobile) {
-        var sidebar = document.getElementById('sidebar');
-        if (sidebar && !sidebar.classList.contains('collapsed')) {
-          sidebar.style.width = '';
-          sidebar.style.minWidth = '';
-        }
-        if (typeof setMobileGAOverviewMode === 'function') {
-          setMobileGAOverviewMode(false);
-        }
+        restoreDesktopLayoutAfterMobile();
       }
       if (mobile !== wasMobile && typeof currentGAView !== 'undefined' && currentGAView === 'chronological' && typeof showGAChronologicalView === 'function') {
         showGAChronologicalView(true);
@@ -2527,9 +2554,11 @@ function normalizeGANumber(gaNumber) {
     }
 
     function toggleMobilePreview() {
-      var forced = false;
-      try { forced = sessionStorage.getItem('ga_force_mobile') === '1'; } catch (e) {}
-      try { sessionStorage.setItem('ga_force_mobile', forced ? '0' : '1'); } catch (e) {}
+      var nextForced = !isForceMobilePreviewActive();
+      try {
+        if (nextForced) sessionStorage.setItem('ga_force_mobile', '1');
+        else sessionStorage.removeItem('ga_force_mobile');
+      } catch (e) {}
       applyMobileLayoutClass();
     }
     window.toggleMobilePreview = toggleMobilePreview;
@@ -9246,21 +9275,7 @@ async function _displayBookImpl(book, highlightHeadingId = null, keywords = [], 
   const gaNumber = book.gaNumber || book.ID;
   const titleText = `${formatLectureId(gaNumber)} - ${displayTitle}`;
   documentTitle.innerHTML = `<span style="cursor: pointer; color: var(--link-color);">${titleText}</span>`;
-  const titleSpan = documentTitle.querySelector('span');
-  if (titleSpan) {
-    titleSpan.addEventListener('click', (e) => {
-      e.preventDefault();
-      e.stopPropagation();
-      if (typeof navigateToGAInTexteTab === 'function') {
-        navigateToGAInTexteTab(gaNumber);
-      } else if (typeof window.navigateToGAInTexteTab === 'function') {
-        window.navigateToGAInTexteTab(gaNumber);
-      } else {
-        console.error('[NAVIGATION] navigateToGAInTexteTab Funktion nicht verfügbar');
-      }
-    });
-    documentTitle.title = 'Klicken um zum Buch im Texte-Tab zu navigieren';
-  }
+  bindDocumentTitleVolumeOverviewLink(documentTitle, gaNumber);
   
   // Setze currentGANumber für Info-Button
   currentGANumber = gaNumber;
@@ -11221,15 +11236,93 @@ function updateMobileTextOpenState() {
 window.updateMobileTextOpenState = updateMobileTextOpenState;
 window.isMobileNavHandlesActive = isMobileNavHandlesActive;
 
+function resolveGAVolumeIdForNavigation(gaNumber) {
+  const raw = String(gaNumber || '').trim();
+  if (!raw) return '';
+  const fromSlash = raw.match(/^(GA\d{1,3}[a-z]?)/i);
+  const base = fromSlash ? fromSlash[1] : raw;
+  return (typeof canonicalGAVolumeId === 'function' ? canonicalGAVolumeId(base) : base) || base;
+}
+
+function scrollMainViewerToTop() {
+  const main = document.getElementById('main-container') || document.getElementById('main');
+  if (main) main.scrollTop = 0;
+  const viewer = document.getElementById('viewer');
+  if (viewer) viewer.scrollTop = 0;
+}
+
+async function navigateToGAVolumeInhaltsuebersicht(gaNumber) {
+  const volumeId = resolveGAVolumeIdForNavigation(gaNumber);
+  if (!volumeId) return;
+  if (typeof rememberLastInhaltsuebersichtGA === 'function') {
+    rememberLastInhaltsuebersichtGA(volumeId);
+  }
+
+  const switchFn = typeof window.switchTab === 'function' ? window.switchTab : null;
+  if (switchFn) switchFn('ga', true);
+
+  const isMobile = typeof window.isMobileViewport === 'function' && window.isMobileViewport();
+  const headerMode = typeof getMobileHeaderMode === 'function' ? getMobileHeaderMode() : 'off';
+  const isBook = typeof isBookGANumber === 'function' && isBookGANumber(volumeId);
+  const showFn = typeof window.showGALectures === 'function'
+    ? window.showGALectures
+    : (typeof showGALectures === 'function' ? showGALectures : null);
+  const openVol = resolveGAVolumeIdForNavigation(
+    (typeof currentGANumber !== 'undefined' ? currentGANumber : null) || window.currentOpenLectureId || ''
+  );
+  const sameBandOpen = openVol && openVol.toLowerCase() === volumeId.toLowerCase();
+
+  if (isMobile && isBook && sameBandOpen) {
+    if (typeof setMobileGAOverviewMode === 'function') setMobileGAOverviewMode(true, true);
+    scrollMainViewerToTop();
+    if (typeof openMobileBookToc === 'function') openMobileBookToc();
+    return;
+  }
+
+  if (isMobile && headerMode === 'text' && !isBook && showFn) {
+    await showFn(volumeId, true);
+    scrollMainViewerToTop();
+    return;
+  }
+
+  if (showFn) {
+    await showFn(volumeId, true);
+    if (isMobile) scrollMainViewerToTop();
+  }
+}
+window.navigateToGAVolumeInhaltsuebersicht = navigateToGAVolumeInhaltsuebersicht;
+
+function bindDocumentTitleVolumeOverviewLink(titleElement, gaNumber) {
+  if (!titleElement || !gaNumber) return;
+  const volumeId = resolveGAVolumeIdForNavigation(gaNumber);
+  titleElement.dataset.gaVolumeLink = volumeId;
+  titleElement.title = 'Klicken für die Inhaltsübersicht des Bands';
+  titleElement.style.cursor = 'pointer';
+  const titleSpan = titleElement.querySelector('span');
+  if (titleSpan) {
+    titleSpan.style.cursor = 'pointer';
+    if (!titleSpan.style.color) titleSpan.style.color = 'var(--link-color)';
+  }
+  if (!titleElement._gaVolumeTitleLinkBound) {
+    titleElement._gaVolumeTitleLinkBound = true;
+    titleElement.addEventListener('click', (e) => {
+      const vol = titleElement.dataset.gaVolumeLink;
+      if (!vol) return;
+      e.preventDefault();
+      e.stopPropagation();
+      navigateToGAVolumeInhaltsuebersicht(vol);
+    });
+  }
+}
+
 function goToVolumeOverviewFromText() {
   const gaNumber = lastInhaltsuebersichtGA || getOpenTextGANumber();
   if (!gaNumber) return;
-  if (typeof switchTab === 'function') switchTab('ga', true);
-  if (typeof showGALectures === 'function') showGALectures(gaNumber, true);
+  navigateToGAVolumeInhaltsuebersicht(gaNumber);
 }
 
 function goToTabSelectionFromText() {
-  if (typeof switchTab === 'function') switchTab('ga', true);
+  if (typeof window.switchTab === 'function') window.switchTab('ga', true);
   if (typeof showGAVolumesView === 'function') showGAVolumesView();
   if (typeof setSidebarCollapsedForMobile === 'function') setSidebarCollapsedForMobile(false);
   document.body.classList.remove('mobile-text-open');
@@ -11240,7 +11333,7 @@ function goToLastOpenedText() {
   if (mobileLastTextHandleMuted) return;
   const lectureId = lastOpenedTextId || (String(window.currentOpenLectureId || '').includes('/') ? window.currentOpenLectureId : null);
   if (!lectureId) return;
-  if (typeof switchTab === 'function') switchTab('ga', true);
+  if (typeof window.switchTab === 'function') window.switchTab('ga', true);
   if (typeof showLecture === 'function') showLecture(lectureId, null, [], [], true);
   if (typeof setSidebarCollapsedForMobile === 'function') setSidebarCollapsedForMobile(true);
 }
@@ -11374,38 +11467,7 @@ async function showGALectures(gaNumber, skipHistory = false) {
     // Setze Titel mit Link zum Texte-Tab
     const titleText = `${formatLectureId(gaNumber)} - ${gaInfo.title}`;
     documentTitle.innerHTML = `<span style="cursor: pointer; color: var(--link-color);">${titleText}</span>`;
-    const titleSpan = documentTitle.querySelector('span');
-    if (titleSpan) {
-      if (isBookGANumber(gaNumber)) {
-        // Für Bücher: Link zu navigateToGAInTexteTab
-        titleSpan.addEventListener('click', (e) => {
-          e.preventDefault();
-          e.stopPropagation();
-          if (typeof navigateToGAInTexteTab === 'function') {
-            navigateToGAInTexteTab(gaNumber);
-          } else if (typeof window.navigateToGAInTexteTab === 'function') {
-            window.navigateToGAInTexteTab(gaNumber);
-          } else {
-            console.error('[NAVIGATION] navigateToGAInTexteTab Funktion nicht verfügbar');
-          }
-        });
-        documentTitle.title = 'Klicken um zum Buch im Texte-Tab zu navigieren';
-      } else {
-        // Für Vortrags-Übersichten: Link zu navigateToGAInTexteTab (öffnet GA-Übersicht im Texte-Tab)
-        titleSpan.addEventListener('click', (e) => {
-          e.preventDefault();
-          e.stopPropagation();
-          if (typeof navigateToGAInTexteTab === 'function') {
-            navigateToGAInTexteTab(gaNumber);
-          } else if (typeof window.navigateToGAInTexteTab === 'function') {
-            window.navigateToGAInTexteTab(gaNumber);
-          } else {
-            console.error('[NAVIGATION] navigateToGAInTexteTab Funktion nicht verfügbar');
-          }
-        });
-        documentTitle.title = 'Klicken um zur GA-Übersicht im Texte-Tab zu navigieren';
-      }
-    }
+    bindDocumentTitleVolumeOverviewLink(documentTitle, gaNumber);
     
     // Zeige Platzhalter "Lade Inhaltsverzeichnis" für alle Typen im GA-Tab
     viewer.innerHTML = '<div id="viewer-content"><div style="color: var(--text-color); font-style: italic; font-size: 0.9rem;">Lade Inhaltsverzeichnis...</div></div>';
@@ -11614,6 +11676,7 @@ async function showGALectures(gaNumber, skipHistory = false) {
     }
   }
 }
+window.showGALectures = showGALectures;
 
 // Hilfsfunktion: Zeige Vortrag im Texte-Tab
 async function showLectureFromGA(lectureId) {
@@ -11746,9 +11809,63 @@ function findIndexKeywordMatch(term) {
   return keywordsData.find(k => (k.keyword || '').trim().toLowerCase() === needle) || null;
 }
 
-async function navigateToIndexKeyword(keyword) {
+function hasCompleteIndexEntry(entryOrKeyword) {
+  let entry = entryOrKeyword;
+  if (typeof entryOrKeyword === 'string') {
+    entry = findIndexKeywordMatch(entryOrKeyword);
+  }
+  if (!entry) return false;
+  const text = String(entry.text || '').replace(/\*\*/g, '').trim();
+  return !!(entry.overview || text.length > 50);
+}
+
+async function ensureKeywordInIndexList(keyword, options = {}) {
+  const term = String(keyword || '').trim();
+  if (!term) return { ok: false, reason: 'empty' };
+
+  const existing = findIndexKeywordMatch(term);
+  if (hasCompleteIndexEntry(existing)) {
+    return { ok: true, keyword: existing.keyword, skipped: true, existing };
+  }
+
+  const overwrite = options.overwrite === true || !!existing;
+  const apiBase = window.API_BASE || '';
+  const response = await fetch(`${apiBase}/api/concepts-add`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ keyword: term, overwrite })
+  });
+
+  let result = {};
+  try {
+    result = await response.json();
+  } catch (_e) {
+    result = {};
+  }
+
+  if (!response.ok) {
+    if (response.status === 404) {
+      return { ok: false, reason: 'no-sources', message: result.error || 'Keine Textstellen gefunden' };
+    }
+    if (response.status === 409) {
+      return { ok: false, reason: 'duplicate', message: result.error || 'Schlagwort bereits vorhanden' };
+    }
+    return {
+      ok: false,
+      reason: 'error',
+      message: result.error || result.details || `HTTP ${response.status}`
+    };
+  }
+
+  const canonical = result.keyword?.keyword || term;
+  return { ok: true, keyword: canonical, result, existing };
+}
+window.ensureKeywordInIndexList = ensureKeywordInIndexList;
+
+async function navigateToIndexKeyword(keyword, options = {}) {
   const term = String(keyword || '').trim();
   if (!term) return;
+  const addToIndexIfMissing = !!(options && options.addToIndexIfMissing);
   const isMobile = typeof window.isMobileViewport === 'function' && window.isMobileViewport();
 
   const switchFn = typeof window.switchTab === 'function' ? window.switchTab : (typeof switchTab === 'function' ? switchTab : null);
@@ -11769,20 +11886,86 @@ async function navigateToIndexKeyword(keyword) {
     displayKeywords('Alle');
   }
 
-  const match = findIndexKeywordMatch(term);
+  let match = findIndexKeywordMatch(term);
+
+  if (addToIndexIfMissing && !hasCompleteIndexEntry(match)) {
+    const viewer = document.getElementById('viewer');
+    if (viewer) {
+      viewer.innerHTML = `
+        <div id="viewer-content">
+          <div style="color: var(--secondary-text); font-style: italic;">Indexeintrag für „${term.replace(/</g, '&lt;')}“ wird erstellt …</div>
+        </div>
+      `;
+    }
+    try {
+      const ensured = await ensureKeywordInIndexList(term);
+      if (ensured.ok && !ensured.skipped) {
+        await loadKeywordsData();
+        if (typeof displayKeywords === 'function') {
+          displayKeywords(isMobile ? (currentAlphabet || 'Alle') : 'Alle');
+        }
+        match = findIndexKeywordMatch(term) || findIndexKeywordMatch(ensured.keyword);
+        if (ensured.result?.keyword && ensured.result.keyword.keyword) {
+          const keywordName = ensured.result.keyword.keyword;
+          const row = keywordsData.find(kw => kw.keyword === keywordName);
+          if (row) {
+            row.newlyGenerated = true;
+          }
+        }
+      } else if (!ensured.ok && ensured.reason === 'no-sources') {
+        if (viewer) {
+          viewer.innerHTML = `
+            <div id="viewer-content">
+              <div style="color: var(--secondary-text); font-style: italic;">${ensured.message || 'Keine Textstellen für dieses Schlagwort gefunden.'}</div>
+            </div>
+          `;
+        }
+        if (!isMobile) {
+          const search = document.getElementById('keywordSearch');
+          if (search) {
+            search.value = term;
+            if (typeof displayKeywords === 'function') displayKeywords(currentAlphabet || 'Alle');
+          }
+        }
+        if (typeof applyMobileHeaderButtonVisibility === 'function') {
+          applyMobileHeaderButtonVisibility();
+        }
+        return;
+      } else if (!ensured.ok) {
+        console.warn('[INDEX] Eintrag konnte nicht angelegt werden:', ensured.message || ensured.reason);
+      }
+    } catch (err) {
+      console.error('[INDEX] Fehler beim Anlegen des Indexeintrags:', err);
+      const viewerErr = document.getElementById('viewer');
+      if (viewerErr) {
+        viewerErr.innerHTML = `
+          <div id="viewer-content">
+            <div style="color: #c53030; font-style: italic;">Indexeintrag konnte nicht erstellt werden: ${err.message || err}</div>
+          </div>
+        `;
+      }
+      if (typeof applyMobileHeaderButtonVisibility === 'function') {
+        applyMobileHeaderButtonVisibility();
+      }
+      return;
+    }
+  }
+
   const target = match ? match.keyword : term;
 
   if (typeof performKeywordThematicSearch === 'function') {
     await performKeywordThematicSearch(target);
   }
 
+  if (typeof setIndexViewerTitle === 'function') {
+    setIndexViewerTitle(findIndexKeywordMatch(target)?.keyword || target);
+  }
+
   if (!isMobile) {
-    if (!match) {
-      const search = document.getElementById('keywordSearch');
-      if (search) {
-        search.value = term;
-        if (typeof displayKeywords === 'function') displayKeywords(currentAlphabet || 'Alle');
-      }
+    const search = document.getElementById('keywordSearch');
+    if (search) {
+      search.value = findIndexKeywordMatch(target)?.keyword || term;
+      if (typeof displayKeywords === 'function') displayKeywords(currentAlphabet || 'Alle');
     }
     if (typeof scrollToKeyword === 'function') {
       setTimeout(() => scrollToKeyword(target), 150);
@@ -11795,7 +11978,12 @@ async function navigateToIndexKeyword(keyword) {
     applyMobileHeaderButtonVisibility();
   }
 }
+
+async function navigateToIndexKeywordFromSummary(keyword) {
+  await navigateToIndexKeyword(keyword, { addToIndexIfMissing: true });
+}
 window.navigateToIndexKeyword = navigateToIndexKeyword;
+window.navigateToIndexKeywordFromSummary = navigateToIndexKeywordFromSummary;
 
 // Hilfsfunktion: Warte auf Element
 function waitForElement(elementId, timeout = 2000) {
@@ -19704,6 +19892,10 @@ function scrollToChronologicalYear(year) {
         viewer.innerHTML = '<div id="viewer-content"><div style="color: var(--secondary-text); text-align: left; font-style: italic; font-size: 0.9rem;">Keine Daten gefunden</div></div>';
         return;
       }
+
+      if (typeof setIndexViewerTitle === 'function') {
+        setIndexViewerTitle(concept);
+      }
       
       const overview = data.overview;
       // Funktion um Markdown-Text zu rendern (mit GA-Links)
@@ -19768,13 +19960,8 @@ function scrollToChronologicalYear(year) {
         return html;
       };
       
-      // Erstelle HTML mit 4 Feldern untereinander (Begriff/Thema als Überschrift über den Feldern)
+      // Erstelle HTML mit 4 Feldern untereinander (Titel steht in #document-title)
       let html = '<div class="concept-overview-container">';
-      
-      // Begriff/Thema als Überschrift über den Feldern - fett und blau
-      html += `<div class="concept-main-title" style="font-size: 1.6rem !important; font-weight: 700 !important; color: var(--accent-color) !important;">
-        <span>${concept}</span>
-      </div>`;
       
       // Felder untereinander
       const fields = [
@@ -19860,6 +20047,7 @@ function scrollToChronologicalYear(year) {
         }
       }, 100);
     }
+    window.renderConceptOverview = renderConceptOverview;
     
     /**
      * Füllt die Verlinkungssektion für ein Schlagwort nachträglich.
@@ -22988,7 +23176,7 @@ function showSummaryView() {
     // Keywords als Links mit Mittelpunkten formatieren
     html += uniqueKeywords.map(kw => {
       const escapedTerm = kw.term.replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/'/g, "\\'");
-      return `<a href="#" onclick="navigateToIndexKeyword('${escapedTerm}'); return false;" class="h3-keyword-link">${escapedTerm}</a>`;
+      return `<a href="#" onclick="navigateToIndexKeywordFromSummary('${escapedTerm}'); return false;" class="h3-keyword-link">${escapedTerm}</a>`;
     }).join(' &middot; ');
     
     html += '</p></div>';
@@ -27866,47 +28054,29 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
       const titleSpan = titleElement.querySelector('span');
       if (titleSpan) {
         if (gaNumber && isBookGANumber(gaNumber)) {
-          // Für Bücher: Link zu navigateToGAInTexteTab
-          titleSpan.addEventListener('click', (e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            if (typeof navigateToGAInTexteTab === 'function') {
-              navigateToGAInTexteTab(gaNumber);
-            } else if (typeof window.navigateToGAInTexteTab === 'function') {
-              window.navigateToGAInTexteTab(gaNumber);
-            } else {
-              console.error('[NAVIGATION] navigateToGAInTexteTab Funktion nicht verfügbar');
-            }
-          });
-          titleElement.title = 'Klicken um zum Buch im Texte-Tab zu navigieren';
+          bindDocumentTitleVolumeOverviewLink(titleElement, gaNumber);
         } else if (lectureId) {
-          // Für Vorträge: Link zu navigateToLectureInTexteTab
-          titleSpan.addEventListener('click', (e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            if (typeof navigateToLectureInTexteTab === 'function') {
-              navigateToLectureInTexteTab(lectureId);
-            } else if (typeof window.navigateToLectureInTexteTab === 'function') {
-              window.navigateToLectureInTexteTab(lectureId);
-            } else {
-              console.error('[NAVIGATION] navigateToLectureInTexteTab Funktion nicht verfügbar');
-            }
-          });
-          titleElement.title = 'Klicken um zum Vortrag im Texte-Tab zu navigieren';
+          const gaTabEl = document.getElementById('ga-tab');
+          const inGaTab = gaTabEl && gaTabEl.classList.contains('active');
+          const onMobile = typeof window.isMobileViewport === 'function' && window.isMobileViewport();
+          if (onMobile && inGaTab && gaNumber) {
+            bindDocumentTitleVolumeOverviewLink(titleElement, gaNumber);
+          } else {
+            titleSpan.addEventListener('click', (e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              if (typeof navigateToLectureInTexteTab === 'function') {
+                navigateToLectureInTexteTab(lectureId);
+              } else if (typeof window.navigateToLectureInTexteTab === 'function') {
+                window.navigateToLectureInTexteTab(lectureId);
+              } else {
+                console.error('[NAVIGATION] navigateToLectureInTexteTab Funktion nicht verfügbar');
+              }
+            });
+            titleElement.title = 'Klicken um zum Vortrag im Texte-Tab zu navigieren';
+          }
         } else if (gaNumber) {
-          // Fallback: Nur GA-Nummer verfügbar
-          titleSpan.addEventListener('click', (e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            if (typeof navigateToGAInTexteTab === 'function') {
-              navigateToGAInTexteTab(gaNumber);
-            } else if (typeof window.navigateToGAInTexteTab === 'function') {
-              window.navigateToGAInTexteTab(gaNumber);
-            } else {
-              console.error('[NAVIGATION] navigateToGAInTexteTab Funktion nicht verfügbar');
-            }
-          });
-          titleElement.title = 'Klicken um zur GA-Übersicht im Texte-Tab zu navigieren';
+          bindDocumentTitleVolumeOverviewLink(titleElement, gaNumber);
         } else {
           // Kein Link möglich - nur Text
           titleElement.textContent = displayTitle;
@@ -31211,6 +31381,14 @@ function switchTabExtended(mode, skipHistory = false) {
     }
     
     if (documentTitle && mode !== 'korrektur') {
+      if (mode === 'schlagworte') {
+        document.body.classList.remove('index-keyword-selected');
+        currentOpenIndexKeyword = null;
+        documentTitle.style.cursor = '';
+        documentTitle.style.color = '';
+        documentTitle.removeAttribute('title');
+        documentTitle.onclick = null;
+      }
       documentTitle.textContent = titleText;
     }
     
@@ -31628,6 +31806,86 @@ document.head.appendChild(styleSheet);
 // KEYWORD THEMATIC SEARCH FUNKTIONEN
 // ============================================================================
 
+function isIndexTabActive() {
+  const schlagworteTab = document.getElementById('schlagworte-tab');
+  return !!(schlagworteTab && schlagworteTab.classList.contains('active'));
+}
+
+let currentOpenIndexKeyword = null;
+
+function scrollIndexEntryToTop() {
+  const main = document.getElementById('main');
+  const viewer = document.getElementById('viewer');
+  const viewerContent = document.getElementById('viewer-content');
+  if (main) main.scrollTop = 0;
+  if (viewer) viewer.scrollTop = 0;
+  if (viewerContent) viewerContent.scrollTop = 0;
+}
+
+async function navigateToCurrentIndexEntry(keyword) {
+  const target = String(keyword || currentOpenIndexKeyword || '').trim();
+  if (!target) return;
+
+  if (typeof navigateToIndexKeyword === 'function') {
+    await navigateToIndexKeyword(target);
+    scrollIndexEntryToTop();
+    return;
+  }
+
+  const match = typeof findIndexKeywordMatch === 'function' ? findIndexKeywordMatch(target) : null;
+  const canonical = match ? match.keyword : target;
+  if (!isIndexTabActive() && typeof switchTab === 'function') {
+    switchTab('schlagworte', true);
+  }
+  if (typeof performKeywordThematicSearch === 'function') {
+    await performKeywordThematicSearch(canonical);
+  }
+  if (typeof setIndexViewerTitle === 'function') {
+    setIndexViewerTitle(canonical);
+  }
+  scrollIndexEntryToTop();
+}
+
+window.navigateToCurrentIndexEntry = navigateToCurrentIndexEntry;
+
+function setIndexViewerTitle(keyword) {
+  if (!isIndexTabActive()) return;
+  const documentTitle = document.getElementById('document-title');
+  if (!documentTitle) return;
+  const text = String(keyword || '').trim();
+  const hasKeyword = text.length > 0;
+  document.body.classList.toggle('index-keyword-selected', hasKeyword);
+  documentTitle.style.display = '';
+  documentTitle.style.cursor = '';
+  documentTitle.style.color = '';
+  documentTitle.removeAttribute('title');
+  documentTitle.onclick = null;
+  if (hasKeyword) {
+    currentOpenIndexKeyword = text;
+    const safeText = typeof escapeHtml === 'function' ? escapeHtml(text) : text;
+    documentTitle.innerHTML = `<span style="cursor: pointer; color: var(--accent-color);">${safeText}</span>`;
+    const openIndexEntry = (e) => {
+      if (e) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
+      navigateToCurrentIndexEntry(text);
+    };
+    documentTitle.onclick = openIndexEntry;
+    const titleSpan = documentTitle.querySelector('span');
+    if (titleSpan) {
+      titleSpan.addEventListener('click', openIndexEntry);
+    }
+    documentTitle.title = 'Zum Indexeintrag zurück';
+    documentTitle.style.cursor = 'pointer';
+  } else {
+    currentOpenIndexKeyword = null;
+    documentTitle.textContent = 'Index';
+  }
+}
+
+window.setIndexViewerTitle = setIndexViewerTitle;
+
 async function performKeywordThematicSearch(keyword) {
   // Timeline schließen falls geöffnet
   hideTimelineIfOpen();
@@ -31659,10 +31917,20 @@ async function performKeywordThematicSearch(keyword) {
       if (hasOverview) {
         if (viewer) {
           // renderConceptOverview zeigt bereits beide Methoden an (overview + text)
-          renderConceptOverview(keyword, { 
-            overview: existingKeyword.overview,
-            text: existingKeyword.text || null
-          });
+          if (typeof window.renderConceptOverview === 'function') {
+            window.renderConceptOverview(keyword, {
+              overview: existingKeyword.overview,
+              text: existingKeyword.text || null
+            });
+          } else {
+            displayKeywordThematicResults(keyword, {
+              query: keyword,
+              content: existingKeyword.text,
+              sources: existingKeyword.sources || [],
+              fromCache: false,
+              fromKeywordData: true
+            });
+          }
         }
         // WICHTIG: Wenn hasOverview vorhanden ist, wird text bereits in renderConceptOverview angezeigt
         // Daher wird displayKeywordThematicResults NICHT mehr aufgerufen, um Doppelung zu vermeiden
@@ -31738,18 +32006,23 @@ async function performKeywordThematicSearch(keyword) {
     
     const data = await cacheResponse.json();
     
-    // Prüfe ob das Ergebnis aus dem Cache kommt
-    if (data.fromCache) {
-      if (countContainer) {
-        countContainer.textContent = '';
-      }
-    } else {
-      if (countContainer) {
-        countContainer.textContent = '';
-      }
+    if (countContainer) {
+      countContainer.textContent = '';
     }
-    
-    // Zeige die Ergebnisse an
+
+    if (data.overview && viewer) {
+      const renderOverview = window.renderConceptOverview;
+      if (typeof renderOverview === 'function') {
+        renderOverview(keyword, {
+          overview: data.overview,
+          text: data.content || null
+        });
+      } else {
+        displayKeywordThematicResults(keyword, data);
+      }
+      return;
+    }
+
     displayKeywordThematicResults(keyword, data);
     
   } catch (error) {
@@ -32562,6 +32835,10 @@ function displayKeywordThematicResults(keyword, data) {
   const countContainer = document.getElementById('keyword-count');
   
   if (!viewer) return;
+
+  if (typeof setIndexViewerTitle === 'function') {
+    setIndexViewerTitle(keyword);
+  }
   
   // Hilfsfunktion: Wandle Markdown zu HTML um
   function markdownToHtml(text) {
@@ -33352,32 +33629,21 @@ async function addNewKeyword() {
       // Zeige das neue Schlagwort in der Liste
       displayKeywords();
       
-      // Zeige beide Ergebnisse an:
-      // 1. KI-Suchergebnis im Content Fenster (results)
-      if (result.analysis) {
-        const results = document.getElementById('results');
-        if (results) {
-          // Bereite Daten vor wie bei performKeywordThematicSearch
-          const data = {
-            query: result.keyword.keyword,
-            content: result.analysis,
-            sources: result.keyword.sources || [],
-            fromCache: false,
-            fromKeywordData: true
-          };
-          displayKeywordThematicResults(result.keyword.keyword, data);
-        }
-      }
-      
-      // 2. Themen_Übersicht im Main Viewer
-      if (result.overview) {
-        const viewer = document.getElementById('viewer');
-        if (viewer) {
-          renderConceptOverview(result.keyword.keyword, { 
-            overview: result.overview,
-            text: result.analysis || null
-          });
-        }
+      const viewer = document.getElementById('viewer');
+      if (result.overview && viewer) {
+        renderConceptOverview(result.keyword.keyword, {
+          overview: result.overview,
+          text: result.analysis || result.keyword.text || null
+        });
+      } else if (result.analysis) {
+        const data = {
+          query: result.keyword.keyword,
+          content: result.analysis,
+          sources: result.keyword.sources || [],
+          fromCache: false,
+          fromKeywordData: true
+        };
+        displayKeywordThematicResults(result.keyword.keyword, data);
       }
       
     } else {
@@ -40743,7 +41009,7 @@ function updateKeywordsDisplay() {
   // Keywords als Links mit Mittelpunkten formatieren
   html += uniqueKeywords.map(kw => {
     const escapedTerm = kw.term.replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/'/g, "\\'");
-    return `<a href="#" onclick="navigateToIndexKeyword('${escapedTerm}'); return false;" class="h3-keyword-link">${escapedTerm}</a>`;
+    return `<a href="#" onclick="navigateToIndexKeywordFromSummary('${escapedTerm}'); return false;" class="h3-keyword-link">${escapedTerm}</a>`;
   }).join(' &middot; ');
   
   html += '</p>';
