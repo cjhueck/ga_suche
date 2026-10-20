@@ -8200,7 +8200,10 @@ html[data-mobile-header="book"] #membersPanelBtn {
   display: inline-flex !important;
 }
 
-html.mobile-layout body.mobile-text-open #texteViewToggle {
+html.mobile-layout body.mobile-text-open #texteViewToggle,
+html.mobile-layout body.mobile-text-open #texteViewToggle[style*="inline-flex"],
+html.mobile-layout[data-mobile-header="book"] #texteViewToggle,
+html.mobile-layout[data-mobile-header="book"] #texteViewToggle[style*="inline-flex"] {
   display: none !important;
 }
 
@@ -11944,7 +11947,7 @@ PDF
 <link rel="stylesheet" href="thematic-chat-ui.css?v=20260712n">
 <script src="thematic-chat-ui.js?v=20260712n"></script>
 
-<script src="app.js?v=20261020o"></script>
+<script src="app.js?v=20261020p"></script>
 </body>
 </html>
 
