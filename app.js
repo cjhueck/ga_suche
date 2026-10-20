@@ -35619,28 +35619,36 @@ function formatDate(dateStr) {
   if (!dateStr) return '';
   
   try {
+    const s = dateStr.toString().trim();
+
     // Prüfe ob es nur ein Jahr ist (z.B. "1879" oder "(1879)")
-    const yearOnlyMatch = dateStr.toString().match(/^\(?(\d{4})\)?$/);
+    const yearOnlyMatch = s.match(/^\(?(\d{4})\)?$/);
     if (yearOnlyMatch) {
       return yearOnlyMatch[1]; // Nur das Jahr zurückgeben
     }
+
+    // ISO-Platzhalter aus Jahr-only-Extraktion (z. B. "1795-00-00")
+    const isoYearOnly = s.match(/^(\d{4})-(?:00|0{1,2})-(?:00|0{1,2})$/);
+    if (isoYearOnly) {
+      return isoYearOnly[1];
+    }
     
     // Prüfe ob Jahr im String extrahiert werden kann (z.B. "um 1879" oder "(ca. 1879)")
-    const yearInStringMatch = dateStr.toString().match(/\b(18\d{2}|19\d{2}|20\d{2})\b/);
-    if (yearInStringMatch && !dateStr.includes('-') && !dateStr.includes('.')) {
+    const yearInStringMatch = s.match(/\b(\d{4})\b/);
+    if (yearInStringMatch && !s.includes('-') && !s.includes('.')) {
       return yearInStringMatch[1]; // Nur das Jahr zurückgeben
     }
     
-    const date = new Date(dateStr);
+    const date = new Date(s);
     
     // Prüfe ob Datum gültig ist
     if (isNaN(date.getTime())) {
       // Versuche Jahr aus dem String zu extrahieren
-      const fallbackYearMatch = dateStr.toString().match(/\b(18\d{2}|19\d{2}|20\d{2})\b/);
+      const fallbackYearMatch = s.match(/\b(\d{4})\b/);
       if (fallbackYearMatch) {
         return fallbackYearMatch[1];
       }
-      return dateStr; // Original zurückgeben statt "Invalid Date"
+      return s; // Original zurückgeben statt "Invalid Date"
     }
     
     return date.toLocaleDateString('de-DE', {
