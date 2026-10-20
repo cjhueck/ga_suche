@@ -13,8 +13,8 @@ body.thematic-chat-enabled.tab-thematic-active #sidebar-header {
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  padding-top: 0.35rem;
-  padding-bottom: 0.3rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
 }
 
 body.thematic-chat-enabled.tab-thematic-active .tab-container {
@@ -27,7 +27,7 @@ body.thematic-chat-enabled.tab-thematic-active .tab-container {
 }
 
 body.thematic-chat-enabled.tab-thematic-active .tab-container .tab-buttons {
-  margin-bottom: 0.65rem !important;
+  margin-bottom: 1rem !important;
 }
 
 body.thematic-chat-enabled.tab-thematic-active #thematic-tab.tab-content.active {

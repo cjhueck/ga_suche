@@ -5053,6 +5053,13 @@ function normalizeGANumber(gaNumber) {
       if (popup) {
         popup.style.display = 'none';
       }
+      var headerLogo = document.querySelector('#sidebar-header .site-logo');
+      if (headerLogo) {
+        headerLogo.classList.remove('lecture-image', 'blackboard-drawing');
+        if (headerLogo.getAttribute('data-format') === 'webp') {
+          headerLogo.removeAttribute('data-format');
+        }
+      }
     };
 
     // Event-Delegation für Bild-Klicks (funktioniert auch für dynamisch hinzugefügte Bilder)
@@ -5068,6 +5075,11 @@ function normalizeGANumber(gaNumber) {
         const imageSrc = e.target.src;
         const altText = e.target.getAttribute('alt') || '';
         const dataFormat = e.target.getAttribute('data-format');
+
+        if (e.target.classList.contains('site-logo')) {
+          openImagePopup(imageSrc, altText, dataFormat);
+          return;
+        }
 
         // Setze Cursor-Style wenn noch nicht gesetzt
         if (!e.target.style.cursor) {
@@ -11168,7 +11180,118 @@ window.applyMobileHeaderButtonVisibility = applyMobileHeaderButtonVisibility;
 
 let lastInhaltsuebersichtGA = null;
 let lastOpenedTextId = null;
+let lastKeywordSearchSnippetElement = null;
+let lastKeywordSearchTimelineEntryElement = null;
 let mobileLastTextHandleMuted = false;
+
+function isKeywordSearchTabActiveForMobile() {
+  const activeTabContent = document.querySelector('.tab-content.active');
+  return !!(activeTabContent && activeTabContent.id === 'keyword-tab');
+}
+
+function hasKeywordSearchResultsInSidebar() {
+  const resultsEl = document.getElementById('results');
+  if (!resultsEl) return false;
+  return !!resultsEl.querySelector('.timeline-container') || !!document.getElementById('timelineContainer');
+}
+
+function getMobileKeywordSearchReturnTarget() {
+  const t = window.mobileKeywordSearchReturnTarget;
+  return t === 'timeline' || t === 'list' ? t : null;
+}
+
+function isMobileKeywordSearchReadingMode() {
+  if (typeof window.isMobileViewport !== 'function' || !window.isMobileViewport()) return false;
+  if (typeof isMobileNavHandlesActive !== 'function' || !isMobileNavHandlesActive()) return false;
+  if (typeof isMobileTextOpen !== 'function' || !isMobileTextOpen()) return false;
+  if (!getMobileKeywordSearchReturnTarget()) return false;
+  return isKeywordSearchTabActiveForMobile();
+}
+
+function isMobileKeywordSearchTimelineReadingMode() {
+  return isMobileKeywordSearchReadingMode() && getMobileKeywordSearchReturnTarget() === 'timeline';
+}
+
+function shouldHideMobileLastTextHandle() {
+  if (typeof window.isMobileViewport !== 'function' || !window.isMobileViewport()) return false;
+  if (!isKeywordSearchTabActiveForMobile()) return false;
+  if (typeof isMobileKeywordSearchReadingMode === 'function' && isMobileKeywordSearchReadingMode()) {
+    return true;
+  }
+  if (document.getElementById('timelineContainer')) return true;
+  if (hasKeywordSearchResultsInSidebar()) return true;
+  return false;
+}
+
+function rememberSearchTimelineEntry(el) {
+  lastKeywordSearchTimelineEntryElement = el && el.closest ? el.closest('.timeline-entry') : null;
+  window.mobileKeywordSearchReturnTarget = 'timeline';
+}
+window.rememberSearchTimelineEntry = rememberSearchTimelineEntry;
+
+function goToSearchTimelineFromText() {
+  if (typeof setSidebarCollapsedForMobile === 'function') {
+    setSidebarCollapsedForMobile(false);
+  }
+  document.body.classList.remove('mobile-text-open');
+  if (typeof updateLeftResizeHandlePosition === 'function') {
+    updateLeftResizeHandlePosition();
+  }
+  const resultsDiv = document.getElementById('results');
+  if (resultsDiv && !document.getElementById('timelineContainer')) {
+    if (typeof showSearchResultsTimelineV2 === 'function') {
+      showSearchResultsTimelineV2(window._keywordSearchResults || null);
+    }
+  }
+  if (typeof updateMobileTextOpenState === 'function') {
+    updateMobileTextOpenState();
+  }
+  requestAnimationFrame(() => {
+    const scrollEl = lastKeywordSearchTimelineEntryElement
+      || document.getElementById('timelineContainer')
+      || resultsDiv;
+    if (scrollEl) {
+      scrollEl.scrollIntoView({ block: 'start', behavior: 'smooth' });
+    }
+    const sidebarContent = document.getElementById('sidebar-content');
+    if (sidebarContent && scrollEl && sidebarContent.contains(scrollEl)) {
+      const containerTop = sidebarContent.getBoundingClientRect().top;
+      const elTop = scrollEl.getBoundingClientRect().top;
+      sidebarContent.scrollTop += elTop - containerTop - 16;
+    }
+  });
+}
+window.goToSearchTimelineFromText = goToSearchTimelineFromText;
+
+function goToSearchResultsFromText() {
+  if (typeof setSidebarCollapsedForMobile === 'function') {
+    setSidebarCollapsedForMobile(false);
+  }
+  document.body.classList.remove('mobile-text-open');
+  if (typeof updateLeftResizeHandlePosition === 'function') {
+    updateLeftResizeHandlePosition();
+  }
+  if (typeof updateMobileTextOpenState === 'function') {
+    updateMobileTextOpenState();
+  }
+  requestAnimationFrame(() => {
+    const sidebar = document.getElementById('sidebar');
+    const sidebarContent = document.getElementById('sidebar-content');
+    const scrollEl = lastKeywordSearchSnippetElement || document.getElementById('results');
+    if (scrollEl) {
+      scrollEl.scrollIntoView({ block: 'center', behavior: 'smooth' });
+    }
+    if (sidebarContent && scrollEl && sidebarContent.contains(scrollEl)) {
+      const containerTop = sidebarContent.getBoundingClientRect().top;
+      const elTop = scrollEl.getBoundingClientRect().top;
+      sidebarContent.scrollTop += elTop - containerTop - 24;
+    }
+    if (sidebar) sidebar.scrollTop = 0;
+  });
+}
+window.goToSearchResultsFromText = goToSearchResultsFromText;
+window.isMobileKeywordSearchReadingMode = isMobileKeywordSearchReadingMode;
+window.isMobileKeywordSearchTimelineReadingMode = isMobileKeywordSearchTimelineReadingMode;
 
 function setMobileLastTextHandleMuted(muted) {
   mobileLastTextHandleMuted = !!muted;
@@ -11216,18 +11339,35 @@ function isMobileNavHandlesActive() {
 function updateMobileTextOpenState() {
   const open = isMobileTextOpen();
   document.body.classList.toggle('mobile-text-open', open);
+  const hideLastTextHandle = shouldHideMobileLastTextHandle();
+  document.body.classList.toggle('mobile-hide-last-text-handle', hideLastTextHandle);
   const handle = document.getElementById('resizeHandle');
   const tabsHandle = document.getElementById('resizeHandleTabs');
   const textHandle = document.getElementById('resizeHandleText');
   if (handle) {
-    handle.title = isMobileNavHandlesActive() ? 'Inhaltsübersicht' : 'Seitenleiste ein-/ausblenden';
+    const searchResultsMode = typeof isMobileKeywordSearchReadingMode === 'function' && isMobileKeywordSearchReadingMode();
+    const timelineReturnMode = typeof isMobileKeywordSearchTimelineReadingMode === 'function' && isMobileKeywordSearchTimelineReadingMode();
+    handle.classList.toggle('resize-handle-search-results', searchResultsMode);
+    handle.classList.toggle('resize-handle-search-timeline', timelineReturnMode);
+    if (timelineReturnMode) {
+      handle.title = 'Timeline';
+    } else if (searchResultsMode) {
+      handle.title = 'Suchergebnisse';
+    } else {
+      handle.title = isMobileNavHandlesActive() ? 'Inhaltsübersicht' : 'Seitenleiste ein-/ausblenden';
+    }
   }
   if (tabsHandle) {
     tabsHandle.title = 'Tab-Auswahl';
   }
   if (textHandle) {
-    textHandle.title = mobileLastTextHandleMuted ? '' : 'Letzter Text';
-    textHandle.setAttribute('aria-disabled', mobileLastTextHandleMuted ? 'true' : 'false');
+    if (hideLastTextHandle) {
+      textHandle.title = '';
+      textHandle.setAttribute('aria-disabled', 'true');
+    } else {
+      textHandle.title = mobileLastTextHandleMuted ? '' : 'Letzter Text';
+      textHandle.setAttribute('aria-disabled', mobileLastTextHandleMuted ? 'true' : 'false');
+    }
   }
   if (typeof applyMobileHeaderButtonVisibility === 'function') {
     applyMobileHeaderButtonVisibility();
@@ -14496,7 +14636,8 @@ function scrollToChronologicalYear(year) {
       initializeDistanceFilterControls();
     }
 
-    async function performKeywordSearch() {
+    async function performKeywordSearch(options = {}) {
+      const showTimelineAfter = !!(options && options.showTimelineAfter);
       const word1Input = document.getElementById('word1').value.trim();
       const word2Input = document.getElementById('word2').value.trim();
       
@@ -14607,6 +14748,7 @@ function scrollToChronologicalYear(year) {
         // Diese gefilterten Ergebnisse werden in searchResults gespeichert und von der Timeline verwendet
         
         searchResults = results;
+        window._keywordSearchResults = results;
         let displayQuery;
         if (word1Input && word2Input) {
           const term1 = word1IsPhrase ? `"${word1}"` : word1;
@@ -14618,8 +14760,31 @@ function scrollToChronologicalYear(year) {
           const isPhrase = word1Input ? word1IsPhrase : word2IsPhrase;
           displayQuery = isPhrase ? `"${word1}"` : singleTerm;
         }
-        // Übergebe geparste Werte und Phrasen-Flags an renderKeywordResults
-        renderKeywordResults(displayQuery, results, word1, word2, word1IsPhrase, word2IsPhrase, proximity);
+        if (showTimelineAfter) {
+          updateRelevanceFilterState(results.length);
+          if (results.length === 0) {
+            document.getElementById('results').innerHTML = '<p><em>Keine Treffer gefunden.</em></p>';
+            const viewToggle = document.getElementById('viewToggle');
+            if (viewToggle) viewToggle.style.display = 'none';
+            const timelineBtn = document.getElementById('showTimelineBtn');
+            if (timelineBtn) timelineBtn.style.display = '';
+          } else {
+            const viewToggle = document.getElementById('viewToggle');
+            if (viewToggle) viewToggle.style.display = '';
+            const timelineBtn = document.getElementById('showTimelineBtn');
+            if (timelineBtn) timelineBtn.style.display = '';
+            const resultInfoEl = document.getElementById('resultInfo');
+            if (resultInfoEl) {
+              const lectureCount = new Set(results.map((r) => r.ID)).size;
+              resultInfoEl.innerHTML = ` | <strong>${results.length}</strong> Treffer in ${lectureCount} Texten`;
+            }
+            if (typeof showSearchResultsTimelineV2 === 'function') {
+              await showSearchResultsTimelineV2(results);
+            }
+          }
+        } else {
+          renderKeywordResults(displayQuery, results, word1, word2, word1IsPhrase, word2IsPhrase, proximity);
+        }
         
       } catch (error) {
         console.error('Keyword-Suche Fehler:', error);
@@ -14640,6 +14805,7 @@ function scrollToChronologicalYear(year) {
         button.innerHTML = 'Suchen';
       }
     }
+    window.performKeywordSearch = performKeywordSearch;
 
     // ============================================================================
     // ERWEITERTE SUCHE FUNKTIONEN
@@ -18115,6 +18281,8 @@ function scrollToChronologicalYear(year) {
     }
 
     function renderKeywordResults(query, results, word1, word2, word1IsPhrase = false, word2IsPhrase = false, proximity = null) {
+      window.mobileKeywordSearchReturnTarget = 'list';
+      window.showingSearchResultsTimeline = false;
       const container = document.getElementById('results');
       const scope = 'fulltext'; // Immer Volltext-Suche
 
@@ -18150,10 +18318,10 @@ function scrollToChronologicalYear(year) {
       
       // Zeige Toggle-Button und Timeline-Button bei Ergebnissen
       const viewToggle = document.getElementById('viewToggle');
-      if (viewToggle) viewToggle.style.display = 'block';
+      if (viewToggle) viewToggle.style.display = '';
       
       const timelineBtn = document.getElementById('showTimelineBtn');
-      if (timelineBtn) timelineBtn.style.display = 'block';
+      if (timelineBtn) timelineBtn.style.display = '';
       
       // Reset auf Textansicht
       currentView = 'text';
@@ -18503,6 +18671,8 @@ function scrollToChronologicalYear(year) {
   try { setUILocked(false); } catch (err) {}
   e.preventDefault();
   e.stopPropagation();
+  lastKeywordSearchSnippetElement = e.currentTarget;
+  window.mobileKeywordSearchReturnTarget = 'list';
   const currentWord1 = document.getElementById('word1').value.trim();
   const currentWord2 = document.getElementById('word2').value.trim();
   const keywords = [currentWord1, currentWord2].filter(w => w && w.trim());
@@ -18531,6 +18701,7 @@ function scrollToChronologicalYear(year) {
       const lectureCount = sortedLectures.length;
       const chunkCount = results.length;
       document.getElementById('status').textContent = `${lectureCount} Vorträge mit ${chunkCount} Treffern`;
+      if (typeof updateMobileTextOpenState === 'function') updateMobileTextOpenState();
     }
 
     // THEMATIC-CHAT-UI: replay a prior answer in the main viewer
@@ -25187,6 +25358,15 @@ function formatAsteriskParagraphs() {
   const _sideHeaderClear = document.getElementById('sidePanelLectureHeader');
   if (_sideHeaderClear) _sideHeaderClear.innerHTML = '';
 
+  if (typeof window.isMobileViewport === 'function' && window.isMobileViewport()
+      && typeof isKeywordSearchTabActiveForMobile === 'function' && isKeywordSearchTabActiveForMobile()) {
+    if (document.getElementById('timelineContainer')) {
+      window.mobileKeywordSearchReturnTarget = 'timeline';
+    } else if (document.getElementById('results')?.querySelector('.timeline-container')) {
+      window.mobileKeywordSearchReturnTarget = 'list';
+    }
+  }
+
   if (typeof setSidebarCollapsedForMobile === 'function') {
     setSidebarCollapsedForMobile(true);
   }
@@ -28997,7 +29177,13 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
           if (typeof isMobileNavHandlesActive !== 'function' || !isMobileNavHandlesActive()) return;
           e.preventDefault();
           e.stopPropagation();
-          if (typeof goToVolumeOverviewFromText === 'function') goToVolumeOverviewFromText();
+          if (typeof isMobileKeywordSearchTimelineReadingMode === 'function' && isMobileKeywordSearchTimelineReadingMode()) {
+            if (typeof goToSearchTimelineFromText === 'function') goToSearchTimelineFromText();
+          } else if (typeof isMobileKeywordSearchReadingMode === 'function' && isMobileKeywordSearchReadingMode()) {
+            if (typeof goToSearchResultsFromText === 'function') goToSearchResultsFromText();
+          } else if (typeof goToVolumeOverviewFromText === 'function') {
+            goToVolumeOverviewFromText();
+          }
         });
       }
       const resizeHandleText = document.getElementById('resizeHandleText');
@@ -31257,6 +31443,13 @@ function switchTabExtended(mode, skipHistory = false) {
     document.body.classList.add('tab-thematic2-active');
   } else {
     document.body.classList.remove('tab-thematic2-active');
+  }
+
+  if (typeof isMobileViewport === 'function' && isMobileViewport()) {
+    var sidebarEl = document.getElementById('sidebar');
+    if (sidebarEl) {
+      sidebarEl.scrollTop = 0;
+    }
   }
   
   // Setze Standard-Viewer-Ansicht und Document-Title für jeden Tab
@@ -38498,11 +38691,25 @@ let showingSearchResultsTimeline = false;
 let searchResultsTimelineRunning = false; // Verhindert Doppelklicks
 
 // Funktion für den Timeline-Button im Suche-Tab
-function showSearchResultsInTimeline() {
-  // Zeige Timeline direkt im Suche-Tab (nicht zum Timeline-Tab wechseln)
-  // Die Ergebnisse werden im #results Element angezeigt
-  showSearchResultsTimelineV2();
+async function showSearchResultsInTimeline() {
+  const cached = window._keywordSearchResults;
+  const hasCached = Array.isArray(cached) && cached.length > 0;
+  const hasTimelineDom = !!document.getElementById('timelineContainer');
+  if (!hasCached && !hasTimelineDom) {
+    const word1 = document.getElementById('word1')?.value.trim() || '';
+    const word2 = document.getElementById('word2')?.value.trim() || '';
+    if (!word1 && !word2) {
+      alert('Bitte mindestens ein Suchwort eingeben');
+      return;
+    }
+    if (typeof window.performKeywordSearch === 'function') {
+      await window.performKeywordSearch({ showTimelineAfter: true });
+      return;
+    }
+  }
+  await showSearchResultsTimelineV2(hasCached ? cached : null);
 }
+window.showSearchResultsInTimeline = showSearchResultsInTimeline;
 
 // Zeige Suchergebnisse im Timeline-Format (V2 - mit Links)
 // Kann auch mit expliziten Ergebnissen aufgerufen werden
@@ -38543,15 +38750,9 @@ async function showSearchResultsTimelineV2(customResults = null, customKeywords 
   // Verwende customResults falls übergeben, sonst searchResults (lokal) oder window._tempSearchResults
   // WICHTIG: searchResults enthält bereits die relevanz-gefilterten Treffer vom Backend
   // (Das Backend filtert nach Relevanz, bevor die Ergebnisse zurückgegeben werden)
-  const resultsToUse = customResults || searchResults || window._tempSearchResults || [];
-  const fromKeywordApi = Array.isArray(customResults) && customResults.length > 0;
-  const resultsHaveHeadings = fromKeywordApi || (resultsToUse.length > 0 && resultsToUse.every(r => !r.index || r.heading));
+  const resultsToUse = customResults || window._keywordSearchResults || window._tempSearchResults || [];
   
-  if (!resultsHaveHeadings) {
-    timelineContainer.innerHTML = '<div style="text-align: center; padding: 2rem; color: var(--secondary-text); font-style: italic;">Timeline wird aufbereitet...</div>';
-  }
-  
-  // Log für Debugging: Zeige Anzahl der verwendeten Ergebnisse
+  timelineContainer.innerHTML = '<div style="text-align: center; padding: 2rem; color: var(--secondary-text); font-style: italic;">Timeline wird aufbereitet...</div>';
   
   // Prüfe ob Suchergebnisse vorhanden sind
   if (!resultsToUse || resultsToUse.length === 0) {
@@ -38562,25 +38763,23 @@ async function showSearchResultsTimelineV2(customResults = null, customKeywords 
   }
   
   try {
+    await loadFullLecturesForTimeline();
     let summaryDB = {};
-    if (!resultsHaveHeadings) {
-      await loadFullLecturesForTimeline();
-      if (typeof getSummaryDBCached === 'function') {
-        summaryDB = await getSummaryDBCached() || {};
-      } else {
-        const summaryDBResponse = await fetch(`${API_BASE}/summary-database.json`);
-        summaryDB = summaryDBResponse.ok ? await summaryDBResponse.json() : {};
-      }
+    if (typeof getSummaryDBCached === 'function') {
+      summaryDB = await getSummaryDBCached() || {};
+    } else {
+      const summaryDBResponse = await fetch(`${API_BASE}/summary-database.json`);
+      summaryDB = summaryDBResponse.ok ? await summaryDBResponse.json() : {};
+    }
 
-      const bookIds = new Set();
-      resultsToUse.forEach(result => {
-        if (result.isBook && result.ID && !result.heading) {
-          bookIds.add(result.ID);
-        }
-      });
-      if (bookIds.size > 0) {
-        await Promise.all(Array.from(bookIds).map(bookId => loadBookForTimeline(bookId)));
+    const bookIds = new Set();
+    resultsToUse.forEach(result => {
+      if (result.isBook && result.ID) {
+        bookIds.add(result.ID);
       }
+    });
+    if (bookIds.size > 0) {
+      await Promise.all(Array.from(bookIds).map(bookId => loadBookForTimeline(bookId)));
     }
     
     // Konvertiere Suchergebnisse in Timeline-Einträge
@@ -38629,9 +38828,11 @@ async function showSearchResultsTimelineV2(customResults = null, customKeywords 
       
       // Suchergebnisse haben index direkt im result-Objekt
       if (result.index) {
-        const bestHeading = result.heading || (!resultsHaveHeadings
-          ? await findBestHeadingForIndex(result.index, lectureHeadings, result.ID)
-          : null);
+        const bestHeading = await findBestHeadingForIndex(
+          result.index,
+          lectureHeadings,
+          result.ID
+        );
         
         timelineEntries.push({
           lectureId: result.ID,
@@ -38641,7 +38842,7 @@ async function showSearchResultsTimelineV2(customResults = null, customKeywords 
           title: title,
           index: result.index,  // Direkt aus result, nicht aus snippet
           content: result.content || '',
-          heading: bestHeading || title,
+          heading: bestHeading || result.heading || title,
           isBook: result.isBook || false
         });
       } else {
@@ -38654,7 +38855,7 @@ async function showSearchResultsTimelineV2(customResults = null, customKeywords 
           title: title,
           index: null,
           content: '',
-          heading: title,
+          heading: result.heading || title,
           isBook: result.isBook || false
         });
       }
@@ -38811,7 +39012,7 @@ async function showSearchResultsTimelineV2(customResults = null, customKeywords 
           // Erstelle Link zur Überschrift ohne Markierung
           const keywordsArray = searchKeywords.map(k => `'${k.replace(/'/g, "\\'")}'`).join(',');
           const escapedLectureId = entry.lectureId.replace(/'/g, "\\'");
-          const linkHtml = `<a href="#" onclick="showLecture('${escapedLectureId}', '${cleanIndex}', [${keywordsArray}]); return false;" class="timeline-heading-link">${escapedHeadingText}</a>`;
+          const linkHtml = `<a href="#" onclick="rememberSearchTimelineEntry(this); showLecture('${escapedLectureId}', '${cleanIndex}', [${keywordsArray}]); return false;" class="timeline-heading-link">${escapedHeadingText}</a>`;
           
           return linkHtml;
         });
@@ -38840,8 +39041,12 @@ async function showSearchResultsTimelineV2(customResults = null, customKeywords 
       positionYearMarkers();
     }, 50);
     
+    window.mobileKeywordSearchReturnTarget = 'timeline';
+    window.showingSearchResultsTimeline = true;
+
     // Erfolgreich abgeschlossen - erlaube erneuten Aufruf
     searchResultsTimelineRunning = false;
+    if (typeof updateMobileTextOpenState === 'function') updateMobileTextOpenState();
     
   } catch (error) {
     console.error('[TIMELINE] Fehler beim Anzeigen der Suchergebnisse:', error);

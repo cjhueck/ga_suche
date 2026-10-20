@@ -1003,6 +1003,24 @@ body.dark-mode .site-logo:hover {
   box-shadow: 0 2px 6px rgba(255,255,255,0.15);
 }
 
+html:not(.mobile-layout) #sidebar-header .site-logo,
+html:not(.mobile-layout) #sidebar-header .site-logo.lecture-image {
+  max-width: none !important;
+  width: auto !important;
+  float: none !important;
+  display: block !important;
+  margin: 0 0.5rem 0 0 !important;
+  mix-blend-mode: normal !important;
+  filter: none !important;
+  vertical-align: middle;
+}
+
+body.dark-mode #sidebar-header .site-logo,
+body.dark-mode #sidebar-header .site-logo.lecture-image {
+  filter: none !important;
+  mix-blend-mode: normal !important;
+}
+
 /* Site-Sign Styling */
 .site-sign {
   height: 80px;
@@ -4134,8 +4152,9 @@ gap: 4px !important;
       border-radius: 4px;
       min-height: 2.2em;
       height: 2.2em;
+      max-height: 2.2em;
       box-sizing: border-box;
-      padding: 6px 10px;
+      padding: 6px 5px;
       font-size: 0.78em;
       line-height: 1.2;
       background: var(--background-color);
@@ -4149,6 +4168,35 @@ gap: 4px !important;
 
     #keyword-tab .radio-group .depth-btn:hover {
       opacity: 0.9;
+    }
+
+    #keyword-tab .keyword-action-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      align-items: stretch;
+      width: 100%;
+      margin: 0;
+    }
+
+    #keyword-tab .radio-group .depth-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0;
+      white-space: nowrap;
+      flex: 0 0 auto;
+    }
+
+    #keyword-tab #viewToggle {
+      min-width: 2.2em;
+      padding-left: 6px;
+      padding-right: 6px;
+    }
+
+    #keyword-tab #viewToggleText {
+      font-size: 1em;
+      line-height: 1;
     }
 
     .custom-dropdown-list {
@@ -7229,6 +7277,56 @@ body.dark-mode #imagePopupCloseBtn {
   color: #b8b8b8 !important;
 }
 
+html.mobile-layout #imagePopup {
+  justify-content: center !important;
+  align-items: center !important;
+  padding: 2.75rem 0.35rem 0.5rem !important;
+  box-sizing: border-box;
+}
+
+html.mobile-layout #imagePopup > div {
+  position: relative !important;
+  top: auto !important;
+  left: auto !important;
+  right: auto !important;
+  max-width: min(96vw, 100%) !important;
+  max-height: 96dvh !important;
+  width: auto !important;
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  align-items: center !important;
+}
+
+html.mobile-layout #popupImage {
+  display: block;
+  width: auto !important;
+  max-width: 100% !important;
+  max-height: calc(100dvh - 3.25rem) !important;
+  height: auto;
+  padding: 0 !important;
+  object-fit: contain;
+  object-position: center center;
+}
+
+html.mobile-layout #imagePopupCloseBtn {
+  position: fixed !important;
+  top: 0.35rem !important;
+  right: 0.35rem !important;
+  width: 40px !important;
+  height: 40px !important;
+  font-size: 26px !important;
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.2);
+}
+
+html.mobile-layout #popupCaption {
+  font-size: 0.85em !important;
+  margin-top: 0.35rem !important;
+  max-width: 100%;
+  text-align: center !important;
+  align-self: center;
+}
+
 /* Popup-Caption - Light Mode */
 #popupCaption {
   color: var(--text-color) !important;
@@ -7948,7 +8046,7 @@ html.mobile-layout #ga-filter-dropdowns-row .custom-dropdown-button {
 }
 
 html.mobile-layout #keyword-tab #frequencyBtnSimple,
-html.mobile-layout #keyword-tab button[onclick="openAdvancedSearch()"],
+html.mobile-layout #keyword-tab #advancedSearchBtnSimple,
 html.mobile-layout #keyword-tab #relevanceFilter,
 html.mobile-layout #keyword-tab #searchInfo {
   display: none !important;
@@ -8020,35 +8118,6 @@ html.mobile-layout #keyword-tab .radio-group {
   flex: 0 0 auto;
   margin: 0;
   align-self: flex-start;
-}
-
-html.mobile-layout #keyword-tab .radio-group,
-html.mobile-layout #keyword-tab .radio-group > div,
-html.mobile-layout #keyword-tab .radio-group > div > div {
-  display: flex !important;
-  flex-wrap: nowrap !important;
-  gap: 0 !important;
-  width: auto !important;
-  margin: 0;
-  padding: 0;
-  justify-content: flex-start !important;
-  align-items: flex-start !important;
-}
-
-html.mobile-layout #keyword-tab #searchBtnSimple {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  height: 32px !important;
-  min-height: 32px !important;
-  max-height: 32px !important;
-  margin: 0;
-  padding: 3px 10px !important;
-  font-size: 16px !important;
-  line-height: 1.2;
-  box-sizing: border-box;
-  border-radius: 4px;
-  border: 1.5px solid var(--accent-color) !important;
 }
 
 html.mobile-layout #keyword-tab .word-operator-label input[type="radio"] {
@@ -8124,6 +8193,22 @@ html.mobile-layout #sidebar-header {
   flex-shrink: 0;
   max-height: none;
   min-height: 0;
+  padding: 0.5rem !important;
+  box-sizing: border-box;
+}
+
+html.mobile-layout body.thematic-chat-enabled.tab-thematic-active #sidebar-header {
+  padding: 0.5rem !important;
+}
+
+html.mobile-layout body.thematic-chat-enabled.tab-thematic-active .tab-container .tab-buttons {
+  margin-bottom: 0.6rem !important;
+}
+
+html.mobile-layout #header-top-flex {
+  align-items: flex-start;
+  min-height: 96px;
+  box-sizing: border-box;
 }
 
 html.mobile-layout #sidebar-content {
@@ -8132,14 +8217,25 @@ html.mobile-layout #sidebar-content {
   min-height: 0;
 }
 
-html.mobile-layout .site-logo {
-  height: 48px;
-  margin-right: 0.35rem;
+html.mobile-layout #sidebar-header .site-logo,
+html.mobile-layout #sidebar-header .site-logo.lecture-image {
+  height: 96px !important;
+  width: auto !important;
+  max-width: none !important;
+  margin: 0 0.35rem 0 0.45rem !important;
+  float: none !important;
+  display: block !important;
+  flex-shrink: 0;
+  mix-blend-mode: normal !important;
+  filter: none !important;
+}
+
+html.mobile-layout #site-title {
+  display: none !important;
 }
 
 html.mobile-layout .site-sign {
-  max-height: 32px;
-  width: auto;
+  display: none !important;
 }
 
 html.mobile-layout body:not(.is-local) .site-header-flex {
@@ -8160,12 +8256,6 @@ html.mobile-layout body:not(.is-local) #always-visible-buttons .help-button,
 html.mobile-layout body:not(.is-local) #always-visible-buttons .theme-toggle-btn {
   width: 36px;
   height: 36px;
-}
-
-html.mobile-layout body:not(.is-local) #site-title .site-sign {
-  height: 32px;
-  max-height: 32px;
-  transform: none;
 }
 
 html.mobile-layout .tab-container .tab-buttons {
@@ -8279,6 +8369,50 @@ html.mobile-layout .radio-group .depth-btn {
   min-height: 44px;
   font-size: 1em;
   padding: 10px 14px;
+}
+
+html.mobile-layout #keyword-tab .radio-group,
+html.mobile-layout #keyword-tab .radio-group .keyword-action-row {
+  display: flex !important;
+  flex-wrap: nowrap !important;
+  gap: 6px !important;
+  width: 100% !important;
+  margin: 0;
+  padding: 0;
+  justify-content: flex-start !important;
+  align-items: stretch !important;
+}
+
+html.mobile-layout #keyword-tab .radio-group .depth-btn {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  height: 32px !important;
+  min-height: 32px !important;
+  max-height: 32px !important;
+  margin: 0 !important;
+  padding: 3px 10px !important;
+  font-size: 16px !important;
+  line-height: 1.2 !important;
+  box-sizing: border-box !important;
+  border-radius: 4px !important;
+  border: 1.5px solid var(--accent-color) !important;
+}
+
+html.mobile-layout #keyword-tab #searchBtnSimple.depth-btn.primary {
+  background: var(--accent-color) !important;
+  color: #fff !important;
+}
+
+html.mobile-layout #keyword-tab #viewToggle {
+  min-width: 32px !important;
+  padding-left: 6px !important;
+  padding-right: 6px !important;
+}
+
+html.mobile-layout #keyword-tab #frequencyBtnSimple,
+html.mobile-layout #keyword-tab #advancedSearchBtnSimple {
+  display: none !important;
 }
 
 html.mobile-layout .custom-dropdown,
@@ -8659,6 +8793,11 @@ html.mobile-layout body.sidebar-collapsed.mobile-last-text-handle-muted #resizeH
   background-color: var(--border-color) !important;
 }
 
+html.mobile-layout body.sidebar-collapsed.mobile-hide-last-text-handle #resizeHandleText {
+  display: none !important;
+  pointer-events: none;
+}
+
 html.mobile-layout body.sidebar-collapsed .resize-handle::before {
   width: 2px;
   height: 2px;
@@ -8915,20 +9054,14 @@ Wandtafeln
 </select>
 </div>
 <div class="radio-group">
-<div style="display:flex; gap:8px; align-items: flex-start; justify-content: space-between; width: 100%;">
-    <div style="display:flex; gap:8px;">
-      <button id="searchBtnSimple" class="depth-btn primary" onclick="performKeywordSearch()" style="padding: 6px 8px;">Suchen</button>
-      <button id="frequencyBtnSimple" class="depth-btn" onclick="performSimpleFrequencyAnalysis()" style="padding: 6px 8px;">Häufigkeit</button>
-      <button class="depth-btn" onclick="openAdvancedSearch()" style="padding: 6px 8px;">erweitert</button>
-    </div>
-  <div style="display:flex; gap:8px; align-items: center;">
-    <button id="showTimelineBtn" class="depth-btn" onclick="showSearchResultsInTimeline()" style="padding: 6px 8px;">
-      Timeline
+<div class="keyword-action-row">
+      <button type="button" id="searchBtnSimple" class="depth-btn primary" onclick="performKeywordSearch()">Suchen</button>
+      <button type="button" id="frequencyBtnSimple" class="depth-btn" onclick="performSimpleFrequencyAnalysis()">Häufigkeit</button>
+      <button type="button" id="advancedSearchBtnSimple" class="depth-btn" onclick="openAdvancedSearch()">erweitert</button>
+    <button type="button" id="showTimelineBtn" class="depth-btn" onclick="showSearchResultsInTimeline()">Timeline</button>
+    <button type="button" id="viewToggle" class="depth-btn" onclick="toggleResultView()" title="Zwischen 'nur Titel' und 'Titel & Text' wechseln">
+      <span id="viewToggleText">▼</span>
     </button>
-    <button id="viewToggle" class="depth-btn" onclick="toggleResultView()" style="padding: 4px 6px; min-width: auto;" title="Zwischen 'nur Titel' und 'Titel & Text' wechseln">
-      <span id="viewToggleText" style="font-size: 1.2em;">▼</span>
-    </button>
-  </div>
 </div>
 </div>
 <div id="searchInfo" style="display: flex; align-items: center; gap: 0.5rem; margin-top: 0.5rem;">
@@ -12294,7 +12427,7 @@ PDF
 <link rel="stylesheet" href="thematic-chat-ui.css?v=20260712n">
 <script src="thematic-chat-ui.js?v=20260712n"></script>
 
-<script src="app.js?v=20261021s"></script>
+<script src="app.js?v=20261021ac"></script>
 </body>
 </html>
 
