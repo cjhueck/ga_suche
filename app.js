@@ -11153,6 +11153,13 @@ window.applyMobileHeaderButtonVisibility = applyMobileHeaderButtonVisibility;
 
 let lastInhaltsuebersichtGA = null;
 let lastOpenedTextId = null;
+let mobileLastTextHandleMuted = false;
+
+function setMobileLastTextHandleMuted(muted) {
+  mobileLastTextHandleMuted = !!muted;
+  document.body.classList.toggle('mobile-last-text-handle-muted', mobileLastTextHandleMuted);
+  if (typeof updateMobileTextOpenState === 'function') updateMobileTextOpenState();
+}
 
 function rememberLastInhaltsuebersichtGA(gaNumber) {
   const raw = String(gaNumber || '');
@@ -11163,7 +11170,12 @@ function rememberLastInhaltsuebersichtGA(gaNumber) {
 
 function rememberLastOpenedText(id) {
   const raw = String(id || '').trim();
-  if (raw.includes('/')) lastOpenedTextId = raw;
+  if (raw.includes('/')) {
+    lastOpenedTextId = raw;
+    if (typeof window.isMobileViewport === 'function' && window.isMobileViewport()) {
+      setMobileLastTextHandleMuted(false);
+    }
+  }
 }
 
 function getOpenTextGANumber() {
@@ -11199,7 +11211,8 @@ function updateMobileTextOpenState() {
     tabsHandle.title = 'Tab-Auswahl';
   }
   if (textHandle) {
-    textHandle.title = 'Letzter Text';
+    textHandle.title = mobileLastTextHandleMuted ? '' : 'Letzter Text';
+    textHandle.setAttribute('aria-disabled', mobileLastTextHandleMuted ? 'true' : 'false');
   }
   if (typeof applyMobileHeaderButtonVisibility === 'function') {
     applyMobileHeaderButtonVisibility();
@@ -11220,9 +11233,11 @@ function goToTabSelectionFromText() {
   if (typeof showGAVolumesView === 'function') showGAVolumesView();
   if (typeof setSidebarCollapsedForMobile === 'function') setSidebarCollapsedForMobile(false);
   document.body.classList.remove('mobile-text-open');
+  setMobileLastTextHandleMuted(true);
 }
 
 function goToLastOpenedText() {
+  if (mobileLastTextHandleMuted) return;
   const lectureId = lastOpenedTextId || (String(window.currentOpenLectureId || '').includes('/') ? window.currentOpenLectureId : null);
   if (!lectureId) return;
   if (typeof switchTab === 'function') switchTab('ga', true);

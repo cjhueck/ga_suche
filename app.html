@@ -8360,6 +8360,17 @@ html.mobile-layout body.sidebar-collapsed #resizeHandleText:hover {
   background-color: color-mix(in srgb, var(--heading-color) 82%, #000) !important;
 }
 
+html.mobile-layout body.sidebar-collapsed.mobile-last-text-handle-muted #resizeHandleText {
+  pointer-events: none;
+  cursor: default;
+  opacity: 0.35;
+  background-color: var(--border-color) !important;
+}
+
+html.mobile-layout body.sidebar-collapsed.mobile-last-text-handle-muted #resizeHandleText:hover {
+  background-color: var(--border-color) !important;
+}
+
 html.mobile-layout body.sidebar-collapsed .resize-handle::before {
   width: 2px;
   height: 2px;
@@ -11995,7 +12006,7 @@ PDF
 <link rel="stylesheet" href="thematic-chat-ui.css?v=20260712n">
 <script src="thematic-chat-ui.js?v=20260712n"></script>
 
-<script src="app.js?v=20261021d"></script>
+<script src="app.js?v=20261021e"></script>
 </body>
 </html>
 
