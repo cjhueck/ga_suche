@@ -19197,6 +19197,7 @@ function scrollToChronologicalYear(year) {
 
         const mainContainer = document.getElementById('main');
         if (mainContainer) mainContainer.scrollTop = 0;
+        if (typeof revealThematicResultsForMobile === 'function') revealThematicResultsForMobile();
       } catch (err) {
         console.error('[THEMATIC-EXAMPLES] Anzeige fehlgeschlagen:', err);
         alert('Beispiel konnte nicht angezeigt werden.');
