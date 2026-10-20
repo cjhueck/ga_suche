@@ -8262,14 +8262,18 @@ html.mobile-layout .tab-container .tab-buttons {
   overflow-x: hidden !important;
   flex-wrap: nowrap !important;
   justify-content: flex-start !important;
-  gap: 8px !important;
+  gap: 0 !important;
   margin-bottom: 0.6rem;
 }
 
 html.mobile-layout .tab-button {
+  display: inline-flex;
+  align-items: flex-end;
   flex: 0 0 auto;
-  min-height: 44px;
-  padding: 12px 14px;
+  box-sizing: border-box;
+  min-height: 40px;
+  padding: 6px 8px 1px;
+  line-height: 1.1;
   font-size: 1.1em;
 }
 
