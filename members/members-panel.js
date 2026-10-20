@@ -314,8 +314,12 @@ function openMembersWindow() {
  * Aktualisiert den visuellen Status des Mitglieder-Buttons
  */
 function updateMembersButtonStatus() {
-  const membersBtn = document.getElementById('membersPanelBtn');
-  if (membersBtn) {
+  const membersButtons = [
+    document.getElementById('membersPanelBtn'),
+    document.getElementById('texteMembersBtn')
+  ];
+  membersButtons.forEach((membersBtn) => {
+    if (!membersBtn) return;
     if (membersPanelActive) {
       membersBtn.classList.add('active');
       membersBtn.setAttribute('title', 'Mitgliederbereich schließen');
@@ -323,7 +327,7 @@ function updateMembersButtonStatus() {
       membersBtn.classList.remove('active');
       membersBtn.setAttribute('title', 'Mitgliederbereich öffnen');
     }
-  }
+  });
 }
 
 /**

@@ -4612,6 +4612,11 @@ body.dark-mode #thematic2-visualization-main svg .grid line {
       color: white !important;
     }
     
+    #texteGaInfoBtn,
+    #texteMembersBtn {
+      display: none;
+    }
+
     /* Texte View Toggle Button – dauerhaft farbig ausgefüllt */
     #texteViewToggle {
       min-width: 32px !important;
@@ -7677,7 +7682,12 @@ html.mobile-layout body {
 
 html.mobile-layout .tab-button[data-help="tab-themen-2"],
 html.mobile-layout .tab-button[data-help="tab-index"],
-html.mobile-layout .tab-button[data-help="tab-maps"] {
+html.mobile-layout .tab-button[data-help="tab-maps"],
+html.mobile-layout .tab-button[data-help="tab-texte"],
+html.mobile-layout .tab-button[data-help="tab-docs"],
+html.mobile-layout .tab-button[data-help="tab-keywords"],
+html.mobile-layout .tab-button[data-help="tab-zitate"],
+html.mobile-layout .tab-button[data-help="tab-korrektur"] {
   display: none !important;
 }
 
@@ -7947,16 +7957,19 @@ html.mobile-layout body:not(.is-local) #site-title .site-sign {
 }
 
 html.mobile-layout .tab-container .tab-buttons {
-  overflow-x: auto !important;
+  overflow-x: hidden !important;
   flex-wrap: nowrap !important;
-  -webkit-overflow-scrolling: touch;
-  scrollbar-width: thin;
+  justify-content: stretch !important;
+  gap: 8px !important;
   margin-bottom: 0.6rem;
 }
 
 html.mobile-layout .tab-button {
-  padding: 10px 10px;
-  font-size: 0.9em;
+  flex: 1 1 0;
+  min-width: 0;
+  min-height: 44px;
+  padding: 12px 10px;
+  font-size: 1.1em;
 }
 
 html.mobile-layout .search-words-row {
@@ -8150,6 +8163,59 @@ html.mobile-layout #viewer-header .viewer-buttons-container {
   margin-left: 0 !important;
   justify-content: flex-start;
   width: 100%;
+  gap: 6px;
+}
+
+html.mobile-layout #viewer-header .viewer-buttons-container > *:not(#gaInfoBtn):not(#h4ToggleBtn):not(#viewerSummaryBtn):not(#membersPanelBtn) {
+  display: none !important;
+}
+
+html.mobile-layout #texteServerInfo {
+  display: none !important;
+}
+
+html.mobile-layout #texte-panel-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-left: auto;
+}
+
+html.mobile-layout #texteViewToggle {
+  margin-left: 0 !important;
+}
+
+html.mobile-layout #texteGaInfoBtn,
+html.mobile-layout #texteMembersBtn {
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  min-width: 32px;
+  height: 32px;
+  min-height: 32px;
+  padding: 4px;
+  border: 1px solid var(--accent-color);
+  border-radius: 4px;
+  background: transparent;
+  color: var(--link-color);
+  cursor: pointer;
+  box-sizing: border-box;
+}
+
+html.mobile-layout #texteGaInfoBtn {
+  border: none;
+  color: var(--link-color);
+}
+
+html.mobile-layout #texteMembersBtn {
+  position: relative;
+}
+
+html.mobile-layout #texteMembersBtn:hover,
+html.mobile-layout #texteMembersBtn.active {
+  background: var(--accent-color);
+  color: white;
 }
 
 html.mobile-layout .vertical-resize-handle-wrapper {
@@ -8647,9 +8713,23 @@ body.local-mode #texte-select-all-label { display: inline-flex !important; }
 <div>
 <span id="texteServerInfo"></span>
 </div>
+<div id="texte-panel-toolbar" style="display: flex; align-items: center; gap: 6px;">
 <button id="texteViewToggle" onclick="toggleGASummaries()" title="Nur Titel / Kurzzusammenfassungen umschalten" style="display: none;">
 ▼
 </button>
+<button id="texteGaInfoBtn" onclick="showGABibliographyInfo()" title="Bibliographische Angaben anzeigen" style="display: none; padding: 4px; border: none; background: transparent; color: var(--link-color); cursor: pointer;">
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.5" fill="none"/>
+<text x="12" y="16" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="currentColor" text-anchor="middle">i</text>
+</svg>
+</button>
+<button id="texteMembersBtn" onclick="toggleMembersPanel()" title="Mitgliederbereich öffnen/schließen" style="display: none; position: relative;">
+<svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="pointer-events: none;">
+<circle cx="12" cy="8" r="4"/>
+<path d="M12 14c-6.1 0-8 4-8 4v3h16v-3s-1.9-4-8-4z"/>
+</svg>
+</button>
+</div>
 </div>
 </div>
 </div>
@@ -11758,7 +11838,7 @@ PDF
 <link rel="stylesheet" href="thematic-chat-ui.css?v=20260712n">
 <script src="thematic-chat-ui.js?v=20260712n"></script>
 
-<script src="app.js?v=20261020a"></script>
+<script src="app.js?v=20261020c"></script>
 </body>
 </html>
 

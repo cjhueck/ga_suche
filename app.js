@@ -2505,7 +2505,7 @@ function normalizeGANumber(gaNumber) {
       if (mobile && !wasMobile) {
         var active = document.querySelector('.tab-button.active');
         var help = active && active.getAttribute('data-help');
-        if ((help === 'tab-themen-2' || help === 'tab-index' || help === 'tab-maps') && typeof switchTab === 'function') {
+        if ((help === 'tab-themen-2' || help === 'tab-index' || help === 'tab-maps' || help === 'tab-texte' || help === 'tab-docs' || help === 'tab-keywords' || help === 'tab-zitate' || help === 'tab-korrektur') && typeof switchTab === 'function') {
           switchTab('keyword');
         }
       }
@@ -3878,6 +3878,10 @@ function normalizeGANumber(gaNumber) {
           // Nur löschen wenn GA-Bände-Liste noch sichtbar ist
           resultsDiv.innerHTML = '';
           }
+      }
+
+      if (!skipHistory && !window.membersNavigating && typeof resetTabToDefault === 'function') {
+        resetTabToDefault(mode);
       }
       
       // Lade GA-Bände wenn zum GA-Tab gewechselt wird
@@ -10989,6 +10993,14 @@ function activateFootnoteLinks() {
 
 async function showGALectures(gaNumber, skipHistory = false) {
   try {
+    if (typeof window.isMobileViewport === 'function' && window.isMobileViewport()) {
+      if (typeof setSidebarCollapsedForMobile === 'function') {
+        setSidebarCollapsedForMobile(false);
+      }
+      if (typeof window.navigateToGAInTexteTab === 'function') {
+        return await window.navigateToGAInTexteTab(gaNumber);
+      }
+    }
     // Setze Ansicht auf 'volumes', da wir einen einzelnen GA-Band anzeigen
     currentGAView = 'volumes';
     if (typeof setSidebarCollapsedForMobile === 'function') {
@@ -11943,6 +11955,9 @@ function showGAVolumesView() {
   }
   const yearDropdown = document.getElementById('ga-year-filter-dropdown');
   if (yearDropdown) yearDropdown.value = '';
+  if (typeof gaYearFilterDropdown !== 'undefined' && gaYearFilterDropdown) {
+    gaYearFilterDropdown.setSelectedValue('');
+  }
 
   if (typeof populateGABandFilterDropdown === 'function') {
     populateGABandFilterDropdown(false);
@@ -24611,6 +24626,12 @@ function formatAsteriskParagraphs() {
       !(typeof isBookVolumeForTexteTab === 'function' && isBookVolumeForTexteTab(lectureId))) {
     const volumeId = canonicalGAVolumeId(lectureId);
     console.log('[SHOW-LECTURE] Band ohne Vortrag, öffne GA-Inhaltsverzeichnis:', volumeId);
+    if (typeof window.isMobileViewport === 'function' && window.isMobileViewport()) {
+      if (typeof showGALectures === 'function') {
+        await showGALectures(volumeId, true);
+      }
+      return;
+    }
     if (typeof switchTab === 'function') switchTab('ga', true);
     const volumeUrl = withTextFragment(`${window.location.pathname}#ga?volume=${encodeURIComponent(volumeId)}`);
     history.replaceState({ tab: 'ga', gaVolume: volumeId }, '', volumeUrl);
@@ -30148,7 +30169,46 @@ function clearKeywordSearch() {
 const tabOriginalContent = {};
 
 // Erweitere die bestehende switchTab Funktion
-function switchTabExtended(mode) {
+function resetTabToDefault(mode) {
+  if (mode === 'ga') {
+    if (typeof setSidebarCollapsedForMobile === 'function') {
+      setSidebarCollapsedForMobile(false);
+    }
+    if (typeof showGAVolumesView === 'function') {
+      showGAVolumesView();
+    }
+    return;
+  }
+
+  if (mode === 'keyword') {
+    if (typeof setSidebarCollapsedForMobile === 'function') {
+      setSidebarCollapsedForMobile(false);
+    }
+    return;
+  }
+
+  if (mode === 'texte') {
+    const resultsDiv = document.getElementById('results');
+    if (resultsDiv) resultsDiv.innerHTML = '';
+    const texteGAFilter = document.getElementById('texteGAFilter');
+    if (texteGAFilter) texteGAFilter.value = '';
+    const texteBtn = document.getElementById('texteGAFilterButton');
+    const texteLabel = texteBtn && texteBtn.querySelector('.custom-dropdown-text');
+    if (texteLabel) texteLabel.textContent = 'GA-Band auswählen...';
+    window._currentGAInSidePanel = null;
+    if (typeof updateTexteViewToggle === 'function') {
+      updateTexteViewToggle(null);
+    }
+    return;
+  }
+
+  if (mode === 'thematic') {
+    const queryInput = document.getElementById('thematicQuery');
+    if (queryInput) queryInput.value = '';
+  }
+}
+
+function switchTabExtended(mode, skipHistory = false) {
   var trackMode = mode;
   if (mode === 'thematic2') {
     trackMode = 'thematic2_' + (window._themenView || 'schwerpunkte');
@@ -30747,7 +30807,7 @@ function switchTabExtended(mode) {
   }
   
   // Wenn wir zum Texte-Tab wechseln, setze das Dropdown zurück
-  if (mode === 'texte') {
+  if (mode === 'texte' && !skipHistory) {
     const texteGAFilter = document.getElementById('texteGAFilter');
     if (texteGAFilter) {
       texteGAFilter.value = '';
@@ -30800,6 +30860,10 @@ function switchTabExtended(mode) {
       // Nur löschen wenn GA-Bände-Liste noch sichtbar ist
       resultsDiv.innerHTML = '';
     }
+  }
+
+  if (!skipHistory && !window.membersNavigating) {
+    resetTabToDefault(mode);
   }
   
   // Lade GA-Bände wenn zum GA-Tab gewechselt wird
@@ -38091,7 +38155,7 @@ async function showSearchResultsTimelineV2(customResults = null, customKeywords 
 
 // Update switchTab function to load stats when timeline tab is opened
 const originalSwitchTab = window.switchTab;
-window.switchTab = function(tabName) {
+window.switchTab = function(tabName, skipHistory) {
   // WICHTIG: Entferne WZ-Sektion beim Tab-Wechsel
   const viewer = document.getElementById('viewer');
   if (viewer) {
@@ -38146,7 +38210,7 @@ window.switchTab = function(tabName) {
   
   // Call original function
   if (originalSwitchTab) {
-    originalSwitchTab(tabName);
+    originalSwitchTab(tabName, skipHistory);
   }
   
   // Load stats when timeline tab is opened
