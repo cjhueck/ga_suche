@@ -3943,6 +3943,10 @@ gap: 4px !important;
       gap: 4px;
     }
 
+    #ga-year-filter-dropdown {
+      display: none;
+    }
+
     #ga-filter-dropdowns-row .custom-dropdown {
       flex: 1 1 0;
       min-width: 0;
@@ -7674,6 +7678,62 @@ html.mobile-layout .tab-button[data-help="tab-maps"] {
   display: none !important;
 }
 
+html.mobile-layout #sidebar-action-buttons {
+  display: none !important;
+}
+
+html.mobile-layout #ga-chronological-view-btn,
+html.mobile-layout #ga-chalkboards-btn,
+html.mobile-layout #ga-volumes-info {
+  display: none !important;
+}
+
+html.mobile-layout #ga-view-toggle {
+  margin-bottom: 0.2rem;
+  align-items: stretch;
+}
+
+html.mobile-layout #ga-tab > div {
+  padding: 0 !important;
+}
+
+html.mobile-layout #ga-filter-dropdowns-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  align-items: stretch;
+  width: 100%;
+  flex: 1 1 100%;
+  gap: 6px;
+}
+
+html.mobile-layout #ga-filter-dropdowns-row .custom-dropdown,
+html.mobile-layout #ga-year-filter-dropdown {
+  min-width: 0;
+  width: 100%;
+}
+
+html.mobile-layout #ga-filter-dropdowns-row .custom-dropdown-button,
+html.mobile-layout #ga-year-filter-dropdown {
+  display: flex !important;
+  align-items: center;
+  height: 32px !important;
+  min-height: 32px !important;
+  max-height: 32px !important;
+  padding: 3px 6px !important;
+  font-size: 16px !important;
+  line-height: 1.2;
+  box-sizing: border-box;
+  border: 1.5px solid var(--accent-color);
+  border-radius: 4px;
+  background: var(--background-color);
+  color: var(--text-color);
+  cursor: pointer;
+}
+
+html.mobile-layout #ga-year-filter-dropdown {
+  display: block !important;
+}
+
 html.mobile-layout #keyword-tab #frequencyBtnSimple,
 html.mobile-layout #keyword-tab button[onclick="openAdvancedSearch()"],
 html.mobile-layout #keyword-tab #relevanceFilter,
@@ -8017,14 +8077,22 @@ html.mobile-layout .vertical-resize-handle-wrapper {
 }
 
 html.mobile-layout body.sidebar-collapsed .resize-handle-wrapper {
-  width: 22px;
+  width: 14px;
   z-index: 1300;
 }
 
 html.mobile-layout body.sidebar-collapsed .resize-handle {
-  width: 22px;
-  height: 48px;
-  min-height: 48px;
+  width: 14px;
+  height: 32px;
+  min-height: 32px;
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 8px;
+}
+
+html.mobile-layout body.sidebar-collapsed .resize-handle::before {
+  width: 2px;
+  height: 2px;
+  box-shadow: 0 5px 0 #3a5f6d, 0 -5px 0 #3a5f6d;
 }
 
 html.mobile-layout #summary-panel.visible {
@@ -8144,9 +8212,6 @@ Chronologisch
 <button id="ga-chalkboards-btn" class="depth-btn" onclick="toggleChalkboardsView()" style="background: transparent; color: var(--accent-color); border: 1px solid var(--accent-color);">
 Wandtafeln
 </button>
-<select id="ga-year-filter-dropdown" class="filter-dropdown" onchange="handleYearFilterChange(this.value)" style="display: none; padding: 6px; font-size: 0.78em; border: 1.5px solid var(--accent-color); border-radius: 4px; background: var(--background-color); color: var(--text-color); cursor: pointer; width: 72px; flex-shrink: 0;">
-<option value="">Jahr</option>
-</select>
 <div id="ga-filter-dropdowns-row">
 <select id="ga-band-filter-dropdown" class="filter-dropdown" style="display: none;" aria-hidden="true" tabindex="-1">
 <option value="">GA-Bände</option>
@@ -8158,6 +8223,9 @@ Wandtafeln
   </button>
   <div class="custom-dropdown-list" id="gaBandFilterList"></div>
 </div>
+<select id="ga-year-filter-dropdown" class="filter-dropdown" onchange="handleYearFilterChange(this.value)" aria-label="Jahr">
+<option value="">Jahr</option>
+</select>
 <select id="ga-place-filter-dropdown" class="filter-dropdown" style="display: none;" aria-hidden="true" tabindex="-1">
 <option value="">Orte</option>
 </select>
