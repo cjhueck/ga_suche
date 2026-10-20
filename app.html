@@ -1440,6 +1440,12 @@ body:not(.is-local) #translateBtnWrapper {
       padding-top: 1rem !important;
     }
 
+    /* Such-Timeline: mehr Breite für Einträge, Jahresachse weiter links */
+    #sidebar-content:has(#timelineContainer) {
+      padding-left: 0.45rem !important;
+      padding-right: 0.55rem !important;
+    }
+
     /* GA-Tab: geringerer Abstand oben zwischen Resize-Handle und oberster GA */
     body:has(.tab-button.active[onclick="switchTab('ga')"]) #sidebar-content {
       padding-top: 1rem !important;
@@ -1568,10 +1574,12 @@ body:not(.is-local) #translateBtnWrapper {
     /* Neue vertikale Timeline-Visualisierung (drei Spalten) */
     .timeline-visualization {
       display: grid;
-      grid-template-columns: 80px 1fr;
-      gap: 0.5rem;
-      padding: 0 0.5rem 0.5rem 0.5rem;
+      grid-template-columns: 48px minmax(0, 1fr);
+      gap: 0.3rem;
+      padding: 0 0.25rem 0.5rem 0;
       font-size: 0.9rem;
+      width: 100%;
+      box-sizing: border-box;
     }
     
     .timeline-themes-column {
@@ -1583,6 +1591,8 @@ body:not(.is-local) #translateBtnWrapper {
       position: relative;
       min-height: 100%;
       padding: 0;
+      width: 48px;
+      max-width: 48px;
     }
     
     .timeline-center-column::before {
@@ -1603,17 +1613,20 @@ body:not(.is-local) #translateBtnWrapper {
     
     .timeline-keywords-column {
       text-align: left;
-      padding-left: 0.3rem;
-      max-width: 900px;
+      padding-left: 0.1rem;
+      padding-right: 0;
+      min-width: 0;
+      max-width: none;
+      width: 100%;
     }
     
     .timeline-year-marker {
       position: absolute;
       display: inline-block;
-      padding: 0.3rem 0.8rem;
+      padding: 0.25rem 0.35rem;
       background: var(--background-color);
       font-weight: bold;
-      font-size: 0.95em;
+      font-size: 0.88em;
       color: var(--heading-color);
       z-index: 1;
       white-space: nowrap;
@@ -5068,7 +5081,7 @@ body.dark-mode #thematic2-visualization-main svg .grid line {
       box-sizing: border-box;
       /* Position und Breite werden via JavaScript gesetzt */
     }
-    
+
     /* Dark Mode für fixierten Header */
     body.dark-mode #viewer-header {
       background-color: var(--dark-background-color) !important;
@@ -8884,6 +8897,42 @@ html.mobile-layout #viewer-header .viewer-buttons-container {
   gap: 6px;
 }
 
+#keywordSearchBackBtn.resize-handle-keyword-back {
+  display: none;
+}
+
+html.mobile-layout body.sidebar-collapsed #keywordSearchBackBtn.resize-handle-keyword-back.is-visible {
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  background-color: var(--background-color) !important;
+  border: 2px solid var(--link-color) !important;
+  border-left: 0 !important;
+  color: var(--link-color);
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1;
+  user-select: none;
+}
+
+html.mobile-layout body.sidebar-collapsed #keywordSearchBackBtn.resize-handle-keyword-back:hover {
+  background-color: var(--background-color) !important;
+}
+
+html.mobile-layout body.sidebar-collapsed #keywordSearchBackBtn.resize-handle-keyword-back::before {
+  display: none !important;
+  content: none !important;
+  box-shadow: none !important;
+}
+
+html.mobile-layout body.dark-mode.sidebar-collapsed #keywordSearchBackBtn.resize-handle-keyword-back,
+html.mobile-layout body.dark-mode.sidebar-collapsed #keywordSearchBackBtn.resize-handle-keyword-back:hover {
+  background-color: var(--dark-background-color, var(--background-color)) !important;
+  border-color: var(--link-color) !important;
+  color: var(--link-color);
+}
+
 html.mobile-layout #viewer-header .viewer-buttons-container > *:not(#gaInfoBtn):not(#h4ToggleBtn):not(#viewerSummaryBtn):not(#membersPanelBtn):not(#texteViewToggle) {
   display: none !important;
 }
@@ -11710,6 +11759,7 @@ Bestehende Schlagwörter überschreiben
 </div>
 <div class="resize-handle-wrapper" id="resizeHandleWrapper">
   <div class="resize-handle-line"></div>
+  <div class="resize-handle resize-handle-keyword-back" id="keywordSearchBackBtn" role="button" tabindex="0" title="Zurück zu den Suchergebnissen" aria-label="Zurück zu den Suchergebnissen">&lt;</div>
   <div class="resize-handle resize-handle-tabs" id="resizeHandleTabs" title="Tab-Auswahl"></div>
   <div class="resize-handle" id="resizeHandle" title="Inhaltsübersicht"></div>
   <div class="resize-handle resize-handle-text" id="resizeHandleText" title="Letzter Text"></div>
@@ -12718,7 +12768,7 @@ PDF
 <link rel="stylesheet" href="thematic-chat-ui.css?v=20260712n">
 <script src="thematic-chat-ui.js?v=20261021ai"></script>
 
-<script src="app.js?v=20261021ai"></script>
+<script src="app.js?v=20261021aq"></script>
 </body>
 </html>
 
