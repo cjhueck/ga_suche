@@ -7645,16 +7645,21 @@ body.dark-mode .viewer-search-highlight.active {
 
 @media (max-width: 768px) {
   html, body {
-    overflow-x: hidden;
+    overflow: hidden;
+    height: 100%;
+    height: 100dvh;
+    height: 100svh;
     -webkit-text-size-adjust: 100%;
     text-size-adjust: 100%;
   }
 
   body {
     height: 100dvh;
+    height: 100svh;
   }
 
   #sidebar {
+    display: block;
     position: fixed;
     left: 0;
     top: 0;
@@ -7662,15 +7667,25 @@ body.dark-mode .viewer-search-highlight.active {
     min-width: 0 !important;
     max-width: 100%;
     height: 100dvh;
+    height: 100svh;
+    max-height: 100dvh;
+    max-height: 100svh;
+    overflow-x: hidden;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
     z-index: 1200;
     background: var(--background-color);
     box-shadow: 4px 0 16px rgba(0, 0, 0, 0.12);
+    padding-bottom: calc(1.25rem + env(safe-area-inset-bottom, 0px));
   }
 
   #sidebar.collapsed {
     width: 0 !important;
     min-width: 0 !important;
+    overflow: hidden;
     box-shadow: none;
+    padding-bottom: 0;
   }
 
   #main-container {
@@ -7684,19 +7699,54 @@ body.dark-mode .viewer-search-highlight.active {
   }
 
   #sidebar-header {
-    overflow-y: auto;
-    flex-shrink: 1;
-    max-height: 75dvh;
+    position: relative;
+    top: auto;
+    overflow: visible;
+    flex-shrink: 0;
+    max-height: none;
+    min-height: 0;
+  }
+
+  #sidebar-content {
+    flex: 0 0 auto;
+    overflow: visible;
+    min-height: 0;
   }
 
   .site-logo {
-    height: 56px;
+    height: 48px;
     margin-right: 0.35rem;
   }
 
   .site-sign {
-    max-height: 36px;
+    max-height: 32px;
     width: auto;
+  }
+
+  body:not(.is-local) .site-header-flex {
+    flex-direction: row-reverse;
+    align-items: center;
+    gap: 0.35rem;
+  }
+
+  body:not(.is-local) #always-visible-buttons {
+    height: auto;
+    width: auto;
+    flex-direction: row;
+    justify-content: flex-start;
+    gap: 0.25rem;
+  }
+
+  body:not(.is-local) #always-visible-buttons .help-button,
+  body:not(.is-local) #always-visible-buttons .theme-toggle-btn {
+    width: 36px;
+    height: 36px;
+  }
+
+  body:not(.is-local) #site-title .site-sign {
+    height: 32px;
+    max-height: 32px;
+    transform: none;
   }
 
   .tab-container .tab-buttons {
@@ -7712,9 +7762,15 @@ body.dark-mode .viewer-search-highlight.active {
     font-size: 0.9em;
   }
 
-  .search-words-row,
-  .filter-row {
+  .search-words-row {
     flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+  }
+
+  .filter-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
     align-items: stretch;
     gap: 8px;
   }
