@@ -6650,7 +6650,7 @@ function initGABandFilterDropdown() {
     'gaBandFilterContainer',
     'gaBandFilterButton',
     'gaBandFilterList',
-    'GA-Bände',
+    'GA-Band',
     { searchPlaceholder: 'GA-Nummer oder Titel …' }
   );
 
@@ -6696,7 +6696,7 @@ function initGAPlaceFilterDropdown() {
     'gaPlaceFilterContainer',
     'gaPlaceFilterButton',
     'gaPlaceFilterList',
-    'Orte',
+    'Ort',
     { searchPlaceholder: 'Ort suchen …', matchMode: 'label' }
   );
 
@@ -6729,7 +6729,7 @@ function populatePlaceFilterDropdown() {
   });
 
   const sorted = Array.from(places).sort((a, b) => a.localeCompare(b, 'de', { sensitivity: 'base' }));
-  dropdown.innerHTML = '<option value="">Orte</option>';
+  dropdown.innerHTML = '<option value="">Ort</option>';
 
   const items = sorted.map(place => ({
     value: place,
@@ -6758,7 +6758,7 @@ function populatePlaceFilterDropdown() {
   }
 
   if (gaPlaceFilterDropdown) {
-    gaPlaceFilterDropdown.setPlaceholder('Orte');
+    gaPlaceFilterDropdown.setPlaceholder('Ort');
     gaPlaceFilterDropdown.setItems(items);
     gaPlaceFilterDropdown.setSelectedValue(restoredValue);
   }
@@ -7071,7 +7071,7 @@ function populateGABandFilterDropdown(chalkboardsOnly = false) {
   const gasWithChalkboards = chalkboardsOnly ? getGAsWithChalkboards() : [];
   
   // Leere Dropdown
-  const placeholder = chalkboardsOnly ? 'Alle Tafeln' : 'GA-Bände';
+  const placeholder = chalkboardsOnly ? 'Alle Tafeln' : 'GA-Band';
   dropdown.innerHTML = `<option value="">${placeholder}</option>`;
   
   // Sortiere GA-Bände nach Nummer (GA014 wird nicht angezeigt)
@@ -19210,9 +19210,11 @@ function scrollToChronologicalYear(year) {
     // Vortrag oder Buch geladen - zeige Buttons entsprechend
     
     // H4 Toggle Button - nur bei Vorträgen (nicht bei Books), und NUR in Suche/Texte/Themen2
+    // Mobil: auch im GA-Tab sichtbar, weil Texte dort gelesen werden
     const h4ToggleBtn = document.getElementById('h4ToggleBtn');
     if (h4ToggleBtn) {
-      if (isBook || isInGATab || isInIndexTab || isInThematicTab) {
+      const isMobile = typeof window.isMobileViewport === 'function' && window.isMobileViewport();
+      if (isBook || isInIndexTab || isInThematicTab || (isInGATab && !isMobile)) {
         h4ToggleBtn.style.display = 'none';
       } else {
         h4ToggleBtn.style.display = 'inline-flex';
@@ -21851,14 +21853,10 @@ function scrollToChronologicalYear(year) {
       // Aktualisiere Button-Icon basierend auf Status (Pfeil nach oben/unten)
       const h4ToggleBtn = document.getElementById('h4ToggleBtn');
       if (h4ToggleBtn) {
-        // Prüfe, ob wir im GA-Tab sind - wenn ja, Button ausblenden
-        const gaTab = document.getElementById('ga-tab');
-        const isInGATab = gaTab && gaTab.classList.contains('active');
-        if (isInGATab) {
-          h4ToggleBtn.style.display = 'none';
-        } else {
-          h4ToggleBtn.innerHTML = viewerH4Collapsed ? '▼' : '▲';
-          h4ToggleBtn.title = viewerH4Collapsed ? 'H3+H4+KW+H4Headings anzeigen' : 'Nur H3 anzeigen';
+        h4ToggleBtn.innerHTML = viewerH4Collapsed ? '▼' : '▲';
+        h4ToggleBtn.title = viewerH4Collapsed ? 'H3+H4+KW+H4Headings anzeigen' : 'Nur H3 anzeigen';
+        if (typeof applyMobileHeaderButtonVisibility === 'function') {
+          applyMobileHeaderButtonVisibility();
         }
       }
     }
