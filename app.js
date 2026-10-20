@@ -18591,11 +18591,6 @@ function scrollToChronologicalYear(year) {
         return `${year}-${month}-01`;
       }
       
-      dateMatch = fileName.match(/(\d{4})/);
-      if (dateMatch) {
-        return dateMatch[1];
-      }
-      
       return '';
     }
 
@@ -18709,14 +18704,11 @@ function scrollToChronologicalYear(year) {
       results.forEach(result => {
         const lectureId = result.ID;
         if (!groupedByLecture[lectureId]) {
-          let lectureDate = result.date || '';
-          if (!lectureDate && result.fileName) {
-            lectureDate = extractDateFromFileName(result.fileName);
-          }
-          
+          const resolved = resolveSearchResultTimelineDate(result);
           groupedByLecture[lectureId] = {
             fileName: result.fileName || result.title,
-            date: lectureDate,
+            date: resolved.dateString,
+            year: resolved.year,
             chunks: []
           };
         }
@@ -18771,8 +18763,9 @@ function scrollToChronologicalYear(year) {
       let isFirstOfYear = false;
       
       filteredLectures.forEach(([lectureId, lecture], index) => {
-        // Extrahiere Jahr aus dem Datum
-        const year = lecture.date ? lecture.date.substring(0, 4) : null;
+        const year = lecture.year != null
+          ? String(lecture.year)
+          : (parseTimelineYearFromDateString(lecture.date) || null);
         
         // Prüfe ob neues Jahr
         isFirstOfYear = (year && year !== currentYear);
@@ -34383,6 +34376,140 @@ function scrollToKeyword(keyword) {
 // Lade vollständige Vortragsdaten für Timeline (aus steiner-full-lectures-...json)
 const paragraphOrderCache = new Map();
 
+/** Steiner-Zeitraum (Vorträge/Schriften), nicht historische Jahreszahlen im Zitattext */
+const STEINER_ERA_YEAR_PATTERN = /\b(18(?:8[3-9]|9\d)|19(?:0\d|1\d|2[0-5]))\b/;
+
+function parseTimelineYearFromDateString(dateStr) {
+  if (!dateStr) return null;
+  const s = String(dateStr).trim();
+  const steiner = s.match(STEINER_ERA_YEAR_PATTERN);
+  if (steiner) return parseInt(steiner[1], 10);
+  const range = s.match(/^(\d{4})(?:\s*[-–—]\s*(\d{4}))?$/);
+  if (range) {
+    const y = parseInt(range[1], 10);
+    if (y >= 1883 && y <= 1925) return y;
+  }
+  return null;
+}
+
+function isSteinerEraYear(y) {
+  const n = Number(y);
+  return n >= 1883 && n <= 1925;
+}
+
+/** Jahr aus Aufsatz-Titel/Dateiname, z. B. GA030 „… (1891)“ oder „(1892-93)“ am Ende */
+function parseEssayYearFromTitleOrFileName(lecture, result) {
+  if (lecture?.year) {
+    const y = parseInt(lecture.year, 10);
+    if (isSteinerEraYear(y)) return y;
+  }
+  const candidates = [lecture?.fileName, result?.fileName, lecture?.title, result?.title];
+  for (const raw of candidates) {
+    if (!raw) continue;
+    const s = String(raw).trim();
+    const endParen = s.match(/\((\d{4})(?:\s*[-–—]\s*(?:\d{2}|\d{4}))?\)\s*$/);
+    if (endParen) {
+      const y = parseInt(endParen[1], 10);
+      if (isSteinerEraYear(y)) return y;
+    }
+  }
+  return null;
+}
+
+/** Nur letzter Ausweg: Erscheinungszeitraum des ganzen GA-Bands, nicht pro Text */
+function parseYearFromSteinerBandTitle(text) {
+  const m = String(text || '').match(/\((\d{4})(?:\s*[-–—]\s*(\d{4}))?\)/);
+  if (!m) return null;
+  const y = parseInt(m[1], 10);
+  return isSteinerEraYear(y) ? y : null;
+}
+
+function parseYearFromLectureId(id) {
+  if (!id) return null;
+  const isoInId = String(id).match(/\/(\d{4})-\d{2}-\d{2}/);
+  if (isoInId && isSteinerEraYear(parseInt(isoInId[1], 10))) {
+    return parseInt(isoInId[1], 10);
+  }
+  const yearInId = String(id).match(/\/(18\d{2}|19\d{2})(?:\/|$|-)/);
+  if (yearInId && isSteinerEraYear(parseInt(yearInId[1], 10))) {
+    return parseInt(yearInId[1], 10);
+  }
+  return null;
+}
+
+function extractVortragDateFromFileName(fileName) {
+  if (!fileName) return '';
+  const monthNames = {
+    'januar': '01', 'februar': '02', 'märz': '03', 'april': '04',
+    'mai': '05', 'juni': '06', 'juli': '07', 'august': '08',
+    'september': '09', 'oktober': '10', 'november': '11', 'dezember': '12'
+  };
+  let dateMatch = fileName.match(/(\d{1,2})\.\s+([a-zä]+)\s+(\d{4})/i);
+  if (dateMatch) {
+    const day = dateMatch[1].padStart(2, '0');
+    const monthName = dateMatch[2].toLowerCase();
+    const year = dateMatch[3];
+    const month = monthNames[monthName] || '00';
+    return `${year}-${month}-${day}`;
+  }
+  dateMatch = fileName.match(/im\s+([a-zä]+)\s+(\d{4})/i);
+  if (dateMatch) {
+    const monthName = dateMatch[1].toLowerCase();
+    const year = dateMatch[2];
+    const month = monthNames[monthName] || '00';
+    return `${year}-${month}-01`;
+  }
+  return '';
+}
+
+function resolveSearchResultTimelineDate(result) {
+  const id = result?.ID || '';
+  const lecture = id && fullLecturesData ? fullLecturesData[id] : null;
+
+  if (lecture?.date) {
+    const year = parseTimelineYearFromDateString(lecture.date);
+    return { dateString: lecture.date, year };
+  }
+
+  const gaBand = id.includes('/') ? id.split('/')[0] : id;
+  const isBookHit = result.isBook || (id && !id.includes('/'));
+  if (isBookHit && typeof isBookGANumber === 'function' && isBookGANumber(gaBand)) {
+    const yr = result.yearRange || fullBooksData[id]?.yearRange || result.date;
+    const year = parseTimelineYearFromDateString(yr);
+    if (year) return { dateString: String(yr), year };
+  }
+
+  if (result.date) {
+    const year = parseTimelineYearFromDateString(result.date);
+    if (year) return { dateString: result.date, year };
+  }
+
+  const fromEssayMeta = parseEssayYearFromTitleOrFileName(lecture, result);
+  if (fromEssayMeta) {
+    return { dateString: String(fromEssayMeta), year: fromEssayMeta };
+  }
+
+  const fromId = parseYearFromLectureId(id);
+  if (fromId) {
+    return { dateString: String(fromId), year: fromId };
+  }
+
+  const fileName = result.fileName || lecture?.fileName || '';
+  const fromFile = extractVortragDateFromFileName(fileName);
+  if (fromFile) {
+    const year = parseTimelineYearFromDateString(fromFile);
+    if (year) return { dateString: fromFile, year };
+  }
+
+  const gaTitle = lecture?.gaTitle || result.gaTitle;
+  const fromBandTitle = parseYearFromSteinerBandTitle(gaTitle);
+  if (fromBandTitle) {
+    return { dateString: String(fromBandTitle), year: fromBandTitle };
+  }
+
+  return { dateString: '', year: null };
+}
+
 async function loadFullLecturesForTimeline() {
   // Wenn bereits geladen, überspringe
   if (Object.keys(fullLecturesData).length > 0) {
@@ -39161,38 +39288,7 @@ async function showSearchResultsTimelineV2(customResults = null, customKeywords 
     let timelineEntries = [];
     
     for (const result of resultsToUse) {
-      // Extrahiere Jahr aus Datum (Format: "YYYY-MM-DD" oder aus fileName)
-      let year = null;
-      let dateString = result.date || '';
-      
-      // Für Bücher: Verwende yearRange falls vorhanden
-      if (result.isBook && result.yearRange) {
-        // Extrahiere Jahr aus yearRange (z.B. "1912-1913" -> nimm erstes Jahr)
-        const yearMatch = result.yearRange.match(/^(\d{4})/);
-        if (yearMatch) {
-          year = parseInt(yearMatch[1]);
-          dateString = result.yearRange;
-        }
-      }
-      
-      // Falls kein date-Feld, versuche aus fileName zu extrahieren
-      if (!dateString && result.fileName) {
-        dateString = extractDateFromFileName(result.fileName);
-      }
-      
-      if (dateString) {
-        // Extrahiere Jahr (Format: YYYY-MM-DD -> nimm erste 4 Zeichen)
-        const yearMatch = dateString.match(/^(\d{4})/);
-        if (yearMatch) {
-          year = parseInt(yearMatch[1]);
-        }
-      }
-      
-      // Für Bücher ohne Jahr: Verwende Jahr aus GA-Nummer falls möglich
-      if (!year && result.isBook && result.ID) {
-        // Versuche Jahr aus GA-Nummer zu extrahieren (falls vorhanden)
-        // Dies ist ein Fallback, da Bücher normalerweise ein Jahr haben sollten
-      }
+      const { dateString, year } = resolveSearchResultTimelineDate(result);
       
       // Hole die Überschriften für diesen Vortrag oder Buch
       const lectureHeadings = summaryDB[result.ID]?.headings || [];
