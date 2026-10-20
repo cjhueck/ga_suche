@@ -7680,8 +7680,12 @@ html.mobile-layout body {
   height: 100svh;
 }
 
+html.mobile-layout .tab-button[data-help="tab-index"].active {
+  display: inline-flex !important;
+}
+
 html.mobile-layout .tab-button[data-help="tab-themen-2"],
-html.mobile-layout .tab-button[data-help="tab-index"],
+html.mobile-layout .tab-button[data-help="tab-index"]:not(.active),
 html.mobile-layout .tab-button[data-help="tab-maps"],
 html.mobile-layout .tab-button[data-help="tab-texte"],
 html.mobile-layout .tab-button[data-help="tab-docs"],
@@ -11947,7 +11951,7 @@ PDF
 <link rel="stylesheet" href="thematic-chat-ui.css?v=20260712n">
 <script src="thematic-chat-ui.js?v=20260712n"></script>
 
-<script src="app.js?v=20261020r"></script>
+<script src="app.js?v=20261020t"></script>
 </body>
 </html>
 
