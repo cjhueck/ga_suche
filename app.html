@@ -3943,7 +3943,8 @@ gap: 4px !important;
       gap: 4px;
     }
 
-    #ga-year-filter-dropdown {
+    #ga-year-filter-dropdown,
+    #gaYearFilterContainer {
       display: none;
     }
 
@@ -3977,13 +3978,15 @@ gap: 4px !important;
     #advancedGAFilterList,
     #texteGAFilterList,
     #gaBandFilterList,
-    #gaPlaceFilterList {
+    #gaPlaceFilterList,
+    #gaYearFilterList {
       width: auto;
     }
 
     #texteGAFilterList,
     #gaBandFilterList,
-    #gaPlaceFilterList {
+    #gaPlaceFilterList,
+    #gaYearFilterList {
       max-width: calc(100vw - 12px);
     }
 
@@ -7697,28 +7700,39 @@ html.mobile-layout #ga-tab > div {
   padding: 0 !important;
 }
 
+html.mobile-layout #gaYearFilterContainer {
+  display: block !important;
+}
+
+html.mobile-layout #ga-year-filter-dropdown {
+  display: none !important;
+}
+
 html.mobile-layout #ga-filter-dropdowns-row {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  align-items: stretch;
+  align-items: center;
   width: 100%;
   flex: 1 1 100%;
   gap: 6px;
 }
 
-html.mobile-layout #ga-filter-dropdowns-row .custom-dropdown,
-html.mobile-layout #ga-year-filter-dropdown {
+html.mobile-layout #ga-filter-dropdowns-row .custom-dropdown {
+  display: block !important;
   min-width: 0;
   width: 100%;
+  height: 32px;
 }
 
-html.mobile-layout #ga-filter-dropdowns-row .custom-dropdown-button,
-html.mobile-layout #ga-year-filter-dropdown {
+html.mobile-layout #ga-filter-dropdowns-row .custom-dropdown-button {
   display: flex !important;
   align-items: center;
+  justify-content: space-between;
+  width: 100%;
   height: 32px !important;
   min-height: 32px !important;
   max-height: 32px !important;
+  margin: 0;
   padding: 3px 6px !important;
   font-size: 16px !important;
   line-height: 1.2;
@@ -7728,10 +7742,6 @@ html.mobile-layout #ga-year-filter-dropdown {
   background: var(--background-color);
   color: var(--text-color);
   cursor: pointer;
-}
-
-html.mobile-layout #ga-year-filter-dropdown {
-  display: block !important;
 }
 
 html.mobile-layout #keyword-tab #frequencyBtnSimple,
@@ -8223,9 +8233,16 @@ Wandtafeln
   </button>
   <div class="custom-dropdown-list" id="gaBandFilterList"></div>
 </div>
-<select id="ga-year-filter-dropdown" class="filter-dropdown" onchange="handleYearFilterChange(this.value)" aria-label="Jahr">
+<select id="ga-year-filter-dropdown" class="filter-dropdown" style="display: none;" aria-hidden="true" tabindex="-1">
 <option value="">Jahr</option>
 </select>
+<div class="custom-dropdown" id="gaYearFilterContainer">
+  <button type="button" class="filter-dropdown custom-dropdown-button" id="gaYearFilterButton" style="border: 1.5px solid var(--accent-color); border-radius: 4px; background: var(--background-color); color: var(--text-color); cursor: pointer; width: 100%;">
+    <span class="custom-dropdown-text">Jahr</span>
+    <span class="custom-dropdown-arrow"></span>
+  </button>
+  <div class="custom-dropdown-list" id="gaYearFilterList"></div>
+</div>
 <select id="ga-place-filter-dropdown" class="filter-dropdown" style="display: none;" aria-hidden="true" tabindex="-1">
 <option value="">Orte</option>
 </select>

@@ -6343,6 +6343,7 @@ let selectedGABandFilter = null; // Filter für GA-Band-Auswahl im GA-Tab
 let gaBandFilterDropdown = null;
 let selectedPlaceFilter = null; // Filter für Vortragsort im GA-Tab
 let gaPlaceFilterDropdown = null;
+let gaYearFilterDropdown = null;
 
 const LOCATION_CANONICAL = {
   helsingfors: 'Helsinki',
@@ -8000,14 +8001,59 @@ document.addEventListener('keydown', function(event) {
 // ============================================================================
 
 // Funktion: Befülle Jahr-Filter-Dropdown mit verfügbaren Jahren
+function hookGAYearFilterValueSync() {
+  const gaYearFilter = document.getElementById('ga-year-filter-dropdown');
+  if (!gaYearFilter || gaYearFilter._valueHooked) return;
+  gaYearFilter._valueHooked = true;
+  const descriptor = Object.getOwnPropertyDescriptor(HTMLSelectElement.prototype, 'value');
+  Object.defineProperty(gaYearFilter, 'value', {
+    get() { return descriptor.get.call(this); },
+    set(v) {
+      descriptor.set.call(this, v);
+      if (gaYearFilterDropdown) {
+        gaYearFilterDropdown.setSelectedValue(v || '');
+      }
+    },
+    configurable: true
+  });
+}
+
+function initGAYearFilterDropdown() {
+  const container = document.getElementById('gaYearFilterContainer');
+  if (!container || container._gaYearDropdownInitialized) return;
+  if (typeof window.SingleSelectSearchDropdown !== 'function') return;
+  container._gaYearDropdownInitialized = true;
+
+  gaYearFilterDropdown = new window.SingleSelectSearchDropdown(
+    'gaYearFilterContainer',
+    'gaYearFilterButton',
+    'gaYearFilterList',
+    'Jahr',
+    { searchPlaceholder: 'Jahr suchen …', matchMode: 'label' }
+  );
+
+  hookGAYearFilterValueSync();
+
+  if (!container._singleselectListenerBound) {
+    container._singleselectListenerBound = true;
+    container.addEventListener('singleselect-change', (e) => {
+      const gaYearFilter = document.getElementById('ga-year-filter-dropdown');
+      if (!gaYearFilter) return;
+      const selectedYear = e.detail.value || '';
+      const descriptor = Object.getOwnPropertyDescriptor(HTMLSelectElement.prototype, 'value');
+      descriptor.set.call(gaYearFilter, selectedYear);
+      handleYearFilterChange(selectedYear);
+    });
+  }
+}
+
 function populateYearFilterDropdown() {
   const dropdown = document.getElementById('ga-year-filter-dropdown');
   if (!dropdown) return;
-  
-  // Speichere aktuellen Wert
-  const currentValue = dropdown.value;
-  
-  // Leere das Dropdown und füge Default-Option hinzu
+
+  initGAYearFilterDropdown();
+
+  const currentValue = dropdown.value || selectedYearFilter || '';
   dropdown.innerHTML = '<option value="">Jahr</option>';
 
   let sortedYears = [];
@@ -8027,6 +8073,12 @@ function populateYearFilterDropdown() {
     for (let year = 1882; year <= 1925; year++) sortedYears.push(year);
   }
 
+  const items = sortedYears.map(year => ({
+    value: String(year),
+    label: String(year),
+    searchText: String(year)
+  }));
+
   sortedYears.forEach(year => {
     const option = document.createElement('option');
     option.value = year;
@@ -8034,8 +8086,16 @@ function populateYearFilterDropdown() {
     dropdown.appendChild(option);
   });
 
+  let restoredValue = '';
   if (currentValue && sortedYears.includes(parseInt(currentValue, 10))) {
     dropdown.value = currentValue;
+    restoredValue = String(currentValue);
+  }
+
+  if (gaYearFilterDropdown) {
+    gaYearFilterDropdown.setPlaceholder('Jahr');
+    gaYearFilterDropdown.setItems(items);
+    gaYearFilterDropdown.setSelectedValue(restoredValue);
   }
 }
 
@@ -10922,6 +10982,9 @@ async function showGALectures(gaNumber, skipHistory = false) {
   try {
     // Setze Ansicht auf 'volumes', da wir einen einzelnen GA-Band anzeigen
     currentGAView = 'volumes';
+    if (typeof setSidebarCollapsedForMobile === 'function') {
+      setSidebarCollapsedForMobile(true);
+    }
     
     // WICHTIG: Deaktiviere Wandtafeln-Ansicht falls aktiv und stelle Scroll-Verhalten wieder her
     if (isChalkboardsViewActive) {
@@ -26903,7 +26966,7 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
           }
           
           if (foundHeading) {
-            scrollViewerHeadingBelowViewportHeader(foundHeading, 'auto');
+            openViewerAtHeadingFromToc(foundHeading);
             
             // Highlight the heading briefly
             const originalBg = foundHeading.style.backgroundColor;
@@ -26984,6 +27047,21 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
       const delta = headingRect.top - headerBottom - gap;
       const newScrollTop = mainContainer.scrollTop + delta;
       mainContainer.scrollTo({ top: Math.max(0, newScrollTop), behavior });
+    }
+
+    function openViewerAtHeadingFromToc(targetHeading) {
+      if (!targetHeading) return;
+      scrollViewerHeadingBelowViewportHeader(targetHeading, 'auto');
+      if (typeof isMobileViewport === 'function' && isMobileViewport()) {
+        if (typeof closeSummaryPanelFromHeader === 'function') {
+          closeSummaryPanelFromHeader();
+        }
+        requestAnimationFrame(function() {
+          requestAnimationFrame(function() {
+            scrollViewerHeadingBelowViewportHeader(targetHeading, 'auto');
+          });
+        });
+      }
     }
 
     function buildTableOfContents() {
@@ -27084,7 +27162,7 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
             const targetHeading = viewer.querySelector(`h2[data-index="${dataIndex}"], h2[data-index="^${cleanIndex}"], h3[data-index="${dataIndex}"], h3[data-index="^${cleanIndex}"], h4[data-index="${dataIndex}"], h4[data-index="^${cleanIndex}"], h5[data-index="${dataIndex}"], h5[data-index="^${cleanIndex}"]`);
             
             if (targetHeading) {
-              scrollViewerHeadingBelowViewportHeader(targetHeading, 'auto');
+              openViewerAtHeadingFromToc(targetHeading);
               
               // Highlighte NUR die Überschrift (nicht den Absatz)
               const originalBg = targetHeading.style.backgroundColor;
@@ -27124,7 +27202,7 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
               behavior: 'auto'
             });
           } else {
-            scrollViewerHeadingBelowViewportHeader(targetHeading, 'auto');
+            openViewerAtHeadingFromToc(targetHeading);
             }
           
           const originalBg = targetHeading.style.backgroundColor;
@@ -27196,7 +27274,7 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
               const scrollPosition = timelineContainer.scrollTop + (targetRect.top - containerRect.top) - 50;
               timelineContainer.scrollTo({ top: scrollPosition, behavior: 'auto' });
             } else {
-              scrollViewerHeadingBelowViewportHeader(scrollTarget, 'auto');
+              openViewerAtHeadingFromToc(scrollTarget);
             }
             
             // Highlight-Effekt
