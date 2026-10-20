@@ -8158,15 +8158,60 @@ html.mobile-layout #document-title {
 }
 
 html.mobile-layout #viewer-header .viewer-buttons-container {
-  flex-wrap: wrap;
+  display: flex !important;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: flex-end;
+  align-items: center;
   margin-left: 0 !important;
-  justify-content: flex-start;
   width: 100%;
   gap: 6px;
 }
 
-html.mobile-layout #viewer-header .viewer-buttons-container > *:not(#gaInfoBtn):not(#h4ToggleBtn):not(#viewerSummaryBtn):not(#membersPanelBtn) {
+html.mobile-layout #viewer-header .viewer-buttons-container > *:not(#gaInfoBtn):not(#h4ToggleBtn):not(#viewerSummaryBtn):not(#membersPanelBtn):not(#texte-panel-toolbar) {
   display: none !important;
+}
+
+html.mobile-layout.mobile-ga-overview.mobile-ga-book #texte-panel-toolbar,
+html.mobile-layout.mobile-ga-overview.mobile-ga-book #h4ToggleBtn {
+  display: none !important;
+}
+
+html.mobile-layout.mobile-ga-overview.mobile-ga-book #gaInfoBtn,
+html.mobile-layout.mobile-ga-overview.mobile-ga-book #viewerSummaryBtn,
+html.mobile-layout.mobile-ga-overview.mobile-ga-book #membersPanelBtn {
+  display: inline-flex !important;
+  order: 0;
+}
+
+html.mobile-layout.mobile-ga-overview.mobile-ga-book #gaInfoBtn { order: 1; }
+html.mobile-layout.mobile-ga-overview.mobile-ga-book #viewerSummaryBtn { order: 2; }
+html.mobile-layout.mobile-ga-overview.mobile-ga-book #membersPanelBtn { order: 3; }
+
+html.mobile-layout.mobile-ga-overview:not(.mobile-ga-book) #gaInfoBtn,
+html.mobile-layout.mobile-ga-overview:not(.mobile-ga-book) #membersPanelBtn,
+html.mobile-layout.mobile-ga-overview:not(.mobile-ga-book) #h4ToggleBtn {
+  display: none !important;
+}
+
+html.mobile-layout.mobile-ga-overview:not(.mobile-ga-book) #texte-panel-toolbar {
+  display: flex !important;
+  margin-left: 0;
+}
+
+html.mobile-layout.mobile-ga-overview:not(.mobile-ga-book) #texteViewToggle,
+html.mobile-layout.mobile-ga-overview:not(.mobile-ga-book) #texteGaInfoBtn,
+html.mobile-layout.mobile-ga-overview:not(.mobile-ga-book) #viewerSummaryBtn,
+html.mobile-layout.mobile-ga-overview:not(.mobile-ga-book) #texteMembersBtn {
+  display: inline-flex !important;
+}
+
+#viewer-header #texteViewToggle {
+  display: none !important;
+}
+
+html.mobile-layout.mobile-ga-overview:not(.mobile-ga-book) #viewer-header #texteViewToggle {
+  display: inline-flex !important;
 }
 
 html.mobile-layout #texteServerInfo {
@@ -8177,7 +8222,7 @@ html.mobile-layout #texte-panel-toolbar {
   display: flex;
   align-items: center;
   gap: 6px;
-  margin-left: auto;
+  margin-left: 0;
 }
 
 html.mobile-layout #texteViewToggle {
@@ -8185,8 +8230,8 @@ html.mobile-layout #texteViewToggle {
 }
 
 html.mobile-layout #texteGaInfoBtn,
-html.mobile-layout #texteMembersBtn {
-  display: inline-flex !important;
+html.mobile-layout #texteMembersBtn,
+html.mobile-layout #texte-panel-toolbar #viewerSummaryBtn {
   align-items: center;
   justify-content: center;
   width: 32px;
@@ -8244,7 +8289,7 @@ html.mobile-layout #summary-panel.visible {
   width: 100% !important;
   min-width: 0 !important;
   max-width: 100%;
-  z-index: 1250;
+  z-index: 1002;
 }
 
 </style>
@@ -11837,7 +11882,7 @@ PDF
 <link rel="stylesheet" href="thematic-chat-ui.css?v=20260712n">
 <script src="thematic-chat-ui.js?v=20260712n"></script>
 
-<script src="app.js?v=20261020c"></script>
+<script src="app.js?v=20261020h"></script>
 </body>
 </html>
 
