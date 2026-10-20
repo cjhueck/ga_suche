@@ -7653,22 +7653,39 @@ body.dark-mode .viewer-search-highlight.active {
   background: rgba(70, 120, 134, 0.65); /* Etwas dunkler für aktiven Treffer (Dark Mode), gleiche Größe */
 }
 
-@media (max-width: 768px) {
-  html, body {
-    overflow: hidden;
-    height: 100%;
-    height: 100dvh;
-    height: 100svh;
-    -webkit-text-size-adjust: 100%;
-    text-size-adjust: 100%;
-  }
+html.mobile-layout,
+html.mobile-layout body {
+  overflow: hidden;
+  height: 100%;
+  height: 100dvh;
+  height: 100svh;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
 
-  body {
-    height: 100dvh;
-    height: 100svh;
-  }
+html.mobile-layout body {
+  height: 100dvh;
+  height: 100svh;
+}
 
-  #sidebar {
+html.mobile-layout .tab-button[data-help="tab-themen-2"],
+html.mobile-layout .tab-button[data-help="tab-index"] {
+  display: none !important;
+}
+
+html.mobile-layout:not(.force-mobile) #mobile-preview-toggle {
+  display: none !important;
+}
+
+html.force-mobile #mobile-preview-toggle {
+  background: var(--accent-color);
+}
+
+html.force-mobile #mobile-preview-toggle svg {
+  stroke: #fff;
+}
+
+html.mobile-layout #sidebar {
     display: block;
     position: fixed;
     left: 0;
