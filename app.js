@@ -7029,6 +7029,7 @@ function populateGABandFilterDropdown(chalkboardsOnly = false) {
 
   initGABandFilterDropdown();
   initGAPlaceFilterDropdown();
+  populateYearFilterDropdown();
   
   // Speichere aktuellen Wert
   const currentValue = dropdown.value;
@@ -8008,34 +8009,33 @@ function populateYearFilterDropdown() {
   
   // Leere das Dropdown und füge Default-Option hinzu
   dropdown.innerHTML = '<option value="">Jahr</option>';
-  
-  // Wenn chronologische Vorträge geladen sind, extrahiere die Jahre
+
+  let sortedYears = [];
   if (allChronologicalLectures && allChronologicalLectures.length > 0) {
     const years = new Set();
     allChronologicalLectures.forEach(lecture => {
       if (lecture.date) {
-        const year = new Date(lecture.date).getFullYear();
-        if (!isNaN(year)) {
+        const year = parseInt(String(lecture.date).substring(0, 4), 10);
+        if (!isNaN(year) && year > 1800 && year < 2100) {
           years.add(year);
         }
       }
     });
-    
-    // Sortiere Jahre aufsteigend
-    const sortedYears = Array.from(years).sort((a, b) => a - b);
-    
-    // Füge Jahre zum Dropdown hinzu
-    sortedYears.forEach(year => {
-      const option = document.createElement('option');
-      option.value = year;
-      option.textContent = year;
-      dropdown.appendChild(option);
-    });
-    
-    // Stelle vorherigen Wert wieder her falls vorhanden
-    if (currentValue && sortedYears.includes(parseInt(currentValue))) {
-      dropdown.value = currentValue;
-    }
+    sortedYears = Array.from(years).sort((a, b) => a - b);
+  }
+  if (sortedYears.length === 0) {
+    for (let year = 1882; year <= 1925; year++) sortedYears.push(year);
+  }
+
+  sortedYears.forEach(year => {
+    const option = document.createElement('option');
+    option.value = year;
+    option.textContent = year;
+    dropdown.appendChild(option);
+  });
+
+  if (currentValue && sortedYears.includes(parseInt(currentValue, 10))) {
+    dropdown.value = currentValue;
   }
 }
 
@@ -8047,7 +8047,6 @@ function handleYearFilterChange(value) {
   // Aktualisiere Button-Text
   updateChronologicalButtonText();
   
-  // Prüfe ob wir im GA-Tab sind und die chronologische Ansicht aktiv ist
   const gaTab = document.getElementById('ga-tab');
   const isInGATab = gaTab && gaTab.classList.contains('active');
   
@@ -8055,18 +8054,41 @@ function handleYearFilterChange(value) {
     console.log('[YEAR-FILTER] Nicht im GA-Tab, keine Aktualisierung');
     return;
   }
-  
-  // Prüfe ob chronologische Ansicht aktiv ist
-  const chronologicalViewerContent = document.getElementById('chronological-viewer-content');
-  const hasChronologicalWrapper = chronologicalViewerContent !== null;
-  const isChronologicalViewActive = (currentGAView === 'chronological') || hasChronologicalWrapper;
-  
-  if (isChronologicalViewActive && allChronologicalLectures && allChronologicalLectures.length > 0) {
-    console.log('[YEAR-FILTER] Filtere Vorträge nach Jahr');
+
+  if (isChalkboardsViewActive) {
+    if (typeof loadAndDisplayChalkboards === 'function') loadAndDisplayChalkboards();
+    return;
+  }
+
+  if (selectedYearFilter || selectedPlaceFilter) {
     currentGAView = 'chronological';
-    displayGAChronological(getFilteredChronologicalLectures());
-  } else if (isChronologicalViewActive) {
     showGAChronologicalView(true);
+    return;
+  }
+
+  if (selectedGABandFilter) {
+    showGALectures(selectedGABandFilter);
+    return;
+  }
+
+  currentGAView = 'volumes';
+  currentGANumber = null;
+  if (typeof removeChronologicalYearButtons === 'function') {
+    removeChronologicalYearButtons();
+  }
+  if (typeof displayGAVolumesInSidebar === 'function') {
+    displayGAVolumesInSidebar();
+  }
+  const viewer = document.getElementById('viewer');
+  if (viewer) {
+    viewer.innerHTML = '<div id="viewer-content"><div style="color: var(--secondary-text); text-align: left; font-style: italic; font-size: 0.9rem;">Wählen Sie einen GA-Band aus der linken Liste aus.</div></div>';
+  }
+  const documentTitle = document.getElementById('document-title');
+  if (documentTitle) {
+    documentTitle.textContent = 'GA-Bände Übersicht';
+  }
+  if (typeof updateButtonStates === 'function') {
+    updateButtonStates();
   }
 }
 
