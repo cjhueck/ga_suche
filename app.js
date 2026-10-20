@@ -2516,6 +2516,9 @@ function normalizeGANumber(gaNumber) {
           sidebar.style.minWidth = '';
         }
       }
+      if (mobile !== wasMobile && typeof currentGAView !== 'undefined' && currentGAView === 'chronological' && typeof showGAChronologicalView === 'function') {
+        showGAChronologicalView(true);
+      }
       if (typeof applyViewerReadingStyles === 'function') applyViewerReadingStyles();
       if (typeof updateHeaderPosition === 'function') updateHeaderPosition();
     }
@@ -8122,6 +8125,9 @@ function handleYearFilterChange(value) {
 
   if (selectedYearFilter || selectedPlaceFilter) {
     currentGAView = 'chronological';
+    if (typeof setSidebarCollapsedForMobile === 'function') {
+      setSidebarCollapsedForMobile(true);
+    }
     showGAChronologicalView(true);
     return;
   }
@@ -8239,6 +8245,9 @@ function handlePlaceFilterChange(value) {
 
   if (selectedPlaceFilter || selectedYearFilter || currentGAView === 'chronological') {
     currentGAView = 'chronological';
+    if (typeof setSidebarCollapsedForMobile === 'function') {
+      setSidebarCollapsedForMobile(true);
+    }
     showGAChronologicalView(true);
     return;
   }
@@ -12205,9 +12214,48 @@ function displayGAChronological(lectures) {
   
   // Speichere die Jahre für späteren Zugriff
   window.chronologicalYears = years;
+
+  const isMobile = typeof window.isMobileViewport === 'function' && window.isMobileViewport();
+  if (isMobile && typeof setSidebarCollapsedForMobile === 'function') {
+    setSidebarCollapsedForMobile(true);
+  }
   
-  // Erstelle Grid HTML (sticky Header wird separat eingefügt)
-  let html = `
+  // Funktion: Füge Bindestriche für Zeilenumbruch bei bestimmten Ortsnamen hinzu
+  const addHyphenation = (city) => {
+    if (!city) return city;
+    // Spezielle Ortsnamen mit Bindestrichen für Zeilenumbruch
+    const hyphenationMap = {
+      'Hermannstadt': 'Hermann-stadt',
+      'Schlachtensee': 'Schlachten-see'
+    };
+    return hyphenationMap[city] || city;
+  };
+
+  let html;
+  if (isMobile) {
+    html = '<div class="mobile-chrono-list">';
+    displayYears.forEach((year) => {
+      html += `<h3 class="mobile-chrono-year" id="year-${year}" data-year-start="${year}">${year}</h3><ul class="mobile-chrono-items">`;
+      lecturesByYear[year].forEach((lecture) => {
+        const dateObj = lecture.date ? new Date(lecture.date) : null;
+        const date = dateObj && !isNaN(dateObj.getTime())
+          ? dateObj.toLocaleDateString('de-DE', { day: 'numeric', month: 'short' })
+          : (lecture.date ? formatDate(lecture.date) : '–');
+        const title = lecture.fileName || `${formatLectureId(lecture.ID)} - ${lecture.title}`;
+        const location = selectedPlaceFilter ? '' : addHyphenation(cleanLectureLocation(lecture.location, title));
+        html += `<li>
+          <span class="mobile-chrono-date">${date}</span>
+          <div class="mobile-chrono-meta">
+            <a href="#" class="chronological-lecture-link" onclick="navigateToLectureInTexteTab('${lecture.ID}'); return false;">${title}</a>
+            ${location ? `<span class="mobile-chrono-place">${location}</span>` : ''}
+          </div>
+        </li>`;
+      });
+      html += '</ul>';
+    });
+    html += '</div>';
+  } else {
+  html = `
     <div>
       <table style="width: 100%; border-collapse: collapse; margin-top: 0; table-layout: fixed;">
         <thead>
@@ -12220,17 +12268,6 @@ function displayGAChronological(lectures) {
         </thead>
         <tbody>
   `;
-  
-  // Funktion: Füge Bindestriche für Zeilenumbruch bei bestimmten Ortsnamen hinzu
-  const addHyphenation = (city) => {
-    if (!city) return city;
-    // Spezielle Ortsnamen mit Bindestrichen für Zeilenumbruch
-    const hyphenationMap = {
-      'Hermannstadt': 'Hermann-stadt',
-      'Schlachtensee': 'Schlachten-see'
-    };
-    return hyphenationMap[city] || city;
-  };
   
   displayYears.forEach((year, yearIndex) => {
     const yearLectures = lecturesByYear[year];
@@ -12270,6 +12307,7 @@ function displayGAChronological(lectures) {
       </table>
     </div>
   `;
+  }
   
   // Prüfe ob wir wirklich im GA-Tab sind (nicht im Texte-Tab oder anderen Tabs)
   const gaTab = document.getElementById('ga-tab');
@@ -12351,7 +12389,7 @@ function displayGAChronological(lectures) {
   // WICHTIG: Erstelle zweigeteiltes Layout NUR wenn wir im GA-Tab sind UND die chronologische Ansicht aktiv ist
   // UND wenn das Layout noch nicht existiert (viewer existiert noch)
   // Doppelte Prüfung für maximale Sicherheit
-  if (isInGATab && isChronologicalView && isInGATabCheck && isChronologicalViewCheck && !chronologicalViewerContent) {
+  if (!isMobile && isInGATab && isChronologicalView && isInGATabCheck && isChronologicalViewCheck && !chronologicalViewerContent) {
     // Erstelle ein zweigeteiltes Layout: oberer Bereich für Jahres-Buttons, unterer für Inhalt
     const mainContainer = document.getElementById('main');
     if (mainContainer && viewer) {

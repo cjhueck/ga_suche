@@ -8027,6 +8027,76 @@ html.mobile-layout #viewer {
   padding: 0.75rem 1rem 2rem 2.25rem !important;
 }
 
+html.mobile-layout #viewer:has(.mobile-chrono-list) {
+  padding: 0.4rem 0.9rem 2.5rem 0.9rem !important;
+}
+
+html.mobile-layout .mobile-chrono-list {
+  max-width: 100%;
+}
+
+html.mobile-layout .mobile-chrono-year {
+  margin: 1.15rem 0 0.25rem;
+  padding-bottom: 0.2rem;
+  border-bottom: 1px solid var(--border-color);
+  font-size: 1.05rem;
+  font-weight: 700;
+  line-height: 1.3;
+  color: var(--heading-color, var(--text-color));
+}
+
+html.mobile-layout .mobile-chrono-year:first-child {
+  margin-top: 0.15rem;
+}
+
+html.mobile-layout .mobile-chrono-items {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+html.mobile-layout .mobile-chrono-items li {
+  display: grid;
+  grid-template-columns: 4.6rem minmax(0, 1fr);
+  gap: 0.2rem 0.7rem;
+  padding: 0.42rem 0;
+  border-bottom: 1px solid color-mix(in srgb, var(--border-color) 60%, transparent);
+  align-items: start;
+  position: static;
+}
+
+html.mobile-layout .mobile-chrono-items li::before {
+  content: none !important;
+  display: none !important;
+}
+
+html.mobile-layout .mobile-chrono-date {
+  color: var(--secondary-text);
+  font-size: 0.88rem;
+  line-height: 1.4;
+  white-space: nowrap;
+  padding-top: 0.05rem;
+}
+
+html.mobile-layout .mobile-chrono-meta {
+  min-width: 0;
+}
+
+html.mobile-layout .mobile-chrono-items a.chronological-lecture-link {
+  display: block;
+  color: var(--link-color);
+  text-decoration: none;
+  font-size: 0.98rem;
+  line-height: 1.35;
+}
+
+html.mobile-layout .mobile-chrono-place {
+  display: block;
+  margin-top: 0.12rem;
+  color: var(--secondary-text);
+  font-size: 0.82rem;
+}
+
 html.mobile-layout #viewer p,
 html.mobile-layout #viewer .paragraph,
 html.mobile-layout #viewer-content p,
@@ -11688,7 +11758,7 @@ PDF
 <link rel="stylesheet" href="thematic-chat-ui.css?v=20260712n">
 <script src="thematic-chat-ui.js?v=20260712n"></script>
 
-<script src="app.js?v=20261013a"></script>
+<script src="app.js?v=20261020a"></script>
 </body>
 </html>
 
