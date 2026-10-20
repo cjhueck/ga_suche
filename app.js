@@ -11107,7 +11107,13 @@ function applyMobileHeaderButtonVisibility() {
   }
   document.body.classList.toggle('mobile-text-open', mode === 'text');
 
-  if (mode === 'off') return;
+  if (mode === 'off') {
+    const schlagworteTab = document.getElementById('schlagworte-tab');
+    if (schlagworteTab && schlagworteTab.classList.contains('active')) {
+      setHeaderBtnDisplay(members, true);
+    }
+    return;
+  }
 
   setHeaderBtnDisplay(gaInfo, true);
   setHeaderBtnDisplay(summary, true);
@@ -11687,6 +11693,63 @@ async function navigateToTimelineKeyword(keyword, gaNumber, lectureId = null) {
     showTimelineBackButton();
   }
 }
+
+function findIndexKeywordMatch(term) {
+  const needle = String(term || '').trim().toLowerCase();
+  if (!needle || !Array.isArray(keywordsData) || keywordsData.length === 0) return null;
+  return keywordsData.find(k => (k.keyword || '').trim().toLowerCase() === needle) || null;
+}
+
+async function navigateToIndexKeyword(keyword) {
+  const term = String(keyword || '').trim();
+  if (!term) return;
+  const isMobile = typeof window.isMobileViewport === 'function' && window.isMobileViewport();
+
+  const switchFn = typeof window.switchTab === 'function' ? window.switchTab : (typeof switchTab === 'function' ? switchTab : null);
+  if (switchFn) switchFn('schlagworte', true);
+
+  if (typeof closeSummaryPanelForMobileReading === 'function') {
+    closeSummaryPanelForMobileReading();
+  }
+  if (typeof setSidebarCollapsedForMobile === 'function') {
+    setSidebarCollapsedForMobile(isMobile);
+  }
+
+  if (!keywordsData || keywordsData.length === 0) {
+    if (typeof initializeKeywordSystem === 'function') {
+      await initializeKeywordSystem();
+    }
+  } else if (!isMobile && typeof displayKeywords === 'function') {
+    displayKeywords('Alle');
+  }
+
+  const match = findIndexKeywordMatch(term);
+  const target = match ? match.keyword : term;
+
+  if (typeof performKeywordThematicSearch === 'function') {
+    await performKeywordThematicSearch(target);
+  }
+
+  if (!isMobile) {
+    if (!match) {
+      const search = document.getElementById('keywordSearch');
+      if (search) {
+        search.value = term;
+        if (typeof displayKeywords === 'function') displayKeywords(currentAlphabet || 'Alle');
+      }
+    }
+    if (typeof scrollToKeyword === 'function') {
+      setTimeout(() => scrollToKeyword(target), 150);
+    }
+  } else if (typeof setSidebarCollapsedForMobile === 'function') {
+    setSidebarCollapsedForMobile(true);
+  }
+
+  if (typeof applyMobileHeaderButtonVisibility === 'function') {
+    applyMobileHeaderButtonVisibility();
+  }
+}
+window.navigateToIndexKeyword = navigateToIndexKeyword;
 
 // Hilfsfunktion: Warte auf Element
 function waitForElement(elementId, timeout = 2000) {
@@ -19945,11 +20008,12 @@ function scrollToChronologicalYear(year) {
      * @param {string} keyword - Das Schlagwort, zu dem navigiert werden soll
      */
     function navigateToSchlagwort(keyword) {
-      // Hole aktuelle GA-Nummer und Lecture-ID für Zurück-Navigation
+      if (typeof navigateToIndexKeyword === 'function') {
+        navigateToIndexKeyword(keyword);
+        return;
+      }
       const gaNumber = currentLectureData ? (currentLectureData.gaNumber || currentLectureData.ID?.split('/')[0] || '') : '';
       const lectureId = currentLectureData ? currentLectureData.ID : null;
-      
-      // Navigiere zum Themen-Tab und zeige das Keyword in der Timeline
       navigateToTimelineKeyword(keyword, gaNumber, lectureId);
     }
     
@@ -22863,9 +22927,6 @@ function showSummaryView() {
     html += '<div class="lecture-keywords-section" style="margin-bottom: 1rem;">';
     html += '<p style="margin: 0;">';
     
-    // Extrahiere GA-Nummer aus lecture.ID (z.B. "GA051/01" -> "051")
-    const gaNumber = lecture.ID.split('/')[0].replace('GA', '');
-    
     // Entferne Duplikate basierend auf term (case-insensitive)
     const seenTerms = new Set();
     const uniqueKeywords = lectureKeywords.filter(kw => {
@@ -22880,9 +22941,7 @@ function showSummaryView() {
     // Keywords als Links mit Mittelpunkten formatieren
     html += uniqueKeywords.map(kw => {
       const escapedTerm = kw.term.replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/'/g, "\\'");
-      const escapedGANumber = gaNumber.replace(/'/g, "\\'");
-      const escapedLectureId = lecture.ID.replace(/'/g, "\\'");
-      return `<a href="#" onclick="navigateToTimelineKeyword('${escapedTerm}', '${escapedGANumber}', '${escapedLectureId}'); return false;" class="h3-keyword-link">${escapedTerm}</a>`;
+      return `<a href="#" onclick="navigateToIndexKeyword('${escapedTerm}'); return false;" class="h3-keyword-link">${escapedTerm}</a>`;
     }).join(' &middot; ');
     
     html += '</p></div>';
@@ -40610,9 +40669,6 @@ function updateKeywordsDisplay() {
   // Erstelle neuen HTML-Inhalt
   let html = '<p style="margin: 0;">';
   
-  // Extrahiere GA-Nummer aus lecture.ID
-  const gaNumber = currentLectureData.ID.split('/')[0].replace('GA', '');
-  
   // Entferne Duplikate basierend auf term (case-insensitive)
   const seenTerms = new Set();
   const uniqueKeywords = lectureKeywords.filter(kw => {
@@ -40627,9 +40683,7 @@ function updateKeywordsDisplay() {
   // Keywords als Links mit Mittelpunkten formatieren
   html += uniqueKeywords.map(kw => {
     const escapedTerm = kw.term.replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/'/g, "\\'");
-    const escapedGANumber = gaNumber.replace(/'/g, "\\'");
-    const escapedLectureId = currentLectureData.ID.replace(/'/g, "\\'");
-    return `<a href="#" onclick="navigateToTimelineKeyword('${escapedTerm}', '${escapedGANumber}', '${escapedLectureId}'); return false;" class="h3-keyword-link">${escapedTerm}</a>`;
+    return `<a href="#" onclick="navigateToIndexKeyword('${escapedTerm}'); return false;" class="h3-keyword-link">${escapedTerm}</a>`;
   }).join(' &middot; ');
   
   html += '</p>';
