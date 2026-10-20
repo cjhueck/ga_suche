@@ -334,6 +334,10 @@ function updateMembersButtonStatus() {
  * Toggle-Funktion für Mitglieder-Panel: öffnet oder schließt das Panel
  */
 async function toggleMembersPanel() {
+  if (typeof window.isMobileViewport === 'function' && window.isMobileViewport()) {
+    window.location.href = 'members.html?mobil=1';
+    return;
+  }
   if (membersPanelActive) {
     // Panel ist aktiv → schließen
     closeMembersPanel();
