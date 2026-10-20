@@ -282,6 +282,15 @@ body.dark-mode .thematic-chat-messages {
   background: rgba(255, 255, 255, 0.03);
 }
 
+html.mobile-layout #thematic-chat-messages:empty {
+  display: none !important;
+  flex: 0 0 0 !important;
+  min-height: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: none !important;
+}
+
 .thematic-chat-bubble {
   max-width: 96%;
   padding: 0.45rem 0.6rem;
