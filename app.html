@@ -8292,9 +8292,8 @@ html.mobile-layout body.sidebar-collapsed .resize-handle-wrapper {
   display: flex;
   flex-direction: column;
   align-items: stretch;
-  place-items: unset;
-  align-content: unset;
-  padding-top: calc(50vh - 36px);
+  justify-content: center;
+  padding-top: 0 !important;
   gap: 6px;
 }
 
@@ -8309,12 +8308,32 @@ html.mobile-layout body.sidebar-collapsed .resize-handle {
 }
 
 html.mobile-layout body.sidebar-collapsed #resizeHandle {
-  background-color: #7eb889 !important;
-  border: none !important;
+  background-color: var(--background-color) !important;
+  background-image: repeating-linear-gradient(
+    -45deg,
+    var(--heading-color) 0,
+    var(--heading-color) 0.75px,
+    transparent 0.75px,
+    transparent 2.25px
+  ) !important;
+  border: 2px solid var(--link-color) !important;
+  border-left: 0 !important;
 }
 
 html.mobile-layout body.sidebar-collapsed #resizeHandle:hover {
-  background-color: #6eac7b !important;
+  background-color: var(--background-color) !important;
+  background-image: repeating-linear-gradient(
+    -45deg,
+    color-mix(in srgb, var(--heading-color) 82%, #000) 0,
+    color-mix(in srgb, var(--heading-color) 82%, #000) 0.75px,
+    transparent 0.75px,
+    transparent 2.25px
+  ) !important;
+}
+
+html.mobile-layout body.dark-mode.sidebar-collapsed #resizeHandle,
+html.mobile-layout body.dark-mode.sidebar-collapsed #resizeHandle:hover {
+  background-color: var(--dark-background-color, var(--background-color)) !important;
 }
 
 html.mobile-layout body.sidebar-collapsed #resizeHandle::before,
@@ -8333,12 +8352,12 @@ html.mobile-layout body.sidebar-collapsed #resizeHandleText {
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  background-color: #3d8c52 !important;
+  background-color: var(--heading-color) !important;
   border: none !important;
 }
 
 html.mobile-layout body.sidebar-collapsed #resizeHandleText:hover {
-  background-color: #347846 !important;
+  background-color: color-mix(in srgb, var(--heading-color) 82%, #000) !important;
 }
 
 html.mobile-layout body.sidebar-collapsed .resize-handle::before {
@@ -11976,7 +11995,7 @@ PDF
 <link rel="stylesheet" href="thematic-chat-ui.css?v=20260712n">
 <script src="thematic-chat-ui.js?v=20260712n"></script>
 
-<script src="app.js?v=20261020v"></script>
+<script src="app.js?v=20261021d"></script>
 </body>
 </html>
 
