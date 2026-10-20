@@ -6679,7 +6679,7 @@ function initGABandFilterDropdown() {
     'gaBandFilterContainer',
     'gaBandFilterButton',
     'gaBandFilterList',
-    'GA-Band',
+    'GA',
     { searchPlaceholder: 'GA-Nummer oder Titel …' }
   );
 
@@ -7100,7 +7100,7 @@ function populateGABandFilterDropdown(chalkboardsOnly = false) {
   const gasWithChalkboards = chalkboardsOnly ? getGAsWithChalkboards() : [];
   
   // Leere Dropdown
-  const placeholder = chalkboardsOnly ? 'Alle Tafeln' : 'GA-Band';
+  const placeholder = chalkboardsOnly ? 'Alle Tafeln' : 'GA';
   dropdown.innerHTML = `<option value="">${placeholder}</option>`;
   
   // Sortiere GA-Bände nach Nummer (GA014 wird nicht angezeigt)
