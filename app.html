@@ -8168,50 +8168,63 @@ html.mobile-layout #viewer-header .viewer-buttons-container {
   gap: 6px;
 }
 
-html.mobile-layout #viewer-header .viewer-buttons-container > *:not(#gaInfoBtn):not(#h4ToggleBtn):not(#viewerSummaryBtn):not(#membersPanelBtn):not(#texte-panel-toolbar) {
+html.mobile-layout #viewer-header .viewer-buttons-container > *:not(#gaInfoBtn):not(#h4ToggleBtn):not(#viewerSummaryBtn):not(#membersPanelBtn):not(#texteViewToggle) {
   display: none !important;
 }
 
-html.mobile-layout.mobile-ga-overview.mobile-ga-book #texte-panel-toolbar,
-html.mobile-layout.mobile-ga-overview.mobile-ga-book #h4ToggleBtn {
+html.mobile-layout #viewer-header #texte-panel-toolbar,
+html.mobile-layout #viewer-header #texteGaInfoBtn,
+html.mobile-layout #viewer-header #texteMembersBtn {
   display: none !important;
 }
 
-html.mobile-layout.mobile-ga-overview.mobile-ga-book #gaInfoBtn,
-html.mobile-layout.mobile-ga-overview.mobile-ga-book #viewerSummaryBtn,
-html.mobile-layout.mobile-ga-overview.mobile-ga-book #membersPanelBtn {
-  display: inline-flex !important;
-  order: 0;
-}
-
-html.mobile-layout.mobile-ga-overview.mobile-ga-book #gaInfoBtn { order: 1; }
-html.mobile-layout.mobile-ga-overview.mobile-ga-book #viewerSummaryBtn { order: 2; }
-html.mobile-layout.mobile-ga-overview.mobile-ga-book #membersPanelBtn { order: 3; }
-
-html.mobile-layout.mobile-ga-overview:not(.mobile-ga-book) #gaInfoBtn,
-html.mobile-layout.mobile-ga-overview:not(.mobile-ga-book) #membersPanelBtn,
-html.mobile-layout.mobile-ga-overview:not(.mobile-ga-book) #h4ToggleBtn {
+html[data-mobile-header="lectures"] #h4ToggleBtn {
   display: none !important;
 }
 
-html.mobile-layout.mobile-ga-overview:not(.mobile-ga-book) #texte-panel-toolbar {
-  display: flex !important;
-  margin-left: 0;
-}
-
-html.mobile-layout.mobile-ga-overview:not(.mobile-ga-book) #texteViewToggle,
-html.mobile-layout.mobile-ga-overview:not(.mobile-ga-book) #texteGaInfoBtn,
-html.mobile-layout.mobile-ga-overview:not(.mobile-ga-book) #viewerSummaryBtn,
-html.mobile-layout.mobile-ga-overview:not(.mobile-ga-book) #texteMembersBtn {
+html[data-mobile-header="lectures"] #gaInfoBtn,
+html[data-mobile-header="lectures"] #viewerSummaryBtn,
+html[data-mobile-header="lectures"] #membersPanelBtn,
+html[data-mobile-header="lectures"] #texteViewToggle {
   display: inline-flex !important;
 }
 
-#viewer-header #texteViewToggle {
+html[data-mobile-header="book"] #h4ToggleBtn,
+html[data-mobile-header="book"] #texteViewToggle {
   display: none !important;
 }
 
-html.mobile-layout.mobile-ga-overview:not(.mobile-ga-book) #viewer-header #texteViewToggle {
+html[data-mobile-header="book"] #gaInfoBtn,
+html[data-mobile-header="book"] #viewerSummaryBtn,
+html[data-mobile-header="book"] #membersPanelBtn {
   display: inline-flex !important;
+}
+
+html.mobile-layout body.mobile-text-open #texteViewToggle {
+  display: none !important;
+}
+
+html[data-mobile-header="lectures"] #viewer-header #texteViewToggle {
+  background: transparent !important;
+  color: var(--link-color) !important;
+  border: 1px solid var(--accent-color) !important;
+  width: 32px !important;
+  min-width: 32px !important;
+  height: 32px !important;
+  min-height: 32px !important;
+  padding: 4px !important;
+  margin-left: 0 !important;
+}
+
+html[data-mobile-header="lectures"] #viewer-header #texteViewToggle:hover,
+html[data-mobile-header="lectures"] #viewer-header #texteViewToggle:hover svg {
+  background: transparent !important;
+  color: var(--link-color) !important;
+  border-color: var(--accent-color) !important;
+}
+
+html[data-mobile-header="lectures"] #viewer-header #texteViewToggle svg {
+  display: block;
 }
 
 html.mobile-layout #texteServerInfo {
@@ -8269,20 +8282,68 @@ html.mobile-layout .vertical-resize-handle-wrapper {
 html.mobile-layout body.sidebar-collapsed .resize-handle-wrapper {
   width: 14px;
   z-index: 1300;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  place-items: unset;
+  align-content: unset;
+  padding-top: calc(50vh - 36px);
+  gap: 6px;
 }
 
 html.mobile-layout body.sidebar-collapsed .resize-handle {
   width: 14px;
   height: 32px;
   min-height: 32px;
+  box-sizing: border-box;
   border-top-right-radius: 8px;
   border-bottom-right-radius: 8px;
+  cursor: pointer;
+}
+
+html.mobile-layout body.sidebar-collapsed #resizeHandle {
+  background-color: var(--link-color) !important;
+  border: none !important;
+}
+
+html.mobile-layout body.sidebar-collapsed #resizeHandle:hover {
+  background-color: var(--link-color) !important;
 }
 
 html.mobile-layout body.sidebar-collapsed .resize-handle::before {
   width: 2px;
   height: 2px;
   box-shadow: 0 5px 0 #3a5f6d, 0 -5px 0 #3a5f6d;
+}
+
+#resizeHandleTabs {
+  display: none;
+}
+
+html.mobile-layout body.sidebar-collapsed #resizeHandleTabs {
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  background-color: var(--background-color) !important;
+  border: 2px solid var(--link-color) !important;
+  border-left: 0 !important;
+}
+
+html.mobile-layout body.sidebar-collapsed #resizeHandleTabs:hover {
+  background-color: var(--background-color) !important;
+}
+
+html.mobile-layout body.sidebar-collapsed #resizeHandleTabs::before {
+  display: none !important;
+  content: none !important;
+  box-shadow: none !important;
+}
+
+html.mobile-layout body.dark-mode.sidebar-collapsed #resizeHandleTabs,
+html.mobile-layout body.dark-mode.sidebar-collapsed #resizeHandleTabs:hover {
+  background-color: var(--dark-background-color, var(--background-color)) !important;
+  border-color: var(--link-color) !important;
 }
 
 html.mobile-layout #summary-panel.visible {
@@ -8758,14 +8819,14 @@ body.local-mode #texte-select-all-label { display: inline-flex !important; }
 <span id="texteServerInfo"></span>
 </div>
 <div id="texte-panel-toolbar" style="display: flex; align-items: center; gap: 6px;">
-<button id="texteViewToggle" onclick="toggleGASummaries()" title="Nur Titel / Kurzzusammenfassungen umschalten" style="display: none;">
-▼
-</button>
 <button id="texteGaInfoBtn" onclick="showGABibliographyInfo()" title="Bibliographische Angaben anzeigen" style="display: none; padding: 4px; border: none; background: transparent; color: var(--link-color); cursor: pointer;">
 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.5" fill="none"/>
 <text x="12" y="16" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="currentColor" text-anchor="middle">i</text>
 </svg>
+</button>
+<button id="texteViewToggle" onclick="toggleGASummaries()" title="Nur Titel / Kurzzusammenfassungen umschalten" style="display: none;">
+<svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path fill="currentColor" d="M6 2L11 10H1L6 2z"/></svg>
 </button>
 <button id="texteMembersBtn" onclick="toggleMembersPanel()" title="Mitgliederbereich öffnen/schließen" style="display: none; position: relative;">
 <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="pointer-events: none;">
@@ -10876,6 +10937,7 @@ Bestehende Schlagwörter überschreiben
 </div>
 <div class="resize-handle-wrapper" id="resizeHandleWrapper">
   <div class="resize-handle-line"></div>
+  <div class="resize-handle resize-handle-tabs" id="resizeHandleTabs" title="Tab-Auswahl"></div>
   <div class="resize-handle" id="resizeHandle"></div>
 </div>
 <div id="main-container">
@@ -11882,7 +11944,7 @@ PDF
 <link rel="stylesheet" href="thematic-chat-ui.css?v=20260712n">
 <script src="thematic-chat-ui.js?v=20260712n"></script>
 
-<script src="app.js?v=20261020h"></script>
+<script src="app.js?v=20261020o"></script>
 </body>
 </html>
 

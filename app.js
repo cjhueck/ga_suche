@@ -2540,8 +2540,12 @@ function normalizeGANumber(gaNumber) {
       const sidebar = document.getElementById('sidebar');
       if (!sidebar) return;
       const isCollapsed = sidebar.classList.contains('collapsed');
-      if (collapsed === isCollapsed) return;
+      if (collapsed === isCollapsed) {
+        if (typeof updateMobileTextOpenState === 'function') updateMobileTextOpenState();
+        return;
+      }
       toggleSidebar();
+      if (typeof updateMobileTextOpenState === 'function') updateMobileTextOpenState();
     }
 
     function closeSummaryPanelForMobileReading() {
@@ -6180,6 +6184,18 @@ async function saveSummaryToCentral(lectureId, summaryData) {
 // Globale Variable für den Toggle-Zustand
 let gaOverviewShowSummaries = true;
 
+function filledTriangleSvg(pointUp) {
+  return pointUp
+    ? '<svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path fill="currentColor" d="M6 2L11 10H1L6 2z"/></svg>'
+    : '<svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path fill="currentColor" d="M6 10L11 2H1L6 10z"/></svg>';
+}
+
+function applyTexteViewToggleIcon(btn, summariesVisible) {
+  if (!btn) return;
+  btn.innerHTML = filledTriangleSvg(!!summariesVisible);
+  btn.title = summariesVisible ? 'Nur Titel anzeigen' : 'Kurzzusammenfassungen anzeigen';
+}
+
 // Titel/Kurzzusammenfassung-Toggle im Texte-Tab: immer sichtbar, sobald ein Vortrags-/Aufsatzband angezeigt wird
 function updateTexteViewToggle(gaNumber) {
   const texteViewToggle = document.getElementById('texteViewToggle');
@@ -6189,8 +6205,9 @@ function updateTexteViewToggle(gaNumber) {
   const isInTexteTab = texteTab && texteTab.classList.contains('active');
   const isBook = gaNumber && typeof isBookGANumber === 'function' && isBookGANumber(gaNumber);
   const isMobile = typeof window.isMobileViewport === 'function' && window.isMobileViewport();
-  const inLectureOverview = document.documentElement.classList.contains('mobile-ga-overview')
-    && !document.documentElement.classList.contains('mobile-ga-book');
+  const inLectureOverview = document.documentElement.getAttribute('data-mobile-header') === 'lectures'
+    || (document.documentElement.classList.contains('mobile-ga-overview')
+      && !document.documentElement.classList.contains('mobile-ga-book'));
   const shouldShow = isMobile
     ? inLectureOverview
     : !!(isInTexteTab && gaNumber && !isBook);
@@ -6198,8 +6215,7 @@ function updateTexteViewToggle(gaNumber) {
   if (shouldShow) {
     texteViewToggle.style.display = 'inline-flex';
     const summariesVisible = typeof gaOverviewShowSummaries !== 'undefined' ? gaOverviewShowSummaries : true;
-    texteViewToggle.innerHTML = summariesVisible ? '▲' : '▼';
-    texteViewToggle.title = summariesVisible ? 'Nur Titel anzeigen' : 'Kurzzusammenfassungen anzeigen';
+    applyTexteViewToggleIcon(texteViewToggle, summariesVisible);
 
     const texteSummaryToggle = document.getElementById('texteSummaryToggle');
     const texteAdminButtons = document.getElementById('texte-admin-buttons');
@@ -11006,6 +11022,9 @@ function restoreTextePanelToolbar() {
   const summaryBtn = document.getElementById('viewerSummaryBtn');
   const nativeMembers = document.getElementById('membersPanelBtn');
   const sammlungenBtn = document.getElementById('sammlungenPdfDownloadBtn');
+  const info = document.getElementById('texteGaInfoBtn');
+  const toggle = document.getElementById('texteViewToggle');
+  const texteMembers = document.getElementById('texteMembersBtn');
   if (summaryBtn && headerBtns && summaryBtn.parentElement !== headerBtns) {
     if (sammlungenBtn) headerBtns.insertBefore(summaryBtn, sammlungenBtn);
     else if (nativeMembers) headerBtns.insertBefore(summaryBtn, nativeMembers);
@@ -11014,41 +11033,163 @@ function restoreTextePanelToolbar() {
   if (toolbar && searchInfo && toolbar.parentElement !== searchInfo) {
     searchInfo.appendChild(toolbar);
   }
+  if (toolbar) {
+    if (info) toolbar.appendChild(info);
+    if (toggle) toolbar.appendChild(toggle);
+    if (texteMembers) toolbar.appendChild(texteMembers);
+  }
+}
+
+function setHeaderBtnDisplay(el, visible, displayValue) {
+  if (!el) return;
+  if (visible) el.style.setProperty('display', displayValue || 'inline-flex', 'important');
+  else el.style.setProperty('display', 'none', 'important');
+}
+
+function applyMobileHeaderButtonVisibility() {
+  if (typeof window.isMobileViewport === 'function' && !window.isMobileViewport()) return;
+
+  const headerBtns = document.querySelector('#viewer-header .viewer-buttons-container');
+  const toolbar = document.getElementById('texte-panel-toolbar');
+  const searchInfo = document.getElementById('texteSearchInfo');
+  if (toolbar && toolbar.closest('#viewer-header') && searchInfo) {
+    searchInfo.appendChild(toolbar);
+  }
+
+  const gaInfo = document.getElementById('gaInfoBtn');
+  const h4 = document.getElementById('h4ToggleBtn');
+  const summary = document.getElementById('viewerSummaryBtn');
+  const members = document.getElementById('membersPanelBtn');
+  const toggle = document.getElementById('texteViewToggle');
+  const tInfo = document.getElementById('texteGaInfoBtn');
+  const tMembers = document.getElementById('texteMembersBtn');
+
+  setHeaderBtnDisplay(tInfo, false);
+  setHeaderBtnDisplay(tMembers, false);
+  if (toolbar && toolbar.closest('#viewer-header')) setHeaderBtnDisplay(toolbar, false);
+
+  if (headerBtns) {
+    [...headerBtns.children].forEach((el) => {
+      if (!['gaInfoBtn', 'h4ToggleBtn', 'viewerSummaryBtn', 'membersPanelBtn', 'texteViewToggle'].includes(el.id)) {
+        setHeaderBtnDisplay(el, false);
+      }
+    });
+  }
+
+  const mode = document.documentElement.getAttribute('data-mobile-header') || 'off';
+  const textOpen = document.body.classList.contains('mobile-text-open');
+
+  if (mode === 'lectures') {
+    if (toggle && headerBtns && gaInfo) headerBtns.insertBefore(toggle, gaInfo.nextSibling);
+    else if (toggle && headerBtns && summary) headerBtns.insertBefore(toggle, summary);
+    setHeaderBtnDisplay(gaInfo, true);
+    setHeaderBtnDisplay(toggle, true);
+    setHeaderBtnDisplay(h4, false);
+    setHeaderBtnDisplay(summary, true);
+    setHeaderBtnDisplay(members, true);
+    if (typeof applyTexteViewToggleIcon === 'function') {
+      applyTexteViewToggleIcon(toggle, typeof gaOverviewShowSummaries === 'undefined' || gaOverviewShowSummaries);
+    }
+    if (summary) summary.innerHTML = '≡';
+  } else if (mode === 'book') {
+    if (toggle && toolbar && toggle.parentElement !== toolbar) toolbar.appendChild(toggle);
+    setHeaderBtnDisplay(toggle, false);
+    setHeaderBtnDisplay(gaInfo, true);
+    setHeaderBtnDisplay(h4, false);
+    setHeaderBtnDisplay(summary, true);
+    setHeaderBtnDisplay(members, true);
+    if (summary) summary.innerHTML = '≡';
+  } else if (textOpen) {
+    if (toggle && toolbar && toggle.parentElement !== toolbar) toolbar.appendChild(toggle);
+    setHeaderBtnDisplay(toggle, false);
+    setHeaderBtnDisplay(gaInfo, true);
+    setHeaderBtnDisplay(h4, String(window.currentOpenLectureId || '').includes('/'));
+    setHeaderBtnDisplay(summary, true);
+    setHeaderBtnDisplay(members, true);
+    if (summary) summary.innerHTML = '≡';
+  } else {
+    if (toggle && toolbar && toggle.parentElement !== toolbar) toolbar.appendChild(toggle);
+    setHeaderBtnDisplay(toggle, false);
+  }
 }
 
 function setMobileGAOverviewMode(active, isBook) {
   const root = document.documentElement;
-  const toolbar = document.getElementById('texte-panel-toolbar');
-  const headerBtns = document.querySelector('#viewer-header .viewer-buttons-container');
-  const summaryBtn = document.getElementById('viewerSummaryBtn');
-  const texteMembers = document.getElementById('texteMembersBtn');
-  const toggle = document.getElementById('texteViewToggle');
-  const useOverview = !!active;
+  const isMobile = typeof window.isMobileViewport === 'function' && window.isMobileViewport();
+  const mode = (!isMobile || !active) ? 'off' : (isBook ? 'book' : 'lectures');
 
-  root.classList.toggle('mobile-ga-overview', useOverview);
-  root.classList.toggle('mobile-ga-book', !!(useOverview && isBook));
+  restoreTextePanelToolbar();
 
-  if (!useOverview || isBook) {
-    restoreTextePanelToolbar();
-    if (toggle && (!useOverview || isBook)) toggle.style.display = 'none';
-    return;
-  }
+  root.classList.toggle('mobile-ga-overview', mode !== 'off');
+  root.classList.toggle('mobile-ga-book', mode === 'book');
+  if (mode === 'off') root.removeAttribute('data-mobile-header');
+  else root.setAttribute('data-mobile-header', mode);
 
-  if (toolbar && headerBtns && toolbar.parentElement !== headerBtns) {
-    headerBtns.appendChild(toolbar);
-  }
-  if (summaryBtn && toolbar && texteMembers) {
-    toolbar.insertBefore(summaryBtn, texteMembers);
-  } else if (summaryBtn && toolbar && summaryBtn.parentElement !== toolbar) {
-    toolbar.appendChild(summaryBtn);
-  }
-  if (toggle) {
-    toggle.style.display = 'inline-flex';
-    toggle.innerHTML = (typeof gaOverviewShowSummaries !== 'undefined' && gaOverviewShowSummaries) ? '▲' : '▼';
-    toggle.title = (typeof gaOverviewShowSummaries !== 'undefined' && gaOverviewShowSummaries) ? 'Nur Titel anzeigen' : 'Kurzzusammenfassungen anzeigen';
-  }
+  applyMobileHeaderButtonVisibility();
+  if (typeof updateMobileTextOpenState === 'function') updateMobileTextOpenState();
 }
 window.setMobileGAOverviewMode = setMobileGAOverviewMode;
+window.applyMobileHeaderButtonVisibility = applyMobileHeaderButtonVisibility;
+
+function getOpenTextGANumber() {
+  const id = window.currentOpenLectureId || (typeof currentGANumber !== 'undefined' ? currentGANumber : '') || '';
+  const match = String(id).match(/^(GA\d{1,3}[a-z]?)/i);
+  if (match) return match[1];
+  const title = document.getElementById('document-title');
+  const titleMatch = title && (title.textContent || '').match(/^(GA\d{1,3}[a-z]?)/i);
+  return titleMatch ? titleMatch[1] : null;
+}
+
+function isMobileTextOpen() {
+  if (typeof window.isMobileViewport !== 'function' || !window.isMobileViewport()) return false;
+  if (!document.body.classList.contains('sidebar-collapsed')) return false;
+  if (document.documentElement.getAttribute('data-mobile-header')) return false;
+  const viewer = document.getElementById('viewer');
+  if (viewer && viewer.querySelector('.ga-lectures-container')) return false;
+  const openId = window.currentOpenLectureId || '';
+  if (String(openId).includes('/')) return true;
+  return !!(viewer && viewer.querySelector('.book-content'));
+}
+
+function isMobileNavHandlesActive() {
+  return typeof window.isMobileViewport === 'function'
+    && window.isMobileViewport()
+    && document.body.classList.contains('sidebar-collapsed');
+}
+
+function updateMobileTextOpenState() {
+  const open = isMobileTextOpen();
+  document.body.classList.toggle('mobile-text-open', open);
+  const handle = document.getElementById('resizeHandle');
+  const tabsHandle = document.getElementById('resizeHandleTabs');
+  if (handle) {
+    handle.title = isMobileNavHandlesActive() ? 'Inhaltsübersicht' : 'Seitenleiste ein-/ausblenden';
+  }
+  if (tabsHandle) {
+    tabsHandle.title = 'Tab-Auswahl';
+  }
+  if (typeof applyMobileHeaderButtonVisibility === 'function') {
+    applyMobileHeaderButtonVisibility();
+  }
+}
+window.updateMobileTextOpenState = updateMobileTextOpenState;
+window.isMobileNavHandlesActive = isMobileNavHandlesActive;
+
+function goToVolumeOverviewFromText() {
+  const gaNumber = getOpenTextGANumber();
+  if (!gaNumber) return;
+  if (typeof switchTab === 'function') switchTab('ga', true);
+  if (typeof showGALectures === 'function') showGALectures(gaNumber, true);
+}
+
+function goToTabSelectionFromText() {
+  if (typeof switchTab === 'function') switchTab('ga', true);
+  if (typeof showGAVolumesView === 'function') showGAVolumesView();
+  if (typeof setSidebarCollapsedForMobile === 'function') setSidebarCollapsedForMobile(false);
+  document.body.classList.remove('mobile-text-open');
+}
+window.goToVolumeOverviewFromText = goToVolumeOverviewFromText;
+window.goToTabSelectionFromText = goToTabSelectionFromText;
 
 function openMobileBookToc() {
   if (typeof window.isMobileViewport !== 'function' || !window.isMobileViewport()) return;
@@ -11223,6 +11364,7 @@ async function showGALectures(gaNumber, skipHistory = false) {
         if (typeof window.isMobileViewport === 'function' && window.isMobileViewport()) {
           if (typeof closeSummaryPanelForMobileReading === 'function') closeSummaryPanelForMobileReading();
           setMobileGAOverviewMode(true, true);
+          setTimeout(() => setMobileGAOverviewMode(true, true), 50);
         }
       } catch (err) {
         if (err.status === 404) {
@@ -11391,10 +11533,14 @@ async function showGALectures(gaNumber, skipHistory = false) {
     // Keine scrollToYear Funktion mehr nötig, da keine Jahres-Buttons für Vortrags-Bände angezeigt werden
     
     // Aktualisiere Button-Status, damit Info-Icon angezeigt wird
+    if (typeof currentLectureData !== 'undefined') {
+      currentLectureData = { gaNumber, isBook: false, isOverview: true };
+    }
     updateButtonStates();
     if (typeof window.isMobileViewport === 'function' && window.isMobileViewport()) {
       if (typeof closeSummaryPanelForMobileReading === 'function') closeSummaryPanelForMobileReading();
       setMobileGAOverviewMode(true, false);
+      setTimeout(() => setMobileGAOverviewMode(true, false), 50);
     }
     
   } catch (error) {
@@ -11867,8 +12013,7 @@ function toggleGASummaries() {
   // Update Toggle Button im Texte-Tab (Pfeil-Toggle)
   const texteViewToggle = document.getElementById('texteViewToggle');
   if (texteViewToggle) {
-    texteViewToggle.innerHTML = gaOverviewShowSummaries ? '▲' : '▼';
-    texteViewToggle.title = gaOverviewShowSummaries ? 'Nur Titel anzeigen' : 'Kurzzusammenfassungen anzeigen';
+    applyTexteViewToggleIcon(texteViewToggle, gaOverviewShowSummaries);
   }
   
   // Update Toggle Button im Admin-Bereich (neuer Button)
@@ -12023,6 +12168,9 @@ function showGAVolumesView() {
   selectedYearFilter = null;
   chronologicalNavYear = null;
   currentGANumber = null;
+  if (typeof setSidebarCollapsedForMobile === 'function') {
+    setSidebarCollapsedForMobile(false);
+  }
 
   const gaBandDropdown = document.getElementById('ga-band-filter-dropdown');
   if (gaBandDropdown) gaBandDropdown.value = '';
@@ -19103,6 +19251,10 @@ function scrollToChronologicalYear(year) {
       viewerTOCToggleBtn.style.display = 'none';
     }
   }
+
+  if (typeof applyMobileHeaderButtonVisibility === 'function') {
+    applyMobileHeaderButtonVisibility();
+  }
   
 }
 
@@ -24741,6 +24893,9 @@ function formatAsteriskParagraphs() {
   if (typeof closeSummaryPanelForMobileReading === 'function') {
     closeSummaryPanelForMobileReading();
   }
+  if (typeof updateMobileTextOpenState === 'function') {
+    setTimeout(() => updateMobileTextOpenState(), 50);
+  }
   applyViewerReadingStyles();
   
   // WICHTIG: Entferne Jahres-Buttons beim Anzeigen eines einzelnen Vortrags
@@ -24762,6 +24917,7 @@ function formatAsteriskParagraphs() {
 
   // Aktuellen Vortrag tracken
   window.currentOpenLectureId = lectureId;
+  if (typeof updateMobileTextOpenState === 'function') updateMobileTextOpenState();
   
   // Analytics: Vortrag-Aufruf tracken
   analyticsTrack('lecture_view', lectureId);
@@ -28533,8 +28689,36 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
       // hier nur für den Resize-Zustand
       const resizeHandleLine = resizeHandleWrapper.querySelector('.resize-handle-line');
 
+      const resizeHandleTabs = document.getElementById('resizeHandleTabs');
+      if (resizeHandleTabs && !resizeHandleTabs._mobileBound) {
+        resizeHandleTabs._mobileBound = true;
+        resizeHandleTabs.addEventListener('click', function(e) {
+          if (typeof isMobileNavHandlesActive !== 'function' || !isMobileNavHandlesActive()) return;
+          e.preventDefault();
+          e.stopPropagation();
+          if (typeof goToTabSelectionFromText === 'function') goToTabSelectionFromText();
+        });
+      }
+      if (resizeHandle && !resizeHandle._mobileBound) {
+        resizeHandle._mobileBound = true;
+        resizeHandle.addEventListener('click', function(e) {
+          if (typeof isMobileNavHandlesActive !== 'function' || !isMobileNavHandlesActive()) return;
+          e.preventDefault();
+          e.stopPropagation();
+          if (typeof goToVolumeOverviewFromText === 'function') goToVolumeOverviewFromText();
+        });
+      }
+
       // Event auf Wrapper - macht die ganze Trennlinie klickbar
       resizeHandleWrapper.addEventListener('mousedown', function(e) {
+        if (typeof isMobileNavHandlesActive === 'function' && isMobileNavHandlesActive()) {
+          e.stopPropagation();
+          return;
+        }
+        if (e.target && e.target.closest && e.target.closest('#resizeHandleTabs')) {
+          e.stopPropagation();
+          return;
+        }
         startX = e.clientX;
         hasMoved = false;
         isResizing = true;
@@ -28554,6 +28738,10 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
       
       // Auch direkt auf dem Handle-Element für Kompatibilität
       resizeHandle.addEventListener('mousedown', function(e) {
+        if (typeof isMobileNavHandlesActive === 'function' && isMobileNavHandlesActive()) {
+          e.stopPropagation();
+          return;
+        }
         startX = e.clientX;
         hasMoved = false;
         isResizing = true;
@@ -28602,10 +28790,15 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
         
         // Wenn keine Bewegung stattgefunden hat: Toggle-Funktion
         if (!hasMoved) {
-          toggleSidebar();
-          // Position sofort aktualisieren (ohne Verzögerung)
-          updateLeftResizeHandlePosition();
-          updateHeaderPosition();
+          if (typeof isMobileNavHandlesActive === 'function' && isMobileNavHandlesActive()) {
+            updateLeftResizeHandlePosition();
+            updateHeaderPosition();
+          } else {
+            toggleSidebar();
+            updateLeftResizeHandlePosition();
+            updateHeaderPosition();
+            if (typeof updateMobileTextOpenState === 'function') updateMobileTextOpenState();
+          }
         }
         
         // Toggle-Transition zurücksetzen
