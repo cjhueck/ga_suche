@@ -241,7 +241,7 @@ _obsidianBC.onmessage = function(e) {
     body.dark-mode .thematic-input {
       background-color: #333;
       color: var(--dark-text-color);
-      border-color: #666;
+      border-color: var(--accent-color, #6BA3B8);
     }
     body.dark-mode .filter-dropdown option {
     background-color: #333;
@@ -3417,7 +3417,7 @@ gap: 4px !important;
       padding: 5px 10px 10px 10px;
       margin: 0px 0;
       box-sizing: border-box;
-      border: 1px solid #aaa;
+      border: 1.5px solid var(--accent-color);
       background: var(--background-color);
       font-size: 12px;
       min-height: 85px;
@@ -3428,7 +3428,7 @@ gap: 4px !important;
 
     .thematic-input:focus {
       outline: none;
-      border: 1px solid var(--accent-color, #467886);
+      border: 1.5px solid var(--accent-color, #467886);
       box-shadow: none;
     }
 
@@ -3657,14 +3657,15 @@ gap: 4px !important;
       padding: 8px;
       margin: 2px 0;
       box-sizing: border-box;
-      border: 1px solid #aaa;
+      border: 1.5px solid var(--accent-color);
+      border-radius: 4px;
       background: var(--background-color);
       font-size: 0.8em;
     }
 
     .search-input:focus {
       outline: none;
-      border: 1px solid var(--accent-color, #467886);
+      border: 1.5px solid var(--accent-color, #467886);
       box-shadow: none;
     }
 
@@ -3857,13 +3858,14 @@ gap: 4px !important;
       margin: 2px 0;
       font-size: 0.8em;
       box-sizing: border-box;
-      border: 1px solid #ccc;
+      border: 1.5px solid var(--accent-color);
+      border-radius: 4px;
       background: var(--background-color);
     }
     
     .filter-dropdown:focus {
       outline: none;
-      border: 1px solid var(--border-color);
+      border: 1.5px solid var(--accent-color);
     }
     
     .filter-dropdown:disabled {
@@ -3890,7 +3892,52 @@ gap: 4px !important;
     
     .custom-dropdown-button:focus {
       outline: none;
-      border: 1px solid var(--border-color);
+      border: 1.5px solid var(--accent-color);
+    }
+
+    /* Sidebar-Tabs: Akzent-Rahmen für alle Eingabe-/Auswahlfelder (ohne Größenänderung) */
+    #sidebar-header .tab-container .tab-content input:not([type="checkbox"]):not([type="radio"]):not([type="hidden"]):not([type="file"]),
+    #sidebar-header .tab-container .tab-content select,
+    #sidebar-header .tab-container .tab-content textarea,
+    #sidebar-header .tab-container .tab-content button.filter-dropdown,
+    #sidebar-header .tab-container .tab-content button.distance-filter-trigger {
+      border: 1.5px solid var(--accent-color);
+      border-radius: 4px;
+    }
+
+    #sidebar-header .tab-container .tab-content input:not([type="checkbox"]):not([type="radio"]):not([type="hidden"]):not([type="file"]):focus,
+    #sidebar-header .tab-container .tab-content select:focus,
+    #sidebar-header .tab-container .tab-content textarea:focus,
+    #sidebar-header .tab-container .tab-content button.filter-dropdown:focus,
+    #sidebar-header .tab-container .tab-content button.distance-filter-trigger:focus {
+      outline: none;
+      border: 1.5px solid var(--accent-color);
+      box-shadow: none;
+    }
+
+    #sidebar-header .tab-container .tab-content .filter-dropdown:disabled,
+    #sidebar-header .tab-container .tab-content input:disabled {
+      border-color: var(--border-color);
+    }
+
+    #thematic2-tab .filter-dropdown,
+    #thematic2-tab select.filter-dropdown,
+    #thematic2-tab input.filter-dropdown,
+    #thematic2-tab #timelineFilterSection select,
+    #thematic2-tab #timelineFilterSection input,
+    #thematic2-tab #maps-in-themen select {
+      border: 1.5px solid var(--accent-color) !important;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+
+    #thematic2-tab .filter-dropdown:focus,
+    #thematic2-tab #timelineFilterSection select:focus,
+    #thematic2-tab #timelineFilterSection input:focus,
+    #thematic2-tab #maps-in-themen select:focus {
+      outline: none;
+      border: 1.5px solid var(--accent-color) !important;
+      box-shadow: none;
     }
     
     .custom-dropdown-arrow {
@@ -3960,6 +4007,148 @@ gap: 4px !important;
       min-height: 2.2em;
       height: 2.2em;
       box-sizing: border-box;
+    }
+
+    #keyword-tab .search-input,
+    #keyword-tab .filter-dropdown.custom-dropdown-button,
+    #keyword-tab .distance-filter-trigger,
+    #keyword-tab select#relevanceFilter.filter-dropdown {
+      border: 1.5px solid var(--accent-color) !important;
+      border-radius: 4px;
+      background: var(--background-color);
+      color: var(--text-color);
+      margin: 0;
+      box-sizing: border-box;
+      min-height: 2.2em;
+      height: 2.2em;
+      padding: 6px 5px;
+      font-size: 0.78em;
+      line-height: 1.2;
+    }
+
+    #keyword-tab.tab-content.active {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      overflow: visible;
+    }
+
+    #keyword-tab .search-input {
+      cursor: text;
+      width: 100%;
+      margin: 0;
+    }
+
+    #keyword-tab .filter-row {
+      margin-top: 0;
+    }
+
+    #keyword-tab .radio-group {
+      margin: 0;
+    }
+
+    #keyword-tab .search-input:focus,
+    #keyword-tab .filter-dropdown.custom-dropdown-button:focus,
+    #keyword-tab .distance-filter-trigger:focus,
+    #keyword-tab select#relevanceFilter.filter-dropdown:focus {
+      outline: none;
+      border: 1.5px solid var(--accent-color) !important;
+      box-shadow: none;
+    }
+
+    #keyword-tab .search-words-row {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 0.58fr) minmax(0, 0.92fr) minmax(0, 1fr);
+      gap: 6px;
+      align-items: center;
+      margin-top: 0;
+      width: 100%;
+    }
+
+    #keyword-tab .search-words-row > div:first-of-type {
+      grid-column: 1;
+      min-width: 0;
+    }
+
+    #keyword-tab .search-words-row > .word-operator-container {
+      grid-column: 2;
+      justify-self: center;
+    }
+
+    #keyword-tab .search-words-row > div:last-of-type {
+      grid-column: 3 / 5;
+      min-width: 0;
+    }
+
+    #keyword-tab .filter-row {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 0.58fr) minmax(0, 0.92fr) minmax(0, 1fr);
+      gap: 6px;
+      align-items: center;
+      width: 100%;
+    }
+
+    #keyword-tab #yearFilterContainer {
+      grid-column: 1;
+      min-width: 0;
+    }
+
+    #keyword-tab #gaFilterContainer {
+      grid-column: 2;
+      min-width: 0;
+      display: block;
+      gap: 0;
+    }
+
+    #keyword-tab #proximityFilterGroup {
+      grid-column: 3;
+      min-width: 0;
+    }
+
+    #keyword-tab #relevanceFilter {
+      grid-column: 4;
+      width: 100% !important;
+      min-width: 0;
+      max-width: none;
+      justify-self: stretch;
+    }
+
+    #keyword-tab .filter-row .custom-dropdown,
+    #keyword-tab .filter-row .distance-filter-group {
+      display: block;
+      min-width: 0;
+      width: 100%;
+      flex: none !important;
+    }
+
+    #keyword-tab .filter-row .custom-dropdown-button,
+    #keyword-tab .filter-row .distance-filter-trigger,
+    #keyword-tab #proximityFilterButton {
+      width: 100% !important;
+      max-width: none;
+    }
+
+    #keyword-tab #searchBtnSimple.depth-btn.primary,
+    #keyword-tab .radio-group .depth-btn {
+      border: 1.5px solid var(--accent-color) !important;
+      border-radius: 4px;
+      min-height: 2.2em;
+      height: 2.2em;
+      box-sizing: border-box;
+      padding: 6px 10px;
+      font-size: 0.78em;
+      line-height: 1.2;
+      background: var(--background-color);
+      color: var(--accent-color);
+    }
+
+    #keyword-tab #searchBtnSimple.depth-btn.primary {
+      background: var(--accent-color);
+      color: #fff;
+    }
+
+    #keyword-tab .radio-group .depth-btn:hover {
+      opacity: 0.9;
     }
 
     .custom-dropdown-list {
@@ -7768,12 +7957,13 @@ html.mobile-layout #keyword-tab #searchInfo {
 html.mobile-layout #keyword-tab.tab-content.active {
   display: flex;
   flex-wrap: wrap;
-  align-items: stretch;
+  align-items: flex-start;
   gap: 6px;
   padding: 0 0.45rem 0.2rem;
 }
 
 html.mobile-layout #keyword-tab .search-words-row {
+  display: flex;
   flex: 1 1 100%;
   flex-direction: row;
   align-items: stretch;
@@ -7781,7 +7971,9 @@ html.mobile-layout #keyword-tab .search-words-row {
   margin-top: 0;
 }
 
-html.mobile-layout #keyword-tab .search-words-row > div {
+html.mobile-layout #keyword-tab .search-words-row > div,
+html.mobile-layout #keyword-tab .search-words-row > .word-operator-container {
+  grid-column: auto;
   min-width: 0;
 }
 
@@ -7807,18 +7999,27 @@ html.mobile-layout #keyword-tab .word-operator-label input[type="radio"] {
 
 html.mobile-layout #keyword-tab .filter-row {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1.1fr);
-  flex: 1 1 0;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr);
+  flex: 1 1 100%;
   min-width: 0;
   gap: 6px;
   margin-top: 0;
-  margin-right: 6px;
+  margin-right: 0;
+  align-items: center;
+  width: 100%;
+}
+
+html.mobile-layout #keyword-tab #yearFilterContainer,
+html.mobile-layout #keyword-tab #gaFilterContainer,
+html.mobile-layout #keyword-tab #proximityFilterGroup,
+html.mobile-layout #keyword-tab #relevanceFilter {
+  grid-column: auto;
 }
 
 html.mobile-layout #keyword-tab .radio-group {
   flex: 0 0 auto;
   margin: 0;
-  align-self: stretch;
+  align-self: flex-start;
 }
 
 html.mobile-layout #keyword-tab .radio-group,
@@ -7831,20 +8032,27 @@ html.mobile-layout #keyword-tab .radio-group > div > div {
   margin: 0;
   padding: 0;
   justify-content: flex-start !important;
-  align-items: stretch !important;
+  align-items: flex-start !important;
 }
 
 html.mobile-layout #keyword-tab #searchBtnSimple {
-  min-height: 40px;
-  height: 100%;
-  padding: 8px 12px !important;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 32px !important;
+  min-height: 32px !important;
+  max-height: 32px !important;
+  margin: 0;
+  padding: 3px 10px !important;
+  font-size: 16px !important;
+  line-height: 1.2;
+  box-sizing: border-box;
+  border-radius: 4px;
+  border: 1.5px solid var(--accent-color) !important;
 }
 
-html.mobile-layout #keyword-tab .search-input,
-html.mobile-layout #keyword-tab .filter-dropdown,
-html.mobile-layout #keyword-tab .custom-dropdown-button {
-  min-height: 40px;
-  padding: 8px;
+html.mobile-layout #keyword-tab .word-operator-label input[type="radio"] {
+  accent-color: var(--accent-color);
 }
 
 #mobile-preview-toggle {
@@ -8006,12 +8214,59 @@ html.mobile-layout .word-operator-label input[type="radio"] {
   height: 18px;
 }
 
-html.mobile-layout .search-input,
-html.mobile-layout .filter-dropdown,
-html.mobile-layout .custom-dropdown-button {
+html.mobile-layout .tab-content:not(#keyword-tab):not(#ga-tab) .search-input,
+html.mobile-layout .tab-content:not(#keyword-tab):not(#ga-tab) .filter-dropdown,
+html.mobile-layout .tab-content:not(#keyword-tab):not(#ga-tab) .custom-dropdown-button {
   font-size: 16px !important;
   min-height: 44px;
   padding: 10px 12px;
+}
+
+html.mobile-layout #keyword-tab .search-input,
+html.mobile-layout #keyword-tab .filter-dropdown,
+html.mobile-layout #keyword-tab .custom-dropdown-button,
+html.mobile-layout #keyword-tab .distance-filter-trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: 32px !important;
+  min-height: 32px !important;
+  max-height: 32px !important;
+  margin: 0;
+  padding: 3px 6px !important;
+  font-size: 16px !important;
+  line-height: 1.2;
+  box-sizing: border-box;
+  border: 1.5px solid var(--accent-color) !important;
+  border-radius: 4px;
+  background: var(--background-color);
+  color: var(--text-color);
+  cursor: pointer;
+}
+
+html.mobile-layout #keyword-tab .search-input {
+  display: block;
+  cursor: text;
+}
+
+html.mobile-layout #keyword-tab .search-input:focus {
+  outline: none;
+  border: 1.5px solid var(--accent-color) !important;
+  box-shadow: none;
+}
+
+html.mobile-layout #keyword-tab .filter-row .custom-dropdown,
+html.mobile-layout #keyword-tab #proximityFilterGroup {
+  display: block !important;
+  min-width: 0;
+  width: 100%;
+  height: 32px;
+  flex: 1 1 0 !important;
+}
+
+html.mobile-layout #keyword-tab #proximityFilterButton {
+  width: 100% !important;
 }
 
 html.mobile-layout .radio-group,
@@ -8151,14 +8406,47 @@ html.mobile-layout #viewer-header {
 
 html.mobile-layout #document-title {
   margin-left: 0 !important;
-  font-size: 1.05rem;
+  font-size: 1.05rem !important;
+  font-weight: 700 !important;
   min-width: 0;
   width: 100%;
   max-width: 100%;
   flex: 1 1 auto;
   word-break: normal;
   overflow-wrap: break-word;
-  line-height: 1.3;
+  line-height: 1.3 !important;
+}
+
+html.mobile-layout #viewer-header #document-title span {
+  font-size: inherit !important;
+  font-weight: inherit !important;
+  line-height: inherit !important;
+}
+
+html.mobile-layout body.tab-schlagworte-active.index-keyword-selected #viewer-header {
+  flex-direction: row !important;
+  align-items: center !important;
+  flex-wrap: nowrap;
+  gap: 8px;
+}
+
+html.mobile-layout body.tab-schlagworte-active.index-keyword-selected #document-title,
+html.mobile-layout body.tab-schlagworte-active.index-keyword-selected #document-title span {
+  font-size: 1.05rem !important;
+  font-weight: 700 !important;
+  line-height: 1.3 !important;
+  color: var(--accent-color) !important;
+  width: auto;
+  flex: 1 1 auto;
+  min-width: 0;
+  min-height: 32px;
+  display: flex;
+  align-items: center;
+}
+
+html.mobile-layout body.tab-schlagworte-active.index-keyword-selected #viewer-header .viewer-buttons-container {
+  width: auto !important;
+  flex: 0 0 auto;
 }
 
 html.mobile-layout #viewer-header .viewer-buttons-container {
@@ -8584,7 +8872,7 @@ Wandtafeln
 </div>
 <div class="filter-row">
 <!-- Custom Multi-Select Dropdown für Jahre -->
-<div class="custom-dropdown" id="yearFilterContainer" style="flex: 0.7;">
+<div class="custom-dropdown" id="yearFilterContainer">
   <button type="button" class="filter-dropdown custom-dropdown-button" id="yearFilterButton">
     <span class="custom-dropdown-text">Jahre</span>
     <span class="custom-dropdown-arrow"></span>
@@ -8601,9 +8889,9 @@ Wandtafeln
   <div class="custom-dropdown-list" id="gaFilterList"></div>
 </div>
 
-<div class="distance-filter-group" id="proximityFilterGroup" data-mode="" style="flex: 0 0 auto;">
+<div class="distance-filter-group" id="proximityFilterGroup" data-mode="">
 <input type="hidden" id="proximityFilter" value=""/>
-<button type="button" class="filter-dropdown distance-filter-trigger" id="proximityFilterButton" style="width: 90px;" data-help="distanceFilter" onclick="toggleDistanceFilterPanel('proximityFilter','proximityWordDistance')">
+<button type="button" class="filter-dropdown distance-filter-trigger" id="proximityFilterButton" data-help="distanceFilter" onclick="toggleDistanceFilterPanel('proximityFilter','proximityWordDistance')">
 <span class="distance-filter-button-text" id="proximityFilterButtonText">Abstand</span>
 <span class="custom-dropdown-arrow"></span>
 </button>
@@ -8618,7 +8906,7 @@ Wandtafeln
 </div>
 </div>
 </div>
-<select class="filter-dropdown" id="relevanceFilter" style="flex: 0 0 auto; width: 90px;" data-help="relevanceFilter">
+<select class="filter-dropdown" id="relevanceFilter" data-help="relevanceFilter">
 <option value="ohne">Relevanz</option>
 <option value="alle">alle</option>
 <option value="hoch">hoch 🟩</option>
@@ -9157,17 +9445,17 @@ Meine Abfragen
   <div id="timelineFilterSection" style="display: none; margin-bottom: 0; padding: 0;">
   <div style="display: grid; grid-template-columns: 0.9fr 1.2fr 0.9fr; gap: 0.5rem; margin-bottom: 0.5rem;">
   <div>
-  <select id="timelineThemeFilterAdmin" class="filter-dropdown" style="width: 100%; padding: 8px; border: 1px solid var(--border-color); border-radius: 4px; font-size: 0.8em;" onchange="updateTimelineFilters('theme');">
+  <select id="timelineThemeFilterAdmin" class="filter-dropdown" style="width: 100%; padding: 8px; border-radius: 4px; font-size: 0.8em;" onchange="updateTimelineFilters('theme');">
   <option value="">Bitte Thema wählen...</option>
   </select>
   </div>
   <div>
-  <select id="timelineKeywordFilterAdmin" class="filter-dropdown" style="width: 100%; padding: 8px; border: 1px solid var(--border-color); border-radius: 4px; font-size: 0.8em;" onchange="updateTimelineFilters('keyword');">
+  <select id="timelineKeywordFilterAdmin" class="filter-dropdown" style="width: 100%; padding: 8px; border-radius: 4px; font-size: 0.8em;" onchange="updateTimelineFilters('keyword');">
   <option value="">Schlagwörter</option>
   </select>
   </div>
   <div>
-  <input type="text" id="timelineKeywordSearch" class="filter-dropdown" placeholder="Suche..." style="width: 100%; padding: 8px; border: 1px solid var(--border-color); border-radius: 4px; font-size: 0.9em;" onkeydown="handleTimelineKeywordSearch(event);" oninput="handleTimelineKeywordSearchInput(event);">
+  <input type="text" id="timelineKeywordSearch" class="filter-dropdown" placeholder="Suche..." style="width: 100%; padding: 8px; border-radius: 4px; font-size: 0.9em;" onkeydown="handleTimelineKeywordSearch(event);" oninput="handleTimelineKeywordSearchInput(event);">
   </div>
   </div>
   <!-- Statistik-Anzeige -->
@@ -12006,7 +12294,7 @@ PDF
 <link rel="stylesheet" href="thematic-chat-ui.css?v=20260712n">
 <script src="thematic-chat-ui.js?v=20260712n"></script>
 
-<script src="app.js?v=20261021e"></script>
+<script src="app.js?v=20261021r"></script>
 </body>
 </html>
 
