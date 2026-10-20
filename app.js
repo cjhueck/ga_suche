@@ -1985,7 +1985,7 @@ function normalizeGANumber(gaNumber) {
           headerWidth = window.innerWidth - mainRect.left; // Header bis zum rechten Rand
         }
         
-        if (window.matchMedia('(max-width: 768px)').matches) {
+        if (typeof isMobileViewport === 'function' ? isMobileViewport() : window.matchMedia('(max-width: 768px)').matches) {
           header.style.left = '0px';
           header.style.width = '100%';
           header.style.flexDirection = 'column';
@@ -2514,6 +2514,9 @@ function normalizeGANumber(gaNumber) {
         if (sidebar && !sidebar.classList.contains('collapsed')) {
           sidebar.style.width = '';
           sidebar.style.minWidth = '';
+        }
+        if (typeof setMobileGAOverviewMode === 'function') {
+          setMobileGAOverviewMode(false);
         }
       }
       if (mobile !== wasMobile && typeof currentGAView !== 'undefined' && currentGAView === 'chronological' && typeof showGAChronologicalView === 'function') {
@@ -6185,7 +6188,12 @@ function updateTexteViewToggle(gaNumber) {
   const texteTab = document.getElementById('texte-tab');
   const isInTexteTab = texteTab && texteTab.classList.contains('active');
   const isBook = gaNumber && typeof isBookGANumber === 'function' && isBookGANumber(gaNumber);
-  const shouldShow = !!(isInTexteTab && gaNumber && !isBook);
+  const isMobile = typeof window.isMobileViewport === 'function' && window.isMobileViewport();
+  const inLectureOverview = document.documentElement.classList.contains('mobile-ga-overview')
+    && !document.documentElement.classList.contains('mobile-ga-book');
+  const shouldShow = isMobile
+    ? inLectureOverview
+    : !!(isInTexteTab && gaNumber && !isBook);
 
   if (shouldShow) {
     texteViewToggle.style.display = 'inline-flex';
@@ -10283,10 +10291,10 @@ async function _displayBookImpl(book, highlightHeadingId = null, keywords = [], 
       // Members Panel ist aktiv - Panel offen halten und Members-Content beibehalten
       // Nichts tun - Panel bleibt wie es ist
     } else if (isInGATabNow) {
-      // GA-Tab: Schließe Sidebar (TOC wird im Main Viewer angezeigt)
-      // ABER NICHT wenn Navigation aus Members Panel kommt
+      // GA-Tab zeigt das Inhaltsverzeichnis im Main Viewer; rechtes Panel geschlossen halten
       if (summaryPanel) {
         summaryPanel.classList.remove('visible');
+        summaryPanel.style.display = '';
         if (verticalResizeHandleWrapper) {
           verticalResizeHandleWrapper.classList.remove('visible');
         }
@@ -10991,16 +10999,80 @@ function activateFootnoteLinks() {
   });
 }
 
+function restoreTextePanelToolbar() {
+  const toolbar = document.getElementById('texte-panel-toolbar');
+  const headerBtns = document.querySelector('#viewer-header .viewer-buttons-container');
+  const searchInfo = document.getElementById('texteSearchInfo');
+  const summaryBtn = document.getElementById('viewerSummaryBtn');
+  const nativeMembers = document.getElementById('membersPanelBtn');
+  const sammlungenBtn = document.getElementById('sammlungenPdfDownloadBtn');
+  if (summaryBtn && headerBtns && summaryBtn.parentElement !== headerBtns) {
+    if (sammlungenBtn) headerBtns.insertBefore(summaryBtn, sammlungenBtn);
+    else if (nativeMembers) headerBtns.insertBefore(summaryBtn, nativeMembers);
+    else headerBtns.appendChild(summaryBtn);
+  }
+  if (toolbar && searchInfo && toolbar.parentElement !== searchInfo) {
+    searchInfo.appendChild(toolbar);
+  }
+}
+
+function setMobileGAOverviewMode(active, isBook) {
+  const root = document.documentElement;
+  const toolbar = document.getElementById('texte-panel-toolbar');
+  const headerBtns = document.querySelector('#viewer-header .viewer-buttons-container');
+  const summaryBtn = document.getElementById('viewerSummaryBtn');
+  const texteMembers = document.getElementById('texteMembersBtn');
+  const toggle = document.getElementById('texteViewToggle');
+  const useOverview = !!active;
+
+  root.classList.toggle('mobile-ga-overview', useOverview);
+  root.classList.toggle('mobile-ga-book', !!(useOverview && isBook));
+
+  if (!useOverview || isBook) {
+    restoreTextePanelToolbar();
+    if (toggle && (!useOverview || isBook)) toggle.style.display = 'none';
+    return;
+  }
+
+  if (toolbar && headerBtns && toolbar.parentElement !== headerBtns) {
+    headerBtns.appendChild(toolbar);
+  }
+  if (summaryBtn && toolbar && texteMembers) {
+    toolbar.insertBefore(summaryBtn, texteMembers);
+  } else if (summaryBtn && toolbar && summaryBtn.parentElement !== toolbar) {
+    toolbar.appendChild(summaryBtn);
+  }
+  if (toggle) {
+    toggle.style.display = 'inline-flex';
+    toggle.innerHTML = (typeof gaOverviewShowSummaries !== 'undefined' && gaOverviewShowSummaries) ? '▲' : '▼';
+    toggle.title = (typeof gaOverviewShowSummaries !== 'undefined' && gaOverviewShowSummaries) ? 'Nur Titel anzeigen' : 'Kurzzusammenfassungen anzeigen';
+  }
+}
+window.setMobileGAOverviewMode = setMobileGAOverviewMode;
+
+function openMobileBookToc() {
+  if (typeof window.isMobileViewport !== 'function' || !window.isMobileViewport()) return;
+  const summaryPanel = document.getElementById('summary-panel');
+  if (!summaryPanel) return;
+  if (typeof resetPanelSync === 'function') resetPanelSync();
+  summaryPanel.classList.add('visible');
+  summaryPanel.style.display = '';
+  summaryPanel.style.width = '100%';
+  summaryPanel.style.minWidth = '0';
+  document.body.classList.remove('summary-panel-collapsed');
+  const summaryContent = document.getElementById('summary-content');
+  if (summaryContent) {
+    summaryContent.innerHTML = '<div id="toc-list"></div>';
+  }
+  setTimeout(() => {
+    if (typeof buildTableOfContents === 'function') buildTableOfContents();
+    if (typeof updateHeaderPosition === 'function') updateHeaderPosition();
+  }, 50);
+}
+window.openMobileBookToc = openMobileBookToc;
+
 async function showGALectures(gaNumber, skipHistory = false) {
   try {
-    if (typeof window.isMobileViewport === 'function' && window.isMobileViewport()) {
-      if (typeof setSidebarCollapsedForMobile === 'function') {
-        setSidebarCollapsedForMobile(false);
-      }
-      if (typeof window.navigateToGAInTexteTab === 'function') {
-        return await window.navigateToGAInTexteTab(gaNumber);
-      }
-    }
     // Setze Ansicht auf 'volumes', da wir einen einzelnen GA-Band anzeigen
     currentGAView = 'volumes';
     if (typeof setSidebarCollapsedForMobile === 'function') {
@@ -11148,6 +11220,10 @@ async function showGALectures(gaNumber, skipHistory = false) {
       try {
         const book = await fetchBookCached(gaNumber);
         await displayBook(book);
+        if (typeof window.isMobileViewport === 'function' && window.isMobileViewport()) {
+          if (typeof closeSummaryPanelForMobileReading === 'function') closeSummaryPanelForMobileReading();
+          setMobileGAOverviewMode(true, true);
+        }
       } catch (err) {
         if (err.status === 404) {
           viewer.innerHTML = '<div id="viewer-content"><div style="color: var(--secondary-text); text-align: left; font-style: italic; font-size: 0.9rem;">Schrift nicht gefunden.</div></div>';
@@ -11289,16 +11365,17 @@ async function showGALectures(gaNumber, skipHistory = false) {
             </a>
           </div>
           ${shortSummary ? `
-            <div class="ga-lecture-text" style="
+            <div class="ga-lecture-text ga-summary-text" style="
               line-height: 1.4; 
               font-size: 0.9rem;
               text-align: left;
               font-style: italic;
+              display: ${typeof gaOverviewShowSummaries === 'undefined' || gaOverviewShowSummaries ? 'block' : 'none'};
             ">
               ${shortSummary}
             </div>
           ` : (isEssayBand ? '' : `
-            <div class="ga-missing-text" style="font-style: italic; font-size: 0.9rem;">
+            <div class="ga-missing-text ga-summary-text" style="font-style: italic; font-size: 0.9rem; display: ${typeof gaOverviewShowSummaries === 'undefined' || gaOverviewShowSummaries ? 'block' : 'none'};">
               Keine Kurzzusammenfassung verfügbar
             </div>
           `)}
@@ -11315,6 +11392,10 @@ async function showGALectures(gaNumber, skipHistory = false) {
     
     // Aktualisiere Button-Status, damit Info-Icon angezeigt wird
     updateButtonStates();
+    if (typeof window.isMobileViewport === 'function' && window.isMobileViewport()) {
+      if (typeof closeSummaryPanelForMobileReading === 'function') closeSummaryPanelForMobileReading();
+      setMobileGAOverviewMode(true, false);
+    }
     
   } catch (error) {
     console.error('[GA-TAB] Fehler beim Laden der Vorträge:', error);
@@ -11772,7 +11853,7 @@ async function displayGAOverview(data) {
 function toggleGASummaries() {
   gaOverviewShowSummaries = !gaOverviewShowSummaries;
   
-  const summaries = document.querySelectorAll('.ga-summary-text');
+  const summaries = document.querySelectorAll('.ga-summary-text, .ga-lecture-text, .ga-missing-text');
   const button = document.querySelector('#results button');
   
   summaries.forEach(summary => {
@@ -21695,7 +21776,8 @@ function scrollToChronologicalYear(year) {
           return;
         }
 
-        if (!currentLectureData) {
+        const isGaOverview = document.documentElement.classList.contains('mobile-ga-overview');
+        if (!currentLectureData && !isGaOverview) {
           alert('Bitte zuerst einen Vortrag laden');
           return;
         }
@@ -21725,10 +21807,9 @@ function scrollToChronologicalYear(year) {
           updateHeaderPosition();
         }, 50);
         
-        // Prüfe ob es ein Book ist - dann TOC bauen, sonst Summary laden
+        // Book oder GA-Übersicht: TOC im Side Panel; sonst Summary laden
         const isBook = currentLectureData && currentLectureData.isBook;
-        if (isBook) {
-          // Book: Baue TOC im Side Panel auf
+        if (isBook || isGaOverview) {
           const summaryContent = document.getElementById('summary-content');
           if (summaryContent) {
             summaryContent.innerHTML = '<div id="toc-list"></div>';
@@ -21737,7 +21818,6 @@ function scrollToChronologicalYear(year) {
             buildTableOfContents();
           }, 50);
         } else {
-          // Vortrag: Lade Summary
           await loadSummaryAutomatically();
         }
       }
@@ -24655,6 +24735,9 @@ function formatAsteriskParagraphs() {
   if (typeof setSidebarCollapsedForMobile === 'function') {
     setSidebarCollapsedForMobile(true);
   }
+  if (typeof setMobileGAOverviewMode === 'function') {
+    setMobileGAOverviewMode(false);
+  }
   if (typeof closeSummaryPanelForMobileReading === 'function') {
     closeSummaryPanelForMobileReading();
   }
@@ -27280,6 +27363,27 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
           matchKey: getViewerHeadingMatchKey(heading)
         });
       });
+
+      if (!tocList.children.length) {
+        const overviewLinks = viewer.querySelectorAll('a.ga-lecture-link, a[data-heading-index]');
+        overviewLinks.forEach((link) => {
+          const item = document.createElement('div');
+          item.style.marginBottom = '0.3rem';
+          const clone = document.createElement('a');
+          clone.href = '#';
+          clone.textContent = (link.textContent || '').replace(/\s+/g, ' ').trim();
+          clone.style.color = 'var(--link-color)';
+          clone.style.textDecoration = 'none';
+          clone.style.fontSize = '0.9em';
+          clone.style.display = 'block';
+          clone.addEventListener('click', (e) => {
+            e.preventDefault();
+            link.click();
+          });
+          item.appendChild(clone);
+          tocList.appendChild(item);
+        });
+      }
       
       // Prüfe ob Wandtafelzeichnungen in chalkboards.json für diesen Vortrag vorhanden sind
       let hasChalkboards = false;
@@ -30176,6 +30280,9 @@ function resetTabToDefault(mode) {
     }
     if (typeof showGAVolumesView === 'function') {
       showGAVolumesView();
+    }
+    if (typeof setMobileGAOverviewMode === 'function') {
+      setMobileGAOverviewMode(false);
     }
     return;
   }
