@@ -3,6 +3,16 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<script>
+(function(){
+  var forced = false;
+  try { forced = sessionStorage.getItem('ga_force_mobile') === '1'; } catch (e) {}
+  if (forced || window.matchMedia('(max-width: 768px)').matches) {
+    document.documentElement.classList.add('mobile-layout');
+  }
+  if (forced) document.documentElement.classList.add('force-mobile');
+})();
+</script>
 <title>Steiner GA-Suche</title>
 <script src="members/forward-auth-callback.js"></script>
 <script>
