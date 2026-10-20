@@ -7674,6 +7674,95 @@ html.mobile-layout .tab-button[data-help="tab-maps"] {
   display: none !important;
 }
 
+html.mobile-layout #keyword-tab #frequencyBtnSimple,
+html.mobile-layout #keyword-tab button[onclick="openAdvancedSearch()"],
+html.mobile-layout #keyword-tab #relevanceFilter,
+html.mobile-layout #keyword-tab #searchInfo {
+  display: none !important;
+}
+
+html.mobile-layout #keyword-tab.tab-content.active {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+  gap: 6px;
+  padding: 0 0.45rem 0.2rem;
+}
+
+html.mobile-layout #keyword-tab .search-words-row {
+  flex: 1 1 100%;
+  flex-direction: row;
+  align-items: stretch;
+  gap: 6px;
+  margin-top: 0;
+}
+
+html.mobile-layout #keyword-tab .search-words-row > div {
+  min-width: 0;
+}
+
+html.mobile-layout #keyword-tab .word-operator-container {
+  flex-direction: column;
+  justify-content: center;
+  width: auto;
+  flex: 0 0 auto;
+  padding: 0 1px;
+  gap: 1px;
+}
+
+html.mobile-layout #keyword-tab .word-operator-label {
+  min-height: 0;
+  font-size: 0.7em;
+  line-height: 1.1;
+}
+
+html.mobile-layout #keyword-tab .word-operator-label input[type="radio"] {
+  width: 14px;
+  height: 14px;
+}
+
+html.mobile-layout #keyword-tab .filter-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1.1fr);
+  flex: 1 1 0;
+  min-width: 0;
+  gap: 6px;
+  margin-top: 0;
+  margin-right: 6px;
+}
+
+html.mobile-layout #keyword-tab .radio-group {
+  flex: 0 0 auto;
+  margin: 0;
+  align-self: stretch;
+}
+
+html.mobile-layout #keyword-tab .radio-group,
+html.mobile-layout #keyword-tab .radio-group > div,
+html.mobile-layout #keyword-tab .radio-group > div > div {
+  display: flex !important;
+  flex-wrap: nowrap !important;
+  gap: 0 !important;
+  width: auto !important;
+  margin: 0;
+  padding: 0;
+  justify-content: flex-start !important;
+  align-items: stretch !important;
+}
+
+html.mobile-layout #keyword-tab #searchBtnSimple {
+  min-height: 40px;
+  height: 100%;
+  padding: 8px 12px !important;
+}
+
+html.mobile-layout #keyword-tab .search-input,
+html.mobile-layout #keyword-tab .filter-dropdown,
+html.mobile-layout #keyword-tab .custom-dropdown-button {
+  min-height: 40px;
+  padding: 8px;
+}
+
 #mobile-preview-toggle {
   display: none !important;
 }
