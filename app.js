@@ -6205,12 +6205,13 @@ function updateTexteViewToggle(gaNumber) {
   const isInTexteTab = texteTab && texteTab.classList.contains('active');
   const isBook = gaNumber && typeof isBookGANumber === 'function' && isBookGANumber(gaNumber);
   const isMobile = typeof window.isMobileViewport === 'function' && window.isMobileViewport();
-  const inLectureOverview = document.documentElement.getAttribute('data-mobile-header') === 'lectures'
-    || (document.documentElement.classList.contains('mobile-ga-overview')
-      && !document.documentElement.classList.contains('mobile-ga-book'));
-  const shouldShow = isMobile
-    ? inLectureOverview
-    : !!(isInTexteTab && gaNumber && !isBook);
+  if (isMobile) {
+    if (typeof applyMobileHeaderButtonVisibility === 'function') {
+      applyMobileHeaderButtonVisibility();
+    }
+    return;
+  }
+  const shouldShow = !!(isInTexteTab && gaNumber && !isBook);
 
   if (shouldShow) {
     texteViewToggle.style.display = 'inline-flex';
@@ -11046,13 +11047,29 @@ function setHeaderBtnDisplay(el, visible, displayValue) {
   else el.style.setProperty('display', 'none', 'important');
 }
 
+function getMobileHeaderMode() {
+  if (typeof window.isMobileViewport !== 'function' || !window.isMobileViewport()) return 'off';
+  const viewer = document.getElementById('viewer');
+  if (viewer && viewer.querySelector('.ga-lectures-container')) return 'lectures';
+  const openId = String(window.currentOpenLectureId || '');
+  if (openId.includes('/')) return 'text';
+  if (viewer && viewer.querySelector('.book-content')) {
+    const attr = document.documentElement.getAttribute('data-mobile-header');
+    if (attr === 'book' || document.documentElement.classList.contains('mobile-ga-book')) return 'book';
+    return 'text';
+  }
+  const attr = document.documentElement.getAttribute('data-mobile-header');
+  if (attr === 'book' || attr === 'lectures') return attr;
+  return 'off';
+}
+
 function applyMobileHeaderButtonVisibility() {
   if (typeof window.isMobileViewport === 'function' && !window.isMobileViewport()) return;
 
   const headerBtns = document.querySelector('#viewer-header .viewer-buttons-container');
   const toolbar = document.getElementById('texte-panel-toolbar');
   const searchInfo = document.getElementById('texteSearchInfo');
-  if (toolbar && toolbar.closest('#viewer-header') && searchInfo) {
+  if (toolbar && searchInfo && toolbar.parentElement !== searchInfo) {
     searchInfo.appendChild(toolbar);
   }
 
@@ -11066,50 +11083,46 @@ function applyMobileHeaderButtonVisibility() {
 
   setHeaderBtnDisplay(tInfo, false);
   setHeaderBtnDisplay(tMembers, false);
-  if (toolbar && toolbar.closest('#viewer-header')) setHeaderBtnDisplay(toolbar, false);
+  if (toolbar) setHeaderBtnDisplay(toolbar, false);
 
   if (headerBtns) {
-    [...headerBtns.children].forEach((el) => {
-      if (!['gaInfoBtn', 'h4ToggleBtn', 'viewerSummaryBtn', 'membersPanelBtn', 'texteViewToggle'].includes(el.id)) {
-        setHeaderBtnDisplay(el, false);
-      }
-    });
+    [...headerBtns.children].forEach((el) => setHeaderBtnDisplay(el, false));
   }
+  ['chalkboardsSortToggleBtn', 'chalkboardsInfoBtn', 'viewerOriginalBtn', 'viewerTOCToggleBtn'].forEach((id) => {
+    setHeaderBtnDisplay(document.getElementById(id), false);
+  });
+  if (toggle && toolbar && toggle.parentElement !== toolbar) toolbar.appendChild(toggle);
+  setHeaderBtnDisplay(toggle, false);
+  setHeaderBtnDisplay(h4, false);
 
-  const mode = document.documentElement.getAttribute('data-mobile-header') || 'off';
-  const textOpen = document.body.classList.contains('mobile-text-open');
+  const mode = getMobileHeaderMode();
+  const root = document.documentElement;
+  if (mode === 'lectures' || mode === 'book') {
+    root.setAttribute('data-mobile-header', mode);
+    root.classList.toggle('mobile-ga-overview', true);
+    root.classList.toggle('mobile-ga-book', mode === 'book');
+  } else {
+    root.removeAttribute('data-mobile-header');
+    root.classList.remove('mobile-ga-overview', 'mobile-ga-book');
+  }
+  document.body.classList.toggle('mobile-text-open', mode === 'text');
+
+  if (mode === 'off') return;
+
+  setHeaderBtnDisplay(gaInfo, true);
+  setHeaderBtnDisplay(summary, true);
+  setHeaderBtnDisplay(members, true);
+  if (summary) summary.innerHTML = '≡';
 
   if (mode === 'lectures') {
     if (toggle && headerBtns && gaInfo) headerBtns.insertBefore(toggle, gaInfo.nextSibling);
     else if (toggle && headerBtns && summary) headerBtns.insertBefore(toggle, summary);
-    setHeaderBtnDisplay(gaInfo, true);
     setHeaderBtnDisplay(toggle, true);
-    setHeaderBtnDisplay(h4, false);
-    setHeaderBtnDisplay(summary, true);
-    setHeaderBtnDisplay(members, true);
     if (typeof applyTexteViewToggleIcon === 'function') {
       applyTexteViewToggleIcon(toggle, typeof gaOverviewShowSummaries === 'undefined' || gaOverviewShowSummaries);
     }
-    if (summary) summary.innerHTML = '≡';
-  } else if (mode === 'book') {
-    if (toggle && toolbar && toggle.parentElement !== toolbar) toolbar.appendChild(toggle);
-    setHeaderBtnDisplay(toggle, false);
-    setHeaderBtnDisplay(gaInfo, true);
-    setHeaderBtnDisplay(h4, false);
-    setHeaderBtnDisplay(summary, true);
-    setHeaderBtnDisplay(members, true);
-    if (summary) summary.innerHTML = '≡';
-  } else if (textOpen) {
-    if (toggle && toolbar && toggle.parentElement !== toolbar) toolbar.appendChild(toggle);
-    setHeaderBtnDisplay(toggle, false);
-    setHeaderBtnDisplay(gaInfo, true);
+  } else if (mode === 'text') {
     setHeaderBtnDisplay(h4, String(window.currentOpenLectureId || '').includes('/'));
-    setHeaderBtnDisplay(summary, true);
-    setHeaderBtnDisplay(members, true);
-    if (summary) summary.innerHTML = '≡';
-  } else {
-    if (toggle && toolbar && toggle.parentElement !== toolbar) toolbar.appendChild(toggle);
-    setHeaderBtnDisplay(toggle, false);
   }
 }
 
@@ -11141,14 +11154,7 @@ function getOpenTextGANumber() {
 }
 
 function isMobileTextOpen() {
-  if (typeof window.isMobileViewport !== 'function' || !window.isMobileViewport()) return false;
-  if (!document.body.classList.contains('sidebar-collapsed')) return false;
-  if (document.documentElement.getAttribute('data-mobile-header')) return false;
-  const viewer = document.getElementById('viewer');
-  if (viewer && viewer.querySelector('.ga-lectures-container')) return false;
-  const openId = window.currentOpenLectureId || '';
-  if (String(openId).includes('/')) return true;
-  return !!(viewer && viewer.querySelector('.book-content'));
+  return getMobileHeaderMode() === 'text';
 }
 
 function isMobileNavHandlesActive() {
@@ -11364,7 +11370,6 @@ async function showGALectures(gaNumber, skipHistory = false) {
         if (typeof window.isMobileViewport === 'function' && window.isMobileViewport()) {
           if (typeof closeSummaryPanelForMobileReading === 'function') closeSummaryPanelForMobileReading();
           setMobileGAOverviewMode(true, true);
-          setTimeout(() => setMobileGAOverviewMode(true, true), 50);
         }
       } catch (err) {
         if (err.status === 404) {
@@ -11540,7 +11545,6 @@ async function showGALectures(gaNumber, skipHistory = false) {
     if (typeof window.isMobileViewport === 'function' && window.isMobileViewport()) {
       if (typeof closeSummaryPanelForMobileReading === 'function') closeSummaryPanelForMobileReading();
       setMobileGAOverviewMode(true, false);
-      setTimeout(() => setMobileGAOverviewMode(true, false), 50);
     }
     
   } catch (error) {
@@ -12932,6 +12936,13 @@ function scrollToChronologicalYear(year) {
       try {
         if (!lectureId) {
           console.error('[NAVIGATION] Keine Lecture-ID angegeben');
+          return;
+        }
+        if (typeof window.isMobileViewport === 'function' && window.isMobileViewport()) {
+          if (typeof switchTab === 'function') switchTab('ga', true);
+          const kw = Array.isArray(keywords) ? keywords : [];
+          if (typeof showLecture === 'function') await showLecture(lectureId, null, kw);
+          if (typeof applyMobileHeaderButtonVisibility === 'function') applyMobileHeaderButtonVisibility();
           return;
         }
         // Sticky Side-Panel-Titel ausblenden – wir wechseln in den Texte-Tab
@@ -28624,6 +28635,10 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
       }
       
       updateButtonStates();
+      if (typeof applyMobileHeaderButtonVisibility === 'function') {
+        applyMobileHeaderButtonVisibility();
+        setTimeout(applyMobileHeaderButtonVisibility, 50);
+      }
       
       // Header-Position mehrfach aktualisieren, um sicherzustellen, dass das Padding beim ersten Laden korrekt ist
       // Das ist nötig, weil CSS-Berechnungen und DOM-Rendering asynchron sind
