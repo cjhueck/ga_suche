@@ -6,7 +6,14 @@
 <script>
 (function(){
   var forced = false;
-  try { forced = sessionStorage.getItem('ga_force_mobile') === '1'; } catch (e) {}
+  try {
+    if (new URLSearchParams(location.search).get('mobil') === '1') {
+      sessionStorage.setItem('ga_force_mobile', '1');
+      forced = true;
+    } else {
+      forced = sessionStorage.getItem('ga_force_mobile') === '1';
+    }
+  } catch (e) {}
   if (forced || window.matchMedia('(max-width: 768px)').matches) {
     document.documentElement.classList.add('mobile-layout');
   }
@@ -7967,7 +7974,8 @@ html.mobile-layout body {
   height: 100svh;
 }
 
-html.mobile-layout .tab-button[data-help="tab-index"].active {
+html.mobile-layout .tab-button[data-help="tab-index"].active,
+html.mobile-layout .tab-button[data-help="tab-texte"].active {
   display: inline-flex !important;
 }
 
@@ -7990,6 +7998,24 @@ html.mobile-layout #ga-chronological-view-btn,
 html.mobile-layout #ga-chalkboards-btn,
 html.mobile-layout #ga-volumes-info {
   display: none !important;
+}
+
+html.mobile-layout #texte-tab.tab-content.active {
+  padding: 0.7rem 0.45rem 0.2rem;
+}
+
+html.mobile-layout #texteGAFilterButton {
+  display: flex !important;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+  width: 100%;
+  height: 32px !important;
+  min-height: 32px !important;
+  max-height: 32px !important;
+  margin: 0;
+  padding: 3px 6px !important;
+  font-size: 16px !important;
 }
 
 html.mobile-layout #ga-tab > div {
@@ -8091,6 +8117,18 @@ html.mobile-layout #thematicGAFilterButton {
   line-height: 1.2;
 }
 
+html.mobile-layout #rechercheSourceType,
+html.mobile-layout #rechercheThemeArea {
+  box-sizing: border-box;
+  height: 32px !important;
+  min-height: 32px !important;
+  max-height: 32px !important;
+  margin: 0 !important;
+  padding: 3px 6px !important;
+  font-size: 16px !important;
+  line-height: 1.2;
+}
+
 html.mobile-layout #thematic-tab.tab-content.active,
 html.mobile-layout body.thematic-chat-enabled.tab-thematic-active #thematic-tab.tab-content.active {
   padding-top: 0.7rem !important;
@@ -8105,6 +8143,10 @@ html.mobile-layout body.thematic-chat-enabled.tab-thematic-active #thematic-tab 
 html.mobile-layout #thematic-tab .filter-row,
 html.mobile-layout body.thematic-chat-enabled.tab-thematic-active #thematic-tab .filter-row {
   margin-top: 0 !important;
+}
+
+html.mobile-layout #thematic-mode-options {
+  margin-top: -2px;
 }
 
 html.mobile-layout #keyword-tab #frequencyBtnSimple,
@@ -8305,12 +8347,12 @@ html.mobile-layout #sidebar-header .site-logo {
 html.mobile-layout #mobile-header-tagline {
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
+  justify-content: center;
   align-items: flex-start;
   grid-column: 2 / -1;
   grid-row: 1;
-  align-self: start;
-  height: auto;
+  align-self: stretch;
+  height: 96px;
   margin: 0;
   padding: 0 0.15rem 0 0.55rem;
   color: var(--heading-color);
@@ -8318,6 +8360,8 @@ html.mobile-layout #mobile-header-tagline {
   font-weight: 650;
   line-height: 1.12;
   letter-spacing: 0.01em;
+  text-decoration: none;
+  cursor: pointer;
 }
 
 html.mobile-layout #mobile-header-tagline span {
@@ -8407,14 +8451,86 @@ html.mobile-layout body:not(.is-local) #always-visible-buttons {
 }
 
 html.mobile-layout #mobile-preview-toggle {
-  order: -1;
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  z-index: 4000;
+  order: 0;
+}
+
+html.mobile-layout #helpModal.help-modal.active {
+  align-items: stretch;
+  justify-content: stretch;
+}
+
+html.mobile-layout #helpModal .help-modal-content {
+  width: 100%;
+  max-width: none;
+  height: 100%;
+  max-height: none;
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+html.mobile-layout #helpModal .help-modal-body {
+  font-size: 1.05rem;
+  line-height: 1.55;
+}
+
+html.mobile-layout #helpModal .help-choice-buttons {
+  flex-wrap: wrap;
+}
+
+html.mobile-layout #helpModal .help-choice-btn {
+  flex: 1 1 calc(50% - 0.5rem);
+  min-width: 120px;
+}
+
+html.mobile-layout #helpModal .help-shortcuts {
+  display: none;
 }
 
 html.mobile-layout #always-visible-buttons .help-button,
-html.mobile-layout #always-visible-buttons .theme-toggle-btn {
-  width: 30px;
-  height: 30px;
+html.mobile-layout #always-visible-buttons .theme-toggle-btn,
+html.mobile-layout #always-visible-buttons #membersPanelBtn {
+  width: 30px !important;
+  min-width: 30px !important;
+  height: 30px !important;
+  min-height: 30px !important;
   padding: 2px;
+}
+
+html.mobile-layout #always-visible-buttons #membersPanelBtn {
+  border: none !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  color: var(--accent-color) !important;
+}
+
+html.mobile-layout #always-visible-buttons #membersPanelBtn:hover,
+html.mobile-layout #always-visible-buttons #membersPanelBtn.active,
+html.mobile-layout #always-visible-buttons #membersPanelBtn.active:hover {
+  background: rgba(0, 0, 0, 0.05) !important;
+  color: var(--accent-color) !important;
+}
+
+html.mobile-layout body.dark-mode #always-visible-buttons #membersPanelBtn,
+html.mobile-layout body.dark-mode #always-visible-buttons #membersPanelBtn:hover,
+html.mobile-layout body.dark-mode #always-visible-buttons #membersPanelBtn.active,
+html.mobile-layout body.dark-mode #always-visible-buttons #membersPanelBtn.active:hover {
+  background: transparent !important;
+  color: var(--dark-accent-color) !important;
+}
+
+html.mobile-layout body.dark-mode #always-visible-buttons #membersPanelBtn:hover,
+html.mobile-layout body.dark-mode #always-visible-buttons #membersPanelBtn.active:hover {
+  background: rgba(255, 255, 255, 0.1) !important;
+}
+
+html.mobile-layout #always-visible-buttons #membersPanelBtn svg {
+  width: 22px;
+  height: 22px;
 }
 
 html.mobile-layout .tab-container .tab-buttons {
@@ -9066,7 +9182,7 @@ html.mobile-layout #summary-panel.visible {
 <div id="sidebar-header">
 <div id="header-top-flex" style="display: flex; align-items: flex-start; gap: 0.5rem;">
 <img src="images/steiner-logo.jpg" alt="Rudolf Steiner" class="site-logo" data-help="site-logo">
-<p id="mobile-header-tagline"><span>Rudolf Steiner</span><span>Texte online</span></p>
+<a id="mobile-header-tagline" href="index.html?ansicht=mobil" target="_blank" rel="noopener noreferrer" title="Startseite öffnen"><span>Rudolf Steiner</span><span>Texte online</span></a>
 <div class="site-header-flex" data-help="site-header">
 <!-- Immer sichtbare Funktionsbuttons: lokal horizontale Reihe oberhalb des Schriftzugs, online verkleinerte vertikale Saeule rechts neben dem Schriftzug -->
 <div id="always-visible-buttons">
@@ -11860,7 +11976,7 @@ PDF
             <h3>Impressum</h3>
           </button>
         </div>
-        <div style="margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid var(--border-color, #ddd);">
+        <div class="help-shortcuts" style="margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid var(--border-color, #ddd);">
           <h3 style="margin-top: 0; margin-bottom: 1rem; font-size: 1em; color: var(--heading-color, #333);">Tastenkombinationen:</h3>
           <ul style="margin: 0; padding-left: 1.5rem; line-height: 1.6; color: var(--text-color, #333);">
             <li><strong>Strg+Klick:</strong> Kurzinformation</li>
@@ -12561,7 +12677,7 @@ PDF
   </script>
 
 <!-- Members Panel UI -->
-<script src="members/members-panel.js"></script>
+<script src="members/members-panel.js?v=20261021ah"></script>
 
 <!-- Members Context Menu (Rechtsklick) -->
 <script src="members/members-context-menu.js"></script>
@@ -12602,7 +12718,7 @@ PDF
 <link rel="stylesheet" href="thematic-chat-ui.css?v=20260712n">
 <script src="thematic-chat-ui.js?v=20260712n"></script>
 
-<script src="app.js?v=20261021ac"></script>
+<script src="app.js?v=20261021ah"></script>
 </body>
 </html>
 
