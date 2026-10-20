@@ -8309,12 +8309,36 @@ html.mobile-layout body.sidebar-collapsed .resize-handle {
 }
 
 html.mobile-layout body.sidebar-collapsed #resizeHandle {
-  background-color: var(--link-color) !important;
+  background-color: #7eb889 !important;
   border: none !important;
 }
 
 html.mobile-layout body.sidebar-collapsed #resizeHandle:hover {
-  background-color: var(--link-color) !important;
+  background-color: #6eac7b !important;
+}
+
+html.mobile-layout body.sidebar-collapsed #resizeHandle::before,
+html.mobile-layout body.sidebar-collapsed #resizeHandleText::before {
+  display: none !important;
+  content: none !important;
+  box-shadow: none !important;
+}
+
+#resizeHandleText {
+  display: none;
+}
+
+html.mobile-layout body.sidebar-collapsed #resizeHandleText {
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  background-color: #3d8c52 !important;
+  border: none !important;
+}
+
+html.mobile-layout body.sidebar-collapsed #resizeHandleText:hover {
+  background-color: #347846 !important;
 }
 
 html.mobile-layout body.sidebar-collapsed .resize-handle::before {
@@ -10945,7 +10969,8 @@ Bestehende Schlagwörter überschreiben
 <div class="resize-handle-wrapper" id="resizeHandleWrapper">
   <div class="resize-handle-line"></div>
   <div class="resize-handle resize-handle-tabs" id="resizeHandleTabs" title="Tab-Auswahl"></div>
-  <div class="resize-handle" id="resizeHandle"></div>
+  <div class="resize-handle" id="resizeHandle" title="Inhaltsübersicht"></div>
+  <div class="resize-handle resize-handle-text" id="resizeHandleText" title="Letzter Text"></div>
 </div>
 <div id="main-container">
 <div id="main" style="position: relative;">
@@ -11951,7 +11976,7 @@ PDF
 <link rel="stylesheet" href="thematic-chat-ui.css?v=20260712n">
 <script src="thematic-chat-ui.js?v=20260712n"></script>
 
-<script src="app.js?v=20261020t"></script>
+<script src="app.js?v=20261020v"></script>
 </body>
 </html>
 

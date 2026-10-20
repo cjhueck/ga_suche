@@ -9264,6 +9264,7 @@ async function _displayBookImpl(book, highlightHeadingId = null, keywords = [], 
   
   // Setze currentGANumber für Info-Button
   currentGANumber = gaNumber;
+  rememberLastInhaltsuebersichtGA(gaNumber);
   
   // Setze currentLectureData für Book
   currentLectureData = {
@@ -11150,13 +11151,29 @@ function setMobileGAOverviewMode(active, isBook) {
 window.setMobileGAOverviewMode = setMobileGAOverviewMode;
 window.applyMobileHeaderButtonVisibility = applyMobileHeaderButtonVisibility;
 
+let lastInhaltsuebersichtGA = null;
+let lastOpenedTextId = null;
+
+function rememberLastInhaltsuebersichtGA(gaNumber) {
+  const raw = String(gaNumber || '');
+  const canonical = (typeof canonicalGAVolumeId === 'function' ? canonicalGAVolumeId(raw) : raw) || raw;
+  const match = String(canonical).match(/^(GA\d{1,3}[a-z]?)/i);
+  if (match) lastInhaltsuebersichtGA = match[1];
+}
+
+function rememberLastOpenedText(id) {
+  const raw = String(id || '').trim();
+  if (raw.includes('/')) lastOpenedTextId = raw;
+}
+
 function getOpenTextGANumber() {
-  const id = window.currentOpenLectureId || (typeof currentGANumber !== 'undefined' ? currentGANumber : '') || '';
+  const id = window.currentOpenLectureId || (typeof currentGANumber !== 'undefined' ? currentGANumber : '') || lastInhaltsuebersichtGA || '';
   const match = String(id).match(/^(GA\d{1,3}[a-z]?)/i);
   if (match) return match[1];
   const title = document.getElementById('document-title');
   const titleMatch = title && (title.textContent || '').match(/^(GA\d{1,3}[a-z]?)/i);
-  return titleMatch ? titleMatch[1] : null;
+  if (titleMatch) return titleMatch[1];
+  return lastInhaltsuebersichtGA;
 }
 
 function isMobileTextOpen() {
@@ -11174,11 +11191,15 @@ function updateMobileTextOpenState() {
   document.body.classList.toggle('mobile-text-open', open);
   const handle = document.getElementById('resizeHandle');
   const tabsHandle = document.getElementById('resizeHandleTabs');
+  const textHandle = document.getElementById('resizeHandleText');
   if (handle) {
     handle.title = isMobileNavHandlesActive() ? 'Inhaltsübersicht' : 'Seitenleiste ein-/ausblenden';
   }
   if (tabsHandle) {
     tabsHandle.title = 'Tab-Auswahl';
+  }
+  if (textHandle) {
+    textHandle.title = 'Letzter Text';
   }
   if (typeof applyMobileHeaderButtonVisibility === 'function') {
     applyMobileHeaderButtonVisibility();
@@ -11188,7 +11209,7 @@ window.updateMobileTextOpenState = updateMobileTextOpenState;
 window.isMobileNavHandlesActive = isMobileNavHandlesActive;
 
 function goToVolumeOverviewFromText() {
-  const gaNumber = getOpenTextGANumber();
+  const gaNumber = lastInhaltsuebersichtGA || getOpenTextGANumber();
   if (!gaNumber) return;
   if (typeof switchTab === 'function') switchTab('ga', true);
   if (typeof showGALectures === 'function') showGALectures(gaNumber, true);
@@ -11200,8 +11221,17 @@ function goToTabSelectionFromText() {
   if (typeof setSidebarCollapsedForMobile === 'function') setSidebarCollapsedForMobile(false);
   document.body.classList.remove('mobile-text-open');
 }
+
+function goToLastOpenedText() {
+  const lectureId = lastOpenedTextId || (String(window.currentOpenLectureId || '').includes('/') ? window.currentOpenLectureId : null);
+  if (!lectureId) return;
+  if (typeof switchTab === 'function') switchTab('ga', true);
+  if (typeof showLecture === 'function') showLecture(lectureId, null, [], [], true);
+  if (typeof setSidebarCollapsedForMobile === 'function') setSidebarCollapsedForMobile(true);
+}
 window.goToVolumeOverviewFromText = goToVolumeOverviewFromText;
 window.goToTabSelectionFromText = goToTabSelectionFromText;
+window.goToLastOpenedText = goToLastOpenedText;
 
 function openMobileBookToc() {
   if (typeof window.isMobileViewport !== 'function' || !window.isMobileViewport()) return;
@@ -11294,6 +11324,7 @@ async function showGALectures(gaNumber, skipHistory = false) {
     
     // Speichere aktuellen GA-Band für Theme-Wechsel
     currentGANumber = gaNumber;
+    rememberLastInhaltsuebersichtGA(gaNumber);
     
     if (!gaVolumesData.length && typeof loadGAVolumesInSidebar === 'function') {
       try {
@@ -22808,6 +22839,7 @@ function showSummaryView() {
   // Setze currentGANumber für Info-Button
   if (gaNumber) {
     currentGANumber = gaNumber;
+    rememberLastInhaltsuebersichtGA(gaNumber);
   }
   
   // Setze Titel-Text und mache ihn klickbar (wie im Index-Tab)
@@ -24985,6 +25017,8 @@ function formatAsteriskParagraphs() {
 
   // Aktuellen Vortrag tracken
   window.currentOpenLectureId = lectureId;
+  rememberLastInhaltsuebersichtGA(lectureId);
+  rememberLastOpenedText(lectureId);
   if (typeof updateMobileTextOpenState === 'function') updateMobileTextOpenState();
   
   // Analytics: Vortrag-Aufruf tracken
@@ -27808,6 +27842,7 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
       // Setze currentGANumber für Info-Button
       if (gaNumber) {
         currentGANumber = gaNumber;
+        rememberLastInhaltsuebersichtGA(gaNumber);
       }
       
       // Setze Titel mit Link zum Texte-Tab
@@ -28778,6 +28813,16 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
           e.preventDefault();
           e.stopPropagation();
           if (typeof goToVolumeOverviewFromText === 'function') goToVolumeOverviewFromText();
+        });
+      }
+      const resizeHandleText = document.getElementById('resizeHandleText');
+      if (resizeHandleText && !resizeHandleText._mobileBound) {
+        resizeHandleText._mobileBound = true;
+        resizeHandleText.addEventListener('click', function(e) {
+          if (typeof isMobileNavHandlesActive !== 'function' || !isMobileNavHandlesActive()) return;
+          e.preventDefault();
+          e.stopPropagation();
+          if (typeof goToLastOpenedText === 'function') goToLastOpenedText();
         });
       }
 
