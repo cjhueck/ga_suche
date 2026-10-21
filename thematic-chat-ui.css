@@ -161,6 +161,15 @@ body.thematic-chat-enabled.tab-thematic-active .thematic-chat-internet-option sp
   flex: 1;
 }
 
+html.mobile-layout .thematic-chat-mode-radios {
+  margin-left: 6px;
+}
+
+html.mobile-layout #thematic-examples-btn,
+html.mobile-layout .thematic-examples-wrap {
+  display: none !important;
+}
+
 .thematic-chat-mode-option {
   display: inline-flex;
   align-items: center;
