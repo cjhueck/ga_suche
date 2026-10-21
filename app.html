@@ -8121,7 +8121,8 @@ html.mobile-layout #ga-filter-dropdowns-row .custom-dropdown {
   height: 32px;
 }
 
-html.mobile-layout #ga-filter-dropdowns-row .custom-dropdown-button {
+html.mobile-layout #ga-filter-dropdowns-row .custom-dropdown-button,
+html.mobile-layout #thematicGAFilterButton {
   display: flex !important;
   align-items: center;
   justify-content: space-between;
@@ -8141,22 +8142,50 @@ html.mobile-layout #ga-filter-dropdowns-row .custom-dropdown-button {
   cursor: pointer;
 }
 
+html.mobile-layout #thematic-tab .filter-row,
+html.mobile-layout body.thematic-chat-enabled.tab-thematic-active #thematic-tab .filter-row {
+  display: flex !important;
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: 8px;
+  margin-top: 0 !important;
+}
+
 html.mobile-layout #thematicGAFilterContainer {
+  flex: 0 0 auto !important;
+  width: auto;
+  min-width: 3.2rem;
+  max-width: 4.8rem;
   height: 32px;
 }
 
-html.mobile-layout #thematicGAFilterButton {
-  display: flex !important;
-  align-items: center;
-  justify-content: space-between;
-  box-sizing: border-box;
-  height: 32px !important;
-  min-height: 32px !important;
-  max-height: 32px !important;
-  margin: 0;
-  padding: 3px 6px !important;
+html.mobile-layout #thematicGAFilterButton .custom-dropdown-text {
   font-size: 16px !important;
+  font-weight: 400;
   line-height: 1.2;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  min-width: 0;
+}
+
+html.mobile-layout #thematic-mode-options {
+  display: flex !important;
+  flex: 1 1 auto;
+  min-width: 0;
+  margin: 0 !important;
+  align-items: center;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  gap: 12px;
+}
+
+html.mobile-layout #thematic-mode-options > div {
+  display: contents !important;
+}
+
+html.mobile-layout #thematic-mode-options label {
+  white-space: nowrap;
 }
 
 html.mobile-layout #rechercheSourceType,
@@ -8182,13 +8211,14 @@ html.mobile-layout body.thematic-chat-enabled.tab-thematic-active #thematic-tab 
   margin: 0 !important;
 }
 
-html.mobile-layout #thematic-tab .filter-row,
-html.mobile-layout body.thematic-chat-enabled.tab-thematic-active #thematic-tab .filter-row {
-  margin-top: 0 !important;
+html.mobile-layout #thematic-mode-options > div:first-child > label:first-child,
+html.mobile-layout #thematic-mode-options label:has(input[value="recherche"]),
+html.mobile-layout #thematic-mode-options label:has(input[value="entwicklung"]) {
+  display: none !important;
 }
 
-html.mobile-layout #thematic-mode-options {
-  margin-top: -2px;
+html.mobile-layout body.thematic-chat-enabled #thematic-mode-options > div:nth-child(3) {
+  display: none !important;
 }
 
 html.mobile-layout #keyword-tab #frequencyBtnSimple,
@@ -9331,11 +9361,7 @@ Wandtafeln
 <option value="">GA</option>
 </select>
 <div class="custom-dropdown" id="gaBandFilterContainer">
-<<<<<<< HEAD
-  <button type="button" class="filter-dropdown custom-dropdown-button" id="gaBandFilterButton" style="border: 1.5px solid var(--accent-color); border-radius: 4px; background: var(--background-color); color: var(--text-color); cursor: pointer; width: 100%;" title="GA">
-=======
   <button type="button" class="filter-dropdown custom-dropdown-button" id="gaBandFilterButton" style="border: 1px solid var(--accent-color); border-radius: 4px; background: var(--background-color); color: var(--text-color); cursor: pointer; width: 100%;" title="GA">
->>>>>>> d0b83b970ad6bceed0ff619631c5889f884acf68
     <span class="custom-dropdown-text">GA</span>
     <span class="custom-dropdown-arrow"></span>
   </button>
@@ -12811,14 +12837,10 @@ PDF
 
 
 <!-- THEMATIC-CHAT-UI (Revert: remove next 2 lines + hooks in app.js) -->
-<link rel="stylesheet" href="thematic-chat-ui.css?v=20260712n">
-<script src="thematic-chat-ui.js?v=20261021ai"></script>
+<link rel="stylesheet" href="thematic-chat-ui.css?v=20261021ak">
+<script src="thematic-chat-ui.js?v=20261021ak"></script>
 
-<<<<<<< HEAD
 <script src="app.js?v=20261021s"></script>
-=======
-<script src="app.js?v=20261021at"></script>
->>>>>>> d0b83b970ad6bceed0ff619631c5889f884acf68
 </body>
 </html>
 
