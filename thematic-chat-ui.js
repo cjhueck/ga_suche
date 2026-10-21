@@ -467,9 +467,14 @@
   function updateMenuMemberAccess(hasAccess) {
     const menuBtn = $('thematic-chat-menu-btn');
     if (menuBtn) {
-      menuBtn.disabled = !hasAccess;
-      menuBtn.classList.toggle('is-disabled', !hasAccess);
-      menuBtn.title = hasAccess ? 'Funktionsmenü' : 'Funktionsmenü (Mitglieder-Anmeldung erforderlich)';
+      const mobile = isMobileChatLayout();
+      menuBtn.disabled = mobile ? false : !hasAccess;
+      menuBtn.classList.toggle('is-disabled', !mobile && !hasAccess);
+      const label = mobile
+        ? 'Meine Abfragen'
+        : (hasAccess ? 'Funktionsmenü' : 'Funktionsmenü (Mitglieder-Anmeldung erforderlich)');
+      menuBtn.title = label;
+      menuBtn.setAttribute('aria-label', label);
     }
     if (!hasAccess) closeMenu();
   }
@@ -1028,7 +1033,14 @@
       input.addEventListener('input', autoResizeInput);
     }
     updateActionButton();
-    if (menuBtn) menuBtn.addEventListener('click', (e) => { e.stopPropagation(); toggleMenu(); });
+    if (menuBtn) menuBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      if (isMobileChatLayout()) {
+        handleMenuSaved();
+        return;
+      }
+      toggleMenu();
+    });
     if (menuSave) menuSave.addEventListener('click', () => { handleMenuSave(); });
     if (menuSaved) menuSaved.addEventListener('click', () => { handleMenuSaved(); });
     if (menuClear) menuClear.addEventListener('click', () => { handleMenuClear(); });
