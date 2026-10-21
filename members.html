@@ -4,25 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>GA-Suche Mitgliederbereich</title>
-  <script>
-  (function() {
-    var mobile = false;
-    try {
-      mobile = new URLSearchParams(location.search).get('mobil') === '1' ||
-        window.matchMedia('(max-width: 768px)').matches;
-    } catch (e) {
-      mobile = window.matchMedia('(max-width: 768px)').matches;
-    }
-    if (mobile) document.documentElement.classList.add('members-mobile');
-    window.appHref = function(query) {
-      var q = query ? String(query).replace(/^\?/, '') : '';
-      if (document.documentElement.classList.contains('members-mobile')) {
-        q = q ? ('mobil=1&' + q) : 'mobil=1';
-      }
-      return 'app.html' + (q ? '?' + q : '');
-    };
-  })();
-  </script>
   <!-- Inter Font von Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -1126,51 +1107,6 @@
       font-size: 0.95rem;
       line-height: 1.6;
       margin-bottom: 0.5rem;
-    }
-
-    html.members-mobile header {
-      flex-wrap: wrap;
-      align-items: flex-start;
-      gap: 0.6rem;
-      padding: 0.75rem 0.9rem;
-    }
-
-    html.members-mobile header h1 {
-      font-size: 1.15rem;
-    }
-
-    html.members-mobile .user-info {
-      flex-wrap: wrap;
-      gap: 0.45rem;
-    }
-
-    html.members-mobile .toolbar {
-      flex-wrap: wrap;
-      height: auto;
-      padding: 0.45rem;
-      gap: 0.4rem;
-    }
-
-    html.members-mobile .main-content {
-      flex-direction: column;
-      overflow: auto;
-    }
-
-    html.members-mobile .items-column,
-    html.members-mobile .notes-column {
-      width: 100%;
-      min-height: 240px;
-      border-right: none;
-      border-bottom: 1px solid var(--border-color);
-    }
-
-    html.members-mobile #auth-view {
-      max-width: none;
-      margin: 1rem;
-    }
-
-    html.members-mobile .auth-card {
-      padding: 1.25rem;
     }
   </style>
 </head>
@@ -3581,7 +3517,7 @@
         console.warn('[MEMBERS-NAV]', fnName, 'im opener nicht verfügbar, Fallback auf URL-Navigation');
       }
 
-      window.location.href = window.appHref(urlKey + '=' + encodeURIComponent(itemId));
+      window.location.href = `app.html?${urlKey}=${encodeURIComponent(itemId)}`;
     }
 
     async function navigateToQuoteById(quoteId) {
@@ -3750,25 +3686,25 @@
           } catch (err) {
             console.error('[MEMBERS-NAV] Fehler beim Aufruf von showLecture:', err);
             if (paragraphId) {
-              openerWindow.location.href = window.appHref('ga=' + encodeURIComponent(gaNumber) + '&index=' + encodeURIComponent(paragraphId));
+              openerWindow.location.href = `app.html?ga=${encodeURIComponent(gaNumber)}&index=${encodeURIComponent(paragraphId)}`;
             } else {
-              openerWindow.location.href = window.appHref('ga=' + encodeURIComponent(gaNumber));
+              openerWindow.location.href = `app.html?ga=${encodeURIComponent(gaNumber)}`;
             }
           }
         } else {
           // Fallback: URL-basierte Navigation
           if (paragraphId) {
-            openerWindow.location.href = window.appHref('ga=' + encodeURIComponent(gaNumber) + '&index=' + encodeURIComponent(paragraphId));
+            openerWindow.location.href = `app.html?ga=${encodeURIComponent(gaNumber)}&index=${encodeURIComponent(paragraphId)}`;
           } else {
-            openerWindow.location.href = window.appHref('ga=' + encodeURIComponent(gaNumber));
+            openerWindow.location.href = `app.html?ga=${encodeURIComponent(gaNumber)}`;
           }
         }
       } else {
         // Normale Navigation (falls direkt geöffnet)
         if (paragraphId) {
-          window.location.href = window.appHref('ga=' + encodeURIComponent(gaNumber) + '&index=' + encodeURIComponent(paragraphId));
+          window.location.href = `app.html?ga=${encodeURIComponent(gaNumber)}&index=${encodeURIComponent(paragraphId)}`;
         } else {
-          window.location.href = window.appHref('ga=' + encodeURIComponent(gaNumber));
+          window.location.href = `app.html?ga=${encodeURIComponent(gaNumber)}`;
         }
       }
     }
@@ -4324,16 +4260,6 @@
         appView.classList.remove('active');
       }
     }
-  </script>
-  <script>
-  (function() {
-    if (!document.documentElement.classList.contains('members-mobile') || typeof window.appHref !== 'function') return;
-    document.querySelectorAll('a[href^="app.html"]').forEach(function(link) {
-      var href = link.getAttribute('href') || '';
-      var query = href.split('?')[1] || '';
-      link.setAttribute('href', window.appHref(query));
-    });
-  })();
   </script>
 </body>
 </html>

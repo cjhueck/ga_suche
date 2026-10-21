@@ -548,32 +548,8 @@
     if (menu) {
       menu.hidden = true;
       menu.classList.remove('open');
-      menu.style.position = '';
-      menu.style.top = '';
-      menu.style.left = '';
-      menu.style.right = '';
-      menu.style.width = '';
-      menu.style.maxWidth = '';
-      menu.style.maxHeight = '';
-      menu.style.zIndex = '';
     }
     examplesState.pickerOpen = false;
-  }
-
-  function placeExamplesMenuForMobile(menu) {
-    if (!menu) return;
-    if (!document.documentElement.classList.contains('mobile-layout')) return;
-    const btn = $('thematic-examples-btn');
-    const rect = btn ? btn.getBoundingClientRect() : null;
-    const top = rect ? Math.round(rect.bottom + 4) : 80;
-    menu.style.position = 'fixed';
-    menu.style.top = top + 'px';
-    menu.style.left = '0.55rem';
-    menu.style.right = '0.55rem';
-    menu.style.width = 'auto';
-    menu.style.maxWidth = 'none';
-    menu.style.maxHeight = 'min(70vh, 420px)';
-    menu.style.zIndex = '5000';
   }
 
   async function loadExamplesData(force = false) {
@@ -647,7 +623,6 @@
       renderExamplesMenu();
       menu.hidden = false;
       menu.classList.add('open');
-      placeExamplesMenuForMobile(menu);
     } else {
       closeExamplesMenu();
     }

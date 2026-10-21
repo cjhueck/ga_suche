@@ -26,7 +26,7 @@ const fs = require('fs').promises;
 const fsSync = require('fs'); // Für synchrone Operationen (Seed-Keywords laden)
 const path = require('path');
 const http = require('http');
-const { exec, execFileSync } = require('child_process');
+const { exec } = require('child_process');
 const { promisify } = require('util');
 const execAsync = promisify(exec);
 const { getProviderForTask, getSpecificProvider, generateCompletionWithFallback, showRateLimitStatus, isProviderRateLimited } = require('./llm-providers'); // LLM Provider Abstraction
@@ -53,65 +53,6 @@ try {
 
 const app = express();
 const PORT = process.env.PORT || 3003; // Render setzt PORT-Umgebungsvariable
-
-let cachedPythonExecutable = null;
-
-function resolvePythonExecutable() {
-  if (cachedPythonExecutable) return cachedPythonExecutable;
-
-  const localAppData = process.env.LOCALAPPDATA || path.join(process.env.USERPROFILE || '', 'AppData', 'Local');
-  const pythonRoot = path.join(localAppData, 'Programs', 'Python');
-  const candidates = [];
-
-  if (process.env.PYTHON) candidates.push(process.env.PYTHON);
-  if (process.env.PYTHON_CMD) candidates.push(process.env.PYTHON_CMD);
-
-  if (fsSync.existsSync(pythonRoot)) {
-    const versions = fsSync.readdirSync(pythonRoot)
-      .filter((name) => /^Python3\d+$/i.test(name))
-      .sort((a, b) => b.localeCompare(a, undefined, { numeric: true }));
-    for (const version of versions) {
-      candidates.push(path.join(pythonRoot, version, 'python.exe'));
-    }
-  }
-
-  if (process.platform === 'win32') {
-    candidates.push('python');
-  } else {
-    candidates.push('python3', 'python');
-  }
-
-  const seen = new Set();
-  for (const candidate of candidates) {
-    if (!candidate || seen.has(candidate)) continue;
-    seen.add(candidate);
-    if (/WindowsApps/i.test(candidate)) continue;
-    if (/\.exe$/i.test(candidate) && (candidate.includes('\\') || candidate.includes('/'))) {
-      try {
-        if (!fsSync.existsSync(candidate) || fsSync.statSync(candidate).size < 1024) continue;
-      } catch {
-        continue;
-      }
-    }
-    try {
-      const output = execFileSync(candidate, ['-c', 'import sys; print(sys.version_info[0])'], {
-        encoding: 'utf8',
-        timeout: 8000,
-        windowsHide: true,
-        stdio: ['ignore', 'pipe', 'ignore']
-      }).trim();
-      if (output === '3') {
-        cachedPythonExecutable = candidate;
-        console.log(`[PYTHON] Verwende Interpreter: ${candidate}`);
-        return candidate;
-      }
-    } catch {
-      // nächsten Kandidaten versuchen
-    }
-  }
-
-  throw new Error('Kein funktionierendes Python 3 gefunden. Bitte Python 3.12+ installieren oder PYTHON auf den Pfad zu python.exe setzen.');
-}
 
 // Middleware - WICHTIG: Reihenfolge beachten!
 app.use(cors());
@@ -18721,7 +18662,7 @@ app.post('/api/export/ga', async (req, res) => {
     let command, args;
     
     if (exportScript.endsWith('.py')) {
-      command = resolvePythonExecutable();
+      command = 'python';
       args = [path.join(__dirname, exportScript), ...exportArgs];
     } else {
       command = 'node';
@@ -18910,7 +18851,7 @@ app.post('/api/pages/process', async (req, res) => {
       scriptArgs.push('--lecture-id', lectureId);
     }
     
-    const pythonProcess = spawn(resolvePythonExecutable(), [pythonScript, ...scriptArgs], {
+    const pythonProcess = spawn('python', [pythonScript, ...scriptArgs], {
       cwd: __dirname,
       env: { ...process.env, PYTHONIOENCODING: 'utf-8' }
     });
@@ -19193,7 +19134,7 @@ app.post('/api/pages/generate', async (req, res) => {
       const exportScript = path.join(__dirname, 'export_page_markers_v4.py');
       
       await new Promise((resolve, reject) => {
-        const exportProcess = spawn(resolvePythonExecutable(), [exportScript, normalizedGA], {
+        const exportProcess = spawn('python', [exportScript, normalizedGA], {
           cwd: __dirname,
           encoding: 'utf8'
         });
@@ -19226,7 +19167,7 @@ app.post('/api/pages/generate', async (req, res) => {
     
     const applyScript = path.join(__dirname, 'apply_page_break_markers_v4.py');
     
-    const pythonProcess = spawn(resolvePythonExecutable(), [applyScript, normalizedGA], {
+    const pythonProcess = spawn('python', [applyScript, normalizedGA], {
       cwd: __dirname,
       encoding: 'utf8'
     });

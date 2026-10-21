@@ -1,0 +1,4340 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GA-Suche Mitgliederbereich</title>
+  <script>
+  (function() {
+    var mobile = false;
+    try {
+      mobile = new URLSearchParams(location.search).get('mobil') === '1' ||
+        window.matchMedia('(max-width: 768px)').matches;
+    } catch (e) {
+      mobile = window.matchMedia('(max-width: 768px)').matches;
+    }
+    if (mobile) document.documentElement.classList.add('members-mobile');
+    window.appHref = function(query) {
+      var q = query ? String(query).replace(/^\?/, '') : '';
+      if (document.documentElement.classList.contains('members-mobile')) {
+        q = q ? ('mobil=1&' + q) : 'mobil=1';
+      }
+      return 'app.html' + (q ? '?' + q : '');
+    };
+  })();
+  </script>
+  <!-- Inter Font von Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="members/members-panel.css">
+  <style>
+    /* ===== Design im Stil der GA-Suche ===== */
+    :root {
+      --text-color: #333333;
+      --heading-color: #467886;
+      --link-color: #467886;
+      --accent-color: #467886;
+      --background-color: #FAF8F3;
+      --border-color: #ddd;
+      --secondary-text: #666;
+      --success-color: #4CAF50;
+      --error-color: #f44336;
+      --warning-color: #ff9800;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Ubuntu, sans-serif;
+      background-color: var(--background-color);
+      color: var(--text-color);
+      line-height: 1.6;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Header */
+    header {
+      background: white;
+      border-bottom: 2px solid var(--accent-color);
+      padding: 0.65rem 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-shrink: 0;
+    }
+
+    header h1 {
+      color: var(--heading-color);
+      font-size: 1.35rem;
+      font-weight: normal;
+      line-height: 1.2;
+    }
+
+    header .ga-suche-btn,
+    header button.secondary {
+      height: 32px;
+      padding: 0.35rem 0.85rem;
+      font-size: 0.85rem;
+    }
+
+    .user-info {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .back-button {
+      background-color: var(--accent-color);
+      color: white;
+      border: none;
+      padding: 0.5rem 1rem;
+      cursor: pointer;
+      font-size: 0.9rem;
+      font-family: inherit;
+      border-radius: 4px;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .back-button:hover {
+      background-color: #3a6270;
+    }
+
+    .back-button:disabled {
+      background-color: #ccc;
+      cursor: not-allowed;
+    }
+
+    .user-email {
+      color: var(--secondary-text);
+      font-size: 0.9rem;
+    }
+
+    button.secondary {
+      background-color: transparent;
+      color: var(--accent-color);
+      border: 1px solid var(--accent-color);
+      padding: 0.5rem 1rem;
+      cursor: pointer;
+      font-size: 0.9rem;
+      font-family: inherit;
+      border-radius: 4px;
+      transition: all 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      height: 38px;
+      box-sizing: border-box;
+    }
+
+    button.secondary:hover {
+      background-color: var(--accent-color);
+      color: white;
+    }
+
+    .ga-suche-btn {
+      background: var(--accent-color);
+      color: white;
+      border: 1px solid var(--accent-color);
+      padding: 0.5rem 1rem;
+      cursor: pointer;
+      font-size: 0.9rem;
+      font-family: inherit;
+      border-radius: 4px;
+      transition: all 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      height: 38px;
+      box-sizing: border-box;
+    }
+    
+    .ga-suche-btn:hover {
+      background: var(--heading-color);
+      border-color: var(--heading-color);
+      color: white;
+    }
+
+    /* Toolbar */
+    .toolbar {
+      background: white;
+      border-bottom: 1px solid var(--border-color);
+      padding: 0.5rem 2rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+      flex-shrink: 0;
+    }
+
+    .toolbar-tabs {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .toolbar-tab {
+      padding: 0.4rem 1rem;
+      background: transparent;
+      border: 1px solid var(--accent-color);
+      color: var(--text-color);
+      cursor: pointer;
+      font-size: 0.9rem;
+      border-radius: 4px;
+      transition: all 0.2s;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 32px;
+      box-sizing: border-box;
+    }
+
+    .toolbar-tab:hover {
+      background: var(--accent-color);
+      color: white;
+      border-color: var(--accent-color);
+    }
+
+    .toolbar-tab.active {
+      background: var(--accent-color);
+      color: white;
+      border-color: var(--accent-color);
+    }
+
+    .toolbar-spacer {
+      flex: 1;
+    }
+
+    .toolbar-select {
+      padding: 0.4rem 1rem;
+      border: 1px solid var(--accent-color);
+      font-size: 0.9rem;
+      font-family: inherit;
+      background: white;
+      border-radius: 4px;
+      cursor: pointer;
+      min-height: 32px;
+      box-sizing: border-box;
+    }
+    
+    /* .toolbar-tab.ga-suche-btn entfernt, da jetzt im Header-Rechts */
+
+    .toolbar-btn {
+      padding: 0.4rem 1rem;
+      background: transparent;
+      border: 1px solid var(--accent-color);
+      color: var(--text-color);
+      cursor: pointer;
+      font-size: 0.9rem;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      transition: all 0.2s;
+      min-height: 32px;
+      box-sizing: border-box;
+    }
+
+    .toolbar-btn:hover {
+      background: var(--accent-color);
+      color: white;
+      border-color: var(--accent-color);
+    }
+
+    .toolbar-btn.active {
+      background: var(--accent-color);
+      color: white;
+      border-color: var(--accent-color);
+    }
+
+    .toolbar-btn.active:hover {
+      background: var(--heading-color);
+      border-color: var(--heading-color);
+    }
+
+    .toolbar-btn svg {
+      width: 14px;
+      height: 14px;
+      stroke: currentColor;
+    }
+    
+    .sort-menu {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background: white;
+      border: 1px solid var(--border-color);
+      border-radius: 4px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+      margin-top: 0.25rem;
+      z-index: 1000;
+      min-width: 120px;
+    }
+    
+    .sort-option {
+      padding: 0.5rem 1rem;
+      cursor: pointer;
+      font-size: 0.9rem;
+      color: var(--text-color);
+      transition: background-color 0.2s;
+    }
+    
+    .sort-option:hover {
+      background-color: var(--accent-color);
+      color: white;
+    }
+    
+    .sort-option:first-child {
+      border-top-left-radius: 4px;
+      border-top-right-radius: 4px;
+    }
+    
+    .sort-option:last-child {
+      border-bottom-left-radius: 4px;
+      border-bottom-right-radius: 4px;
+    }
+
+    /* Main Content Area */
+    .main-content {
+      flex: 1;
+      display: flex;
+      overflow: hidden;
+    }
+
+    /* Left Column: BM/Z List */
+    .items-column {
+      width: 50%;
+      border-right: 1px solid var(--border-color);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .items-list {
+      flex: 1;
+      overflow-y: auto;
+      padding: 1rem;
+    }
+    
+    /* Scrollbar Styling */
+    .items-list::-webkit-scrollbar,
+    .notes-content::-webkit-scrollbar {
+      width: 8px;
+    }
+    
+    .items-list::-webkit-scrollbar-track,
+    .notes-content::-webkit-scrollbar-track {
+      background: #f5f5f5;
+    }
+    
+    .items-list::-webkit-scrollbar-thumb,
+    .notes-content::-webkit-scrollbar-thumb {
+      background: #d0d0d0;
+      border-radius: 4px;
+    }
+    
+    .items-list::-webkit-scrollbar-thumb:hover,
+    .notes-content::-webkit-scrollbar-thumb:hover {
+      background: #b8b8b8;
+    }
+    
+    /* Firefox Scrollbar */
+    .items-list,
+    .notes-content {
+      scrollbar-width: thin;
+      scrollbar-color: #d0d0d0 #f5f5f5;
+    }
+
+    .item-card {
+      background: white;
+      border: 1px solid var(--border-color);
+      padding: 0.75rem;
+      margin-bottom: 0.5rem;
+      cursor: move;
+      transition: all 0.2s;
+      position: relative;
+    }
+
+    .item-card:hover {
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .item-card.selected {
+      border-color: var(--accent-color);
+      border-width: 2px;
+      background: #f0f8ff;
+    }
+
+    .item-card.dragging {
+      opacity: 0.5;
+    }
+
+    .item-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.5rem;
+      position: relative;
+    }
+    
+    .item-checkbox {
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 18px;
+      height: 18px;
+      cursor: pointer;
+      z-index: 10;
+    }
+    
+    .item-header.with-checkbox .item-ga {
+      margin-left: 1.75rem;
+    }
+
+    .item-ga {
+      color: var(--accent-color);
+      font-weight: bold;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    .item-ga:hover {
+      text-decoration: underline;
+    }
+
+    .item-date {
+      color: var(--secondary-text);
+      font-size: 0.85rem;
+    }
+    
+    .item-header-right {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    
+    .item-marker-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      border: 1px solid var(--border-color);
+      background-color: transparent;
+      cursor: pointer;
+      position: relative;
+      flex-shrink: 0;
+    }
+    
+    .item-marker-dot:hover {
+      border-color: var(--accent-color);
+      transform: scale(1.2);
+    }
+    
+    .item-marker-dot.red {
+      background-color: #f44336;
+      border-color: #f44336;
+    }
+    
+    .item-marker-dot.yellow {
+      background-color: #ffc107;
+      border-color: #ffc107;
+    }
+    
+    .item-marker-dot.blue {
+      background-color: #467886;
+      border-color: #467886;
+    }
+    
+    .item-marker-menu {
+      position: absolute;
+      background: white;
+      border: 1px solid var(--border-color);
+      border-radius: 4px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+      padding: 0.25rem;
+      display: flex;
+      gap: 0.25rem;
+      z-index: 1000;
+      margin-top: 0.5rem;
+    }
+    
+    .item-marker-option {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      border: 1px solid var(--border-color);
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+    
+    .item-marker-option:hover {
+      transform: scale(1.2);
+    }
+    
+    .item-marker-option.red {
+      background-color: #f44336;
+      border-color: #f44336;
+    }
+    
+    .item-marker-option.yellow {
+      background-color: #ffc107;
+      border-color: #ffc107;
+    }
+    
+    .item-marker-option.blue {
+      background-color: #467886;
+      border-color: #467886;
+    }
+    
+    .item-marker-option.none {
+      background-color: transparent;
+    }
+
+    .item-text {
+      font-style: italic;
+      color: var(--text-color);
+      font-size: 0.85rem;
+      margin: 0.4rem 0 0.2rem 0;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      line-height: 1.4;
+    }
+
+    .item-text.expanded {
+      display: block;
+      -webkit-line-clamp: none;
+      line-clamp: none;
+      overflow: visible;
+    }
+
+    .item-full-paragraph {
+      display: none;
+      margin-top: 0.75rem;
+      padding-top: 0.75rem;
+      border-top: 1px solid var(--border-color);
+      font-size: 0.85rem;
+      line-height: 1.6;
+      color: var(--text-color);
+      font-style: normal;
+    }
+
+    .item-full-paragraph.show {
+      display: block;
+    }
+
+    .viewer-search-highlight {
+      background: rgba(70, 120, 134, 0.2);
+      padding: 2px 0;
+      border-radius: 2px;
+      color: inherit;
+    }
+
+    body.dark-mode .viewer-search-highlight {
+      background: rgba(70, 120, 134, 0.5);
+      color: var(--dark-text-color, var(--text-color));
+    }
+
+    .item-expand-btn {
+      background: white;
+      color: var(--accent-color);
+      border: 1px solid var(--accent-color);
+      border-radius: 50%;
+      width: 20px;
+      height: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 10px;
+      transition: all 0.2s;
+      flex-shrink: 0;
+    }
+
+    .item-expand-btn:hover {
+      background: #f5f5f5;
+      border-color: var(--accent-color);
+      transform: scale(1.1);
+    }
+
+    .item-expand-btn.expanded {
+      transform: rotate(180deg);
+    }
+
+    .item-expand-btn::before {
+      content: '▼';
+      display: block;
+      color: var(--accent-color);
+    }
+
+    .item-delete-btn {
+      background: transparent;
+      border: none;
+      width: 16px;
+      height: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.2s;
+      padding: 0;
+      flex-shrink: 0;
+    }
+
+    .item-delete-btn:hover {
+      transform: scale(1.15);
+    }
+
+    .item-delete-btn svg {
+      width: 100%;
+      height: 100%;
+      stroke: var(--accent-color);
+    }
+
+    .item-delete-btn:hover svg {
+      stroke: var(--heading-color);
+    }
+
+    .item-expand-btn {
+      position: static;
+      flex-shrink: 0;
+    }
+
+    .item-tags {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.15rem;
+      margin-top: 0.25rem;
+    }
+
+    .item-tags-row {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 0.5rem;
+      margin-top: 0.15rem;
+    }
+
+    .item-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-left: auto;
+    }
+
+    .item-tag {
+      background: transparent;
+      color: var(--link-color);
+      border: none;
+      padding: 0.25rem 0.25rem;
+      font-size: 0.75rem;
+      border-radius: 3px;
+    }
+    
+    .clickable-tag {
+      cursor: pointer;
+    }
+
+    /* Right Column: Notes */
+    .notes-column {
+      width: 50%;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .notes-header {
+      padding: 1rem;
+      border-bottom: 1px solid var(--border-color);
+      background: white;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .notes-header h3 {
+      color: var(--heading-color);
+      font-size: 1.1rem;
+      font-weight: normal;
+      margin: 0;
+    }
+    
+    .notes-download-btn {
+      padding: 0.4rem 0.8rem;
+      background: var(--accent-color);
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 0.85rem;
+      font-family: inherit;
+      transition: background-color 0.2s;
+    }
+    
+    .notes-download-btn:hover {
+      background-color: #3a6270;
+    }
+    
+    .notes-download-btn:disabled {
+      background-color: #ccc;
+      cursor: not-allowed;
+    }
+
+    .notes-content {
+      flex: 1;
+      padding: 1rem;
+      overflow-y: auto;
+    }
+
+    .notes-textarea {
+      width: 100%;
+      height: 100%;
+      min-height: 300px;
+      padding: 1rem;
+      border: 1px solid var(--border-color);
+      font-family: inherit;
+      font-size: 0.95rem;
+      resize: none;
+      background: white;
+    }
+
+    .notes-textarea:focus {
+      outline: none;
+      border-color: var(--accent-color);
+    }
+
+    .notes-empty {
+      text-align: center;
+      color: var(--secondary-text);
+      padding: 3rem;
+    }
+
+    /* Empty State */
+    .empty-state {
+      text-align: center;
+      padding: 3rem;
+      color: var(--secondary-text);
+    }
+
+    /* Auth View */
+    #auth-view {
+      display: block; /* Standardmäßig sichtbar, falls Module nicht geladen werden */
+      max-width: 500px;
+      margin: 4rem auto;
+    }
+
+    #auth-view.hidden {
+      display: none;
+    }
+
+    #auth-view.active {
+      display: block;
+    }
+
+    .auth-card {
+      background: white;
+      padding: 3rem;
+      border: 1px solid var(--border-color);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .auth-card h2 {
+      color: var(--heading-color);
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+
+    .login-description {
+      color: var(--secondary-text);
+      font-size: 0.85rem;
+      line-height: 1.5;
+      margin-bottom: 1.5rem;
+      text-align: center;
+    }
+
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 0.5rem;
+      color: var(--heading-color);
+      font-weight: 600;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="password"],
+    textarea,
+    select {
+      width: 100%;
+      padding: 0.75rem;
+      border: 1px solid var(--border-color);
+      font-size: 1rem;
+      font-family: inherit;
+      background: white;
+    }
+
+    button[type="submit"] {
+      width: 100%;
+      background-color: var(--accent-color);
+      color: white;
+      border: none;
+      padding: 0.75rem;
+      cursor: pointer;
+      font-size: 1rem;
+      font-family: inherit;
+    }
+
+    button[type="submit"]:hover {
+      background-color: #3a6270;
+    }
+
+    .auth-switch {
+      text-align: center;
+      margin-top: 1.5rem;
+      color: var(--secondary-text);
+    }
+
+    .auth-switch a {
+      color: var(--link-color);
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .message {
+      padding: 1rem;
+      margin-bottom: 1rem;
+      border-radius: 4px;
+    }
+
+    .message.error {
+      background: #f8d7da;
+      color: #721c24;
+      border: 1px solid #f5c6cb;
+    }
+
+    .message.success {
+      background: #d4edda;
+      color: #155724;
+      border: 1px solid #c3e6cb;
+    }
+
+    #app-view {
+      display: none;
+      flex-direction: column;
+      height: 100vh;
+    }
+
+    #app-view.active {
+      display: flex;
+    }
+
+    /* Account Modal */
+    .account-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 2000;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .account-modal.active {
+      display: flex;
+    }
+
+    .account-modal-content {
+      background: white;
+      padding: 2rem;
+      border-radius: 8px;
+      max-width: 500px;
+      width: 90%;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+    }
+
+    .account-modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .account-modal-header h3 {
+      color: var(--heading-color);
+      font-size: 1.3rem;
+      font-weight: normal;
+      margin: 0;
+    }
+
+    .account-modal-close {
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      color: var(--secondary-text);
+      cursor: pointer;
+      padding: 0;
+      width: 30px;
+      height: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: color 0.2s;
+    }
+
+    .account-modal-close:hover {
+      color: var(--text-color);
+    }
+
+    .account-info-section {
+      margin-bottom: 1.5rem;
+    }
+
+    .account-info-label {
+      color: var(--heading-color);
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      display: block;
+    }
+
+    .account-info-value {
+      color: var(--text-color);
+      margin-bottom: 1rem;
+      padding: 0.5rem;
+      background: var(--background-color);
+      border-radius: 4px;
+    }
+
+    .account-info-value.hidden {
+      display: none;
+    }
+
+    .account-modal-actions {
+      display: flex;
+      flex-wrap: wrap;
+      flex-direction: row;
+      gap: 0.75rem;
+      margin-top: 1rem;
+    }
+
+    .account-modal-actions .account-modal-btn {
+      flex: 1 1 calc(50% - 0.4rem);
+      min-width: 140px;
+    }
+
+    .account-modal-actions .account-modal-btn.delete-account {
+      flex-basis: 100%;
+    }
+
+    .account-modal-btn {
+      padding: 0.75rem 1rem;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 0.95rem;
+      font-family: inherit;
+      transition: all 0.2s;
+    }
+
+    .account-modal-btn.change-email,
+    .account-modal-btn.change-password {
+      background-color: var(--accent-color);
+      color: white;
+    }
+
+    .account-modal-btn.change-email:hover,
+    .account-modal-btn.change-password:hover {
+      background-color: #3a6270;
+    }
+
+    .account-modal-btn.delete-account {
+      background-color: var(--error-color);
+      color: white;
+    }
+
+    .account-modal-btn.delete-account:hover {
+      background-color: #d32f2f;
+    }
+
+    .change-email-form,
+    .change-password-form {
+      display: none;
+      margin-top: 1rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--border-color);
+    }
+
+    .change-email-form.active,
+    .change-password-form.active {
+      display: block;
+    }
+
+    .change-email-form input,
+    .change-password-form input {
+      margin-bottom: 0.75rem;
+    }
+
+    .change-password-form label {
+      margin-top: 0.25rem;
+    }
+
+    .change-password-form label:first-of-type {
+      margin-top: 0;
+    }
+
+    .change-email-form-actions {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .change-email-form-actions button {
+      flex: 1;
+    }
+
+    .change-email-form-actions .cancel-btn {
+      background-color: transparent;
+      color: var(--accent-color);
+      border: 1px solid var(--accent-color);
+    }
+
+    .change-email-form-actions .cancel-btn:hover {
+      background-color: var(--accent-color);
+      color: white;
+    }
+
+    /* Privacy Modal */
+    .privacy-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 2000;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .privacy-modal.active {
+      display: flex;
+    }
+
+    .privacy-modal-content {
+      background: white;
+      padding: 2rem;
+      border-radius: 8px;
+      max-width: 700px;
+      width: 90%;
+      max-height: 85vh;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .privacy-modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--border-color);
+      flex-shrink: 0;
+    }
+
+    .privacy-modal-header h3 {
+      color: var(--heading-color);
+      font-size: 1.3rem;
+      font-weight: normal;
+      margin: 0;
+    }
+
+    .privacy-modal-close {
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      color: var(--secondary-text);
+      cursor: pointer;
+      padding: 0;
+      width: 30px;
+      height: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: color 0.2s;
+    }
+
+    .privacy-modal-close:hover {
+      color: var(--text-color);
+    }
+
+    .privacy-modal-body {
+      flex: 1;
+      overflow-y: auto;
+      padding-right: 0.5rem;
+    }
+
+    .privacy-modal-body h4 {
+      color: var(--heading-color);
+      font-size: 1.1rem;
+      margin-top: 1.5rem;
+      margin-bottom: 0.75rem;
+      font-weight: 600;
+    }
+
+    .privacy-modal-body h4:first-child {
+      margin-top: 0;
+    }
+
+    .privacy-modal-body p {
+      color: var(--text-color);
+      font-size: 0.95rem;
+      line-height: 1.6;
+      margin-bottom: 1rem;
+    }
+
+    .privacy-modal-body ul {
+      margin-left: 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .privacy-modal-body li {
+      color: var(--text-color);
+      font-size: 0.95rem;
+      line-height: 1.6;
+      margin-bottom: 0.5rem;
+    }
+
+    html.members-mobile header {
+      flex-wrap: wrap;
+      align-items: flex-start;
+      gap: 0.6rem;
+      padding: 0.75rem 0.9rem;
+    }
+
+    html.members-mobile header h1 {
+      font-size: 1.15rem;
+    }
+
+    html.members-mobile .user-info {
+      flex-wrap: wrap;
+      gap: 0.45rem;
+    }
+
+    html.members-mobile .toolbar {
+      flex-wrap: wrap;
+      height: auto;
+      padding: 0.45rem;
+      gap: 0.4rem;
+    }
+
+    html.members-mobile .main-content {
+      flex-direction: column;
+      overflow: auto;
+    }
+
+    html.members-mobile .items-column,
+    html.members-mobile .notes-column {
+      width: 100%;
+      min-height: 240px;
+      border-right: none;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    html.members-mobile #auth-view {
+      max-width: none;
+      margin: 1rem;
+    }
+
+    html.members-mobile .auth-card {
+      padding: 1.25rem;
+    }
+  </style>
+</head>
+<body>
+  <!-- Auth View -->
+  <div id="auth-view" class="active">
+    <div class="auth-card">
+      <h2 id="auth-title">Mitglieder Login</h2>
+      <p class="login-description">Nach Anmeldung können Sie Zitate abspeichern, mit Schlagworten versehen, ordnen und kommentieren sowie sich mit anderen Mitgliedern per Chat austauschen.</p>
+      
+      <div id="auth-message"></div>
+
+      <form id="login-form">
+        <div class="form-group">
+          <label for="login-email">E-Mail</label>
+          <input type="email" id="login-email" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="login-password">Passwort</label>
+          <input type="password" id="login-password" required>
+        </div>
+        
+        <button type="submit">Anmelden</button>
+        
+        <p style="text-align: center; margin-top: 0.75rem; margin-bottom: 0;">
+          <a href="#" id="password-reset-link" style="font-size: 0.85rem; color: var(--link-color); text-decoration: none;">Passwort vergessen?</a>
+        </p>
+      </form>
+
+      <form id="password-reset-form" style="display: none;">
+        <div class="form-group">
+          <label for="reset-email">E-Mail</label>
+          <input type="email" id="reset-email" required placeholder="Ihre E-Mail-Adresse">
+        </div>
+        
+        <button type="submit">Passwort-Reset-Link senden</button>
+        
+        <p style="text-align: center; margin-top: 1rem;">
+          <a href="#" id="back-to-login-link" style="color: var(--link-color); text-decoration: none;">Zurück zum Login</a>
+        </p>
+      </form>
+
+      <form id="new-password-form" style="display: none;">
+        <div class="form-group">
+          <label for="new-password">Neues Passwort</label>
+          <input type="password" id="new-password" required placeholder="Mindestens 6 Zeichen" minlength="6">
+        </div>
+        
+        <div class="form-group">
+          <label for="new-password-confirm">Passwort bestätigen</label>
+          <input type="password" id="new-password-confirm" required placeholder="Passwort wiederholen" minlength="6">
+        </div>
+        
+        <button type="submit">Passwort ändern</button>
+        
+        <p style="text-align: center; margin-top: 1rem;">
+          <a href="#" id="back-to-login-from-new-password" style="color: var(--link-color); text-decoration: none;">Zurück zum Login</a>
+        </p>
+      </form>
+
+      <form id="register-form" style="display: none;">
+        <div class="form-group">
+          <label for="register-name">Anzeigename</label>
+          <input type="text" id="register-name" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="register-email">E-Mail</label>
+          <input type="email" id="register-email" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="register-password">Passwort (mind. 6 Zeichen)</label>
+          <input type="password" id="register-password" minlength="6" required>
+        </div>
+        
+        <div class="form-group" style="margin-top: 1rem;">
+          <label style="font-weight: normal; font-size: 0.85rem; line-height: 1.5;">
+            <input type="checkbox" id="privacy-checkbox" required style="margin-right: 0.5rem;">
+            Mit der Registrierung stimme ich der <a href="#" id="privacy-link" style="color: var(--link-color); text-decoration: underline;">Datenschutzerklärung</a> zu.
+          </label>
+        </div>
+        
+        <button type="submit">Registrieren</button>
+      </form>
+
+      <div class="auth-switch">
+        <span id="auth-switch-text">Noch kein Account?</span>
+        <a href="#" id="auth-switch-link">Jetzt registrieren</a>
+      </div>
+
+      <div class="auth-switch" style="margin-top: 1rem;">
+        <a href="app.html">← Zurück zur Startseite</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main App View -->
+  <div id="app-view">
+    <header>
+      <div style="display: flex; align-items: center; gap: 1rem;">
+        <h1>GA-Suche Mitgliederbereich</h1>
+      </div>
+      <div class="user-info">
+        <a href="app.html" class="ga-suche-btn">Zur GA-Suche</a>
+        <button class="secondary" id="account-btn">Mein Account</button>
+        <button class="secondary" id="logout-btn">Abmelden</button>
+      </div>
+    </header>
+
+    <!-- Toolbar -->
+    <div class="toolbar">
+      <div class="toolbar-tabs">
+        <button class="toolbar-tab" data-tab="quotes">Anstreichungen</button>
+        <button class="toolbar-tab" data-tab="highlights">Unterstreichungen</button>
+        <button class="toolbar-tab" data-tab="notes">Notizen</button>
+        <button class="toolbar-btn" id="sort-btn" title="Nach Vortragsdatum sortieren" onclick="toggleSortOrder()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M3 6h18M7 12h10M11 18h6"></path>
+          </svg>
+        </button>
+        <button class="toolbar-btn" id="delete-btn" title="Mehrere löschen">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M3 6h18M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"></path>
+          </svg>
+        </button>
+        <select id="group-filter" class="toolbar-select">
+          <option value="">Gruppen</option>
+        </select>
+        <select id="keyword-filter" class="toolbar-select">
+          <option value="">Schlagwörter</option>
+        </select>
+      </div>
+      
+      <div class="toolbar-spacer"></div>
+      
+      <button class="toolbar-btn" data-tab="chat" id="members-html-chat-btn" style="position: relative; display: none;">
+        Chat
+        <span class="chat-badge" id="members-html-chat-badge" style="display: none;">0</span>
+      </button>
+    </div>
+
+    <!-- Main Content: Two Columns -->
+    <div class="main-content">
+      <!-- Left: Items List -->
+      <div class="items-column">
+        <div class="items-list" id="items-list">
+          <div class="empty-state">Lade Daten...</div>
+        </div>
+      </div>
+
+      <!-- Right: Notes -->
+      <div class="notes-column">
+        <div class="notes-header">
+          <h3 id="notes-title">Notizen</h3>
+          <button id="download-word-btn" class="notes-download-btn" onclick="downloadNotesAsWord()" disabled>Download WORD</button>
+        </div>
+        <div class="notes-content">
+          <div class="notes-empty" id="notes-empty">
+            Wahlen Sie ein Zitat aus, um Notizen zu bearbeiten
+          </div>
+          <textarea id="notes-textarea" class="notes-textarea" style="display: none;" placeholder="Notizen eingeben..."></textarea>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Account Modal -->
+  <div id="account-modal" class="account-modal">
+    <div class="account-modal-content">
+      <div class="account-modal-header">
+        <h3>Mein Account</h3>
+        <button class="account-modal-close" id="account-modal-close">&times;</button>
+      </div>
+      
+      <div class="account-info-section">
+        <label class="account-info-label">E-Mail-Adresse</label>
+        <div class="account-info-value" id="account-email-display"></div>
+        
+        <div class="change-email-form" id="change-email-form">
+          <label for="new-email-input">Neue E-Mail-Adresse</label>
+          <input type="email" id="new-email-input" placeholder="neue@email.de" required>
+          <div class="change-email-form-actions">
+            <button class="account-modal-btn change-email" id="save-email-btn">Speichern</button>
+            <button class="account-modal-btn cancel-btn" id="cancel-email-btn">Abbrechen</button>
+          </div>
+        </div>
+
+        <div class="change-password-form" id="change-password-form">
+          <label for="current-password-input">Aktuelles Passwort</label>
+          <input type="password" id="current-password-input" placeholder="Aktuelles Passwort" autocomplete="current-password" required>
+          <label for="account-new-password-input">Neues Passwort</label>
+          <input type="password" id="account-new-password-input" placeholder="Mindestens 6 Zeichen" minlength="6" autocomplete="new-password" required>
+          <label for="account-confirm-password-input">Neues Passwort bestätigen</label>
+          <input type="password" id="account-confirm-password-input" placeholder="Passwort wiederholen" minlength="6" autocomplete="new-password" required>
+          <div class="change-email-form-actions">
+            <button class="account-modal-btn change-password" id="save-password-btn">Speichern</button>
+            <button class="account-modal-btn cancel-btn" id="cancel-password-btn">Abbrechen</button>
+          </div>
+        </div>
+        
+        <div class="account-modal-actions" id="account-modal-actions">
+          <button class="account-modal-btn change-email" id="change-email-btn">E-Mail-Adresse ändern</button>
+          <button class="account-modal-btn change-password" id="change-password-btn">Passwort ändern</button>
+          <button class="account-modal-btn delete-account" id="delete-account-btn">Account löschen</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Privacy Modal -->
+  <div id="privacy-modal" class="privacy-modal">
+    <div class="privacy-modal-content">
+      <div class="privacy-modal-header">
+        <h3>Datenschutzerklärung</h3>
+        <button class="privacy-modal-close" id="privacy-modal-close">&times;</button>
+      </div>
+      <div class="privacy-modal-body" id="privacy-modal-body">
+        <h4>1. Datenerhebung und -speicherung</h4>
+        <p>Bei der Registrierung im Mitgliederbereich werden folgende Daten erfasst und gespeichert:</p>
+        <ul>
+          <li>E-Mail-Adresse (für die Authentifizierung)</li>
+          <li>Passwort (verschlüsselt gespeichert)</li>
+          <li>Anzeigename (optional)</li>
+          <li>Von Ihnen erstellte Zitate und Notizen</li>
+        </ul>
+
+        <h4>2. Zweck der Datenerhebung</h4>
+        <p>Die erhobenen Daten dienen ausschließlich dazu, Ihnen die Funktionen des Mitgliederbereichs zur Verfügung zu stellen:</p>
+        <ul>
+          <li>Speicherung Ihrer persönlichen Zitate</li>
+          <li>Verwaltung Ihrer Notizen und Schlagwörter</li>
+          <li>Kommunikation mit anderen Mitgliedern (falls Chat-Funktion genutzt wird)</li>
+        </ul>
+
+        <h4>3. Datenverarbeitung</h4>
+        <p>Ihre Daten werden auf Servern von Supabase (supabase.com) gespeichert und verarbeitet. Die Datenübertragung erfolgt verschlüsselt über HTTPS.</p>
+
+        <h4>4. Ihre Rechte</h4>
+        <p>Sie haben jederzeit das Recht:</p>
+        <ul>
+          <li>Auskunft über Ihre gespeicherten Daten zu erhalten</li>
+          <li>Ihre Daten zu korrigieren oder zu löschen</li>
+          <li>Ihren Account komplett zu löschen (über "Mein Account" → "Account löschen")</li>
+          <li>Der Datenverarbeitung zu widersprechen</li>
+        </ul>
+
+        <h4>5. Cookies und Tracking</h4>
+        <p>Diese Website verwendet keine Tracking-Cookies oder Analyse-Tools. Es werden lediglich technisch notwendige Cookies für die Authentifizierung verwendet.</p>
+
+        <h4>6. Kontakt</h4>
+        <p>Bei Fragen zum Datenschutz können Sie uns über die Kontaktmöglichkeiten im Impressum erreichen.</p>
+
+        <h4>7. Änderungen der Datenschutzerklärung</h4>
+        <p>Wir behalten uns vor, diese Datenschutzerklärung anzupassen. Über wesentliche Änderungen werden Sie per E-Mail informiert.</p>
+
+        <p style="margin-top: 2rem; font-size: 0.85rem; color: var(--secondary-text);">
+          Stand: Januar 2025
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script type="module">
+    // Prüfe ob wir über file:/// öffnen (Module funktionieren nicht mit file:///)
+    const isFileProtocol = window.location.protocol === 'file:';
+    if (isFileProtocol) {
+      console.error('[MEMBERS-HTML] WARNUNG: Datei wird über file:/// geöffnet. ES6-Module funktionieren nicht mit file:/// URLs.');
+      console.error('[MEMBERS-HTML] Bitte öffnen Sie die Seite über einen lokalen Server (z.B. http://localhost:3000/members.html)');
+      document.getElementById('auth-message').innerHTML = '<div class="message error">⚠️ WICHTIG: Diese Seite muss über einen lokalen Server geöffnet werden, nicht direkt über file:///<br><br>Bitte starten Sie einen lokalen Server (z.B. mit Python: <code>python -m http.server 8000</code>) und öffnen Sie dann <code>http://localhost:8000/members.html</code></div>';
+    }
+    
+    let signUp, signIn, signOut, getCurrentUser, onAuthStateChange, updateUserEmail, deleteUserAccount, resetPassword, updatePassword, changePassword;
+    let getAuthCallbackInfo, isPasswordRecoveryPending, clearPasswordRecoveryPending, getLastAuthEvent;
+    let getQuotes, deleteQuote, updateQuote;
+    let getHighlights, deleteHighlight, updateHighlight;
+    let getNotes, deleteNote, createNote, updateNote;
+    let supabase;
+    
+    try {
+      const authModule = await import('./members/members-auth.js');
+      signUp = authModule.signUp;
+      signIn = authModule.signIn;
+      signOut = authModule.signOut;
+      getCurrentUser = authModule.getCurrentUser;
+      onAuthStateChange = authModule.onAuthStateChange;
+      resetPassword = authModule.resetPassword;
+      updatePassword = authModule.updatePassword;
+      changePassword = authModule.changePassword;
+      updateUserEmail = authModule.updateUserEmail;
+      deleteUserAccount = authModule.deleteUserAccount;
+      getAuthCallbackInfo = authModule.getAuthCallbackInfo;
+      isPasswordRecoveryPending = authModule.isPasswordRecoveryPending;
+      clearPasswordRecoveryPending = authModule.clearPasswordRecoveryPending;
+      getLastAuthEvent = authModule.getLastAuthEvent;
+      supabase = authModule.supabase;
+      
+      const apiModule = await import('./members/members-api.js');
+      getQuotes = apiModule.getQuotes;
+      deleteQuote = apiModule.deleteQuote;
+      updateQuote = apiModule.updateQuote;
+      getNotes = apiModule.getNotes;
+      deleteNote = apiModule.deleteNote;
+      createNote = apiModule.createNote;
+      updateNote = apiModule.updateNote;
+      getHighlights = apiModule.getHighlights;
+      deleteHighlight = apiModule.deleteHighlight;
+      updateHighlight = apiModule.updateHighlight;
+      
+      // Mache Funktionen global verfügbar für Event-Listener
+      window.signUp = signUp;
+      window.signIn = signIn;
+      window.signOut = signOut;
+      window.getCurrentUser = getCurrentUser;
+      window.updateUserEmail = updateUserEmail;
+      window.resetPassword = resetPassword;
+      window.updatePassword = updatePassword;
+      window.changePassword = changePassword;
+      window.deleteUserAccount = deleteUserAccount;
+      window.getAuthCallbackInfo = getAuthCallbackInfo;
+      window.isPasswordRecoveryPending = isPasswordRecoveryPending;
+      window.clearPasswordRecoveryPending = clearPasswordRecoveryPending;
+      window.getLastAuthEvent = getLastAuthEvent;
+      window.getQuotes = getQuotes;
+      window.deleteQuote = deleteQuote;
+      window.updateQuote = updateQuote;
+      window.getHighlights = getHighlights;
+      window.deleteHighlight = deleteHighlight;
+      window.updateHighlight = updateHighlight;
+      window.getNotes = getNotes;
+      window.deleteNote = deleteNote;
+      window.createNote = createNote;
+      window.updateNote = updateNote;
+      window.supabase = supabase;
+    } catch (error) {
+      console.error('[MEMBERS-HTML] ✗ Fehler beim Laden der Module:', error);
+      const messageDiv = document.getElementById('auth-message');
+      if (messageDiv) {
+        let errorMsg = error.message || 'Unbekannter Fehler';
+        if (isFileProtocol) {
+          errorMsg = 'Module können nicht über file:/// geladen werden. Bitte verwenden Sie einen lokalen Server.';
+        }
+        messageDiv.innerHTML = '<div class="message error">⚠️ Fehler beim Laden der Module: ' + errorMsg + '<br><br>Bitte öffnen Sie die Seite über einen lokalen Server (z.B. http://localhost:8000/members.html)</div>';
+      }
+    }
+
+    // ===== State =====
+    let currentUser = null;
+    let currentTab = 'quotes';
+    let currentItems = [];
+    let selectedItemId = null;
+    let sortOrder = 'desc'; // 'asc' oder 'desc' für Vortragsdatum
+    let multiDeleteMode = false;
+    let draggedElement = null;
+
+    // ===== Init =====
+    async function init() {
+      try {
+        // WICHTIG: Event-Listener IMMER einrichten, auch wenn Module nicht geladen werden
+        setupAuthListeners();
+        
+        // Prüfe ob Module geladen wurden
+        const getCurrentUserFunc = window.getCurrentUser || getCurrentUser;
+        const signInFunc = window.signIn || signIn;
+        if (typeof getCurrentUserFunc !== 'function' || typeof signInFunc !== 'function') {
+          console.error('[MEMBERS-HTML] Module nicht geladen!');
+          showAuthMessage('Fehler: Module konnten nicht geladen werden. Bitte Seite neu laden oder einen lokalen Server verwenden.', 'error');
+          return;
+        }
+        
+        setupToolbarListeners();
+        setupDragAndDrop();
+
+        const handledRecovery = await handlePasswordRecoveryRedirect();
+        if (handledRecovery) {
+          return;
+        }
+        
+        const user = await getCurrentUserFunc();
+        if (user) {
+          await showApp(user);
+        } else {
+          showAuth();
+        }
+      } catch (error) {
+        console.error('[MEMBERS-HTML] Fehler bei Init:', error);
+        // Zeige Auth-View als Fallback
+        showAuth();
+        showAuthMessage('Fehler beim Initialisieren: ' + error.message, 'error');
+      }
+    }
+
+    // ===== Auth Functions =====
+    function delay(ms) {
+      return new Promise((resolve) => setTimeout(resolve, ms));
+    }
+
+    function clearAuthCallbackFromUrl() {
+      window.history.replaceState(null, '', window.location.pathname);
+    }
+
+    async function waitForAuthSession(maxMs) {
+      const started = Date.now();
+      while (Date.now() - started < maxMs) {
+        try {
+          const { data: { session } } = await supabase.auth.getSession();
+          if (session) return session;
+        } catch (e) {
+          console.warn('[MEMBERS-HTML] getSession während Recovery:', e);
+        }
+        const lastEvent = typeof getLastAuthEvent === 'function' ? getLastAuthEvent() : null;
+        if (lastEvent === 'PASSWORD_RECOVERY') {
+          try {
+            const { data: { session } } = await supabase.auth.getSession();
+            if (session) return session;
+          } catch (e) {}
+        }
+        await delay(200);
+      }
+      try {
+        const { data: { session } } = await supabase.auth.getSession();
+        return session || null;
+      } catch (e) {
+        return null;
+      }
+    }
+
+    async function handlePasswordRecoveryRedirect() {
+      const infoFn = window.getAuthCallbackInfo || getAuthCallbackInfo;
+      const pendingFn = window.isPasswordRecoveryPending || isPasswordRecoveryPending;
+      const clearPendingFn = window.clearPasswordRecoveryPending || clearPasswordRecoveryPending;
+      const lastEventFn = window.getLastAuthEvent || getLastAuthEvent;
+      const info = typeof infoFn === 'function' ? infoFn() : { hasAuthPayload: false, isRecovery: false, type: null };
+      const pending = typeof pendingFn === 'function' ? pendingFn() : false;
+      const lastEvent = typeof lastEventFn === 'function' ? lastEventFn() : null;
+      const urlSaysRecovery = info.type === 'recovery';
+      const eventSaysRecovery = lastEvent === 'PASSWORD_RECOVERY';
+      const isRecovery = !!(urlSaysRecovery || eventSaysRecovery || (pending && info.hasAuthPayload));
+
+      if (info.hasAuthError && isRecovery) {
+        showAuth();
+        showAuthMessage('Der Passwort-Reset-Link ist ungültig oder abgelaufen. Bitte fordern Sie einen neuen Link an.', 'error');
+        clearAuthCallbackFromUrl();
+        if (typeof clearPendingFn === 'function') clearPendingFn();
+        return true;
+      }
+
+      if (!info.hasAuthPayload && !isRecovery) {
+        return false;
+      }
+
+      if (!isRecovery && info.hasAuthPayload) {
+        // PKCE-Code ohne type=recovery: kurz auf PASSWORD_RECOVERY warten
+        const session = await waitForAuthSession(2500);
+        const becameRecovery = (typeof lastEventFn === 'function' && lastEventFn() === 'PASSWORD_RECOVERY')
+          || (typeof pendingFn === 'function' && pendingFn());
+        if (!becameRecovery) {
+          return false;
+        }
+        if (session) {
+          showNewPasswordForm();
+          clearAuthCallbackFromUrl();
+          if (typeof clearPendingFn === 'function') clearPendingFn();
+          return true;
+        }
+      }
+
+      showAuth();
+      showAuthMessage('Passwort-Reset wird verarbeitet…', 'success');
+
+      try {
+        const session = await waitForAuthSession(8000);
+        if (session) {
+          showNewPasswordForm();
+          clearAuthCallbackFromUrl();
+          if (typeof clearPendingFn === 'function') clearPendingFn();
+          return true;
+        }
+
+        showAuth();
+        showAuthMessage('Der Passwort-Reset-Link ist ungültig oder abgelaufen. Bitte fordern Sie einen neuen Link an.', 'error');
+        clearAuthCallbackFromUrl();
+        if (typeof clearPendingFn === 'function') clearPendingFn();
+        return true;
+      } catch (error) {
+        console.error('[MEMBERS-HTML] Fehler beim Verarbeiten des Reset-Tokens:', error);
+        showAuth();
+        showAuthMessage('Fehler beim Verarbeiten des Passwort-Reset-Links. Bitte versuchen Sie es erneut.', 'error');
+        clearAuthCallbackFromUrl();
+        if (typeof clearPendingFn === 'function') clearPendingFn();
+        return true;
+      }
+    }
+
+    function showAuth() {
+      const authView = document.getElementById('auth-view');
+      const appView = document.getElementById('app-view');
+      if (authView) {
+        authView.classList.add('active');
+        authView.classList.remove('hidden');
+      }
+      if (appView) {
+        appView.classList.remove('active');
+      }
+    }
+
+    function showNewPasswordForm() {
+      const authView = document.getElementById('auth-view');
+      const appView = document.getElementById('app-view');
+      const loginForm = document.getElementById('login-form');
+      const registerForm = document.getElementById('register-form');
+      const passwordResetForm = document.getElementById('password-reset-form');
+      const newPasswordForm = document.getElementById('new-password-form');
+      const title = document.getElementById('auth-title');
+      const switchText = document.getElementById('auth-switch-text');
+      const switchLink = document.getElementById('auth-switch-link');
+      
+      if (authView) {
+        authView.classList.add('active');
+        authView.classList.remove('hidden');
+      }
+      if (appView) {
+        appView.classList.remove('active');
+      }
+      
+      if (loginForm) loginForm.style.display = 'none';
+      if (registerForm) registerForm.style.display = 'none';
+      if (passwordResetForm) passwordResetForm.style.display = 'none';
+      if (newPasswordForm) newPasswordForm.style.display = 'block';
+      if (title) title.textContent = 'Neues Passwort setzen';
+      if (switchText) switchText.style.display = 'none';
+      if (switchLink) switchLink.style.display = 'none';
+      
+      showAuthMessage('Bitte geben Sie Ihr neues Passwort ein.', 'success');
+    }
+
+    async function showApp(user) {
+      currentUser = user;
+      const authView = document.getElementById('auth-view');
+      const appView = document.getElementById('app-view');
+      
+      // Initialisiere Chat-Badge nach dem Laden
+      setTimeout(() => {
+        if (typeof updateChatBadge === 'function') {
+          updateChatBadge();
+        }
+      }, 500);
+      
+      if (authView) {
+        authView.classList.remove('active');
+        authView.classList.add('hidden');
+      }
+      if (appView) {
+        appView.classList.add('active');
+      }
+      const userEmailEl = document.getElementById('user-email');
+      if (userEmailEl) {
+        userEmailEl.textContent = user.email;
+      }
+      
+      await loadItems();
+    }
+
+    function setupAuthListeners() {
+      // Auth-Switch-Link
+      const authSwitchLink = document.getElementById('auth-switch-link');
+      if (authSwitchLink) {
+        authSwitchLink.addEventListener('click', (e) => {
+          e.preventDefault();
+          const loginForm = document.getElementById('login-form');
+          const registerForm = document.getElementById('register-form');
+          const passwordResetForm = document.getElementById('password-reset-form');
+          const title = document.getElementById('auth-title');
+          const switchText = document.getElementById('auth-switch-text');
+          const switchLink = document.getElementById('auth-switch-link');
+          
+          if (loginForm && registerForm && title && switchText && switchLink) {
+            if (loginForm.style.display !== 'none') {
+              loginForm.style.display = 'none';
+              registerForm.style.display = 'block';
+              if (passwordResetForm) passwordResetForm.style.display = 'none';
+              title.textContent = 'Registrierung';
+              switchText.textContent = 'Bereits registriert?';
+              switchLink.textContent = 'Jetzt anmelden';
+            } else {
+              loginForm.style.display = 'block';
+              registerForm.style.display = 'none';
+              if (passwordResetForm) passwordResetForm.style.display = 'none';
+              title.textContent = 'Mitglieder Login';
+              switchText.textContent = 'Noch kein Account?';
+              switchLink.textContent = 'Jetzt registrieren';
+            }
+          }
+        });
+      }
+      
+      // Passwort vergessen Link
+      const passwordResetLink = document.getElementById('password-reset-link');
+      if (passwordResetLink) {
+        passwordResetLink.addEventListener('click', (e) => {
+          e.preventDefault();
+          const loginForm = document.getElementById('login-form');
+          const registerForm = document.getElementById('register-form');
+          const passwordResetForm = document.getElementById('password-reset-form');
+          const title = document.getElementById('auth-title');
+          
+          if (loginForm && passwordResetForm && title) {
+            loginForm.style.display = 'none';
+            registerForm.style.display = 'none';
+            passwordResetForm.style.display = 'block';
+            title.textContent = 'Passwort zurücksetzen';
+            showAuthMessage('', ''); // Leere Nachrichten
+            
+            // Übernehme E-Mail-Adresse aus Login-Formular, falls vorhanden
+            const loginEmailInput = document.getElementById('login-email');
+            const resetEmailInput = document.getElementById('reset-email');
+            if (resetEmailInput && loginEmailInput && loginEmailInput.value) {
+              resetEmailInput.value = loginEmailInput.value;
+            }
+          }
+        });
+      }
+      
+      // Zurück zum Login Link
+      const backToLoginLink = document.getElementById('back-to-login-link');
+      if (backToLoginLink) {
+        backToLoginLink.addEventListener('click', (e) => {
+          e.preventDefault();
+          const loginForm = document.getElementById('login-form');
+          const registerForm = document.getElementById('register-form');
+          const passwordResetForm = document.getElementById('password-reset-form');
+          const title = document.getElementById('auth-title');
+          const switchText = document.getElementById('auth-switch-text');
+          const switchLink = document.getElementById('auth-switch-link');
+          
+          if (loginForm && passwordResetForm && title) {
+            loginForm.style.display = 'block';
+            registerForm.style.display = 'none';
+            passwordResetForm.style.display = 'none';
+            title.textContent = 'Mitglieder Login';
+            if (switchText && switchLink) {
+              switchText.textContent = 'Noch kein Account?';
+              switchLink.textContent = 'Jetzt registrieren';
+            }
+            showAuthMessage('', ''); // Leere Nachrichten
+          }
+        });
+      }
+      
+      // Passwort-Reset-Form
+      const passwordResetForm = document.getElementById('password-reset-form');
+      if (passwordResetForm) {
+        passwordResetForm.addEventListener('submit', async (e) => {
+          e.preventDefault();
+          
+          // Prüfe ob Module geladen wurden
+          const resetPasswordFunc = window.resetPassword || resetPassword;
+          if (typeof resetPasswordFunc !== 'function') {
+            showAuthMessage('Fehler: Authentifizierungs-Module nicht geladen. Bitte Seite neu laden oder einen lokalen Server verwenden.', 'error');
+            console.error('[MEMBERS-HTML] resetPassword Funktion nicht verfügbar!');
+            return;
+          }
+          
+          const email = document.getElementById('reset-email')?.value;
+          
+          if (!email) {
+            showAuthMessage('Bitte geben Sie Ihre E-Mail-Adresse ein', 'error');
+            return;
+          }
+          
+          // Validiere E-Mail-Format
+          const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+          if (!emailRegex.test(email)) {
+            showAuthMessage('Bitte geben Sie eine gültige E-Mail-Adresse ein', 'error');
+            return;
+          }
+          
+          try {
+            const result = await resetPasswordFunc(email);
+            
+            if (result.success) {
+              // Erfolgsmeldung - auch wenn E-Mail nicht registriert ist, zeigen wir die gleiche Meldung
+              // (aus Sicherheitsgründen sollte man nicht verraten, welche E-Mails registriert sind)
+              showAuthMessage('Falls diese E-Mail-Adresse registriert ist, wurde ein Passwort-Reset-Link gesendet. Öffnen Sie den Link in der E-Mail – Sie gelangen dann direkt zum Formular „Neues Passwort setzen“. Bitte schauen Sie auch in den Spam-Ordner.', 'success');
+              // Setze E-Mail-Feld zurück
+              const resetEmailInput = document.getElementById('reset-email');
+              if (resetEmailInput) {
+                resetEmailInput.value = '';
+              }
+            } else {
+              showAuthMessage(result.message, 'error');
+            }
+          } catch (error) {
+            console.error('[MEMBERS-HTML] Passwort-Reset-Fehler:', error);
+            showAuthMessage('Fehler beim Senden des Passwort-Reset-Links: ' + (error.message || 'Unbekannter Fehler'), 'error');
+          }
+        });
+      }
+
+      // Neues Passwort-Formular
+      const newPasswordForm = document.getElementById('new-password-form');
+      if (newPasswordForm) {
+        newPasswordForm.addEventListener('submit', async (e) => {
+          e.preventDefault();
+          
+          // Prüfe ob Module geladen wurden
+          const updatePasswordFunc = window.updatePassword || updatePassword;
+          if (typeof updatePasswordFunc !== 'function') {
+            showAuthMessage('Fehler: Authentifizierungs-Module nicht geladen. Bitte Seite neu laden oder einen lokalen Server verwenden.', 'error');
+            console.error('[MEMBERS-HTML] updatePassword Funktion nicht verfügbar!');
+            return;
+          }
+          
+          const newPassword = document.getElementById('new-password')?.value;
+          const newPasswordConfirm = document.getElementById('new-password-confirm')?.value;
+          
+          if (!newPassword || !newPasswordConfirm) {
+            showAuthMessage('Bitte alle Felder ausfüllen', 'error');
+            return;
+          }
+          
+          if (newPassword.length < 6) {
+            showAuthMessage('Das Passwort muss mindestens 6 Zeichen lang sein', 'error');
+            return;
+          }
+          
+          if (newPassword !== newPasswordConfirm) {
+            showAuthMessage('Die Passwörter stimmen nicht überein', 'error');
+            return;
+          }
+          
+          try {
+            const result = await updatePasswordFunc(newPassword);
+            
+            if (result.success) {
+              const clearPendingFn = window.clearPasswordRecoveryPending || clearPasswordRecoveryPending;
+              if (typeof clearPendingFn === 'function') clearPendingFn();
+              showAuthMessage('Passwort wurde erfolgreich geändert! Sie können sich jetzt mit Ihrem neuen Passwort anmelden.', 'success');
+              
+              // Setze Felder zurück
+              document.getElementById('new-password').value = '';
+              document.getElementById('new-password-confirm').value = '';
+              
+              // Nach 2 Sekunden zum Login-Formular wechseln
+              setTimeout(() => {
+                const loginForm = document.getElementById('login-form');
+                const registerForm = document.getElementById('register-form');
+                const passwordResetForm = document.getElementById('password-reset-form');
+                const title = document.getElementById('auth-title');
+                const switchText = document.getElementById('auth-switch-text');
+                const switchLink = document.getElementById('auth-switch-link');
+                
+                if (loginForm && newPasswordForm && title) {
+                  loginForm.style.display = 'block';
+                  registerForm.style.display = 'none';
+                  passwordResetForm.style.display = 'none';
+                  newPasswordForm.style.display = 'none';
+                  title.textContent = 'Mitglieder Login';
+                  if (switchText && switchLink) {
+                    switchText.style.display = 'block';
+                    switchText.textContent = 'Noch kein Account?';
+                    switchLink.style.display = 'block';
+                    switchLink.textContent = 'Jetzt registrieren';
+                  }
+                }
+              }, 2000);
+            } else {
+              showAuthMessage(result.message, 'error');
+            }
+          } catch (error) {
+            console.error('[MEMBERS-HTML] Passwort-Update-Fehler:', error);
+            showAuthMessage('Fehler beim Ändern des Passworts: ' + (error.message || 'Unbekannter Fehler'), 'error');
+          }
+        });
+      }
+
+      // Zurück zum Login vom neuen Passwort-Formular
+      const backToLoginFromNewPassword = document.getElementById('back-to-login-from-new-password');
+      if (backToLoginFromNewPassword) {
+        backToLoginFromNewPassword.addEventListener('click', (e) => {
+          e.preventDefault();
+          const loginForm = document.getElementById('login-form');
+          const registerForm = document.getElementById('register-form');
+          const passwordResetForm = document.getElementById('password-reset-form');
+          const newPasswordForm = document.getElementById('new-password-form');
+          const title = document.getElementById('auth-title');
+          const switchText = document.getElementById('auth-switch-text');
+          const switchLink = document.getElementById('auth-switch-link');
+          
+          if (loginForm && newPasswordForm && title) {
+            loginForm.style.display = 'block';
+            registerForm.style.display = 'none';
+            passwordResetForm.style.display = 'none';
+            newPasswordForm.style.display = 'none';
+            title.textContent = 'Mitglieder Login';
+            if (switchText && switchLink) {
+              switchText.style.display = 'block';
+              switchText.textContent = 'Noch kein Account?';
+              switchLink.style.display = 'block';
+              switchLink.textContent = 'Jetzt registrieren';
+            }
+            showAuthMessage('', ''); // Leere Nachrichten
+          }
+        });
+      }
+
+      // Login-Form
+      const loginForm = document.getElementById('login-form');
+      if (loginForm) {
+        loginForm.addEventListener('submit', async (e) => {
+          e.preventDefault();
+          
+          // Prüfe ob Module geladen wurden
+          const signInFunc = window.signIn || signIn;
+          if (typeof signInFunc !== 'function') {
+            showAuthMessage('Fehler: Authentifizierungs-Module nicht geladen. Bitte Seite neu laden oder einen lokalen Server verwenden.', 'error');
+            console.error('[MEMBERS-HTML] signIn Funktion nicht verfügbar!');
+            return;
+          }
+          
+          const email = document.getElementById('login-email')?.value;
+          const password = document.getElementById('login-password')?.value;
+          
+          if (!email || !password) {
+            showAuthMessage('Bitte alle Felder ausfüllen', 'error');
+            return;
+          }
+          
+          try {
+            const result = await signInFunc(email, password);
+            
+            if (result.success) {
+              showAuthMessage('✓ Erfolgreich angemeldet!', 'success');
+              setTimeout(() => {
+                window.location.href = 'index.html';
+              }, 1000);
+            } else {
+              showAuthMessage(result.message, 'error');
+            }
+          } catch (error) {
+            console.error('[MEMBERS-HTML] Login-Fehler:', error);
+            showAuthMessage('Fehler beim Anmelden: ' + (error.message || 'Unbekannter Fehler'), 'error');
+          }
+        });
+      }
+
+      // Register-Form
+      const registerForm = document.getElementById('register-form');
+      if (registerForm) {
+        registerForm.addEventListener('submit', async (e) => {
+          e.preventDefault();
+          
+          // Prüfe ob Module geladen wurden
+          const signUpFunc = window.signUp || signUp;
+          if (typeof signUpFunc !== 'function') {
+            showAuthMessage('Fehler: Authentifizierungs-Module nicht geladen. Bitte Seite neu laden oder einen lokalen Server verwenden.', 'error');
+            console.error('[MEMBERS-HTML] signUp Funktion nicht verfügbar!');
+            return;
+          }
+          
+          const name = document.getElementById('register-name')?.value;
+          const email = document.getElementById('register-email')?.value;
+          const password = document.getElementById('register-password')?.value;
+          const privacyCheckbox = document.getElementById('privacy-checkbox');
+          
+          if (!name || !email || !password) {
+            showAuthMessage('Bitte alle Felder ausfüllen', 'error');
+            return;
+          }
+          
+          if (!privacyCheckbox || !privacyCheckbox.checked) {
+            showAuthMessage('Bitte stimmen Sie der Datenschutzerklärung zu', 'error');
+            return;
+          }
+          
+          try {
+            const result = await signUpFunc(email, password, name);
+            
+            if (result.success) {
+              showAuthMessage(result.message, 'success');
+            } else {
+              showAuthMessage(result.message, 'error');
+            }
+          } catch (error) {
+            console.error('[MEMBERS-HTML] Registrierungs-Fehler:', error);
+            showAuthMessage('Fehler bei der Registrierung: ' + (error.message || 'Unbekannter Fehler'), 'error');
+          }
+        });
+      }
+
+      // Logout-Button
+      const logoutBtn = document.getElementById('logout-btn');
+      if (logoutBtn) {
+        logoutBtn.addEventListener('click', async () => {
+          const signOutFunc = window.signOut || signOut;
+          if (typeof signOutFunc !== 'function') {
+            console.error('[MEMBERS-HTML] signOut Funktion nicht verfügbar!');
+            return;
+          }
+          try {
+            await signOutFunc();
+            window.location.href = 'index.html';
+          } catch (error) {
+            console.error('[MEMBERS-HTML] Logout-Fehler:', error);
+          }
+        });
+      }
+
+      // Account-Button
+      setupAccountModal();
+      
+      // Privacy-Modal
+      setupPrivacyModal();
+    }
+
+    // ===== Privacy Modal Functions =====
+    function setupPrivacyModal() {
+      const privacyLink = document.getElementById('privacy-link');
+      const privacyModal = document.getElementById('privacy-modal');
+      const privacyModalClose = document.getElementById('privacy-modal-close');
+
+      // Öffne Modal beim Klick auf den Link
+      if (privacyLink) {
+        privacyLink.addEventListener('click', (e) => {
+          e.preventDefault();
+          if (privacyModal) {
+            privacyModal.classList.add('active');
+          }
+        });
+      }
+
+      // Schließe Modal
+      if (privacyModalClose) {
+        privacyModalClose.addEventListener('click', () => {
+          if (privacyModal) {
+            privacyModal.classList.remove('active');
+          }
+        });
+      }
+
+      // Schließe Modal bei Klick außerhalb
+      if (privacyModal) {
+        privacyModal.addEventListener('click', (e) => {
+          if (e.target === privacyModal) {
+            privacyModal.classList.remove('active');
+          }
+        });
+      }
+
+      // Prüfe ob #datenschutz im Hash vorhanden ist
+      if (window.location.hash === '#datenschutz') {
+        // Warte kurz, damit die Seite geladen ist
+        setTimeout(() => {
+          if (privacyModal) {
+            privacyModal.classList.add('active');
+          }
+        }, 300);
+      }
+    }
+
+    // ===== Account Modal Functions =====
+    function setupAccountModal() {
+      const accountBtn = document.getElementById('account-btn');
+      const accountModal = document.getElementById('account-modal');
+      const accountModalClose = document.getElementById('account-modal-close');
+      const changeEmailBtn = document.getElementById('change-email-btn');
+      const cancelEmailBtn = document.getElementById('cancel-email-btn');
+      const saveEmailBtn = document.getElementById('save-email-btn');
+      const changePasswordBtn = document.getElementById('change-password-btn');
+      const cancelPasswordBtn = document.getElementById('cancel-password-btn');
+      const savePasswordBtn = document.getElementById('save-password-btn');
+      const deleteAccountBtn = document.getElementById('delete-account-btn');
+      const changeEmailForm = document.getElementById('change-email-form');
+      const changePasswordForm = document.getElementById('change-password-form');
+      const accountModalActions = document.getElementById('account-modal-actions');
+      const newEmailInput = document.getElementById('new-email-input');
+      const currentPasswordInput = document.getElementById('current-password-input');
+      const newPasswordInput = document.getElementById('account-new-password-input');
+      const confirmPasswordInput = document.getElementById('account-confirm-password-input');
+      const accountEmailDisplay = document.getElementById('account-email-display');
+
+      function resetAccountForms() {
+        if (changeEmailForm) changeEmailForm.classList.remove('active');
+        if (changePasswordForm) changePasswordForm.classList.remove('active');
+        if (newEmailInput) newEmailInput.value = '';
+        if (currentPasswordInput) currentPasswordInput.value = '';
+        if (newPasswordInput) newPasswordInput.value = '';
+        if (confirmPasswordInput) confirmPasswordInput.value = '';
+        if (accountEmailDisplay) accountEmailDisplay.classList.remove('hidden');
+        if (accountModalActions) accountModalActions.style.display = 'flex';
+      }
+
+      function closeAccountModal() {
+        if (accountModal) {
+          accountModal.classList.remove('active');
+        }
+        resetAccountForms();
+      }
+
+      // Öffne Modal
+      if (accountBtn) {
+        accountBtn.addEventListener('click', () => {
+          if (currentUser && accountEmailDisplay) {
+            accountEmailDisplay.textContent = currentUser.email || '';
+          }
+          resetAccountForms();
+          if (accountModal) {
+            accountModal.classList.add('active');
+          }
+        });
+      }
+
+      // Schließe Modal
+      if (accountModalClose) {
+        accountModalClose.addEventListener('click', closeAccountModal);
+      }
+
+      // Schließe Modal bei Klick außerhalb
+      if (accountModal) {
+        accountModal.addEventListener('click', (e) => {
+          if (e.target === accountModal) {
+            closeAccountModal();
+          }
+        });
+      }
+
+      // Zeige Email-Ändern-Formular
+      if (changeEmailBtn) {
+        changeEmailBtn.addEventListener('click', () => {
+          resetAccountForms();
+          if (changeEmailForm) {
+            changeEmailForm.classList.add('active');
+            if (accountEmailDisplay) {
+              accountEmailDisplay.classList.add('hidden');
+            }
+            if (accountModalActions) {
+              accountModalActions.style.display = 'none';
+            }
+            newEmailInput?.focus();
+          }
+        });
+      }
+
+      // Abbrechen Email-Ändern
+      if (cancelEmailBtn) {
+        cancelEmailBtn.addEventListener('click', resetAccountForms);
+      }
+
+      // Speichere neue Email
+      if (saveEmailBtn) {
+        saveEmailBtn.addEventListener('click', async () => {
+          const newEmail = newEmailInput?.value?.trim();
+          if (!newEmail) {
+            alert('Bitte geben Sie eine E-Mail-Adresse ein.');
+            return;
+          }
+
+          if (newEmail === currentUser?.email) {
+            alert('Das ist bereits Ihre aktuelle E-Mail-Adresse.');
+            return;
+          }
+
+          try {
+            const updateEmailFunc = window.updateUserEmail || updateUserEmail;
+            if (typeof updateEmailFunc !== 'function') {
+              alert('Fehler: Funktion zum Ändern der E-Mail nicht verfügbar.');
+              return;
+            }
+
+            const result = await updateEmailFunc(newEmail);
+            if (result.success) {
+              alert('E-Mail-Adresse wurde erfolgreich geändert. Bitte bestätigen Sie die neue E-Mail-Adresse in Ihrer E-Mail.');
+              if (currentUser) {
+                currentUser.email = newEmail;
+              }
+              if (accountEmailDisplay) {
+                accountEmailDisplay.textContent = newEmail;
+              }
+              const userEmailEl = document.getElementById('user-email');
+              if (userEmailEl) {
+                userEmailEl.textContent = newEmail;
+              }
+              resetAccountForms();
+            } else {
+              alert('Fehler beim Ändern der E-Mail: ' + (result.message || 'Unbekannter Fehler'));
+            }
+          } catch (error) {
+            console.error('[MEMBERS-HTML] Fehler beim Ändern der E-Mail:', error);
+            alert('Fehler beim Ändern der E-Mail: ' + (error.message || 'Unbekannter Fehler'));
+          }
+        });
+      }
+
+      // Zeige Passwort-Ändern-Formular
+      if (changePasswordBtn) {
+        changePasswordBtn.addEventListener('click', () => {
+          resetAccountForms();
+          if (changePasswordForm) {
+            changePasswordForm.classList.add('active');
+            if (accountModalActions) {
+              accountModalActions.style.display = 'none';
+            }
+            currentPasswordInput?.focus();
+          }
+        });
+      }
+
+      // Abbrechen Passwort-Ändern
+      if (cancelPasswordBtn) {
+        cancelPasswordBtn.addEventListener('click', resetAccountForms);
+      }
+
+      // Speichere neues Passwort
+      if (savePasswordBtn) {
+        savePasswordBtn.addEventListener('click', async () => {
+          const currentPassword = currentPasswordInput?.value || '';
+          const newPassword = newPasswordInput?.value || '';
+          const confirmPassword = confirmPasswordInput?.value || '';
+
+          if (!currentPassword || !newPassword || !confirmPassword) {
+            alert('Bitte füllen Sie alle Passwortfelder aus.');
+            return;
+          }
+
+          if (newPassword.length < 6) {
+            alert('Das neue Passwort muss mindestens 6 Zeichen lang sein.');
+            return;
+          }
+
+          if (newPassword !== confirmPassword) {
+            alert('Die neuen Passwörter stimmen nicht überein.');
+            return;
+          }
+
+          if (currentPassword === newPassword) {
+            alert('Das neue Passwort muss sich vom aktuellen Passwort unterscheiden.');
+            return;
+          }
+
+          const originalLabel = savePasswordBtn.textContent;
+          savePasswordBtn.disabled = true;
+          savePasswordBtn.textContent = 'Speichern…';
+
+          try {
+            const changePasswordFunc = window.changePassword || changePassword;
+            if (typeof changePasswordFunc !== 'function') {
+              alert('Fehler: Funktion zum Ändern des Passworts nicht verfügbar.');
+              return;
+            }
+
+            const result = await changePasswordFunc(currentPassword, newPassword);
+            if (result.success) {
+              alert('Passwort wurde erfolgreich geändert.');
+              resetAccountForms();
+            } else {
+              alert('Fehler beim Ändern des Passworts: ' + (result.message || 'Unbekannter Fehler'));
+            }
+          } catch (error) {
+            console.error('[MEMBERS-HTML] Fehler beim Ändern des Passworts:', error);
+            alert('Fehler beim Ändern des Passworts: ' + (error.message || 'Unbekannter Fehler'));
+          } finally {
+            savePasswordBtn.disabled = false;
+            savePasswordBtn.textContent = originalLabel;
+          }
+        });
+      }
+
+      // Account löschen
+      if (deleteAccountBtn) {
+        deleteAccountBtn.addEventListener('click', async () => {
+          const confirmText = 'ACCOUNT LÖSCHEN';
+          const userInput = prompt(`WARNUNG: Diese Aktion kann nicht rückgängig gemacht werden!\n\nAlle Ihre Zitate und Notizen werden unwiderruflich gelöscht.\n\nGeben Sie "${confirmText}" ein, um zu bestätigen:`);
+          
+          if (userInput !== confirmText) {
+            if (userInput !== null) {
+              alert('Bestätigung fehlgeschlagen. Der Account wurde nicht gelöscht.');
+            }
+            return;
+          }
+
+          // Zweite Bestätigung
+          if (!confirm('Sind Sie wirklich sicher? Diese Aktion kann NICHT rückgängig gemacht werden!')) {
+            return;
+          }
+
+          try {
+            const deleteAccountFunc = window.deleteUserAccount || deleteUserAccount;
+            if (typeof deleteAccountFunc !== 'function') {
+              alert('Fehler: Funktion zum Löschen des Accounts nicht verfügbar.');
+              return;
+            }
+
+            const result = await deleteAccountFunc();
+            if (result.success) {
+              alert('Ihr Account wurde erfolgreich gelöscht.');
+              showAuth();
+            } else {
+              alert('Fehler beim Löschen des Accounts: ' + (result.message || 'Unbekannter Fehler'));
+            }
+          } catch (error) {
+            console.error('[MEMBERS-HTML] Fehler beim Löschen des Accounts:', error);
+            alert('Fehler beim Löschen des Accounts: ' + (error.message || 'Unbekannter Fehler'));
+          }
+        });
+      }
+    }
+
+    function showAuthMessage(message, type) {
+      const messageDiv = document.getElementById('auth-message');
+      messageDiv.innerHTML = `<div class="message ${type}">${message}</div>`;
+    }
+
+    // ===== Toolbar Functions =====
+    function setupToolbarListeners() {
+      // Tab switching
+      document.querySelectorAll('.toolbar-tab').forEach(tab => {
+        tab.addEventListener('click', () => {
+          const tabName = tab.dataset.tab;
+          if (tabName === 'quotes' || tabName === 'highlights' || tabName === 'notes') {
+            switchTab(tabName);
+          } else if (tabName === 'chat') {
+            // Markiere Chat als gelesen beim Öffnen
+            if (typeof markChatAsRead === 'function') {
+              markChatAsRead();
+            }
+            if (typeof updateChatBadge === 'function') {
+              updateChatBadge();
+            }
+            window.location.href = 'members.html#chat';
+          }
+        });
+      });
+
+      // Sort menu is handled by toggleSortMenu and applySort functions
+
+      // Delete button - toggle checkboxes or delete selected items
+      const deleteBtn = document.getElementById('delete-btn');
+      deleteBtn.addEventListener('click', async () => {
+        if (multiDeleteMode) {
+          // If already in delete mode, check if there are selected items
+          const checkboxes = document.querySelectorAll('.item-checkbox:checked');
+          if (checkboxes.length > 0) {
+            // Delete selected items
+            await deleteSelectedItems();
+          } else {
+            // No items selected, exit delete mode
+            multiDeleteMode = false;
+            selectedItemId = null;
+            clearNotes();
+            deleteBtn.classList.remove('active');
+            await loadItems();
+            updateDeleteButton();
+          }
+        } else {
+          // Enter delete mode - show checkboxes
+          multiDeleteMode = true;
+          selectedItemId = null;
+          clearNotes();
+          deleteBtn.classList.add('active');
+          await loadItems();
+          updateDeleteButton();
+        }
+      });
+    }
+
+    function switchTab(tabName) {
+      currentTab = tabName;
+      selectedItemId = null;
+      // Exit delete mode when switching tabs
+      if (multiDeleteMode) {
+        multiDeleteMode = false;
+        const deleteBtn = document.getElementById('delete-btn');
+        if (deleteBtn) {
+          deleteBtn.classList.remove('active');
+        }
+      }
+      
+      document.querySelectorAll('.toolbar-tab').forEach(t => t.classList.remove('active'));
+      document.querySelector(`[data-tab="${tabName}"]`).classList.add('active');
+      
+      loadItems();
+      clearNotes();
+    }
+
+    // ===== Load Items =====
+    async function loadItems() {
+      const container = document.getElementById('items-list');
+      if (!container) {
+        console.error('[MEMBERS-HTML] items-list Container nicht gefunden!');
+        return;
+      }
+      container.innerHTML = '<div class="empty-state">Lade Daten...</div>';
+      
+      try {
+        let result;
+        
+        if (currentTab === 'highlights') {
+          // Lade Highlights
+          if (typeof getHighlights !== 'function') {
+            console.error('[MEMBERS-HTML] getHighlights Funktion nicht verfügbar!');
+            container.innerHTML = '<div class="empty-state">Fehler: API-Funktionen nicht geladen. Bitte Seite neu laden.</div>';
+            return;
+          }
+          result = await getHighlights();
+        } else if (currentTab === 'notes') {
+          // Lade Notizen
+          if (typeof getNotes !== 'function') {
+            console.error('[MEMBERS-HTML] getNotes Funktion nicht verfügbar!');
+            container.innerHTML = '<div class="empty-state">Fehler: API-Funktionen nicht geladen. Bitte Seite neu laden.</div>';
+            return;
+          }
+          result = await getNotes();
+        } else {
+          // Lade Quotes (Standard)
+          if (typeof getQuotes !== 'function') {
+            console.error('[MEMBERS-HTML] getQuotes Funktion nicht verfügbar!');
+            container.innerHTML = '<div class="empty-state">Fehler: API-Funktionen nicht geladen. Bitte Seite neu laden.</div>';
+            return;
+          }
+          result = await getQuotes();
+        }
+        
+        if (!result) {
+          container.innerHTML = '<div class="empty-state">Fehler: Keine Antwort vom Server</div>';
+          currentItems = [];
+          return;
+        }
+        
+        if (!result.success) {
+          container.innerHTML = `<div class="empty-state">Fehler beim Laden: ${result.error || result.message || 'Unbekannter Fehler'}</div>`;
+          currentItems = [];
+          return;
+        }
+        
+        if (!result.data || result.data.length === 0) {
+          container.innerHTML = '<div class="empty-state">Noch keine Einträge vorhanden</div>';
+          currentItems = [];
+          return;
+        }
+      
+      // Process items based on type
+      let itemsWithMarkers;
+      if (currentTab === 'highlights') {
+        // Process highlights
+        itemsWithMarkers = result.data.map(item => ({
+          ...item,
+          item_type: 'highlight',
+          ga_reference: item.ga_number,
+          quote_text: item.paragraph_text ? item.paragraph_text.substring(
+            item.text_start_offset || 0,
+            item.text_end_offset || item.paragraph_text.length
+          ) : '',
+          tags: item.tags || [],
+          color: item.color || 'blue' // Preserve highlight color from database
+        }));
+      } else if (currentTab === 'notes') {
+        // Process notes
+        itemsWithMarkers = result.data.map(item => ({
+          ...item,
+          item_type: 'note',
+          quote_text: item.content || '',
+          tags: item.tags || [],
+          title: item.title || 'Unbenannte Notiz'
+        }));
+      } else {
+        // Process quotes - Ensure marker_color is preserved from database
+        // Create a deep copy to preserve all properties including marker_color
+        itemsWithMarkers = result.data.map(item => {
+        // Preserve marker_color explicitly - check all possible formats
+        // First check if marker_color exists in the item
+        let markerColor = null;
+        if (item.marker_color !== undefined && item.marker_color !== null) {
+          const colorStr = String(item.marker_color).trim();
+          if (colorStr && (colorStr === 'blue' || colorStr === 'red' || colorStr === 'yellow')) {
+            markerColor = colorStr;
+          }
+        }
+        
+          // Return complete item with all properties preserved, ensuring marker_color is explicitly set
+          const preservedItem = {
+            ...item,
+            marker_color: markerColor,
+            tags: item.tags || [],
+            item_type: 'quote'
+          };
+          
+          return preservedItem;
+        });
+      }
+      
+      // Sortiere nach Vortragsdatum
+      currentItems = itemsWithMarkers.sort((a, b) => {
+        const dateA = getLectureDateForSorting(a);
+        const dateB = getLectureDateForSorting(b);
+        
+        // Items ohne Datum ans Ende sortieren
+        if (!dateA && !dateB) {
+          // Beide ohne Datum: nach created_at sortieren
+          const createdA = new Date(a.created_at);
+          const createdB = new Date(b.created_at);
+          return sortOrder === 'asc' ? createdA - createdB : createdB - createdA;
+        }
+        if (!dateA) return 1; // A ohne Datum nach hinten
+        if (!dateB) return -1; // B ohne Datum nach hinten
+        
+        // Beide mit Datum: nach Vortragsdatum sortieren
+        return sortOrder === 'asc' ? dateA - dateB : dateB - dateA;
+      });
+      
+      // Ensure marker_color is preserved after sorting - create new objects to ensure all properties are preserved
+      currentItems = currentItems.map(item => {
+        // Create a new object with all properties explicitly preserved
+        const preservedMarkerColor = item.marker_color !== undefined && item.marker_color !== null 
+          ? String(item.marker_color).trim() 
+          : null;
+        
+        // Validate marker_color
+        const validMarkerColor = (preservedMarkerColor === 'blue' || preservedMarkerColor === 'red' || preservedMarkerColor === 'yellow')
+          ? preservedMarkerColor 
+          : null;
+        
+        return {
+          ...item,
+          marker_color: validMarkerColor,
+          tags: item.tags || []
+        };
+      });
+      
+      renderItems();
+      updateKeywordFilter();
+      updateGroupFilter();
+      } catch (error) {
+        console.error('[MEMBERS-HTML] Fehler beim Laden der Items:', error);
+        const container = document.getElementById('items-list');
+        if (container) {
+          container.innerHTML = `<div class="empty-state">Fehler beim Laden: ${error.message || 'Unbekannter Fehler'}</div>`;
+        }
+        currentItems = [];
+      }
+    }
+    
+    // Get saved order from localStorage
+    function getSavedOrder() {
+      try {
+        const user = currentUser;
+        if (!user) return null;
+        const key = `itemOrder_${user.id}_${currentTab}`;
+        const saved = localStorage.getItem(key);
+        return saved ? JSON.parse(saved) : null;
+      } catch (e) {
+        console.error('Fehler beim Laden der Reihenfolge:', e);
+        return null;
+      }
+    }
+    
+    // Save order to localStorage
+    function saveOrder(order) {
+      try {
+        const user = currentUser;
+        if (!user) return;
+        const key = `itemOrder_${user.id}_${currentTab}`;
+        localStorage.setItem(key, JSON.stringify(order));
+      } catch (e) {
+        console.error('Fehler beim Speichern der Reihenfolge:', e);
+      }
+    }
+    
+    // Clear saved order
+    function clearSavedOrder() {
+      try {
+        const user = currentUser;
+        if (!user) return;
+        const key = `itemOrder_${user.id}_${currentTab}`;
+        localStorage.removeItem(key);
+      } catch (e) {
+        console.error('Fehler beim Löschen der Reihenfolge:', e);
+      }
+    }
+
+    // Helper function to get highlight color hex value
+    function getHighlightColor(colorName) {
+      const colors = {
+        'blue': '#467886',
+        'red': '#c62828',
+        'yellow': '#ffc107'
+      };
+      return colors[colorName] || colors['blue'];
+    }
+
+    // Helper function to get lecture date
+    function getLectureDate(item) {
+      if (!item) return '';
+      
+      // Prüfe ob das Item ein lecture_date Feld hat (kommt direkt aus Supabase)
+      if (item.lecture_date) {
+        return formatLectureDate(item.lecture_date);
+      }
+      
+      return '';
+    }
+
+    // Helper function to format lecture date
+    function formatLectureDate(dateStr) {
+      if (!dateStr) return '';
+      
+      try {
+        // Unterstütze ISO-Format (YYYY-MM-DD)
+        if (dateStr.match(/^\d{4}-\d{2}-\d{2}$/)) {
+          const [year, month, day] = dateStr.split('-');
+          const date = new Date(parseInt(year), parseInt(month) - 1, parseInt(day));
+          return date.toLocaleDateString('de-DE', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
+          });
+        }
+        
+        // Falls bereits formatiert, direkt zurückgeben
+        return dateStr;
+      } catch (e) {
+        console.error('Fehler beim Formatieren des Datums:', e);
+        return '';
+      }
+    }
+
+    // Helper function to get lecture date for sorting
+    function getLectureDateForSorting(item) {
+      if (!item) return null;
+      
+      // Prüfe ob das Item ein lecture_date Feld hat (kommt direkt aus Supabase)
+      if (item.lecture_date) {
+        try {
+          const dateStr = item.lecture_date;
+          // Unterstütze ISO-Format (YYYY-MM-DD)
+          const dateMatch = dateStr.match(/(\d{4})-(\d{2})-(\d{2})/);
+          if (dateMatch) {
+            return new Date(parseInt(dateMatch[1]), parseInt(dateMatch[2]) - 1, parseInt(dateMatch[3]));
+          }
+          
+          // Versuche Jahr zu extrahieren (für Fallback-Sortierung)
+          const yearMatch = dateStr.match(/\b(19\d{2}|20\d{2})\b/);
+          if (yearMatch) {
+            return new Date(parseInt(yearMatch[1]), 0, 1); // 1. Januar des Jahres
+          }
+          
+          // Versuche direkt zu parsen
+          const parsedDate = new Date(dateStr);
+          if (!isNaN(parsedDate.getTime())) {
+            return parsedDate;
+          }
+        } catch (error) {
+          console.warn('[SORT-DATE] Fehler beim Parsen des Datums:', error);
+        }
+      }
+      
+      return null; // Kein Datum verfügbar
+    }
+
+    function renderItems() {
+      const container = document.getElementById('items-list');
+      
+      if (currentItems.length === 0) {
+        container.innerHTML = '<div class="empty-state">Noch keine Einträge vorhanden</div>';
+        return;
+      }
+      
+      container.innerHTML = currentItems.map((item, index) => {
+        // Prüfe ob es eine Notiz ist
+        const isNote = currentTab === 'notes' || item.item_type === 'note';
+        
+        // Für Notizen: anderes Rendering
+        if (isNote) {
+          const gaReference = item.ga_references && item.ga_references.length > 0 ? item.ga_references[0] : null;
+          const paragraphId = item.paragraph_id || null;
+          const textStartOffset = item.text_start_offset !== null && item.text_start_offset !== undefined ? item.text_start_offset : null;
+          const textEndOffset = item.text_end_offset !== null && item.text_end_offset !== undefined ? item.text_end_offset : null;
+          const canNavigate = gaReference !== null;
+          
+          // Bereinige Text: Entferne Präfixe wie "Aus [[GA001]]:" oder "Aus [[GA001]] - Titel:"
+          let cleanedContent = item.content || item.quote_text || '';
+          // Entferne "Aus [[GA...]]:" oder "Aus [[GA...]] - Titel:" am Anfang (mit optionalen Leerzeichen)
+          cleanedContent = cleanedContent.replace(/^Aus\s*\[\[[^\]]+\]\]\s*[-:]\s*/i, '');
+          // Entferne auch Varianten wie "Aus [[GA...]] - " oder "Aus [[GA...]]: "
+          cleanedContent = cleanedContent.replace(/^Aus\s*\[\[[^\]]+\]\]\s*[-:]\s*/i, '');
+          // Entferne führende Anführungszeichen und Leerzeichen
+          cleanedContent = cleanedContent.replace(/^["']\s*/, '').trim();
+          // Entferne auch mehrfache Leerzeichen am Anfang
+          cleanedContent = cleanedContent.replace(/^\s+/, '');
+          
+          const contentPreview = cleanedContent.substring(0, 150);
+          const hasMore = cleanedContent.length > 150;
+          
+          // Format lecture date if available
+          let dateDisplay = '';
+          if (item.lecture_date) {
+            const lectureDate = new Date(item.lecture_date);
+            dateDisplay = `, ${lectureDate.toLocaleDateString('de-DE', { day: '2-digit', month: '2-digit', year: 'numeric' })}`;
+          }
+          
+          const tags = item.tags || [];
+          const groups = item.groups || [];
+          
+          return `
+            <div class="item-card ${selectedItemId === item.id ? 'selected' : ''} ${multiDeleteMode ? 'multi-delete' : ''}" 
+                 data-id="${item.id}" 
+                 data-index="${index}">
+              <div class="item-header ${multiDeleteMode ? 'with-checkbox' : ''}">
+                ${multiDeleteMode ? `<input type="checkbox" class="item-checkbox" data-id="${item.id}" onchange="updateDeleteButton()">` : ''}
+                <div style="display: flex; align-items: center; gap: 0.25rem;">
+                  ${canNavigate
+                    ? `<strong><a href="#" class="item-ga" onclick="event.stopPropagation(); navigateToNoteById('${item.id}'); return false;" style="color: var(--link-color); text-decoration: none; cursor: pointer;" title="Zur Textstelle springen">${gaReference}${dateDisplay}</a></strong>`
+                    : `<strong>${gaReference || 'Notiz'}${dateDisplay}</strong>`
+                  }
+                </div>
+                <div class="item-header-right">
+                  <span class="item-date">${new Date(item.created_at).toLocaleDateString('de-DE')}</span>
+                </div>
+              </div>
+              <div class="item-text">„${contentPreview}${hasMore ? '...' : ''}"</div>
+              ${((groups.length > 0) || (tags.length > 0)) ? `<div class="item-tags">${groups.length > 0 ? groups.map(group => `<span class="item-tag group-tag clickable-tag" onclick="event.stopPropagation(); filterByGroup('${group.replace(/'/g, "\\'")}'); return false;" style="cursor: pointer;" title="Nach dieser Gruppe filtern">${group.toUpperCase()}</span>`).join(' · ') : ''}${(groups.length > 0) && (tags.length > 0) ? ' · ' : ''}${tags.length > 0 ? tags.map(tag => `<span class="item-tag clickable-tag" onclick="event.stopPropagation(); filterByKeyword('${tag.replace(/'/g, "\\'")}'); return false;" style="cursor: pointer;" title="Nach diesem Schlagwort filtern">${tag}</span>`).join(' · ') : ''}</div>` : ''}
+              <div class="item-tags-row">
+                ${!multiDeleteMode ? `
+                  <div class="item-actions">
+                    <button class="item-delete-btn" onclick="deleteSingleItem(event, '${item.id}')" title="Löschen">
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="4" y="6" width="16" height="14" rx="1"/>
+                        <path d="M7 6V5a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v1"/>
+                        <line x1="4" y1="6" x2="20" y2="6"/>
+                        <line x1="10" y1="10" x2="10" y2="16"/>
+                        <line x1="14" y1="10" x2="14" y2="16"/>
+                      </svg>
+                    </button>
+                  </div>
+                ` : ''}
+              </div>
+            </div>
+          `;
+        }
+        
+        // Für Zitate und Highlights: normales Rendering
+        const gaNumber = item.ga_reference || item.ga_number;
+        const text = item.quote_text || (item.paragraph_text ? item.paragraph_text.substring(
+          item.text_start_offset || 0,
+          item.text_end_offset || item.paragraph_text.length
+        ) : '');
+        const tags = item.tags || [];
+        const isHighlight = currentTab === 'highlights' || item.item_type === 'highlight';
+        
+        // Get highlight color for highlights
+        const highlightColor = isHighlight ? getHighlightColor(item.color || 'blue') : '';
+        
+        // Für Highlights: marker_color für Marker-Dot (blue, red, yellow)
+        let markerColor = '';
+        if (isHighlight && item.marker_color !== undefined && item.marker_color !== null) {
+          const colorStr = String(item.marker_color).trim();
+          if (colorStr === 'blue' || colorStr === 'red' || colorStr === 'yellow') {
+            markerColor = colorStr;
+          }
+        }
+        
+        // Für Zitate: marker_color für Bookmark-Icon (blue, red, yellow)
+        let quoteMarkerColor = '';
+        if (!isHighlight && item.marker_color !== undefined && item.marker_color !== null) {
+          const colorStr = String(item.marker_color).trim();
+          if (colorStr === 'blue' || colorStr === 'red' || colorStr === 'yellow') {
+            quoteMarkerColor = colorStr;
+          } else {
+            quoteMarkerColor = 'blue'; // Standard für Zitate
+          }
+        } else if (!isHighlight) {
+          quoteMarkerColor = 'blue'; // Standard für Zitate ohne marker_color
+        }
+        
+        // Hole Vortragsdatum
+        const lectureDate = getLectureDate(item);
+        const dateDisplay = lectureDate ? `, <span style="font-size: 1rem; font-weight: normal; color: var(--secondary-text);">${lectureDate}</span>` : '';
+        
+        return `
+          <div class="item-card ${selectedItemId === item.id ? 'selected' : ''} ${multiDeleteMode ? 'multi-delete' : ''}" 
+               data-id="${item.id}" 
+               data-index="${index}"
+               draggable="${!multiDeleteMode && !isHighlight}">
+            <div class="item-header ${multiDeleteMode ? 'with-checkbox' : ''}">
+              ${multiDeleteMode ? `<input type="checkbox" class="item-checkbox" data-id="${item.id}" onchange="updateDeleteButton()">` : ''}
+              <div style="display: flex; align-items: center; gap: 0.25rem;">
+                ${!isHighlight && quoteMarkerColor ? `
+                  <a href="#" onclick="event.stopPropagation(); navigateToQuoteById('${item.id}'); return false;" style="display: inline-block; text-decoration: none; cursor: pointer;" title="Zur Textstelle springen">
+                    <span class="quote-bookmark-icon-header" style="display: inline-block; color: ${getHighlightColor(quoteMarkerColor)}; vertical-align: middle;">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="12" y1="2" x2="12" y2="22"></line>
+                      </svg>
+                    </span>
+                  </a>
+                ` : ''}
+                ${isHighlight ? `
+                  <a href="#" onclick="event.stopPropagation(); navigateToHighlightById('${item.id}'); return false;" style="display: inline-block; text-decoration: none; cursor: pointer;" title="Zur Textstelle springen">
+                    <span class="highlight-icon-header" style="display: inline-block; color: ${highlightColor}; vertical-align: middle;">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="4" y1="20" x2="20" y2="20"></line>
+                      </svg>
+                    </span>
+                  </a>
+                ` : ''}
+                <a href="#" class="item-ga" onclick="event.stopPropagation(); ${isHighlight ? `navigateToHighlightById('${item.id}')` : `navigateToQuoteById('${item.id}')`}; return false;" style="color: var(--link-color); text-decoration: none; cursor: pointer;" title="Zur Textstelle springen">
+                  ${gaNumber}${dateDisplay}
+                </a>
+              </div>
+              <div class="item-header-right">
+                ${!isHighlight ? `<div style="position: relative;">
+                  <div class="item-marker-dot ${markerColor}" data-id="${item.id}" data-marker-color="${markerColor}" onclick="${multiDeleteMode ? '' : "toggleMarkerMenu(event, '" + item.id + "')"}" title="Markierung ändern" style="${multiDeleteMode ? 'cursor: default; opacity: 0.5;' : ''}"></div>
+                  ${!multiDeleteMode ? `<div id="marker-menu-${item.id}" class="item-marker-menu" style="display: none;">
+                    <div class="item-marker-option none" onclick="updateMarkerColor('${item.id}', '')" title="Keine Markierung"></div>
+                    <div class="item-marker-option blue" onclick="updateMarkerColor('${item.id}', 'blue')" title="Blau"></div>
+                    <div class="item-marker-option red" onclick="updateMarkerColor('${item.id}', 'red')" title="Rot"></div>
+                    <div class="item-marker-option yellow" onclick="updateMarkerColor('${item.id}', 'yellow')" title="Gelb"></div>
+                  </div>` : ''}
+                </div>` : ''}
+                <span class="item-date">${new Date(item.created_at).toLocaleDateString('de-DE')}</span>
+              </div>
+            </div>
+            <div class="item-text" style="font-style: italic;">„${text}"</div>
+            ${((item.groups && item.groups.length > 0) || tags.length > 0) ? `<div class="item-tags">${item.groups && item.groups.length > 0 ? item.groups.map(group => `<span class="item-tag group-tag clickable-tag" onclick="event.stopPropagation(); filterByGroup('${group.replace(/'/g, "\\'")}'); return false;" style="cursor: pointer;" title="Nach dieser Gruppe filtern">${group.toUpperCase()}</span>`).join(' · ') : ''}${(item.groups && item.groups.length > 0) && tags.length > 0 ? ' · ' : ''}${tags.length > 0 ? tags.map(tag => `<span class="item-tag clickable-tag" onclick="event.stopPropagation(); filterByKeyword('${tag.replace(/'/g, "\\'")}'); return false;" style="cursor: pointer;" title="Nach diesem Schlagwort filtern">${tag}</span>`).join(' · ') : ''}</div>` : ''}
+            <div class="item-tags-row">
+              ${!multiDeleteMode ? `
+                <div class="item-actions">
+                  <button class="item-delete-btn" onclick="deleteSingleItem(event, '${item.id}')" title="Löschen">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                      <rect x="4" y="6" width="16" height="14" rx="1"/>
+                      <path d="M7 6V5a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v1"/>
+                      <line x1="4" y1="6" x2="20" y2="6"/>
+                      <line x1="10" y1="10" x2="10" y2="16"/>
+                      <line x1="14" y1="10" x2="14" y2="16"/>
+                    </svg>
+                  </button>
+                  <button class="item-expand-btn" onclick="toggleExpandParagraph(event, '${item.id}', '${gaNumber}', '${item.paragraph_id || ''}', ${isHighlight ? 'true' : 'false'})" title="Vollständigen Absatz anzeigen"></button>
+                </div>
+              ` : ''}
+            </div>
+            <div id="full-paragraph-${item.id}" class="item-full-paragraph"></div>
+          </div>
+        `;
+      }).join('');
+      
+      // Add click listeners für Item-Cards
+      container.querySelectorAll('.item-card').forEach(card => {
+        card.addEventListener('click', (e) => {
+          if (e.target.type === 'checkbox' || e.target.closest('.item-header a') || e.target.closest('.clickable-tag')) return;
+          const itemId = card.dataset.id;
+          selectItem(itemId);
+        });
+      });
+    }
+
+    function selectItem(itemId) {
+      selectedItemId = itemId;
+      const item = currentItems.find(i => i.id === itemId);
+      
+      if (item) {
+        document.querySelectorAll('.item-card').forEach(card => {
+          card.classList.remove('selected');
+        });
+        document.querySelector(`[data-id="${itemId}"]`).classList.add('selected');
+        
+        // Show notes
+        const textarea = document.getElementById('notes-textarea');
+        const empty = document.getElementById('notes-empty');
+        const downloadBtn = document.getElementById('download-word-btn');
+        textarea.style.display = 'block';
+        empty.style.display = 'none';
+        textarea.value = item.note || (item.personal_note || '');
+        downloadBtn.disabled = !textarea.value.trim();
+        
+        // Save on blur
+        textarea.onblur = () => saveNotes(itemId);
+        
+        // Enable/disable download button on input
+        textarea.oninput = () => {
+          downloadBtn.disabled = !textarea.value.trim();
+        };
+      }
+    }
+
+    function clearNotes() {
+      const textarea = document.getElementById('notes-textarea');
+      const empty = document.getElementById('notes-empty');
+      const downloadBtn = document.getElementById('download-word-btn');
+      textarea.style.display = 'none';
+      empty.style.display = 'block';
+      textarea.value = '';
+      downloadBtn.disabled = true;
+    }
+    
+    // ===== Download Notes as Word =====
+    function downloadNotesAsWord() {
+      const textarea = document.getElementById('notes-textarea');
+      const content = textarea.value;
+      
+      if (!content.trim()) {
+        return;
+      }
+      
+      // Get current item info for filename
+      const item = currentItems.find(i => i.id === selectedItemId);
+      const gaNumber = item ? item.ga_reference : 'Notizen';
+      const date = new Date().toLocaleDateString('de-DE').replace(/\./g, '-');
+      const filename = `Notizen_${gaNumber}_${date}.doc`;
+      
+      // Create Word document content
+      // Word can read HTML format, so we create a simple HTML document
+      const htmlContent = `
+        <html xmlns:o="urn:schemas-microsoft-com:office:office"
+              xmlns:w="urn:schemas-microsoft-com:office:word"
+              xmlns="http://www.w3.org/TR/REC-html40">
+        <head>
+          <meta charset="utf-8">
+          <title>Notizen</title>
+          <!--[if gte mso 9]>
+          <xml>
+            <w:WordDocument>
+              <w:View>Print</w:View>
+              <w:Zoom>90</w:Zoom>
+              <w:DoNotOptimizeForBrowser/>
+            </w:WordDocument>
+          </xml>
+          <![endif]-->
+          <style>
+            body {
+              font-family: Georgia, 'Times New Roman', serif;
+              font-size: 12pt;
+              line-height: 1.6;
+              color: #333;
+              margin: 1in;
+            }
+            p {
+              margin: 0.5em 0;
+              white-space: pre-wrap;
+            }
+          </style>
+        </head>
+        <body>
+          <h2>Notizen zu ${gaNumber}</h2>
+          ${content.split('\n').map(line => {
+            const escaped = line.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+            return `<p>${escaped || '&nbsp;'}</p>`;
+          }).join('')}
+        </body>
+        </html>
+      `;
+      
+      // Create blob and download
+      const blob = new Blob(['\ufeff', htmlContent], {
+        type: 'application/msword'
+      });
+      
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = filename;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+    }
+    window.downloadNotesAsWord = downloadNotesAsWord;
+
+    async function saveNotes(itemId) {
+      const note = document.getElementById('notes-textarea').value;
+      const item = currentItems.find(i => i.id === itemId);
+      
+      if (!item) return;
+      
+      const updates = { personal_note: note };
+      
+      await updateQuote(itemId, updates);
+      
+      // Update local data
+      item.note = note;
+      item.personal_note = note;
+    }
+    
+    // ===== Marker Color =====
+    function toggleMarkerMenu(event, itemId) {
+      console.log('[DEBUG] toggleMarkerMenu aufgerufen:', { itemId });
+      event.stopPropagation();
+      
+      // Close all other menus
+      document.querySelectorAll('.item-marker-menu').forEach(menu => {
+        if (menu.id !== `marker-menu-${itemId}`) {
+          menu.style.display = 'none';
+        }
+      });
+      
+      // Toggle current menu
+      const menu = document.getElementById(`marker-menu-${itemId}`);
+      console.log('[DEBUG] menu gefunden?', !!menu, 'menu-id:', `marker-menu-${itemId}`);
+      if (menu) {
+        const newDisplay = menu.style.display === 'none' ? 'flex' : 'none';
+        console.log('[DEBUG] menu display setzen auf:', newDisplay);
+        menu.style.display = newDisplay;
+      }
+    }
+    
+    // Close menus when clicking outside
+    document.addEventListener('click', (e) => {
+      if (!e.target.closest('.item-marker-dot') && !e.target.closest('.item-marker-menu')) {
+        document.querySelectorAll('.item-marker-menu').forEach(menu => {
+          menu.style.display = 'none';
+        });
+      }
+    });
+    
+    async function updateMarkerColor(itemId, color) {
+      const item = currentItems.find(i => i.id === itemId);
+      if (!item) return;
+      
+      // Validate color - only allow 'blue', 'red', 'yellow', or null
+      let validColor = null;
+      if (color && (color === 'blue' || color === 'red' || color === 'yellow')) {
+        validColor = color;
+      }
+      
+      const updates = { marker_color: validColor };
+      
+      try {
+        let result;
+        result = await updateQuote(itemId, updates);
+        
+        if (!result.success) {
+          console.error('Fehler beim Aktualisieren der Marker-Farbe:', result.error);
+          alert('Fehler beim Speichern der Markierung. Bitte versuchen Sie es erneut.');
+          return;
+        }
+        
+        // Update local data only if update was successful
+        item.marker_color = validColor;
+        
+        // Update visual appearance
+        const dot = document.querySelector(`.item-marker-dot[data-id="${itemId}"]`);
+        if (dot) {
+          dot.className = `item-marker-dot ${validColor || ''}`;
+          dot.setAttribute('data-marker-color', validColor || '');
+        }
+      } catch (error) {
+        console.error('Fehler beim Aktualisieren der Marker-Farbe:', error);
+        alert('Fehler beim Speichern der Markierung. Bitte versuchen Sie es erneut.');
+        return;
+      }
+      
+      // Close menu
+      const menu = document.getElementById(`marker-menu-${itemId}`);
+      if (menu) {
+        menu.style.display = 'none';
+      }
+    }
+    window.updateMarkerColor = updateMarkerColor;
+    window.toggleMarkerMenu = toggleMarkerMenu;
+    
+    // Update marker color für gefilterte Ansichten (mit Item-Typ)
+    async function updateMarkerColorFiltered(itemId, color, itemType) {
+      console.log('[DEBUG] updateMarkerColorFiltered aufgerufen:', { itemId, color, itemType });
+      
+      // Validate color - only allow 'blue', 'red', 'yellow', or null
+      let validColor = null;
+      if (color && (color === 'blue' || color === 'red' || color === 'yellow')) {
+        validColor = color;
+      }
+      console.log('[DEBUG] validColor:', validColor);
+      
+      try {
+        let result;
+        if (itemType === 'highlight') {
+          console.log('[DEBUG] Updating highlight mit updateHighlight()');
+          // Für Highlights: Farbe im 'color' Feld speichern
+          result = await updateHighlight(itemId, { color: validColor });
+          console.log('[DEBUG] updateHighlight result:', result);
+        } else if (itemType === 'note') {
+          console.log('[DEBUG] Updating note mit supabase direkt');
+          // Für Notes: Direkte Supabase-Abfrage für marker_color
+          console.log('[DEBUG] supabase verfügbar?', !!supabase);
+          const { data, error } = await supabase
+            .from('notes')
+            .update({ marker_color: validColor })
+            .eq('id', itemId)
+            .select()
+            .single();
+          
+          console.log('[DEBUG] supabase result:', { data, error });
+          result = error ? { success: false, error: error.message } : { success: true, data };
+        } else {
+          console.log('[DEBUG] Updating quote mit updateQuote()');
+          // Für Quotes: marker_color
+          result = await updateQuote(itemId, { marker_color: validColor });
+          console.log('[DEBUG] updateQuote result:', result);
+        }
+        
+        console.log('[DEBUG] Final result:', result);
+        
+        if (!result.success) {
+          console.error('[DEBUG] Fehler beim Aktualisieren der Marker-Farbe:', result.error);
+          alert('Fehler beim Speichern der Markierung. Bitte versuchen Sie es erneut.');
+          return;
+        }
+        
+        // Update visual appearance - dot
+        const dot = document.querySelector(`.item-marker-dot[data-id="${itemId}"]`);
+        console.log('[DEBUG] dot element found?', !!dot);
+        if (dot) {
+          dot.className = `item-marker-dot ${validColor || ''}`;
+          dot.setAttribute('data-marker-color', validColor || '');
+        }
+        
+        // Update visual appearance - icon
+        const iconHeader = document.querySelector(`[data-id="${itemId}"] .quote-bookmark-icon-header, [data-id="${itemId}"] .highlight-icon-header, [data-id="${itemId}"] .note-icon-header`);
+        console.log('[DEBUG] iconHeader found?', !!iconHeader);
+        if (iconHeader && validColor) {
+          iconHeader.style.color = getHighlightColor(validColor);
+        }
+        
+        console.log('[DEBUG] Update erfolgreich abgeschlossen');
+        
+      } catch (error) {
+        console.error('[DEBUG] Catch-Block Fehler:', error);
+        alert('Fehler beim Speichern der Markierung. Bitte versuchen Sie es erneut.');
+        return;
+      }
+      
+      // Close menu
+      const menu = document.getElementById(`marker-menu-${itemId}`);
+      console.log('[DEBUG] menu found?', !!menu);
+      if (menu) {
+        menu.style.display = 'none';
+      }
+    }
+    window.updateMarkerColorFiltered = updateMarkerColorFiltered;
+    
+    // ===== Expand Paragraph =====
+    // API-Base-URL konfigurieren
+    const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+    const API_BASE = isLocal
+      ? 'http://localhost:3003'
+      : 'https://ga-suche.onrender.com';
+    
+    function escapeHtml(text) {
+      return String(text)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;');
+    }
+
+    function getSavedExcerptFromItem(item, isHighlight) {
+      if (!item) return { excerpt: '', startOffset: null, endOffset: null };
+      if (isHighlight) {
+        const startOffset = item.text_start_offset ?? null;
+        const endOffset = item.text_end_offset ?? null;
+        const excerpt = item.quote_text || (item.paragraph_text
+          ? item.paragraph_text.substring(startOffset || 0, endOffset ?? item.paragraph_text.length)
+          : '');
+        return { excerpt, startOffset, endOffset };
+      }
+      return { excerpt: item.quote_text || '', startOffset: null, endOffset: null };
+    }
+
+    function renderParagraphWithExcerptHighlight(fullText, item, isHighlight) {
+      if (!fullText) return '';
+      const { excerpt, startOffset, endOffset } = getSavedExcerptFromItem(item, isHighlight);
+      const mark = (text) => `<span class="viewer-search-highlight">${escapeHtml(text)}</span>`;
+      const looksLikeHtml = /<[a-z][\s\S]*>/i.test(fullText);
+
+      if (isHighlight && item?.paragraph_text && fullText === item.paragraph_text
+          && startOffset != null && endOffset != null
+          && startOffset >= 0 && endOffset <= fullText.length && startOffset < endOffset) {
+        return escapeHtml(fullText.slice(0, startOffset))
+          + mark(fullText.slice(startOffset, endOffset))
+          + escapeHtml(fullText.slice(endOffset));
+      }
+
+      const plainExcerpt = (excerpt || '').trim();
+      if (!plainExcerpt) {
+        return looksLikeHtml ? fullText : escapeHtml(fullText);
+      }
+
+      const idx = fullText.indexOf(plainExcerpt);
+      if (idx !== -1) {
+        if (looksLikeHtml) {
+          return fullText.slice(0, idx) + mark(plainExcerpt) + fullText.slice(idx + plainExcerpt.length);
+        }
+        return escapeHtml(fullText.slice(0, idx)) + mark(plainExcerpt) + escapeHtml(fullText.slice(idx + plainExcerpt.length));
+      }
+
+      const prefix = plainExcerpt.slice(0, Math.min(80, plainExcerpt.length));
+      const idx2 = fullText.indexOf(prefix);
+      if (idx2 !== -1) {
+        const end = Math.min(idx2 + plainExcerpt.length, fullText.length);
+        const matched = fullText.slice(idx2, end);
+        if (looksLikeHtml) {
+          return fullText.slice(0, idx2) + mark(matched) + fullText.slice(end);
+        }
+        return escapeHtml(fullText.slice(0, idx2)) + mark(matched) + escapeHtml(fullText.slice(end));
+      }
+
+      return looksLikeHtml ? fullText : escapeHtml(fullText);
+    }
+
+    async function toggleExpandParagraph(event, itemId, gaReference, paragraphId, isHighlight = false) {
+      event.stopPropagation();
+      
+      const fullParagraphDiv = document.getElementById(`full-paragraph-${itemId}`);
+      const expandBtn = event.target.closest('.item-expand-btn');
+      
+      if (!fullParagraphDiv || !expandBtn) return;
+      
+      // Wenn bereits aufgeklappt, zuklappen
+      if (fullParagraphDiv.classList.contains('show')) {
+        fullParagraphDiv.classList.remove('show');
+        expandBtn.classList.remove('expanded');
+        return;
+      }
+      
+      // Wenn bereits geladen, nur anzeigen
+      if (fullParagraphDiv.dataset.loaded === 'true') {
+        fullParagraphDiv.classList.add('show');
+        expandBtn.classList.add('expanded');
+        return;
+      }
+      
+      // Lade vollständigen Absatz
+      try {
+        fullParagraphDiv.innerHTML = '<span style="color: var(--secondary-text); font-style: italic;">Lade...</span>';
+        fullParagraphDiv.classList.add('show');
+        expandBtn.classList.add('expanded');
+        
+        let fullText = '';
+        
+        // Für Highlights: Versuche zuerst paragraph_text zu verwenden
+        if (isHighlight) {
+          const item = currentItems.find(i => i.id === itemId);
+          if (item && item.paragraph_text) {
+            fullText = item.paragraph_text;
+          }
+        }
+        
+        // Falls kein paragraph_text vorhanden oder für Quotes: Lade über API
+        if (!fullText && gaReference) {
+          const parts = gaReference.split('/');
+          if (parts.length === 2) {
+            const gaNumber = parts[0];
+            const lectureNum = parts[1];
+            
+            // Lade vollständigen Vortrag
+            const response = await fetch(`${API_BASE}/api/full-lecture/${encodeURIComponent(gaNumber)}/${encodeURIComponent(lectureNum)}`);
+            if (!response.ok) throw new Error('Vortrag nicht gefunden');
+            
+            const data = await response.json();
+            const lecture = data.lecture;
+            
+            if (lecture && lecture.paragraphs) {
+              const item = currentItems.find(i => i.id === itemId);
+              
+              if (isHighlight) {
+                // Für Highlights: Suche nach Absatz mit paragraph_id oder nach Text
+                const searchText = item ? (item.quote_text || (item.paragraph_text ? item.paragraph_text.substring(item.text_start_offset || 0, item.text_end_offset || item.paragraph_text.length) : '')) : '';
+                
+                let matchingParagraph = null;
+                if (paragraphId) {
+                  matchingParagraph = lecture.paragraphs.find(p => p.id === paragraphId);
+                }
+                
+                if (!matchingParagraph && searchText) {
+                  matchingParagraph = lecture.paragraphs.find(p => 
+                    p.content && p.content.includes(searchText.substring(0, 50))
+                  );
+                }
+                
+                if (matchingParagraph && matchingParagraph.content) {
+                  fullText = matchingParagraph.content;
+                } else if (lecture.paragraphs.length > 0) {
+                  // Fallback: Erster Absatz
+                  fullText = lecture.paragraphs[0].content || '';
+                }
+              } else {
+                // Für Quotes: Suche nach dem Absatz, der das Zitat enthält
+                const quoteText = item ? item.quote_text : '';
+                
+                const matchingParagraph = lecture.paragraphs.find(p => 
+                  p.content && p.content.includes(quoteText.substring(0, 50))
+                );
+                
+                if (matchingParagraph && matchingParagraph.content) {
+                  fullText = matchingParagraph.content;
+                } else if (lecture.paragraphs.length > 0) {
+                  // Fallback: Erster Absatz
+                  fullText = lecture.paragraphs[0].content || '';
+                }
+              }
+            }
+          }
+        }
+        
+        if (fullText) {
+          const item = currentItems.find(i => i.id === itemId);
+          const highlightedHtml = renderParagraphWithExcerptHighlight(fullText, item, isHighlight);
+
+          // Speichere Metadaten als Daten-Attribute für Context-Menü
+          fullParagraphDiv.setAttribute('data-ga-reference', gaReference || '');
+          fullParagraphDiv.setAttribute('data-paragraph-id', paragraphId || '');
+          fullParagraphDiv.setAttribute('data-item-id', itemId || '');
+          fullParagraphDiv.setAttribute('data-is-highlight', isHighlight ? 'true' : 'false');
+          
+          fullParagraphDiv.innerHTML = `<div class="full-paragraph-text" style="white-space: pre-wrap;" data-ga-reference="${gaReference || ''}" data-paragraph-id="${paragraphId || ''}">${highlightedHtml}</div>`;
+          fullParagraphDiv.dataset.loaded = 'true';
+        } else {
+          fullParagraphDiv.innerHTML = '<span style="color: var(--error-color);">Vollständiger Absatz nicht gefunden</span>';
+        }
+      } catch (error) {
+        console.error('Fehler beim Laden des vollständigen Absatzes:', error);
+        fullParagraphDiv.innerHTML = `<span style="color: var(--error-color);">Fehler: ${error.message}</span>`;
+        fullParagraphDiv.classList.remove('show');
+        expandBtn.classList.remove('expanded');
+      }
+    }
+    window.toggleExpandParagraph = toggleExpandParagraph;
+    
+    // ===== Sort Functions =====
+    function toggleSortOrder() {
+      sortOrder = sortOrder === 'asc' ? 'desc' : 'asc';
+      // Reload items with new sort order
+      loadItems();
+    }
+    window.toggleSortOrder = toggleSortOrder;
+
+    // ===== Drag and Drop =====
+    function setupDragAndDrop() {
+      let draggedElement = null;
+      
+      document.addEventListener('dragstart', (e) => {
+        if (e.target.classList.contains('item-card')) {
+          draggedElement = e.target;
+          e.target.classList.add('dragging');
+          e.dataTransfer.effectAllowed = 'move';
+        }
+      });
+      
+      document.addEventListener('dragend', (e) => {
+        if (e.target.classList.contains('item-card')) {
+          e.target.classList.remove('dragging');
+          draggedElement = null;
+        }
+      });
+      
+      document.addEventListener('dragover', (e) => {
+        if (draggedElement) {
+          e.preventDefault();
+          e.dataTransfer.dropEffect = 'move';
+          
+          const afterElement = getDragAfterElement(e.target.closest('.items-list'), e.clientY);
+          const list = e.target.closest('.items-list');
+          
+          if (afterElement == null) {
+            list.appendChild(draggedElement);
+          } else {
+            list.insertBefore(draggedElement, afterElement);
+          }
+        }
+      });
+      
+      document.addEventListener('drop', async (e) => {
+        e.preventDefault();
+        if (draggedElement) {
+          // Update order in database
+          await updateItemOrder();
+          draggedElement = null;
+        }
+      });
+    }
+    
+    function getDragAfterElement(container, y) {
+      const draggableElements = [...container.querySelectorAll('.item-card:not(.dragging)')];
+      
+      return draggableElements.reduce((closest, child) => {
+        const box = child.getBoundingClientRect();
+        const offset = y - box.top - box.height / 2;
+        
+        if (offset < 0 && offset > closest.offset) {
+          return { offset: offset, element: child };
+        } else {
+          return closest;
+        }
+      }, { offset: Number.NEGATIVE_INFINITY }).element;
+    }
+    
+    async function updateItemOrder() {
+      const container = document.getElementById('items-list');
+      const items = container.querySelectorAll('.item-card');
+      const newOrder = Array.from(items).map((card) => card.dataset.id);
+      
+      // Check if order actually changed
+      const currentOrder = currentItems.map(item => item.id);
+      const orderChanged = JSON.stringify(currentOrder) !== JSON.stringify(newOrder);
+      
+      if (!orderChanged) {
+        return; // No change, nothing to do
+      }
+      
+      // Update local array order
+      const itemsMap = new Map(currentItems.map(item => [item.id, item]));
+      currentItems = newOrder.map(id => itemsMap.get(id)).filter(Boolean);
+      
+      // Save order to localStorage
+      saveOrder(newOrder);
+      
+      // Set sort mode to 'saved' when manually reordering
+      // Update visual order without reloading
+      renderItems();
+    }
+
+    // ===== Navigation =====
+    // Back-Button Funktion
+    function setupBackButton() {
+      const backButton = document.getElementById('back-to-app-btn');
+      if (!backButton) return;
+      
+      // Zeige Button nur wenn window.opener vorhanden ist
+      if (window.opener && !window.opener.closed) {
+        backButton.style.display = 'flex';
+        backButton.addEventListener('click', () => {
+          try {
+            // Versuche das opener-Fenster zu fokussieren
+            if (window.opener && !window.opener.closed) {
+              window.opener.focus();
+              // Schließe dieses Fenster
+              window.close();
+            }
+          } catch (err) {
+            console.warn('[BACK-BUTTON] Fehler beim Zurückkehren:', err);
+            // Falls window.close() nicht funktioniert, versuche trotzdem zu fokussieren
+            try {
+              window.opener.focus();
+            } catch (e) {
+              console.error('[BACK-BUTTON] Konnte Fenster nicht fokussieren:', e);
+            }
+          }
+        });
+      } else {
+        backButton.style.display = 'none';
+      }
+    }
+    
+    // ===== Navigation zu Textstellen (wie Side-Panel in app.html) =====
+    function setOpenerNavFlags(openerWindow) {
+      if (!openerWindow) return;
+      openerWindow.membersNavigating = true;
+      openerWindow.membersPanelActive = true;
+      openerWindow._membersNavLock = true;
+    }
+
+    function focusOpenerAfterNav() {
+      setTimeout(() => {
+        try {
+          if (window.opener && !window.opener.closed) {
+            window.opener.focus();
+            window.close();
+          }
+        } catch (err) {
+          console.warn('[MEMBERS-NAV] Fensterwechsel fehlgeschlagen:', err);
+        }
+      }, 500);
+    }
+
+    async function navigateToMemberItem(type, itemId) {
+      if (!itemId) return;
+
+      const navFunctions = {
+        quote: 'navigateToQuoteById',
+        highlight: 'navigateToHighlightById',
+        note: 'navigateToNoteById'
+      };
+      const urlParams = {
+        quote: 'memberQuote',
+        highlight: 'memberHighlight',
+        note: 'memberNote'
+      };
+
+      const fnName = navFunctions[type];
+      const urlKey = urlParams[type];
+      if (!fnName || !urlKey) return;
+
+      saveMembersScrollPosition();
+
+      if (window.opener && !window.opener.closed) {
+        const openerWindow = window.opener;
+        setOpenerNavFlags(openerWindow);
+        try {
+          openerWindow.focus();
+        } catch (err) {
+          console.warn('[MEMBERS-NAV] Konnte opener-Fenster nicht fokussieren:', err);
+        }
+
+        if (typeof openerWindow[fnName] === 'function') {
+          await openerWindow[fnName](itemId);
+          focusOpenerAfterNav();
+          return;
+        }
+
+        console.warn('[MEMBERS-NAV]', fnName, 'im opener nicht verfügbar, Fallback auf URL-Navigation');
+      }
+
+      window.location.href = window.appHref(urlKey + '=' + encodeURIComponent(itemId));
+    }
+
+    async function navigateToQuoteById(quoteId) {
+      await navigateToMemberItem('quote', quoteId);
+    }
+
+    async function navigateToHighlightById(highlightId) {
+      await navigateToMemberItem('highlight', highlightId);
+    }
+
+    async function navigateToNoteById(noteId) {
+      await navigateToMemberItem('note', noteId);
+    }
+
+    window.navigateToQuoteById = navigateToQuoteById;
+    window.navigateToHighlightById = navigateToHighlightById;
+    window.navigateToNoteById = navigateToNoteById;
+
+    function saveMembersScrollPosition() {
+      try {
+        // Wenn wir in einem neuen Fenster sind, rufe die Funktion im opener-Fenster auf
+        if (window.opener && !window.opener.closed && typeof window.opener.saveMembersScrollPosition === 'function') {
+          window.opener.saveMembersScrollPosition();
+        }
+        // Falls direkt geöffnet, gibt es nichts zu speichern
+      } catch (err) {
+        console.warn('[MEMBERS-NAV] Fehler beim Speichern der Scroll-Position:', err);
+        // Ignoriere Fehler - nicht kritisch
+      }
+    }
+    window.saveMembersScrollPosition = saveMembersScrollPosition;
+
+    function navigateToLectureFromMembersPanel(gaNumber, paragraphId = null, textStartOffset = null, textEndOffset = null, shouldHighlightParagraph = false) {
+      // Sicherstellen, dass die Funktion wirklich aufgerufen wird
+      if (!gaNumber) {
+        console.error('[MEMBERS-NAV] FEHLER: Keine GA-Nummer übergeben!');
+        return;
+      }
+      
+      // Prüfe ob wir in einem neuen Fenster sind (von app.html geöffnet)
+      if (window.opener && !window.opener.closed) {
+        // Springe zurück zum ursprünglichen Fenster
+        const openerWindow = window.opener;
+        
+        // Prüfe ob navigateToLectureFromMembersPanel im opener-Fenster verfügbar ist
+        // (das ist die Funktion aus members-panel.js, die die richtige Markierung macht)
+        if (typeof openerWindow.navigateToLectureFromMembersPanel === 'function') {
+          // Verwende die Funktion aus dem opener-Fenster - die macht die richtige Markierung
+          openerWindow.navigateToLectureFromMembersPanel(
+            gaNumber, 
+            paragraphId, 
+            textStartOffset, 
+            textEndOffset, 
+            shouldHighlightParagraph
+          );
+          return;
+        }
+        
+        // Fallback: Verwende showLecture direkt
+        // Fokussiere das ursprüngliche Fenster - mehrfach versuchen
+        try {
+          openerWindow.focus();
+          if (openerWindow.postMessage) {
+            openerWindow.postMessage({ type: 'focus', source: 'members-panel' }, '*');
+          }
+          if (openerWindow.window && openerWindow.window.focus) {
+            openerWindow.window.focus();
+          }
+          window.blur();
+          openerWindow.focus();
+          setTimeout(() => {
+            try {
+              openerWindow.focus();
+            } catch (e) {
+              console.warn('[MEMBERS-NAV] Fokus-Retry fehlgeschlagen:', e);
+            }
+          }, 100);
+        } catch (err) {
+          console.warn('[MEMBERS-NAV] Konnte Fenster nicht fokussieren:', err);
+        }
+        
+        // Prüfe ob showLecture verfügbar ist
+        const hasShowLecture = typeof openerWindow.showLecture === 'function';
+        
+        // Navigiere im ursprünglichen Fenster zum Vortrag
+        if (hasShowLecture) {
+          try {
+            const result = openerWindow.showLecture(gaNumber, paragraphId || null, []);
+            
+            if (result && typeof result.then === 'function') {
+              result.then(() => {
+                // Für Zitate: Markiere nur den Text (nicht den ganzen Absatz)
+                if (paragraphId && shouldHighlightParagraph && textStartOffset !== null && textEndOffset !== null) {
+                  setTimeout(() => {
+                    const cleanIndex = paragraphId.toString().replace(/^para-/, '').replace(/^\^/, '');
+                    let paraElement = openerWindow.document.getElementById(`para-${cleanIndex}`);
+                    
+                    // Für Bücher: Falls paraElement ein verstecktes span ist, finde das Parent-Element
+                    if (paraElement && (paraElement.style.display === 'none' || paraElement.tagName.toLowerCase() === 'span')) {
+                      let parent = paraElement.parentElement;
+                      while (parent && parent !== openerWindow.document.body) {
+                        const tagName = parent.tagName.toLowerCase();
+                        if (['p', 'div', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'li', 'blockquote'].includes(tagName)) {
+                          paraElement = parent;
+                          break;
+                        }
+                        parent = parent.parentElement;
+                      }
+                    }
+                    
+                    if (paraElement && typeof openerWindow.applyQuoteHighlightToElement === 'function') {
+                      // Finde das Zitat basierend auf paragraph_id und offsets
+                      // Versuche aus cachedQuotesData zu holen
+                      if (openerWindow.cachedQuotesData && openerWindow.cachedQuotesData.success && openerWindow.cachedQuotesData.data) {
+                        const quote = openerWindow.cachedQuotesData.data.find(q => 
+                          q.ga_reference === gaNumber && 
+                          q.paragraph_id === paragraphId &&
+                          q.text_start_offset === textStartOffset &&
+                          q.text_end_offset === textEndOffset
+                        );
+                        
+                        if (quote) {
+                          openerWindow.applyQuoteHighlightToElement(paraElement, quote);
+                        }
+                      }
+                    }
+                  }, 200);
+                }
+                
+                // Scrolle zum Absatz
+                if (paragraphId) {
+                  setTimeout(() => {
+                    try {
+                      openerWindow.focus();
+                    } catch (e) {
+                      console.warn('[MEMBERS-NAV] Konnte Fenster nach Laden nicht fokussieren:', e);
+                    }
+                    
+                    setTimeout(() => {
+                      if (typeof openerWindow.scrollToIndexInViewer === 'function') {
+                        openerWindow.scrollToIndexInViewer(paragraphId);
+                      } else {
+                        const cleanIndex = paragraphId.replace(/^\^/, '');
+                        const paraElement = openerWindow.document.getElementById(`para-${cleanIndex}`);
+                        if (paraElement) {
+                          const mainContainer = openerWindow.document.getElementById('main');
+                          if (mainContainer) {
+                            const header = openerWindow.document.getElementById('viewer-header');
+                            const headerHeight = header ? header.offsetHeight + 5 : 5;
+                            const mainRect = mainContainer.getBoundingClientRect();
+                            const paraRect = paraElement.getBoundingClientRect();
+                            const relativeTop = paraRect.top - mainRect.top + mainContainer.scrollTop - headerHeight;
+                            mainContainer.scrollTop = Math.max(0, relativeTop);
+                          } else {
+                            paraElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                          }
+                        }
+                      }
+                    }, 100);
+                  }, 1000);
+                }
+              }).catch(err => {
+                console.error('[MEMBERS-NAV] Fehler in showLecture Promise:', err);
+              });
+            }
+          } catch (err) {
+            console.error('[MEMBERS-NAV] Fehler beim Aufruf von showLecture:', err);
+            if (paragraphId) {
+              openerWindow.location.href = window.appHref('ga=' + encodeURIComponent(gaNumber) + '&index=' + encodeURIComponent(paragraphId));
+            } else {
+              openerWindow.location.href = window.appHref('ga=' + encodeURIComponent(gaNumber));
+            }
+          }
+        } else {
+          // Fallback: URL-basierte Navigation
+          if (paragraphId) {
+            openerWindow.location.href = window.appHref('ga=' + encodeURIComponent(gaNumber) + '&index=' + encodeURIComponent(paragraphId));
+          } else {
+            openerWindow.location.href = window.appHref('ga=' + encodeURIComponent(gaNumber));
+          }
+        }
+      } else {
+        // Normale Navigation (falls direkt geöffnet)
+        if (paragraphId) {
+          window.location.href = window.appHref('ga=' + encodeURIComponent(gaNumber) + '&index=' + encodeURIComponent(paragraphId));
+        } else {
+          window.location.href = window.appHref('ga=' + encodeURIComponent(gaNumber));
+        }
+      }
+    }
+    window.navigateToLectureFromMembersPanel = navigateToLectureFromMembersPanel;
+
+    // Alte Funktion für Rückwärtskompatibilität
+    function navigateToLecture(gaNumber, paragraphId) {
+      navigateToLectureFromMembersPanel(gaNumber, paragraphId);
+    }
+    window.navigateToLecture = navigateToLecture;
+
+    // ===== Keyword Filter =====
+    // Lädt alle Keywords aus Quotes und Highlights (unabhängig vom aktuellen Tab)
+    async function updateKeywordFilter() {
+      const select = document.getElementById('keyword-filter');
+      if (!select) return;
+      
+      // Prüfe ob API-Funktionen verfügbar sind
+      if (typeof getQuotes !== 'function' || typeof getHighlights !== 'function' || typeof getNotes !== 'function') {
+        console.warn('[MEMBERS-HTML] API-Funktionen für Keywords nicht verfügbar');
+        return;
+      }
+      
+      try {
+        // Lade Quotes, Highlights und Notizen parallel
+        const [quotesResult, highlightsResult, notesResult] = await Promise.all([
+          getQuotes(),
+          getHighlights(),
+          getNotes()
+        ]);
+        
+        // Sammle alle Keywords aus allen Quellen
+        const allKeywords = new Set();
+        
+        if (quotesResult.success && quotesResult.data) {
+          quotesResult.data.forEach(quote => {
+            if (quote.tags && Array.isArray(quote.tags)) {
+              quote.tags.forEach(tag => allKeywords.add(tag));
+            }
+          });
+        }
+        
+        if (highlightsResult.success && highlightsResult.data) {
+          highlightsResult.data.forEach(highlight => {
+            if (highlight.tags && Array.isArray(highlight.tags)) {
+              highlight.tags.forEach(tag => allKeywords.add(tag));
+            }
+          });
+        }
+
+        if (notesResult.success && notesResult.data) {
+          notesResult.data.forEach(note => {
+            if (note.tags && Array.isArray(note.tags)) {
+              note.tags.forEach(tag => allKeywords.add(tag));
+            }
+          });
+        }
+        
+        // Sortiere Keywords
+        const sortedKeywords = Array.from(allKeywords).sort((a, b) => a.localeCompare(b, 'de'));
+        
+        // Aktualisiere Dropdown
+        select.innerHTML = '<option value="">Schlagwörter</option>' +
+          sortedKeywords.map(kw => `<option value="${kw}">${kw}</option>`).join('');
+        
+        // Event-Listener nur einmal hinzufügen (nicht bei jedem Update)
+        // Entferne alte Listener falls vorhanden
+        const newSelect = select.cloneNode(true);
+        select.parentNode.replaceChild(newSelect, select);
+        
+        newSelect.addEventListener('change', (e) => {
+          const keyword = e.target.value;
+          // Setze Gruppen-Filter zurück
+          const groupSelect = document.getElementById('group-filter');
+          if (groupSelect) groupSelect.value = '';
+          filterByKeyword(keyword);
+        });
+      } catch (error) {
+        console.error('[MEMBERS-HTML] Fehler beim Laden der Keywords:', error);
+      }
+    }
+
+    function syncKeywordFilterSelect(keyword) {
+      const keywordSelect = document.getElementById('keyword-filter');
+      if (!keywordSelect) return;
+      if (!keyword) {
+        keywordSelect.value = '';
+        return;
+      }
+      const exists = Array.from(keywordSelect.options).some(option => option.value === keyword);
+      if (!exists) {
+        const option = document.createElement('option');
+        option.value = keyword;
+        option.textContent = keyword;
+        keywordSelect.appendChild(option);
+      }
+      keywordSelect.value = keyword;
+    }
+
+    function buildKeywordFilteredItems(keyword, quotesResult, highlightsResult, notesResult) {
+      const filteredQuotes = quotesResult.success && quotesResult.data
+        ? quotesResult.data.filter(quote =>
+            quote.tags && Array.isArray(quote.tags) && quote.tags.includes(keyword)
+          )
+        : [];
+
+      const filteredHighlights = highlightsResult.success && highlightsResult.data
+        ? highlightsResult.data.filter(highlight =>
+            highlight.tags && Array.isArray(highlight.tags) && highlight.tags.includes(keyword)
+          )
+        : [];
+
+      const filteredNotes = notesResult.success && notesResult.data
+        ? notesResult.data.filter(note =>
+            note.tags && Array.isArray(note.tags) && note.tags.includes(keyword)
+          )
+        : [];
+
+      return [
+        ...filteredQuotes.map(q => ({
+          ...q,
+          item_type: 'quote',
+          ga_reference: q.ga_reference || q.ga_number,
+          quote_text: q.quote_text || '',
+          tags: q.tags || [],
+          groups: q.groups || []
+        })),
+        ...filteredHighlights.map(h => ({
+          ...h,
+          item_type: 'highlight',
+          ga_reference: h.ga_number,
+          quote_text: h.paragraph_text ? h.paragraph_text.substring(
+            h.text_start_offset || 0,
+            h.text_end_offset || h.paragraph_text.length
+          ) : '',
+          tags: h.tags || [],
+          groups: h.groups || [],
+          color: h.color || 'blue'
+        })),
+        ...filteredNotes.map(note => ({
+          ...note,
+          item_type: 'note',
+          quote_text: note.content || '',
+          tags: note.tags || [],
+          groups: note.groups || []
+        }))
+      ].sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+    }
+
+    async function filterByKeyword(keyword) {
+      const groupSelect = document.getElementById('group-filter');
+      if (groupSelect) {
+        groupSelect.value = '';
+      }
+
+      syncKeywordFilterSelect(keyword || '');
+
+      if (!keyword) {
+        loadItems();
+        return;
+      }
+
+      const container = document.getElementById('items-list');
+      container.innerHTML = '<div class="empty-state">Lade gefilterte Items...</div>';
+
+      try {
+        const [quotesResult, highlightsResult, notesResult] = await Promise.all([
+          getQuotes(),
+          getHighlights(),
+          getNotes()
+        ]);
+
+        const allFilteredItems = buildKeywordFilteredItems(keyword, quotesResult, highlightsResult, notesResult);
+
+        if (allFilteredItems.length === 0) {
+          currentItems = [];
+          container.innerHTML = `<div class="empty-state">Keine Einträge mit Schlagwort "${keyword}" gefunden</div>`;
+          return;
+        }
+
+        currentItems = allFilteredItems;
+        selectedItemId = null;
+        renderItems();
+      } catch (error) {
+        console.error('[MEMBERS-HTML] Fehler beim Filtern nach Keyword:', error);
+        container.innerHTML = '<div class="empty-state">Fehler beim Laden der gefilterten Items</div>';
+      }
+    }
+
+    // ===== Group Filter =====
+    // Lädt alle Gruppen aus Quotes, Highlights und Notes
+    async function updateGroupFilter() {
+      const select = document.getElementById('group-filter');
+      if (!select) return;
+      
+      // Prüfe ob API-Funktionen verfügbar sind
+      if (typeof getQuotes !== 'function' || typeof getHighlights !== 'function' || typeof getNotes !== 'function') {
+        console.warn('[MEMBERS-HTML] API-Funktionen für Gruppen nicht verfügbar');
+        return;
+      }
+      
+      try {
+        // Lade alle drei Quellen parallel
+        const [quotesResult, highlightsResult, notesResult] = await Promise.all([
+          getQuotes(),
+          getHighlights(),
+          getNotes()
+        ]);
+        
+        // Sammle alle Gruppen aus allen Quellen
+        const allGroups = new Set();
+        
+        if (quotesResult.success && quotesResult.data) {
+          quotesResult.data.forEach(quote => {
+            if (quote.groups && Array.isArray(quote.groups)) {
+              quote.groups.forEach(group => allGroups.add(group));
+            }
+          });
+        }
+        
+        if (highlightsResult.success && highlightsResult.data) {
+          highlightsResult.data.forEach(highlight => {
+            if (highlight.groups && Array.isArray(highlight.groups)) {
+              highlight.groups.forEach(group => allGroups.add(group));
+            }
+          });
+        }
+        
+        if (notesResult.success && notesResult.data) {
+          notesResult.data.forEach(note => {
+            if (note.groups && Array.isArray(note.groups)) {
+              note.groups.forEach(group => allGroups.add(group));
+            }
+          });
+        }
+        
+        // Sortiere Gruppen
+        const sortedGroups = Array.from(allGroups).sort((a, b) => a.localeCompare(b, 'de'));
+        
+        // Aktualisiere Dropdown
+        select.innerHTML = '<option value="">Gruppen</option>' +
+          sortedGroups.map(g => `<option value="${g}">${g.toUpperCase()}</option>`).join('');
+        
+        // Event-Listener nur einmal hinzufügen (nicht bei jedem Update)
+        // Entferne alte Listener falls vorhanden
+        const newSelect = select.cloneNode(true);
+        select.parentNode.replaceChild(newSelect, select);
+        
+        newSelect.addEventListener('change', (e) => {
+          const group = e.target.value;
+          // Setze Keyword-Filter zurück
+          const keywordSelect = document.getElementById('keyword-filter');
+          if (keywordSelect) keywordSelect.value = '';
+          filterByGroup(group);
+        });
+      } catch (error) {
+        console.error('[MEMBERS-HTML] Fehler beim Laden der Gruppen:', error);
+      }
+    }
+
+    async function filterByGroup(group) {
+      // Setze Schlagwörter-Dropdown zurück
+      const keywordSelect = document.getElementById('keyword-filter');
+      if (keywordSelect) {
+        keywordSelect.value = '';
+      }
+      
+      // Setze Gruppen-Dropdown auf den ausgewählten Wert
+      const groupSelect = document.getElementById('group-filter');
+      if (groupSelect && group) {
+        groupSelect.value = group;
+      }
+      
+      if (!group) {
+        loadItems();
+        return;
+      }
+      
+      const container = document.getElementById('items-list');
+      container.innerHTML = '<div class="empty-state">Lade gefilterte Items...</div>';
+      
+      try {
+        // Lade alle drei Quellen parallel
+        const [quotesResult, highlightsResult, notesResult] = await Promise.all([
+          getQuotes(),
+          getHighlights(),
+          getNotes()
+        ]);
+        
+        // Filtere Items mit der Gruppe aus allen Quellen
+        const filteredQuotes = quotesResult.success && quotesResult.data
+          ? quotesResult.data.filter(quote => 
+              quote.groups && Array.isArray(quote.groups) && quote.groups.includes(group)
+            )
+          : [];
+        
+        const filteredHighlights = highlightsResult.success && highlightsResult.data
+          ? highlightsResult.data.filter(highlight => 
+              highlight.groups && Array.isArray(highlight.groups) && highlight.groups.includes(group)
+            )
+          : [];
+        
+        const filteredNotes = notesResult.success && notesResult.data
+          ? notesResult.data.filter(note => 
+              note.groups && Array.isArray(note.groups) && note.groups.includes(group)
+            )
+          : [];
+        
+        // Kombiniere alle gefilterten Items
+        const allFilteredItems = [
+          ...filteredQuotes.map(q => ({
+            ...q,
+            item_type: 'quote',
+            ga_reference: q.ga_reference || q.ga_number,
+            quote_text: q.quote_text || '',
+            tags: q.tags || [],
+            groups: q.groups || []
+          })),
+          ...filteredHighlights.map(h => ({
+            ...h,
+            item_type: 'highlight',
+            ga_reference: h.ga_number,
+            quote_text: h.paragraph_text ? h.paragraph_text.substring(
+              h.text_start_offset || 0,
+              h.text_end_offset || h.paragraph_text.length
+            ) : '',
+            tags: h.tags || [],
+            groups: h.groups || [],
+            color: h.color || 'blue'
+          })),
+          ...filteredNotes.map(note => ({
+            ...note,
+            item_type: 'note',
+            ga_reference: note.ga_references && note.ga_references.length > 0 ? note.ga_references[0] : null,
+            quote_text: note.content || '',
+            tags: note.tags || [],
+            groups: note.groups || []
+          }))
+        ];
+        
+        // Sortiere nach Erstellungsdatum (neueste zuerst)
+        allFilteredItems.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+        
+        if (allFilteredItems.length === 0) {
+          currentItems = [];
+          container.innerHTML = `<div class="empty-state">Keine Einträge mit Gruppe "${group.toUpperCase()}" gefunden</div>`;
+          return;
+        }
+
+        currentItems = allFilteredItems;
+        selectedItemId = null;
+        renderItems();
+      } catch (error) {
+        console.error('[MEMBERS-HTML] Fehler beim Filtern nach Gruppe:', error);
+        container.innerHTML = '<div class="empty-state">Fehler beim Laden der gefilterten Items</div>';
+      }
+    }
+    
+    window.filterByGroup = filterByGroup;
+    window.filterByKeyword = filterByKeyword;
+
+    // ===== Multi-Delete =====
+    function updateDeleteButton() {
+      const checkboxes = document.querySelectorAll('.item-checkbox:checked');
+      const deleteBtn = document.getElementById('delete-btn');
+      
+      // Always show just the trash icon
+      deleteBtn.innerHTML = `
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M3 6h18M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"></path>
+        </svg>
+      `;
+      
+      if (multiDeleteMode) {
+        if (checkboxes.length > 0) {
+          deleteBtn.title = `${checkboxes.length} markierte Einträge löschen`;
+        } else {
+          deleteBtn.title = 'Löschmodus beenden';
+        }
+      } else {
+        deleteBtn.title = 'Mehrere löschen';
+      }
+    }
+    window.updateDeleteButton = updateDeleteButton;
+    
+    async function deleteSingleItem(event, itemId) {
+      event.stopPropagation();
+      
+      const item = currentItems.find(i => i.id === itemId);
+      const isNote = currentTab === 'notes' || (item && item.item_type === 'note');
+      const isHighlight = currentTab === 'highlights' || (item && item.item_type === 'highlight');
+      const itemType = isNote ? 'Notiz' : (isHighlight ? 'Unterstreichung' : 'Zitat');
+      
+      if (!confirm(`Wirklich diese ${itemType} löschen?`)) {
+        return;
+      }
+      
+      try {
+        let result;
+        if (isNote) {
+          if (typeof deleteNote !== 'function') {
+            alert('Fehler: deleteNote Funktion nicht verfügbar.');
+            return;
+          }
+          result = await deleteNote(itemId);
+        } else if (isHighlight) {
+          if (typeof deleteHighlight !== 'function') {
+            alert('Fehler: deleteHighlight Funktion nicht verfügbar.');
+            return;
+          }
+          result = await deleteHighlight(itemId);
+        } else {
+          if (typeof deleteQuote !== 'function') {
+            alert('Fehler: deleteQuote Funktion nicht verfügbar.');
+            return;
+          }
+          result = await deleteQuote(itemId);
+        }
+        
+        // Prüfe, ob das Löschen erfolgreich war
+        if (result && !result.success) {
+          console.error('Fehler beim Löschen:', result.error);
+          alert(`Fehler beim Löschen: ${result.error || 'Unbekannter Fehler'}`);
+          return;
+        }
+        
+        // Remove from currentItems
+        currentItems = currentItems.filter(item => item.id !== itemId);
+        
+        // Clear selection if deleted item was selected
+        if (selectedItemId === itemId) {
+          selectedItemId = null;
+          clearNotes();
+        }
+        
+        // Reload items to refresh the list
+        await loadItems();
+      } catch (error) {
+        console.error('Fehler beim Löschen:', error);
+        alert('Fehler beim Löschen. Bitte versuchen Sie es erneut.');
+      }
+    }
+    window.deleteSingleItem = deleteSingleItem;
+    
+    async function deleteSelectedItems() {
+      const checkboxes = document.querySelectorAll('.item-checkbox:checked');
+      if (checkboxes.length === 0) return;
+      
+      const isNote = currentTab === 'notes';
+      const isHighlight = currentTab === 'highlights';
+      const itemType = isNote ? 'Notiz(en)' : (isHighlight ? 'Unterstreichung(en)' : 'Zitat(e)');
+      
+      if (!confirm(`Wirklich ${checkboxes.length} ${itemType} löschen?`)) {
+        return;
+      }
+      
+      const ids = Array.from(checkboxes).map(cb => cb.dataset.id);
+      let failedCount = 0;
+      
+      for (const id of ids) {
+        let result;
+        if (isNote) {
+          if (typeof deleteNote === 'function') {
+            result = await deleteNote(id);
+          } else {
+            console.error('deleteNote Funktion nicht verfügbar');
+            failedCount++;
+            continue;
+          }
+        } else if (isHighlight) {
+          if (typeof deleteHighlight === 'function') {
+            result = await deleteHighlight(id);
+          } else {
+            console.error('deleteHighlight Funktion nicht verfügbar');
+            failedCount++;
+            continue;
+          }
+        } else {
+          if (typeof deleteQuote === 'function') {
+            result = await deleteQuote(id);
+          } else {
+            console.error('deleteQuote Funktion nicht verfügbar');
+            failedCount++;
+            continue;
+          }
+        }
+        
+        if (result && !result.success) {
+          console.error('Fehler beim Löschen von ID:', id, result.error);
+          failedCount++;
+        }
+      }
+      
+      if (failedCount > 0) {
+        alert(`${failedCount} von ${ids.length} Einträgen konnten nicht gelöscht werden.`);
+      }
+      
+      // Exit delete mode after deletion
+      multiDeleteMode = false;
+      selectedItemId = null;
+      clearNotes();
+      const deleteBtn = document.getElementById('delete-btn');
+      if (deleteBtn) {
+        deleteBtn.classList.remove('active');
+      }
+      await loadItems();
+      updateDeleteButton();
+    }
+    window.deleteSelectedItems = deleteSelectedItems;
+
+    // ===== Start =====
+    // Fehlerbehandlung für Module-Loading
+    window.addEventListener('error', (e) => {
+      console.error('[MEMBERS-HTML] Fehler:', e);
+      // Zeige Auth-View als Fallback
+      const authView = document.getElementById('auth-view');
+      const appView = document.getElementById('app-view');
+      if (authView) {
+        authView.classList.add('active');
+        authView.classList.remove('hidden');
+      }
+      if (appView) {
+        appView.classList.remove('active');
+      }
+    });
+    
+    // Initialisiere App mit Fehlerbehandlung
+    // WICHTIG: Zeige Auth-View sofort, falls Module-Loading fehlschlägt
+    try {
+      init().catch(err => {
+        console.error('[MEMBERS-HTML] Fehler bei Init:', err);
+        // Zeige Auth-View als Fallback
+        const authView = document.getElementById('auth-view');
+        const appView = document.getElementById('app-view');
+        if (authView) {
+          authView.classList.add('active');
+          authView.classList.remove('hidden');
+        }
+        if (appView) {
+          appView.classList.remove('active');
+        }
+      });
+    } catch (err) {
+      console.error('[MEMBERS-HTML] Fehler beim Starten:', err);
+      // Zeige Auth-View als Fallback
+      const authView = document.getElementById('auth-view');
+      const appView = document.getElementById('app-view');
+      if (authView) {
+        authView.classList.add('active');
+        authView.classList.remove('hidden');
+      }
+      if (appView) {
+        appView.classList.remove('active');
+      }
+    }
+  </script>
+  <script>
+  (function() {
+    if (!document.documentElement.classList.contains('members-mobile') || typeof window.appHref !== 'function') return;
+    document.querySelectorAll('a[href^="app.html"]').forEach(function(link) {
+      var href = link.getAttribute('href') || '';
+      var query = href.split('?')[1] || '';
+      link.setAttribute('href', window.appHref(query));
+    });
+  })();
+  </script>
+</body>
+</html>
+
