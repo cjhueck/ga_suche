@@ -11457,11 +11457,18 @@ function revealThematicResultsForMobile() {
   if (typeof window.isMobileViewport !== 'function' || !window.isMobileViewport()) return;
   if (!isThematicTabActiveForMobile()) return;
   window.mobileThematicResultsOpen = true;
+<<<<<<< HEAD
   window.currentOpenLectureId = null;
+=======
+>>>>>>> d0b83b970ad6bceed0ff619631c5889f884acf68
   const sidebar = document.getElementById('sidebar');
   const coversViewer = !!(sidebar && !sidebar.classList.contains('collapsed') &&
     sidebar.getBoundingClientRect().width > (window.innerWidth * 0.85));
   if (coversViewer) {
+<<<<<<< HEAD
+=======
+    window.currentOpenLectureId = null;
+>>>>>>> d0b83b970ad6bceed0ff619631c5889f884acf68
     if (typeof setSidebarCollapsedForMobile === 'function') setSidebarCollapsedForMobile(true);
     if (typeof closeSummaryPanelForMobileReading === 'function') closeSummaryPanelForMobileReading();
   }
@@ -11667,6 +11674,7 @@ function shouldShowKeywordSearchBackButton() {
 }
 
 function goBackToKeywordSearchFromViewer() {
+<<<<<<< HEAD
   if (typeof isMobileThematicReadingMode === 'function' && isMobileThematicReadingMode()) {
     if (typeof goToThematicResultsFromText === 'function') goToThematicResultsFromText();
     return;
@@ -11675,6 +11683,8 @@ function goBackToKeywordSearchFromViewer() {
     if (typeof goToThematicFormFromResults === 'function') goToThematicFormFromResults();
     return;
   }
+=======
+>>>>>>> d0b83b970ad6bceed0ff619631c5889f884acf68
   const target = getMobileKeywordSearchReturnTarget();
   if (target === 'timeline' && typeof goToSearchTimelineFromText === 'function') {
     goToSearchTimelineFromText();
@@ -11687,6 +11697,7 @@ window.goBackToKeywordSearchFromViewer = goBackToKeywordSearchFromViewer;
 function updateKeywordSearchBackButtonVisibility() {
   const btn = document.getElementById('keywordSearchBackBtn');
   if (!btn) return;
+<<<<<<< HEAD
   const thematicReading = typeof isMobileThematicReadingMode === 'function' && isMobileThematicReadingMode();
   const thematicResults = typeof isMobileThematicResultsMode === 'function' && isMobileThematicResultsMode();
   const search = !thematicReading && !thematicResults && shouldShowKeywordSearchBackButton();
@@ -11699,6 +11710,15 @@ function updateKeywordSearchBackButtonVisibility() {
   btn.title = label;
   btn.setAttribute('aria-label', label);
   document.body.classList.toggle('keyword-search-reading', search);
+=======
+  const show = shouldShowKeywordSearchBackButton();
+  btn.classList.toggle('is-visible', show);
+  const target = getMobileKeywordSearchReturnTarget();
+  const label = target === 'timeline' ? 'Zurück zur Timeline' : 'Zurück zu den Suchergebnissen';
+  btn.title = label;
+  btn.setAttribute('aria-label', label);
+  document.body.classList.toggle('keyword-search-reading', show);
+>>>>>>> d0b83b970ad6bceed0ff619631c5889f884acf68
   if (!btn._searchBackPointerBound) {
     btn._searchBackPointerBound = true;
     btn.addEventListener('mousedown', function(e) {
