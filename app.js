@@ -2479,6 +2479,10 @@ function normalizeGANumber(gaNumber) {
 
     function isForceMobilePreviewActive() {
       try {
+        if (new URLSearchParams(window.location.search).get('mobil') === '1') {
+          sessionStorage.setItem('ga_force_mobile', '1');
+          return true;
+        }
         return sessionStorage.getItem('ga_force_mobile') === '1';
       } catch (e) {
         return false;
@@ -2613,6 +2617,7 @@ function normalizeGANumber(gaNumber) {
     window.isMobileViewport = isMobileViewport;
     window.setSidebarCollapsedForMobile = setSidebarCollapsedForMobile;
     window.closeSummaryPanelForMobileReading = closeSummaryPanelForMobileReading;
+    window.closeSummaryPanelFromHeader = closeSummaryPanelFromHeader;
 
     function toggleSidebar() {
       const sidebar = document.getElementById('sidebar');
@@ -11197,6 +11202,8 @@ window.applyMobileHeaderButtonVisibility = applyMobileHeaderButtonVisibility;
 
 let lastInhaltsuebersichtGA = null;
 let lastOpenedTextId = null;
+let lastKeywordSearchSnippetElement = null;
+let lastKeywordSearchTimelineEntryElement = null;
 let mobileLastTextHandleMuted = false;
 
 function setMobileLastTextHandleMuted(muted) {
@@ -11267,9 +11274,13 @@ function isMobileThematicReadingMode() {
 function isMobileThematicResultsMode() {
   if (typeof window.isMobileViewport !== 'function' || !window.isMobileViewport()) return false;
   if (typeof isMobileNavHandlesActive !== 'function' || !isMobileNavHandlesActive()) return false;
-  if (!window.mobileThematicResultsOpen || window.mobileThematicReturnActive) return false;
-  if (typeof isMobileTextOpen === 'function' && isMobileTextOpen()) return false;
-  return isThematicTabActiveForMobile();
+  if (window.mobileThematicReturnActive) return false;
+  if (!isThematicTabActiveForMobile()) return false;
+  const viewer = document.getElementById('viewer');
+  const hasResults = !!(viewer && viewer.querySelector('.semantic-answer, .recherche-answer, .saved-thematic-result'));
+  if (!window.mobileThematicResultsOpen && !hasResults) return false;
+  if (!hasResults && typeof isMobileTextOpen === 'function' && isMobileTextOpen()) return false;
+  return true;
 }
 
 function rememberThematicResultLink(el, lectureId, targetIndex) {
@@ -11353,6 +11364,258 @@ function revealThematicResultsForMobile() {
 }
 window.revealThematicResultsForMobile = revealThematicResultsForMobile;
 
+function isKeywordSearchTabActiveForMobile() {
+  const activeTabContent = document.querySelector('.tab-content.active');
+  return !!(activeTabContent && activeTabContent.id === 'keyword-tab');
+}
+
+function hasKeywordSearchResultsInSidebar() {
+  const resultsEl = document.getElementById('results');
+  if (!resultsEl) return false;
+  return !!resultsEl.querySelector('.timeline-container, .snippet') || !!document.getElementById('timelineContainer');
+}
+
+function getMobileKeywordSearchReturnTarget() {
+  const t = window.mobileKeywordSearchReturnTarget;
+  return t === 'timeline' || t === 'list' ? t : null;
+}
+
+function isMobileKeywordSearchViewerOpen() {
+  if (!getMobileKeywordSearchReturnTarget()) return false;
+  const viewer = document.getElementById('viewer');
+  if (!viewer) return false;
+  if (viewer.querySelector('.ga-lectures-container, .semantic-answer, .recherche-answer')) return false;
+  const openId = String(window.currentOpenLectureId || '');
+  if (openId.includes('/')) return true;
+  if (viewer.querySelector('.book-content, #progressive-book-content, .paragraph')) return true;
+  if (typeof isMobileTextOpen === 'function' && isMobileTextOpen()) return true;
+  const gaOnly = openId.match(/^GA\d{1,3}[a-z]?$/i);
+  if (gaOnly && viewer.querySelector('#viewer-content')) return true;
+  return false;
+}
+
+function isMobileKeywordSearchReadingMode() {
+  if (typeof window.isMobileViewport !== 'function' || !window.isMobileViewport()) return false;
+  if (typeof isMobileNavHandlesActive !== 'function' || !isMobileNavHandlesActive()) return false;
+  if (!isKeywordSearchTabActiveForMobile()) return false;
+  return isMobileKeywordSearchViewerOpen();
+}
+
+function isMobileKeywordSearchTimelineReadingMode() {
+  return isMobileKeywordSearchReadingMode() && getMobileKeywordSearchReturnTarget() === 'timeline';
+}
+
+function shouldHideMobileLastTextHandle() {
+  if (typeof window.isMobileViewport !== 'function' || !window.isMobileViewport()) return false;
+  if (window.mobileIndexReturnActive) return true;
+  if (isThematicTabActiveForMobile() && (window.mobileThematicReturnActive || window.mobileThematicResultsOpen)) return true;
+  if (!isKeywordSearchTabActiveForMobile()) return false;
+  if (isMobileKeywordSearchReadingMode()) return true;
+  if (document.getElementById('timelineContainer')) return true;
+  if (hasKeywordSearchResultsInSidebar()) return true;
+  return false;
+}
+
+function findMobileResultsScroller(el) {
+  let node = el && el.parentElement;
+  while (node && node !== document.documentElement) {
+    const overflowY = window.getComputedStyle(node).overflowY;
+    if ((overflowY === 'auto' || overflowY === 'scroll' || overflowY === 'overlay') &&
+        node.scrollHeight > node.clientHeight + 2) {
+      return node;
+    }
+    node = node.parentElement;
+  }
+  return document.getElementById('sidebar');
+}
+
+function captureMobileScrollAnchor(el) {
+  let scroller = el ? findMobileResultsScroller(el) : null;
+  const sidebar = document.getElementById('sidebar');
+  if (typeof window.isMobileViewport === 'function' && window.isMobileViewport() && sidebar) {
+    scroller = sidebar;
+  }
+  if (!scroller) return null;
+  if (!el || !el.getBoundingClientRect) {
+    return { scrollTop: scroller.scrollTop, offsetInView: 0, scrollerId: scroller.id || '' };
+  }
+  return {
+    scrollTop: scroller.scrollTop,
+    offsetInView: el.getBoundingClientRect().top - scroller.getBoundingClientRect().top,
+    scrollerId: scroller.id || ''
+  };
+}
+
+function restoreMobileScrollAnchor(anchor, el) {
+  if (!anchor) return;
+  let scroller = anchor.scrollerId ? document.getElementById(anchor.scrollerId) : null;
+  if (!scroller || (el && scroller.contains && !scroller.contains(el))) {
+    scroller = el ? findMobileResultsScroller(el) : document.getElementById('sidebar');
+  }
+  if (!scroller) return;
+  if (el && el.getBoundingClientRect) {
+    const offsetNow = el.getBoundingClientRect().top - scroller.getBoundingClientRect().top;
+    scroller.scrollTop += offsetNow - anchor.offsetInView;
+  } else {
+    scroller.scrollTop = anchor.scrollTop;
+  }
+}
+
+function findKeywordSearchReturnElement(kind) {
+  if (kind === 'timeline') {
+    const current = lastKeywordSearchTimelineEntryElement;
+    if (current && current.isConnected) return current;
+    const key = window._lastKeywordSearchTimelineKey;
+    if (!key || !key.lectureId) return null;
+    const links = document.querySelectorAll('.timeline-heading-link[data-lecture-id]');
+    for (let i = 0; i < links.length; i++) {
+      const link = links[i];
+      if (link.getAttribute('data-lecture-id') === key.lectureId &&
+          String(link.getAttribute('data-chunk-index') || '') === String(key.index || '')) {
+        return link;
+      }
+    }
+    return null;
+  }
+  const currentSnippet = lastKeywordSearchSnippetElement;
+  if (currentSnippet && currentSnippet.isConnected) return currentSnippet;
+  const key = window._lastKeywordSearchListKey;
+  if (!key || !key.lectureId) return null;
+  const snippets = document.querySelectorAll('#results [data-chunk-index][data-lecture-id]');
+  for (let i = 0; i < snippets.length; i++) {
+    const node = snippets[i];
+    if (node.getAttribute('data-lecture-id') === key.lectureId &&
+        String(node.getAttribute('data-chunk-index') || '') === String(key.index || '')) {
+      return node;
+    }
+  }
+  return null;
+}
+
+function restoreKeywordSearchScrollPosition(kind) {
+  const anchor = kind === 'timeline'
+    ? window._lastKeywordSearchTimelineScroll
+    : window._lastKeywordSearchListScroll;
+  const scrollBack = function() {
+    const scrollEl = findKeywordSearchReturnElement(kind);
+    if (anchor) {
+      restoreMobileScrollAnchor(anchor, scrollEl);
+      return;
+    }
+    if (scrollEl && scrollEl.scrollIntoView) scrollEl.scrollIntoView({ block: 'center' });
+  };
+  requestAnimationFrame(function() { requestAnimationFrame(scrollBack); });
+  [80, 220, 400].forEach(function(ms) { setTimeout(scrollBack, ms); });
+}
+
+function rememberSearchTimelineEntry(el) {
+  const link = el && el.closest ? (el.closest('.timeline-heading-link') || el) : el;
+  lastKeywordSearchTimelineEntryElement = link || null;
+  if (link && link.getAttribute) {
+    window._lastKeywordSearchTimelineKey = {
+      lectureId: link.getAttribute('data-lecture-id') || '',
+      index: link.getAttribute('data-chunk-index') || ''
+    };
+  }
+  window._lastKeywordSearchTimelineScroll = captureMobileScrollAnchor(link);
+  window.mobileKeywordSearchReturnTarget = 'timeline';
+}
+window.rememberSearchTimelineEntry = rememberSearchTimelineEntry;
+
+function rememberKeywordSearchSnippet(el) {
+  lastKeywordSearchSnippetElement = el || null;
+  if (el && el.getAttribute) {
+    window._lastKeywordSearchListKey = {
+      lectureId: el.getAttribute('data-lecture-id') || '',
+      index: el.getAttribute('data-chunk-index') || ''
+    };
+  }
+  window._lastKeywordSearchListScroll = captureMobileScrollAnchor(el);
+  window.mobileKeywordSearchReturnTarget = 'list';
+}
+window.rememberKeywordSearchSnippet = rememberKeywordSearchSnippet;
+
+function goToSearchTimelineFromText() {
+  if (typeof setSidebarCollapsedForMobile === 'function') setSidebarCollapsedForMobile(false);
+  document.body.classList.remove('mobile-text-open');
+  if (typeof updateLeftResizeHandlePosition === 'function') updateLeftResizeHandlePosition();
+  const resultsDiv = document.getElementById('results');
+  if (resultsDiv && !document.getElementById('timelineContainer') && typeof showSearchResultsTimelineV2 === 'function') {
+    showSearchResultsTimelineV2(window._keywordSearchResults || null);
+  }
+  if (typeof updateMobileTextOpenState === 'function') updateMobileTextOpenState();
+  restoreKeywordSearchScrollPosition('timeline');
+}
+window.goToSearchTimelineFromText = goToSearchTimelineFromText;
+
+function goToSearchResultsFromText() {
+  if (typeof setSidebarCollapsedForMobile === 'function') setSidebarCollapsedForMobile(false);
+  document.body.classList.remove('mobile-text-open');
+  if (typeof updateLeftResizeHandlePosition === 'function') updateLeftResizeHandlePosition();
+  if (typeof updateMobileTextOpenState === 'function') updateMobileTextOpenState();
+  restoreKeywordSearchScrollPosition('list');
+}
+window.goToSearchResultsFromText = goToSearchResultsFromText;
+window.isMobileKeywordSearchReadingMode = isMobileKeywordSearchReadingMode;
+
+function isIndexEntryOpenInViewer() {
+  const active = document.querySelector('.tab-content.active');
+  if (!active || active.id !== 'schlagworte-tab') return false;
+  const viewer = document.getElementById('viewer');
+  return !!(viewer && viewer.querySelector('.concept-overview-container, .concept-overview-header, .keyword-answer, .semantic-answer'));
+}
+
+function isMobileIndexReadingMode() {
+  if (!window.mobileIndexReturnActive) return false;
+  if (typeof window.isMobileViewport !== 'function' || !window.isMobileViewport()) return false;
+  if (!document.body.classList.contains('sidebar-collapsed')) return false;
+  const panel = document.getElementById('summary-panel');
+  return !!(panel && panel.classList.contains('visible'));
+}
+
+function placeIndexEntryBackButton() {
+  const header = document.getElementById('sidePanelLectureHeader');
+  if (!header || header.querySelector('.index-entry-back-btn')) return;
+  const btn = document.createElement('button');
+  btn.type = 'button';
+  btn.className = 'index-entry-back-btn';
+  btn.textContent = '← Zurück zum Eintrag';
+  btn.addEventListener('click', function(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    goToIndexEntryFromText();
+  });
+  header.insertBefore(btn, header.firstChild);
+}
+
+function noteIndexEntryTextOpened() {
+  if (!isIndexEntryOpenInViewer()) return;
+  window.mobileIndexReturnActive = true;
+  placeIndexEntryBackButton();
+  const isMobile = typeof window.isMobileViewport === 'function' && window.isMobileViewport();
+  if (isMobile && typeof setSidebarCollapsedForMobile === 'function') setSidebarCollapsedForMobile(true);
+  if (typeof updateMobileTextOpenState === 'function') updateMobileTextOpenState();
+}
+window.noteIndexEntryTextOpened = noteIndexEntryTextOpened;
+
+function goToIndexEntryFromText() {
+  window.mobileIndexReturnActive = false;
+  if (typeof window.closeSummaryPanelFromHeader === 'function') window.closeSummaryPanelFromHeader();
+  const isMobile = typeof window.isMobileViewport === 'function' && window.isMobileViewport();
+  if (isMobile && typeof setSidebarCollapsedForMobile === 'function') setSidebarCollapsedForMobile(true);
+  document.body.classList.remove('mobile-text-open');
+  if (typeof updateLeftResizeHandlePosition === 'function') updateLeftResizeHandlePosition();
+  if (typeof updateMobileTextOpenState === 'function') updateMobileTextOpenState();
+}
+window.goToIndexEntryFromText = goToIndexEntryFromText;
+
+function shouldShowKeywordSearchBackButton() {
+  if (!isKeywordSearchTabActiveForMobile()) return false;
+  if (!getMobileKeywordSearchReturnTarget()) return false;
+  if (typeof window.isMobileViewport !== 'function' || !window.isMobileViewport()) return false;
+  return isMobileKeywordSearchReadingMode();
+}
+
 function goBackToKeywordSearchFromViewer() {
   if (isMobileThematicReadingMode()) {
     goToThematicResultsFromText();
@@ -11360,25 +11623,44 @@ function goBackToKeywordSearchFromViewer() {
   }
   if (isMobileThematicResultsMode()) {
     goToThematicFormFromResults();
+    return;
   }
+  if (window.mobileIndexReturnActive || isMobileIndexReadingMode()) {
+    goToIndexEntryFromText();
+    return;
+  }
+  const target = getMobileKeywordSearchReturnTarget();
+  if (target === 'timeline') goToSearchTimelineFromText();
+  else if (target === 'list') goToSearchResultsFromText();
 }
 window.goBackToKeywordSearchFromViewer = goBackToKeywordSearchFromViewer;
 
 function updateKeywordSearchBackButtonVisibility() {
   const btn = document.getElementById('keywordSearchBackBtn');
   if (!btn) return;
-  const show = isMobileThematicReadingMode() || isMobileThematicResultsMode();
+  const thematicReading = isMobileThematicReadingMode();
+  const thematicResults = isMobileThematicResultsMode();
+  const indexReading = isMobileIndexReadingMode();
+  const search = !thematicReading && !thematicResults && !indexReading && shouldShowKeywordSearchBackButton();
+  const show = thematicReading || thematicResults || indexReading || search;
   btn.classList.toggle('is-visible', show);
-  if (show) {
-    btn.title = 'Zurück zur Abfrage';
-    btn.setAttribute('aria-label', 'Zurück zur Abfrage');
-  }
+  const target = getMobileKeywordSearchReturnTarget();
+  const label = (thematicReading || thematicResults)
+    ? 'Zurück zur Abfrage'
+    : indexReading
+      ? 'Zurück zum Eintrag'
+      : (target === 'timeline' ? 'Zurück zur Timeline' : 'Zurück zu den Suchergebnissen');
+  btn.title = label;
+  btn.setAttribute('aria-label', label);
+  document.body.classList.toggle('keyword-search-reading', search);
 }
 window.updateKeywordSearchBackButtonVisibility = updateKeywordSearchBackButtonVisibility;
 
 function updateMobileTextOpenState() {
   const open = isMobileTextOpen();
   document.body.classList.toggle('mobile-text-open', open);
+  const hideLastTextHandle = shouldHideMobileLastTextHandle();
+  document.body.classList.toggle('mobile-hide-last-text-handle', hideLastTextHandle);
   const handle = document.getElementById('resizeHandle');
   const tabsHandle = document.getElementById('resizeHandleTabs');
   const textHandle = document.getElementById('resizeHandleText');
@@ -11389,8 +11671,13 @@ function updateMobileTextOpenState() {
     tabsHandle.title = 'Tab-Auswahl';
   }
   if (textHandle) {
-    textHandle.title = mobileLastTextHandleMuted ? '' : 'Letzter Text';
-    textHandle.setAttribute('aria-disabled', mobileLastTextHandleMuted ? 'true' : 'false');
+    if (hideLastTextHandle) {
+      textHandle.title = '';
+      textHandle.setAttribute('aria-disabled', 'true');
+    } else {
+      textHandle.title = mobileLastTextHandleMuted ? '' : 'Letzter Text';
+      textHandle.setAttribute('aria-disabled', mobileLastTextHandleMuted ? 'true' : 'false');
+    }
   }
   if (typeof applyMobileHeaderButtonVisibility === 'function') {
     applyMobileHeaderButtonVisibility();
@@ -12033,6 +12320,7 @@ async function navigateToIndexKeyword(keyword, options = {}) {
   if (!term) return;
   const addToIndexIfMissing = !!(options && options.addToIndexIfMissing);
   const isMobile = typeof window.isMobileViewport === 'function' && window.isMobileViewport();
+  window.mobileIndexReturnActive = false;
 
   const switchFn = typeof window.switchTab === 'function' ? window.switchTab : (typeof switchTab === 'function' ? switchTab : null);
   if (switchFn) switchFn('schlagworte', true);
@@ -15200,6 +15488,7 @@ function scrollToChronologicalYear(year) {
         if (isBookGANumber(gaNumber)) {
           // Für Bücher: Verwende showBookFromAdvancedSearch, Snippets weiterreichen
           await showBookFromAdvancedSearch(gaNumber, searchTerm, paragraphIndex, highlightSnippets, thematicHighlightAnchor);
+          if (typeof noteIndexEntryTextOpened === 'function') noteIndexEntryTextOpened();
           return;
         }
       }
@@ -15761,6 +16050,7 @@ function scrollToChronologicalYear(year) {
             sideH3.onclick = () => navigateToLectureInTexteTab(lectureId);
           }
         }
+        if (typeof noteIndexEntryTextOpened === 'function') noteIndexEntryTextOpened();
         
       } catch (error) {
         console.error('[ADVANCED-SEARCH] Fehler beim Laden des Vortrags:', error);
@@ -18288,6 +18578,7 @@ function scrollToChronologicalYear(year) {
     }
 
     function renderKeywordResults(query, results, word1, word2, word1IsPhrase = false, word2IsPhrase = false, proximity = null) {
+      window.mobileKeywordSearchReturnTarget = 'list';
       const container = document.getElementById('results');
       const scope = 'fulltext'; // Immer Volltext-Suche
 
@@ -18652,6 +18943,7 @@ function scrollToChronologicalYear(year) {
                     try { setUILocked(false); } catch (err) {}
                     e.preventDefault();
                     e.stopPropagation();
+                    if (typeof rememberKeywordSearchSnippet === 'function') rememberKeywordSearchSnippet(snippetDiv);
                     
                     // Summary Panel bleibt offen (wird in showLecture automatisch geöffnet)
                     const currentWord1 = document.getElementById('word1').value.trim();
@@ -18676,6 +18968,7 @@ function scrollToChronologicalYear(year) {
   try { setUILocked(false); } catch (err) {}
   e.preventDefault();
   e.stopPropagation();
+  if (typeof rememberKeywordSearchSnippet === 'function') rememberKeywordSearchSnippet(e.currentTarget);
   const currentWord1 = document.getElementById('word1').value.trim();
   const currentWord2 = document.getElementById('word2').value.trim();
   const keywords = [currentWord1, currentWord2].filter(w => w && w.trim());
@@ -25358,6 +25651,16 @@ function formatAsteriskParagraphs() {
   // damit er beim Klick auf ein Suchergebnis nicht stehen bleibt.
   const _sideHeaderClear = document.getElementById('sidePanelLectureHeader');
   if (_sideHeaderClear) _sideHeaderClear.innerHTML = '';
+
+  if (typeof window.isMobileViewport === 'function' && window.isMobileViewport()
+      && typeof isKeywordSearchTabActiveForMobile === 'function' && isKeywordSearchTabActiveForMobile()
+      && !(typeof getMobileKeywordSearchReturnTarget === 'function' && getMobileKeywordSearchReturnTarget())) {
+    if (document.getElementById('timelineContainer')) {
+      window.mobileKeywordSearchReturnTarget = 'timeline';
+    } else if (document.getElementById('results') && document.getElementById('results').querySelector('.snippet, .timeline-container')) {
+      window.mobileKeywordSearchReturnTarget = 'list';
+    }
+  }
 
   if (typeof setSidebarCollapsedForMobile === 'function') {
     setSidebarCollapsedForMobile(true);
@@ -34611,7 +34914,7 @@ async function showTimeline(keyword, clickedButton) {
           // Erstelle Link zur Überschrift ohne eckige Klammern und ohne Markierung
           const escapedKeyword = keyword.replace(/'/g, "\\'");
           const escapedLectureId = entry.lectureId.replace(/'/g, "\\'");
-          const linkHtml = `<a href="#" onclick="showLectureInTimeline('${escapedLectureId}', '${cleanIndex}', '${escapedKeyword}'); return false;" class="timeline-heading-link">${escapedHeadingText}</a>`;
+          const linkHtml = `<a href="#" data-lecture-id="${escapedLectureId}" data-chunk-index="${cleanIndex}" onclick="rememberSearchTimelineEntry(this); showLectureInTimeline('${escapedLectureId}', '${cleanIndex}', '${escapedKeyword}'); return false;" class="timeline-heading-link">${escapedHeadingText}</a>`;
           
           return linkHtml;
         });
@@ -38698,6 +39001,7 @@ async function showSearchResultsTimelineV2(customResults = null, customKeywords 
   
   // WICHTIG: Flag SOFORT setzen, bevor irgendwas anderes passiert
   showingSearchResultsTimeline = true;
+  window.mobileKeywordSearchReturnTarget = 'timeline';
   
   // Verwende #results (sidebar-content) wie alle anderen Tabs!
   const resultsDiv = document.getElementById('results');
@@ -38993,7 +39297,9 @@ async function showSearchResultsTimelineV2(customResults = null, customKeywords 
           // Erstelle Link zur Überschrift ohne Markierung
           const keywordsArray = searchKeywords.map(k => `'${k.replace(/'/g, "\\'")}'`).join(',');
           const escapedLectureId = entry.lectureId.replace(/'/g, "\\'");
-          const linkHtml = `<a href="#" onclick="showLecture('${escapedLectureId}', '${cleanIndex}', [${keywordsArray}]); return false;" class="timeline-heading-link">${escapedHeadingText}</a>`;
+          const attrLectureId = String(entry.lectureId).replace(/&/g, '&amp;').replace(/"/g, '&quot;');
+          const attrIndex = String(cleanIndex).replace(/&/g, '&amp;').replace(/"/g, '&quot;');
+          const linkHtml = `<a href="#" data-lecture-id="${attrLectureId}" data-chunk-index="${attrIndex}" onclick="rememberSearchTimelineEntry(this); showLecture('${escapedLectureId}', '${cleanIndex}', [${keywordsArray}]); return false;" class="timeline-heading-link">${escapedHeadingText}</a>`;
           
           return linkHtml;
         });
