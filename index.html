@@ -2,7 +2,22 @@
 <html lang="de">
 <head>
 <meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Rudolf Steiner Texte online - Willkommen</title>
+<script>
+(function(){
+  function isPhoneStart() {
+    try {
+      if (new URLSearchParams(location.search).get('ansicht') === 'mobil') return true;
+      if (window.matchMedia('(max-width: 768px)').matches) return true;
+      var ua = navigator.userAgent || '';
+      if (/iPhone|iPod|Android.+Mobile|Windows Phone|IEMobile|Opera Mini/i.test(ua)) return true;
+    } catch (e) {}
+    return false;
+  }
+  if (isPhoneStart()) document.documentElement.classList.add('welcome-mobile');
+})();
+</script>
 <script src="members/forward-auth-callback.js"></script>
 <link rel="icon" type="image/png" href="images/GA.png">
 <!-- Inter Font von Google Fonts -->
@@ -1430,6 +1445,127 @@
         border-top-color: var(--dark-border-color);
       }
     }
+
+    html.welcome-mobile .left-panel {
+      display: none !important;
+    }
+
+    html.welcome-mobile .logo-container {
+      position: static;
+      box-sizing: border-box;
+      width: 100%;
+      padding: 0.85rem 1.1rem 0;
+    }
+
+    html.welcome-mobile .logo-container a {
+      display: block;
+      width: 92%;
+      margin-left: 0;
+      margin-right: 0;
+    }
+
+    html.welcome-mobile .logo-container img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    html.welcome-mobile .container {
+      display: block;
+      width: 100%;
+      min-height: 0;
+      padding: 0.6rem 1.1rem 2.5rem;
+    }
+
+    html.welcome-mobile .right-panel,
+    html.welcome-mobile .content {
+      display: block;
+      width: 100%;
+      max-width: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    html.welcome-mobile h1 {
+      font-size: 1.45rem;
+      line-height: 1.3;
+      margin-top: 1.25rem;
+    }
+
+    html.welcome-mobile h3 {
+      font-size: 1.25rem;
+      line-height: 1.35;
+    }
+
+    html.welcome-mobile .subtitle,
+    html.welcome-mobile .intro-text,
+    html.welcome-mobile .nav-links a,
+    html.welcome-mobile .nav-links .description {
+      font-size: 1.05rem;
+      line-height: 1.4;
+      white-space: normal;
+    }
+
+    html.welcome-mobile .nav-links li {
+      margin-bottom: 0.5rem;
+      line-height: 1.4;
+    }
+
+    html.welcome-mobile .hide-on-welcome-mobile {
+      display: none !important;
+    }
+
+    .show-on-welcome-mobile {
+      display: none;
+    }
+
+    html.welcome-mobile .show-on-welcome-mobile {
+      display: inline;
+    }
+
+    html.welcome-mobile .einfuehrung-modal-content,
+    html.welcome-mobile .help-modal-content,
+    html.welcome-mobile .privacy-modal-content {
+      width: 100%;
+      max-width: none;
+      height: 100%;
+      max-height: none;
+      border-radius: 0;
+    }
+
+    html.welcome-mobile .einfuehrung-modal-body {
+      flex-direction: column;
+    }
+
+    html.welcome-mobile .einfuehrung-toc {
+      width: 100%;
+      max-height: 180px;
+      border-left: none;
+      border-top: 1px solid var(--border-color);
+    }
+
+    html.welcome-mobile .einfuehrung-content,
+    html.welcome-mobile .help-modal-body,
+    html.welcome-mobile .privacy-modal-body {
+      font-size: 1.05rem;
+      line-height: 1.55;
+    }
+
+    html.welcome-mobile .footer-links {
+      flex-wrap: wrap;
+      align-self: flex-start;
+      gap: 0.15rem 1.1rem;
+      line-height: 1.25;
+      margin-top: 1.75rem;
+      padding: 0;
+      font-size: 1.05rem;
+    }
+
+    html.welcome-mobile .quote-of-week-btn {
+      position: static;
+      max-width: none;
+      margin: 0 0 1rem;
+    }
 </style>
 </head>
 <body>
@@ -1456,18 +1592,18 @@
         
         <ul class="nav-links">
           <li><a href="#" onclick="event.preventDefault(); openEinfuehrungModal();">Einführung</a> <span class="description">- Informationen zur Suche und zu den Textgrundlagen</span></li>
-          <li><a href="app.html#ga">Werk</a> <span class="description">- Schriften, Aufsätze, Vorträge und Wandtafelzeichnungen, mit Kurzusammenfassungen und chronologischer Liste</span></li>
+          <li><a href="app.html#ga">Werk</a> <span class="description hide-on-welcome-mobile">- Schriften, Aufsätze, Vorträge und Wandtafelzeichnungen, mit Kurzusammenfassungen und chronologischer Liste</span><span class="description show-on-welcome-mobile">- Schriften, Aufsätze, Vorträge mit Zusammenfassungen</span></li>
           <li><a href="app.html#keyword">Suche</a> <span class="description">– Volltext- und Stichwortsuche mit Relevanzbewertung</span></li>
-          <li><a href="app.html#texte">Texte</a> <span class="description">– Texte mit Zusammenfassungen, Gliederungen und Schlagworten</span></li>
-          <li><a href="app.html#thematic2">Themen</a> <span class="description">– Themenschwerpunkte im Überblick, Zeitverlauf im Werk, thematische Sammlungen</span></li>
+          <li class="hide-on-welcome-mobile"><a href="app.html#texte">Texte</a> <span class="description">– Texte mit Zusammenfassungen, Gliederungen und Schlagworten</span></li>
+          <li class="hide-on-welcome-mobile"><a href="app.html#thematic2">Themen</a> <span class="description">– Themenschwerpunkte im Überblick, Zeitverlauf im Werk, thematische Sammlungen</span></li>
           <li><a href="app.html#thematic">Abfrage / Chat</a> <span class="description">- KI-gestützte thematische Analyse</span></li>
-          <li><a href="app.html#schlagworte">Index</a> <span class="description">– wichtige Schlagworte mit Verlinkung</span></li>
-          <li><a href="members.html" target="_blank" rel="noopener noreferrer">Mitgliederbereich</a> <span class="description">- persönliche Bookmarks setzen, Zitate und Themenabfragen speichern</span></li>
+          <li class="hide-on-welcome-mobile"><a href="app.html#schlagworte">Index</a> <span class="description">– wichtige Schlagworte mit Verlinkung</span></li>
+          <li class="hide-on-welcome-mobile"><a href="members.html" target="_blank" rel="noopener noreferrer">Mitgliederbereich</a> <span class="description">- persönliche Bookmarks setzen, Zitate und Themenabfragen speichern</span></li>
         </ul>
         
-        <h3>Sammlungen zu einzelnen Themen</h3>
+        <h3 class="hide-on-welcome-mobile">Sammlungen zu einzelnen Themen</h3>
         
-        <ul class="nav-links">
+        <ul class="nav-links hide-on-welcome-mobile">
           <li><a href="https://goethe.rudolf-steiner-online.de/INHALT" target="_blank" rel="noopener noreferrer" onclick="analyticsTrack('tab_view', 'goetheanismus')">Goetheanistische Naturanschauung</a> (<a href="https://goethe.rudolf-steiner-online.de/INHALT" target="_blank" rel="noopener noreferrer">deutsch</a>/<a href="https://goethe-en.rudolf-steiner-online.de/CONTENTS" target="_blank" rel="noopener noreferrer">englisch</a>) <span class="description">- Sammlung von Zitaten zu Goethes Naturerkenntnis</span></li>
           <li><a href="https://goethe-naturphilosophie.de" target="_blank" rel="noopener noreferrer" onclick="analyticsTrack('tab_view', 'goethe_naturphilosophie')">Goethes Naturphilosophie</a> <span class="description">- Goethe-Zitate zur Erkenntnis und Philosophie der Natur aus Schriften, Briefen, Tagebüchern und Gesprächen</span></li>
           <li><a href="https://publish.obsidian.md/anthropologie/Start" target="_blank" rel="noopener noreferrer" onclick="analyticsTrack('tab_view', 'entwicklung_kind')">Entwicklung des Kindes</a> <span class="description">- sämtliche Darstellungen Rudolf Steiners zur Entwicklungsanthropologie</span></li>
@@ -2391,6 +2527,21 @@
     }, 1000);
   </script>
 
+<script>
+(function() {
+  if (!document.documentElement.classList.contains('welcome-mobile')) return;
+  document.querySelectorAll('a[href^="app.html"]').forEach(function(link) {
+    var href = link.getAttribute('href') || '';
+    if (href.indexOf('mobil=1') !== -1) return;
+    link.setAttribute('href', href.replace('app.html', 'app.html?mobil=1'));
+  });
+  document.querySelectorAll('a[href^="members.html"]').forEach(function(link) {
+    var href = link.getAttribute('href') || '';
+    if (href.indexOf('mobil=1') !== -1) return;
+    link.setAttribute('href', href.replace('members.html', 'members.html?mobil=1'));
+  });
+})();
+</script>
 </body>
 </html>
 
