@@ -170,6 +170,31 @@ html.mobile-layout .thematic-examples-wrap {
   display: none !important;
 }
 
+.thematic-chat-menu-label {
+  display: none;
+}
+
+html.mobile-layout #thematic-chat-menu-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  line-height: 1.2;
+  padding: 0;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--link-color, #467886);
+  white-space: nowrap;
+}
+
+html.mobile-layout #thematic-chat-menu-btn svg {
+  display: block;
+  flex: 0 0 auto;
+}
+
+html.mobile-layout #thematic-chat-menu-btn .thematic-chat-menu-label {
+  display: inline;
+}
+
 .thematic-chat-mode-option {
   display: inline-flex;
   align-items: center;
