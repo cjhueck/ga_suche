@@ -2536,6 +2536,7 @@ function normalizeGANumber(gaNumber) {
           if (typeof lucide !== 'undefined') lucide.createIcons();
         }
       }
+      placeMembersButtonForMobile(mobile);
       if (mobile && !wasMobile) {
         var active = document.querySelector('.tab-button.active');
         var help = active && active.getAttribute('data-help');
@@ -2561,6 +2562,27 @@ function normalizeGANumber(gaNumber) {
       } catch (e) {}
       applyMobileLayoutClass();
     }
+    function placeMembersButtonForMobile(mobile) {
+      var members = document.getElementById('membersPanelBtn');
+      var newsletter = document.getElementById('newsletter-button');
+      if (!members) return;
+      if (!members._membersHome) {
+        members._membersHome = { parent: members.parentElement, next: members.nextElementSibling };
+      }
+      var sidebarOpen = mobile && !document.body.classList.contains('sidebar-collapsed');
+      if (sidebarOpen && newsletter && newsletter.parentElement) {
+        if (members.previousElementSibling !== newsletter) {
+          newsletter.parentElement.insertBefore(members, newsletter.nextSibling);
+        }
+      } else if (members._membersHome && members._membersHome.parent) {
+        var home = members._membersHome;
+        if (home.next && home.next.parentElement === home.parent) home.parent.insertBefore(members, home.next);
+        else home.parent.appendChild(members);
+      }
+      members.style.removeProperty('display');
+    }
+    window.placeMembersButtonForMobile = placeMembersButtonForMobile;
+
     window.toggleMobilePreview = toggleMobilePreview;
     window.applyMobileLayoutClass = applyMobileLayoutClass;
 
@@ -11080,7 +11102,11 @@ function getMobileHeaderMode() {
 }
 
 function applyMobileHeaderButtonVisibility() {
-  if (typeof window.isMobileViewport === 'function' && !window.isMobileViewport()) return;
+  const mobile = typeof window.isMobileViewport === 'function' && window.isMobileViewport();
+  if (typeof window.placeMembersButtonForMobile === 'function') {
+    window.placeMembersButtonForMobile(mobile);
+  }
+  if (!mobile) return;
 
   const headerBtns = document.querySelector('#viewer-header .viewer-buttons-container');
   const toolbar = document.getElementById('texte-panel-toolbar');
@@ -11102,7 +11128,10 @@ function applyMobileHeaderButtonVisibility() {
   if (toolbar) setHeaderBtnDisplay(toolbar, false);
 
   if (headerBtns) {
-    [...headerBtns.children].forEach((el) => setHeaderBtnDisplay(el, false));
+    [...headerBtns.children].forEach((el) => {
+      if (el.id === 'membersPanelBtn') return;
+      setHeaderBtnDisplay(el, false);
+    });
   }
   ['chalkboardsSortToggleBtn', 'chalkboardsInfoBtn', 'viewerOriginalBtn', 'viewerTOCToggleBtn'].forEach((id) => {
     setHeaderBtnDisplay(document.getElementById(id), false);
@@ -11123,11 +11152,8 @@ function applyMobileHeaderButtonVisibility() {
   }
   document.body.classList.toggle('mobile-text-open', mode === 'text');
 
+  setHeaderBtnDisplay(members, true);
   if (mode === 'off') {
-    const schlagworteTab = document.getElementById('schlagworte-tab');
-    if (schlagworteTab && schlagworteTab.classList.contains('active')) {
-      setHeaderBtnDisplay(members, true);
-    }
     return;
   }
 
@@ -21286,7 +21312,7 @@ function scrollToChronologicalYear(year) {
       const fileName = `${tabName} - ${timestamp}`;
       
       if (format === 'pdf') {
-        clone.querySelectorAll('#rechercheControlsBar, select, input, #deleteThemaBtn').forEach(el => el.remove());
+        clone.querySelectorAll('#rechercheControlsBar, select, input, #deleteThemaBtn, #saveThemaResultBtn').forEach(el => el.remove());
         try {
           await generateFormattedPdfFromElement(clone, tabName, fileName);
         } catch (error) {
@@ -24625,15 +24651,13 @@ function formatAsteriskParagraphs() {
       let sortBy = 'thematic'; // 'thematic' (gruppiert nach Unterthemen) | 'date' (flach, chronologisch)
       let relFilter = 'alle';   // 'alle' | 'hoch' | 'mittel' | 'niedrig'
 
-      const deleteButtonHTML = isLocal
-        ? `<button id="deleteThemaBtn" onclick="deleteCurrentThema()" style="padding: 4px 12px; font-size: 0.85em; border: 1px solid #d9534f; background: transparent; color: #d9534f; cursor: pointer; border-radius: 4px;">Suchanfrage löschen</button>`
-        : '';
+      const saveButtonHTML = `<button id="saveThemaResultBtn" type="button" onclick="saveCurrentThematicSearch()" style="padding: 4px 12px; font-size: 0.85em; border: 1px solid var(--link-color); background: transparent; color: var(--link-color); cursor: pointer; border-radius: 4px;">Speichern</button>`;
 
       container.innerHTML = `
         <div class="semantic-answer recherche-answer">
           <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.5rem; gap: 12px;">
             <h1 style="margin: 0;">${esc(headingBase)} [Recherche]${scopeStr}</h1>
-            <div style="display: flex; flex-direction: column; align-items: flex-end; gap: 8px;">${deleteButtonHTML}</div>
+            <div style="display: flex; flex-direction: column; align-items: flex-end; gap: 8px;">${saveButtonHTML}</div>
           </div>
           <p style="color: var(--secondary-text); margin: 0 0 0.75rem 0;"><span style="font-style: italic;">(Aus technischen Gründen liefert die Recherche keine vollständige Auflistung sämtlicher Textstellen Steiners zum gesuchten Thema. Für eine vollständige Suche verwenden Sie bitte die <a href="#" onclick="switchTab('keyword'); return false;" style="color: var(--link-color); text-decoration: underline; cursor: pointer;">Suchfunktion</a>.)</span></p>
           ${introNote}
@@ -24972,16 +24996,14 @@ function formatAsteriskParagraphs() {
       const headingWithGA = selectedGA ? `${headingWithMode} (aus ${selectedGA})` : headingWithMode;
       const safeHeading = headingWithGA.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
       // Delete-Button nur in lokaler Version anzeigen
-      const deleteButtonHTML = isLocal 
-        ? `<button id="deleteThemaBtn" onclick="deleteCurrentThema()" style="padding: 4px 12px; font-size: 0.85em; border: 1px solid #d9534f; background: transparent; color: #d9534f; cursor: pointer; border-radius: 4px; transition: opacity 0.2s;">Suchanfrage löschen</button>`
-        : '';
+      const saveButtonHTML = `<button id="saveThemaResultBtn" type="button" onclick="saveCurrentThematicSearch()" style="padding: 4px 12px; font-size: 0.85em; border: 1px solid var(--link-color); background: transparent; color: var(--link-color); cursor: pointer; border-radius: 4px; transition: opacity 0.2s;">Speichern</button>`;
       
       container.innerHTML = `
         <div class="semantic-answer">
           <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem;">
             <h1 style="margin: 0;">${safeHeading}</h1>
             <div style="display: flex; flex-direction: column; align-items: flex-end; gap: 8px;">
-              ${deleteButtonHTML}
+              ${saveButtonHTML}
             </div>
           </div>
           <div class="answer-content" id="answerContent"></div>
@@ -43541,8 +43563,6 @@ window.cancelTextEditMode = function() {};
     }, 4000);
   }
 
-  const THEMATIC_MEMBER_SAVE_NOTICE = 'Abfragen können gespeichert werden — dafür ist eine Anmeldung als Mitglied erforderlich.';
-
   function isOnlineThematicVersion() {
     return !document.body.classList.contains('is-local');
   }
@@ -43560,10 +43580,11 @@ window.cancelTextEditMode = function() {};
     if (currentMemberUser) return true;
 
     if (showNotice) {
-      const message = isOnlineThematicVersion()
-        ? THEMATIC_MEMBER_SAVE_NOTICE
-        : 'Bitte melden Sie sich im Mitgliederbereich an, um Themenabfragen zu speichern.';
-      showThematicNotification(message, 'info');
+      if (typeof window.openMembersPanel === 'function') {
+        await window.openMembersPanel();
+      } else if (typeof window.showMembersLoginPanel === 'function') {
+        window.showMembersLoginPanel();
+      }
     }
     return false;
   }
