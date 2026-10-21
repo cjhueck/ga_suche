@@ -6,7 +6,14 @@
 <script>
 (function(){
   var forced = false;
-  try { forced = sessionStorage.getItem('ga_force_mobile') === '1'; } catch (e) {}
+  try {
+    if (new URLSearchParams(location.search).get('mobil') === '1') {
+      sessionStorage.setItem('ga_force_mobile', '1');
+      forced = true;
+    } else {
+      forced = sessionStorage.getItem('ga_force_mobile') === '1';
+    }
+  } catch (e) {}
   if (forced || window.matchMedia('(max-width: 768px)').matches) {
     document.documentElement.classList.add('mobile-layout');
   }
@@ -1003,6 +1010,24 @@ body.dark-mode .site-logo:hover {
   box-shadow: 0 2px 6px rgba(255,255,255,0.15);
 }
 
+html:not(.mobile-layout) #sidebar-header .site-logo,
+html:not(.mobile-layout) #sidebar-header .site-logo.lecture-image {
+  max-width: none !important;
+  width: auto !important;
+  float: none !important;
+  display: block !important;
+  margin: 0 0.5rem 0 0 !important;
+  mix-blend-mode: normal !important;
+  filter: none !important;
+  vertical-align: middle;
+}
+
+body.dark-mode #sidebar-header .site-logo,
+body.dark-mode #sidebar-header .site-logo.lecture-image {
+  filter: none !important;
+  mix-blend-mode: normal !important;
+}
+
 /* Site-Sign Styling */
 .site-sign {
   height: 80px;
@@ -1415,6 +1440,12 @@ body:not(.is-local) #translateBtnWrapper {
       padding-top: 1rem !important;
     }
 
+    /* Such-Timeline: mehr Breite für Einträge, Jahresachse weiter links */
+    #sidebar-content:has(#timelineContainer) {
+      padding-left: 0.45rem !important;
+      padding-right: 0.55rem !important;
+    }
+
     /* GA-Tab: geringerer Abstand oben zwischen Resize-Handle und oberster GA */
     body:has(.tab-button.active[onclick="switchTab('ga')"]) #sidebar-content {
       padding-top: 1rem !important;
@@ -1543,10 +1574,12 @@ body:not(.is-local) #translateBtnWrapper {
     /* Neue vertikale Timeline-Visualisierung (drei Spalten) */
     .timeline-visualization {
       display: grid;
-      grid-template-columns: 80px 1fr;
-      gap: 0.5rem;
-      padding: 0 0.5rem 0.5rem 0.5rem;
+      grid-template-columns: 48px minmax(0, 1fr);
+      gap: 0.3rem;
+      padding: 0 0.25rem 0.5rem 0;
       font-size: 0.9rem;
+      width: 100%;
+      box-sizing: border-box;
     }
     
     .timeline-themes-column {
@@ -1558,6 +1591,8 @@ body:not(.is-local) #translateBtnWrapper {
       position: relative;
       min-height: 100%;
       padding: 0;
+      width: 48px;
+      max-width: 48px;
     }
     
     .timeline-center-column::before {
@@ -1578,17 +1613,20 @@ body:not(.is-local) #translateBtnWrapper {
     
     .timeline-keywords-column {
       text-align: left;
-      padding-left: 0.3rem;
-      max-width: 900px;
+      padding-left: 0.1rem;
+      padding-right: 0;
+      min-width: 0;
+      max-width: none;
+      width: 100%;
     }
     
     .timeline-year-marker {
       position: absolute;
       display: inline-block;
-      padding: 0.3rem 0.8rem;
+      padding: 0.25rem 0.35rem;
       background: var(--background-color);
       font-weight: bold;
-      font-size: 0.95em;
+      font-size: 0.88em;
       color: var(--heading-color);
       z-index: 1;
       white-space: nowrap;
@@ -3858,14 +3896,14 @@ gap: 4px !important;
       margin: 2px 0;
       font-size: 0.8em;
       box-sizing: border-box;
-      border: 1.5px solid var(--accent-color);
+      border: 1px solid var(--accent-color);
       border-radius: 4px;
       background: var(--background-color);
     }
     
     .filter-dropdown:focus {
       outline: none;
-      border: 1.5px solid var(--accent-color);
+      border: 1px solid var(--accent-color);
     }
     
     .filter-dropdown:disabled {
@@ -3892,26 +3930,39 @@ gap: 4px !important;
     
     .custom-dropdown-button:focus {
       outline: none;
-      border: 1.5px solid var(--accent-color);
+      border: 1px solid var(--accent-color);
     }
 
     /* Sidebar-Tabs: Akzent-Rahmen für alle Eingabe-/Auswahlfelder (ohne Größenänderung) */
     #sidebar-header .tab-container .tab-content input:not([type="checkbox"]):not([type="radio"]):not([type="hidden"]):not([type="file"]),
-    #sidebar-header .tab-container .tab-content select,
-    #sidebar-header .tab-container .tab-content textarea,
-    #sidebar-header .tab-container .tab-content button.filter-dropdown,
-    #sidebar-header .tab-container .tab-content button.distance-filter-trigger {
+    #sidebar-header .tab-container .tab-content select:not(.filter-dropdown),
+    #sidebar-header .tab-container .tab-content textarea {
       border: 1.5px solid var(--accent-color);
       border-radius: 4px;
     }
 
+    #sidebar-header .tab-container .tab-content button.filter-dropdown,
+    #sidebar-header .tab-container .tab-content button.distance-filter-trigger,
+    #sidebar-header .tab-container .tab-content button.custom-dropdown-button,
+    #sidebar-header .tab-container .tab-content select.filter-dropdown {
+      border: 1px solid var(--accent-color);
+      border-radius: 4px;
+    }
+
     #sidebar-header .tab-container .tab-content input:not([type="checkbox"]):not([type="radio"]):not([type="hidden"]):not([type="file"]):focus,
-    #sidebar-header .tab-container .tab-content select:focus,
-    #sidebar-header .tab-container .tab-content textarea:focus,
-    #sidebar-header .tab-container .tab-content button.filter-dropdown:focus,
-    #sidebar-header .tab-container .tab-content button.distance-filter-trigger:focus {
+    #sidebar-header .tab-container .tab-content select:not(.filter-dropdown):focus,
+    #sidebar-header .tab-container .tab-content textarea:focus {
       outline: none;
       border: 1.5px solid var(--accent-color);
+      box-shadow: none;
+    }
+
+    #sidebar-header .tab-container .tab-content button.filter-dropdown:focus,
+    #sidebar-header .tab-container .tab-content button.distance-filter-trigger:focus,
+    #sidebar-header .tab-container .tab-content button.custom-dropdown-button:focus,
+    #sidebar-header .tab-container .tab-content select.filter-dropdown:focus {
+      outline: none;
+      border: 1px solid var(--accent-color);
       box-shadow: none;
     }
 
@@ -3926,7 +3977,7 @@ gap: 4px !important;
     #thematic2-tab #timelineFilterSection select,
     #thematic2-tab #timelineFilterSection input,
     #thematic2-tab #maps-in-themen select {
-      border: 1.5px solid var(--accent-color) !important;
+      border: 1px solid var(--accent-color) !important;
       border-radius: 4px;
       box-sizing: border-box;
     }
@@ -3936,7 +3987,7 @@ gap: 4px !important;
     #thematic2-tab #timelineFilterSection input:focus,
     #thematic2-tab #maps-in-themen select:focus {
       outline: none;
-      border: 1.5px solid var(--accent-color) !important;
+      border: 1px solid var(--accent-color) !important;
       box-shadow: none;
     }
     
@@ -4012,7 +4063,7 @@ gap: 4px !important;
     #keyword-tab .search-input,
     #keyword-tab .filter-dropdown.custom-dropdown-button,
     #keyword-tab .distance-filter-trigger,
-    #keyword-tab select#relevanceFilter.filter-dropdown {
+    #keyword-tab #relevanceFilterButton {
       border: 1.5px solid var(--accent-color) !important;
       border-radius: 4px;
       background: var(--background-color);
@@ -4024,6 +4075,12 @@ gap: 4px !important;
       padding: 6px 5px;
       font-size: 0.78em;
       line-height: 1.2;
+    }
+
+    #keyword-tab .filter-dropdown.custom-dropdown-button,
+    #keyword-tab .distance-filter-trigger,
+    #keyword-tab #relevanceFilterButton {
+      border: 1px solid var(--accent-color) !important;
     }
 
     #keyword-tab.tab-content.active {
@@ -4050,15 +4107,21 @@ gap: 4px !important;
     #keyword-tab .search-input:focus,
     #keyword-tab .filter-dropdown.custom-dropdown-button:focus,
     #keyword-tab .distance-filter-trigger:focus,
-    #keyword-tab select#relevanceFilter.filter-dropdown:focus {
+    #keyword-tab #relevanceFilterButton:focus {
       outline: none;
       border: 1.5px solid var(--accent-color) !important;
       box-shadow: none;
     }
 
+    #keyword-tab .filter-dropdown.custom-dropdown-button:focus,
+    #keyword-tab .distance-filter-trigger:focus,
+    #keyword-tab #relevanceFilterButton:focus {
+      border: 1px solid var(--accent-color) !important;
+    }
+
     #keyword-tab .search-words-row {
       display: grid;
-      grid-template-columns: minmax(0, 1fr) minmax(0, 0.58fr) minmax(0, 0.92fr) minmax(0, 1fr);
+      grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
       gap: 6px;
       align-items: center;
       margin-top: 0;
@@ -4076,7 +4139,7 @@ gap: 4px !important;
     }
 
     #keyword-tab .search-words-row > div:last-of-type {
-      grid-column: 3 / 5;
+      grid-column: 3;
       min-width: 0;
     }
 
@@ -4105,12 +4168,16 @@ gap: 4px !important;
       min-width: 0;
     }
 
-    #keyword-tab #relevanceFilter {
+    #keyword-tab #relevanceFilterContainer {
       grid-column: 4;
       width: 100% !important;
       min-width: 0;
       max-width: none;
       justify-self: stretch;
+    }
+
+    #keyword-tab #relevanceFilterContainer > select#relevanceFilter {
+      display: none !important;
     }
 
     #keyword-tab .filter-row .custom-dropdown,
@@ -4130,12 +4197,13 @@ gap: 4px !important;
 
     #keyword-tab #searchBtnSimple.depth-btn.primary,
     #keyword-tab .radio-group .depth-btn {
-      border: 1.5px solid var(--accent-color) !important;
+      border: 1px solid var(--accent-color) !important;
       border-radius: 4px;
       min-height: 2.2em;
       height: 2.2em;
+      max-height: 2.2em;
       box-sizing: border-box;
-      padding: 6px 10px;
+      padding: 6px 5px;
       font-size: 0.78em;
       line-height: 1.2;
       background: var(--background-color);
@@ -4149,6 +4217,35 @@ gap: 4px !important;
 
     #keyword-tab .radio-group .depth-btn:hover {
       opacity: 0.9;
+    }
+
+    #keyword-tab .keyword-action-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      align-items: stretch;
+      width: 100%;
+      margin: 0;
+    }
+
+    #keyword-tab .radio-group .depth-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0;
+      white-space: nowrap;
+      flex: 0 0 auto;
+    }
+
+    #keyword-tab #viewToggle {
+      min-width: 2.2em;
+      padding-left: 6px;
+      padding-right: 6px;
+    }
+
+    #keyword-tab #viewToggleText {
+      font-size: 1em;
+      line-height: 1;
     }
 
     .custom-dropdown-list {
@@ -5013,7 +5110,7 @@ body.dark-mode #thematic2-visualization-main svg .grid line {
       box-sizing: border-box;
       /* Position und Breite werden via JavaScript gesetzt */
     }
-    
+
     /* Dark Mode für fixierten Header */
     body.dark-mode #viewer-header {
       background-color: var(--dark-background-color) !important;
@@ -7229,6 +7326,56 @@ body.dark-mode #imagePopupCloseBtn {
   color: #b8b8b8 !important;
 }
 
+html.mobile-layout #imagePopup {
+  justify-content: center !important;
+  align-items: center !important;
+  padding: 2.75rem 0.35rem 0.5rem !important;
+  box-sizing: border-box;
+}
+
+html.mobile-layout #imagePopup > div {
+  position: relative !important;
+  top: auto !important;
+  left: auto !important;
+  right: auto !important;
+  max-width: min(96vw, 100%) !important;
+  max-height: 96dvh !important;
+  width: auto !important;
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  align-items: center !important;
+}
+
+html.mobile-layout #popupImage {
+  display: block;
+  width: auto !important;
+  max-width: 100% !important;
+  max-height: calc(100dvh - 3.25rem) !important;
+  height: auto;
+  padding: 0 !important;
+  object-fit: contain;
+  object-position: center center;
+}
+
+html.mobile-layout #imagePopupCloseBtn {
+  position: fixed !important;
+  top: 0.35rem !important;
+  right: 0.35rem !important;
+  width: 40px !important;
+  height: 40px !important;
+  font-size: 26px !important;
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.2);
+}
+
+html.mobile-layout #popupCaption {
+  font-size: 0.85em !important;
+  margin-top: 0.35rem !important;
+  max-width: 100%;
+  text-align: center !important;
+  align-self: center;
+}
+
 /* Popup-Caption - Light Mode */
 #popupCaption {
   color: var(--text-color) !important;
@@ -7869,7 +8016,8 @@ html.mobile-layout body {
   height: 100svh;
 }
 
-html.mobile-layout .tab-button[data-help="tab-index"].active {
+html.mobile-layout .tab-button[data-help="tab-index"].active,
+html.mobile-layout .tab-button[data-help="tab-texte"].active {
   display: inline-flex !important;
 }
 
@@ -7894,13 +8042,35 @@ html.mobile-layout #ga-volumes-info {
   display: none !important;
 }
 
-html.mobile-layout #ga-view-toggle {
-  margin-bottom: 0.2rem;
-  align-items: stretch;
+html.mobile-layout #texte-tab.tab-content.active {
+  padding: 0.7rem 0.45rem 0.2rem;
+}
+
+html.mobile-layout #texteGAFilterButton {
+  display: flex !important;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+  width: 100%;
+  height: 32px !important;
+  min-height: 32px !important;
+  max-height: 32px !important;
+  margin: 0;
+  padding: 3px 6px !important;
+  font-size: 16px !important;
 }
 
 html.mobile-layout #ga-tab > div {
   padding: 0 !important;
+}
+
+html.mobile-layout #ga-view-toggle {
+  margin: 0 !important;
+  align-items: stretch;
+}
+
+html.mobile-layout #ga-tab.tab-content.active {
+  padding-top: 0.7rem;
 }
 
 html.mobile-layout #gaYearFilterContainer {
@@ -7918,6 +8088,30 @@ html.mobile-layout #ga-filter-dropdowns-row {
   width: 100%;
   flex: 1 1 100%;
   gap: 6px;
+  padding-bottom: 0.7rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+html.mobile-layout #keyword-tab .keyword-action-row {
+  padding-bottom: 0.7rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+html.mobile-layout body.thematic-chat-enabled #thematic-chat-panel .thematic-chat-input-row {
+  padding-bottom: 0.7rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+html.mobile-layout body:not(.thematic-chat-enabled) #thematic-tab .semantic-options {
+  padding-bottom: 0.7rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+html.mobile-layout body.dark-mode #ga-filter-dropdowns-row,
+html.mobile-layout body.dark-mode #keyword-tab .keyword-action-row,
+html.mobile-layout body.dark-mode.thematic-chat-enabled #thematic-chat-panel .thematic-chat-input-row,
+html.mobile-layout body.dark-mode:not(.thematic-chat-enabled) #thematic-tab .semantic-options {
+  border-bottom-color: var(--dark-border-color);
 }
 
 html.mobile-layout #ga-filter-dropdowns-row .custom-dropdown {
@@ -7940,16 +8134,66 @@ html.mobile-layout #ga-filter-dropdowns-row .custom-dropdown-button {
   font-size: 16px !important;
   line-height: 1.2;
   box-sizing: border-box;
-  border: 1.5px solid var(--accent-color);
+  border: 1px solid var(--accent-color);
   border-radius: 4px;
   background: var(--background-color);
   color: var(--text-color);
   cursor: pointer;
 }
 
+html.mobile-layout #thematicGAFilterContainer {
+  height: 32px;
+}
+
+html.mobile-layout #thematicGAFilterButton {
+  display: flex !important;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+  height: 32px !important;
+  min-height: 32px !important;
+  max-height: 32px !important;
+  margin: 0;
+  padding: 3px 6px !important;
+  font-size: 16px !important;
+  line-height: 1.2;
+}
+
+html.mobile-layout #rechercheSourceType,
+html.mobile-layout #rechercheThemeArea {
+  box-sizing: border-box;
+  height: 32px !important;
+  min-height: 32px !important;
+  max-height: 32px !important;
+  margin: 0 !important;
+  padding: 3px 6px !important;
+  font-size: 16px !important;
+  line-height: 1.2;
+}
+
+html.mobile-layout #thematic-tab.tab-content.active,
+html.mobile-layout body.thematic-chat-enabled.tab-thematic-active #thematic-tab.tab-content.active {
+  padding-top: 0.7rem !important;
+  padding-bottom: 0.1rem !important;
+}
+
+html.mobile-layout #thematic-tab .semantic-options,
+html.mobile-layout body.thematic-chat-enabled.tab-thematic-active #thematic-tab .semantic-options {
+  margin: 0 !important;
+}
+
+html.mobile-layout #thematic-tab .filter-row,
+html.mobile-layout body.thematic-chat-enabled.tab-thematic-active #thematic-tab .filter-row {
+  margin-top: 0 !important;
+}
+
+html.mobile-layout #thematic-mode-options {
+  margin-top: -2px;
+}
+
 html.mobile-layout #keyword-tab #frequencyBtnSimple,
-html.mobile-layout #keyword-tab button[onclick="openAdvancedSearch()"],
-html.mobile-layout #keyword-tab #relevanceFilter,
+html.mobile-layout #keyword-tab #advancedSearchBtnSimple,
+html.mobile-layout #keyword-tab #relevanceFilterContainer,
 html.mobile-layout #keyword-tab #searchInfo {
   display: none !important;
 }
@@ -7959,7 +8203,7 @@ html.mobile-layout #keyword-tab.tab-content.active {
   flex-wrap: wrap;
   align-items: flex-start;
   gap: 6px;
-  padding: 0 0.45rem 0.2rem;
+  padding: 0.7rem 0.45rem 0.2rem;
 }
 
 html.mobile-layout #keyword-tab .search-words-row {
@@ -8012,7 +8256,7 @@ html.mobile-layout #keyword-tab .filter-row {
 html.mobile-layout #keyword-tab #yearFilterContainer,
 html.mobile-layout #keyword-tab #gaFilterContainer,
 html.mobile-layout #keyword-tab #proximityFilterGroup,
-html.mobile-layout #keyword-tab #relevanceFilter {
+html.mobile-layout #keyword-tab #relevanceFilterContainer {
   grid-column: auto;
 }
 
@@ -8020,35 +8264,6 @@ html.mobile-layout #keyword-tab .radio-group {
   flex: 0 0 auto;
   margin: 0;
   align-self: flex-start;
-}
-
-html.mobile-layout #keyword-tab .radio-group,
-html.mobile-layout #keyword-tab .radio-group > div,
-html.mobile-layout #keyword-tab .radio-group > div > div {
-  display: flex !important;
-  flex-wrap: nowrap !important;
-  gap: 0 !important;
-  width: auto !important;
-  margin: 0;
-  padding: 0;
-  justify-content: flex-start !important;
-  align-items: flex-start !important;
-}
-
-html.mobile-layout #keyword-tab #searchBtnSimple {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  height: 32px !important;
-  min-height: 32px !important;
-  max-height: 32px !important;
-  margin: 0;
-  padding: 3px 10px !important;
-  font-size: 16px !important;
-  line-height: 1.2;
-  box-sizing: border-box;
-  border-radius: 4px;
-  border: 1.5px solid var(--accent-color) !important;
 }
 
 html.mobile-layout #keyword-tab .word-operator-label input[type="radio"] {
@@ -8124,6 +8339,111 @@ html.mobile-layout #sidebar-header {
   flex-shrink: 0;
   max-height: none;
   min-height: 0;
+  padding: 0.5rem !important;
+  box-sizing: border-box;
+}
+
+html.mobile-layout body.thematic-chat-enabled.tab-thematic-active #sidebar-header {
+  padding: 0.5rem !important;
+}
+
+html.mobile-layout body.thematic-chat-enabled.tab-thematic-active .tab-container .tab-buttons {
+  margin-bottom: 0.6rem !important;
+}
+
+html.mobile-layout #sidebar,
+html.mobile-layout body.thematic-chat-enabled.tab-thematic-active #sidebar {
+  display: block !important;
+  overflow-x: hidden !important;
+  overflow-y: auto !important;
+}
+
+html.mobile-layout #sidebar-header,
+html.mobile-layout body.thematic-chat-enabled.tab-thematic-active #sidebar-header {
+  display: grid !important;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  grid-template-rows: 96px auto auto;
+  align-items: start;
+  overflow: visible !important;
+  padding: 0.5rem !important;
+}
+
+#mobile-header-tagline {
+  display: none;
+}
+
+html.mobile-layout #header-top-flex,
+html.mobile-layout .site-header-flex,
+html.mobile-layout .tab-container,
+html.mobile-layout body.thematic-chat-enabled.tab-thematic-active .tab-container {
+  display: contents !important;
+}
+
+html.mobile-layout #sidebar-header .site-logo {
+  grid-column: 1;
+  grid-row: 1;
+  justify-self: start;
+  align-self: start;
+}
+
+html.mobile-layout #mobile-header-tagline {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  grid-column: 2 / -1;
+  grid-row: 1;
+  align-self: stretch;
+  height: 96px;
+  margin: 0;
+  padding: 0 0.15rem 0 0.55rem;
+  color: var(--heading-color);
+  font-size: 1.7rem;
+  font-weight: 650;
+  line-height: 1.12;
+  letter-spacing: 0.01em;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+html.mobile-layout #mobile-header-tagline span {
+  display: block;
+  white-space: nowrap;
+}
+
+html.mobile-layout #sidebar-action-buttons {
+  grid-column: 3;
+  grid-row: 1;
+  justify-self: end;
+  align-self: start;
+  z-index: 1;
+}
+
+html.mobile-layout #always-visible-buttons {
+  grid-column: 3;
+  grid-row: 2;
+  align-self: end;
+  justify-self: end;
+  flex-direction: row !important;
+  align-items: flex-end;
+  justify-content: flex-end;
+  height: auto !important;
+  width: auto !important;
+  gap: 2px !important;
+  margin: 0 0 0.6rem 6px;
+}
+
+html.mobile-layout .tab-container .tab-buttons {
+  grid-column: 1 / 3;
+  grid-row: 2;
+  align-self: end;
+  min-width: 0;
+}
+
+html.mobile-layout .tab-content {
+  grid-column: 1 / -1;
+  grid-row: 3;
+  min-width: 0;
 }
 
 html.mobile-layout #sidebar-content {
@@ -8132,14 +8452,30 @@ html.mobile-layout #sidebar-content {
   min-height: 0;
 }
 
-html.mobile-layout .site-logo {
-  height: 48px;
-  margin-right: 0.35rem;
+html.mobile-layout #search-panel-toggle,
+html.mobile-layout body.thematic-chat-enabled.tab-thematic-active #search-panel-toggle {
+  display: none !important;
+}
+
+html.mobile-layout #sidebar-header .site-logo,
+html.mobile-layout #sidebar-header .site-logo.lecture-image {
+  height: 96px !important;
+  width: auto !important;
+  max-width: none !important;
+  margin: 0 0.35rem 0 0.45rem !important;
+  float: none !important;
+  display: block !important;
+  flex-shrink: 0;
+  mix-blend-mode: normal !important;
+  filter: none !important;
+}
+
+html.mobile-layout #site-title {
+  display: none !important;
 }
 
 html.mobile-layout .site-sign {
-  max-height: 32px;
-  width: auto;
+  display: none !important;
 }
 
 html.mobile-layout body:not(.is-local) .site-header-flex {
@@ -8152,34 +8488,109 @@ html.mobile-layout body:not(.is-local) #always-visible-buttons {
   height: auto;
   width: auto;
   flex-direction: row;
-  justify-content: flex-start;
+  justify-content: flex-end;
   gap: 0.25rem;
 }
 
-html.mobile-layout body:not(.is-local) #always-visible-buttons .help-button,
-html.mobile-layout body:not(.is-local) #always-visible-buttons .theme-toggle-btn {
-  width: 36px;
-  height: 36px;
+html.mobile-layout #mobile-preview-toggle {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  z-index: 4000;
+  order: 0;
 }
 
-html.mobile-layout body:not(.is-local) #site-title .site-sign {
-  height: 32px;
-  max-height: 32px;
-  transform: none;
+html.mobile-layout #helpModal.help-modal.active {
+  align-items: stretch;
+  justify-content: stretch;
+}
+
+html.mobile-layout #helpModal .help-modal-content {
+  width: 100%;
+  max-width: none;
+  height: 100%;
+  max-height: none;
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+html.mobile-layout #helpModal .help-modal-body {
+  font-size: 1.05rem;
+  line-height: 1.55;
+}
+
+html.mobile-layout #helpModal .help-choice-buttons {
+  flex-wrap: wrap;
+}
+
+html.mobile-layout #helpModal .help-choice-btn {
+  flex: 1 1 calc(50% - 0.5rem);
+  min-width: 120px;
+}
+
+html.mobile-layout #helpModal .help-shortcuts {
+  display: none;
+}
+
+html.mobile-layout #always-visible-buttons .help-button,
+html.mobile-layout #always-visible-buttons .theme-toggle-btn,
+html.mobile-layout #always-visible-buttons #membersPanelBtn {
+  width: 30px !important;
+  min-width: 30px !important;
+  height: 30px !important;
+  min-height: 30px !important;
+  padding: 2px;
+}
+
+html.mobile-layout #always-visible-buttons #membersPanelBtn {
+  border: none !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  color: var(--accent-color) !important;
+}
+
+html.mobile-layout #always-visible-buttons #membersPanelBtn:hover,
+html.mobile-layout #always-visible-buttons #membersPanelBtn.active,
+html.mobile-layout #always-visible-buttons #membersPanelBtn.active:hover {
+  background: rgba(0, 0, 0, 0.05) !important;
+  color: var(--accent-color) !important;
+}
+
+html.mobile-layout body.dark-mode #always-visible-buttons #membersPanelBtn,
+html.mobile-layout body.dark-mode #always-visible-buttons #membersPanelBtn:hover,
+html.mobile-layout body.dark-mode #always-visible-buttons #membersPanelBtn.active,
+html.mobile-layout body.dark-mode #always-visible-buttons #membersPanelBtn.active:hover {
+  background: transparent !important;
+  color: var(--dark-accent-color) !important;
+}
+
+html.mobile-layout body.dark-mode #always-visible-buttons #membersPanelBtn:hover,
+html.mobile-layout body.dark-mode #always-visible-buttons #membersPanelBtn.active:hover {
+  background: rgba(255, 255, 255, 0.1) !important;
+}
+
+html.mobile-layout #always-visible-buttons #membersPanelBtn svg {
+  width: 22px;
+  height: 22px;
 }
 
 html.mobile-layout .tab-container .tab-buttons {
   overflow-x: hidden !important;
   flex-wrap: nowrap !important;
   justify-content: flex-start !important;
-  gap: 8px !important;
+  gap: 0 !important;
   margin-bottom: 0.6rem;
 }
 
 html.mobile-layout .tab-button {
+  display: inline-flex;
+  align-items: flex-end;
   flex: 0 0 auto;
-  min-height: 44px;
-  padding: 12px 14px;
+  box-sizing: border-box;
+  min-height: 40px;
+  padding: 6px 8px 1px;
+  line-height: 1.1;
   font-size: 1.1em;
 }
 
@@ -8245,6 +8656,12 @@ html.mobile-layout #keyword-tab .distance-filter-trigger {
   cursor: pointer;
 }
 
+html.mobile-layout #keyword-tab .filter-dropdown,
+html.mobile-layout #keyword-tab .custom-dropdown-button,
+html.mobile-layout #keyword-tab .distance-filter-trigger {
+  border: 1px solid var(--accent-color) !important;
+}
+
 html.mobile-layout #keyword-tab .search-input {
   display: block;
   cursor: text;
@@ -8281,6 +8698,61 @@ html.mobile-layout .radio-group .depth-btn {
   padding: 10px 14px;
 }
 
+html.mobile-layout #keyword-tab .radio-group {
+  display: flex !important;
+  flex-wrap: nowrap !important;
+  gap: 6px !important;
+  width: 100% !important;
+  margin: 0;
+  padding: 0;
+  justify-content: flex-start !important;
+  align-items: stretch !important;
+}
+
+html.mobile-layout #keyword-tab .radio-group .keyword-action-row {
+  display: flex !important;
+  flex-wrap: nowrap !important;
+  gap: 6px !important;
+  width: 100% !important;
+  margin: 0;
+  padding: 0 0 0.7rem;
+  border-bottom: 1px solid var(--border-color);
+  justify-content: flex-start !important;
+  align-items: stretch !important;
+}
+
+html.mobile-layout #keyword-tab .radio-group .depth-btn {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  height: 32px !important;
+  min-height: 32px !important;
+  max-height: 32px !important;
+  margin: 0 !important;
+  padding: 3px 10px !important;
+  font-size: 16px !important;
+  line-height: 1.2 !important;
+  box-sizing: border-box !important;
+  border-radius: 4px !important;
+  border: 1px solid var(--accent-color) !important;
+}
+
+html.mobile-layout #keyword-tab #searchBtnSimple.depth-btn.primary {
+  background: var(--accent-color) !important;
+  color: #fff !important;
+}
+
+html.mobile-layout #keyword-tab #viewToggle {
+  min-width: 32px !important;
+  padding-left: 6px !important;
+  padding-right: 6px !important;
+}
+
+html.mobile-layout #keyword-tab #frequencyBtnSimple,
+html.mobile-layout #keyword-tab #advancedSearchBtnSimple {
+  display: none !important;
+}
+
 html.mobile-layout .custom-dropdown,
 html.mobile-layout .distance-filter-group,
 html.mobile-layout #yearFilterContainer,
@@ -8290,7 +8762,7 @@ html.mobile-layout #gaFilterContainer {
 }
 
 html.mobile-layout #proximityFilterButton,
-html.mobile-layout #relevanceFilter {
+html.mobile-layout #relevanceFilterButton {
   width: 100% !important;
 }
 
@@ -8458,6 +8930,42 @@ html.mobile-layout #viewer-header .viewer-buttons-container {
   margin-left: 0 !important;
   width: 100%;
   gap: 6px;
+}
+
+#keywordSearchBackBtn.resize-handle-keyword-back {
+  display: none;
+}
+
+html.mobile-layout body.sidebar-collapsed #keywordSearchBackBtn.resize-handle-keyword-back.is-visible {
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  background-color: var(--background-color) !important;
+  border: 2px solid var(--link-color) !important;
+  border-left: 0 !important;
+  color: var(--link-color);
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1;
+  user-select: none;
+}
+
+html.mobile-layout body.sidebar-collapsed #keywordSearchBackBtn.resize-handle-keyword-back:hover {
+  background-color: var(--background-color) !important;
+}
+
+html.mobile-layout body.sidebar-collapsed #keywordSearchBackBtn.resize-handle-keyword-back::before {
+  display: none !important;
+  content: none !important;
+  box-shadow: none !important;
+}
+
+html.mobile-layout body.dark-mode.sidebar-collapsed #keywordSearchBackBtn.resize-handle-keyword-back,
+html.mobile-layout body.dark-mode.sidebar-collapsed #keywordSearchBackBtn.resize-handle-keyword-back:hover {
+  background-color: var(--dark-background-color, var(--background-color)) !important;
+  border-color: var(--link-color) !important;
+  color: var(--link-color);
 }
 
 html.mobile-layout #viewer-header .viewer-buttons-container > *:not(#gaInfoBtn):not(#h4ToggleBtn):not(#viewerSummaryBtn):not(#membersPanelBtn):not(#texteViewToggle) {
@@ -8659,6 +9167,11 @@ html.mobile-layout body.sidebar-collapsed.mobile-last-text-handle-muted #resizeH
   background-color: var(--border-color) !important;
 }
 
+html.mobile-layout body.sidebar-collapsed.mobile-hide-last-text-handle #resizeHandleText {
+  display: none !important;
+  pointer-events: none;
+}
+
 html.mobile-layout body.sidebar-collapsed .resize-handle::before {
   width: 2px;
   height: 2px;
@@ -8753,6 +9266,7 @@ html.mobile-layout #summary-panel.visible {
 <div id="sidebar-header">
 <div id="header-top-flex" style="display: flex; align-items: flex-start; gap: 0.5rem;">
 <img src="images/steiner-logo.jpg" alt="Rudolf Steiner" class="site-logo" data-help="site-logo">
+<a id="mobile-header-tagline" href="index.html?ansicht=mobil" target="_blank" rel="noopener noreferrer" title="Startseite öffnen"><span>Rudolf Steiner</span><span>Texte online</span></a>
 <div class="site-header-flex" data-help="site-header">
 <!-- Immer sichtbare Funktionsbuttons: lokal horizontale Reihe oberhalb des Schriftzugs, online verkleinerte vertikale Saeule rechts neben dem Schriftzug -->
 <div id="always-visible-buttons">
@@ -8817,7 +9331,11 @@ Wandtafeln
 <option value="">GA</option>
 </select>
 <div class="custom-dropdown" id="gaBandFilterContainer">
+<<<<<<< HEAD
   <button type="button" class="filter-dropdown custom-dropdown-button" id="gaBandFilterButton" style="border: 1.5px solid var(--accent-color); border-radius: 4px; background: var(--background-color); color: var(--text-color); cursor: pointer; width: 100%;" title="GA">
+=======
+  <button type="button" class="filter-dropdown custom-dropdown-button" id="gaBandFilterButton" style="border: 1px solid var(--accent-color); border-radius: 4px; background: var(--background-color); color: var(--text-color); cursor: pointer; width: 100%;" title="GA">
+>>>>>>> d0b83b970ad6bceed0ff619631c5889f884acf68
     <span class="custom-dropdown-text">GA</span>
     <span class="custom-dropdown-arrow"></span>
   </button>
@@ -8827,7 +9345,7 @@ Wandtafeln
 <option value="">Jahr</option>
 </select>
 <div class="custom-dropdown" id="gaYearFilterContainer">
-  <button type="button" class="filter-dropdown custom-dropdown-button" id="gaYearFilterButton" style="border: 1.5px solid var(--accent-color); border-radius: 4px; background: var(--background-color); color: var(--text-color); cursor: pointer; width: 100%;">
+  <button type="button" class="filter-dropdown custom-dropdown-button" id="gaYearFilterButton" style="border: 1px solid var(--accent-color); border-radius: 4px; background: var(--background-color); color: var(--text-color); cursor: pointer; width: 100%;">
     <span class="custom-dropdown-text">Jahr</span>
     <span class="custom-dropdown-arrow"></span>
   </button>
@@ -8837,7 +9355,7 @@ Wandtafeln
 <option value="">Ort</option>
 </select>
 <div class="custom-dropdown" id="gaPlaceFilterContainer">
-  <button type="button" class="filter-dropdown custom-dropdown-button" id="gaPlaceFilterButton" style="border: 1.5px solid var(--accent-color); border-radius: 4px; background: var(--background-color); color: var(--text-color); cursor: pointer; width: 100%;" title="Ort">
+  <button type="button" class="filter-dropdown custom-dropdown-button" id="gaPlaceFilterButton" style="border: 1px solid var(--accent-color); border-radius: 4px; background: var(--background-color); color: var(--text-color); cursor: pointer; width: 100%;" title="Ort">
     <span class="custom-dropdown-text">Ort</span>
     <span class="custom-dropdown-arrow"></span>
   </button>
@@ -8906,29 +9424,30 @@ Wandtafeln
 </div>
 </div>
 </div>
-<select class="filter-dropdown" id="relevanceFilter" data-help="relevanceFilter">
+<div class="custom-dropdown" id="relevanceFilterContainer">
+<select class="filter-dropdown" id="relevanceFilter" data-help="relevanceFilter" style="display: none;" aria-hidden="true" tabindex="-1">
 <option value="ohne">Relevanz</option>
 <option value="alle">alle</option>
 <option value="hoch">hoch 🟩</option>
 <option value="mittel">mittel 🟧</option>
 <option value="niedrig">niedrig 🟨</option>
 </select>
+<button type="button" class="filter-dropdown custom-dropdown-button" id="relevanceFilterButton" data-help="relevanceFilter" aria-label="Relevanz">
+  <span class="custom-dropdown-text">Relevanz</span>
+  <span class="custom-dropdown-arrow"></span>
+</button>
+<div class="custom-dropdown-list" id="relevanceFilterList"></div>
+</div>
 </div>
 <div class="radio-group">
-<div style="display:flex; gap:8px; align-items: flex-start; justify-content: space-between; width: 100%;">
-    <div style="display:flex; gap:8px;">
-      <button id="searchBtnSimple" class="depth-btn primary" onclick="performKeywordSearch()" style="padding: 6px 8px;">Suchen</button>
-      <button id="frequencyBtnSimple" class="depth-btn" onclick="performSimpleFrequencyAnalysis()" style="padding: 6px 8px;">Häufigkeit</button>
-      <button class="depth-btn" onclick="openAdvancedSearch()" style="padding: 6px 8px;">erweitert</button>
-    </div>
-  <div style="display:flex; gap:8px; align-items: center;">
-    <button id="showTimelineBtn" class="depth-btn" onclick="showSearchResultsInTimeline()" style="padding: 6px 8px;">
-      Timeline
+<div class="keyword-action-row">
+      <button type="button" id="searchBtnSimple" class="depth-btn primary" onclick="performKeywordSearch()">Suchen</button>
+      <button type="button" id="frequencyBtnSimple" class="depth-btn" onclick="performSimpleFrequencyAnalysis()">Häufigkeit</button>
+      <button type="button" id="advancedSearchBtnSimple" class="depth-btn" onclick="openAdvancedSearch()">erweitert</button>
+    <button type="button" id="showTimelineBtn" class="depth-btn" onclick="showSearchResultsInTimeline()">Timeline</button>
+    <button type="button" id="viewToggle" class="depth-btn" onclick="toggleResultView()" title="Zwischen 'nur Titel' und 'Titel & Text' wechseln">
+      <span id="viewToggleText">▼</span>
     </button>
-    <button id="viewToggle" class="depth-btn" onclick="toggleResultView()" style="padding: 4px 6px; min-width: auto;" title="Zwischen 'nur Titel' und 'Titel & Text' wechseln">
-      <span id="viewToggleText" style="font-size: 1.2em;">▼</span>
-    </button>
-  </div>
 </div>
 </div>
 <div id="searchInfo" style="display: flex; align-items: center; gap: 0.5rem; margin-top: 0.5rem;">
@@ -11286,6 +11805,7 @@ Bestehende Schlagwörter überschreiben
 </div>
 <div class="resize-handle-wrapper" id="resizeHandleWrapper">
   <div class="resize-handle-line"></div>
+  <div class="resize-handle resize-handle-keyword-back" id="keywordSearchBackBtn" role="button" tabindex="0" title="Zurück zu den Suchergebnissen" aria-label="Zurück zu den Suchergebnissen">&lt;</div>
   <div class="resize-handle resize-handle-tabs" id="resizeHandleTabs" title="Tab-Auswahl"></div>
   <div class="resize-handle" id="resizeHandle" title="Inhaltsübersicht"></div>
   <div class="resize-handle resize-handle-text" id="resizeHandleText" title="Letzter Text"></div>
@@ -11552,7 +12072,7 @@ PDF
             <h3>Impressum</h3>
           </button>
         </div>
-        <div style="margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid var(--border-color, #ddd);">
+        <div class="help-shortcuts" style="margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid var(--border-color, #ddd);">
           <h3 style="margin-top: 0; margin-bottom: 1rem; font-size: 1em; color: var(--heading-color, #333);">Tastenkombinationen:</h3>
           <ul style="margin: 0; padding-left: 1.5rem; line-height: 1.6; color: var(--text-color, #333);">
             <li><strong>Strg+Klick:</strong> Kurzinformation</li>
@@ -12253,7 +12773,7 @@ PDF
   </script>
 
 <!-- Members Panel UI -->
-<script src="members/members-panel.js"></script>
+<script src="members/members-panel.js?v=20261021ah"></script>
 
 <!-- Members Context Menu (Rechtsklick) -->
 <script src="members/members-context-menu.js"></script>
@@ -12292,9 +12812,13 @@ PDF
 
 <!-- THEMATIC-CHAT-UI (Revert: remove next 2 lines + hooks in app.js) -->
 <link rel="stylesheet" href="thematic-chat-ui.css?v=20260712n">
-<script src="thematic-chat-ui.js?v=20260712n"></script>
+<script src="thematic-chat-ui.js?v=20261021ai"></script>
 
+<<<<<<< HEAD
 <script src="app.js?v=20261021s"></script>
+=======
+<script src="app.js?v=20261021at"></script>
+>>>>>>> d0b83b970ad6bceed0ff619631c5889f884acf68
 </body>
 </html>
 
