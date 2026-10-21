@@ -2699,7 +2699,10 @@ function normalizeGANumber(gaNumber) {
       }
       
       if (proximityFilter) setDistanceFilterValue('proximityFilter', 'proximityWordDistance', '');
-      if (relevanceFilter) relevanceFilter.value = 'ohne';
+      if (relevanceFilter) {
+        relevanceFilter.value = 'ohne';
+        if (typeof syncRelevanceFilterButton === 'function') syncRelevanceFilterButton();
+      }
       
       // Setze UND/ODER zurück auf UND
       const andRadio = document.querySelector('input[name="wordOperator"][value="and"]');
@@ -5661,6 +5664,69 @@ function normalizeGANumber(gaNumber) {
     let thematicGAFilterDropdown = null;
     let texteGAFilterDropdown = null;
     
+    function syncRelevanceFilterButton() {
+      const select = document.getElementById('relevanceFilter');
+      const textEl = document.querySelector('#relevanceFilterButton .custom-dropdown-text');
+      if (!select || !textEl) return;
+      const opt = select.options[select.selectedIndex];
+      textEl.textContent = opt ? opt.textContent : 'Relevanz';
+    }
+
+    function initRelevanceFilterDropdown() {
+      const select = document.getElementById('relevanceFilter');
+      const container = document.getElementById('relevanceFilterContainer');
+      const button = document.getElementById('relevanceFilterButton');
+      const list = document.getElementById('relevanceFilterList');
+      if (!select || !container || !button || !list) return;
+
+      function renderList() {
+        list.innerHTML = Array.from(select.options).map((opt) => {
+          const selected = opt.value === select.value ? ' selected' : '';
+          return `<div class="custom-dropdown-item${selected}" data-value="${opt.value}">${opt.textContent}</div>`;
+        }).join('');
+      }
+
+      syncRelevanceFilterButton();
+      renderList();
+
+      button.onclick = (e) => {
+        e.stopPropagation();
+        const willOpen = !container.classList.contains('open');
+        document.querySelectorAll('.custom-dropdown.open').forEach((dd) => dd.classList.remove('open'));
+        if (willOpen) {
+          renderList();
+          container.classList.add('open');
+          const rect = button.getBoundingClientRect();
+          list.style.top = `${rect.bottom}px`;
+          list.style.left = `${rect.left}px`;
+        }
+      };
+
+      list.onclick = (e) => {
+        const item = e.target.closest('.custom-dropdown-item');
+        if (!item) return;
+        e.stopPropagation();
+        select.value = item.dataset.value;
+        select.dispatchEvent(new Event('change', { bubbles: true }));
+        syncRelevanceFilterButton();
+        container.classList.remove('open');
+        renderList();
+      };
+
+      select.onchange = syncRelevanceFilterButton;
+
+      if (!initRelevanceFilterDropdown._docBound) {
+        initRelevanceFilterDropdown._docBound = true;
+        document.addEventListener('click', (e) => {
+          const liveContainer = document.getElementById('relevanceFilterContainer');
+          const liveList = document.getElementById('relevanceFilterList');
+          if (!liveContainer || !liveContainer.classList.contains('open')) return;
+          if (liveContainer.contains(e.target) || (liveList && liveList.contains(e.target))) return;
+          liveContainer.classList.remove('open');
+        });
+      }
+    }
+
     function initCustomDropdowns() {
       // Entferne alte Event-Listener, falls vorhanden (durch Klonen der Container)
       const yearContainer = document.getElementById('yearFilterContainer');
@@ -5732,7 +5798,8 @@ function normalizeGANumber(gaNumber) {
           if (typeof updateThematicServerInfo === 'function') updateThematicServerInfo();
         });
       }
-      
+
+      initRelevanceFilterDropdown();
       }
     
     // Hilfsfunktionen für Kompatibilität mit bestehendem Code
