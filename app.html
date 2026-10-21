@@ -3896,14 +3896,14 @@ gap: 4px !important;
       margin: 2px 0;
       font-size: 0.8em;
       box-sizing: border-box;
-      border: 1.5px solid var(--accent-color);
+      border: 1px solid var(--accent-color);
       border-radius: 4px;
       background: var(--background-color);
     }
     
     .filter-dropdown:focus {
       outline: none;
-      border: 1.5px solid var(--accent-color);
+      border: 1px solid var(--accent-color);
     }
     
     .filter-dropdown:disabled {
@@ -3930,26 +3930,39 @@ gap: 4px !important;
     
     .custom-dropdown-button:focus {
       outline: none;
-      border: 1.5px solid var(--accent-color);
+      border: 1px solid var(--accent-color);
     }
 
     /* Sidebar-Tabs: Akzent-Rahmen für alle Eingabe-/Auswahlfelder (ohne Größenänderung) */
     #sidebar-header .tab-container .tab-content input:not([type="checkbox"]):not([type="radio"]):not([type="hidden"]):not([type="file"]),
-    #sidebar-header .tab-container .tab-content select,
-    #sidebar-header .tab-container .tab-content textarea,
-    #sidebar-header .tab-container .tab-content button.filter-dropdown,
-    #sidebar-header .tab-container .tab-content button.distance-filter-trigger {
+    #sidebar-header .tab-container .tab-content select:not(.filter-dropdown),
+    #sidebar-header .tab-container .tab-content textarea {
       border: 1.5px solid var(--accent-color);
       border-radius: 4px;
     }
 
+    #sidebar-header .tab-container .tab-content button.filter-dropdown,
+    #sidebar-header .tab-container .tab-content button.distance-filter-trigger,
+    #sidebar-header .tab-container .tab-content button.custom-dropdown-button,
+    #sidebar-header .tab-container .tab-content select.filter-dropdown {
+      border: 1px solid var(--accent-color);
+      border-radius: 4px;
+    }
+
     #sidebar-header .tab-container .tab-content input:not([type="checkbox"]):not([type="radio"]):not([type="hidden"]):not([type="file"]):focus,
-    #sidebar-header .tab-container .tab-content select:focus,
-    #sidebar-header .tab-container .tab-content textarea:focus,
-    #sidebar-header .tab-container .tab-content button.filter-dropdown:focus,
-    #sidebar-header .tab-container .tab-content button.distance-filter-trigger:focus {
+    #sidebar-header .tab-container .tab-content select:not(.filter-dropdown):focus,
+    #sidebar-header .tab-container .tab-content textarea:focus {
       outline: none;
       border: 1.5px solid var(--accent-color);
+      box-shadow: none;
+    }
+
+    #sidebar-header .tab-container .tab-content button.filter-dropdown:focus,
+    #sidebar-header .tab-container .tab-content button.distance-filter-trigger:focus,
+    #sidebar-header .tab-container .tab-content button.custom-dropdown-button:focus,
+    #sidebar-header .tab-container .tab-content select.filter-dropdown:focus {
+      outline: none;
+      border: 1px solid var(--accent-color);
       box-shadow: none;
     }
 
@@ -3964,7 +3977,7 @@ gap: 4px !important;
     #thematic2-tab #timelineFilterSection select,
     #thematic2-tab #timelineFilterSection input,
     #thematic2-tab #maps-in-themen select {
-      border: 1.5px solid var(--accent-color) !important;
+      border: 1px solid var(--accent-color) !important;
       border-radius: 4px;
       box-sizing: border-box;
     }
@@ -3974,7 +3987,7 @@ gap: 4px !important;
     #thematic2-tab #timelineFilterSection input:focus,
     #thematic2-tab #maps-in-themen select:focus {
       outline: none;
-      border: 1.5px solid var(--accent-color) !important;
+      border: 1px solid var(--accent-color) !important;
       box-shadow: none;
     }
     
@@ -4050,7 +4063,7 @@ gap: 4px !important;
     #keyword-tab .search-input,
     #keyword-tab .filter-dropdown.custom-dropdown-button,
     #keyword-tab .distance-filter-trigger,
-    #keyword-tab select#relevanceFilter.filter-dropdown {
+    #keyword-tab #relevanceFilterButton {
       border: 1.5px solid var(--accent-color) !important;
       border-radius: 4px;
       background: var(--background-color);
@@ -4062,6 +4075,12 @@ gap: 4px !important;
       padding: 6px 5px;
       font-size: 0.78em;
       line-height: 1.2;
+    }
+
+    #keyword-tab .filter-dropdown.custom-dropdown-button,
+    #keyword-tab .distance-filter-trigger,
+    #keyword-tab #relevanceFilterButton {
+      border: 1px solid var(--accent-color) !important;
     }
 
     #keyword-tab.tab-content.active {
@@ -4088,15 +4107,21 @@ gap: 4px !important;
     #keyword-tab .search-input:focus,
     #keyword-tab .filter-dropdown.custom-dropdown-button:focus,
     #keyword-tab .distance-filter-trigger:focus,
-    #keyword-tab select#relevanceFilter.filter-dropdown:focus {
+    #keyword-tab #relevanceFilterButton:focus {
       outline: none;
       border: 1.5px solid var(--accent-color) !important;
       box-shadow: none;
     }
 
+    #keyword-tab .filter-dropdown.custom-dropdown-button:focus,
+    #keyword-tab .distance-filter-trigger:focus,
+    #keyword-tab #relevanceFilterButton:focus {
+      border: 1px solid var(--accent-color) !important;
+    }
+
     #keyword-tab .search-words-row {
       display: grid;
-      grid-template-columns: minmax(0, 1fr) minmax(0, 0.58fr) minmax(0, 0.92fr) minmax(0, 1fr);
+      grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
       gap: 6px;
       align-items: center;
       margin-top: 0;
@@ -4114,7 +4139,7 @@ gap: 4px !important;
     }
 
     #keyword-tab .search-words-row > div:last-of-type {
-      grid-column: 3 / 5;
+      grid-column: 3;
       min-width: 0;
     }
 
@@ -4143,12 +4168,16 @@ gap: 4px !important;
       min-width: 0;
     }
 
-    #keyword-tab #relevanceFilter {
+    #keyword-tab #relevanceFilterContainer {
       grid-column: 4;
       width: 100% !important;
       min-width: 0;
       max-width: none;
       justify-self: stretch;
+    }
+
+    #keyword-tab #relevanceFilterContainer > select#relevanceFilter {
+      display: none !important;
     }
 
     #keyword-tab .filter-row .custom-dropdown,
@@ -4168,7 +4197,7 @@ gap: 4px !important;
 
     #keyword-tab #searchBtnSimple.depth-btn.primary,
     #keyword-tab .radio-group .depth-btn {
-      border: 1.5px solid var(--accent-color) !important;
+      border: 1px solid var(--accent-color) !important;
       border-radius: 4px;
       min-height: 2.2em;
       height: 2.2em;
@@ -8105,7 +8134,7 @@ html.mobile-layout #ga-filter-dropdowns-row .custom-dropdown-button {
   font-size: 16px !important;
   line-height: 1.2;
   box-sizing: border-box;
-  border: 1.5px solid var(--accent-color);
+  border: 1px solid var(--accent-color);
   border-radius: 4px;
   background: var(--background-color);
   color: var(--text-color);
@@ -8164,7 +8193,7 @@ html.mobile-layout #thematic-mode-options {
 
 html.mobile-layout #keyword-tab #frequencyBtnSimple,
 html.mobile-layout #keyword-tab #advancedSearchBtnSimple,
-html.mobile-layout #keyword-tab #relevanceFilter,
+html.mobile-layout #keyword-tab #relevanceFilterContainer,
 html.mobile-layout #keyword-tab #searchInfo {
   display: none !important;
 }
@@ -8227,7 +8256,7 @@ html.mobile-layout #keyword-tab .filter-row {
 html.mobile-layout #keyword-tab #yearFilterContainer,
 html.mobile-layout #keyword-tab #gaFilterContainer,
 html.mobile-layout #keyword-tab #proximityFilterGroup,
-html.mobile-layout #keyword-tab #relevanceFilter {
+html.mobile-layout #keyword-tab #relevanceFilterContainer {
   grid-column: auto;
 }
 
@@ -8627,6 +8656,12 @@ html.mobile-layout #keyword-tab .distance-filter-trigger {
   cursor: pointer;
 }
 
+html.mobile-layout #keyword-tab .filter-dropdown,
+html.mobile-layout #keyword-tab .custom-dropdown-button,
+html.mobile-layout #keyword-tab .distance-filter-trigger {
+  border: 1px solid var(--accent-color) !important;
+}
+
 html.mobile-layout #keyword-tab .search-input {
   display: block;
   cursor: text;
@@ -8699,7 +8734,7 @@ html.mobile-layout #keyword-tab .radio-group .depth-btn {
   line-height: 1.2 !important;
   box-sizing: border-box !important;
   border-radius: 4px !important;
-  border: 1.5px solid var(--accent-color) !important;
+  border: 1px solid var(--accent-color) !important;
 }
 
 html.mobile-layout #keyword-tab #searchBtnSimple.depth-btn.primary {
@@ -8727,7 +8762,7 @@ html.mobile-layout #gaFilterContainer {
 }
 
 html.mobile-layout #proximityFilterButton,
-html.mobile-layout #relevanceFilter {
+html.mobile-layout #relevanceFilterButton {
   width: 100% !important;
 }
 
@@ -9296,7 +9331,7 @@ Wandtafeln
 <option value="">GA</option>
 </select>
 <div class="custom-dropdown" id="gaBandFilterContainer">
-  <button type="button" class="filter-dropdown custom-dropdown-button" id="gaBandFilterButton" style="border: 1.5px solid var(--accent-color); border-radius: 4px; background: var(--background-color); color: var(--text-color); cursor: pointer; width: 100%;" title="GA">
+  <button type="button" class="filter-dropdown custom-dropdown-button" id="gaBandFilterButton" style="border: 1px solid var(--accent-color); border-radius: 4px; background: var(--background-color); color: var(--text-color); cursor: pointer; width: 100%;" title="GA">
     <span class="custom-dropdown-text">GA</span>
     <span class="custom-dropdown-arrow"></span>
   </button>
@@ -9306,7 +9341,7 @@ Wandtafeln
 <option value="">Jahr</option>
 </select>
 <div class="custom-dropdown" id="gaYearFilterContainer">
-  <button type="button" class="filter-dropdown custom-dropdown-button" id="gaYearFilterButton" style="border: 1.5px solid var(--accent-color); border-radius: 4px; background: var(--background-color); color: var(--text-color); cursor: pointer; width: 100%;">
+  <button type="button" class="filter-dropdown custom-dropdown-button" id="gaYearFilterButton" style="border: 1px solid var(--accent-color); border-radius: 4px; background: var(--background-color); color: var(--text-color); cursor: pointer; width: 100%;">
     <span class="custom-dropdown-text">Jahr</span>
     <span class="custom-dropdown-arrow"></span>
   </button>
@@ -9316,7 +9351,7 @@ Wandtafeln
 <option value="">Ort</option>
 </select>
 <div class="custom-dropdown" id="gaPlaceFilterContainer">
-  <button type="button" class="filter-dropdown custom-dropdown-button" id="gaPlaceFilterButton" style="border: 1.5px solid var(--accent-color); border-radius: 4px; background: var(--background-color); color: var(--text-color); cursor: pointer; width: 100%;" title="Ort">
+  <button type="button" class="filter-dropdown custom-dropdown-button" id="gaPlaceFilterButton" style="border: 1px solid var(--accent-color); border-radius: 4px; background: var(--background-color); color: var(--text-color); cursor: pointer; width: 100%;" title="Ort">
     <span class="custom-dropdown-text">Ort</span>
     <span class="custom-dropdown-arrow"></span>
   </button>
@@ -9385,13 +9420,20 @@ Wandtafeln
 </div>
 </div>
 </div>
-<select class="filter-dropdown" id="relevanceFilter" data-help="relevanceFilter">
+<div class="custom-dropdown" id="relevanceFilterContainer">
+<select class="filter-dropdown" id="relevanceFilter" data-help="relevanceFilter" style="display: none;" aria-hidden="true" tabindex="-1">
 <option value="ohne">Relevanz</option>
 <option value="alle">alle</option>
 <option value="hoch">hoch 🟩</option>
 <option value="mittel">mittel 🟧</option>
 <option value="niedrig">niedrig 🟨</option>
 </select>
+<button type="button" class="filter-dropdown custom-dropdown-button" id="relevanceFilterButton" data-help="relevanceFilter" aria-label="Relevanz">
+  <span class="custom-dropdown-text">Relevanz</span>
+  <span class="custom-dropdown-arrow"></span>
+</button>
+<div class="custom-dropdown-list" id="relevanceFilterList"></div>
+</div>
 </div>
 <div class="radio-group">
 <div class="keyword-action-row">
