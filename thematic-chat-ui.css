@@ -13,8 +13,8 @@ body.thematic-chat-enabled.tab-thematic-active #sidebar-header {
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  padding-top: 0.35rem;
-  padding-bottom: 0.3rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
 }
 
 body.thematic-chat-enabled.tab-thematic-active .tab-container {
@@ -27,7 +27,7 @@ body.thematic-chat-enabled.tab-thematic-active .tab-container {
 }
 
 body.thematic-chat-enabled.tab-thematic-active .tab-container .tab-buttons {
-  margin-bottom: 0.65rem !important;
+  margin-bottom: 1rem !important;
 }
 
 body.thematic-chat-enabled.tab-thematic-active #thematic-tab.tab-content.active {
@@ -280,6 +280,15 @@ body.dark-mode .thematic-chat-icon-btn:hover {
 body.dark-mode #thematic-chat-messages,
 body.dark-mode .thematic-chat-messages {
   background: rgba(255, 255, 255, 0.03);
+}
+
+html.mobile-layout #thematic-chat-messages:empty {
+  display: none !important;
+  flex: 0 0 0 !important;
+  min-height: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: none !important;
 }
 
 .thematic-chat-bubble {
@@ -686,6 +695,17 @@ body.dark-mode .thematic-examples-cat-pick:hover {
 
 .thematic-chat-saved-overlay.open {
   display: flex;
+}
+
+html.mobile-layout #thematic-chat-panel.saved-overlay-open {
+  flex: 0 0 auto !important;
+  min-height: calc(100dvh - 14rem);
+  height: calc(100dvh - 14rem);
+}
+
+html.mobile-layout body.thematic-chat-enabled.tab-thematic-active #sidebar-content:has(#thematic-chat-panel.saved-overlay-open) {
+  overflow: visible;
+  flex: 0 0 auto;
 }
 
 .thematic-chat-saved-overlay .saved-back {
