@@ -2537,6 +2537,9 @@ function normalizeGANumber(gaNumber) {
         }
       }
       placeMembersButtonForMobile(mobile);
+      if (window.ThematicChatUI && typeof window.ThematicChatUI.placeChatModeRadiosForLayout === 'function') {
+        window.ThematicChatUI.placeChatModeRadiosForLayout();
+      }
       if (mobile && !wasMobile) {
         var active = document.querySelector('.tab-button.active');
         var help = active && active.getAttribute('data-help');
