@@ -1057,6 +1057,31 @@
 
   let panelHome = null;
 
+  function restoreChatModeRadiosHome() {
+    const radios = document.querySelector('.thematic-chat-mode-radios');
+    const home = radios && radios._radiosHome;
+    if (!radios || !home || !home.parent || radios.parentElement === home.parent) return;
+    if (home.next && home.next.parentElement === home.parent) home.parent.insertBefore(radios, home.next);
+    else home.parent.insertBefore(radios, home.parent.firstChild);
+  }
+
+  /** Mobile: Chat/+ Internet unter Breite/Zitat/Essay, rechts neben dem GA-Button. */
+  function placeChatModeRadiosForLayout() {
+    const radios = document.querySelector('.thematic-chat-mode-radios');
+    const filterRow = document.querySelector('#thematic-tab .filter-row');
+    if (!radios || !filterRow) return;
+    if (!radios._radiosHome && radios.parentElement && radios.parentElement.classList.contains('thematic-chat-header')) {
+      radios._radiosHome = { parent: radios.parentElement, next: radios.nextElementSibling };
+    }
+    const mobile = document.documentElement.classList.contains('mobile-layout');
+    const chatOn = document.body.classList.contains('thematic-chat-enabled');
+    if (mobile && chatOn) {
+      if (radios.parentElement !== filterRow) filterRow.appendChild(radios);
+    } else {
+      restoreChatModeRadiosHome();
+    }
+  }
+
   function mountChatToSidebar() {
     const panel = $('thematic-chat-panel');
     const sidebarContent = $('sidebar-content');
@@ -1077,6 +1102,7 @@
   }
 
   function unmountChatFromSidebar() {
+    restoreChatModeRadiosHome();
     const panel = $('thematic-chat-panel');
     if (!panel || !panelHome) return;
 
@@ -1104,6 +1130,7 @@
   function onTabActivate() {
     document.body.classList.add('thematic-chat-enabled');
     mountChatToSidebar();
+    placeChatModeRadiosForLayout();
     eventsBound = false;
     bindElementEvents();
     bindExamplesEvents();
@@ -1179,6 +1206,7 @@
     restoreChatTurns,
     closeSavedOverlay,
     closeExamplesMenu,
+    placeChatModeRadiosForLayout,
     refreshExamplesMenu: () => loadExamplesData(true).then(renderExamplesMenu),
     clearChat
   };

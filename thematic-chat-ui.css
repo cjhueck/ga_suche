@@ -161,7 +161,53 @@ body.thematic-chat-enabled.tab-thematic-active .thematic-chat-internet-option sp
   flex: 1;
 }
 
-html.mobile-layout .thematic-chat-mode-radios {
+html.mobile-layout body.thematic-chat-enabled.tab-thematic-active #thematic-tab .filter-row {
+  display: grid !important;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+  column-gap: 8px;
+  row-gap: 2px;
+  justify-items: start;
+}
+
+html.mobile-layout body.thematic-chat-enabled.tab-thematic-active #thematicGAFilterContainer {
+  grid-column: 1;
+  grid-row: 1 / span 2;
+  align-self: center;
+  width: 4.8rem;
+  min-width: 4.8rem;
+  max-width: 4.8rem;
+}
+
+html.mobile-layout body.thematic-chat-enabled.tab-thematic-active #thematic-mode-options {
+  grid-column: 2;
+  grid-row: 1;
+  width: auto;
+  flex: none;
+  justify-self: start;
+  align-self: end;
+}
+
+html.mobile-layout body.thematic-chat-enabled.tab-thematic-active .filter-row > .thematic-chat-mode-radios {
+  grid-column: 2;
+  grid-row: 2;
+  /* Gleicher linker Einzug wie der native Rand des „Breite“-Radios */
+  margin: 0 0 0 5px !important;
+  flex: none;
+  width: auto;
+  justify-self: start;
+  align-self: start;
+}
+
+html.mobile-layout body.thematic-chat-enabled.tab-thematic-active .filter-row > .thematic-chat-mode-radios .thematic-chat-mode-option input {
+  margin-right: 3px;
+}
+
+html.mobile-layout body.thematic-chat-enabled .thematic-chat-header {
+  justify-content: flex-start;
+}
+
+html.mobile-layout body.thematic-chat-enabled .thematic-chat-header-actions {
   margin-left: 6px;
 }
 
