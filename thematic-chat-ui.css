@@ -180,7 +180,9 @@ html.mobile-layout #thematic-chat-menu-btn {
   gap: 4px;
   line-height: 1.2;
   padding: 0;
-  font-size: 0.85rem;
+  opacity: 1;
+  font-family: inherit;
+  font-size: 0.85em;
   font-weight: 500;
   color: var(--link-color, #467886);
   white-space: nowrap;
@@ -193,6 +195,11 @@ html.mobile-layout #thematic-chat-menu-btn svg {
 
 html.mobile-layout #thematic-chat-menu-btn .thematic-chat-menu-label {
   display: inline;
+  color: var(--text-color);
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: 500;
+  line-height: inherit;
 }
 
 .thematic-chat-mode-option {
