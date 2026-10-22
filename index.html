@@ -2439,6 +2439,16 @@
         return null;
       }
     }
+
+    function isMobileAnalyticsView() {
+      try {
+        var root = document.documentElement;
+        if (root.classList.contains('mobile-layout') || root.classList.contains('welcome-mobile') || root.classList.contains('force-mobile')) return true;
+        return window.matchMedia('(max-width: 768px)').matches;
+      } catch (e) {
+        return false;
+      }
+    }
     
     // Track Event an Server senden (fire-and-forget)
     function analyticsTrack(type, value = null) {
@@ -2462,6 +2472,7 @@
           if (visitorId) {
             trackBody.visitor_id = visitorId;
           }
+          trackBody.mobile = isMobileAnalyticsView();
         }
         
         // Return Promise für besseres Error Handling

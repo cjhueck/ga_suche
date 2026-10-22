@@ -30660,6 +30660,28 @@ async function loadAnalyticsData() {
   }
 }
 
+function mobileCountFromDay(dayData) {
+  if (!dayData || typeof dayData !== 'object') return 0;
+  const tabs = dayData.tabs && typeof dayData.tabs === 'object' ? dayData.tabs : {};
+  return (Number(tabs.__mobile) || 0) + (Number(dayData.mobile_views) || 0);
+}
+
+async function incrementLocalMobileView() {
+  try {
+    const data = await loadLocalAnalyticsJson();
+    const today = getDateKey();
+    if (!data.dailyStats) data.dailyStats = {};
+    if (!data.dailyStats[today]) {
+      data.dailyStats[today] = { views: 0, searches: 0, lectures: 0, unique_users: 0 };
+    }
+    data.dailyStats[today].mobile_views = (data.dailyStats[today].mobile_views || 0) + 1;
+    await fs.writeFile(ANALYTICS_FILE, JSON.stringify(data, null, 2), 'utf8');
+    console.log('[ANALYTICS] ✓ mobiler Seitenaufruf lokal gespeichert');
+  } catch (err) {
+    console.error('[ANALYTICS] Mobile-Fallback fehlgeschlagen:', err.message);
+  }
+}
+
 // Tracke Suchanfrage - PRIMÄR nach Supabase
 async function trackSearch(searchTerm) {
   console.log(`[ANALYTICS] trackSearch aufgerufen mit: "${searchTerm}"`);
@@ -30705,7 +30727,8 @@ app.post('/api/analytics/track', async (req, res) => {
   console.log('========================================');
   
   try {
-    const { type, value, visitor_id } = req.body;
+    const { type, value, visitor_id, mobile } = req.body;
+    const isMobileView = type === 'page_view' && mobile === true;
     if (!type) {
       console.log('[ANALYTICS-TRACK] FEHLER: Kein type vorhanden');
       return res.status(400).json({ error: 'type required' });
@@ -30793,6 +30816,12 @@ app.post('/api/analytics/track', async (req, res) => {
     }
     
     if (supabaseSuccess) {
+      // Mobile Seitenaufrufe in der bestehenden tabs-JSON (Schlüssel __mobile),
+      // damit keine zusätzliche Supabase-Spalte nötig ist.
+      if (isMobileView) {
+        const mobileOk = await incrementSupabaseTabQuote('tab_view', '__mobile');
+        if (!mobileOk) await incrementLocalMobileView();
+      }
       console.log(`[ANALYTICS] ✓ ${type} in Supabase gespeichert (persistent)`);
       res.json({ ok: true, storage: 'supabase' });
     } else {
@@ -30808,6 +30837,9 @@ app.post('/api/analytics/track', async (req, res) => {
       switch (type) {
         case 'page_view':
           data.dailyStats[today].views++;
+          if (isMobileView) {
+            data.dailyStats[today].mobile_views = (data.dailyStats[today].mobile_views || 0) + 1;
+          }
           break;
         case 'search':
           data.dailyStats[today].searches++;
@@ -30932,6 +30964,7 @@ app.get('/api/analytics/stats', async (req, res) => {
         const dayData = data.dailyStats[key];
         if (dayData && dayData.tabs) {
           for (const [tab, count] of Object.entries(dayData.tabs)) {
+            if (tab === '__mobile' || tab.startsWith('__')) continue;
             tabStats[tab] = (tabStats[tab] || 0) + count;
           }
         }
@@ -30962,6 +30995,22 @@ app.get('/api/analytics/stats', async (req, res) => {
     } catch (jsonErr) {
       // Lokale JSON nicht verfügbar – kein Problem
     }
+
+    function mobileOn(key) {
+      return mobileCountFromDay(data.dailyStats && data.dailyStats[key]);
+    }
+    const todayMobile = mobileOn(today);
+    let weekMobile = 0;
+    for (let i = 0; i < 7; i++) {
+      const d = new Date();
+      d.setDate(d.getDate() - i);
+      weekMobile += mobileOn(d.toISOString().split('T')[0]);
+    }
+    let totalMobile = 0;
+    if (data.dailyStats && typeof data.dailyStats === 'object') {
+      for (const key of Object.keys(data.dailyStats)) totalMobile += mobileOn(key);
+    }
+    for (const row of dailyData) row.mobile = mobileOn(row.date);
 
     // Alle historischen Tagesdaten für Liniendiagramm "seit Beginn"
     const allDailyData = [];
@@ -31014,7 +31063,8 @@ app.get('/api/analytics/stats', async (req, res) => {
       allDailyData,
       totalDays: Object.keys(data.dailyStats).length,
       quoteViews: weekQuoteViews,
-      tabStats: Object.fromEntries(Object.entries(tabStats).filter(([k]) => !k.startsWith('test_') && !/^fn\d|^fnref\d/.test(k))),
+      mobile: { today: todayMobile, week: weekMobile, total: totalMobile },
+      tabStats: Object.fromEntries(Object.entries(tabStats).filter(([k]) => !k.startsWith('test_') && !k.startsWith('__') && !/^fn\d|^fnref\d/.test(k))),
       tabsMigrationNeeded: !tabQuoteMigrationOk,
       geoStats,
       registeredMembers

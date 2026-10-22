@@ -392,6 +392,17 @@ function bookHeadingTagName(level) {
         return null;
       }
     }
+
+    // Dieselbe Schwelle wie das mobile Layout (max-width 768px, Vorschau ?mobil=1).
+    function isMobileAnalyticsView() {
+      try {
+        const root = document.documentElement;
+        if (root.classList.contains('mobile-layout') || root.classList.contains('welcome-mobile') || root.classList.contains('force-mobile')) return true;
+        return window.matchMedia('(max-width: 768px)').matches;
+      } catch (e) {
+        return false;
+      }
+    }
     
     // Track Event an Server senden (fire-and-forget)
     function analyticsTrack(type, value = null) {
@@ -433,6 +444,7 @@ function bookHeadingTagName(level) {
           if (visitorId) {
             trackBody.visitor_id = visitorId;
           }
+          trackBody.mobile = isMobileAnalyticsView();
         }
         
         // Return Promise für besseres Error Handling
@@ -661,6 +673,12 @@ function bookHeadingTagName(level) {
                 <td class="${(Number(data.week?.views) || 0) > 0 ? 'stat-highlight' : 'stat-muted'}">${Number(data.week?.views) || 0}</td>
                 <td class="${(Number(data.total?.views) || 0) > 0 ? 'stat-highlight' : 'stat-muted'}">${Number(data.total?.views) || 0}</td>
               </tr>
+              <tr class="analytics-subrow">
+                <td>Mobil</td>
+                <td class="${(Number(data.mobile?.today) || 0) > 0 ? 'stat-highlight' : 'stat-muted'}">${Number(data.mobile?.today) || 0}</td>
+                <td class="${(Number(data.mobile?.week) || 0) > 0 ? 'stat-highlight' : 'stat-muted'}">${Number(data.mobile?.week) || 0}</td>
+                <td class="${(Number(data.mobile?.total) || 0) > 0 ? 'stat-highlight' : 'stat-muted'}">${Number(data.mobile?.total) || 0}</td>
+              </tr>
               <tr>
                 <td>Nutzer</td>
                 <td class="${(Number(globalUnique.today) || 0) > 0 ? 'stat-green' : 'stat-muted'}">${Number(globalUnique.today) || 0}</td>
@@ -709,7 +727,7 @@ function bookHeadingTagName(level) {
                     <div class="analytics-chart-bar" 
                          style="height: ${viewsHeight}%; min-height: ${views > 0 ? '2px' : '0px'}; background: var(--accent-color);"
                          data-label="${d.label || d.date || ''}"
-                         title="${d.date || ''} - ${views} Besuche, ${uniqueUsers} Nutzer, ${searches} Suchen"></div>
+                         title="${d.date || ''} - ${views} Besuche, davon ${Number(d.mobile) || 0} mobil, ${uniqueUsers} Nutzer, ${searches} Suchen"></div>
                   `;
               }).join('') : '<div style="padding: 20px; text-align: center; color: var(--secondary-text);">Keine Daten verfügbar</div>'}
               </div>
@@ -736,7 +754,7 @@ function bookHeadingTagName(level) {
             // entwicklung_kind und goetheanismus werden separat unter
             // "Externe Sammlungen" angezeigt, damit sie nicht in der Tab-Liste
             // mit den internen Tabs vermischt werden.
-            var excludeFromTabList = { zitate: 1, keywords: 1, docs: 1, entwicklung_kind: 1, goetheanismus: 1, goethe_naturphilosophie: 1, korrektur: 1, maps: 1, Sprache: 1 };
+            var excludeFromTabList = { zitate: 1, keywords: 1, docs: 1, entwicklung_kind: 1, goetheanismus: 1, goethe_naturphilosophie: 1, korrektur: 1, maps: 1, Sprache: 1, __mobile: 1 };
             var entries = Object.entries(ts).filter(function(e) { return !excludeFromTabList[e[0]] && !/^fn\d|^fnref\d/.test(e[0]) && e[0].indexOf('#') === -1; }).sort(function(a,b) { return b[1] - a[1]; });
             if (entries.length === 0) {
               if (data.tabsMigrationNeeded) {
@@ -803,7 +821,7 @@ function bookHeadingTagName(level) {
             var html = '<div class="analytics-section"><h3>Besucher nach Ländern</h3>';
             html += '<div id="analytics-geo-map" style="width:100%;max-width:700px;margin:0 auto 12px;position:relative;"></div>';
             html += '<div style="display:flex;flex-wrap:wrap;gap:4px 12px;justify-content:center;max-width:700px;margin:0 auto;">';
-            geo.forEach(function(c) {
+            geo.filter(function(c) { return (Number(c.total_count) || 0) >= 50; }).forEach(function(c) {
               var flag = countryFlagMap[c.country_code] || '🌍';
               var cities = c.cities || [];
               var topCities = cities.filter(function(ci){ return ci.city; }).slice(0, 5);
