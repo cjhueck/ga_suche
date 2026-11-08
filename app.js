@@ -11722,6 +11722,23 @@ function scrollMainViewerToTop() {
   if (viewer) viewer.scrollTop = 0;
 }
 
+function gaVolumeOverviewHash(volumeId) {
+  return '#ga?volume=' + encodeURIComponent(volumeId);
+}
+
+function currentRouteHash() {
+  const hash = location.hash || '';
+  const marker = hash.indexOf(':~:');
+  return marker === -1 ? hash : hash.slice(0, marker);
+}
+
+function rememberGaVolumeInHistory(volumeId) {
+  const want = gaVolumeOverviewHash(volumeId);
+  if (currentRouteHash() === want) return;
+  const url = (typeof withTextFragment === 'function' ? withTextFragment : function (u) { return u; })(location.pathname + want);
+  history.pushState({ tab: 'ga', gaVolume: volumeId }, '', url);
+}
+
 async function navigateToGAVolumeInhaltsuebersicht(gaNumber) {
   const volumeId = resolveGAVolumeIdForNavigation(gaNumber);
   if (!volumeId) return;
@@ -11729,9 +11746,8 @@ async function navigateToGAVolumeInhaltsuebersicht(gaNumber) {
     rememberLastInhaltsuebersichtGA(volumeId);
   }
 
-  const switchFn = typeof window.switchTab === 'function' ? window.switchTab : null;
-  if (switchFn) switchFn('ga', true);
-
+  const gaTab = document.getElementById('ga-tab');
+  const alreadyOnGa = !!(gaTab && gaTab.classList.contains('active'));
   const isMobile = typeof window.isMobileViewport === 'function' && window.isMobileViewport();
   const headerMode = typeof getMobileHeaderMode === 'function' ? getMobileHeaderMode() : 'off';
   const isBook = typeof isBookGANumber === 'function' && isBookGANumber(volumeId);
@@ -11741,18 +11757,23 @@ async function navigateToGAVolumeInhaltsuebersicht(gaNumber) {
   const openVol = resolveGAVolumeIdForNavigation(
     (typeof currentGANumber !== 'undefined' ? currentGANumber : null) || window.currentOpenLectureId || ''
   );
-  const sameBandOpen = openVol && openVol.toLowerCase() === volumeId.toLowerCase();
+  const sameBandOpen = !!(openVol && openVol.toLowerCase() === volumeId.toLowerCase());
+  const alreadyOverview = sameBandOpen && (headerMode === 'book' || headerMode === 'lectures');
 
-  if (isMobile && isBook && sameBandOpen) {
-    if (typeof setMobileGAOverviewMode === 'function') setMobileGAOverviewMode(true, true);
-    scrollMainViewerToTop();
-    if (typeof openMobileBookToc === 'function') openMobileBookToc();
-    return;
+  rememberGaVolumeInHistory(volumeId);
+  if (typeof currentGANumber !== 'undefined') currentGANumber = volumeId;
+
+  if (!alreadyOnGa && typeof window.switchTab === 'function') {
+    window._skipGaTabViewerReset = true;
+    try { window.switchTab('ga', true); }
+    finally { window._skipGaTabViewerReset = false; }
   }
 
-  if (isMobile && headerMode === 'text' && !isBook && showFn) {
-    await showFn(volumeId, true);
+  if (alreadyOverview) {
+    if (isMobile && typeof setMobileGAOverviewMode === 'function') setMobileGAOverviewMode(true, isBook);
+    if (isMobile && typeof setSidebarCollapsedForMobile === 'function') setSidebarCollapsedForMobile(true);
     scrollMainViewerToTop();
+    if (typeof updateMobileTextOpenState === 'function') updateMobileTextOpenState();
     return;
   }
 
@@ -11793,19 +11814,29 @@ function goToVolumeOverviewFromText() {
 }
 
 function goToTabSelectionFromText() {
+  if (currentRouteHash() !== '#ga') {
+    history.pushState({ tab: 'ga' }, '', location.pathname + '#ga');
+  }
   if (typeof window.switchTab === 'function') window.switchTab('ga', true);
   if (typeof showGAVolumesView === 'function') showGAVolumesView();
   if (typeof setSidebarCollapsedForMobile === 'function') setSidebarCollapsedForMobile(false);
+  const sidebar = document.getElementById('sidebar');
+  if (sidebar) sidebar.scrollTop = 0;
   document.body.classList.remove('mobile-text-open');
   setMobileLastTextHandleMuted(true);
+  if (typeof updateLeftResizeHandlePosition === 'function') updateLeftResizeHandlePosition();
 }
 
 function goToLastOpenedText() {
   if (mobileLastTextHandleMuted) return;
   const lectureId = lastOpenedTextId || (String(window.currentOpenLectureId || '').includes('/') ? window.currentOpenLectureId : null);
   if (!lectureId) return;
-  if (typeof window.switchTab === 'function') window.switchTab('ga', true);
-  if (typeof showLecture === 'function') showLecture(lectureId, null, [], [], true);
+  if (typeof window.switchTab === 'function') {
+    window._skipGaTabViewerReset = true;
+    try { window.switchTab('ga', true); }
+    finally { window._skipGaTabViewerReset = false; }
+  }
+  if (typeof showLecture === 'function') showLecture(lectureId, null, [], [], false);
   if (typeof setSidebarCollapsedForMobile === 'function') setSidebarCollapsedForMobile(true);
 }
 window.goToVolumeOverviewFromText = goToVolumeOverviewFromText;
@@ -31349,8 +31380,11 @@ function switchTabExtended(mode, skipHistory = false) {
   if (cwGallery) cwGallery.remove();
   
   // 2) Viewer-Inhalt leeren (wird danach tab-spezifisch neu befüllt)
+  // Inhaltsübersicht-Griff setzt _skipGaTabViewerReset, damit der Text nicht
+  // zuerst durch die Bandauswahl ersetzt und danach wieder überschrieben wird.
   var viewerReset = document.getElementById('viewer');
-  if (viewerReset && mode !== 'thematic2' && mode !== 'korrektur') {
+  var skipGaViewerReset = mode === 'ga' && window._skipGaTabViewerReset;
+  if (viewerReset && mode !== 'thematic2' && mode !== 'korrektur' && !skipGaViewerReset) {
     viewerReset.innerHTML = '';
   }
   
@@ -31385,13 +31419,13 @@ function switchTabExtended(mode, skipHistory = false) {
   });
   
   // 6) Zustandsvariablen zurücksetzen
-  if (mode !== 'thematic2' && mode !== 'korrektur') {
+  if (mode !== 'thematic2' && mode !== 'korrektur' && !skipGaViewerReset) {
     currentLectureData = null;
     currentGANumber = null;
     currentLectureSummary = null;
     showingSummaryInMain = false;
   }
-  if (mode !== 'korrektur') {
+  if (mode !== 'korrektur' && !skipGaViewerReset) {
     window.currentOpenLectureId = null;
   }
   // ===== ENDE ROBUSTER RESET =====
@@ -31545,7 +31579,7 @@ function switchTabExtended(mode, skipHistory = false) {
   }
   
   // currentOpenLectureId und currentLectureData zurücksetzen (nicht bei Korrektur-Tab)
-  if (mode !== 'korrektur') {
+  if (mode !== 'korrektur' && !skipGaViewerReset) {
     window.currentOpenLectureId = null;
     currentLectureData = null;
     currentLectureSummary = null;
@@ -31979,8 +32013,10 @@ function switchTabExtended(mode, skipHistory = false) {
     resetTabToDefault(mode);
   }
   
-  // Lade GA-Bände wenn zum GA-Tab gewechselt wird
-  if (mode === 'ga') {
+  // Lade GA-Bände wenn zum GA-Tab gewechselt wird.
+  // Nicht bei der Inhaltsübersicht: dort bleibt der geöffnete Text stehen,
+  // bis showGALectures die Bandübersicht einsetzt.
+  if (mode === 'ga' && !skipGaViewerReset) {
     // Setze Document Title
     const documentTitle = document.getElementById('document-title');
     if (documentTitle) {
