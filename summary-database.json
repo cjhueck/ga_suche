@@ -1147511,231 +1147511,26 @@
     "summary": "Eine Sammlung von spirituellen Übungen und Meditationen, die Rudolf Steiner zwischen 1910 und 1924 für verschiedene Personen individuell entwickelte. Die Texte umfassen Atemübungen, Konzentrationspraktiken und Mantras zur Stärkung des Ich-Bewusstseins und der inneren Kraft. Viele Übungen arbeiten mit Licht-, Wärme- und Farbvorstellungen sowie rhythmischen Sprachelementen. Die Meditationen zielen auf die Harmonisierung von Denken, Fühlen und Wollen sowie auf die Verbindung mit geistigen Kräften. Besondere Aufmerksamkeit gilt der Christus-Verbindung und der Entwicklung innerer Ruhe und Stärke. Die Übungen sind oft an spezifische Tageszeiten gebunden und berücksichtigen individuelle Bedürfnisse wie Heilung oder spirituelle Entwicklung.",
     "headings": [
       {
-        "index": "^ocknf8",
-        "text": "Frühe meditative Sprüche und Übungen",
-        "level": "h3"
-      },
-      {
-        "index": "^p2a52k",
-        "text": "Harmonisierung der Seelenkräfte",
-        "level": "h4"
-      },
-      {
-        "index": "^sjgnpu",
-        "text": "Licht-Meditationen",
-        "level": "h4"
-      },
-      {
-        "index": "^v9j9p8",
-        "text": "Geist-Wahrnehmung in Haupt, Brust und Leib",
-        "level": "h4"
-      },
-      {
-        "index": "^m0y66i",
-        "text": "Christus-Meditationen und Schicksalsannahme",
-        "level": "h3"
-      },
-      {
-        "index": "^oz3qs3",
-        "text": "Göttliche Führung und Schicksalserkenntnis",
-        "level": "h4"
-      },
-      {
-        "index": "^3chvrr",
-        "text": "Körperliche Stärkung durch geistige Kräfte",
-        "level": "h3"
-      },
-      {
-        "index": "^lojmxs",
-        "text": "Herz- und Kopf-Meditation",
-        "level": "h4"
-      },
-      {
-        "index": "^9hjhhi",
-        "text": "Christus-Verbindung und Selbstvertrauen",
-        "level": "h4"
-      },
-      {
-        "index": "^hzkody",
-        "text": "Tagesrhythmus-Meditationen",
-        "level": "h3"
-      },
-      {
-        "index": "^07ng36",
-        "text": "Morgen-, Mittags- und Abendübungen",
-        "level": "h4"
-      },
-      {
-        "index": "^bqrxq5",
-        "text": "Sonnen- und Geist-Meditationen",
-        "level": "h4"
-      },
-      {
-        "index": "^20tobo",
-        "text": "Heilungssprüche und Sonnenkraft",
-        "level": "h3"
-      },
-      {
-        "index": "^2ltxqa",
-        "text": "Geisteslicht und Körperwahrnehmung",
-        "level": "h4"
-      },
-      {
-        "index": "^8cecng",
-        "text": "Selbstbetrachtung und ewiger Geist",
-        "level": "h4"
-      },
-      {
-        "index": "^3ja64l",
-        "text": "Erweiterte Körper- und Elementmeditationen",
-        "level": "h3"
-      },
-      {
-        "index": "^kuna3e",
-        "text": "Wärme, Licht und Schwere-Erfahrung",
-        "level": "h4"
-      },
-      {
-        "index": "^0vhjw4",
-        "text": "Sonnenaufgang und Sonnenuntergang-Übungen",
-        "level": "h4"
-      },
-      {
-        "index": "^37bpfo",
-        "text": "Vereinigung von Kopf und Herz",
-        "level": "h4"
-      },
-      {
-        "index": "^70heye",
-        "text": "Wärmeströme und Farbmeditationen",
-        "level": "h4"
-      },
-      {
-        "index": "^75opjx",
-        "text": "Fortgeschrittene spirituelle Übungen",
-        "level": "h3"
-      },
-      {
-        "index": "^5yp3m0",
-        "text": "Treue zu sich selbst",
-        "level": "h4"
-      },
-      {
-        "index": "^i6xjjq",
-        "text": "Kosmische Verbindungen",
-        "level": "h4"
-      },
-      {
-        "index": "^nj3i3e",
-        "text": "Morgen- und Abend-Kontemplationen",
-        "level": "h4"
-      },
-      {
-        "index": "^c8o50f",
-        "text": "Sterne und Geister des Alls",
-        "level": "h4"
-      },
-      {
-        "index": "^6ueslg",
-        "text": "Spezielle Atem- und Lichtübungen",
-        "level": "h3"
-      },
-      {
-        "index": "^qoflog",
-        "text": "Herz als Gotteshaus",
-        "level": "h4"
-      },
-      {
-        "index": "^6w26fz",
-        "text": "Christus-Gnade und Lebenskraft",
-        "level": "h4"
-      },
-      {
-        "index": "^n88ccl",
-        "text": "Licht- und Dunkelheits-Meditationen",
-        "level": "h4"
-      },
-      {
-        "index": "^znha61",
-        "text": "Mond- und Sternenheilkraft",
-        "level": "h4"
-      },
-      {
-        "index": "^s7jumm",
-        "text": "Atem-Meditationen und innere Stärkung",
-        "level": "h3"
-      },
-      {
-        "index": "^w0a1tp",
-        "text": "Weltenatem und Menschenatem",
-        "level": "h4"
-      },
-      {
-        "index": "^87f1qp",
-        "text": "Gottesgeist und Seelenstärkung",
-        "level": "h4"
-      },
-      {
         "index": "^e0lc8q",
         "text": "Meditation mit dem Rosenkreuz",
-        "level": "h3"
-      },
-      {
-        "index": "^krj7w5",
-        "text": "Kraftströme und Lebensquell",
-        "level": "h4"
-      },
-      {
-        "index": "^5dvxr6",
-        "text": "Wach- und Schlafbewusstsein",
-        "level": "h4"
+        "level": "h2"
       },
       {
         "index": "^3tx0kn",
         "text": "In Todesgefahr",
-        "level": "h3"
+        "level": "h2"
       }
     ],
     "tableOfContents": [
       {
-        "heading": "Frühe Meditationsübungen und Mantras",
-        "description": "Grundlegende Kraftformeln und rhythmische Sprachübungen für spirituelle Entwicklung",
-        "index": "^ocknf8"
+        "heading": "Meditation mit dem Rosenkreuz",
+        "description": "",
+        "index": "^e0lc8q"
       },
       {
-        "heading": "Licht- und Wärmeübungen",
-        "description": "Meditationen mit Licht, Wärme und geistigem Strömen",
-        "index": "^sjgnpu"
-      },
-      {
-        "heading": "Christus-Meditationen und Schicksalsannahme",
-        "description": "Übungen zur Christus-Verbindung und Annahme des Schicksals",
-        "index": "^m0y66i"
-      },
-      {
-        "heading": "Tagesrhythmus und Bewusstseinsübungen",
-        "description": "Strukturierte Übungen für verschiedene Tageszeiten und Bewusstseinszustände",
-        "index": "^hzkody"
-      },
-      {
-        "heading": "Herzenskraft und Körperwahrnehmung",
-        "description": "Übungen zur Stärkung der Herzenskraft und Elementarwahrnehmung",
-        "index": "^3ja64l"
-      },
-      {
-        "heading": "Integration von Denken und Fühlen",
-        "description": "Harmonisierung von Liebekraft, Gedankenmacht und Körperströmen",
-        "index": "^37bpfo"
-      },
-      {
-        "heading": "Spirituelle Reife und Selbstfindung",
-        "description": "Übungen für göttliche Macht, Lebensmut und karmische Entwicklung",
-        "index": "^75opjx"
-      },
-      {
-        "heading": "Übungen für besondere Bedürfnisse",
-        "description": "Spezielle Meditationen für Heilung, Ruhe und Rosenkreuz-Schulung",
-        "index": "^w0a1tp"
+        "heading": "In Todesgefahr",
+        "description": "",
+        "index": "^3tx0kn"
       }
     ],
     "lectureKeywords": [
@@ -1147872,8 +1147667,8 @@
         "level": "h3"
       }
     ],
-    "version": "v2-unified",
-    "timestamp": "2026-02-11T10:15:46.346Z",
+    "version": "v2-headings",
+    "timestamp": "2026-11-13T21:28:04.968Z",
     "shortSummary": "Spirituelle Übungen mit Atem-, Konzentrations- und Mantrapraktiken zur Stärkung des Ich-Bewusstseins durch Licht-, Wärme- und Farbvorstellungen. Die Meditationen harmonisieren Denken, Fühlen und Wollen und fördern die Christus-Verbindung sowie innere Ruhe.",
     "headingsGenerated": "2026-02-11T10:15:45.941Z"
   },
@@ -1148223,220 +1148018,115 @@
     "headings": [
       {
         "index": "^zp11dx",
-        "text": "Der Schöpfungsakt der Elohim",
-        "level": "h3"
-      },
-      {
-        "index": "^x5wlwj",
-        "text": "Erste Übersetzung des Genesis-Beginns",
-        "level": "h4"
-      },
-      {
-        "index": "^o1gpyb",
-        "text": "Erweiterte Fassung der Schöpfungserzählung",
-        "level": "h4"
-      },
-      {
-        "index": "^z7ahtm",
-        "text": "Kosmische Interpretation der planetarischen Entwicklung",
-        "level": "h4"
+        "text": "Der Anfang der Genesis",
+        "level": "h2"
       },
       {
         "index": "^zqjolo",
-        "text": "Die Zehn Gebote als innere Führung",
-        "level": "h3"
-      },
-      {
-        "index": "^3xp2k0",
-        "text": "Das erste Gebot und die Ich-Erkenntnis",
-        "level": "h4"
-      },
-      {
-        "index": "^yk7jmx",
-        "text": "Wahrhaftigkeit im Sprechen über das Göttliche",
-        "level": "h4"
-      },
-      {
-        "index": "^4co3no",
-        "text": "Rhythmus von Arbeit und geistiger Besinnung",
-        "level": "h4"
-      },
-      {
-        "index": "^hx9mwo",
-        "text": "Ehrung der Eltern und des Erbes",
-        "level": "h4"
-      },
-      {
-        "index": "^7irbps",
-        "text": "Die ethischen Grundgebote",
-        "level": "h4"
+        "text": "Die zehn Gebote",
+        "level": "h2"
       },
       {
         "index": "^u35fk9",
-        "text": "Die Seligpreisungen der Bergpredigt",
-        "level": "h3"
-      },
-      {
-        "index": "^v2jmnv",
-        "text": "Erste Fassung der Seligpreisungen",
-        "level": "h4"
-      },
-      {
-        "index": "^jvpc99",
-        "text": "Überarbeitete Fassung mit Betonung der Selbstfindung",
-        "level": "h4"
+        "text": "Matthäus-Evangelium, 5. Kapitel, Die Seligpreisungen der Bergpredigt",
+        "level": "h2"
       },
       {
         "index": "^xlql6s",
-        "text": "Die Ich-Erkenntnis im Markus-Evangelium",
-        "level": "h3"
-      },
-      {
-        "index": "^amfqjd",
-        "text": "Die Frage nach der wahren Natur des Ich",
-        "level": "h4"
-      },
-      {
-        "index": "^cpj9uq",
-        "text": "Petrus' Erkenntnis des Christus-Ich",
-        "level": "h4"
-      },
-      {
-        "index": "^k9h49c",
-        "text": "Das Mysterium von Tod und Wiedergeburt",
-        "level": "h4"
+        "text": "Markus-Evangelium, 8. Kapitel",
+        "level": "h2"
       },
       {
         "index": "^psn5pz",
-        "text": "Der Johannes-Prolog und seine Variationen",
-        "level": "h3"
-      },
-      {
-        "index": "^qvs3j0",
-        "text": "Die klassische Übersetzung des Logos",
-        "level": "h4"
+        "text": "Der Anfang des Johannes-Evangeliums",
+        "level": "h2"
       },
       {
         "index": "^rt8bwr",
-        "text": "Michael-Impuls und Durchgeistigung des Fleisches",
-        "level": "h4"
-      },
-      {
-        "index": "^i4l03o",
-        "text": "Meditation über das Wort",
-        "level": "h4"
-      },
-      {
-        "index": "^n35n1x",
-        "text": "Vom Wort zum Gedanken",
-        "level": "h4"
-      },
-      {
-        "index": "^33yfwn",
-        "text": "Der Gedanke als unendliches Prinzip",
-        "level": "h4"
-      },
-      {
-        "index": "^aleaqh",
-        "text": "Die Erinnerung als spirituelle Kraft",
-        "level": "h4"
-      },
-      {
-        "index": "^p42ith",
-        "text": "Durchchristlichte Erinnerung als Lichtquelle",
-        "level": "h4"
+        "text": "Interpretation des Christus-Impulses durch den Michael-Impuls",
+        "level": "h2"
       },
       {
         "index": "^07bwac",
-        "text": "Das hohepriesterliche Gebet",
-        "level": "h3"
-      },
-      {
-        "index": "^89xjuk",
-        "text": "Christus' Gebet zum väterlichen Weltengrund",
-        "level": "h4"
+        "text": "Johannes-Evangelium, 17. Kapitel",
+        "level": "h2"
       },
       {
         "index": "^9w9dgy",
-        "text": "Die Lobpreisung der Liebe",
-        "level": "h3"
-      },
-      {
-        "index": "^oj9i5m",
-        "text": "Liebe als höchster Weg",
-        "level": "h4"
-      },
-      {
-        "index": "^3shmop",
-        "text": "Die Überlegenheit der Liebe über alle Gaben",
-        "level": "h4"
-      },
-      {
-        "index": "^b5ktb4",
-        "text": "Das Wesen und die Eigenschaften der Liebe",
-        "level": "h4"
+        "text": "Brief des Paulus an die Korinther, 13. Kapitel",
+        "level": "h2"
       },
       {
         "index": "^gz4in4",
-        "text": "Das Mysterium des Gottesweges",
-        "level": "h3"
+        "text": "Brief des Paulus an Timotheus, 3. Kapitel",
+        "level": "h2"
       },
       {
         "index": "^februm",
-        "text": "Das esoterische Vaterunser",
-        "level": "h3"
+        "text": "Das esoterische (Apostel-) Vaterunser",
+        "level": "h2"
       },
       {
         "index": "^fmk7is",
-        "text": "Das gotische Vaterunser und seine Deutung",
-        "level": "h3"
-      },
-      {
-        "index": "^tveonk",
-        "text": "Wulfilas gotischer Text",
-        "level": "h4"
-      },
-      {
-        "index": "^sac7u4",
-        "text": "Übersetzung und spirituelle Interpretation",
-        "level": "h4"
+        "text": "Das gotische Vaterunser",
+        "level": "h2"
       }
     ],
     "tableOfContents": [
       {
-        "heading": "Anthroposophische Genesis-Übersetzung",
-        "description": "Schöpfungsgeschichte mit Elohim und kosmischen Entwicklungsstufen",
+        "heading": "Der Anfang der Genesis",
+        "description": "",
         "index": "^zp11dx"
       },
       {
-        "heading": "Die Zehn Gebote als Ich-Erkenntnis",
-        "description": "Gebote als Weg zur Erkenntnis des göttlichen Ich",
-        "index": "^snukij"
+        "heading": "Die zehn Gebote",
+        "description": "",
+        "index": "^zqjolo"
       },
       {
-        "heading": "Die Bergpredigt-Seligpreisungen",
-        "description": "Seligpreisungen mit Betonung der inneren geistigen Erfüllung",
+        "heading": "Matthäus-Evangelium, 5. Kapitel, Die Seligpreisungen der Bergpredigt",
+        "description": "",
         "index": "^u35fk9"
       },
       {
-        "heading": "Das Ich-Mysterium und Christus-Erkenntnis",
-        "description": "Petrus-Bekenntnis und Mysterium von Tod und Auferstehung",
+        "heading": "Markus-Evangelium, 8. Kapitel",
+        "description": "",
         "index": "^xlql6s"
       },
       {
-        "heading": "Johannes-Evangelium Neugestaltungen",
-        "description": "Verschiedene Fassungen vom Wort zum Gedanken und Erinnerung",
+        "heading": "Der Anfang des Johannes-Evangeliums",
+        "description": "",
         "index": "^psn5pz"
       },
       {
-        "heading": "Hohepriesterliches Gebet",
-        "description": "Neugestaltung mit väterlichem Weltengrund und Sohnes-Schaffen",
+        "heading": "Interpretation des Christus-Impulses durch den Michael-Impuls",
+        "description": "",
+        "index": "^rt8bwr"
+      },
+      {
+        "heading": "Johannes-Evangelium, 17. Kapitel",
+        "description": "",
         "index": "^07bwac"
       },
       {
-        "heading": "Paulus-Texte und Vaterunser",
-        "description": "Lobpreisung der Liebe und gotisches Vaterunser mit Deutung",
+        "heading": "Brief des Paulus an die Korinther, 13. Kapitel",
+        "description": "",
         "index": "^9w9dgy"
+      },
+      {
+        "heading": "Brief des Paulus an Timotheus, 3. Kapitel",
+        "description": "",
+        "index": "^gz4in4"
+      },
+      {
+        "heading": "Das esoterische (Apostel-) Vaterunser",
+        "description": "",
+        "index": "^februm"
+      },
+      {
+        "heading": "Das gotische Vaterunser",
+        "description": "",
+        "index": "^fmk7is"
       }
     ],
     "lectureKeywords": [
@@ -1148573,8 +1148263,8 @@
         "level": "h4"
       }
     ],
-    "version": "v2-unified",
-    "timestamp": "2026-02-11T10:17:04.164Z",
+    "version": "v2-headings",
+    "timestamp": "2026-11-13T21:28:04.968Z",
     "shortSummary": "Zentrale christliche und biblische Texte werden anthroposophisch neu interpretiert, wobei die Genesis mit kosmischer Entwicklung, die Zehn Gebote als Ich-Erkenntnisweg und das Johannes-Evangelium als Durchgeistigung des Menschen gedeutet werden. Das Vaterunser und andere neutestamentliche Texte erhalten neue Übersetzungen, die soziales Leben und Geist-Leib-Verbindung betonen.",
     "headingsGenerated": "2026-02-11T10:17:03.397Z"
   },
@@ -1148584,179 +1148274,274 @@
       {
         "index": "^6psbit",
         "text": "Signatur der Rosenkreuzerschule",
-        "level": "h3"
+        "level": "h2"
       },
       {
         "index": "^xz87ci",
         "text": "Die vier Sprüche der Säulenweisheit",
-        "level": "h3"
+        "level": "h2"
       },
       {
         "index": "^me49d8",
         "text": "Grundsteinlegung des Modellbaues Malsch",
-        "level": "h3"
+        "level": "h2"
       },
       {
         "index": "^633qnj",
         "text": "Einweihung des Zweighauses Stuttgart",
-        "level": "h3"
+        "level": "h2"
       },
       {
         "index": "^v7fykq",
         "text": "Das makrokosmische Vaterunser",
-        "level": "h3"
+        "level": "h2"
       },
       {
         "index": "^e9cgq7",
         "text": "Worte zu den Goetheanum-Fenster Motiven",
-        "level": "h3"
+        "level": "h2"
       },
       {
         "index": "^1egw7g",
         "text": "Geistige Kommunion",
-        "level": "h3"
+        "level": "h2"
       },
       {
         "index": "^qyl1sr",
         "text": "Nach dem Brand des Goetheanum",
-        "level": "h3"
+        "level": "h2"
       },
       {
         "index": "^q6t1fw",
         "text": "Die ideell-geistige Grundsteinlegung der Allgemeinen Anthroposophischen Gesellschaft durch Rudolf Steiner am 25. Dezember 1923",
-        "level": "h3"
+        "level": "h2"
       },
       {
         "index": "^umajpu",
         "text": "Grundsteinlegung des Hauses «Vreede»",
-        "level": "h3"
+        "level": "h2"
       },
       {
         "index": "^87eb4g",
         "text": "Grundsteinspruch für den Neubau der Freien Waldorfschule Stuttgart",
-        "level": "h3"
+        "level": "h2"
       },
       {
         "index": "^k7n9r8",
         "text": "Für die Schule in Hamburg-Wandsbeck",
-        "level": "h3"
+        "level": "h2"
       },
       {
         "index": "^3pk4qp",
         "text": "Für den Christian Rosenkreutz-Zweig in Nizza",
-        "level": "h3"
+        "level": "h2"
       },
       {
         "index": "^x0l1s8",
         "text": "Zur Einweihung des Novalis-Zweiges in Rom",
-        "level": "h3"
+        "level": "h2"
       },
       {
         "index": "^xvad0t",
         "text": "Für die Versammlungen des Novalis-Zweiges in Rom",
-        "level": "h3"
+        "level": "h2"
       },
       {
         "index": "^5r8e93",
         "text": "Für den Emerson-Zweig in London",
-        "level": "h3"
+        "level": "h2"
       },
       {
         "index": "^z3o3ut",
         "text": "Zur Gründung der Gruppe St. Michel in Paris",
-        "level": "h3"
+        "level": "h2"
       },
       {
         "index": "^4de1p5",
         "text": "Zur Einweihung des Vidar-Zweiges in Bochum",
-        "level": "h3"
+        "level": "h2"
       },
       {
         "index": "^2mh3dy",
         "text": "Für die Gründung des Zweiges Mannheim II",
-        "level": "h3"
+        "level": "h2"
       },
       {
         "index": "^3fycrq",
         "text": "Weihespruch für einen Raum in Schloss Tannbach",
-        "level": "h3"
+        "level": "h2"
       },
       {
         "index": "^8x0wo6",
         "text": "Für die Arbeitsgruppe von Alice Kinkel in Stuttgart",
-        "level": "h3"
+        "level": "h2"
       },
       {
         "index": "^pizk2p",
         "text": "Zur Gründung der Threefold Group in New York",
-        "level": "h3"
+        "level": "h2"
       },
       {
         "index": "^ud5453",
         "text": "DEN BERLINER FREUNDEN",
-        "level": "h3"
+        "level": "h2"
       },
       {
         "index": "^anlmey",
         "text": "Weihespruch für den Zweigraum der Berliner Jugend",
-        "level": "h3"
+        "level": "h2"
       },
       {
         "index": "^344hah",
         "text": "Für die Lehrer der Freien Waldorfschule",
-        "level": "h3"
+        "level": "h2"
       },
       {
         "index": "^xo4q7r",
         "text": "Für die Lehrer der Freien Waldorfschule",
-        "level": "h4"
+        "level": "h2"
       },
       {
         "index": "^rjs63v",
         "text": "Für die anthroposophischen Ärzte",
-        "level": "h3"
-      },
-      {
-        "index": "^fl1xi9",
-        "text": "Für Pfarrer Paul Klein",
-        "level": "h3"
-      },
-      {
-        "index": "^1e56ds",
-        "text": "Meditationen für Priester",
-        "level": "h4"
+        "level": "h2"
       }
     ],
     "tableOfContents": [
       {
-        "heading": "Grundsteinlegungen und Bausprüche",
-        "description": "Spirituelle Formeln für die Entstehung anthroposophischer Bauten",
-        "index": "^op0ex1"
+        "heading": "Signatur der Rosenkreuzerschule",
+        "description": "",
+        "index": "^6psbit"
       },
       {
-        "heading": "Eröffnungssprüche und Weiheformeln",
-        "description": "Liturgische Texte für Tempelweihen und Hochschuleröffnungen",
+        "heading": "Die vier Sprüche der Säulenweisheit",
+        "description": "",
+        "index": "^xz87ci"
+      },
+      {
+        "heading": "Grundsteinlegung des Modellbaues Malsch",
+        "description": "",
+        "index": "^me49d8"
+      },
+      {
+        "heading": "Einweihung des Zweighauses Stuttgart",
+        "description": "",
         "index": "^633qnj"
       },
       {
-        "heading": "Meditationen für das menschliche Bewusstsein",
-        "description": "Übungen zur Entwicklung von Denken, Fühlen und Wollen",
-        "index": "^p7sh6w"
+        "heading": "Das makrokosmische Vaterunser",
+        "description": "",
+        "index": "^v7fykq"
       },
       {
-        "heading": "Sprüche für Arbeitsgemeinschaften",
-        "description": "Eröffnungsformeln für Zweige und Verwaltungsgebäude",
-        "index": "^sel9z6"
+        "heading": "Worte zu den Goetheanum-Fenster Motiven",
+        "description": "",
+        "index": "^e9cgq7"
       },
       {
-        "heading": "Medizinische und heilende Arbeit",
-        "description": "Meditationen für Ärzte und Krankenschwestern",
+        "heading": "Geistige Kommunion",
+        "description": "",
+        "index": "^1egw7g"
+      },
+      {
+        "heading": "Nach dem Brand des Goetheanum",
+        "description": "",
+        "index": "^qyl1sr"
+      },
+      {
+        "heading": "Die ideell-geistige Grundsteinlegung der Allgemeinen Anthroposophischen Gesellschaft durch Rudolf Steiner am 25. Dezember 1923",
+        "description": "",
+        "index": "^q6t1fw"
+      },
+      {
+        "heading": "Grundsteinlegung des Hauses «Vreede»",
+        "description": "",
+        "index": "^umajpu"
+      },
+      {
+        "heading": "Grundsteinspruch für den Neubau der Freien Waldorfschule Stuttgart",
+        "description": "",
+        "index": "^87eb4g"
+      },
+      {
+        "heading": "Für die Schule in Hamburg-Wandsbeck",
+        "description": "",
+        "index": "^k7n9r8"
+      },
+      {
+        "heading": "Für den Christian Rosenkreutz-Zweig in Nizza",
+        "description": "",
+        "index": "^3pk4qp"
+      },
+      {
+        "heading": "Zur Einweihung des Novalis-Zweiges in Rom",
+        "description": "",
+        "index": "^x0l1s8"
+      },
+      {
+        "heading": "Für die Versammlungen des Novalis-Zweiges in Rom",
+        "description": "",
+        "index": "^xvad0t"
+      },
+      {
+        "heading": "Für den Emerson-Zweig in London",
+        "description": "",
+        "index": "^5r8e93"
+      },
+      {
+        "heading": "Zur Gründung der Gruppe St. Michel in Paris",
+        "description": "",
+        "index": "^z3o3ut"
+      },
+      {
+        "heading": "Zur Einweihung des Vidar-Zweiges in Bochum",
+        "description": "",
+        "index": "^4de1p5"
+      },
+      {
+        "heading": "Für die Gründung des Zweiges Mannheim II",
+        "description": "",
+        "index": "^2mh3dy"
+      },
+      {
+        "heading": "Weihespruch für einen Raum in Schloss Tannbach",
+        "description": "",
+        "index": "^3fycrq"
+      },
+      {
+        "heading": "Für die Arbeitsgruppe von Alice Kinkel in Stuttgart",
+        "description": "",
+        "index": "^8x0wo6"
+      },
+      {
+        "heading": "Zur Gründung der Threefold Group in New York",
+        "description": "",
+        "index": "^pizk2p"
+      },
+      {
+        "heading": "DEN BERLINER FREUNDEN",
+        "description": "",
+        "index": "^ud5453"
+      },
+      {
+        "heading": "Weihespruch für den Zweigraum der Berliner Jugend",
+        "description": "",
+        "index": "^anlmey"
+      },
+      {
+        "heading": "Für die Lehrer der Freien Waldorfschule",
+        "description": "",
+        "index": "^344hah"
+      },
+      {
+        "heading": "Für die Lehrer der Freien Waldorfschule",
+        "description": "",
+        "index": "^xo4q7r"
+      },
+      {
+        "heading": "Für die anthroposophischen Ärzte",
+        "description": "",
         "index": "^rjs63v"
-      },
-      {
-        "heading": "Priesterliche und seelsorgerische Tätigkeit",
-        "description": "Gebete und Meditationen für religiöse Arbeit",
-        "index": "^fl1xi9"
       }
     ],
     "lectureKeywords": [
@@ -1148893,8 +1148678,8 @@
         "level": "h3"
       }
     ],
-    "version": "v2-unified",
-    "timestamp": "2026-02-11T10:17:21.251Z",
+    "version": "v2-headings",
+    "timestamp": "2026-11-13T21:28:04.968Z",
     "shortSummary": "Die Sammlung enthält spirituelle Sprüche und Meditationen für anthroposophische Einrichtungen und Berufsfelder wie Medizin, Pädagogik und Priestertum. Zentral ist die Verbindung von Geist und Materie sowie die Entwicklung des Bewusstseins durch Denken, Fühlen und Wollen.",
     "headingsGenerated": "2026-02-11T10:17:20.336Z"
   },
