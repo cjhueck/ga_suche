@@ -436,7 +436,7 @@
       "paragraphs": [
         {
           "index": "^e4sq8f",
-          "content": "<h2>DIE EURYTHMIE ALS SICHTBARE SPRACHE</h2>\n|42| Die Vorträge, die ich hier halten werde, Besprechungen über das Eurythmische, sind zunächst hervorgegangen aus der Ansicht von Frau Dr. Steiner, dass es notwendig sei, zur exakten Gestaltung gewissermaßen der eurythmischen Tradition zuerst einmal wiederholentlich alles dasjenige durchzuführen, was sich auf die Lauteurythmie bezieht, was im Laufe der Jahre in der Lauteurythmie an die entsprechenden Persönlichkeiten herangebracht worden ist. Es wird sich dann darum handeln, dass an diese Wiederholungen sich angliedern werden, und zwar immer jeweilig an die Einzelheiten selbst, nicht etwa abgeteilt nach Kapiteln, Erweiterungen des Eurythmischen."
+          "content": "<h2 data-index=\"^e4sq8f\">DIE EURYTHMIE ALS SICHTBARE SPRACHE</h2>\n|42| Die Vorträge, die ich hier halten werde, Besprechungen über das Eurythmische, sind zunächst hervorgegangen aus der Ansicht von Frau Dr. Steiner, dass es notwendig sei, zur exakten Gestaltung gewissermaßen der eurythmischen Tradition zuerst einmal wiederholentlich alles dasjenige durchzuführen, was sich auf die Lauteurythmie bezieht, was im Laufe der Jahre in der Lauteurythmie an die entsprechenden Persönlichkeiten herangebracht worden ist. Es wird sich dann darum handeln, dass an diese Wiederholungen sich angliedern werden, und zwar immer jeweilig an die Einzelheiten selbst, nicht etwa abgeteilt nach Kapiteln, Erweiterungen des Eurythmischen."
         },
         {
           "index": "^rdmpla",
@@ -650,6 +650,13 @@
           "index": "^blg5q0",
           "content": "Ich wollte dieses heute vorausschicken, damit jeder, der nun in der Eurythmie tätig ist, eine ursprüngliche Empfindung, ein ursprüngliches Gefühl davon hat, was er eigentlich tut; nicht hinnimmt die Eurythmie als irgend etwas, was man nur konventionell lernen kann, sondern hinnimmt als etwas, wodurch der Mensch tatsächlich näher an das Göttliche herankommt, als er es ohne Eurythmie kann - wie das bei jeder Kunst der Fall ist; damit wir uns mit dieser Empfindung, mit diesem Gefühl durchdringen. Was gehört zu einer ordentlichen Eurythmieunterweisung? Da muss Atmosphäre drinnen sein, Empfindung von der Verbindung des Menschen mit dem Göttlichen. Dann ist eben wirkliche Eurythmie da. Das ist nötig."
         }
+      ],
+      "headings": [
+        {
+          "index": "^e4sq8f",
+          "text": "DIE EURYTHMIE ALS SICHTBARE SPRACHE",
+          "level": "h2"
+        }
       ]
     },
     {
@@ -665,7 +672,7 @@
       "paragraphs": [
         {
           "index": "^j22i9k",
-          "content": "<h2>DER CHARAKTER DER EINZELNEN LAUTE</h2>\n|59| Nachdem ich gestern versucht habe, im allgemeinen den Charakter des Sprachlichen als solchen, den Charakter dieser besonderen, sichtbaren Sprache der Eurythmie zu erörtern, möchte ich heute zunächst den Charakter der einzelnen Laute vor Sie hinstellen, denn erst dann, wenn der Charakter, die innere Wesenheit der einzelnen Laute vor uns steht, werden wir die Elemente des Eurythmischen auch wirklich verstehen können. Ich mache dabei aufmerksam darauf, dass ja durchaus im Leben der Menschheit, in der Entwicklung der Menschheit immer ein mehr oder weniger deutliches Bewusstsein davon vorhanden war; nur in unserer Zeit sind wir, wie ich gestern sagte, so zusammengeschrumpelt in bezug auf die Handhabe der Sprache. Es war immer mehr oder weniger ein deutliches Bewusstsein vorhanden, dass in diesem Durchlaufen der Laute, das im Worte liegt, eben doch überall in den Konsonanten ein Nachbild äußerer Formen oder äußeren Geschehens vorhanden ist, und in den Vokalen ein inneres Erleben."
+          "content": "<h2 data-index=\"^j22i9k\">DER CHARAKTER DER EINZELNEN LAUTE</h2>\n|59| Nachdem ich gestern versucht habe, im allgemeinen den Charakter des Sprachlichen als solchen, den Charakter dieser besonderen, sichtbaren Sprache der Eurythmie zu erörtern, möchte ich heute zunächst den Charakter der einzelnen Laute vor Sie hinstellen, denn erst dann, wenn der Charakter, die innere Wesenheit der einzelnen Laute vor uns steht, werden wir die Elemente des Eurythmischen auch wirklich verstehen können. Ich mache dabei aufmerksam darauf, dass ja durchaus im Leben der Menschheit, in der Entwicklung der Menschheit immer ein mehr oder weniger deutliches Bewusstsein davon vorhanden war; nur in unserer Zeit sind wir, wie ich gestern sagte, so zusammengeschrumpelt in bezug auf die Handhabe der Sprache. Es war immer mehr oder weniger ein deutliches Bewusstsein vorhanden, dass in diesem Durchlaufen der Laute, das im Worte liegt, eben doch überall in den Konsonanten ein Nachbild äußerer Formen oder äußeren Geschehens vorhanden ist, und in den Vokalen ein inneres Erleben."
         },
         {
           "index": "^k0tt74",
@@ -923,6 +930,13 @@
           "index": "^ls1zam",
           "content": "Verständig nachahmen: m"
         }
+      ],
+      "headings": [
+        {
+          "index": "^j22i9k",
+          "text": "DER CHARAKTER DER EINZELNEN LAUTE",
+          "level": "h2"
+        }
       ]
     },
     {
@@ -938,7 +952,7 @@
       "paragraphs": [
         {
           "index": "^9nbcp3",
-          "content": "<h2>DIE ERLEBTE UND DIE GEFORMTE GEBÄRDE</h2>\n|74| Ich möchte zu dem Gestrigen nur noch diejenigen Laute nachtragen, die wir vielleicht noch nicht besprochen haben. Das ist der s-Laut und der z-Laut, die ja doch eine gewisse selbständige Wesenheit darstellen. Sollte sich das oder jenes noch ergeben im rein Lautlichen, so kann ja das gelegentlich bei den späteren Besprechungen nachgeholt werden."
+          "content": "<h2 data-index=\"^9nbcp3\">DIE ERLEBTE UND DIE GEFORMTE GEBÄRDE</h2>\n|74| Ich möchte zu dem Gestrigen nur noch diejenigen Laute nachtragen, die wir vielleicht noch nicht besprochen haben. Das ist der s-Laut und der z-Laut, die ja doch eine gewisse selbständige Wesenheit darstellen. Sollte sich das oder jenes noch ergeben im rein Lautlichen, so kann ja das gelegentlich bei den späteren Besprechungen nachgeholt werden."
         },
         {
           "index": "^shlp81",
@@ -1128,6 +1142,13 @@
           "index": "^b5845q",
           "content": "Das sind also die Dinge, von denen ich meine, dass sie Ihnen zunächst eine vorläufige Darstellung einmal gegeben haben, wie die erlebte Gebärde durch die Eurythmie in die wirklich geformte Gebärde übergehen kann."
         }
+      ],
+      "headings": [
+        {
+          "index": "^9nbcp3",
+          "text": "DIE ERLEBTE UND DIE GEFORMTE GEBÄRDE",
+          "level": "h2"
+        }
       ]
     },
     {
@@ -1143,7 +1164,7 @@
       "paragraphs": [
         {
           "index": "^ickvmi",
-          "content": "<h2>DIE EINZELNEN LAUTE UND IHRE ZUSAMMENHÄNGE</h2>\n|90| Nun, meine lieben Freunde, ich denke, wir sind gestern bis zur Darstellung des r gekommen, und ich habe bereits für den Rest der Laute, die wir darzustellen haben, das innere Wesen vor Ihnen entwickelt."
+          "content": "<h2 data-index=\"^ickvmi\">DIE EINZELNEN LAUTE UND IHRE ZUSAMMENHÄNGE</h2>\n|90| Nun, meine lieben Freunde, ich denke, wir sind gestern bis zur Darstellung des r gekommen, und ich habe bereits für den Rest der Laute, die wir darzustellen haben, das innere Wesen vor Ihnen entwickelt."
         },
         {
           "index": "^hralzi",
@@ -1333,6 +1354,13 @@
           "index": "^18rlwx",
           "content": "Nun, wir werden ähnliche Bewegungen morgen dann analysieren."
         }
+      ],
+      "headings": [
+        {
+          "index": "^ickvmi",
+          "text": "DIE EINZELNEN LAUTE UND IHRE ZUSAMMENHÄNGE",
+          "level": "h2"
+        }
       ]
     },
     {
@@ -1348,7 +1376,7 @@
       "paragraphs": [
         {
           "index": "^db0eic",
-          "content": "<h2>DER STIMMUNGSGEHALT DER SEELE BEI EINER DICHTUNG</h2>\n|104| Wir wollen zunächst einmal in der Betrachtung fortfahren, die wir begonnen haben. Wir sind ausgegangen von der Betrachtung des Stimmungsinhaltes der Laute zu der Betrachtung von allgemeineren Charakteren des Gesprochenen. Damit geht man dann über von dem bloß Lautlichen zu dem Logischen oder Gefühlsmäßigen des Gesprochenen."
+          "content": "<h2 data-index=\"^db0eic\">DER STIMMUNGSGEHALT DER SEELE BEI EINER DICHTUNG</h2>\n|104| Wir wollen zunächst einmal in der Betrachtung fortfahren, die wir begonnen haben. Wir sind ausgegangen von der Betrachtung des Stimmungsinhaltes der Laute zu der Betrachtung von allgemeineren Charakteren des Gesprochenen. Damit geht man dann über von dem bloß Lautlichen zu dem Logischen oder Gefühlsmäßigen des Gesprochenen."
         },
         {
           "index": "^evvuhl",
@@ -1530,6 +1558,13 @@
           "index": "^rxj4r5",
           "content": "|115| Nun möchte ich heute nur noch diese Studien, die an diesen Gebärden gemacht werden können, damit etwas kolorieren, dass ich Ihnen sage: studieren Sie solche Gebärden, dann werden Sie an diesen Gebärden die Gemütsverfassungen zum plastisch-eurythmischen Ausdruck bringen. Da werden Sie geradezu den inneren dramatischen oder lyrischen oder epischen Gang eines Gedichtes studieren können. Und fühlen Sie sich in diese Gebärden hinein, dann wird es Ihnen möglich sein, Ihr Eurythmisieren zu einem wirklich Dramatischen zu bringen. Daran wollen wir morgen anknüpfen."
         }
+      ],
+      "headings": [
+        {
+          "index": "^db0eic",
+          "text": "DER STIMMUNGSGEHALT DER SEELE BEI EINER DICHTUNG",
+          "level": "h2"
+        }
       ]
     },
     {
@@ -1545,7 +1580,7 @@
       "paragraphs": [
         {
           "index": "^a2tbje",
-          "content": "<h2>GEMÜTSSTIMMUNGEN UND CHARAKTERISTIK EINZELNER SEELENZUSTÄNDE DIE FARBE ALS GEMÜTSINHALT</h2>\n|116| Wir haben gestern einige Gemütsstimmungen absolviert, Gemütsstimmungen, wie sie eurythmisch durch Gesten zum Ausdrucke kommen können, und wollen heute zunächst einiges ähnliche noch hinzufügen. Da haben wir, vorschreitend von dem, was wir gestern gehabt haben, zunächst die Stimmung der Andacht. Die Stimmung der Andacht - wir müssen uns gerade bei einer solchen Gemütsstimmung klarmachen, wie Eurythmie nicht darauf ausgeht, in gewöhnlicher mimischer Geste dasjenige wiederzugeben, was sie wiedergeben will, sondern wie es darauf ankommt, geradeso, wie bei dem Vokalisieren oder bei dem Formen von Konsonanten, aus dem ganzen menschlichen Wesen stilgemäß herauszuholen dasjenige, was nachahmt die Seelengeste, die durch die ganze menschliche Organisation einer solchen Gemütsstimmung zugrunde liegt. Wir haben ja gesehen, dass es sich bei den Lauten doch darum handelt, die Geste so zu gestalten, dass einfach äußerlich sichtbar dasjenige nachgeahmt wird, was ja doch als eine Art Luftgeste wirklich vorhanden ist, wenn man spricht. Wir formen in einer gewissen Weise die Luft, indem wir sprechen. Würden wir durch irgend etwas dasjenige festhalten können, was da geformt wird, so würden wir das Vorbild für die Geste bekommen, die das Lautliche darstellt."
+          "content": "<h2 data-index=\"^a2tbje\">GEMÜTSSTIMMUNGEN UND CHARAKTERISTIK EINZELNER SEELENZUSTÄNDE DIE FARBE ALS GEMÜTSINHALT</h2>\n|116| Wir haben gestern einige Gemütsstimmungen absolviert, Gemütsstimmungen, wie sie eurythmisch durch Gesten zum Ausdrucke kommen können, und wollen heute zunächst einiges ähnliche noch hinzufügen. Da haben wir, vorschreitend von dem, was wir gestern gehabt haben, zunächst die Stimmung der Andacht. Die Stimmung der Andacht - wir müssen uns gerade bei einer solchen Gemütsstimmung klarmachen, wie Eurythmie nicht darauf ausgeht, in gewöhnlicher mimischer Geste dasjenige wiederzugeben, was sie wiedergeben will, sondern wie es darauf ankommt, geradeso, wie bei dem Vokalisieren oder bei dem Formen von Konsonanten, aus dem ganzen menschlichen Wesen stilgemäß herauszuholen dasjenige, was nachahmt die Seelengeste, die durch die ganze menschliche Organisation einer solchen Gemütsstimmung zugrunde liegt. Wir haben ja gesehen, dass es sich bei den Lauten doch darum handelt, die Geste so zu gestalten, dass einfach äußerlich sichtbar dasjenige nachgeahmt wird, was ja doch als eine Art Luftgeste wirklich vorhanden ist, wenn man spricht. Wir formen in einer gewissen Weise die Luft, indem wir sprechen. Würden wir durch irgend etwas dasjenige festhalten können, was da geformt wird, so würden wir das Vorbild für die Geste bekommen, die das Lautliche darstellt."
         },
         {
           "index": "^g5pjsg",
@@ -1883,6 +1918,13 @@
           "index": "^bhuliu",
           "content": "Nun werden wir mit diesem heute schließen und morgen dann in der Charakteristik einzelner Seelenzustände fortfahren."
         }
+      ],
+      "headings": [
+        {
+          "index": "^a2tbje",
+          "text": "GEMÜTSSTIMMUNGEN UND CHARAKTERISTIK EINZELNER SEELENZUSTÄNDE DIE FARBE ALS GEMÜTSINHALT",
+          "level": "h2"
+        }
       ]
     },
     {
@@ -1898,7 +1940,7 @@
       "paragraphs": [
         {
           "index": "^khrafn",
-          "content": "<h2>DIE PLASTISCHE GESTALTUNG DES SPRACHLICHEN</h2>\n|130| Die Eurythmie wird nur dann ihre innere künstlerische Gestaltung annehmen, wenn in allen Einzelheiten der Eurythmist wirklich aus dem Wesen des Sprachlichen heraus zu schaffen in der Lage ist. Nun ist fast ebenso notwendig zum Eurythmisieren das innere Verstehen des Lautlichen, des Sprachlichen, wie notwendig ist die Kenntnis der Bewegungen, die ausgeführt werden müssen. Und deshalb will ich Ihnen heute zeigen, wie gerade die plastische Gestaltung des Sprachlichen auf das Eurythmisieren einen gewissen Einfluss haben kann. Und auf das Plastische, auf das Gestaltende wird es ja immer eigentlich ankommen, da wir im Eurythmisieren die Aufgabe haben, eben das sonst in der Sprache selbst Gestaltete, aber in seiner Gestaltung nicht Auftretende, weil in den Laut Übergehende, wirklich zur sichtbaren Form, zur sichtbaren Gestalt zu bringen."
+          "content": "<h2 data-index=\"^khrafn\">DIE PLASTISCHE GESTALTUNG DES SPRACHLICHEN</h2>\n|130| Die Eurythmie wird nur dann ihre innere künstlerische Gestaltung annehmen, wenn in allen Einzelheiten der Eurythmist wirklich aus dem Wesen des Sprachlichen heraus zu schaffen in der Lage ist. Nun ist fast ebenso notwendig zum Eurythmisieren das innere Verstehen des Lautlichen, des Sprachlichen, wie notwendig ist die Kenntnis der Bewegungen, die ausgeführt werden müssen. Und deshalb will ich Ihnen heute zeigen, wie gerade die plastische Gestaltung des Sprachlichen auf das Eurythmisieren einen gewissen Einfluss haben kann. Und auf das Plastische, auf das Gestaltende wird es ja immer eigentlich ankommen, da wir im Eurythmisieren die Aufgabe haben, eben das sonst in der Sprache selbst Gestaltete, aber in seiner Gestaltung nicht Auftretende, weil in den Laut Übergehende, wirklich zur sichtbaren Form, zur sichtbaren Gestalt zu bringen."
         },
         {
           "index": "^5azif9",
@@ -2034,7 +2076,7 @@
         },
         {
           "index": "^0fy76s",
-          "content": "Machen wir jetzt einmal, damit wir gerade in dieses innere Weiterformen der Laute innerhalb des Sprachlichen selbst hineindringen, ein ö. Also mit einem Sprung eine Art o-Bewegung machen, oder auch die o-Bewegung zerreißen, auseinanderreißen. Machen Sie das recht graziös, dieses Auseinanderreißen der o-Bewegung, und jetzt fügen Sie den Sprung hinzu. Indem Sie die o-Bewegung auseinanderreißen, springen Sie noch; dann haben Sie ein ganz scharfes, schönes ö."
+          "content": "Machen wir jetzt einmal, damit wir gerade in dieses innere Weiterformen der Laute innerhalb des Sprachlichen selbst hineindringen, ein ö. Also mit einem Sprung eine Art o-Bewegung machen, oder auch die o-Bewegung zerreissen, auseinanderreissen. Machen Sie das recht graziös, dieses Auseinanderreissen der o-Bewegung, und jetzt fügen Sie den Sprung hinzu. Indem Sie die o-Bewegung auseinanderreissen, springen Sie noch; dann haben Sie ein ganz scharfes, schönes ö."
         },
         {
           "index": "^8pwtqe",
@@ -2160,6 +2202,13 @@
           "index": "^6ydhjk",
           "content": "| Wellenlaut: | 1 |"
         }
+      ],
+      "headings": [
+        {
+          "index": "^khrafn",
+          "text": "DIE PLASTISCHE GESTALTUNG DES SPRACHLICHEN",
+          "level": "h2"
+        }
       ]
     },
     {
@@ -2175,7 +2224,7 @@
       "paragraphs": [
         {
           "index": "^8d2she",
-          "content": "<h2>DAS WORT ALS BEZEICHNUNG UND DAS WORT IN SEINEN ZUSAMMENHÄNGEN</h2>\n|142| Wir müssen ja in ähnlicher Weise, wie das bei dem Tonlichen geschehen ist, auch bei dem Lautlichen unterscheiden dasjenige, was mehr heruntergeht in die physische Welt, und dasjenige, was das Wort, den Ton, mehr hinaufträgt in die geistige Welt. Nun haben wir eigentlich bisher diesen Unterschied wenig gemacht. Nur gestern am Schlusse konnte ich noch darauf hinweisen, wie dann, wenn aus dem Laut der Umlaut wird, man hineinkommt in das sinnlich nicht mehr in festen Konturen Auftretende, sondern in das mehr Zerflatternde, Zerstäubende. Das aber ist zu gleicher Zeit schon ein Hineingehen in das Geistige. Den einzelnen Bruder, sagte ich, sieht man. Der sinnliche Eindruck, den man von ihm hat mit den scharfen Konturen, das ist dasjenige, worauf es ankommt. Die Brüder - es bezeichnet «die Brüder» ja nicht bloß dasjenige, was jeder einzelne ist, sondern was sie zusammen sind: es ist eine ideelle Zu sammenfassung, und dieses Ideell-Werden, dieses Geistig-Werden liegt in dem Umlaute."
+          "content": "<h2 data-index=\"^8d2she\">DAS WORT ALS BEZEICHNUNG UND DAS WORT IN SEINEN ZUSAMMENHÄNGEN</h2>\n|142| Wir müssen ja in ähnlicher Weise, wie das bei dem Tonlichen geschehen ist, auch bei dem Lautlichen unterscheiden dasjenige, was mehr heruntergeht in die physische Welt, und dasjenige, was das Wort, den Ton, mehr hinaufträgt in die geistige Welt. Nun haben wir eigentlich bisher diesen Unterschied wenig gemacht. Nur gestern am Schlusse konnte ich noch darauf hinweisen, wie dann, wenn aus dem Laut der Umlaut wird, man hineinkommt in das sinnlich nicht mehr in festen Konturen Auftretende, sondern in das mehr Zerflatternde, Zerstäubende. Das aber ist zu gleicher Zeit schon ein Hineingehen in das Geistige. Den einzelnen Bruder, sagte ich, sieht man. Der sinnliche Eindruck, den man von ihm hat mit den scharfen Konturen, das ist dasjenige, worauf es ankommt. Die Brüder - es bezeichnet «die Brüder» ja nicht bloß dasjenige, was jeder einzelne ist, sondern was sie zusammen sind: es ist eine ideelle Zu sammenfassung, und dieses Ideell-Werden, dieses Geistig-Werden liegt in dem Umlaute."
         },
         {
           "index": "^13jkdm",
@@ -2653,6 +2702,13 @@
           "index": "^xghmjd",
           "content": "Auf diese Weise kommen wir dazu, einzusehen, wie mit den eurythmischen Formen überall die Möglichkeit ist, auch ein Gedicht zu studieren."
         }
+      ],
+      "headings": [
+        {
+          "index": "^8d2she",
+          "text": "DAS WORT ALS BEZEICHNUNG UND DAS WORT IN SEINEN ZUSAMMENHÄNGEN",
+          "level": "h2"
+        }
       ]
     },
     {
@@ -2668,7 +2724,7 @@
       "paragraphs": [
         {
           "index": "^krtca9",
-          "content": "<h2>DIE GESTALTETE REDE</h2>\n|157| Wir wollen heute einiges besprechen, das mit der gestalteten Rede zusammenhängt, mit der Rede, die allmählich ins Künstlerische hinüberführt. Wenn wir Eurythmie ausfahren, können wir ja - machen wir uns das klar - entweder stehend Bewegungen an dem Organismus ausfahren, oder aber wir schreiten; und wir haben auch schon gesehen, welche Bedeutung das Schreiten eigentlich hat."
+          "content": "<h2 data-index=\"^krtca9\">DIE GESTALTETE REDE</h2>\n|157| Wir wollen heute einiges besprechen, das mit der gestalteten Rede zusammenhängt, mit der Rede, die allmählich ins Künstlerische hinüberführt. Wenn wir Eurythmie ausfahren, können wir ja - machen wir uns das klar - entweder stehend Bewegungen an dem Organismus ausfahren, oder aber wir schreiten; und wir haben auch schon gesehen, welche Bedeutung das Schreiten eigentlich hat."
         },
         {
           "index": "^5g6uhv",
@@ -2898,6 +2954,13 @@
           "index": "^tdzcel",
           "content": "Damit habe ich Ihnen heute einiges angedeutet, das dann in seiner weiteren Ausführung eben gerade wiederum in der Eurythmie Dinge ergeben wird, die nach und nach dann diese Lauteurythmie abrunden zu einer wirklichen Kunst."
         }
+      ],
+      "headings": [
+        {
+          "index": "^krtca9",
+          "text": "DIE GESTALTETE REDE",
+          "level": "h2"
+        }
       ]
     },
     {
@@ -2913,7 +2976,7 @@
       "paragraphs": [
         {
           "index": "^rjitm5",
-          "content": "<h2>FORMEN, DIE SICH AUS DER WESENHEIT DES MENSCHEN ERGEBEN</h2>\n|171| Wir haben bisher unseren Ausgang genommen für die Charakteristik der eurythmischen Geste von der Lautsprache her, wenigstens in gewissem Sinne von der Lautsprache her. Wir müssen uns nur klar sein darüber, dass alles dasjenige, was an eurythmischen Gesten zum Ausdrücken kommen kann, was also in gewissem Sinne eine Offenbarung des Menschen ist, wie das Wort selber, das der Mensch spricht, eine Offenbarung seiner selbst ist, dass alles das in den Bewe-gungs- und Formmöglichkeiten des menschlichen Organismus begründet ist. Wir können daher auch jetzt einen anderen Ausgangspunkt noch wählen; das ist der, die Wesenheit des Menschen zunächst, wie sie ist, heranzunehmen und von da ausgehend die Form- und Bewegungsmöglichkeiten zu entwickeln, zu sehen, was für Formen aus dem menschlichen Organismus folgen können, und aufzustoßen darauf, dann von da ausgehend zuletzt gewissermaßen ie die einzelne Form nun den Charakter des sichtbaren Lautes annimmt."
+          "content": "<h2 data-index=\"^rjitm5\">FORMEN, DIE SICH AUS DER WESENHEIT DES MENSCHEN ERGEBEN</h2>\n|171| Wir haben bisher unseren Ausgang genommen für die Charakteristik der eurythmischen Geste von der Lautsprache her, wenigstens in gewissem Sinne von der Lautsprache her. Wir müssen uns nur klar sein darüber, dass alles dasjenige, was an eurythmischen Gesten zum Ausdrücken kommen kann, was also in gewissem Sinne eine Offenbarung des Menschen ist, wie das Wort selber, das der Mensch spricht, eine Offenbarung seiner selbst ist, dass alles das in den Bewe-gungs- und Formmöglichkeiten des menschlichen Organismus begründet ist. Wir können daher auch jetzt einen anderen Ausgangspunkt noch wählen; das ist der, die Wesenheit des Menschen zunächst, wie sie ist, heranzunehmen und von da ausgehend die Form- und Bewegungsmöglichkeiten zu entwickeln, zu sehen, was für Formen aus dem menschlichen Organismus folgen können, und aufzustoßen darauf, dann von da ausgehend zuletzt gewissermaßen ie die einzelne Form nun den Charakter des sichtbaren Lautes annimmt."
         },
         {
           "index": "^dfdr5s",
@@ -3235,6 +3298,13 @@
           "index": "^2lbswj",
           "content": "Und so haben wir heute neunzehn Gesten; zwölf ruhende und sieben bewegte Gesten, von denen die eine nur ruhend ist, weil die |190| Ruhe einfach der Gegensatz zu der Bewegung ist. Die Bewegung, die an Geschwindigkeit gleich Null ist, ist auch darunter, im Monde. Wir haben also diese Gesten kennengelernt und haben auch schon andeuten können, wie diese Gesten hineinfahren in das Lautliche. Wir sind jetzt ausgegangen vom Menschen und gehen den anderen Weg. Erst gingen wir von den Lauten aus, suchten uns von dem Laute aus die Geste; jetzt gehen wir von den Bewegungsmöglichkeiten aus und verfolgen den Weg zum Menschen, zu der sichtbaren Sprache, zu den Lauten hin."
         }
+      ],
+      "headings": [
+        {
+          "index": "^rjitm5",
+          "text": "FORMEN, DIE SICH AUS DER WESENHEIT DES MENSCHEN ERGEBEN",
+          "level": "h2"
+        }
       ]
     },
     {
@@ -3250,7 +3320,7 @@
       "paragraphs": [
         {
           "index": "^aosdu8",
-          "content": "<h2>DAS SICH-HINEINLEBEN IN GEBÄRDE UND FORM</h2>\n|191| Wir wollen nun sehen, wie manche Schwierigkeiten, die im Eurythmisieren entstehen, entstehen müssen, wenn man nicht aus einer Verinnerlichung der Gestaltungen und Bewegungen, wie wir sie gestern kennengelernt haben, heraus arbeiten kann. Die Schwierigkeiten ergeben sich dann, wenn man zum Beispiel einen Konsonanten in den anderen übergehen lassen soll, einen Vokal in den anderen übergehen lassen soll, und Sie werden aus Bemerkungen, die ich schon gemacht habe, ersehen können, dass ja für das Geistige der Rede dasjenige das Allerwichtigste ist, was zwischen den Lauten steht. Geradeso, wie das eigentlich Musikalische, das geistig Musikalische dasjenige ist, was zwischen den Tönen steht. Die Töne sind das Physische, gewissermaßen das Materielle, und dasjenige, was von dem einen Ton zu dem anderen hin sich bewegt, ist das Geistige."
+          "content": "<h2 data-index=\"^aosdu8\">DAS SICH-HINEINLEBEN IN GEBÄRDE UND FORM</h2>\n|191| Wir wollen nun sehen, wie manche Schwierigkeiten, die im Eurythmisieren entstehen, entstehen müssen, wenn man nicht aus einer Verinnerlichung der Gestaltungen und Bewegungen, wie wir sie gestern kennengelernt haben, heraus arbeiten kann. Die Schwierigkeiten ergeben sich dann, wenn man zum Beispiel einen Konsonanten in den anderen übergehen lassen soll, einen Vokal in den anderen übergehen lassen soll, und Sie werden aus Bemerkungen, die ich schon gemacht habe, ersehen können, dass ja für das Geistige der Rede dasjenige das Allerwichtigste ist, was zwischen den Lauten steht. Geradeso, wie das eigentlich Musikalische, das geistig Musikalische dasjenige ist, was zwischen den Tönen steht. Die Töne sind das Physische, gewissermaßen das Materielle, und dasjenige, was von dem einen Ton zu dem anderen hin sich bewegt, ist das Geistige."
         },
         {
           "index": "^2w4c3r",
@@ -3668,6 +3738,13 @@
           "index": "^80k0ax",
           "content": "Sie sollen also vor allen Dingen begreifen, dass in dem, was wir gestern und heute angegeben haben, ein Sich-Hineinleben in Gebärde und Form liegt."
         }
+      ],
+      "headings": [
+        {
+          "index": "^aosdu8",
+          "text": "DAS SICH-HINEINLEBEN IN GEBÄRDE UND FORM",
+          "level": "h2"
+        }
       ]
     },
     {
@@ -3683,7 +3760,7 @@
       "paragraphs": [
         {
           "index": "^20q2y7",
-          "content": "<h2>MORALISCH-SEELISCHE HEILWIRKUNGEN DURCH DAS AUSSTRÖMEN DER MENSCHENSEELE IN FORM UND BEWEGUNG UND DEREN ZURÜCKWIRKEN AUF DEN GANZEN MENSCHEN</h2>\n|202| Wir werden jetzt an unseren Stoff anschließen dasjenige, was wir mehr aus den Fundamenten des Eurythmischen herausgeholt haben, und einiges von dem durchsprechen, was Sie schon wenigstens zum Teil - kennen; dann werden wir eine Verbindung herstellen zwischen dem Besprochenen und dem Ihnen Bekannten."
+          "content": "<h2 data-index=\"^20q2y7\">MORALISCH-SEELISCHE HEILWIRKUNGEN DURCH DAS AUSSTRÖMEN DER MENSCHENSEELE IN FORM UND BEWEGUNG UND DEREN ZURÜCKWIRKEN AUF DEN GANZEN MENSCHEN</h2>\n|202| Wir werden jetzt an unseren Stoff anschließen dasjenige, was wir mehr aus den Fundamenten des Eurythmischen herausgeholt haben, und einiges von dem durchsprechen, was Sie schon wenigstens zum Teil - kennen; dann werden wir eine Verbindung herstellen zwischen dem Besprochenen und dem Ihnen Bekannten."
         },
         {
           "index": "^pdr1wq",
@@ -3877,6 +3954,13 @@
           "index": "^jg6la1",
           "content": "Die erste Übung kann in heilpädagogischem Sinne, besonders wenn die Kinder nicht blutarm, sondern vollblütig sind, angewendet werden, um den Egoismus der Kinder zu bekämpfen; das andere kann bei ich-schwachen Kindern oder bei blutarmen Kindern in heilpädagogischem Sinne gut angewendet werden."
         }
+      ],
+      "headings": [
+        {
+          "index": "^20q2y7",
+          "text": "MORALISCH-SEELISCHE HEILWIRKUNGEN DURCH DAS AUSSTRÖMEN DER MENSCHENSEELE IN FORM UND BEWEGUNG UND DEREN ZURÜCKWIRKEN AUF DEN GANZEN MENSCHEN",
+          "level": "h2"
+        }
       ]
     },
     {
@@ -3892,7 +3976,7 @@
       "paragraphs": [
         {
           "index": "^dqk36o",
-          "content": "<h2>SEELENSTIMMUNGEN, DIE AUS DER GESTE DES LAUTES HERAUSZUFINDEN SIND</h2>\n|214| Wir werden zunächst fortfahren in der Ausbildung solcher Formen, wie wir sie gestern besprochen haben. Da möchte ich zunächst diejenigen Formen besprechen, welche dienen können dazu, eine gewisse Beziehung herzustellen zwischen Rede und Gegenrede. Ich habe ja gestern von den Spiralen gesprochen, und wir haben gesehen, wie die eine Spirale, die nach außen geschritten wird, ein Herausgehen des Menschen fühlen lässt, die andere ein In-sich-Zurückgehen. Nun lassen sich aber diese Spiralen auch in der Form miteinander verbinden. Nehmen Sie nur einmal die Spiralen so, dass Sie sie rein anapästisch schreiten, und schreiten Sie so zunächst anapästisch, dass Sie sowohl die eine wie die andere hintereinander schreiten. Sie können das einmal versuchen. Nehmen Sie (I) die Spirale, die von innen nach außen geht, und Sie (II) machen nun diejenige, die von außen nach innen geht; jetzt umgekehrt, sechs Anapäste meinetwillen. So kann man es also machen."
+          "content": "<h2 data-index=\"^dqk36o\">SEELENSTIMMUNGEN, DIE AUS DER GESTE DES LAUTES HERAUSZUFINDEN SIND</h2>\n|214| Wir werden zunächst fortfahren in der Ausbildung solcher Formen, wie wir sie gestern besprochen haben. Da möchte ich zunächst diejenigen Formen besprechen, welche dienen können dazu, eine gewisse Beziehung herzustellen zwischen Rede und Gegenrede. Ich habe ja gestern von den Spiralen gesprochen, und wir haben gesehen, wie die eine Spirale, die nach außen geschritten wird, ein Herausgehen des Menschen fühlen lässt, die andere ein In-sich-Zurückgehen. Nun lassen sich aber diese Spiralen auch in der Form miteinander verbinden. Nehmen Sie nur einmal die Spiralen so, dass Sie sie rein anapästisch schreiten, und schreiten Sie so zunächst anapästisch, dass Sie sowohl die eine wie die andere hintereinander schreiten. Sie können das einmal versuchen. Nehmen Sie (I) die Spirale, die von innen nach außen geht, und Sie (II) machen nun diejenige, die von außen nach innen geht; jetzt umgekehrt, sechs Anapäste meinetwillen. So kann man es also machen."
         },
         {
           "index": "^5fhc9m",
@@ -3992,27 +4076,27 @@
         },
         {
           "index": "^frckfw",
-          "content": "Und jetzt möchte ich Ihnen nochmals zeigen, wie nun Formen eigentlich verwendet werden müssen. Erinnern sich diejenigen, die gestern oben gestanden haben auf der Bühne bei dem Friedenstanz, in den hineinverwoben worden sind dann «Ich und Du», erinnern sich diejenigen bei den vier Gruppen zu dritt, wie sie angeordnet waren; ich bitte diejenigen, die da oben gestanden haben, jetzt wieder heraufzukommen und sich ebenso anzuordnen. Wir werden jetzt folgendes machen: statt dass Sie gestern bloß die Form stumm gemacht haben, werden Sie die erste Form, die Dreiecksform machen dreimal auf Zeilen, die von dem Muster dieser sind: «Es keimen der Seele Wünsche» - dann zweite Zeile, zweite Bewegung, dritte Zeile, dritte Bewegung. jetzt ist es so weit, dass nach der gestrigen Aufstellung «Ich und du» beginnt. Dieses «Ich und du» soll nicht ein «Ich und du» sein, sondern es sollen wiederum Zeilen sein, die aber nach dem Muster von «Ich und du» gemacht werden können. Es werden also eine Anzahl von Zeilen kommen, die nach dem Muster von «Ich und du» gemacht werden. Dann kommen drei Zeilen wiederum zum Schluss, wo Sie in derselben Weise zurückkommen auf das, was wir als Friedenstanz gemacht haben:"
+          "content": "Und jetzt möchte ich Ihnen nochmals zeigen, wie nun Formen eigentlich verwendet werden müssen. Erinnern sich diejenigen, die gestern oben gestanden haben auf der Bühne bei dem Friedenstanz, in den hineinverwoben worden sind dann «Ich und Du», erinnern sich diejenigen bei den vier Gruppen zu dritt, wie sie angeordnet waren; ich bitte diejenigen, die da oben gestanden haben, jetzt wieder heraufzukommen und sich ebenso anzuordnen. Wir werden jetzt folgendes machen: statt dass Sie gestern bloß die Form stumm gemacht haben, werden Sie die erste Form, die Dreiecksform machen dreimal auf Zeilen, die von dem Muster dieser sind: «Es keimen der Seele Wünsche» - dann zweite Zeile, zweite Bewegung, dritte Zeile, dritte Bewegung. Jetzt ist es so weit, dass nach der gestrigen Aufstellung «Ich und du» beginnt. Dieses «Ich und du» soll nicht ein «Ich und du» sein, sondern es sollen wiederum Zeilen sein, die aber nach dem Muster von «Ich und du» gemacht werden können. Es werden also eine Anzahl von Zeilen kommen, die nach dem Muster von «Ich und du» gemacht werden. Dann kommen drei Zeilen wiederum zum Schluss, wo Sie in derselben Weise zurückkommen auf das, was wir als Friedenstanz gemacht haben:"
         },
         {
           "index": "^q1j70y",
           "content": "Es keimen der Seele Wünsche,"
         },
         {
+          "index": "^7jxh6j",
+          "content": "Es wachsen des Willens Taten,"
+        },
+        {
           "index": "^6n6sjo",
-          "content": "Es wachsen des Willens Taten, Es reifen des Lebens Früchte."
+          "content": "Es reifen des Lebens Früchte."
         },
         {
           "index": "^5rn6zb",
           "content": "Ich fühle mein Schicksal, (sich annähern)"
         },
         {
-          "index": "^khwuc7",
-          "content": "Mein Schicksal findet mich"
-        },
-        {
           "index": "^5w3hc4",
-          "content": "(zurück)"
+          "content": "Mein Schicksal findet mich (zurück)"
         },
         {
           "index": "^6div3j",
@@ -4146,6 +4230,13 @@
           "index": "^2ih55z",
           "content": "Natürlich kommt dann das dazu, dass man die entsprechende Geste, die wir zum Beispiel für die Andacht bekommen haben, hinzufügt. Um so mehr wird die Sache erhöht. Denn man kann ja die Dinge, die man ausdrücken will, in mehreren Arten zum Ausdrücken bringen."
         }
+      ],
+      "headings": [
+        {
+          "index": "^dqk36o",
+          "text": "SEELENSTIMMUNGEN, DIE AUS DER GESTE DES LAUTES HERAUSZUFINDEN SIND",
+          "level": "h2"
+        }
       ]
     },
     {
@@ -4161,7 +4252,7 @@
       "paragraphs": [
         {
           "index": "^0xr75h",
-          "content": "<h2>GLIEDERUNG DER WORTE - INNERE GLIEDERUNG DER STROPHEN</h2>\n|225| Wie man in der Sprache genötigt ist, um des inneren Verständnisses der Sprachgestaltung willen die Worte zu gliedern, so zu gliedern, wie sie aus dem Denken folgen, in subjektivische, adjektivische Bildungen usw., so hat man nötig, das auch in der eurythmischen Darstellung zu berücksichtigen. Es ist ja selbstverständlich, dass dabei alle Pedanterie vermieden werden muss und dass vor allen Dingen der Unterricht in der Eurythmie nach der Richtung hin, die wir heute etwas entwickeln müssen, nicht ausarten darf in der Art und Weise, wie oftmals der Grammatikunterricht ausartet in der Schule. Aber bewusst werden muss sich durchaus der Eurythmist, wie er ein einzelnes Wort zu behandeln hat, wie er ein Hauptwort zu behandeln hat usw., denn diese Dinge stehen ja, in der verschiedensten Weise den Gedanken gebend, im ganzen Zusammenhange der sprachlichen Menschenoffenbarung darinnen. Und so müssen wir eben auch hier unterscheiden zwischen denjenigen Worten, welche Eigenschaften der Dinge ausdrücken, die an den Dingen sind, und denjenigen Worten, welche Tätigkeiten ausdrücken. Solche Worte, die Eigenschaften an den Dingen bezeichnen, wir drücken sie eurythmisch dadurch aus, dass wir in dem Momente, wo es uns darauf ankommt, eine Eigenschaft eurythmisch zur Offenbarung zu bringen, dass wir in diesem Momente die Bewegung anhalten und die Gebärde in ruhiger Lage machen, also die Gebärde ruhend machen. Dagegen wenn wir einen Seeleninhalt ausdrücken, der in der gewöhnlichen Sprache durch ein Zeitwort, durch ein Verbum zum Ausdrücken kommt, dann kommt es ganz besonders darauf an, dass wir dezidiert die Gebärde in der Bewegung machen. So dass die bewegte Gebärde, das heißt die am bewegten Menschen erscheinende Gebärde zunächst das Zeitwort, das eigentliche Verbum darstellt."
+          "content": "<h2 data-index=\"^0xr75h\">GLIEDERUNG DER WORTE - INNERE GLIEDERUNG DER STROPHEN</h2>\n|225| Wie man in der Sprache genötigt ist, um des inneren Verständnisses der Sprachgestaltung willen die Worte zu gliedern, so zu gliedern, wie sie aus dem Denken folgen, in subjektivische, adjektivische Bildungen usw., so hat man nötig, das auch in der eurythmischen Darstellung zu berücksichtigen. Es ist ja selbstverständlich, dass dabei alle Pedanterie vermieden werden muss und dass vor allen Dingen der Unterricht in der Eurythmie nach der Richtung hin, die wir heute etwas entwickeln müssen, nicht ausarten darf in der Art und Weise, wie oftmals der Grammatikunterricht ausartet in der Schule. Aber bewusst werden muss sich durchaus der Eurythmist, wie er ein einzelnes Wort zu behandeln hat, wie er ein Hauptwort zu behandeln hat usw., denn diese Dinge stehen ja, in der verschiedensten Weise den Gedanken gebend, im ganzen Zusammenhange der sprachlichen Menschenoffenbarung darinnen. Und so müssen wir eben auch hier unterscheiden zwischen denjenigen Worten, welche Eigenschaften der Dinge ausdrücken, die an den Dingen sind, und denjenigen Worten, welche Tätigkeiten ausdrücken. Solche Worte, die Eigenschaften an den Dingen bezeichnen, wir drücken sie eurythmisch dadurch aus, dass wir in dem Momente, wo es uns darauf ankommt, eine Eigenschaft eurythmisch zur Offenbarung zu bringen, dass wir in diesem Momente die Bewegung anhalten und die Gebärde in ruhiger Lage machen, also die Gebärde ruhend machen. Dagegen wenn wir einen Seeleninhalt ausdrücken, der in der gewöhnlichen Sprache durch ein Zeitwort, durch ein Verbum zum Ausdrücken kommt, dann kommt es ganz besonders darauf an, dass wir dezidiert die Gebärde in der Bewegung machen. So dass die bewegte Gebärde, das heißt die am bewegten Menschen erscheinende Gebärde zunächst das Zeitwort, das eigentliche Verbum darstellt."
         },
         {
           "index": "^nezoqf",
@@ -4599,6 +4690,13 @@
           "index": "^2m9drk",
           "content": "Haben Sie solch eine Meditation gemacht, dann werden Sie sehen, dass Sie das von sich sagen können: Sie sind wie aus dem Weltenschlaf ins Himmlische der Eurythmie aufgewacht. Sie werden immer, wie wenn Sie von der Nacht in den Tag hinein aufwachen, hineinkommen ins Eurythmische, wenn Sie diese Stimmung in sich erwecken."
         }
+      ],
+      "headings": [
+        {
+          "index": "^0xr75h",
+          "text": "GLIEDERUNG DER WORTE - INNERE GLIEDERUNG DER STROPHEN",
+          "level": "h2"
+        }
       ]
     },
     {
@@ -4614,7 +4712,7 @@
       "paragraphs": [
         {
           "index": "^f7yc4r",
-          "content": "<h2>DER GANZE KÖRPER MUSS IN DER EURYTHMISCHEN AUSFÜHRUNG SEELE WERDEN</h2>\n|240| Es wird heute nötig, diesen Kursus abzuschließen, und es war ja natürlich, dass in demselben nur eine gewisse Summe von Richtlinien für das Eurythmisieren gegeben werden konnte. Es bleibt natürlich mancherlei unbesprochen, das einem künftigen Kursus aufbehalten werden muss; aber ich hatte gedacht, es würde besser sein, wenn einige Richtlinien so ganz aus dem Wesen der Eurythmie heraus entwickelt würden, als wenn man gewissermaßen enzyklopädisch einen Überblick über das ganze Gebiet der Eurythmie geben würde."
+          "content": "<h2 data-index=\"^f7yc4r\">DER GANZE KÖRPER MUSS IN DER EURYTHMISCHEN AUSFÜHRUNG SEELE WERDEN</h2>\n|240| Es wird heute nötig, diesen Kursus abzuschließen, und es war ja natürlich, dass in demselben nur eine gewisse Summe von Richtlinien für das Eurythmisieren gegeben werden konnte. Es bleibt natürlich mancherlei unbesprochen, das einem künftigen Kursus aufbehalten werden muss; aber ich hatte gedacht, es würde besser sein, wenn einige Richtlinien so ganz aus dem Wesen der Eurythmie heraus entwickelt würden, als wenn man gewissermaßen enzyklopädisch einen Überblick über das ganze Gebiet der Eurythmie geben würde."
         },
         {
           "index": "^fswifo",
@@ -5047,6 +5145,13 @@
         {
           "index": "^2dsp4s",
           "content": "Denken wir bei allem einzelnen, was wir uns aneignen auf anthroposophischem Boden, an das große Ganze der Anthroposophie, und gestalten wir alles einzelne so aus, wie es uns - wenn ich so sagen darf - unser anthroposophisches Herz eingibt, wie wir es gestalten sollen, wenn wir den Intentionen der Anthroposophie durch das Wirken im einzelnen würdig werden sollen. Das möge gefördert werden in einigem durch dasjenige, was ich mir zu sagen erlaubte im Laufe dieses Eurythmiekurses."
+        }
+      ],
+      "headings": [
+        {
+          "index": "^f7yc4r",
+          "text": "DER GANZE KÖRPER MUSS IN DER EURYTHMISCHEN AUSFÜHRUNG SEELE WERDEN",
+          "level": "h2"
         }
       ]
     }
