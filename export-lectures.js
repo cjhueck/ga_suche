@@ -166,6 +166,14 @@ const POEM_ATTRIBUTION_DATE_RE = new RegExp(
   `\\b\\d{1,2}\\.\\s*(?:${POEM_ATTRIBUTION_MONTHS})\\s+\\d{4}\\b`,
   'i'
 );
+const POEM_ATTR_MONTH_YEAR_RE = new RegExp(
+  `(?:\\b(?:Anfang|Ende|Mitte)\\s+(?:des|der)?\\s*)?(?:${POEM_ATTRIBUTION_MONTHS})\\s+\\d{4}\\b`,
+  'i'
+);
+const POEM_ATTR_PLACE_MONTH_YEAR_RE = new RegExp(
+  `^[A-ZÄÖÜa-zäöüß][\\wäöüÄÖÜß.\\s-]*\\s+(?:${POEM_ATTRIBUTION_MONTHS})\\s+\\d{4}$`,
+  'i'
+);
 
 class SteinerLecturesExporter {
   constructor(sourceDir, outputDir) {
@@ -473,10 +481,12 @@ class SteinerLecturesExporter {
     const line = this.cleanPoemLineForDetection(text);
     if (!line || line.length > 220) return false;
     if (POEM_ATTRIBUTION_DATE_RE.test(line)) return true;
+    if (POEM_ATTR_MONTH_YEAR_RE.test(line)) return true;
+    if (POEM_ATTR_PLACE_MONTH_YEAR_RE.test(line)) return true;
     if (/^ca\.\s*\d{4}/i.test(line)) return true;
-    if (/^Für\s+/i.test(line) && POEM_ATTRIBUTION_DATE_RE.test(line)) return true;
     if (/\bNotiz(?:blatt|buch)\b/i.test(line)) return true;
-    if (/^Entwurf,/i.test(line)) return true;
+    if (/^Entwurf(?:-Fragmente)?\b/i.test(line)) return true;
+    if (/^Rückübersetzung\b/i.test(line)) return true;
     if (/^E\.S\.\s+/i.test(line) && POEM_ATTRIBUTION_DATE_RE.test(line)) return true;
     if (/^Dr\.\s+Rudolf Steiner$/i.test(line) || /^Rudolf Steiner$/i.test(line)) return true;
     if (/^\d{1,2}\.\s+(?:Januar|Februar|März|Maerz|April|Mai|Juni|Juli|August|September|Oktober|November|Dezember)\s+\d{4}$/i.test(line)) return true;
@@ -484,8 +494,18 @@ class SteinerLecturesExporter {
     if (/^\d{4}\/\d{1,2}$/.test(line)) return true;
     if (/^\d{4}$/.test(line)) return true;
     if (/^(Morgens|Abends)$/i.test(line)) return true;
-    if (/^Für\s+(die|den|das|eine?n?)\s+/i.test(line) && line.length < 160) return true;
     if (/^Goetheanum\b/i.test(line)) return true;
+    if (/^Für\s+die\s+Mutter$/i.test(line)) return false;
+    if (/^Für\s+/i.test(line) && line.length < 160) {
+      const hasYear = /\b(?:ca\.\s*)?\d{4}\b/.test(line);
+      if (hasYear || POEM_ATTR_MONTH_YEAR_RE.test(line) || POEM_ATTRIBUTION_DATE_RE.test(line)) return true;
+      if (/^Für\s+(die|den|das|eine?n?)\s+/i.test(line)) return true;
+    }
+    if (/^(?:Gebet|Spruch|Mantra)\s+für\b/i.test(line) && line.length < 200 && /\bgegeben\s+\d{4}(?:\/\d{1,2})?\s*$/i.test(line)) return true;
+    if (/^An\s+/i.test(line) && line.length < 180) {
+      if (/\bgegeben\s+\d{4}(?:\/\d{1,2})?\s*$/i.test(line)) return true;
+      if (/\bfür\s+.+\s+\d{4}\s*$/i.test(line)) return true;
+    }
     return false;
   }
 

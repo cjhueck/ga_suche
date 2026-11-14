@@ -1,1 +1,1003 @@
-{}
+{
+  "GA040": {
+    "gaNumber": "GA040",
+    "gaTitle": "Wahrspruchworte (1886-1925)",
+    "lectureCount": 17,
+    "lectures": [
+      {
+        "lectureNumber": "1",
+        "ID": "GA040/1",
+        "title": "CREDO DER EINZELNE UND DAS ALL (UM 1886)",
+        "fileName": "GA040/1 - CREDO DER EINZELNE UND DAS ALL (UM 1886)",
+        "location": null,
+        "date": "",
+        "summary": null,
+        "shortSummary": null,
+        "headings": [],
+        "tableOfContents": [],
+        "lectureKeywords": [],
+        "version": "v1"
+      },
+      {
+        "lectureNumber": "2",
+        "ID": "GA040/2",
+        "title": "ANTHROPOSOPHISCHER SEELENKALENDER",
+        "fileName": "GA040/2 - ANTHROPOSOPHISCHER SEELENKALENDER",
+        "location": null,
+        "date": "",
+        "summary": null,
+        "shortSummary": null,
+        "headings": [
+          {
+            "index": "^2l6tpj",
+            "text": "Vorwort zur zweiten Ausgabe 1918",
+            "level": "h2"
+          },
+          {
+            "index": "^zwcrx0",
+            "text": "Vorwort zur ersten Ausgabe 1912/13",
+            "level": "h2"
+          },
+          {
+            "index": "^urdigg",
+            "text": "FRÜHLING",
+            "level": "h2"
+          },
+          {
+            "index": "^44lc22",
+            "text": "SOMMER",
+            "level": "h2"
+          },
+          {
+            "index": "^nrjhw7",
+            "text": "HERBST",
+            "level": "h2"
+          },
+          {
+            "index": "^di6ed2",
+            "text": "WINTER",
+            "level": "h2"
+          }
+        ],
+        "tableOfContents": [
+          {
+            "heading": "Vorwort zur zweiten Ausgabe 1918",
+            "description": "",
+            "index": "^2l6tpj"
+          },
+          {
+            "heading": "Vorwort zur ersten Ausgabe 1912/13",
+            "description": "",
+            "index": "^zwcrx0"
+          },
+          {
+            "heading": "FRÜHLING",
+            "description": "",
+            "index": "^urdigg"
+          },
+          {
+            "heading": "SOMMER",
+            "description": "",
+            "index": "^44lc22"
+          },
+          {
+            "heading": "HERBST",
+            "description": "",
+            "index": "^nrjhw7"
+          },
+          {
+            "heading": "WINTER",
+            "description": "",
+            "index": "^di6ed2"
+          }
+        ],
+        "lectureKeywords": [],
+        "version": "v2-headings"
+      },
+      {
+        "lectureNumber": "3",
+        "ID": "GA040/3",
+        "title": "PLANETENTANZ",
+        "fileName": "GA040/3 - PLANETENTANZ",
+        "location": null,
+        "date": "",
+        "summary": null,
+        "shortSummary": null,
+        "headings": [],
+        "tableOfContents": [],
+        "lectureKeywords": [],
+        "version": "v1"
+      },
+      {
+        "lectureNumber": "4",
+        "ID": "GA040/4",
+        "title": "ZWÖLF STIMMUNGEN",
+        "fileName": "GA040/4 - ZWÖLF STIMMUNGEN",
+        "location": null,
+        "date": "",
+        "summary": null,
+        "shortSummary": null,
+        "headings": [],
+        "tableOfContents": [],
+        "lectureKeywords": [],
+        "version": "v1"
+      },
+      {
+        "lectureNumber": "5",
+        "ID": "GA040/5",
+        "title": "Ansprache zur ersten eurythmischen Darstellung der drei Dichtungen",
+        "fileName": "GA040/5 - Ansprache zur ersten eurythmischen Darstellung der drei Dichtungen",
+        "location": null,
+        "date": "",
+        "summary": null,
+        "shortSummary": null,
+        "headings": [],
+        "tableOfContents": [],
+        "lectureKeywords": [],
+        "version": "v1"
+      },
+      {
+        "lectureNumber": "6",
+        "ID": "GA040/6",
+        "title": "DAS LIED VON DER INITIATION",
+        "fileName": "GA040/6 - DAS LIED VON DER INITIATION",
+        "location": null,
+        "date": "",
+        "summary": null,
+        "shortSummary": null,
+        "headings": [],
+        "tableOfContents": [],
+        "lectureKeywords": [],
+        "version": "v1"
+      },
+      {
+        "lectureNumber": "7",
+        "ID": "GA040/7",
+        "title": "JAHRESLAUF",
+        "fileName": "GA040/7 - JAHRESLAUF",
+        "location": null,
+        "date": "",
+        "summary": null,
+        "shortSummary": null,
+        "headings": [
+          {
+            "index": "^mxhfsl",
+            "text": "JAHRESFESTE",
+            "level": "h2"
+          },
+          {
+            "index": "^ul9ms3",
+            "text": "WINTERWILLE",
+            "level": "h2"
+          },
+          {
+            "index": "^ozwn1b",
+            "text": "SOMMERWILLE",
+            "level": "h2"
+          },
+          {
+            "index": "^tmnnu9",
+            "text": "Jahreszeitenerleben in alten Mysterien",
+            "level": "h2"
+          },
+          {
+            "index": "^47sctk",
+            "text": "FRÜHLING",
+            "level": "h2"
+          },
+          {
+            "index": "^8zybmu",
+            "text": "Ostern",
+            "level": "h2"
+          },
+          {
+            "index": "^5mz3w4",
+            "text": "Ostern",
+            "level": "h2"
+          },
+          {
+            "index": "^f1mho5",
+            "text": "Der Ostergedanke der ephesischen Mysterien",
+            "level": "h2"
+          },
+          {
+            "index": "^981c67",
+            "text": "Pfingst-Gedanke",
+            "level": "h2"
+          },
+          {
+            "index": "^vjyx02",
+            "text": "Pfingstspruch",
+            "level": "h2"
+          },
+          {
+            "index": "^0bhwhs",
+            "text": "DIE WELTENSEELENGEISTER",
+            "level": "h2"
+          },
+          {
+            "index": "^64bbgk",
+            "text": "Hochsommer Uriel-Imagination",
+            "level": "h2"
+          },
+          {
+            "index": "^xn6nd2",
+            "text": "HERBST",
+            "level": "h2"
+          },
+          {
+            "index": "^ds1upq",
+            "text": "Michaeli",
+            "level": "h2"
+          },
+          {
+            "index": "^ja189w",
+            "text": "Michael-Imagination",
+            "level": "h2"
+          },
+          {
+            "index": "^2ozkgt",
+            "text": "Michael-Imagination",
+            "level": "h2"
+          },
+          {
+            "index": "^26i5x3",
+            "text": "Michaels Schwert",
+            "level": "h2"
+          },
+          {
+            "index": "^aldzzl",
+            "text": "Wintersonnenwende",
+            "level": "h2"
+          },
+          {
+            "index": "^zv1iw6",
+            "text": "Wintersonnenwende",
+            "level": "h2"
+          },
+          {
+            "index": "^rtz37e",
+            "text": "Weihnacht",
+            "level": "h2"
+          },
+          {
+            "index": "^ye2fda",
+            "text": "Weihnacht",
+            "level": "h2"
+          },
+          {
+            "index": "^r6g48k",
+            "text": "Weihnacht",
+            "level": "h2"
+          },
+          {
+            "index": "^k8ayrq",
+            "text": "Zur Weihenacht 1919",
+            "level": "h2"
+          },
+          {
+            "index": "^sqztjh",
+            "text": "Zur Weihenacht 1920",
+            "level": "h2"
+          },
+          {
+            "index": "^siuw4d",
+            "text": "Isis-Sophia,",
+            "level": "h2"
+          },
+          {
+            "index": "^1q2ili",
+            "text": "Für Marie Steiner",
+            "level": "h2"
+          },
+          {
+            "index": "^1kd9kk",
+            "text": "Ur-Weihenacht",
+            "level": "h2"
+          }
+        ],
+        "tableOfContents": [
+          {
+            "heading": "JAHRESFESTE",
+            "description": "",
+            "index": "^mxhfsl"
+          },
+          {
+            "heading": "WINTERWILLE",
+            "description": "",
+            "index": "^ul9ms3"
+          },
+          {
+            "heading": "SOMMERWILLE",
+            "description": "",
+            "index": "^ozwn1b"
+          },
+          {
+            "heading": "Jahreszeitenerleben in alten Mysterien",
+            "description": "",
+            "index": "^tmnnu9"
+          },
+          {
+            "heading": "FRÜHLING",
+            "description": "",
+            "index": "^47sctk"
+          },
+          {
+            "heading": "Ostern",
+            "description": "",
+            "index": "^8zybmu"
+          },
+          {
+            "heading": "Ostern",
+            "description": "",
+            "index": "^5mz3w4"
+          },
+          {
+            "heading": "Der Ostergedanke der ephesischen Mysterien",
+            "description": "",
+            "index": "^f1mho5"
+          },
+          {
+            "heading": "Pfingst-Gedanke",
+            "description": "",
+            "index": "^981c67"
+          },
+          {
+            "heading": "Pfingstspruch",
+            "description": "",
+            "index": "^vjyx02"
+          },
+          {
+            "heading": "DIE WELTENSEELENGEISTER",
+            "description": "",
+            "index": "^0bhwhs"
+          },
+          {
+            "heading": "Hochsommer Uriel-Imagination",
+            "description": "",
+            "index": "^64bbgk"
+          },
+          {
+            "heading": "HERBST",
+            "description": "",
+            "index": "^xn6nd2"
+          },
+          {
+            "heading": "Michaeli",
+            "description": "",
+            "index": "^ds1upq"
+          },
+          {
+            "heading": "Michael-Imagination",
+            "description": "",
+            "index": "^ja189w"
+          },
+          {
+            "heading": "Michael-Imagination",
+            "description": "",
+            "index": "^2ozkgt"
+          },
+          {
+            "heading": "Michaels Schwert",
+            "description": "",
+            "index": "^26i5x3"
+          },
+          {
+            "heading": "Wintersonnenwende",
+            "description": "",
+            "index": "^aldzzl"
+          },
+          {
+            "heading": "Wintersonnenwende",
+            "description": "",
+            "index": "^zv1iw6"
+          },
+          {
+            "heading": "Weihnacht",
+            "description": "",
+            "index": "^rtz37e"
+          },
+          {
+            "heading": "Weihnacht",
+            "description": "",
+            "index": "^ye2fda"
+          },
+          {
+            "heading": "Weihnacht",
+            "description": "",
+            "index": "^r6g48k"
+          },
+          {
+            "heading": "Zur Weihenacht 1919",
+            "description": "",
+            "index": "^k8ayrq"
+          },
+          {
+            "heading": "Zur Weihenacht 1920",
+            "description": "",
+            "index": "^sqztjh"
+          },
+          {
+            "heading": "Isis-Sophia,",
+            "description": "",
+            "index": "^siuw4d"
+          },
+          {
+            "heading": "Für Marie Steiner",
+            "description": "",
+            "index": "^1q2ili"
+          },
+          {
+            "heading": "Ur-Weihenacht",
+            "description": "",
+            "index": "^1kd9kk"
+          }
+        ],
+        "lectureKeywords": [],
+        "version": "v2-headings"
+      },
+      {
+        "lectureNumber": "8",
+        "ID": "GA040/8",
+        "title": "WAHRSPRUCHWORTE RICHTSPRUCHWORTE",
+        "fileName": "GA040/8 - WAHRSPRUCHWORTE RICHTSPRUCHWORTE",
+        "location": null,
+        "date": "",
+        "summary": null,
+        "shortSummary": null,
+        "headings": [
+          {
+            "index": "^d5d2k9",
+            "text": "Suchet das wirklich praktische materielle Leben",
+            "level": "h2"
+          },
+          {
+            "index": "^pl8z8e",
+            "text": "Ecce homo",
+            "level": "h2"
+          },
+          {
+            "index": "^p7brby",
+            "text": "Eine Brücke ist der Mensch",
+            "level": "h2"
+          },
+          {
+            "index": "^1y25lw",
+            "text": "WACHSEIN",
+            "level": "h2"
+          },
+          {
+            "index": "^bpq1k2",
+            "text": "SCHLAFEN",
+            "level": "h2"
+          },
+          {
+            "index": "^alefw5",
+            "text": "Ein Geheimnis der Natur",
+            "level": "h2"
+          },
+          {
+            "index": "^7125sf",
+            "text": "Lockrufe der Tiere der Höhe, der Mitte und der Erdentiefe",
+            "level": "h2"
+          },
+          {
+            "index": "^6bb54x",
+            "text": "Die Elementarwesen als Vermittler zwischen der Erde und dem Geistkosmos",
+            "level": "h2"
+          },
+          {
+            "index": "^bbmnzl",
+            "text": "Finsternis, Licht, Liebe",
+            "level": "h2"
+          }
+        ],
+        "tableOfContents": [
+          {
+            "heading": "Suchet das wirklich praktische materielle Leben",
+            "description": "",
+            "index": "^d5d2k9"
+          },
+          {
+            "heading": "Ecce homo",
+            "description": "",
+            "index": "^pl8z8e"
+          },
+          {
+            "heading": "Eine Brücke ist der Mensch",
+            "description": "",
+            "index": "^p7brby"
+          },
+          {
+            "heading": "WACHSEIN",
+            "description": "",
+            "index": "^1y25lw"
+          },
+          {
+            "heading": "SCHLAFEN",
+            "description": "",
+            "index": "^bpq1k2"
+          },
+          {
+            "heading": "Ein Geheimnis der Natur",
+            "description": "",
+            "index": "^alefw5"
+          },
+          {
+            "heading": "Lockrufe der Tiere der Höhe, der Mitte und der Erdentiefe",
+            "description": "",
+            "index": "^7125sf"
+          },
+          {
+            "heading": "Die Elementarwesen als Vermittler zwischen der Erde und dem Geistkosmos",
+            "description": "",
+            "index": "^6bb54x"
+          },
+          {
+            "heading": "Finsternis, Licht, Liebe",
+            "description": "",
+            "index": "^bbmnzl"
+          }
+        ],
+        "lectureKeywords": [],
+        "version": "v2-headings"
+      },
+      {
+        "lectureNumber": "9",
+        "ID": "GA040/9",
+        "title": "WELT UND MENSCH",
+        "fileName": "GA040/9 - WELT UND MENSCH",
+        "location": null,
+        "date": "",
+        "summary": null,
+        "shortSummary": null,
+        "headings": [
+          {
+            "index": "^71m5us",
+            "text": "Friedenstanz",
+            "level": "h2"
+          }
+        ],
+        "tableOfContents": [
+          {
+            "heading": "Friedenstanz",
+            "description": "",
+            "index": "^71m5us"
+          }
+        ],
+        "lectureKeywords": [],
+        "version": "v2-headings"
+      },
+      {
+        "lectureNumber": "10",
+        "ID": "GA040/10",
+        "title": "WEISHEITEN AUS ALTEN KULTUREPOCHEN",
+        "fileName": "GA040/10 - WEISHEITEN AUS ALTEN KULTUREPOCHEN",
+        "location": null,
+        "date": "",
+        "summary": null,
+        "shortSummary": null,
+        "headings": [
+          {
+            "index": "^uvex3j",
+            "text": "Indischer Weisheitsspruch",
+            "level": "h2"
+          },
+          {
+            "index": "^insvhl",
+            "text": "Mysterienunterricht im griechischen Altertum",
+            "level": "h2"
+          },
+          {
+            "index": "^irkz51",
+            "text": "Aus den Mysterien von Ephesus",
+            "level": "h2"
+          },
+          {
+            "index": "^5nn3qg",
+            "text": "Aus den Kabirenmysterien auf Samothrake",
+            "level": "h2"
+          },
+          {
+            "index": "^ik1w6b",
+            "text": "Für das «Heilige Drama von Eleusis» von Edouard Schuré",
+            "level": "h2"
+          },
+          {
+            "index": "^o1bxcj",
+            "text": "Aus den Mysterien von Hybernia",
+            "level": "h2"
+          },
+          {
+            "index": "^bv2msx",
+            "text": "Aus den Mysterien von Hybernia",
+            "level": "h2"
+          }
+        ],
+        "tableOfContents": [
+          {
+            "heading": "Indischer Weisheitsspruch",
+            "description": "",
+            "index": "^uvex3j"
+          },
+          {
+            "heading": "Mysterienunterricht im griechischen Altertum",
+            "description": "",
+            "index": "^insvhl"
+          },
+          {
+            "heading": "Aus den Mysterien von Ephesus",
+            "description": "",
+            "index": "^irkz51"
+          },
+          {
+            "heading": "Aus den Kabirenmysterien auf Samothrake",
+            "description": "",
+            "index": "^5nn3qg"
+          },
+          {
+            "heading": "Für das «Heilige Drama von Eleusis» von Edouard Schuré",
+            "description": "",
+            "index": "^ik1w6b"
+          },
+          {
+            "heading": "Aus den Mysterien von Hybernia",
+            "description": "",
+            "index": "^o1bxcj"
+          },
+          {
+            "heading": "Aus den Mysterien von Hybernia",
+            "description": "",
+            "index": "^bv2msx"
+          }
+        ],
+        "lectureKeywords": [],
+        "version": "v2-headings"
+      },
+      {
+        "lectureNumber": "11",
+        "ID": "GA040/11",
+        "title": "CHRISTLICHE MYSTIK UND ROSENKREUZER",
+        "fileName": "GA040/11 - CHRISTLICHE MYSTIK UND ROSENKREUZER",
+        "location": null,
+        "date": "",
+        "summary": null,
+        "shortSummary": null,
+        "headings": [
+          {
+            "index": "^bsjk3z",
+            "text": "VOR DEM MYSTERIUM VON GOLGATHA",
+            "level": "h2"
+          },
+          {
+            "index": "^5nbt35",
+            "text": "NACH DEM MYSTERIUM VON GOLGATHA",
+            "level": "h2"
+          },
+          {
+            "index": "^1fnclg",
+            "text": "NAASSENER-HYMNUS",
+            "level": "h2"
+          },
+          {
+            "index": "^dmzafz",
+            "text": "Spruch der Gnostiker",
+            "level": "h2"
+          },
+          {
+            "index": "^jmizdf",
+            "text": "Der Sonnengesang des Franz von Assisi",
+            "level": "h2"
+          },
+          {
+            "index": "^lw4bom",
+            "text": "Mysterienlehren der mittelalterlichen Rosenkreuzer",
+            "level": "h2"
+          },
+          {
+            "index": "^q11r9f",
+            "text": "Umdichtungen eines spätmittelalterlichen Spruches",
+            "level": "h2"
+          }
+        ],
+        "tableOfContents": [
+          {
+            "heading": "VOR DEM MYSTERIUM VON GOLGATHA",
+            "description": "",
+            "index": "^bsjk3z"
+          },
+          {
+            "heading": "NACH DEM MYSTERIUM VON GOLGATHA",
+            "description": "",
+            "index": "^5nbt35"
+          },
+          {
+            "heading": "NAASSENER-HYMNUS",
+            "description": "",
+            "index": "^1fnclg"
+          },
+          {
+            "heading": "Spruch der Gnostiker",
+            "description": "",
+            "index": "^dmzafz"
+          },
+          {
+            "heading": "Der Sonnengesang des Franz von Assisi",
+            "description": "",
+            "index": "^jmizdf"
+          },
+          {
+            "heading": "Mysterienlehren der mittelalterlichen Rosenkreuzer",
+            "description": "",
+            "index": "^lw4bom"
+          },
+          {
+            "heading": "Umdichtungen eines spätmittelalterlichen Spruches",
+            "description": "",
+            "index": "^q11r9f"
+          }
+        ],
+        "lectureKeywords": [],
+        "version": "v2-headings"
+      },
+      {
+        "lectureNumber": "12",
+        "ID": "GA040/12",
+        "title": "DAS TRAUMLIED VOM OLAF ÅSTESON",
+        "fileName": "GA040/12 - DAS TRAUMLIED VOM OLAF ÅSTESON",
+        "location": null,
+        "date": "",
+        "summary": null,
+        "shortSummary": null,
+        "headings": [],
+        "tableOfContents": [],
+        "lectureKeywords": [],
+        "version": "v1"
+      },
+      {
+        "lectureNumber": "13",
+        "ID": "GA040/13",
+        "title": "SINNSPRÜCHE",
+        "fileName": "GA040/13 - SINNSPRÜCHE",
+        "location": null,
+        "date": "",
+        "summary": null,
+        "shortSummary": null,
+        "headings": [],
+        "tableOfContents": [],
+        "lectureKeywords": [],
+        "version": "v1"
+      },
+      {
+        "lectureNumber": "14",
+        "ID": "GA040/14",
+        "title": "ABWANDLUNGEN VON GOETHE-WORTEN",
+        "fileName": "GA040/14 - ABWANDLUNGEN VON GOETHE-WORTEN",
+        "location": null,
+        "date": "",
+        "summary": null,
+        "shortSummary": null,
+        "headings": [],
+        "tableOfContents": [],
+        "lectureKeywords": [],
+        "version": "v1"
+      },
+      {
+        "lectureNumber": "15",
+        "ID": "GA040/15",
+        "title": "WIDMUNGSSPRÜCHE",
+        "fileName": "GA040/15 - WIDMUNGSSPRÜCHE",
+        "location": null,
+        "date": "",
+        "summary": null,
+        "shortSummary": null,
+        "headings": [],
+        "tableOfContents": [],
+        "lectureKeywords": [],
+        "version": "v1"
+      },
+      {
+        "lectureNumber": "16",
+        "ID": "GA040/16",
+        "title": "GEBETE UND SPRÜCHE",
+        "fileName": "GA040/16 - GEBETE UND SPRÜCHE",
+        "location": null,
+        "date": "",
+        "summary": null,
+        "shortSummary": null,
+        "headings": [
+          {
+            "index": "^5987t1",
+            "text": "Für werdende Mütter",
+            "level": "h2"
+          },
+          {
+            "index": "^1a4j75",
+            "text": "Für die Mutter",
+            "level": "h2"
+          },
+          {
+            "index": "^vig1zh",
+            "text": "Zu sprechen von der Mutter für das Kind",
+            "level": "h2"
+          },
+          {
+            "index": "^wqxof1",
+            "text": "Kindergebete für jüngere Kinder",
+            "level": "h2"
+          },
+          {
+            "index": "^mk9qq1",
+            "text": "TISCHGEBET",
+            "level": "h2"
+          },
+          {
+            "index": "^tg7906",
+            "text": "ABENDGLOCKENGEBET",
+            "level": "h2"
+          },
+          {
+            "index": "^5nt9zk",
+            "text": "Morgengebet",
+            "level": "h2"
+          },
+          {
+            "index": "^0lmle9",
+            "text": "Abendgebet",
+            "level": "h2"
+          },
+          {
+            "index": "^qz22pf",
+            "text": "Taufspruch",
+            "level": "h2"
+          },
+          {
+            "index": "^dzcj17",
+            "text": "Kindergebet",
+            "level": "h2"
+          }
+        ],
+        "tableOfContents": [
+          {
+            "heading": "Für werdende Mütter",
+            "description": "",
+            "index": "^5987t1"
+          },
+          {
+            "heading": "Für die Mutter",
+            "description": "",
+            "index": "^1a4j75"
+          },
+          {
+            "heading": "Zu sprechen von der Mutter für das Kind",
+            "description": "",
+            "index": "^vig1zh"
+          },
+          {
+            "heading": "Kindergebete für jüngere Kinder",
+            "description": "",
+            "index": "^wqxof1"
+          },
+          {
+            "heading": "TISCHGEBET",
+            "description": "",
+            "index": "^mk9qq1"
+          },
+          {
+            "heading": "ABENDGLOCKENGEBET",
+            "description": "",
+            "index": "^tg7906"
+          },
+          {
+            "heading": "Morgengebet",
+            "description": "",
+            "index": "^5nt9zk"
+          },
+          {
+            "heading": "Abendgebet",
+            "description": "",
+            "index": "^0lmle9"
+          },
+          {
+            "heading": "Taufspruch",
+            "description": "",
+            "index": "^qz22pf"
+          },
+          {
+            "heading": "Kindergebet",
+            "description": "",
+            "index": "^dzcj17"
+          }
+        ],
+        "lectureKeywords": [],
+        "version": "v2-headings"
+      },
+      {
+        "lectureNumber": "17",
+        "ID": "GA040/17",
+        "title": "SPRÜCHE FÜR DEN UNTERRICHT IN DER FREIEN WALDORFSCHULE",
+        "fileName": "GA040/17 - SPRÜCHE FÜR DEN UNTERRICHT IN DER FREIEN WALDORFSCHULE",
+        "location": null,
+        "date": "",
+        "summary": null,
+        "shortSummary": null,
+        "headings": [
+          {
+            "index": "^hewp5q",
+            "text": "Morgenspruch für die vier unteren Klassen",
+            "level": "h2"
+          },
+          {
+            "index": "^11f0cz",
+            "text": "Morgenspruch für die oberen Klassen",
+            "level": "h2"
+          },
+          {
+            "index": "^8ebtmc",
+            "text": "Entwurf eines ersten Spruches für den altsprachlichen Unterricht, unvollendet",
+            "level": "h2"
+          },
+          {
+            "index": "^03ggab",
+            "text": "Einleitungsspruch für den Unterricht in Griechisch und Latein an der Freien Waldorfschule",
+            "level": "h2"
+          },
+          {
+            "index": "^ff6jua",
+            "text": "Für die Lehrer des freien christlichen Religionsunterrichts",
+            "level": "h2"
+          },
+          {
+            "index": "^36f21f",
+            "text": "Zum Beginn der Stunden des freien Religionsunterrichtes an der Waldorfschule",
+            "level": "h2"
+          },
+          {
+            "index": "^iw4az1",
+            "text": "Für die Schüler der 12. Klasse zu ihrem Abschluss",
+            "level": "h2"
+          }
+        ],
+        "tableOfContents": [
+          {
+            "heading": "Morgenspruch für die vier unteren Klassen",
+            "description": "",
+            "index": "^hewp5q"
+          },
+          {
+            "heading": "Morgenspruch für die oberen Klassen",
+            "description": "",
+            "index": "^11f0cz"
+          },
+          {
+            "heading": "Entwurf eines ersten Spruches für den altsprachlichen Unterricht, unvollendet",
+            "description": "",
+            "index": "^8ebtmc"
+          },
+          {
+            "heading": "Einleitungsspruch für den Unterricht in Griechisch und Latein an der Freien Waldorfschule",
+            "description": "",
+            "index": "^03ggab"
+          },
+          {
+            "heading": "Für die Lehrer des freien christlichen Religionsunterrichts",
+            "description": "",
+            "index": "^ff6jua"
+          },
+          {
+            "heading": "Zum Beginn der Stunden des freien Religionsunterrichtes an der Waldorfschule",
+            "description": "",
+            "index": "^36f21f"
+          },
+          {
+            "heading": "Für die Schüler der 12. Klasse zu ihrem Abschluss",
+            "description": "",
+            "index": "^iw4az1"
+          }
+        ],
+        "lectureKeywords": [],
+        "version": "v2-headings"
+      }
+    ]
+  }
+}
