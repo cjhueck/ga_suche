@@ -160,6 +160,13 @@ function korrigiereRechtschreibung(text) {
   return text;
 }
 
+const POEM_ATTRIBUTION_MONTHS =
+  'Januar|Februar|März|Maerz|April|Mai|Juni|Juli|August|September|Oktober|November|Dezember';
+const POEM_ATTRIBUTION_DATE_RE = new RegExp(
+  `\\b\\d{1,2}\\.\\s*(?:${POEM_ATTRIBUTION_MONTHS})\\s+\\d{4}\\b`,
+  'i'
+);
+
 class SteinerLecturesExporter {
   constructor(sourceDir, outputDir) {
     this.sourceDir = sourceDir;
@@ -361,6 +368,9 @@ class SteinerLecturesExporter {
   // Prüft ob ein Text eine Listenzeile ist (nummeriert oder mit Aufzählungszeichen)
   isListItem(text) {
     if (!text) return false;
+    const t = (text || '').trim();
+  // Sternchen-Trenner wie in GA040 („* * *“) beginnt mit „* “, ist aber keine Markdown-Liste
+    if (/^\*\s+\*\s+\*$/.test(t) || t === '***') return false;
     // Nummerierte Liste: "1.", "2.", etc. am Anfang
     // Oder Aufzählungszeichen: "-", "*", "•" am Anfang
     return /^\d+\.\s/.test(text) || /^[-*•]\s/.test(text);
@@ -400,10 +410,12 @@ class SteinerLecturesExporter {
             combinedContent += item.content + '\n';
           });
           
-          merged.push({
+          const mergedEntry = {
             index: current.index,
             content: combinedContent.trim()
-          });
+          };
+          if (current.gapBefore) mergedEntry.gapBefore = current.gapBefore;
+          merged.push(mergedEntry);
           
           i = j; // Überspringe die gemergten Listenelemente
           continue;
@@ -425,10 +437,12 @@ class SteinerLecturesExporter {
           // Kombiniere alle Listenelemente
           let combinedContent = listItems.map(item => item.content).join('\n');
           
-          merged.push({
+          const mergedEntry2 = {
             index: current.index,
             content: combinedContent
-          });
+          };
+          if (current.gapBefore) mergedEntry2.gapBefore = current.gapBefore;
+          merged.push(mergedEntry2);
           
           i = j;
           continue;
@@ -443,9 +457,47 @@ class SteinerLecturesExporter {
     return merged;
   }
   
+  cleanPoemLineForDetection(text) {
+    if (!text || typeof text !== 'string') return '';
+    let t = text
+      .replace(/^\|\d{1,4}\|\s*/g, '')
+      .replace(/\s+\^[a-z0-9]+\s*$/gi, '')
+      .replace(/\* \* \*/g, '')
+      .replace(/\*\*\*/g, '')
+      .trim();
+    const firstLine = t.split(/\n+/).find(line => line.trim().length > 0) || '';
+    return firstLine.replace(/\s+/g, ' ').trim();
+  }
+
+  isPoemAttributionLine(text) {
+    const line = this.cleanPoemLineForDetection(text);
+    if (!line || line.length > 220) return false;
+    if (POEM_ATTRIBUTION_DATE_RE.test(line)) return true;
+    if (/^ca\.\s*\d{4}/i.test(line)) return true;
+    if (/^Für\s+/i.test(line) && POEM_ATTRIBUTION_DATE_RE.test(line)) return true;
+    if (/\bNotiz(?:blatt|buch)\b/i.test(line)) return true;
+    if (/^Entwurf,/i.test(line)) return true;
+    if (/^E\.S\.\s+/i.test(line) && POEM_ATTRIBUTION_DATE_RE.test(line)) return true;
+    if (/^Dr\.\s+Rudolf Steiner$/i.test(line) || /^Rudolf Steiner$/i.test(line)) return true;
+    if (/^\d{1,2}\.\s+(?:Januar|Februar|März|Maerz|April|Mai|Juni|Juli|August|September|Oktober|November|Dezember)\s+\d{4}$/i.test(line)) return true;
+    if (/^Undatierbar$/i.test(line)) return true;
+    if (/^\d{4}\/\d{1,2}$/.test(line)) return true;
+    if (/^\d{4}$/.test(line)) return true;
+    if (/^(Morgens|Abends)$/i.test(line)) return true;
+    if (/^Für\s+(die|den|das|eine?n?)\s+/i.test(line) && line.length < 160) return true;
+    if (/^Goetheanum\b/i.test(line)) return true;
+    return false;
+  }
+
+  isShortPoemVerseLine(text) {
+    const line = (text || '').trim();
+    return line.length > 0 && line.length < 90 && !this.isPoemAttributionLine(text);
+  }
+
   // Formatiert Paragraph-Content:
-  // 1. Gedichte: Reduziert doppelte Leerzeilen zwischen Zeilen auf einfache
-  // 2. Durchgezogene Linien: Konvertiert * * * zu * * *
+  // 1. Gedichte: Reduziert doppelte Leerzeilen zwischen Verszeilen auf einfache (nur wenn beide kurz)
+  // 2. Leerzeilen aus Obsidian bleiben erhalten (z. B. vor Ort/Datum)
+  // 3. Durchgezogene Linien: Konvertiert * * * zu * * *
   formatParagraphContent(content) {
     if (!content) return content;
     
@@ -453,46 +505,34 @@ class SteinerLecturesExporter {
     // Pattern: * * * oder * * * mit variablen Leerzeichen
     content = content.replace(/\*\s+\*\s+\*/g, '* * *');
     
-    // 2. Gedichte: Reduziere doppelte Leerzeilen zwischen Zeilen auf einfache
-    // Erkenne Gedichte: Mehrere kurze Zeilen (< 90 Zeichen) hintereinander
+    // 2. Gedichte: nur zwischen zwei kurzen Verszeilen Leerzeilen entfernen
     const lines = content.split('\n');
     const resultLines = [];
     
     let i = 0;
     while (i < lines.length) {
       const line = lines[i];
-      const lineLength = line.trim().length;
+      const nextLine = i + 1 < lines.length ? lines[i + 1] : null;
+      const nextNextLine = i + 2 < lines.length ? lines[i + 2] : null;
       
-      // Prüfe ob aktuelle Zeile kurz ist (potentielles Gedicht)
-      if (lineLength > 0 && lineLength < 90) {
-        // Prüfe ob nächste Zeile auch kurz ist (Gedicht erkannt)
-        if (i + 1 < lines.length) {
-          const nextLine = lines[i + 1];
-          const nextLineLength = nextLine.trim().length;
-          
-          // Wenn nächste Zeile leer ist, prüfe die übernächste
-          if (nextLineLength === 0 && i + 2 < lines.length) {
-            const nextNextLine = lines[i + 2];
-            const nextNextLength = nextNextLine.trim().length;
-            
-            // Wenn übernächste Zeile auch kurz ist, überspringe die leere Zeile
-            if (nextNextLength > 0 && nextNextLength < 90) {
-              resultLines.push(line);
-              i += 1; // Überspringe leere Zeile
-              continue;
-            }
-          }
-          
-          // Wenn nächste Zeile auch kurz ist, füge keine Leerzeile ein
-          if (nextLineLength > 0 && nextLineLength < 90) {
-            resultLines.push(line);
-            i += 1;
-            continue;
-          }
+      if (this.isShortPoemVerseLine(line) && nextLine !== null && nextLine.trim().length === 0 && nextNextLine !== null) {
+        if (this.isShortPoemVerseLine(nextNextLine)) {
+          resultLines.push(line);
+          i += 2;
+          continue;
         }
+        resultLines.push(line);
+        resultLines.push('');
+        i += 2;
+        continue;
       }
       
-      // Normale Zeile: Füge hinzu
+      if (this.isShortPoemVerseLine(line) && this.isShortPoemVerseLine(nextLine)) {
+        resultLines.push(line);
+        i += 1;
+        continue;
+      }
+      
       resultLines.push(line);
       i += 1;
     }
@@ -914,6 +954,7 @@ class SteinerLecturesExporter {
       let pendingLetterHeading = null; // Aktuelle H2-Überschrift die auf Index wartet
       let pendingEssayHeadings = []; // Aktuelle H3/H4-Überschriften die auf Index warten
       let pendingGeneralHeadings = []; // Aktuelle H2/H3/H4-Überschriften die auf Index warten
+      let pendingBlankLines = 0; // Leerzeilen aus Obsidian (zwischen Block-Zeilen)
       
       // Prüfe ob dieser GA-Band manuelle Überschriften NICHT exportieren soll
       // GA051-GA084: Haben AI-generierte Headings, manuelle werden übersprungen
@@ -1016,7 +1057,10 @@ class SteinerLecturesExporter {
         }
         
         const cleaned = this.cleanLine(line);
-        if (!cleaned) continue;
+        if (!cleaned) {
+          pendingBlankLines += 1;
+          continue;
+        }
 
         const blockMatch = cleaned.match(/^(.*)\s\^([a-z0-9]+)$/);
         if (blockMatch) {
@@ -1120,10 +1164,15 @@ class SteinerLecturesExporter {
             // Wende Rechtschreibkorrektur an (alte → neue deutsche Rechtschreibung)
             convertedText = korrigiereRechtschreibung(convertedText);
             
-            paragraphs.push({
+            const paraEntry = {
               index: `^${blockId}`,
               content: convertedText
-            });
+            };
+            if (pendingBlankLines > 0 && paragraphs.length > 0) {
+              paraEntry.gapBefore = 1;
+            }
+            paragraphs.push(paraEntry);
+            pendingBlankLines = 0;
           }
         }
       }

@@ -1692,6 +1692,15 @@ function removeManualHeadingsFromContent(content) {
 // Formatiert Paragraph-Content für die HTML-Darstellung:
 // 1. Escaped * * * und *** damit marked.parse() sie nicht zu <hr> konvertiert
 // 2. Behält Gedicht-Formatierung bei (wird später von detectAndFormatPoems() behandelt)
+function paragraphObsidianGapMarkup(para) {
+  const gap = para && Number(para.gapBefore);
+  if (!gap) return { cls: '', attr: '' };
+  return {
+    cls: ' poem-gap-before',
+    attr: ` data-gap-before="${gap}"`
+  };
+}
+
 function formatParagraphContentForDisplay(content) {
   if (!content || typeof content !== 'string') {
     return content;
@@ -9787,12 +9796,14 @@ async function _displayBookImpl(book, highlightHeadingId = null, keywords = [], 
       
       // Prüfe ob dieser Absatz bearbeitet wurde (Marker von der API)
       const hasTextEdit = para._edited ? 'has-text-edit' : '';
+      const obsidianGap = paragraphObsidianGapMarkup(para);
       
       paraHtml += `
-        <div class="paragraph ${applyHighlight ? 'highlighted-paragraph' : ''} ${hasTextEdit}" 
+        <div class="paragraph ${applyHighlight ? 'highlighted-paragraph' : ''} ${hasTextEdit}${obsidianGap.cls}" 
              id="para-${paraIndex}"
              data-index="${paraIndexWithCaret}"
              data-paragraph-index="${paraIndex}"
+             ${obsidianGap.attr}
              ${clickHandler}
              style="${cursorStyle}">
           ${content}
@@ -24211,13 +24222,14 @@ function showSummaryView() {
     
     // Prüfe ob dieser Absatz bearbeitet wurde (Marker von der API)
     const hasTextEdit = para._edited ? 'has-text-edit' : '';
+    const obsidianGap = paragraphObsidianGapMarkup(para);
     
     // Debug: Log wenn Absatz als bearbeitet markiert ist
     if (para._edited) {
       console.log(`[RENDER] ✏️ Absatz mit has-text-edit Klasse: para-${paraIndex}`);
     }
 
-html += `<div class="paragraph ${highlightClass} ${hasTextEdit}" id="para-${paraIndex}" data-index="${paraIndexWithCaret}" data-paragraph-index="${paraIndex}" data-array-index="${idx}" ${clickHandler} ${contextMenuHandler} style="${cursorStyle}">${content}</div>`;
+html += `<div class="paragraph ${highlightClass} ${hasTextEdit}${obsidianGap.cls}" id="para-${paraIndex}" data-index="${paraIndexWithCaret}" data-paragraph-index="${paraIndex}" data-array-index="${idx}"${obsidianGap.attr} ${clickHandler} ${contextMenuHandler} style="${cursorStyle}">${content}</div>`;
   });
 
   if (lectureFootnotes.size > 0) {
@@ -29088,12 +29100,14 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
           
           // Prüfe ob dieser Absatz bearbeitet wurde
           const hasTextEdit = para._edited ? 'has-text-edit' : '';
+          const obsidianGap = paragraphObsidianGapMarkup(para);
           
           html += `
-            <div class="paragraph ${applyHighlight ? 'highlighted-paragraph' : ''} ${hasTextEdit}" 
+            <div class="paragraph ${applyHighlight ? 'highlighted-paragraph' : ''} ${hasTextEdit}${obsidianGap.cls}" 
                  id="para-${paraIndex}"
                  data-index="${paraIndexWithCaret}"
                  data-paragraph-index="${paraIndex}"
+                 ${obsidianGap.attr}
                  ${clickHandler}
                  style="${cursorStyle}">
               ${content}
@@ -32754,6 +32768,198 @@ function convertGAReferencesToLinksInKeywordResults(container) {
   });
 }
 
+const POEM_ATTRIBUTION_MONTHS =
+  'Januar|Februar|März|Maerz|April|Mai|Juni|Juli|August|September|Oktober|November|Dezember';
+const POEM_ATTRIBUTION_DATE_RE = new RegExp(
+  `\\b\\d{1,2}\\.\\s*(?:${POEM_ATTRIBUTION_MONTHS})\\s+\\d{4}\\b`,
+  'i'
+);
+
+/** Erste sinnvolle Textzeile für Gedicht-/Quellen-Erkennung (ohne |47|, ^index, * * *). */
+function cleanPoemLineForDetection(text) {
+  if (!text || typeof text !== 'string') return '';
+  let t = text
+    .replace(/^\|\d{1,4}\|\s*/g, '')
+    .replace(/\s+\^[a-z0-9]+\s*$/gi, '')
+    .replace(/\* \* \*/g, '')
+    .replace(/\*\*\*/g, '')
+    .trim();
+  const firstLine = t.split(/\n+/).find(line => line.trim().length > 0) || '';
+  return firstLine.replace(/\s+/g, ' ').trim();
+}
+
+/**
+ * Schlusszeile eines mantrischen Spruchs: Ort/Datum/Adressat/Notizbuch (wie in GA040, GA268).
+ */
+function isPoemAttributionLine(text) {
+  const line = cleanPoemLineForDetection(text);
+  if (!line || line.length > 220) return false;
+  if (POEM_ATTRIBUTION_DATE_RE.test(line)) return true;
+  if (/^ca\.\s*\d{4}/i.test(line)) return true;
+  if (/^Für\s+/i.test(line) && POEM_ATTRIBUTION_DATE_RE.test(line)) return true;
+  if (/\bNotiz(?:blatt|buch)\b/i.test(line)) return true;
+  if (/^Entwurf,/i.test(line)) return true;
+  if (/^E\.S\.\s+/i.test(line) && POEM_ATTRIBUTION_DATE_RE.test(line)) return true;
+  if (/^Dr\.\s+Rudolf Steiner$/i.test(line) || /^Rudolf Steiner$/i.test(line)) return true;
+  if (/^\d{1,2}\.\s+(Januar|Februar|März|Maerz|April|Mai|Juni|Juli|August|September|Oktober|November|Dezember)\s+\d{4}$/i.test(line)) return true;
+  if (/^Undatierbar$/i.test(line)) return true;
+  if (/^\d{4}\/\d{1,2}$/.test(line)) return true;
+  if (/^\d{4}$/.test(line)) return true;
+  if (/^(Morgens|Abends)$/i.test(line)) return true;
+  if (/^Für\s+(die|den|das|eine?n?)\s+/i.test(line) && line.length < 160) return true;
+  if (/^Goetheanum\b/i.test(line)) return true;
+  return false;
+}
+
+/** Mehrere Obsidian-Schlusszeilen (Name, Ort/Datum, Widmung) ohne Leerzeile dazwischen. */
+function isPoemFooterClusterLine(text) {
+  return isPoemAttributionLine(text);
+}
+
+function paragraphIsPoemFooterOnly(div) {
+  if (!div || !div.classList || !div.classList.contains('paragraph')) return false;
+  if (div.querySelector('h2, h3, h4')) return false;
+  const line = extractFirstVisibleLineFromPoemDiv(div);
+  const plain = (div.textContent || '').replace(/\s+/g, ' ').trim();
+  if (isAsteriskOnlyLine(line) || isAsteriskOnlyLine(plain)) return false;
+  return isPoemFooterClusterLine(line) || isPoemFooterClusterLine(plain);
+}
+
+function mergeConsecutivePoemFooterParagraphs(container) {
+  if (!container) return;
+  const divs = Array.from(container.querySelectorAll('.paragraph'));
+  let idx = 0;
+  while (idx < divs.length) {
+    const first = divs[idx];
+    if (!paragraphIsPoemFooterOnly(first)) {
+      idx++;
+      continue;
+    }
+    const block = [first];
+    let scan = idx + 1;
+    while (scan < divs.length) {
+      const next = divs[scan];
+      if (next.previousElementSibling !== block[block.length - 1]) break;
+      const nextGap = Number(next.dataset.gapBefore || 0) > 0 || next.classList.contains('poem-gap-before');
+      const nextLine = extractFirstVisibleLineFromPoemDiv(next);
+      if (nextGap && /^(Morgens|Abends)$/i.test(cleanPoemLineForDetection(nextLine))) break;
+      if (!paragraphIsPoemFooterOnly(next)) break;
+      if (nextGap && block.length > 0) break;
+      block.push(next);
+      scan++;
+    }
+    if (block.length <= 1) {
+      idx++;
+      continue;
+    }
+    const merged = document.createElement('div');
+    merged.className = first.className;
+    merged.id = first.id || '';
+    if (first.getAttribute('data-index')) merged.setAttribute('data-index', first.getAttribute('data-index'));
+    if (first.getAttribute('data-paragraph-index')) merged.setAttribute('data-paragraph-index', first.getAttribute('data-paragraph-index'));
+    if (first.dataset.gapBefore) merged.dataset.gapBefore = first.dataset.gapBefore;
+    if (first.onclick) merged.onclick = first.onclick;
+    if (first.classList.contains('poem-gap-before') || Number(first.dataset.gapBefore || 0) > 0) {
+      merged.classList.add('poem-gap-before');
+    }
+    merged.classList.add('poem-attribution-block');
+    resetPoemGapParagraphStyles(merged);
+    merged.style.setProperty('margin', '0', 'important');
+    merged.style.setProperty('margin-bottom', '0', 'important');
+    merged.style.setProperty('padding', '0', 'important');
+    merged.style.setProperty('line-height', '1.5', 'important');
+    if (merged.classList.contains('poem-gap-before')) {
+      merged.style.setProperty('margin-top', 'var(--paragraph-margin)', 'important');
+    } else {
+      merged.style.setProperty('margin-top', '0', 'important');
+    }
+    const poemP = document.createElement('p');
+    poemP.className = 'poem-attribution';
+    block.forEach((footerDiv, blockIdx) => {
+      if (blockIdx > 0) poemP.appendChild(document.createElement('br'));
+      const lineText = extractFirstVisibleLineFromPoemDiv(footerDiv);
+      if (lineText) {
+        poemP.appendChild(document.createTextNode(lineText));
+      } else if (footerDiv.innerHTML.trim()) {
+        const span = document.createElement('span');
+        span.innerHTML = footerDiv.innerHTML;
+        poemP.appendChild(span);
+      }
+    });
+    merged.appendChild(poemP);
+    first.replaceWith(merged);
+    for (let b = 1; b < block.length; b++) block[b].remove();
+    idx = Array.from(container.querySelectorAll('.paragraph')).indexOf(merged) + 1;
+  }
+}
+
+function paragraphHasObsidianGapBefore(div) {
+  if (!div) return false;
+  return Number(div.dataset.gapBefore || 0) > 0 || div.classList.contains('poem-gap-before');
+}
+
+function applyObsidianGapClasses(container) {
+  container.querySelectorAll('.paragraph[data-gap-before]').forEach(div => {
+    if (Number(div.dataset.gapBefore) > 0) {
+      div.classList.add('poem-gap-before');
+    }
+  });
+}
+
+function paragraphIsPoemGapOrFooter(div) {
+  if (!div) return false;
+  if (paragraphHasObsidianGapBefore(div)) return true;
+  if (div.querySelector('h2, h3, h4')) return true;
+  const line = extractFirstVisibleLineFromPoemDiv(div);
+  const plain = (div.textContent || '').replace(/\s+/g, ' ').trim();
+  if (isAsteriskOnlyLine(line) || isAsteriskOnlyLine(plain)) return true;
+  return isPoemAttributionLine(line) || isPoemAttributionLine(plain);
+}
+
+function resetPoemGapParagraphStyles(div) {
+  if (!div || !div.classList) return;
+  div.classList.remove('has-poem');
+  div.classList.remove('poem-block');
+  if (div.style) {
+    div.style.removeProperty('margin');
+    div.style.removeProperty('margin-top');
+    div.style.removeProperty('margin-bottom');
+    div.style.removeProperty('padding');
+    div.style.removeProperty('line-height');
+  }
+}
+
+function isAsteriskOnlyLine(text) {
+  const t = (text || '').trim();
+  return t === '* * *' || t === '***';
+}
+
+/** Text der ersten sichtbaren Zeile in einem .paragraph-Element. */
+function extractFirstVisibleLineFromPoemDiv(poemDiv) {
+  if (!poemDiv) return '';
+  const temp = document.createElement('div');
+  temp.innerHTML = poemDiv.innerHTML;
+  temp.querySelectorAll('[style*="display:none"], [data-index]').forEach(span => span.remove());
+  const t = temp.innerHTML.replace(/<br\s*\/?>/gi, '\n');
+  const lines = t.split('\n').map(l => {
+    const d = document.createElement('div');
+    d.innerHTML = l;
+    return (d.textContent || '').replace(/\s+\^[a-z0-9]+\s*$/i, '').trim();
+  }).filter(l => l.length > 0 && !isAsteriskOnlyLine(l));
+  return lines[0] || cleanPoemLineForDetection(temp.textContent || '');
+}
+
+function appendPoemLineBreak(poemContainer, count, poemHasVisibleContent, lastAppendedWasBreak) {
+  const need = Math.max(1, count);
+  let added = 0;
+  for (let i = 0; i < need; i++) {
+    if (i === 0 && lastAppendedWasBreak) continue;
+    poemContainer.appendChild(document.createElement('br'));
+    added++;
+  }
+  return { poemHasVisibleContent: poemHasVisibleContent || added > 0, lastAppendedWasBreak: added > 0 };
+}
+
 // Nachbearbeitung: Stelle sicher, dass * * * eine Leerzeile davor und danach hat.
 // Der Poem-Merger fügt bereits ein <br> vor dem <p> ein (Zeilenumbruch).
 // Wir fügen ein ZWEITES <br> hinzu, damit eine Leerzeile entsteht.
@@ -32823,6 +33029,8 @@ function detectAndFormatPoems(container) {
     console.log('[GEDICHT-ERKENNUNG] Container ist null/undefined, breche ab');
     return;
   }
+
+  applyObsidianGapClasses(container);
   
   // Finde alle <p> Elemente im Container (auch innerhalb von .paragraph)
   const paragraphs = Array.from(container.querySelectorAll('p'));
@@ -32834,6 +33042,7 @@ function detectAndFormatPoems(container) {
   console.log('[GEDICHT-ERKENNUNG] Gefundene .paragraph Divs:', paragraphDivs.length);
   console.log('[GEDICHT-ERKENNUNG] Gefundene <p> Elemente:', paragraphs.length);
   paragraphDivs.forEach(div => {
+    if (paragraphIsPoemGapOrFooter(div)) return;
     // Prüfe ob die Div direkt Text enthält (nicht nur in <p> Tags)
     // WICHTIG: Berücksichtige auch HTML mit <br> Tags (nach Markdown-Konvertierung)
     let textContent = '';
@@ -32873,13 +33082,18 @@ function detectAndFormatPoems(container) {
         return line.replace(/\s+\^[a-z0-9]+\s*$/i, '').trim();
       }).filter(line => line.length > 0);
       
+      const verseLines = lines.filter(l => !isAsteriskOnlyLine(l) && !isPoemAttributionLine(l));
       // Prüfe, ob mindestens zwei aufeinanderfolgende Zeilen weniger als 90 Zeichen haben
       let consecutiveShortLines = 0;
       for (let i = 0; i < lines.length; i++) {
+        if (isPoemAttributionLine(lines[i]) || isAsteriskOnlyLine(lines[i])) {
+          consecutiveShortLines = 0;
+          continue;
+        }
         const lineLength = lines[i].length;
         if (lineLength > 0 && lineLength < 90) {
           consecutiveShortLines++;
-          if (consecutiveShortLines >= 2) {
+          if (consecutiveShortLines >= 2 && verseLines.length >= 2) {
             // Markiere die Div als Gedicht
             div.classList.add('has-poem');
             // WICHTIG: Entferne alle margin-Styles aus dem inline style-Attribut
@@ -32907,6 +33121,11 @@ function detectAndFormatPoems(container) {
   let i = 0;
   while (i < paragraphDivs.length) {
     const div = paragraphDivs[i];
+
+    if (paragraphIsPoemGapOrFooter(div)) {
+      i++;
+      continue;
+    }
     
     // Überspringe bereits markierte Gedichte
     if (div.classList.contains('has-poem')) {
@@ -32978,8 +33197,16 @@ function detectAndFormatPoems(container) {
         nextHiddenSpans.forEach(span => span.remove());
         const nextTextContent = nextTempDiv.textContent || nextTempDiv.innerText || '';
         const nextCleanText = nextTextContent.replace(/\s+\^[a-z0-9]+\s*$/i, '').trim();
+        const nextGapBefore = Number(nextDiv.dataset.gapBefore || 0);
+        
+        if (nextGapBefore > 0 || nextDiv.classList.contains('poem-gap-before')) {
+          break;
+        }
         
         if (nextCleanText.length > 0 && nextCleanText.length < 90) {
+          if (isPoemAttributionLine(nextCleanText)) {
+            break;
+          }
           consecutiveShortParagraphs++;
           poemParagraphs.push(nextDiv);
           nextIndex++;
@@ -33176,6 +33403,15 @@ function detectAndFormatPoems(container) {
         }).filter(line => line.trim().length > 0);
         
         if (nextLines.length > 0 && nextLines[0].trim().length > 0 && nextLines[0].trim().length < 90) {
+          if (isPoemAttributionLine(nextLines[0])) {
+            p.classList.add('poem');
+            nextP.classList.add('poem-attribution');
+            const parentParagraph = p.closest('.paragraph');
+            if (parentParagraph) {
+              parentParagraph.classList.add('has-poem');
+            }
+            break;
+          }
           consecutiveShortParagraphs++;
         if (consecutiveShortParagraphs >= 2) {
           // Markiere beide als Gedicht
@@ -33232,6 +33468,10 @@ function detectAndFormatPoems(container) {
         i++;
         continue;
       }
+      if (paragraphIsPoemGapOrFooter(firstPoemDiv)) {
+        i++;
+        continue;
+      }
       
       // Sammle alle aufeinanderfolgenden .paragraph.has-poem Divs
       const poemBlock = [firstPoemDiv];
@@ -33239,6 +33479,9 @@ function detectAndFormatPoems(container) {
       
       while (nextIndex < foundPoemParagraphs.length) {
         const nextDiv = foundPoemParagraphs[nextIndex];
+        if (paragraphIsPoemGapOrFooter(nextDiv)) {
+          break;
+        }
         // Prüfe ob nextDiv direkt nach dem letzten Element im Block kommt
         const lastInBlock = poemBlock[poemBlock.length - 1];
         // Prüfe ob nextDiv direkt nach lastInBlock kommt (aufeinanderfolgend im DOM)
@@ -33266,6 +33509,12 @@ function detectAndFormatPoems(container) {
         let lastAppendedWasBreak = false;
 
         poemBlock.forEach((poemDiv, idx) => {
+          if (idx > 0 && poemHasVisibleContent) {
+            const gapLines = isPoemAttributionLine(extractFirstVisibleLineFromPoemDiv(poemDiv)) ? 2 : 1;
+            const brState = appendPoemLineBreak(poemContainer, gapLines, poemHasVisibleContent, lastAppendedWasBreak);
+            poemHasVisibleContent = brState.poemHasVisibleContent;
+            lastAppendedWasBreak = brState.lastAppendedWasBreak;
+          }
           // Sammle alle direkten Kind-Elemente (nicht nur <p> Tags)
           const allChildren = Array.from(poemDiv.childNodes);
           
@@ -33359,7 +33608,26 @@ function detectAndFormatPoems(container) {
       }
     }
   }
+
+  mergeConsecutivePoemFooterParagraphs(container);
   
+  applyObsidianGapClasses(container);
+  container.querySelectorAll('.paragraph').forEach(div => {
+    if (!paragraphIsPoemGapOrFooter(div)) return;
+    if (div.classList.contains('poem-attribution-block')) return;
+    resetPoemGapParagraphStyles(div);
+    if (!div.classList.contains('poem-gap-before') && Number(div.dataset.gapBefore || 0) > 0) {
+      div.classList.add('poem-gap-before');
+    }
+    const firstLine = extractFirstVisibleLineFromPoemDiv(div);
+    if (isPoemAttributionLine(firstLine) || isAsteriskOnlyLine(firstLine)) {
+      const prev = div.previousElementSibling;
+      if (prev && (prev.classList.contains('has-poem') || prev.classList.contains('poem-block'))) {
+        div.classList.add('poem-gap-before');
+      }
+    }
+  });
+
   // Nachbearbeitung: Korrigiere Abstände um * * * Sternchen-Trenner
   fixAsteriskBreakSpacing(container);
 }

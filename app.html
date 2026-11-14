@@ -5273,6 +5273,55 @@ body.dark-mode #thematic2-visualization-main svg .grid line {
     #viewer .paragraph.has-poem p + p {
       margin-top: 0 !important;
     }
+
+    #viewer .paragraph.has-poem p.poem-attribution,
+    #viewer .paragraph.poem-block p.poem-attribution,
+    #summary-content .paragraph.has-poem p.poem-attribution,
+    #summary-content .paragraph.poem-block p.poem-attribution {
+      margin-top: 1em !important;
+      display: block !important;
+    }
+
+    #viewer .paragraph.poem-block + .paragraph:not(.has-poem):not(.poem-block),
+    #summary-content .paragraph.poem-block + .paragraph:not(.has-poem):not(.poem-block) {
+      margin-top: var(--paragraph-margin) !important;
+    }
+
+    #viewer .paragraph.poem-gap-before,
+    #viewer .paragraph.poem-gap-before.has-poem,
+    #viewer .paragraph.poem-gap-before.poem-block,
+    #summary-content .paragraph.poem-gap-before,
+    #summary-content .paragraph.poem-gap-before.has-poem {
+      margin-top: var(--paragraph-margin) !important;
+      margin-bottom: 0 !important;
+      text-align: left !important;
+    }
+
+    #viewer .paragraph.poem-attribution-block,
+    #summary-content .paragraph.poem-attribution-block {
+      margin-bottom: 0 !important;
+      text-align: left !important;
+    }
+
+    #viewer .paragraph.poem-attribution-block p.poem-attribution,
+    #summary-content .paragraph.poem-attribution-block p.poem-attribution {
+      margin: 0 !important;
+      line-height: 1.5 !important;
+    }
+
+    #viewer .paragraph.has-poem + .paragraph.poem-gap-before,
+    #viewer .paragraph.poem-block + .paragraph.poem-gap-before,
+    #viewer .paragraph + .paragraph.poem-gap-before,
+    #summary-content .paragraph.has-poem + .paragraph.poem-gap-before,
+    #summary-content .paragraph.poem-block + .paragraph.poem-gap-before,
+    #summary-content .paragraph + .paragraph.poem-gap-before {
+      margin-top: var(--paragraph-margin) !important;
+    }
+
+    #viewer .paragraph.poem-gap-before[style],
+    #summary-content .paragraph.poem-gap-before[style] {
+      margin-top: var(--paragraph-margin) !important;
+    }
     
     /* H2 im Viewer wie H3 darstellen - NOCH KLEINERE ABSTÄNDE für Bücher und Aufsatzbände */
     /* WICHTIG: Hohe Spezifität für Bücher und Aufsatzbände */
@@ -12865,7 +12914,7 @@ PDF
 <link rel="stylesheet" href="thematic-chat-ui.css?v=20261021az">
 <script src="thematic-chat-ui.js?v=20261021av"></script>
 
-<script src="app.js?v=20261108a"></script>
+<script src="app.js?v=20261114e"></script>
 </body>
 </html>
 
