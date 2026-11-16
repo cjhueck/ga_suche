@@ -7212,7 +7212,8 @@
         },
         {
           "index": "^i3gdsu",
-          "content": "Entwurf Notizbuch 1902/03"
+          "content": "Entwurf Notizbuch 1902/03",
+          "gapBefore": 1
         },
         {
           "index": "^164ua8",
